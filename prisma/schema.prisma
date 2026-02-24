@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id              String   @id @default(cuid())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Business Info
+  industry        String?
+  businessDetail  String?
+  hours           Int?
+  workflow        String?
+  
+  // Contact
+  auditName       String?
+  auditEmail      String?
+  auditPhone      String?
+  
+  // Legacy/Calculator Support
+  companyName     String?
+  coolingMethod   String?
+  monthlyBill     Float?
+  annualDowntime  Float?
+  serverDensity   String?
+  thermalTax      Float?
+  maintenanceCost Float?
+  totalLeak       Float?
+  whatsappContact Boolean  @default(false)
+  status          String   @default("NEW") // NEW, CONTACTED, ARCHIVED
+}
+
+model CaseStudy {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  category    String
+  challenge   String
+  solution    String
+  metricValue String
+  metricLabel String
+  createdAt   DateTime @default(now())
+}

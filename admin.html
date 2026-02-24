@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Wilbak | Command Center</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--tg-theme-bg-color, #0f172a);
+            color: var(--tg-theme-text-color, #f8fafc);
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .industrial-grid {
+            background-image:
+                linear-gradient(to right, rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+
+<body class="industrial-grid min-h-screen p-4">
+    <div id="auth-gate" class="fixed inset-0 bg-slate-950 flex items-center justify-center z-[100] text-center p-10">
+        <div class="space-y-6">
+            <div class="w-16 h-16 bg-blue-600 rounded-full mx-auto animate-pulse"></div>
+            <h1 class="text-2xl font-black uppercase italic tracking-tighter">Initializing<br>Secure Protocol...</h1>
+            <p class="text-[10px] mono text-blue-400 uppercase tracking-widest">Validating Crypto-Signatures</p>
+        </div>
+    </div>
+
+    <div id="admin-panel" class="hidden">
+        <header class="mb-8 flex justify-between items-center">
+            <div>
+                <div class="text-[10px] mono text-blue-500 uppercase tracking-widest mb-1">[ STATUS: ADMIN ]</div>
+                <h2 class="text-2xl font-black uppercase italic italic tracking-tighter">Lead Vault</h2>
+            </div>
+            <div class="flex space-x-2">
+                <button onclick="exportLeads()" class="p-2 bg-blue-600 rounded-sm hover:bg-blue-500 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                </button>
+                <label class="p-2 bg-slate-800 rounded-sm hover:bg-slate-700 transition cursor-pointer">
+                    <input type="file" id="csvImport" class="hidden" accept=".csv" onchange="importLeads(this)">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                    </svg>
+                </label>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 gap-4 mb-8">
+            <div class="relative">
+                <input type="text" id="searchInput" placeholder="SEARCH OPERATIVES..."
+                    class="w-full bg-slate-900 border border-slate-800 p-4 text-xs mono uppercase tracking-widest outline-none focus:border-blue-600 transition">
+            </div>
+            <div class="flex space-x-2">
+                <input type="date" id="dateFilter"
+                    class="flex-1 bg-slate-900 border border-slate-800 p-4 text-xs mono uppercase tracking-widest outline-none focus:border-blue-600 transition">
+                <button onclick="resetFilters()"
+                    class="px-4 bg-slate-800 text-[10px] font-black uppercase tracking-widest">Reset</button>
+            </div>
+        </div>
+
+        <div id="leadsContainer" class="space-y-4 pb-20">
+            <!-- Leads will be injected here -->
+            <div class="text-center py-20 opacity-20 mono text-[10px] uppercase tracking-[0.5em]">No Data Cached</div>
+        </div>
+    </div>
+
+    <script>
+        const WebApp = window.Telegram.WebApp;
+        WebApp.expand();
+
+        let leads = [];
+
+        async function init() {
+            const initData = WebApp.initData;
+            const userId = WebApp.initDataUnsafe?.user?.id;
+
+            // Simple front-end gate (backend will strictly validate)
+            if (userId !== 6737496589) {
+                document.getElementById('auth-gate').innerHTML = `
+                    <div class="text-red-500 font-black italic">ACCESS DENIED.<br>UNAUTHORIZED SIGNATURE DETECTED.</div>
+                `;
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/admin/leads', {
+                    headers: { 'X-Telegram-Init-Data': initData }
+                });
+                if (response.ok) {
+                    leads = await response.json();
+                    renderLeads(leads);
+                    document.getElementById('auth-gate').classList.add('hidden');
+                    document.getElementById('admin-panel').classList.remove('hidden');
+                } else {
+                    throw new Error('Unauthorized');
+                }
+            } catch (e) {
+                document.getElementById('auth-gate').innerHTML = `<div class="text-red-500 font-black italic">PROTOCOL ERROR. CONTACT FOUNDER.</div>`;
+            }
+        }
+
+        function renderLeads(data) {
+            const container = document.getElementById('leadsContainer');
+            if (data.length === 0) {
+                container.innerHTML = `<div class="text-center py-20 opacity-20 mono text-[10px] uppercase tracking-[0.5em]">No Data Found</div>`;
+                return;
+            }
+
+            container.innerHTML = data.map(lead => `
+                <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-sm relative overflow-hidden group hover:border-blue-600 transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <div class="text-[9px] mono text-blue-500 uppercase tracking-widest mb-1">${new Date(lead.createdAt).toLocaleDateString()}</div>
+                            <h3 class="text-lg font-black uppercase italic">${lead.auditName || 'Unknown operative'}</h3>
+                        </div>
+                        <span class="text-[8px] mono px-2 py-1 bg-blue-600/20 text-blue-400 rounded-full uppercase">${lead.status}</span>
+                    </div>
+                    <div class="space-y-2 text-[11px] text-slate-400 leading-relaxed font-bold">
+                        <p class="flex items-center"><svg class="w-3 h-3 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>${lead.auditEmail}</p>
+                        <p class="flex items-center"><svg class="w-3 h-3 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>${lead.auditPhone}</p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-800">
+                        <div class="text-[8px] mono text-slate-500 uppercase tracking-widest mb-2">Operational Sector</div>
+                        <p class="text-[10px] uppercase font-black italic tracking-tighter">${lead.industry}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Search and Filter logic
+        document.getElementById('searchInput').addEventListener('input', filterLeads);
+        document.getElementById('dateFilter').addEventListener('change', filterLeads);
+
+        function filterLeads() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filterDate = document.getElementById('dateFilter').value;
+
+            const filtered = leads.filter(l => {
+                const matchesSearch = l.auditName?.toLowerCase().includes(searchTerm) ||
+                    l.auditEmail?.toLowerCase().includes(searchTerm) ||
+                    l.industry?.toLowerCase().includes(searchTerm);
+                const matchesDate = !filterDate || l.createdAt.startsWith(filterDate);
+                return matchesSearch && matchesDate;
+            });
+            renderLeads(filtered);
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('dateFilter').value = '';
+            renderLeads(leads);
+        }
+
+        async function exportLeads() {
+            WebApp.HapticFeedback.impactOccurred('medium');
+            const response = await fetch('/api/admin/leads/export', {
+                headers: { 'X-Telegram-Init-Data': WebApp.initData }
+            });
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `wilbak_leads_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        }
+
+        async function importLeads(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            WebApp.HapticFeedback.impactOccurred('heavy');
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('/api/admin/leads/import', {
+                    method: 'POST',
+                    headers: { 'X-Telegram-Init-Data': WebApp.initData },
+                    body: formData
+                });
+                if (response.ok) {
+                    WebApp.showAlert('IMPORTS SUCCESSFUL. RE-INITIALIZING...');
+                    location.reload();
+                } else {
+                    WebApp.showAlert('IMPORT PROTOCOL FAILURE.');
+                }
+            } catch (e) {
+                WebApp.showAlert('UNEXPECTED SYSTEM ERROR.');
+            }
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OrthoMate™ | Business Alignment Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Roboto+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .mono {
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .funnel-gradient {
+            background: radial-gradient(circle at bottom left, #1e40af, #0f172a 70%);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        input,
+        select,
+        textarea {
+            background: rgba(15, 23, 42, 0.8) !important;
+            border: 1px solid rgba(59, 130, 246, 0.3) !important;
+            color: white !important;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #3b82f6 !important;
+            ring: 2px solid rgba(59, 130, 246, 0.5);
+            outline: none;
+        }
+    </style>
+</head>
+
+<body x-data="{ 
+    step: 1, 
+    industry: '', 
+    hours: 40, 
+    businessDetail: '', 
+    workflow: '',
+    name: '',
+    email: '',
+    phone: '',
+    nextStep() { if(this.step < 5) this.step++; window.scrollTo(0,0); },
+    prevStep() { if(this.step > 1) this.step--; }
+}">
+
+    <nav
+        class="flex justify-between items-center px-10 py-6 bg-slate-950/50 border-b border-white/10 sticky top-0 z-50 backdrop-blur-md">
+        <div class="text-2xl font-black tracking-tighter">
+            WILBAK<span class="text-blue-500 font-light underline decoration-1 underline-offset-4">ENGINEERING</span>
+        </div>
+        <div class="mono text-[10px] text-blue-400 uppercase tracking-widest">
+            Module: OrthoMate™ Alignment Engine // v1.0
+        </div>
+    </nav>
+
+    <main class="funnel-gradient min-h-screen flex items-center justify-center px-6 py-20">
+
+        <div class="max-w-3xl w-full glass-panel p-8 md:p-16 rounded-sm shadow-2xl relative">
+
+            <div class="mb-12 flex justify-between items-center">
+                <div class="flex space-x-2">
+                    <template x-for="i in 5">
+                        <div class="h-1 w-8 rounded-full transition-all duration-500"
+                            :class="step >= i ? 'bg-blue-600' : 'bg-slate-700'"></div>
+                    </template>
+                </div>
+                <span class="mono text-[10px] text-slate-500 uppercase">Phase <span x-text="step"></span> of 5</span>
+            </div>
+
+            <div x-show="step === 1" x-transition>
+                <h2 class="text-4xl font-black italic mb-4 uppercase tracking-tighter">01. Sector Selection</h2>
+                <p class="text-slate-400 mb-10 leading-relaxed">To build a 100% upscale plan, we first need to define
+                    the theater of operations. Where do you compete?</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button @click="industry = 'Retail/E-commerce'; nextStep()"
+                        class="p-6 border border-white/10 hover:border-blue-500 text-left transition group">
+                        <div class="font-bold text-sm uppercase mb-2 group-hover:text-blue-400">Retail & E-commerce
+                        </div>
+                        <div class="text-xs text-slate-500">Inventory, logistics, and retail marketing.</div>
+                    </button>
+                    <button @click="industry = 'Professional Services'; nextStep()"
+                        class="p-6 border border-white/10 hover:border-blue-500 text-left transition group">
+                        <div class="font-bold text-sm uppercase mb-2 group-hover:text-blue-400">Professional Services
+                        </div>
+                        <div class="text-xs text-slate-500">Agencies, Consulting, and Client Management.</div>
+                    </button>
+                    <button @click="industry = 'Industrial/Engineering'; nextStep()"
+                        class="p-6 border border-white/10 hover:border-blue-500 text-left transition group">
+                        <div class="font-bold text-sm uppercase mb-2 group-hover:text-blue-400">Industrial & Engineering
+                        </div>
+                        <div class="text-xs text-slate-500">Manufacturing, construction, and power.</div>
+                    </button>
+                    <button @click="industry = 'Finance/Real Estate'; nextStep()"
+                        class="p-6 border border-white/10 hover:border-blue-500 text-left transition group">
+                        <div class="font-bold text-sm uppercase mb-2 group-hover:text-blue-400">Finance & Real Estate
+                        </div>
+                        <div class="text-xs text-slate-500">High-volume transactions and databases.</div>
+                    </button>
+                </div>
+            </div>
+
+            <div x-show="step === 2" x-transition>
+                <h2 class="text-4xl font-black italic mb-4 uppercase tracking-tighter">02. Operational DNA</h2>
+                <p class="text-slate-400 mb-8 leading-relaxed">Tell me exactly what your business does and how you make
+                    it work right now. Who are your customers and what is your core product?</p>
+
+                <textarea x-model="businessDetail" rows="6" class="w-full p-4 rounded-sm text-sm"
+                    placeholder="Example: We run a regional logistics firm. We move medical supplies using a fleet of 15 trucks. We find customers through cold calling and LinkedIn..."></textarea>
+
+                <div class="mt-8 flex justify-between items-center">
+                    <button @click="prevStep()"
+                        class="text-slate-500 text-xs font-bold uppercase tracking-widest hover:text-white">Back</button>
+                    <button @click="nextStep()" :disabled="businessDetail.length < 10"
+                        class="bg-blue-600 px-10 py-4 font-black uppercase text-xs tracking-widest disabled:opacity-50">Confirm
+                        DNA</button>
+                </div>
+            </div>
+
+            <div x-show="step === 3" x-transition>
+                <h2 class="text-4xl font-black italic mb-4 uppercase tracking-tighter">03. The Time Leak</h2>
+                <p class="text-slate-400 mb-10 leading-relaxed">How many hours a week do you personally spend 'working
+                    in the engine' (Emails, CRM, Scheduling) instead of steering the ship?</p>
+
+                <div class="px-4">
+                    <input type="range" x-model="hours" min="5" max="100"
+                        class="w-full h-2 rounded-lg appearance-none cursor-pointer accent-blue-600 bg-slate-700">
+                    <div class="mt-10 grid grid-cols-2 gap-6">
+                        <div class="p-6 bg-slate-950 border border-blue-500/20 rounded">
+                            <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Manual Labor</div>
+                            <div class="text-3xl font-black text-white" x-text="hours + ' hrs'"></div>
+                        </div>
+                        <div class="p-6 bg-slate-950 border border-blue-500/20 rounded">
+                            <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Scale Lost</div>
+                            <div class="text-3xl font-black text-blue-500" x-text="(hours * 1.5).toFixed(0) + '%'">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 flex justify-between items-center">
+                    <button @click="prevStep()"
+                        class="text-slate-500 text-xs font-bold uppercase tracking-widest hover:text-white">Back</button>
+                    <button @click="nextStep()"
+                        class="bg-blue-600 px-10 py-4 font-black uppercase text-xs tracking-widest">Analyze
+                        Workload</button>
+                </div>
+            </div>
+
+            <div x-show="step === 4" x-transition>
+                <h2 class="text-4xl font-black italic mb-4 uppercase tracking-tighter">04. The Friction Point</h2>
+                <p class="text-slate-400 mb-8 leading-relaxed">Describe your current "Manual Grind." Where is the data
+                    getting stuck? Is it lead management? Finance? Reporting?</p>
+
+                <textarea x-model="workflow" rows="6" class="w-full p-4 rounded-sm text-sm"
+                    placeholder="Example: My leads come in via email, and I have to manually type them into a spreadsheet. I spend 3 hours every Sunday doing invoices..."></textarea>
+
+                <div class="mt-8 flex justify-between items-center">
+                    <button @click="prevStep()"
+                        class="text-slate-500 text-xs font-bold uppercase tracking-widest hover:text-white">Back</button>
+                    <button @click="nextStep()" :disabled="workflow.length < 10"
+                        class="bg-blue-600 px-10 py-4 font-black uppercase text-xs tracking-widest disabled:opacity-50">Generate
+                        Upscale Plan</button>
+                </div>
+            </div>
+
+            <div x-show="step === 5" x-transition>
+                <div class="text-center mb-10">
+                    <div
+                        class="inline-block bg-green-500/20 text-green-500 px-4 py-1 text-[10px] font-black uppercase mb-4 tracking-widest">
+                        Plan Ready for Deployment</div>
+                    <h2 class="text-4xl font-black italic uppercase tracking-tighter">05. Secure Your Audit</h2>
+                    <p class="text-slate-400 mt-2">Enter your coordinates below. I'll personally review your DNA and
+                        send the 100% Upscale Report.</p>
+                </div>
+
+                <form class="space-y-4"
+                    @submit.prevent="alert('Report Sent to Processing. Wilhelm will contact you shortly.')">
+                    <input type="text" x-model="name" placeholder="Full Name"
+                        class="w-full p-4 rounded-sm text-sm font-bold uppercase tracking-widest" required>
+                    <input type="email" x-model="email" placeholder="Corporate Email"
+                        class="w-full p-4 rounded-sm text-sm font-bold uppercase tracking-widest" required>
+                    <input type="tel" x-model="phone" placeholder="Phone Number"
+                        class="w-full p-4 rounded-sm text-sm font-bold uppercase tracking-widest" required>
+
+                    <button type="submit"
+                        class="w-full bg-white text-slate-900 py-6 font-black uppercase text-sm tracking-[0.3em] hover:bg-blue-600 hover:text-white transition shadow-2xl">
+                        RECEIVE FULL ALIGNMENT PLAN
+                    </button>
+                </form>
+
+                <div class="mt-8 text-center">
+                    <p class="text-[10px] mono text-slate-500 uppercase">Your data is secured with industrial-grade
+                        encryption.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-slate-950 border-t border-white/10 py-12 px-10 text-slate-500">
+        <div
+            class="max-w-7xl mx-auto flex flex-col md:row justify-between items-center italic text-[10px] uppercase font-bold tracking-widest">
+            <span>© 2026 Wilbak Engineering Group</span>
+            <span class="mt-4 md:mt-0">Built for Scale. Driven by Turbo.</span>
+        </div>
+    </footer>
+
+</body>
+
+</html>

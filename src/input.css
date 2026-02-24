@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@theme {
+  --color-deep-current: #263C59;
+  --color-seafoam-cloud: #C8D9E6;
+  --color-coastal-slate: #6D89A6;
+  --color-driftwood-pale: #E6DED4;
+  --color-ocean-pearl: #AFC3D4;
+
+  --color-background: var(--color-driftwood-pale);
+  --color-primary: var(--color-deep-current);
+  --color-secondary: var(--color-coastal-slate);
+
+  --font-sans: "Inter", sans-serif;
+  --letter-spacing-tighter: -0.05em;
+}
+
+@utility pill-button {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-radius: 9999px;
+  transition-property: all;
+  transition-duration: 300ms;
+  font-weight: 600;
+}
+
+@utility pill-button-primary {
+  @apply pill-button;
+  background-color: var(--color-deep-current);
+  color: white;
+}
+
+@utility pill-button-secondary {
+  @apply pill-button;
+  background-color: transparent;
+  color: var(--color-deep-current);
+  border: 2px solid var(--color-ocean-pearl);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-driftwood-pale);
+    color: var(--color-deep-current);
+    font-family: var(--font-sans);
+  }
+}
+
+.card-white {
+  @apply bg-white border border-ocean-pearl/50 rounded-[2.5rem] p-8 shadow-sm;
+}
+
+.nav-blur {
+  @apply bg-white/80 backdrop-blur-md border-b border-ocean-pearl/50;
+}

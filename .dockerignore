@@ -1,0 +1,25 @@
+# Local Dependencies
+node_modules/
+
+# Local Database (Prevent overwriting production data)
+dev.db
+dev.db-journal
+prisma/dev.db
+prisma/dev.db-journal
+
+# Documentation and Drafts
+docs/
+dist/
+draft/
+*.md
+
+# Environment and Logs
+.env
+uploads/
+npm-debug.log*
+
+# Git and Editor Configuration
+.git/
+.vscode/
+.idea/
+.DS_Store

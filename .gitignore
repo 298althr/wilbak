@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build and Documentation
+dist/
+docs/
+draft/
+
+# Local Database
+dev.db
+dev.db-journal
+
+# Environment
+.env
+
+# Logs and Uploads
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+uploads/
+
+# Documentation files (Requested)
+*.md
+
+# Editor/System Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
