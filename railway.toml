@@ -1,0 +1,16 @@
+# Railway Configuration File
+# Documentation: https://docs.railway.app/deploy/config-as-code
+
+[build]
+builder = "dockerfile"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+# Points to the health check endpoint created in server.js
+healthcheckPath = "/health"
+healthcheckTimeout = 100
+restartPolicyType = "on-failure"
+restartPolicyMaxRetries = 5
+
+# Ensure Railway uses the Port 4000 (or the dynamic $PORT)
+serviceName = "wilbak-command-center"
