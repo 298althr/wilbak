@@ -230,7 +230,7 @@
             }
 
             container.innerHTML = data.map(lead => `
-                <div onclick="openModal(${lead.id})" class="bg-slate-900/50 border border-slate-800 p-6 rounded-sm relative overflow-hidden group hover:border-blue-600 transition-all cursor-pointer">
+                <div onclick="openModal('${lead.id}')" class="bg-slate-900/50 border border-slate-800 p-6 rounded-sm relative overflow-hidden group hover:border-blue-600 transition-all cursor-pointer">
                     <div class="flex justify-between items-start mb-4">
                         <div>
                             <div class="text-[9px] mono text-blue-500 uppercase tracking-widest mb-1">${new Date(lead.createdAt).toLocaleDateString()}</div>
