@@ -15,6 +15,7 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--tg-theme-bg-color, #0f172a);
             color: var(--tg-theme-text-color, #f8fafc);
+            overflow-x: hidden;
         }
 
         .mono {
@@ -27,10 +28,26 @@
                 linear-gradient(to bottom, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
             background-size: 20px 20px;
         }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+        }
+
+        .modal-blur {
+            backdrop-filter: blur(10px);
+        }
     </style>
 </head>
 
-<body class="industrial-grid min-h-screen p-4 pt-12">
+<body class="industrial-grid min-h-screen p-4 pt-20">
     <div id="auth-gate" class="fixed inset-0 bg-slate-950 flex items-center justify-center z-[100] text-center p-10">
         <div class="space-y-6">
             <div class="w-16 h-16 bg-blue-600 rounded-full mx-auto animate-pulse"></div>
@@ -39,20 +56,52 @@
         </div>
     </div>
 
+    <!-- Lead Detail Modal -->
+    <div id="leadModal"
+        class="hidden fixed inset-0 z-[150] modal-blur flex items-end sm:items-center justify-center p-4">
+        <div class="bg-slate-950 border border-slate-800 w-full max-w-lg rounded-sm overflow-hidden shadow-2xl">
+            <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-900/50">
+                <div>
+                    <div id="modalDate" class="text-[9px] mono text-blue-500 uppercase tracking-widest mb-1">00/00/0000
+                    </div>
+                    <h3 id="modalTitle" class="text-xl font-black uppercase italic italic tracking-tighter">LEAD NAME
+                    </h3>
+                </div>
+                <button onclick="closeModal()" class="text-slate-500 hover:text-white transition p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+            <div id="modalContent" class="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+                <!-- Data injected here -->
+            </div>
+            <div class="p-4 bg-slate-900/50 border-t border-slate-800 flex justify-end">
+                <button onclick="closeModal()"
+                    class="px-8 py-2 bg-blue-600 text-white font-black uppercase italic text-xs skew-x-[-12deg]">
+                    <span class="skew-x-[12deg] inline-block">TERMINATE VIEW</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div id="admin-panel" class="hidden">
-        <header class="mb-8 mt-4 flex justify-between items-center">
+        <header class="mb-12 mt-8 flex justify-between items-center">
             <div>
                 <div class="text-[10px] mono text-blue-500 uppercase tracking-widest mb-1">[ STATUS: ADMIN ]</div>
-                <h2 class="text-2xl font-black uppercase italic italic tracking-tighter">Lead Vault</h2>
+                <h2 class="text-3xl font-black uppercase italic italic tracking-tighter">Lead Vault</h2>
             </div>
             <div class="flex space-x-2">
-                <button onclick="exportLeads()" class="p-2 bg-blue-600 rounded-sm hover:bg-blue-500 transition">
+                <button onclick="exportLeads()"
+                    class="p-2 border border-blue-600/50 hover:bg-blue-600 text-blue-500 hover:text-white transition rounded-sm">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                     </svg>
                 </button>
-                <label class="p-2 bg-slate-800 rounded-sm hover:bg-slate-700 transition cursor-pointer">
+                <label
+                    class="p-2 border border-slate-700 hover:bg-slate-700 text-slate-400 hover:text-white transition cursor-pointer rounded-sm">
                     <input type="file" id="csvImport" class="hidden" accept=".csv" onchange="importLeads(this)">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -84,6 +133,7 @@
     <script>
         const WebApp = window.Telegram.WebApp;
         WebApp.expand();
+        WebApp.enableClosingConfirmation();
 
         let leads = [];
 
@@ -91,7 +141,6 @@
             const initData = WebApp.initData;
             const userId = WebApp.initDataUnsafe?.user?.id;
 
-            // Simple front-end gate (backend will strictly validate)
             if (userId !== 6737496589) {
                 document.getElementById('auth-gate').innerHTML = `
                     <div class="text-red-500 font-black italic">ACCESS DENIED.<br>UNAUTHORIZED SIGNATURE DETECTED.</div>
@@ -116,6 +165,63 @@
             }
         }
 
+        function createDataRow(label, value) {
+            if (!value) value = 'N/A';
+            return `
+                <div class="group relative bg-slate-900/80 border border-slate-800 p-4 hover:border-blue-600/50 transition-all cursor-pointer" onclick="copyToClipboard('${value}', this)">
+                    <div class="text-[8px] mono text-blue-500 uppercase tracking-[0.2em] mb-1">${label}</div>
+                    <div class="text-sm font-bold text-slate-100 break-words">${value}</div>
+                    <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path>
+                        </svg>
+                    </div>
+                </div>
+            `;
+        }
+
+        function openModal(id) {
+            const lead = leads.find(l => l.id === id);
+            if (!lead) return;
+
+            WebApp.HapticFeedback.impactOccurred('medium');
+            document.getElementById('modalDate').innerText = new Date(lead.createdAt).toLocaleDateString();
+            document.getElementById('modalTitle').innerText = lead.auditName || 'UNKNOWN OPERATIVE';
+
+            const fields = [
+                { label: 'OP NAME', value: lead.auditName },
+                { label: 'EMAIL PROTOCOL', value: lead.auditEmail },
+                { label: 'MOBILE FREQUENCY', value: lead.auditPhone },
+                { label: 'OPERATIONAL SECTOR', value: lead.industry },
+                { label: 'MANUAL WASTE (HRS/WK)', value: lead.hours },
+                { label: 'BUSINESS DNA', value: lead.businessDetail },
+                { label: 'WORKFLOW DESCRIPTION', value: lead.workflow },
+                { label: 'CURRENT STATUS', value: lead.status }
+            ];
+
+            document.getElementById('modalContent').innerHTML = fields.map(f => createDataRow(f.label, f.value)).join('');
+            document.getElementById('leadModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('leadModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function copyToClipboard(text, el) {
+            navigator.clipboard.writeText(text).then(() => {
+                WebApp.HapticFeedback.notificationOccurred('success');
+                const originalLabel = el.querySelector('.mono').innerText;
+                el.querySelector('.mono').innerText = 'COPIED TO CLIPBOARD';
+                el.querySelector('.mono').classList.replace('text-blue-500', 'text-green-500');
+                setTimeout(() => {
+                    el.querySelector('.mono').innerText = originalLabel;
+                    el.querySelector('.mono').classList.replace('text-green-500', 'text-blue-500');
+                }, 2000);
+            });
+        }
+
         function renderLeads(data) {
             const container = document.getElementById('leadsContainer');
             if (data.length === 0) {
@@ -124,7 +230,7 @@
             }
 
             container.innerHTML = data.map(lead => `
-                <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-sm relative overflow-hidden group hover:border-blue-600 transition-all">
+                <div onclick="openModal(${lead.id})" class="bg-slate-900/50 border border-slate-800 p-6 rounded-sm relative overflow-hidden group hover:border-blue-600 transition-all cursor-pointer">
                     <div class="flex justify-between items-start mb-4">
                         <div>
                             <div class="text-[9px] mono text-blue-500 uppercase tracking-widest mb-1">${new Date(lead.createdAt).toLocaleDateString()}</div>
@@ -170,17 +276,36 @@
 
         async function exportLeads() {
             WebApp.HapticFeedback.impactOccurred('medium');
-            const response = await fetch('/api/admin/leads/export', {
-                headers: { 'X-Telegram-Init-Data': WebApp.initData }
-            });
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `wilbak_leads_${new Date().toISOString().split('T')[0]}.csv`;
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
+            const initData = WebApp.initData;
+
+            try {
+                const response = await fetch('/api/admin/leads/export', {
+                    headers: { 'X-Telegram-Init-Data': initData }
+                });
+
+                if (!response.ok) throw new Error('Export failure');
+
+                const blob = await response.blob();
+                const filename = `wilbak_leads_${new Date().toISOString().split('T')[0]}.csv`;
+
+                // For mobile WebViews, we use a slightly more robust download approach
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const a = document.createElement('a');
+                    a.href = e.target.result;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    setTimeout(() => {
+                        document.body.removeChild(a);
+                    }, 100);
+                }
+                reader.readAsDataURL(blob);
+
+                WebApp.showAlert('EXPORT INITIATED. CHECK DOWNLOADS.');
+            } catch (e) {
+                WebApp.showAlert('EXPORT PROTOCOL FAILURE.');
+            }
         }
 
         async function importLeads(input) {
