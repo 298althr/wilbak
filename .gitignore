@@ -5,6 +5,7 @@ node_modules/
 dist/
 docs/
 draft/
+photos/
 
 # Local Database
 dev.db
