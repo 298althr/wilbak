@@ -89,6 +89,39 @@ const sendTelegramMessage = (message) => {
     });
 };
 
+const sendTelegramDocument = (filename, content) => {
+    return new Promise((resolve, reject) => {
+        const boundary = '----WilbakBoundary' + Math.random().toString(16).slice(2);
+        const header = `--${boundary}\r\nContent-Disposition: form-data; name="chat_id"\r\n\r\n${TELEGRAM_USER_ID}\r\n--${boundary}\r\nContent-Disposition: form-data; name="document"; filename="${filename}"\r\nContent-Type: text/csv\r\n\r\n`;
+        const footer = `\r\n--${boundary}--\r\n`;
+
+        const options = {
+            hostname: 'api.telegram.org',
+            port: 443,
+            path: `/bot${TELEGRAM_BOT_TOKEN}/sendDocument`,
+            method: 'POST',
+            headers: {
+                'Content-Type': `multipart/form-data; boundary=${boundary}`
+            }
+        };
+
+        const req = https.request(options, (res) => {
+            let body = '';
+            res.on('data', (chunk) => body += chunk);
+            res.on('end', () => {
+                if (res.statusCode === 200) resolve(body);
+                else reject(new Error(`Telegram API Error: ${res.statusCode}`));
+            });
+        });
+
+        req.on('error', (e) => reject(e));
+        req.write(header);
+        req.write(content);
+        req.write(footer);
+        req.end();
+    });
+};
+
 // --- API ENDPOINTS ---
 
 // Audit Submission
@@ -147,17 +180,19 @@ app.get('/api/admin/leads', verifyTelegramAdmin, async (req, res) => {
     }
 });
 
-// CSV Export
+// CSV Export - Direct to Bot
 app.get('/api/admin/leads/export', verifyTelegramAdmin, async (req, res) => {
     try {
         const leads = await prisma.lead.findMany();
         const json2csvParser = new Parser();
         const csvData = json2csvParser.parse(leads);
-        res.header('Content-Type', 'text/csv');
-        res.attachment(`wilbak_leads_${Date.now()}.csv`);
-        res.send(csvData);
+        const filename = `wilbak_leads_${Date.now()}.csv`;
+
+        await sendTelegramDocument(filename, csvData);
+        res.json({ success: true, message: 'File sent to your Telegram chat.' });
     } catch (e) {
-        res.status(500).send('Export failed');
+        console.error('Export Error:', e);
+        res.status(500).json({ error: 'Export failed' });
     }
 });
 

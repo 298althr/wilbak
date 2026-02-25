@@ -283,28 +283,15 @@
                     headers: { 'X-Telegram-Init-Data': initData }
                 });
 
-                if (!response.ok) throw new Error('Export failure');
+                const result = await response.json();
 
-                const blob = await response.blob();
-                const filename = `wilbak_leads_${new Date().toISOString().split('T')[0]}.csv`;
-
-                // For mobile WebViews, we use a slightly more robust download approach
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const a = document.createElement('a');
-                    a.href = e.target.result;
-                    a.download = filename;
-                    document.body.appendChild(a);
-                    a.click();
-                    setTimeout(() => {
-                        document.body.removeChild(a);
-                    }, 100);
+                if (response.ok) {
+                    WebApp.showAlert('EXPORT SUCCESSFUL. REPORT SENT TO YOUR TELEGRAM CHAT.');
+                } else {
+                    throw new Error(result.error || 'Export failure');
                 }
-                reader.readAsDataURL(blob);
-
-                WebApp.showAlert('EXPORT INITIATED. CHECK DOWNLOADS.');
             } catch (e) {
-                WebApp.showAlert('EXPORT PROTOCOL FAILURE.');
+                WebApp.showAlert('EXPORT PROTOCOL FAILURE: ' + e.message);
             }
         }
 
