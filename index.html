@@ -197,27 +197,36 @@
                 auditEmail: this.auditEmail,
                 auditPhone: this.auditPhone
             };
-
             const response = await fetch('/api/audit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(auditData)
             });
-
             if (response.ok) {
                 this.successModal = true;
-                // Reset for next session after delay
-                setTimeout(() => {
-                    this.auditStep = 1;
-                    this.page = 'home';
-                }, 8000);
+                setTimeout(() => { this.auditStep = 1; this.page = 'home'; }, 8000);
             } else {
-                alert('Transmission error. Please check your connection.');
+                alert('Transmission error.');
             }
-        } catch (error) {
-            console.error('Audit submission error:', error);
-        }
-    }
+        } catch (error) { console.error('Audit error:', error); }
+    },
+    async vote(id, type) {
+        try {
+            const response = await fetch(`/api/intelligence/${id}/vote`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ type })
+            });
+            const data = await response.json();
+            if (data.success) {
+                const node = this.intelNodes.find(n => n.id === id);
+                if (node) {
+                    node.likes = data.likes;
+                    node.dislikes = data.dislikes;
+                }
+            }
+        } catch (e) { console.error('Vote failed'); }
+    },
 }">
 
     <nav
@@ -1007,57 +1016,100 @@
                 </p>
             </header>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 gap-12">
                 <template x-for="node in intelNodes" :key="node.id">
-                    <div
-                        class="group relative bg-white border border-slate-200 p-8 hover:border-blue-600 transition-all duration-500 hover:shadow-2xl">
-                        <div class="absolute top-0 right-0 p-4">
-                            <div class="text-[9px] mono text-slate-300 group-hover:text-blue-200 transition-colors uppercase tracking-widest"
-                                x-text="new Date(node.createdAt).toLocaleDateString()"></div>
+                    <article
+                        class="bg-white border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col md:flex-row group">
+                        <!-- Sector Sidebar -->
+                        <div
+                            class="w-full md:w-20 bg-slate-900 flex md:flex-col items-center justify-center p-4 md:p-0 space-x-4 md:space-x-0 md:space-y-8">
+                            <div class="text-[10px] mono text-white uppercase tracking-[0.5em] rotate-0 md:-rotate-90 whitespace-nowrap"
+                                x-text="node.sector"></div>
+                            <div class="hidden md:block w-px h-12 bg-slate-700"></div>
                         </div>
 
-                        <div class="flex flex-col h-full">
-                            <div class="mb-6">
-                                <span
-                                    class="bg-slate-900 text-white text-[9px] mono px-3 py-1 uppercase tracking-widest"
-                                    x-text="node.sector"></span>
+                        <!-- Content Area -->
+                        <div class="flex-grow p-8 md:p-12 relative">
+                            <div class="flex flex-col md:flex-row justify-between items-start mb-10 gap-6">
+                                <div class="max-w-3xl">
+                                    <div class="mono text-blue-600 text-[10px] uppercase tracking-widest mb-4">
+                                        [ NODE_ID: <span x-text="node.id.slice(-6)"></span> ] // <span
+                                            x-text="new Date(node.createdAt).toDateString()"></span>
+                                    </div>
+                                    <h3 class="text-3xl md:text-5xl font-black uppercase italic tracking-tighter mb-6 group-hover:text-blue-600 transition-colors"
+                                        x-text="node.title"></h3>
+                                    <p class="text-2xl font-bold text-slate-400 italic leading-snug border-l-4 border-slate-100 pl-6 py-2"
+                                        x-text="node.insight"></p>
+                                </div>
+
+                                <!-- Engagement Tools -->
+                                <div
+                                    class="flex flex-row md:flex-col space-x-4 md:space-x-0 md:space-y-4 self-end md:self-start">
+                                    <button @click="vote(node.id, 'like')" class="flex flex-col items-center group/btn">
+                                        <div
+                                            class="w-12 h-12 border border-slate-200 flex items-center justify-center group-hover/btn:bg-blue-600 group-hover/btn:border-blue-600 transition-all">
+                                            <svg class="w-5 h-5 group-hover/btn:text-white" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M14 10h4.704a2 2 0 011.94 2.415l-1.448 6A2 2 0 0117.256 20H7m7-10V5a2 2 0 00-2-2h-1a2 2 0 00-2 2v10m0 10H5a2 2 0 01-2-2v-7a2 2 0 012-2h2m3 10V10">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                        <span class="mono text-[10px] mt-2 text-slate-400 font-bold"
+                                            x-text="node.likes"></span>
+                                    </button>
+                                    <button @click="vote(node.id, 'dislike')"
+                                        class="flex flex-col items-center group/btn">
+                                        <div
+                                            class="w-12 h-12 border border-slate-200 flex items-center justify-center group-hover/btn:bg-red-600 group-hover/btn:border-red-600 transition-all">
+                                            <svg class="w-5 h-5 group-hover/btn:text-white" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M10 14H5.296a2 2 0 01-1.94-2.415l1.448-6A2 2 0 016.744 4H17m-7 10V19a2 2 0 002 2h1a2 2 0 002-2V9m0-5h2a2 2 0 012 2v7a2 2 0 01-2 2h-2m-3-10V14">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                        <span class="mono text-[10px] mt-2 text-slate-400 font-bold"
+                                            x-text="node.dislikes"></span>
+                                    </button>
+                                </div>
                             </div>
 
-                            <h3 class="text-2xl font-black uppercase italic tracking-tighter mb-4 group-hover:text-blue-600 transition-colors"
-                                x-text="node.headline"></h3>
-
-                            <div class="space-y-6 flex-grow">
-                                <div>
-                                    <div
-                                        class="text-[10px] mono text-slate-400 uppercase tracking-widest mb-2 border-b border-slate-100 pb-1">
-                                        The Event</div>
-                                    <p class="text-slate-600 text-sm leading-relaxed" x-text="node.marketEvent"></p>
+                            <div class="grid md:grid-cols-2 gap-12 border-t border-slate-100 pt-12">
+                                <div class="space-y-8">
+                                    <div>
+                                        <h4
+                                            class="text-[11px] mono text-slate-500 uppercase tracking-widest mb-4 flex items-center">
+                                            <span class="w-2 h-2 bg-blue-500 mr-2"></span> DATA_SOURCE
+                                        </h4>
+                                        <p class="text-slate-700 leading-relaxed text-sm" x-text="node.marketEvent"></p>
+                                        <template x-if="node.sourceUrl">
+                                            <a :href="node.sourceUrl" target="_blank"
+                                                class="inline-block mt-4 text-xs font-bold text-blue-600 hover:underline">View
+                                                Source Material →</a>
+                                        </template>
+                                    </div>
+                                    <div class="p-8 bg-slate-50 border border-slate-200">
+                                        <h4 class="text-[11px] mono text-blue-600 uppercase tracking-widest mb-4">
+                                            TACTICAL_BREAKDOWN</h4>
+                                        <p class="text-slate-900 leading-relaxed font-medium"
+                                            x-text="node.logicAnalysis"></p>
+                                    </div>
                                 </div>
-
-                                <div class="bg-slate-50 p-6 border-l-2 border-blue-600">
-                                    <div class="text-[10px] mono text-blue-600 uppercase tracking-widest mb-2">Tactical
-                                        Breakdown</div>
-                                    <p class="text-slate-900 text-sm font-bold leading-relaxed"
-                                        x-text="node.logicAnalysis"></p>
-                                </div>
-
-                                <div class="pt-4">
+                                <div class="bg-blue-600 p-8 md:p-12 text-white flex flex-col justify-center">
                                     <div
-                                        class="text-[10px] mono text-red-500 uppercase tracking-widest mb-2 underline decoration-red-200 decoration-2 underline-offset-4">
-                                        Conversion Logic</div>
-                                    <p class="text-slate-700 text-xs italic font-medium leading-relaxed"
+                                        class="text-blue-200 text-[11px] mono uppercase tracking-widest mb-6 border-b border-blue-500 pb-2">
+                                        CONVERSION_LOGIC</div>
+                                    <p class="text-xl font-black italic uppercase tracking-tighter mb-10 leading-relaxed"
                                         x-text="node.conversionStep"></p>
+                                    <button @click="page = 'audit'"
+                                        class="w-full py-4 bg-white text-blue-600 text-[11px] font-black uppercase tracking-widest hover:bg-slate-900 hover:text-white transition-all">
+                                        Inquire Alignment
+                                    </button>
                                 </div>
                             </div>
-
-                            <div class="mt-8 pt-6 border-t border-slate-100">
-                                <button @click="page = 'audit'"
-                                    class="w-full py-4 bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 transition-colors skew-x-[-10deg]">
-                                    <span class="inline-block skew-x-[10deg]">Initiate Alignment</span>
-                                </button>
-                            </div>
                         </div>
-                    </div>
+                    </article>
                 </template>
             </div>
 

@@ -202,7 +202,7 @@ app.get('/api/intelligence', async (req, res) => {
         const nodes = await prisma.intelligenceNode.findMany({
             where: { status: 'ACTIVE' },
             orderBy: { createdAt: 'desc' },
-            take: 12
+            take: 20
         });
         res.json(nodes);
     } catch (e) {
@@ -210,41 +210,88 @@ app.get('/api/intelligence', async (req, res) => {
     }
 });
 
+// Like/Dislike Endpoint
+app.post('/api/intelligence/:id/vote', async (req, res) => {
+    const { id } = req.params;
+    const { type } = req.body; // 'like' or 'dislike'
+
+    try {
+        const updateData = type === 'like' ? { likes: { increment: 1 } } : { dislikes: { increment: 1 } };
+        const node = await prisma.intelligenceNode.update({
+            where: { id },
+            data: updateData
+        });
+        res.json({ success: true, likes: node.likes, dislikes: node.dislikes });
+    } catch (e) {
+        res.status(500).json({ error: 'Vote registration failure' });
+    }
+});
+
 // Trigger Intelligence Protocol (Internal/Admin only)
 app.post('/api/admin/intelligence/trigger', verifyTelegramAdmin, async (req, res) => {
     const GROQ_API_KEY = process.env.GROQ_API_KEY;
     const BRIGHTDATA_API_KEY = process.env.BRIGHTDATA_API_KEY;
+    const { query } = req.body; // Optional keyword for deep research
 
     try {
-        // 1. SENSOR: Real-time Data Acquisition (Placeholder for Bright Data Scraper)
-        // We'll simulate a search for high-stakes market shifts
-        // In production, this would call Bright Data's News or SERP API
-        const marketSignals = [
-            { sector: 'Finance', headline: 'Global Rate Volatility', details: 'Fed maintains stance, tightening capital pools.' },
-            { sector: 'Real Estate', headline: 'Industrial Zone 4 Expansion', details: 'Logistics hubs in Texas receiving 40% more ship volume.' },
-            { sector: 'Positioning', headline: 'Suez Congestion Residuals', details: 'Deterministic delays observed in European node transit.' }
-        ];
+        let rawSignals = [];
 
-        // 2. PROCESSOR: Groq Tactical Analysis
-        // We'll iterate through signals and generate logic breakdowns
-        for (const signal of marketSignals) {
+        // 1. SENSOR: Real-time Data Acquisition via Bright Data
+        if (BRIGHTDATA_API_KEY && query) {
+            console.log(`Deep Research Initiated: ${query}`);
+            const serpResponse = await fetch('https://api.brightdata.com/serp/query', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${BRIGHTDATA_API_KEY}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "count": 5,
+                    "query": { "q": `${query} finance real estate trading insights` },
+                    "search_engine": "google"
+                })
+            });
+            const serpData = await serpResponse.json();
+
+            // Map SERP results to signals
+            if (serpData.organic) {
+                rawSignals = serpData.organic.map(item => ({
+                    sector: query.toUpperCase(),
+                    title: item.title,
+                    details: item.description,
+                    url: item.link
+                }));
+            }
+        }
+
+        // Fallback or default signals if no query/failed search
+        if (rawSignals.length === 0) {
+            rawSignals = [
+                { sector: 'Finance', title: 'Macro Capital Seizure', details: 'Institutional liquidity shifting to high-yield risk-off assets.' },
+                { sector: 'Real Estate', title: 'Industrial Node 04 Expansion', details: 'Logistics corridor expansion in Texas receiving federal surplus.' }
+            ];
+        }
+
+        // 2. PROCESSOR: Groq Tactical Analysis (The Orchestrator)
+        for (const signal of rawSignals) {
             const prompt = `
-                SYSTEM: Act as Wilhelm Rybak, CEO of Wilbak Engineering.
-                INPUT EVENT: ${signal.headline} - ${signal.details}
+                SYSTEM: Act as Wilhelm Rybak, CEO of Wilbak Engineering. 
+                INPUT EVENT: ${signal.title} - ${signal.details}
                 SECTOR: ${signal.sector}
                 
                 TASK: Generate a tactical intelligence report. 
                 Focus on: 
+                - The "Insight" (A 1-sentence explosive executive summary)
                 - The "Friction" (How this seizes current market efficiency)
                 - The "Logic Breakdown" (Deterministic impact on business DNA)
                 - The "Conversion Step" (Why Wilbak's automation/logic is the only solution)
                 
                 Format as JSON: 
                 {
-                  "logicAnalysis": "3 sentences of engineering-cold analysis",
-                  "conversionStep": "Direct pitch on how we solve this"
+                  "insight": "High-impact one liner",
+                  "logicAnalysis": "Cold, engineering-focused breakdown of the logic failure",
+                  "conversionStep": "Tactical pitch to the client"
                 }
-                Keep it professional, industrial, and high-impact. No fluff.
             `;
 
             const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -267,15 +314,17 @@ app.post('/api/admin/intelligence/trigger', verifyTelegramAdmin, async (req, res
             await prisma.intelligenceNode.create({
                 data: {
                     sector: signal.sector,
-                    headline: signal.headline,
+                    title: signal.title,
+                    insight: analysis.insight,
                     marketEvent: signal.details,
                     logicAnalysis: analysis.logicAnalysis,
-                    conversionStep: analysis.conversionStep
+                    conversionStep: analysis.conversionStep,
+                    sourceUrl: signal.url || null
                 }
             });
         }
 
-        res.json({ success: true, message: 'Intelligence Nodes Synchronized' });
+        res.json({ success: true, count: rawSignals.length });
     } catch (e) {
         console.error('Intelligence Protocol Failure:', e);
         res.status(500).json({ error: 'Protocol Failure' });

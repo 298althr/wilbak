@@ -92,7 +92,9 @@
                 <div class="text-[10px] mono text-blue-500 uppercase tracking-widest mb-1">[ STATUS: ADMIN ]</div>
                 <h2 class="text-3xl font-black uppercase italic italic tracking-tighter">Command Center</h2>
             </div>
-            <div class="flex space-x-2">
+            <div class="flex items-center space-x-3">
+                <input type="text" id="intelQuery" placeholder="Target Sector..."
+                    class="bg-slate-900 border border-slate-700 px-3 py-2 rounded-sm text-[9px] mono text-blue-400 focus:border-blue-500 outline-none w-32 md:w-48 uppercase">
                 <button onclick="triggerIntelligence()" id="syncBtn"
                     class="flex items-center space-x-2 px-3 py-2 border border-blue-600 bg-blue-600/10 text-blue-400 hover:bg-blue-600 hover:text-white transition rounded-sm font-black text-[9px] uppercase italic tracking-widest">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -277,6 +279,7 @@
         }
 
         async function triggerIntelligence() {
+            const query = document.getElementById('intelQuery').value;
             const btn = document.getElementById('syncBtn');
             btn.disabled = true;
             btn.classList.add('opacity-50', 'animate-pulse');
@@ -285,7 +288,11 @@
             try {
                 const response = await fetch('/api/admin/intelligence/trigger', {
                     method: 'POST',
-                    headers: { 'X-Telegram-Init-Data': WebApp.initData }
+                    headers: {
+                        'X-Telegram-Init-Data': WebApp.initData,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query })
                 });
                 const result = await response.json();
                 if (response.ok) {
