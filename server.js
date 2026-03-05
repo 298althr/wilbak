@@ -196,6 +196,92 @@ app.get('/api/admin/leads/export', verifyTelegramAdmin, async (req, res) => {
     }
 });
 
+// Intelligence Hub Endpoints
+app.get('/api/intelligence', async (req, res) => {
+    try {
+        const nodes = await prisma.intelligenceNode.findMany({
+            where: { status: 'ACTIVE' },
+            orderBy: { createdAt: 'desc' },
+            take: 12
+        });
+        res.json(nodes);
+    } catch (e) {
+        res.status(500).json({ error: 'Data link failure' });
+    }
+});
+
+// Trigger Intelligence Protocol (Internal/Admin only)
+app.post('/api/admin/intelligence/trigger', verifyTelegramAdmin, async (req, res) => {
+    const GROQ_API_KEY = process.env.GROQ_API_KEY;
+    const BRIGHTDATA_API_KEY = process.env.BRIGHTDATA_API_KEY;
+
+    try {
+        // 1. SENSOR: Real-time Data Acquisition (Placeholder for Bright Data Scraper)
+        // We'll simulate a search for high-stakes market shifts
+        // In production, this would call Bright Data's News or SERP API
+        const marketSignals = [
+            { sector: 'Finance', headline: 'Global Rate Volatility', details: 'Fed maintains stance, tightening capital pools.' },
+            { sector: 'Real Estate', headline: 'Industrial Zone 4 Expansion', details: 'Logistics hubs in Texas receiving 40% more ship volume.' },
+            { sector: 'Positioning', headline: 'Suez Congestion Residuals', details: 'Deterministic delays observed in European node transit.' }
+        ];
+
+        // 2. PROCESSOR: Groq Tactical Analysis
+        // We'll iterate through signals and generate logic breakdowns
+        for (const signal of marketSignals) {
+            const prompt = `
+                SYSTEM: Act as Wilhelm Rybak, CEO of Wilbak Engineering.
+                INPUT EVENT: ${signal.headline} - ${signal.details}
+                SECTOR: ${signal.sector}
+                
+                TASK: Generate a tactical intelligence report. 
+                Focus on: 
+                - The "Friction" (How this seizes current market efficiency)
+                - The "Logic Breakdown" (Deterministic impact on business DNA)
+                - The "Conversion Step" (Why Wilbak's automation/logic is the only solution)
+                
+                Format as JSON: 
+                {
+                  "logicAnalysis": "3 sentences of engineering-cold analysis",
+                  "conversionStep": "Direct pitch on how we solve this"
+                }
+                Keep it professional, industrial, and high-impact. No fluff.
+            `;
+
+            const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${GROQ_API_KEY}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: 'llama3-70b-8192',
+                    messages: [{ role: 'user', content: prompt }],
+                    response_format: { type: 'json_object' }
+                })
+            });
+
+            const groqData = await groqResponse.json();
+            const analysis = JSON.parse(groqData.choices[0].message.content);
+
+            // 3. LEDGER: Save to Database
+            await prisma.intelligenceNode.create({
+                data: {
+                    sector: signal.sector,
+                    headline: signal.headline,
+                    marketEvent: signal.details,
+                    logicAnalysis: analysis.logicAnalysis,
+                    conversionStep: analysis.conversionStep
+                }
+            });
+        }
+
+        res.json({ success: true, message: 'Intelligence Nodes Synchronized' });
+    } catch (e) {
+        console.error('Intelligence Protocol Failure:', e);
+        res.status(500).json({ error: 'Protocol Failure' });
+    }
+});
+
 // CSV Import
 app.post('/api/admin/leads/import', verifyTelegramAdmin, upload.single('file'), (req, res) => {
     const results = [];

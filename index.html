@@ -177,6 +177,15 @@
     auditName: '',
     auditEmail: '',
     auditPhone: '',
+    intelNodes: [],
+    async fetchIntel() {
+        try {
+            const response = await fetch('/api/intelligence');
+            this.intelNodes = await response.json();
+        } catch (e) {
+            console.error('Intel link failed');
+        }
+    },
     async submitAudit() {
         try {
             const auditData = {
@@ -229,6 +238,9 @@
                 class="hover:text-blue-600 transition">OrthoMate™</a>
             <a @click="page = 'contact'" :class="page === 'contact' ? 'text-blue-600' : 'text-slate-500'"
                 class="hover:text-blue-600 transition">Contact</a>
+            <a @click="page = 'intelligence'; fetchIntel()"
+                :class="page === 'intelligence' ? 'text-blue-600' : 'text-slate-500'"
+                class="hover:text-blue-600 transition outline-none">Logic Hub</a>
             <a class="btn-premium bg-slate-900 text-white hover:bg-blue-700" @click="page = 'audit'">Audit Site</a>
         </div>
 
@@ -254,6 +266,7 @@
                 <a @click="page = 'about'; mobileMenu = false" class="text-slate-900">About</a>
                 <a @click="page = 'orthomate'; mobileMenu = false" class="text-slate-900">OrthoMate™</a>
                 <a @click="page = 'contact'; mobileMenu = false" class="text-slate-900">Contact</a>
+                <a @click="page = 'intelligence'; fetchIntel(); mobileMenu = false" class="text-slate-900">Logic Hub</a>
                 <a class="bg-slate-900 text-white px-6 py-4 text-center rounded-sm"
                     @click="page = 'audit'; mobileMenu = false">Audit Site</a>
             </div>
@@ -976,6 +989,102 @@
         </div>
     </template>
 
+    <!-- Intelligence Hub (Logic Hub) -->
+    <template x-if="page === 'intelligence'">
+        <div x-transition class="pt-32 pb-40 px-6 md:px-10 max-w-7xl mx-auto">
+            <header class="mb-20">
+                <div class="flex items-center space-x-3 mb-4">
+                    <span
+                        class="w-3 h-3 bg-blue-600 rounded-full animate-pulse shadow-[0_0_10px_rgba(37,99,235,0.8)]"></span>
+                    <div class="mono text-blue-600 text-xs font-bold uppercase tracking-[0.3em]">[ LIVE INTEL FEED ]
+                    </div>
+                </div>
+                <h2 class="text-5xl md:text-8xl font-black italic uppercase tracking-tighter leading-none mb-10">GLOBAL
+                    LOGIC HUB</h2>
+                <p class="text-xl text-slate-500 max-w-2xl leading-relaxed">
+                    Sensory data processed with engineering precision. We monitor global shifts in finance, trade, and
+                    positioning to identify operational friction before it impacts your bottom line.
+                </p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <template x-for="node in intelNodes" :key="node.id">
+                    <div
+                        class="group relative bg-white border border-slate-200 p-8 hover:border-blue-600 transition-all duration-500 hover:shadow-2xl">
+                        <div class="absolute top-0 right-0 p-4">
+                            <div class="text-[9px] mono text-slate-300 group-hover:text-blue-200 transition-colors uppercase tracking-widest"
+                                x-text="new Date(node.createdAt).toLocaleDateString()"></div>
+                        </div>
+
+                        <div class="flex flex-col h-full">
+                            <div class="mb-6">
+                                <span
+                                    class="bg-slate-900 text-white text-[9px] mono px-3 py-1 uppercase tracking-widest"
+                                    x-text="node.sector"></span>
+                            </div>
+
+                            <h3 class="text-2xl font-black uppercase italic tracking-tighter mb-4 group-hover:text-blue-600 transition-colors"
+                                x-text="node.headline"></h3>
+
+                            <div class="space-y-6 flex-grow">
+                                <div>
+                                    <div
+                                        class="text-[10px] mono text-slate-400 uppercase tracking-widest mb-2 border-b border-slate-100 pb-1">
+                                        The Event</div>
+                                    <p class="text-slate-600 text-sm leading-relaxed" x-text="node.marketEvent"></p>
+                                </div>
+
+                                <div class="bg-slate-50 p-6 border-l-2 border-blue-600">
+                                    <div class="text-[10px] mono text-blue-600 uppercase tracking-widest mb-2">Tactical
+                                        Breakdown</div>
+                                    <p class="text-slate-900 text-sm font-bold leading-relaxed"
+                                        x-text="node.logicAnalysis"></p>
+                                </div>
+
+                                <div class="pt-4">
+                                    <div
+                                        class="text-[10px] mono text-red-500 uppercase tracking-widest mb-2 underline decoration-red-200 decoration-2 underline-offset-4">
+                                        Conversion Logic</div>
+                                    <p class="text-slate-700 text-xs italic font-medium leading-relaxed"
+                                        x-text="node.conversionStep"></p>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 pt-6 border-t border-slate-100">
+                                <button @click="page = 'audit'"
+                                    class="w-full py-4 bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 transition-colors skew-x-[-10deg]">
+                                    <span class="inline-block skew-x-[10deg]">Initiate Alignment</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div x-show="intelNodes.length === 0" class="py-40 text-center">
+                <div
+                    class="w-20 h-20 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin mx-auto mb-8">
+                </div>
+                <p class="mono text-slate-400 text-xs uppercase tracking-widest">Awaiting Synchronous Link...</p>
+            </div>
+
+            <div
+                class="mt-32 p-12 bg-slate-900 text-white flex flex-col md:flex-row justify-between items-center relative overflow-hidden">
+                <div class="absolute inset-0 opacity-10 industrial-grid"></div>
+                <div class="relative z-10 max-w-xl mb-8 md:mb-0 text-center md:text-left">
+                    <h4 class="text-3xl font-black uppercase italic tracking-tighter mb-4">Master Your Data Stream</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Don't just watch the market. Engineer your
+                        response. Our automated auditing protocols identify exactly which "Logic Nodes" in your business
+                        are leaking capital during global shifts.</p>
+                </div>
+                <button @click="page = 'audit'"
+                    class="relative z-10 px-12 py-6 bg-blue-600 text-white font-black uppercase italic tracking-widest hover:bg-white hover:text-blue-600 transition-all duration-300 text-sm skew-x-[-12deg]">
+                    <span class="inline-block skew-x-[12deg]">REQUEST AUDIT</span>
+                </button>
+            </div>
+        </div>
+    </template>
+
     <template x-if="page === 'contact'">
         <div x-transition class="min-h-screen bg-white industrial-grid pt-32 pb-24 px-10">
             <div class="max-w-6xl mx-auto">
@@ -1163,6 +1272,9 @@
                             System Protocol</li>
                         <li @click="page = 'contact'" class="footer-link text-xs uppercase font-bold tracking-widest">
                             Contact</li>
+                        <li @click="page = 'intelligence'; fetchIntel()"
+                            class="footer-link text-xs uppercase font-bold tracking-widest">
+                            Logic Hub</li>
                         <li @click="page = 'audit'"
                             class="footer-link text-xs uppercase font-bold tracking-widest text-blue-500">
                             Audit Protocol</li>

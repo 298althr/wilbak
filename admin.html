@@ -90,9 +90,17 @@
         <header class="mb-12 mt-8 flex justify-between items-center">
             <div>
                 <div class="text-[10px] mono text-blue-500 uppercase tracking-widest mb-1">[ STATUS: ADMIN ]</div>
-                <h2 class="text-3xl font-black uppercase italic italic tracking-tighter">Lead Vault</h2>
+                <h2 class="text-3xl font-black uppercase italic italic tracking-tighter">Command Center</h2>
             </div>
             <div class="flex space-x-2">
+                <button onclick="triggerIntelligence()" id="syncBtn"
+                    class="flex items-center space-x-2 px-3 py-2 border border-blue-600 bg-blue-600/10 text-blue-400 hover:bg-blue-600 hover:text-white transition rounded-sm font-black text-[9px] uppercase italic tracking-widest">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    <span>Sync Intel</span>
+                </button>
                 <button onclick="exportLeads()"
                     class="p-2 border border-blue-600/50 hover:bg-blue-600 text-blue-500 hover:text-white transition rounded-sm">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -266,6 +274,33 @@
                 return matchesSearch && matchesDate;
             });
             renderLeads(filtered);
+        }
+
+        async function triggerIntelligence() {
+            const btn = document.getElementById('syncBtn');
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'animate-pulse');
+            WebApp.HapticFeedback.impactOccurred('heavy');
+
+            try {
+                const response = await fetch('/api/admin/intelligence/trigger', {
+                    method: 'POST',
+                    headers: { 'X-Telegram-Init-Data': WebApp.initData }
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    WebApp.showConfirm('INTEL SYNC SUCCESSFUL. DO YOU WANT TO VIEW THE GLOBAL LOGIC HUB?', (ok) => {
+                        if (ok) window.location.href = 'index.html#intelligence';
+                    });
+                } else {
+                    WebApp.showAlert('INTEL SYNC FAILED: ' + (result.error || 'System error'));
+                }
+            } catch (e) {
+                WebApp.showAlert('INTEL SYNC ERROR: Link unstable.');
+            } finally {
+                btn.disabled = false;
+                btn.classList.remove('opacity-50', 'animate-pulse');
+            }
         }
 
         function resetFilters() {

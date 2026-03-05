@@ -50,3 +50,15 @@ model CaseStudy {
   metricLabel String
   createdAt   DateTime @default(now())
 }
+
+model IntelligenceNode {
+  id              String   @id @default(cuid())
+  createdAt       DateTime @default(now())
+  sector          String   // Finance, Real Estate, Trading, Positioning
+  headline        String
+  sourceUrl       String?
+  marketEvent     String   @db.Text
+  logicAnalysis   String   @db.Text // Groq-speed breakdown
+  conversionStep  String   @db.Text // The call to action
+  status          String   @default("ACTIVE")
+}
