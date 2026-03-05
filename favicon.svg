@@ -1,0 +1,11 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer precision frame -->
+  <rect x="2" y="2" width="28" height="28" stroke="#2563EB" stroke-width="2"/>
+  <!-- Structural Inner Core -->
+  <path d="M7 8L16 24L25 8" stroke="#2563EB" stroke-width="2.5" stroke-linecap="square"/>
+  <path d="M12 8L16 16L20 8" stroke="#1E293B" stroke-width="2.5" stroke-linecap="square"/>
+  <!-- Engineering Anchor Points -->
+  <circle cx="16" cy="16" r="1.5" fill="#2563EB"/>
+  <rect x="2" y="2" width="4" height="4" fill="#2563EB"/>
+  <rect x="26" y="26" width="4" height="4" fill="#2563EB"/>
+</svg>
