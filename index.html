@@ -245,6 +245,15 @@
             this.loadingIntel = false;
         }
     },
+    init() {
+        // Simple Hash Routing for SEO/Ads deep linking
+        const hash = window.location.hash.replace('#', '');
+        if (hash === 'audit') this.page = 'audit';
+        if (hash === 'insights') {
+            this.page = 'intelligence';
+            this.fetchIntel();
+        }
+    },
     async submitAudit() {
         try {
             const auditData = {
