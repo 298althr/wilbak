@@ -198,8 +198,6 @@ app.get('/api/admin/leads/export', verifyTelegramAdmin, async (req, res) => {
 
 // --- INTELLIGENCE ENGINE: SCHEDULER & ORCHESTRATION ---
 
-const https = require('https');
-
 const triggerResearchProtocol = async (query = "Finance Business Real Estate") => {
     const GROQ_API_KEY = process.env.GROQ_API_KEY;
     const BRIGHTDATA_API_KEY = process.env.BRIGHTDATA_API_KEY;
@@ -416,43 +414,3 @@ app.listen(PORT, () => {
     console.log(`Wilbak Engineering Server running on port ${PORT}`);
 });
 
-
-// CSV Import
-app.post('/api/admin/leads/import', verifyTelegramAdmin, upload.single('file'), (req, res) => {
-    const results = [];
-    if (!req.file) return res.status(400).send('No file uploaded');
-
-    fs.createReadStream(req.file.path)
-        .pipe(csv())
-        .on('data', (data) => results.push(data))
-        .on('end', async () => {
-            try {
-                for (const item of results) {
-                    await prisma.lead.create({
-                        data: {
-                            auditName: item.auditName,
-                            auditEmail: item.auditEmail,
-                            auditPhone: item.auditPhone,
-                            industry: item.industry,
-                            businessDetail: item.businessDetail,
-                            hours: parseInt(item.hours || 0),
-                            workflow: item.workflow,
-                            status: item.status || 'IMPORTED'
-                        }
-                    });
-                }
-                fs.unlinkSync(req.file.path);
-                res.json({ success: true, count: results.length });
-            } catch (e) {
-                res.status(500).json({ error: 'Import processing failure' });
-            }
-        });
-});
-
-app.get('/health', (req, res) => {
-    res.json({ status: 'active', timestamp: new Date() });
-});
-
-app.listen(PORT, () => {
-    console.log(`Wilbak Engineering Server running on port ${PORT}`);
-});
