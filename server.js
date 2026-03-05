@@ -199,11 +199,29 @@ app.get('/api/admin/leads/export', verifyTelegramAdmin, async (req, res) => {
 // Intelligence Hub Endpoints
 app.get('/api/intelligence', async (req, res) => {
     try {
-        const nodes = await prisma.intelligenceNode.findMany({
+        let nodes = await prisma.intelligenceNode.findMany({
             where: { status: 'ACTIVE' },
             orderBy: { createdAt: 'desc' },
             take: 20
         });
+
+        // Fallback: If no nodes exist, provide operational placeholders 
+        if (nodes.length === 0) {
+            nodes = [
+                {
+                    id: 'placeholder-1',
+                    sector: 'SYSTEM_BOOT',
+                    title: 'Logic Hub Initialized',
+                    insight: 'Operational capacity confirmed. Awaiting synchronous data link.',
+                    marketEvent: 'System protocol v3.1 successfully deployed to production environment.',
+                    logicAnalysis: 'Deterministic engine is idle. Admin pulse required to trigger high-stakes research handshake.',
+                    conversionStep: 'Initiate a Sync Protocol via the Command Center to populate this ledger.',
+                    likes: 0,
+                    dislikes: 0,
+                    createdAt: new Date()
+                }
+            ];
+        }
         res.json(nodes);
     } catch (e) {
         res.status(500).json({ error: 'Data link failure' });
@@ -301,7 +319,7 @@ app.post('/api/admin/intelligence/trigger', verifyTelegramAdmin, async (req, res
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    model: 'llama3-70b-8192',
+                    model: 'llama-3.3-70b-versatile',
                     messages: [{ role: 'user', content: prompt }],
                     response_format: { type: 'json_object' }
                 })
