@@ -21,103 +21,174 @@
     <meta property="twitter:image" content="/logo.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=JetBrains+Mono:wght@100..800&display=swap"
         rel="stylesheet">
 
     <style>
+        :root {
+            --neon-blue: #0076FF;
+            --deep-obsidian: #0A0C10;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fcfdfe;
+            color: #0F172A;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
         }
 
         .mono {
             font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+        }
+
+        .editorial-quote {
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            font-style: italic;
         }
 
         .industrial-grid {
-            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-            background-size: 20px 20px;
+            background-image: linear-gradient(to right, rgba(0, 118, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 118, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .glass-analysis {
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
         }
     </style>
 </head>
 
 <body class="industrial-grid min-h-screen">
-    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 py-6">
-        <div class="max-w-4xl mx-auto px-6 flex justify-between items-center">
-            <a href="/" class="text-2xl font-black uppercase italic tracking-tighter">WILBAK<span
-                    class="text-blue-600">.</span></a>
+    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 py-6">
+        <div class="max-w-4xl mx-auto px-10 flex justify-between items-center">
+            <a href="/" class="text-2xl h-8 block">
+                <img src="/logo.png" alt="WILBAK" class="h-full object-contain">
+            </a>
             <a href="/#insights"
-                class="text-xs mono font-bold uppercase tracking-widest text-slate-400 hover:text-blue-600 transition">←
-                Back to Feed</a>
+                class="text-[10px] mono font-bold uppercase tracking-[0.3em] text-slate-400 hover:text-blue-600 transition flex items-center">
+                <span class="mr-2">←</span> BACK TO FEED
+            </a>
         </div>
     </nav>
 
     <main class="pt-32 pb-40 px-6">
-        <div class="max-w-3xl mx-auto">
-            <article class="bg-white border border-slate-200 rounded-xl shadow-2xl overflow-hidden">
-                <!-- Post Header -->
-                <div class="p-8 flex items-center justify-between border-b border-slate-50">
-                    <div class="flex items-center space-x-4">
+        <div class="max-w-4xl mx-auto">
+            <article class="relative">
+                <!-- Premium Shadow Detail -->
+                <div class="absolute inset-0 bg-blue-600/5 blur-3xl rounded-full scale-110 pointer-events-none"></div>
+
+                <div
+                    class="relative bg-white border border-slate-100 rounded-3xl overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)]">
+                    <!-- Identity Header -->
+                    <div class="p-8 md:p-12 flex items-center justify-between border-b border-slate-50 bg-slate-50/30">
+                        <div class="flex items-center space-x-6">
+                            <div class="relative">
+                                <div
+                                    class="w-16 h-16 bg-slate-950 rounded-2xl skew-x-[-6deg] flex items-center justify-center text-white font-black italic text-3xl border-b-4 border-blue-600">
+                                    <span class="skew-x-[6deg]">W</span>
+                                </div>
+                                <div
+                                    class="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 border-4 border-white rounded-full">
+                                </div>
+                            </div>
+                            <div>
+                                <div
+                                    class="font-black uppercase italic tracking-tighter text-slate-950 text-xl leading-none">
+                                    Wilhelm Rybak</div>
+                                <div class="flex items-center space-x-3 mt-2">
+                                    <span
+                                        class="text-[10px] mono text-blue-600 font-bold uppercase tracking-widest bg-blue-50 px-3 py-1 rounded">{{SECTOR}}</span>
+                                    <span class="text-[10px] text-slate-400 uppercase tracking-widest">{{DATE}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Core Intelligence Body -->
+                    <div class="p-10 md:p-20">
+                        <h1
+                            class="text-5xl md:text-8xl font-black uppercase italic tracking-tighter mb-12 leading-[0.85] text-slate-950">
+                            {{TITLE}}</h1>
+
+                        <div class="relative mb-20">
+                            <div class="absolute -left-10 top-0 bottom-0 w-2 bg-blue-600 rounded-full"></div>
+                            <p class="editorial-quote text-3xl md:text-5xl text-slate-600 leading-tight">{{INSIGHT}}</p>
+                        </div>
+
+                        <div class="grid md:grid-cols-12 gap-16 mb-20">
+                            <div class="md:col-span-12">
+                                <div
+                                    class="text-[10px] mono text-slate-400 uppercase tracking-[0.4em] mb-6 flex items-center">
+                                    <span class="w-2 h-2 bg-slate-300 rounded-full mr-3"></span>
+                                    RAW SIGNAL DATA
+                                </div>
+                                <p class="text-xl text-slate-600 leading-relaxed font-medium mb-12">{{MARKET_EVENT}}</p>
+
+                                <div class="glass-analysis p-10 md:p-16 rounded-3xl text-white">
+                                    <div class="flex items-center space-x-3 mb-8">
+                                        <div class="w-1 h-8 bg-blue-600"></div>
+                                        <div class="text-[10px] mono text-blue-400 uppercase tracking-[0.4em]">EXECUTIVE
+                                            LOGIC ANALYSIS</div>
+                                    </div>
+                                    <p class="text-2xl md:text-3xl font-bold leading-relaxed italic">{{LOGIC_ANALYSIS}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Heavy CTA Solution -->
                         <div
-                            class="w-14 h-14 bg-slate-900 rounded-full flex items-center justify-center text-white font-black italic text-2xl border-2 border-blue-600">
-                            W
-                        </div>
-                        <div>
+                            class="bg-gradient-to-br from-blue-600 to-blue-800 p-12 md:p-20 rounded-[3rem] text-white relative overflow-hidden group/cta shadow-2xl">
                             <div
-                                class="text-xl font-black uppercase italic tracking-tighter text-slate-900 leading-none">
-                                Wilhelm Rybak</div>
-                            <div class="text-[10px] mono text-blue-600 uppercase tracking-widest mt-2">SECTOR:
-                                {{SECTOR}}</div>
-                        </div>
-                    </div>
-                    <div class="text-xs mono text-slate-400 uppercase tracking-widest">{{DATE}}</div>
-                </div>
+                                class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl">
+                            </div>
+                            <div class="relative z-10">
+                                <div class="flex items-center space-x-4 mb-10">
+                                    <span class="w-12 h-px bg-blue-300"></span>
+                                    <div class="text-[10px] mono text-blue-100 uppercase tracking-[0.5em]">STRATEGIC
+                                        DEPLOYMENT PROTOCOL</div>
+                                </div>
+                                <p
+                                    class="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none mb-16 max-w-2xl px-2">
+                                    {{CONVERSION_STEP}}</p>
 
-                <!-- Body -->
-                <div class="p-10 md:p-14">
-                    <h1
-                        class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter mb-8 leading-tight text-slate-900">
-                        {{TITLE}}</h1>
-                    <p
-                        class="text-2xl md:text-3xl font-bold text-slate-500 italic mb-12 border-l-8 border-blue-50 pl-8 py-2">
-                        {{INSIGHT}}</p>
-
-                    <div class="prose prose-slate max-w-none mb-16 space-y-8 text-slate-700 text-lg leading-relaxed">
-                        <div>
-                            <h4
-                                class="text-[10px] mono text-slate-400 uppercase tracking-widest mb-4 flex items-center">
-                                <span class="w-2 h-2 bg-blue-500 mr-2"></span> THE SIGNAL
-                            </h4>
-                            <p>{{MARKET_EVENT}}</p>
+                                <a href="/#audit"
+                                    class="inline-flex items-center px-12 py-7 bg-white text-blue-600 font-black uppercase italic tracking-[0.2em] text-sm skew-x-[-12deg] hover:bg-slate-950 hover:text-white transition-all duration-500 shadow-xl">
+                                    <span class="skew-x-[12deg] flex items-center">
+                                        INITIALIZE FULL AUDIT <svg class="w-6 h-6 ml-4" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                        </svg>
+                                    </span>
+                                </a>
+                            </div>
                         </div>
-
-                        <div class="bg-slate-900 p-10 rounded-sm text-white">
-                            <h4
-                                class="text-[10px] mono text-blue-400 uppercase tracking-widest mb-6 border-b border-slate-800 pb-2">
-                                CRITICAL ANALYSIS</h4>
-                            <p class="text-xl font-medium text-slate-200">{{LOGIC_ANALYSIS}}</p>
-                        </div>
-                    </div>
-
-                    <!-- CTA -->
-                    <div class="bg-blue-600 p-12 rounded-2xl text-white shadow-xl">
-                        <div class="text-blue-200 text-[10px] mono uppercase tracking-widest mb-6">OPPORTUNITY PROTOCOL
-                        </div>
-                        <p class="text-3xl font-black uppercase italic tracking-tighter mb-12 leading-tight">
-                            {{CONVERSION_STEP}}</p>
-                        <a href="/#audit"
-                            class="inline-block w-full text-center py-6 bg-white text-blue-600 font-black uppercase italic tracking-widest hover:bg-slate-900 hover:text-white transition-all duration-300 rounded-lg">
-                            INITIALIZE AUDIT
-                        </a>
                     </div>
                 </div>
             </article>
 
-            <footer class="mt-20 text-center">
-                <p class="text-xs mono text-slate-400 uppercase tracking-widest">© 2026 Wilbak Engineering |
-                    Intelligence Node {{ID}}</p>
+            <footer class="mt-24 text-center">
+                <div class="mono text-slate-300 text-[9px] uppercase tracking-[0.5em] mb-4">CONFIDENTIAL INTELLIGENCE
+                    NODE / WILBAK SYSTEMS</div>
+                <p class="text-slate-400 text-[10px] mono uppercase tracking-widest">© 2026 WILBAK ENGINEERING. ALL
+                    RIGHTS RESERVED.</p>
             </footer>
         </div>
     </main>
