@@ -359,25 +359,30 @@
 
         async function init() {
             const initData = WebApp.initData;
-            const userId = WebApp.initDataUnsafe?.user?.id;
+            const userId = String(WebApp.initDataUnsafe?.user?.id || '');
 
             try {
-                // Fetch Admin Config
+                // Fetch Admin Config - Server-side verification happens here via middleware
                 const configRes = await fetch('/api/admin/config', {
                     headers: { 'X-Telegram-Init-Data': initData }
                 });
                 
                 if (!configRes.ok) {
+                    const err = await configRes.json().catch(() => ({ error: 'Unauthorized operative' }));
                     document.getElementById('auth-gate').innerHTML = `
-                        <div class="text-red-500 font-black italic">ACCESS DENIED.<br>UNAUTHORIZED SIGNATURE DETECTED.</div>
+                        <div class="text-red-500 font-black italic">ACCESS DENIED.<br>${err.error.toUpperCase()}</div>
                     `;
                     return;
                 }
                 
                 const config = await configRes.json();
-                if (userId !== config.telegramUserId) {
+                
+                // Final safety cross-check: Ensure the logged-in user matches the server-side restricted ID
+                const expectedId = String(config.telegramUserId || '').trim();
+                if (userId !== expectedId) {
+                    console.error('[AUTH] Identity Mismatch:', userId, 'expected', expectedId);
                     document.getElementById('auth-gate').innerHTML = `
-                        <div class="text-red-500 font-black italic">ACCESS DENIED.<br>UNAUTHORIZED OPERATIVE.</div>
+                        <div class="text-red-500 font-black italic">ACCESS DENIED.<br>UNAUTHORIZED IDENTITY DETECTED.</div>
                     `;
                     return;
                 }
@@ -400,7 +405,8 @@
                 document.getElementById('auth-gate').classList.add('hidden');
                 document.getElementById('admin-panel').classList.remove('hidden');
             } catch (e) {
-                document.getElementById('auth-gate').innerHTML = `<div class="text-red-500 font-black italic">PROTOCOL ERROR. ${e.message}</div>`;
+                console.error('[INIT_FAILED]', e);
+                document.getElementById('auth-gate').innerHTML = `<div class="text-red-500 font-black italic">PROTOCOL ERROR. ${e.message.toUpperCase()}</div>`;
             }
         }
 

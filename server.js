@@ -57,7 +57,7 @@ app.use((req, res, next) => {
 
 // Telegram Config
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-const TELEGRAM_USER_ID = parseInt(process.env.TELEGRAM_USER_ID);
+const TELEGRAM_USER_ID = String(process.env.TELEGRAM_USER_ID || '').trim();
 
 // Middleware: Validate Telegram WebApp Data
 const verifyTelegramAdmin = (req, res, next) => {
@@ -81,12 +81,19 @@ const verifyTelegramAdmin = (req, res, next) => {
 
         if (calculatedHash !== hash) return res.status(401).json({ error: 'Signature Mismatch' });
 
-        const user = JSON.parse(urlParams.get('user'));
-        if (user.id !== TELEGRAM_USER_ID) return res.status(403).json({ error: 'Unauthorized Operative' });
+        const userParam = urlParams.get('user');
+        if (!userParam) return res.status(401).json({ error: 'Identity Context Missing' });
+
+        const user = JSON.parse(userParam);
+        if (String(user.id) !== TELEGRAM_USER_ID) {
+            console.error(`[ADMIN_GATE] Unauthorized ID: ${user.id}. Expected: ${TELEGRAM_USER_ID}`);
+            return res.status(403).json({ error: 'Unauthorized Operative' });
+        }
 
         req.admin = user;
         next();
     } catch (e) {
+        console.error('[ADMIN_GATE] Security Engine Error:', e);
         return res.status(500).json({ error: 'Security Engine Failure' });
     }
 };
