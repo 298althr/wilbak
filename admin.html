@@ -160,6 +160,12 @@
                         class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white placeholder-slate-500 outline-none focus:border-blue-600 transition h-24"></textarea>
                 </div>
                 <div>
+                    <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-1">STRATEGIC
+                        CONCLUSION</label>
+                    <textarea name="strategicConclusion" placeholder="Final impact summary..."
+                        class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white placeholder-slate-500 outline-none focus:border-blue-600 transition h-24"></textarea>
+                </div>
+                <div>
                     <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-2">SOURCE URL</label>
                     <input type="url" name="sourceUrl" placeholder="https://..."
                         class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white placeholder-slate-500 outline-none focus:border-blue-600 transition">
@@ -353,22 +359,40 @@
                 const data = JSON.parse(normalized);
                 const form = document.getElementById('newsForm');
 
+                // Helper to format values for textareas
+                const formatValue = (val) => {
+                    if (typeof val === 'object' && val !== null) {
+                        return JSON.stringify(val, null, 2);
+                    }
+                    return val || '';
+                };
+
                 // Mapping JSON keys to form inputs
                 if (data.sector) form.querySelector('[name="sector"]').value = data.sector.toUpperCase();
                 if (data.title || data.headline) form.querySelector('[name="title"]').value = data.title || data.headline;
                 if (data.insight) form.querySelector('[name="insight"]').value = data.insight;
-                if (data.market_event || data.marketEvent) form.querySelector('[name="marketEvent"]').value = data.market_event || data.marketEvent;
-                if (data.logic_analysis || data.logicAnalysis) form.querySelector('[name="logicAnalysis"]').value = data.logic_analysis || data.logicAnalysis;
-                if (data.solution || data.conversionStep) form.querySelector('[name="conversionStep"]').value = data.solution || data.conversionStep;
+
+                // Handle market event mapping
+                const mEvent = data.market_event || data.marketEvent;
+                if (mEvent) form.querySelector('[name="marketEvent"]').value = formatValue(mEvent);
+
+                // Handle logic analysis mapping
+                const lAnalysis = data.logic_analysis || data.logicAnalysis;
+                if (lAnalysis) form.querySelector('[name="logicAnalysis"]').value = formatValue(lAnalysis);
+
+                // Handle conversion step mapping
+                const cStep = data.solution || data.conversionStep || data.conversion_step;
+                if (cStep) form.querySelector('[name="conversionStep"]').value = formatValue(cStep);
+
+                // Handle strategic conclusion mapping
+                const sConclusion = data.strategic_conclusion || data.strategicConclusion;
+                if (sConclusion) form.querySelector('[name="strategicConclusion"]').value = formatValue(sConclusion);
+
+                if (data.source_url || data.sourceUrl) form.querySelector('[name="sourceUrl"]').value = data.source_url || data.sourceUrl;
+
+                // Sync nested objects if they exist
                 if (data.logic_framework || data.logicFramework) data.logicFramework = data.logic_framework || data.logicFramework;
                 if (data.case_study_evidence || data.caseStudyEvidence) data.caseStudyEvidence = data.case_study_evidence || data.caseStudyEvidence;
-                if (data.strategic_conclusion || data.strategicConclusion) data.strategicConclusion = data.strategic_conclusion || data.strategicConclusion;
-
-                // Store nested objects directly in the data object for the POST request
-                // The form submission logic will need to be updated or we send the 'data' object directly
-
-                // For now, let's update the manual creation logic to just send the whole parsed 'data' object
-                // if it comes from JSON, otherwise use form data.
 
                 window.lastInjectedData = data; // Cache for submission
 
@@ -400,7 +424,28 @@
 
             // Merge with complex data if available from JSON injection
             if (window.lastInjectedData) {
-                data = { ...data, ...window.lastInjectedData };
+                // Parse any modified JSON back from the textareas
+                const updateIfJson = (fieldName) => {
+                    const field = form.querySelector(`[name="${fieldName}"]`);
+                    if (field) {
+                        try {
+                            const val = field.value.trim();
+                            if (val.startsWith('{') || val.startsWith('[')) {
+                                data[fieldName] = JSON.parse(val);
+                            } else {
+                                data[fieldName] = val;
+                            }
+                        } catch (e) {
+                            data[fieldName] = field.value; // Keep as string if not valid JSON
+                        }
+                    }
+                };
+
+                updateIfJson('conversionStep');
+                updateIfJson('logicFramework');
+                updateIfJson('caseStudyEvidence');
+
+                data = { ...window.lastInjectedData, ...data };
             }
 
             btn.disabled = true;

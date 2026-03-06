@@ -14,6 +14,9 @@ dev.db-journal
 # Environment
 .env
 intelligence_draft.json
+newsdata-template.json
+result.json
+newsdata-sample.json
 
 # Logs and Uploads
 npm-debug.log*
