@@ -216,8 +216,15 @@ app.get('/api/admin/leads', verifyTelegramAdmin, async (req, res) => {
     }
 });
 
-// CSV Export - Direct to Bot
-app.get('/api/admin/leads/export', verifyTelegramAdmin, async (req, res) => {
+// Admin Config
+app.get('/api/admin/config', verifyTelegramAdmin, (req, res) => {
+    res.json({
+        telegramUserId: TELEGRAM_USER_ID
+    });
+});
+
+// CSV Export - Direct to Bot (Leads)
+app.get('/api/admin/leads/export-csv', verifyTelegramAdmin, async (req, res) => {
     try {
         const leads = await prisma.lead.findMany();
         const json2csvParser = new Parser();
@@ -316,7 +323,8 @@ const triggerResearchProtocol = async (query = "Finance Business") => {
         }
 
         // 2. ORCHESTRATOR (Groq) - Upgraded to Strategic Reporting
-        const prompt = `SYSTEM: Wilhelm Rybak, CEO. High-Performance Strategist.
+        for (const signal of rawSignals) {
+            const prompt = `SYSTEM: Wilhelm Rybak, CEO. High-Performance Strategist.
 SPEAK: Clear, Executive English. Sophisticated but direct.
 TASK: Analyze the provided business signal and generate a high-fidelity strategic report.
 INPUT: ${signal.title} - ${signal.details}
@@ -337,36 +345,37 @@ FORMAT: JSON {
     "strategicConclusion": "Final authoritative thought"
 }`;
 
-        const groqRes = await securePost('https://api.groq.com/openai/v1/chat/completions',
-            { 'Authorization': `Bearer ${GROQ_API_KEY}` },
-            {
-                model: 'llama-3.1-70b-versatile',
-                messages: [{ role: 'user', content: prompt }],
-                response_format: { type: 'json_object' }
-            }
-        );
+            const groqRes = await securePost('https://api.groq.com/openai/v1/chat/completions',
+                { 'Authorization': `Bearer ${GROQ_API_KEY}` },
+                {
+                    model: 'llama-3.1-70b-versatile',
+                    messages: [{ role: 'user', content: prompt }],
+                    response_format: { type: 'json_object' }
+                }
+            );
 
-        if (groqRes.ok) {
-            try {
-                const groqData = JSON.parse(groqRes.data);
-                const analysis = JSON.parse(groqData.choices[0].message.content);
+            if (groqRes.ok) {
+                try {
+                    const groqData = JSON.parse(groqRes.data);
+                    const analysis = JSON.parse(groqData.choices[0].message.content);
 
-                await prisma.intelligenceNode.create({
-                    data: {
-                        sector: signal.sector,
-                        title: analysis.headline,
-                        insight: analysis.mainPoint,
-                        marketEvent: analysis.marketContext || signal.details,
-                        logicAnalysis: analysis.logicAnalysis || analysis.mainPoint,
-                        logicFramework: analysis.logicFramework || null,
-                        conversionStep: analysis.conversionStep || null,
-                        strategicConclusion: analysis.strategicConclusion || null,
-                        sourceUrl: signal.url || null
-                    }
-                });
-                createdCount++;
-            } catch (e) {
-                console.error('[AUTONOMOUS_PULSE] AI Result Failure/Persistence Error:', e);
+                    await prisma.intelligenceNode.create({
+                        data: {
+                            sector: signal.sector,
+                            title: analysis.headline,
+                            insight: analysis.mainPoint,
+                            marketEvent: analysis.marketContext || signal.details,
+                            logicAnalysis: analysis.logicAnalysis || analysis.mainPoint,
+                            logicFramework: analysis.logicFramework || null,
+                            conversionStep: analysis.conversionStep || null,
+                            strategicConclusion: analysis.strategicConclusion || null,
+                            sourceUrl: signal.url || null
+                        }
+                    });
+                    createdCount++;
+                } catch (e) {
+                    console.error('[AUTONOMOUS_PULSE] AI Result Failure/Persistence Error:', e);
+                }
             }
         }
         return createdCount;
@@ -624,6 +633,50 @@ app.post('/api/admin/intelligence/create', verifyTelegramAdmin, async (req, res)
     }
 });
 
+// Admin Intelligence Node List (Full Data) - Use /export-json for full extraction
+app.get('/api/admin/intelligence/list-full', verifyTelegramAdmin, async (req, res) => {
+    try {
+        const nodes = await prisma.intelligenceNode.findMany({
+            orderBy: { createdAt: 'desc' }
+        });
+        res.json(nodes);
+    } catch (e) {
+        res.status(500).json({ error: 'Intelligence retrieval failure' });
+    }
+});
+
+// Admin Intelligence Import (JSON Bulk)
+app.post('/api/admin/intelligence/import', verifyTelegramAdmin, async (req, res) => {
+    try {
+        const { nodes } = req.body;
+        if (!Array.isArray(nodes)) return res.status(400).json({ error: 'Invalid payload: Array expected' });
+
+        let createdCount = 0;
+        for (const item of nodes) {
+            // Clean ID to allow database to regenerate or use provided if needed
+            const { id, likes, dislikes, votes, ...nodeData } = item;
+
+            await prisma.intelligenceNode.create({
+                data: {
+                    ...nodeData,
+                    likes: likes || 0,
+                    dislikes: dislikes || 0,
+                    // Handle JSON fields if they are strings
+                    logicFramework: typeof nodeData.logicFramework === 'string' ? JSON.parse(nodeData.logicFramework) : (nodeData.logicFramework || null),
+                    caseStudyEvidence: typeof nodeData.caseStudyEvidence === 'string' ? JSON.parse(nodeData.caseStudyEvidence) : (nodeData.caseStudyEvidence || null),
+                    conversionStep: typeof nodeData.conversionStep === 'string' ? JSON.parse(nodeData.conversionStep) : (nodeData.conversionStep || null),
+                    images: Array.isArray(nodeData.images) ? nodeData.images : []
+                }
+            });
+            createdCount++;
+        }
+        res.json({ success: true, count: createdCount });
+    } catch (e) {
+        console.error('Bulk Import Error:', e);
+        res.status(500).json({ error: 'Bulk intelligence injection failure: ' + e.message });
+    }
+});
+
 // Admin Update Intelligence Node
 app.put('/api/admin/intelligence/:id', verifyTelegramAdmin, async (req, res) => {
     try {
@@ -676,6 +729,55 @@ app.delete('/api/admin/intelligence/:id', verifyTelegramAdmin, async (req, res) 
     } catch (e) {
         console.error('Delete Error:', e);
         res.status(500).json({ error: 'Intelligence purging failure' });
+    }
+});
+
+// Admin Leads Export (JSON)
+app.get('/api/admin/leads/export-json', verifyTelegramAdmin, async (req, res) => {
+    try {
+        const leads = await prisma.lead.findMany({
+            orderBy: { createdAt: 'desc' }
+        });
+        res.json(leads);
+    } catch (e) {
+        res.status(500).json({ error: 'Leads export failure' });
+    }
+});
+
+// Admin Intelligence Export (JSON)
+app.get('/api/admin/intelligence/export-json', verifyTelegramAdmin, async (req, res) => {
+    try {
+        const nodes = await prisma.intelligenceNode.findMany({
+            orderBy: { createdAt: 'desc' }
+        });
+        res.json(nodes);
+    } catch (e) {
+        res.status(500).json({ error: 'Intelligence export failure' });
+    }
+});
+
+// Admin Leads Import (JSON Bulk)
+app.post('/api/admin/leads/import-json', verifyTelegramAdmin, async (req, res) => {
+    try {
+        const { leads } = req.body;
+        if (!Array.isArray(leads)) return res.status(400).json({ error: 'Invalid payload: Array expected' });
+
+        let createdCount = 0;
+        for (const item of leads) {
+            const { id, ...leadData } = item;
+            await prisma.lead.create({
+                data: {
+                    ...leadData,
+                    hours: parseInt(leadData.hours || 0),
+                    status: leadData.status || 'IMPORTED'
+                }
+            });
+            createdCount++;
+        }
+        res.json({ success: true, count: createdCount });
+    } catch (e) {
+        console.error('Lead Bulk Import Error:', e);
+        res.status(500).json({ error: 'Lead bulk injection failure: ' + e.message });
     }
 });
 

@@ -251,7 +251,7 @@
                 </div>
 
                 <div class="w-full md:w-auto grid grid-cols-2 md:flex md:items-center gap-3">
-                    <button onclick="triggerIntelligence()" id="syncBtn"
+                    <button onclick="openTopicModal()" id="syncBtn"
                         class="flex items-center justify-center space-x-2 px-3 py-3 border border-blue-600 bg-blue-600/10 text-blue-400 hover:bg-blue-600 hover:text-white transition rounded-sm font-black text-[9px] uppercase italic tracking-widest">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -272,24 +272,37 @@
 
                     <div class="col-span-2 md:col-span-1 flex items-center space-x-2">
                         <input type="text" id="intelQuery" placeholder="TARGET SECTOR..."
-                            class="flex-grow bg-slate-900 border border-slate-700 px-3 py-3 rounded-sm text-[9px] mono text-blue-400 focus:border-blue-500 outline-none uppercase">
+                            class="flex-grow bg-slate-900 border border-slate-800 px-3 py-3 rounded-sm text-[9px] mono text-blue-400 focus:border-blue-500 outline-none uppercase">
 
-                        <button onclick="exportLeads()"
-                            class="p-3 border border-blue-600/50 hover:bg-blue-600 text-blue-500 hover:text-white transition rounded-sm">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                            </svg>
-                        </button>
+                        <div class="flex space-x-1">
+                            <!-- CSV Export (Bot) -->
+                            <button onclick="exportLeadsCSV()" title="Export Leads to Telegram (CSV)"
+                                class="p-3 border border-blue-600/50 hover:bg-blue-600 text-blue-500 hover:text-white transition rounded-sm">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                </svg>
+                            </button>
+                            
+                            <!-- JSON Export -->
+                            <button onclick="exportDataJSON()" title="Export All Data (JSON)"
+                                class="p-3 border border-purple-600/50 hover:bg-purple-600 text-purple-500 hover:text-white transition rounded-sm">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </button>
 
-                        <label
-                            class="p-3 border border-slate-700 hover:bg-slate-700 text-slate-400 hover:text-white transition cursor-pointer rounded-sm">
-                            <input type="file" id="csvImport" class="hidden" accept=".csv" onchange="importLeads(this)">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
-                            </svg>
-                        </label>
+                            <!-- JSON Import -->
+                            <label title="Import Data (JSON)"
+                                class="p-3 border border-orange-600/50 hover:bg-orange-600 text-orange-500 hover:text-white transition cursor-pointer rounded-sm">
+                                <input type="file" id="jsonImport" class="hidden" accept=".json" onchange="importDataJSON(this)">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                                </svg>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -348,14 +361,27 @@
             const initData = WebApp.initData;
             const userId = WebApp.initDataUnsafe?.user?.id;
 
-            if (userId !== 6737496589) {
-                document.getElementById('auth-gate').innerHTML = `
-                    <div class="text-red-500 font-black italic">ACCESS DENIED.<br>UNAUTHORIZED SIGNATURE DETECTED.</div>
-                `;
-                return;
-            }
-
             try {
+                // Fetch Admin Config
+                const configRes = await fetch('/api/admin/config', {
+                    headers: { 'X-Telegram-Init-Data': initData }
+                });
+                
+                if (!configRes.ok) {
+                    document.getElementById('auth-gate').innerHTML = `
+                        <div class="text-red-500 font-black italic">ACCESS DENIED.<br>UNAUTHORIZED SIGNATURE DETECTED.</div>
+                    `;
+                    return;
+                }
+                
+                const config = await configRes.json();
+                if (userId !== config.telegramUserId) {
+                    document.getElementById('auth-gate').innerHTML = `
+                        <div class="text-red-500 font-black italic">ACCESS DENIED.<br>UNAUTHORIZED OPERATIVE.</div>
+                    `;
+                    return;
+                }
+
                 // Fetch Leads
                 const leadsRes = await fetch('/api/admin/leads', {
                     headers: { 'X-Telegram-Init-Data': initData }
@@ -800,11 +826,25 @@
             renderLeads(filtered);
         }
 
-        async function triggerIntelligence() {
-            const query = document.getElementById('intelQuery').value;
+        function openTopicModal() {
+            document.getElementById('topic-modal').classList.remove('hidden');
+        }
+
+        function closeTopicModal() {
+            document.getElementById('topic-modal').classList.add('hidden');
+        }
+
+        async function triggerIntelligence(targetTopic) {
+            const query = targetTopic || document.getElementById('intelQuery').value;
+            if (!query) {
+                WebApp.showAlert('SPECIFY A TARGET VECTOR BEFORE DEPLOYMENT.');
+                return;
+            }
+
+            closeTopicModal();
             const btn = document.getElementById('syncBtn');
             btn.disabled = true;
-            btn.classList.add('opacity-50', 'animate-pulse');
+            btn.innerText = "SCANNING...";
             WebApp.HapticFeedback.impactOccurred('heavy');
 
             try {
@@ -821,6 +861,7 @@
                     const count = result.count || 0;
                     WebApp.showConfirm(`SENSORY SCAN COMPLETE: ${count} NEW INSIGHTS DEPLOYED. DO YOU WANT TO VIEW THE GLOBAL LOGIC HUB?`, (ok) => {
                         if (ok) window.location.href = 'index.html#intelligence';
+                        else location.reload();
                     });
                 } else {
                     WebApp.showAlert('INTEL SYNC FAILED: ' + (result.error || 'System error'));
@@ -829,7 +870,7 @@
                 WebApp.showAlert('INTEL SYNC ERROR: Link unstable.');
             } finally {
                 btn.disabled = false;
-                btn.classList.remove('opacity-50', 'animate-pulse');
+                btn.innerText = "INITIALIZE SENSORY SCAN";
             }
         }
 
@@ -839,12 +880,12 @@
             renderLeads(leads);
         }
 
-        async function exportLeads() {
+        async function exportLeadsCSV() {
             WebApp.HapticFeedback.impactOccurred('medium');
             const initData = WebApp.initData;
 
             try {
-                const response = await fetch('/api/admin/leads/export', {
+                const response = await fetch('/api/admin/leads/export-csv', {
                     headers: { 'X-Telegram-Init-Data': initData }
                 });
 
@@ -858,6 +899,94 @@
             } catch (e) {
                 WebApp.showAlert('EXPORT PROTOCOL FAILURE: ' + e.message);
             }
+        }
+
+        async function exportDataJSON() {
+            WebApp.showConfirm('DOWNLOAD ALL SYSTEM DATA (LEADS + INTEL) AS JSON?', async (ok) => {
+                if (!ok) return;
+                WebApp.HapticFeedback.impactOccurred('heavy');
+                
+                try {
+                    // Export Leads JSON
+                    const leadsRes = await fetch('/api/admin/leads/export-json', {
+                        headers: { 'X-Telegram-Init-Data': WebApp.initData }
+                    });
+                    const leadsData = await leadsRes.json();
+                    
+                    // Export Intel JSON
+                    const intelRes = await fetch('/api/admin/intelligence/export-json', {
+                        headers: { 'X-Telegram-Init-Data': WebApp.initData }
+                    });
+                    const intelData = await intelRes.json();
+                    
+                    const combinedData = {
+                        leads: leadsData,
+                        intelligence: intelData,
+                        exportedAt: new Date().toISOString(),
+                        version: "1.2"
+                    };
+                    
+                    const blob = new Blob([JSON.stringify(combinedData, null, 2)], { type: 'application/json' });
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `wilbak_system_backup_${Date.now()}.json`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    
+                    WebApp.showAlert('SYSTEM BACKUP DOWNLOADED SUCCESSFULLY.');
+                } catch (e) {
+                    WebApp.showAlert('DATA EXTRACTION FAILURE.');
+                }
+            });
+        }
+
+        async function importDataJSON(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    WebApp.showConfirm(`DETECTED ${data.leads?.length || 0} LEADS AND ${data.intelligence?.length || 0} INTEL NODES. PROCEED WITH INJECTION?`, async (ok) => {
+                        if (!ok) return;
+                        WebApp.HapticFeedback.impactOccurred('heavy');
+
+                        // Import Leads
+                        if (data.leads && data.leads.length > 0) {
+                            await fetch('/api/admin/leads/import-json', {
+                                method: 'POST',
+                                headers: { 
+                                    'X-Telegram-Init-Data': WebApp.initData,
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ leads: data.leads })
+                            });
+                        }
+
+                        // Import Intelligence
+                        if (data.intelligence && data.intelligence.length > 0) {
+                            await fetch('/api/admin/intelligence/import', {
+                                method: 'POST',
+                                headers: { 
+                                    'X-Telegram-Init-Data': WebApp.initData,
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ nodes: data.intelligence })
+                            });
+                        }
+
+                        WebApp.showAlert('SYSTEM INJECTION COMPLETE. RE-CALIBRATING...');
+                        location.reload();
+                    });
+                } catch (err) {
+                    WebApp.showAlert('INVALID JSON DETECTED. ABORTING.');
+                }
+            };
+            reader.readAsText(file);
         }
 
         async function importLeads(input) {
@@ -887,6 +1016,40 @@
 
         init();
     </script>
+    <!-- Topic Selection Modal -->
+    <div id="topic-modal" class="fixed inset-0 z-[200] hidden flex items-center justify-center p-6 bg-slate-950/90 backdrop-blur-md">
+        <div class="bg-slate-900 border border-slate-800 max-w-lg w-full rounded-sm overflow-hidden shadow-2xl">
+            <div class="p-6 border-b border-slate-800 flex justify-between items-center">
+                <h3 class="text-xs mono font-black text-blue-500 uppercase tracking-widest">[ TARGETED INTELLIGENCE PROTOCOLS ]</h3>
+                <button onclick="closeTopicModal()" class="text-slate-500 hover:text-white">✕</button>
+            </div>
+            <div class="p-8 grid grid-cols-1 gap-4">
+                <p class="text-[10px] mono text-slate-500 uppercase mb-4">Select a strategic sector for scan:</p>
+                
+                <button onclick="triggerIntelligence('Oil & Gas Efficiency')" class="group p-4 bg-slate-800 border border-slate-700 hover:border-blue-500 transition text-left">
+                    <div class="text-[9px] mono text-blue-600 mb-1">DYNAMICS_01</div>
+                    <div class="text-sm font-black text-white italic uppercase italic">Oil & Gas Energy Efficiency</div>
+                </button>
+                
+                <button onclick="triggerIntelligence('Fintech Infrastructure')" class="group p-4 bg-slate-800 border border-slate-700 hover:border-blue-500 transition text-left">
+                    <div class="text-[9px] mono text-blue-600 mb-1">DYNAMICS_02</div>
+                    <div class="text-sm font-black text-white italic uppercase italic">Banking & Fintech Latency</div>
+                </button>
+                
+                <button onclick="triggerIntelligence('Real Estate AI')" class="group p-4 bg-slate-800 border border-slate-700 hover:border-blue-500 transition text-left">
+                    <div class="text-[9px] mono text-blue-600 mb-1">DYNAMICS_03</div>
+                    <div class="text-sm font-black text-white italic uppercase italic">Real Estate Asset Automation</div>
+                </button>
+
+                <div class="relative mt-4">
+                    <input type="text" id="customTopic" placeholder="INPUT CUSTOM VECTOR..." 
+                        class="w-full bg-slate-950 border border-slate-800 p-4 text-[10px] mono text-blue-400 focus:border-blue-500 outline-none uppercase">
+                    <button onclick="triggerIntelligence(document.getElementById('customTopic').value)" 
+                        class="absolute right-2 top-2 bottom-2 px-4 bg-blue-600 text-white text-[9px] font-black uppercase tracking-widest">DEPLOY</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
