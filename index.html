@@ -351,11 +351,8 @@
             });
             const data = await response.json();
             if (data.success) {
-                const node = this.intelNodes.find(n => n.id === id);
-                if (node) {
-                    node.likes = data.likes;
-                    node.dislikes = data.dislikes;
-                }
+                // Refresh data to get verified counts and states
+                await this.fetchIntel();
             }
         } catch (e) { console.error('Vote failed'); }
     },
@@ -1228,15 +1225,15 @@
                                     <div class="relative z-10">
                                         <div class="flex items-center space-x-3 mb-6">
                                             <span class="w-8 h-px bg-blue-300"></span>
-                                            <div class="text-[10px] mono text-blue-200 uppercase tracking-[0.4em]">
-                                                Wilbak Solution Protocol</div>
+                                            <div class="text-[10px] mono text-blue-200 lowercase tracking-[0.4em]">
+                                                wilbak solution protocol</div>
                                         </div>
-                                        <p class="text-2xl md:text-3xl font-black uppercase italic tracking-tighter leading-tight mb-10 max-w-2xl"
+                                        <p class="text-2xl md:text-3xl font-black lowercase italic tracking-tighter leading-tight mb-10 max-w-2xl"
                                             x-text="node.conversionStep"></p>
                                         <div
-                                            class="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-black uppercase italic tracking-widest text-xs skew-x-[-12deg] group-hover/cta:bg-slate-900 group-hover/cta:text-white transition-all duration-500">
+                                            class="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-black lowercase italic tracking-widest text-xs skew-x-[-12deg] group-hover/cta:bg-slate-900 group-hover/cta:text-white transition-all duration-500">
                                             <span class="skew-x-[12deg] flex items-center">
-                                                INITIALIZE AUDIT <svg class="w-4 h-4 ml-3" fill="none"
+                                                initialize audit <svg class="w-4 h-4 ml-3" fill="none"
                                                     stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -1251,27 +1248,33 @@
                                     class="flex flex-wrap items-center justify-between border-t border-slate-100 pt-8 gap-6">
                                     <div class="flex items-center space-x-1">
                                         <button @click="vote(node.id, 'like')"
-                                            class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-slate-50 transition-colors group/l">
-                                            <svg class="w-6 h-6 text-slate-400 group-hover/l:text-blue-600 transition-colors"
-                                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-slate-50 transition-colors group/l"
+                                            :class="node.userVote === 'LIKE' ? 'bg-blue-50' : ''">
+                                            <svg class="w-6 h-6 transition-colors"
+                                                :class="node.userVote === 'LIKE' ? 'text-blue-600' : 'text-slate-400 group-hover/l:text-blue-600'"
+                                                :fill="node.userVote === 'LIKE' ? 'currentColor' : 'none'"
+                                                stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                                     d="M14 10h4.704a2 2 0 011.94 2.415l-1.448 6A2 2 0 0117.256 20H7m7-10V5a2 2 0 00-2-2h-1a2 2 0 00-2 2v10m0 10H5a2 2 0 01-2-2v-7a2 2 0 012-2h2m3 10V10">
                                                 </path>
                                             </svg>
-                                            <span
-                                                class="text-xs font-black mono text-slate-400 group-hover/l:text-blue-600"
+                                            <span class="text-xs font-black mono transition-colors"
+                                                :class="node.userVote === 'LIKE' ? 'text-blue-600' : 'text-slate-400 group-hover/l:text-blue-600'"
                                                 x-text="node.likes"></span>
                                         </button>
                                         <button @click="vote(node.id, 'dislike')"
-                                            class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-slate-50 transition-colors group/d">
-                                            <svg class="w-6 h-6 text-slate-400 group-hover/d:text-red-500 transition-colors"
-                                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-slate-50 transition-colors group/d"
+                                            :class="node.userVote === 'DISLIKE' ? 'bg-red-50' : ''">
+                                            <svg class="w-6 h-6 transition-colors"
+                                                :class="node.userVote === 'DISLIKE' ? 'text-red-500' : 'text-slate-400 group-hover/d:text-red-500'"
+                                                :fill="node.userVote === 'DISLIKE' ? 'currentColor' : 'none'"
+                                                stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                                     d="M10 14H5.296a2 2 0 01-1.94-2.415l1.448-6A2 2 0 016.744 4H17m-7 10V19a2 2 0 002 2h1a2 2 0 002-2V9m0-5h2a2 2 0 012 2v7a2 2 0 01-2 2h-2m-3-10V14">
                                                 </path>
                                             </svg>
-                                            <span
-                                                class="text-xs font-black mono text-slate-400 group-hover/d:text-red-500"
+                                            <span class="text-xs font-black mono transition-colors"
+                                                :class="node.userVote === 'DISLIKE' ? 'text-red-500' : 'text-slate-400 group-hover/d:text-red-500'"
                                                 x-text="node.dislikes"></span>
                                         </button>
                                     </div>

@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const https = require('https');
 const crypto = require('crypto');
@@ -17,7 +18,24 @@ const upload = multer({ dest: 'uploads/' });
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.static(__dirname));
+
+// Session ID Middleware
+app.use((req, res, next) => {
+    let sessionId = req.cookies.session_id;
+    if (!sessionId) {
+        sessionId = crypto.randomUUID();
+        res.cookie('session_id', sessionId, {
+            maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax'
+        });
+    }
+    req.sessionId = sessionId;
+    next();
+});
 
 // Telegram Config
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -332,11 +350,24 @@ setTimeout(() => triggerResearchProtocol("Iran Israel USA Business Impact Opport
 // Intelligence Hub Endpoints
 app.get('/api/intelligence', async (req, res) => {
     try {
+        const sessionId = req.sessionId;
         let nodes = await prisma.intelligenceNode.findMany({
             where: { status: 'ACTIVE' },
             orderBy: { createdAt: 'desc' },
-            take: 20
+            take: 20,
+            include: {
+                votes: {
+                    where: { sessionId }
+                }
+            }
         });
+
+        // Add userVote field to each node for the frontend
+        nodes = nodes.map(node => ({
+            ...node,
+            userVote: node.votes && node.votes.length > 0 ? node.votes[0].type : null,
+            votes: undefined // Don't leak all vote technical data
+        }));
 
         if (nodes.length === 0) {
             nodes = [
@@ -372,19 +403,68 @@ app.get('/api/intelligence/retest', async (req, res) => {
 });
 
 
-// Like/Dislike Endpoint
+// Like/Dislike Endpoint (One vote per person per node)
 app.post('/api/intelligence/:id/vote', async (req, res) => {
     const { id } = req.params;
-    const { type } = req.body;
+    const { type } = req.body; // 'LIKE' or 'DISLIKE' (case insensitive handled below)
+    const sessionId = req.sessionId;
+    const voteType = type.toUpperCase();
 
     try {
-        const updateData = type === 'like' ? { likes: { increment: 1 } } : { dislikes: { increment: 1 } };
-        const node = await prisma.intelligenceNode.update({
-            where: { id },
-            data: updateData
+        // Enforce structural integrity: users can only switch their vote or create a new one
+        const existingVote = await prisma.vote.findUnique({
+            where: {
+                nodeId_sessionId: { nodeId: id, sessionId }
+            }
         });
-        res.json({ success: true, likes: node.likes, dislikes: node.dislikes });
+
+        if (existingVote) {
+            if (existingVote.type === voteType) {
+                // Remove vote if same button clicked again
+                await prisma.$transaction([
+                    prisma.vote.delete({ where: { id: existingVote.id } }),
+                    prisma.intelligenceNode.update({
+                        where: { id },
+                        data: voteType === 'LIKE' ? { likes: { decrement: 1 } } : { dislikes: { decrement: 1 } }
+                    })
+                ]);
+                return res.json({ success: true, userVote: null });
+            } else {
+                // Switch vote (e.g., LIKE to DISLIKE)
+                await prisma.$transaction([
+                    prisma.vote.update({
+                        where: { id: existingVote.id },
+                        data: { type: voteType }
+                    }),
+                    prisma.intelligenceNode.update({
+                        where: { id },
+                        data: voteType === 'LIKE'
+                            ? { likes: { increment: 1 }, dislikes: { decrement: 1 } }
+                            : { dislikes: { increment: 1 }, likes: { decrement: 1 } }
+                    })
+                ]);
+                return res.json({ success: true, userVote: voteType });
+            }
+        }
+
+        // New Vote
+        await prisma.$transaction([
+            prisma.vote.create({
+                data: {
+                    nodeId: id,
+                    sessionId: sessionId,
+                    type: voteType
+                }
+            }),
+            prisma.intelligenceNode.update({
+                where: { id },
+                data: voteType === 'LIKE' ? { likes: { increment: 1 } } : { dislikes: { increment: 1 } }
+            })
+        ]);
+
+        res.json({ success: true, userVote: voteType });
     } catch (e) {
+        console.error('Vote Error:', e);
         res.status(500).json({ error: 'Vote registration failure' });
     }
 });

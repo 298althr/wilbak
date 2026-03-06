@@ -64,4 +64,16 @@ model IntelligenceNode {
   likes           Int      @default(0)
   dislikes        Int      @default(0)
   status          String   @default("ACTIVE")
+  votes           Vote[]
+}
+
+model Vote {
+  id        String   @id @default(cuid())
+  nodeId    String
+  node      IntelligenceNode @relation(fields: [nodeId], references: [id])
+  sessionId String
+  type      String   // LIKE or DISLIKE
+  createdAt DateTime @default(now())
+
+  @@unique([nodeId, sessionId])
 }
