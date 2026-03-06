@@ -202,54 +202,79 @@ const triggerResearchProtocol = async (query = "Finance Business Real Estate") =
     const GROQ_API_KEY = process.env.GROQ_API_KEY;
     const BRIGHTDATA_API_KEY = process.env.BRIGHTDATA_API_KEY;
 
+    if (!GROQ_API_KEY) {
+        console.error('[AUTONOMOUS_PULSE] CRITICAL: GROQ_API_KEY is missing from environment.');
+        return;
+    }
+
     const securePost = (url, headers, body) => {
         return new Promise((resolve) => {
             const parsedUrl = new URL(url);
             const options = {
                 hostname: parsedUrl.hostname,
-                path: parsedUrl.pathname + parsedUrl.search,
+                path: parsedUrl.pathname + (parsedUrl.search || ''),
                 method: 'POST',
-                headers: { ...headers, 'Content-Type': 'application/json' }
+                headers: {
+                    ...headers,
+                    'Content-Type': 'application/json',
+                    'User-Agent': 'Wilbak-Intelligence-Engine/1.0'
+                }
             };
             const req = https.request(options, (res) => {
                 let data = '';
                 res.on('data', (chunk) => data += chunk);
-                res.on('end', () => resolve({ ok: res.statusCode < 300, status: res.statusCode, data: data }));
+                res.on('end', () => {
+                    const response = { ok: res.statusCode < 300, status: res.statusCode, data: data };
+                    if (!response.ok) {
+                        console.error(`[AUTONOMOUS_PULSE] API ERROR: ${parsedUrl.hostname} returned status ${res.statusCode}`);
+                    }
+                    resolve(response);
+                });
             });
-            req.on('error', () => resolve({ ok: false, status: 500 }));
+            req.on('error', (e) => {
+                console.error(`[AUTONOMOUS_PULSE] NETWORK FAILURE: ${parsedUrl.hostname} - ${e.message}`);
+                resolve({ ok: false, status: 500 });
+            });
             req.write(JSON.stringify(body));
             req.end();
         });
     };
 
     try {
-        console.log(`[AUTONOMOUS_PULSE] Initiating Research: ${query}`);
+        console.log(`[AUTONOMOUS_PULSE] Initiating Research Loop: ${query}`);
         let rawSignals = [];
 
-        // 1. SENSOR (Bright Data - Trying multiple endpoint patterns for robustness)
+        // 1. SENSOR (Bright Data)
         if (BRIGHTDATA_API_KEY) {
-            // Pattern A: SERP Query
+            console.log('[AUTONOMOUS_PULSE] Contacting Discovery Sensor (BrightData)...');
             const resA = await securePost('https://api.brightdata.com/serp/query',
                 { 'Authorization': `Bearer ${BRIGHTDATA_API_KEY}` },
                 { "count": 3, "query": { "q": `${query} market impact middle east conflict business opportunities` }, "search_engine": "google" }
             );
 
             if (resA.ok) {
-                const serp = JSON.parse(resA.data);
-                if (serp.organic) {
-                    rawSignals = serp.organic.map(item => ({
-                        sector: query.split(' ')[0].toUpperCase(),
-                        title: item.title,
-                        details: item.description || item.snippet,
-                        url: item.link
-                    }));
+                try {
+                    const serp = JSON.parse(resA.data);
+                    if (serp.organic) {
+                        rawSignals = serp.organic.map(item => ({
+                            sector: query.split(' ')[0].toUpperCase(),
+                            title: item.title,
+                            details: item.description || item.snippet,
+                            url: item.link
+                        }));
+                        console.log(`[AUTONOMOUS_PULSE] Sensor detected ${rawSignals.length} market signals.`);
+                    }
+                } catch (pe) {
+                    console.error('[AUTONOMOUS_PULSE] Sensor Data Parse Failure');
                 }
             }
+        } else {
+            console.warn('[AUTONOMOUS_PULSE] Sensor Offline (No BRIGHTDATA_API_KEY). Using Fallback.');
         }
 
         // Fallback context if scraper fails or 404s
         if (rawSignals.length === 0) {
-            console.log('[AUTONOMOUS_PULSE] Using Strategic Fallback for Iran-Israel-USA Context');
+            console.log('[AUTONOMOUS_PULSE] Deploying Strategic Fallback Context.');
             rawSignals = [
                 { sector: 'STRATEGY', title: 'Middle East Trade Shift', details: 'Sea route tensions near Iran causing rising insurance costs for shipping.' },
                 { sector: 'FINANCE', title: 'Gold and Oil Volatility', details: 'Israel-Iran tensions driving safe-haven demand in global commodity markets.' }
@@ -257,6 +282,7 @@ const triggerResearchProtocol = async (query = "Finance Business Real Estate") =
         }
 
         // 2. ORCHESTRATOR (Groq)
+        console.log(`[AUTONOMOUS_PULSE] Orchestrating ${rawSignals.length} signals through Groq AI...`);
         for (const signal of rawSignals) {
             const prompt = `
                 SYSTEM: Act as Wilhelm Rybak, CEO of Wilbak Engineering. 
@@ -286,34 +312,41 @@ const triggerResearchProtocol = async (query = "Finance Business Real Estate") =
             );
 
             if (groqRes.ok) {
-                const groqData = JSON.parse(groqRes.data);
-                const analysis = JSON.parse(groqData.choices[0].message.content);
+                try {
+                    const groqData = JSON.parse(groqRes.data);
+                    const analysis = JSON.parse(groqData.choices[0].message.content);
 
-                // 3. LEDGER (Database)
-                await prisma.intelligenceNode.create({
-                    data: {
-                        sector: signal.sector,
-                        title: analysis.headline,
-                        insight: analysis.mainPoint,
-                        marketEvent: signal.details,
-                        logicAnalysis: analysis.whatItMeans,
-                        conversionStep: analysis.theSolution,
-                        sourceUrl: signal.url || null
-                    }
-                });
+                    // 3. LEDGER (Database)
+                    await prisma.intelligenceNode.create({
+                        data: {
+                            sector: signal.sector,
+                            title: analysis.headline,
+                            insight: analysis.mainPoint,
+                            marketEvent: signal.details,
+                            logicAnalysis: analysis.whatItMeans,
+                            conversionStep: analysis.theSolution,
+                            sourceUrl: signal.url || null
+                        }
+                    });
+                    console.log(`[AUTONOMOUS_PULSE] Ledger Updated: ${analysis.headline}`);
+                } catch (pe) {
+                    console.error('[AUTONOMOUS_PULSE] Orchestrator Result Parse Failure');
+                }
+            } else {
+                console.error(`[AUTONOMOUS_PULSE] Orchestrator Failure for signal: ${signal.title}`);
             }
         }
-        console.log(`[AUTONOMOUS_PULSE] Protocol Complete. Ledger Updated.`);
+        console.log(`[AUTONOMOUS_PULSE] Cycle Complete. Systems Nominal.`);
     } catch (e) {
-        console.error('[AUTONOMOUS_PULSE] Failure:', e);
+        console.error('[AUTONOMOUS_PULSE] CRITICAL FAILURE:', e);
     }
 };
 
 
 // Start 6-hour Scheduler (21,600,000 ms)
 setInterval(() => triggerResearchProtocol(), 21600000);
-// Trigger once on system boot to ensure data availability
-triggerResearchProtocol("Iran Israel USA Business Impact Opportunities");
+// Trigger once on system boot to ensure data availability (Delayed 10s for stability)
+setTimeout(() => triggerResearchProtocol("Iran Israel USA Business Impact Opportunities"), 10000);
 
 // Intelligence Hub Endpoints
 app.get('/api/intelligence', async (req, res) => {
@@ -345,6 +378,18 @@ app.get('/api/intelligence', async (req, res) => {
         res.status(500).json({ error: 'Data link failure' });
     }
 });
+
+// Diagnostic Manual Trigger (No Auth for internal debugging)
+app.get('/api/intelligence/retest', async (req, res) => {
+    try {
+        console.log('[DIAGNOSTIC] Manual retest requested.');
+        await triggerResearchProtocol("Finance AI Business");
+        res.json({ success: true, message: 'Retest pulse sent. Check ledger in 30 seconds.' });
+    } catch (e) {
+        res.status(500).json({ error: 'Retest failed' });
+    }
+});
+
 
 // Like/Dislike Endpoint
 app.post('/api/intelligence/:id/vote', async (req, res) => {
