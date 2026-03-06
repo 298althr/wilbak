@@ -419,6 +419,42 @@ app.post('/api/admin/intelligence/trigger', verifyTelegramAdmin, async (req, res
     }
 });
 
+// Single Insight View with SEO Injection
+app.get('/insight/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const node = await prisma.intelligenceNode.findUnique({ where: { id } });
+
+        if (!node) {
+            return res.status(404).send('Intelligence Node Not Found');
+        }
+
+        let template = fs.readFileSync(path.join(__dirname, 'news.html'), 'utf8');
+
+        // Dynamic Injections for SEO and Display
+        const replacements = {
+            '{{ID}}': node.id,
+            '{{TITLE}}': node.title,
+            '{{SECTOR}}': node.sector,
+            '{{INSIGHT}}': node.insight,
+            '{{MARKET_EVENT}}': node.marketEvent,
+            '{{LOGIC_ANALYSIS}}': node.logicAnalysis,
+            '{{CONVERSION_STEP}}': node.conversionStep,
+            '{{DATE}}': node.createdAt.toDateString(),
+            '{{URL}}': `https://${req.get('host')}/insight/${node.id}`
+        };
+
+        Object.keys(replacements).forEach(key => {
+            template = template.split(key).join(replacements[key]);
+        });
+
+        res.send(template);
+    } catch (e) {
+        console.error('Insight Render Error:', e);
+        res.status(500).send('Intelligence System Link Failure');
+    }
+});
+
 // Admin Manual Create (Manual Entry)
 app.post('/api/admin/intelligence/create', verifyTelegramAdmin, async (req, res) => {
     try {
