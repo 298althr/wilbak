@@ -14,6 +14,9 @@ require('dotenv').config();
 const app = express();
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 4000;
+
+// Health Check Protocol (Required by railway.toml)
+app.get('/health', (req, res) => res.status(200).json({ status: 'HEALTHY', timestamp: new Date() }));
 const upload = multer({ dest: 'uploads/' });
 
 app.use(cors());
@@ -343,9 +346,16 @@ FORMAT: JSON { "headline": "Title", "mainPoint": "1 sentence summary", "whatItMe
 
 
 // Start 6-hour Scheduler (21,600,000 ms)
-setInterval(() => triggerResearchProtocol(), 21600000);
+setInterval(() => triggerResearchProtocol().catch(e => console.error('[SCHEDULER] Failed:', e)), 21600000);
 // Trigger once on system boot to ensure data availability (Delayed 10s for stability)
-setTimeout(() => triggerResearchProtocol("Iran Israel USA Business Impact Opportunities"), 10000);
+setTimeout(async () => {
+    try {
+        console.log('[STARTUP] Initializing autonomous intelligence scan...');
+        await triggerResearchProtocol("Iran Israel USA Business Impact Opportunities");
+    } catch (e) {
+        console.error('[STARTUP] Initial scan failed. System in stand-by.', e.message);
+    }
+}, 10000);
 
 // Intelligence Hub Endpoints
 app.get('/api/intelligence', async (req, res) => {
