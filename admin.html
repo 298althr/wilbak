@@ -166,6 +166,19 @@
                         class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white placeholder-slate-500 outline-none focus:border-blue-600 transition h-24"></textarea>
                 </div>
                 <div>
+                    <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-1">LOGIC FRAMEWORK
+                        (JSON)</label>
+                    <textarea name="logicFramework"
+                        placeholder='{ "problemStructure": [...], "transformationModel": [...] }'
+                        class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white placeholder-slate-500 outline-none focus:border-blue-600 transition h-24"></textarea>
+                </div>
+                <div>
+                    <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-1">CASE STUDY
+                        EVIDENCE (JSON)</label>
+                    <textarea name="caseStudyEvidence" placeholder='{ "results": [...] }'
+                        class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white placeholder-slate-500 outline-none focus:border-blue-600 transition h-24"></textarea>
+                </div>
+                <div>
                     <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-2">SOURCE URL</label>
                     <input type="url" name="sourceUrl" placeholder="https://..."
                         class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white placeholder-slate-500 outline-none focus:border-blue-600 transition">
@@ -388,11 +401,19 @@
                 const sConclusion = data.strategic_conclusion || data.strategicConclusion;
                 if (sConclusion) form.querySelector('[name="strategicConclusion"]').value = formatValue(sConclusion);
 
-                if (data.source_url || data.sourceUrl) form.querySelector('[name="sourceUrl"]').value = data.source_url || data.sourceUrl;
+                // Handle nested JSON fields
+                if (data.logic_framework || data.logicFramework) {
+                    const lf = data.logic_framework || data.logicFramework;
+                    form.querySelector('[name="logicFramework"]').value = formatValue(lf);
+                    data.logicFramework = lf;
+                }
+                if (data.case_study_evidence || data.caseStudyEvidence) {
+                    const cse = data.case_study_evidence || data.caseStudyEvidence;
+                    form.querySelector('[name="caseStudyEvidence"]').value = formatValue(cse);
+                    data.caseStudyEvidence = cse;
+                }
 
-                // Sync nested objects if they exist
-                if (data.logic_framework || data.logicFramework) data.logicFramework = data.logic_framework || data.logicFramework;
-                if (data.case_study_evidence || data.caseStudyEvidence) data.caseStudyEvidence = data.case_study_evidence || data.caseStudyEvidence;
+                if (data.source_url || data.sourceUrl) form.querySelector('[name="sourceUrl"]').value = data.source_url || data.sourceUrl;
 
                 window.lastInjectedData = data; // Cache for submission
 
