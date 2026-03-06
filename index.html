@@ -297,6 +297,7 @@
     successModal: false,
     showModal: false, // Transformation Modal
     showFullReportModal: false, // Full Report Modal
+    showAuditModal: false, // Audit Modal
     selectedNode: null,
     intelNodes: [],
     
@@ -312,81 +313,132 @@
 
     auditStep: 1,
     industry: '',
-    hours: 40,
     businessDetail: '',
-    workflow: '',
-    auditName: '',
-    auditEmail: '',
-    auditPhone: '',
-    loadingIntel: true,
+    leadName: '',
+    leadEmail: '',
+    leadPhone: '',
+    loadingIntel: false,
     
+    renderNested(obj) {
+        if (!obj) return '';
+        if (typeof obj === 'string') return `<p class=" mb-4 leading-relaxed">${this.sanitizeText(obj)}</p>`;
+    if (Array.isArray(obj)) {
+    return `<ul class="space-y-3 mb-6">` + obj.map(item => `
+        <li class="flex items-start">
+            <span class="text-blue-500 mr-2 mt-1">▹</span>
+            <div class="text-sm text-slate-700 font-bold">${this.renderNested(item)}</div>
+        </li>`).join('') + `
+    </ul>`;
+    }
+    if (typeof obj === 'object') {
+    return Object.entries(obj).map(([key, value]) => `
+    <div class="mb-6 last:mb-0 bg-slate-50/50 p-4 border-l-2 border-blue-600">
+        <h4 class="text-[9px] mono text-blue-600 uppercase tracking-widest mb-2 font-black">${key.replace(/([A-Z])/g, '
+            $1').replace(/_/g, ' ').trim()}</h4>
+        <div class="text-sm text-slate-800">${this.renderNested(value)}</div>
+    </div>
+    `).join('');
+    }
+    return obj;
+    },
+
+    renderNested(obj) {
+    if (!obj) return '';
+    if (typeof obj === 'string') return `<p class=" mb-4 leading-relaxed">${this.sanitizeText(obj)}</p>`;
+    if (Array.isArray(obj)) {
+    return `<ul class="space-y-3 mb-6">` + obj.map(item => `
+        <li class="flex items-start">
+            <span class="text-blue-500 mr-2 mt-1">▹</span>
+            <div class="text-sm text-slate-700">${this.renderNested(item)}</div>
+        </li>`).join('') + `
+    </ul>`;
+    }
+    if (typeof obj === 'object') {
+    return Object.entries(obj).map(([key, value]) => `
+    <div class="mb-6 last:mb-0 bg-slate-50/50 p-4 border-l-2 border-blue-600">
+        <h4 class="text-[9px] mono text-blue-600 uppercase tracking-widest mb-2 font-black">${key.replace(/([A-Z])/g, '
+            $1').trim()}</h4>
+        <div class="text-sm text-slate-800">${this.renderNested(value)}</div>
+    </div>
+    `).join('');
+    }
+    return obj;
+    },
+
     sanitizeText(text) {
-        if (!text) return '';
-        // Strip [oai_citation:...] tags
-        return text.replace(/\[oai_citation:.*?\]\(.*?\)/g, '').replace(/\[oai_citation:.*?\]/g, '').trim();
+    if (!text) return '';
+    // Strip [oai_citation:...] tags
+    return text.replace(/\[oai_citation:.*?\]\(.*?\)/g, '').replace(/\[oai_citation:.*?\]/g, '').trim();
     },
 
     async fetchIntel() {
-        if (this.loadingIntel) return;
-        this.loadingIntel = true;
-        try {
-            const response = await fetch('/api/intelligence');
-            this.intelNodes = await response.json();
-        } catch (e) {
-            console.error('Intel link failed');
-        } finally {
-            this.loadingIntel = false;
-        }
+    if (this.loadingIntel) return;
+    this.loadingIntel = true;
+    try {
+    const response = await fetch('/api/intelligence');
+    this.intelNodes = await response.json();
+    } catch (e) {
+    console.error('Intel link failed');
+    } finally {
+    this.loadingIntel = false;
+    }
     },
     init() {
-        // Simple Hash Routing for SEO/Ads deep linking
-        const hash = window.location.hash.replace('#', '');
-        if (hash === 'audit') this.page = 'audit';
-        if (hash === 'insights') {
-            this.page = 'intelligence';
-            this.fetchIntel();
-        }
-        this.fetchIntel();
+    // Simple Hash Routing for SEO/Ads deep linking
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'audit') this.page = 'audit';
+    if (hash === 'insights') {
+    this.page = 'intelligence';
+    this.fetchIntel();
+    }
+    this.fetchIntel();
     },
-    async submitAudit() {
-        try {
-            const auditData = {
-                industry: this.industry,
-                businessDetail: this.businessDetail,
-                hours: this.hours,
-                workflow: this.workflow,
-                auditName: this.auditName,
-                auditEmail: this.auditEmail,
-                auditPhone: this.auditPhone
-            };
-            const response = await fetch('/api/audit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(auditData)
-            });
-            if (response.ok) {
-                this.successModal = true;
-                setTimeout(() => { this.auditStep = 1; this.page = 'home'; }, 8000);
-            } else {
-                alert('Transmission error.');
-            }
-        } catch (error) { console.error('Audit error:', error); }
+    async submitLead() {
+    try {
+    const auditData = {
+    industry: this.industry,
+    businessDetail: this.businessDetail,
+    auditName: this.leadName,
+    auditEmail: this.leadEmail,
+    auditPhone: this.leadPhone
+    };
+    const response = await fetch('/api/audit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(auditData)
+    });
+    if (response.ok) {
+    this.successModal = true;
+    this.showAuditModal = false;
+    this.showModal = false;
+    this.showFullReportModal = false;
+    // Reset audit
+    this.auditStep = 1;
+    this.industry = '';
+    this.businessDetail = '';
+    this.leadName = '';
+    this.leadEmail = '';
+    this.leadPhone = '';
+    } else {
+    alert('Transmission error.');
+    }
+    } catch (error) { console.error('Audit error:', error); }
     },
     async vote(id, type) {
-        try {
-            const response = await fetch(`/api/intelligence/${id}/vote`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ type })
-            });
-            const data = await response.json();
-            if (data.success) {
-                // Refresh data to get verified counts and states
-                await this.fetchIntel();
-            }
-        } catch (e) { console.error('Vote failed'); }
+    try {
+    const response = await fetch(`/api/intelligence/${id}/vote`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type })
+    });
+    const data = await response.json();
+    if (data.success) {
+    // Refresh data to get verified counts and states
+    await this.fetchIntel();
+    }
+    } catch (e) { console.error('Vote failed'); }
     },
-}">
+    }">
 
     <nav
         class="flex justify-between items-center px-6 md:px-10 py-6 bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
@@ -969,388 +1021,69 @@
         </div>
     </template>
 
-    <template x-if="page === 'audit'">
-        <div x-transition class="min-h-screen audit-gradient text-slate-900 industrial-grid pt-20 pb-32">
-            <div class="max-w-4xl mx-auto px-6 py-12">
-                <div
-                    class="bg-white p-8 md:p-16 rounded-sm shadow-2xl relative overflow-hidden border-t-4 border-blue-600 border-x border-b border-slate-200">
-                    <!-- Progress Bar -->
-                    <div class="mb-12 flex justify-between items-center">
-                        <div class="flex space-x-2">
-                            <template x-for="i in 5">
-                                <div class="h-1 w-12 rounded-full transition-all duration-500"
-                                    :class="auditStep >= i ? 'bg-blue-600' : 'bg-slate-200'"></div>
-                            </template>
-                        </div>
-                        <span class="mono text-[10px] text-blue-500 uppercase font-black">Protocol Phase <span
-                                x-text="auditStep"></span> / 5</span>
-                    </div>
-
-                    <!-- Step 1: Sector -->
-                    <div x-show="auditStep === 1" x-transition:enter="transition ease-out duration-300 transform"
-                        x-transition:enter-start="opacity-0 translate-x-12"
-                        x-transition:enter-end="opacity-100 translate-x-0">
-                        <div class="mono text-blue-500 text-xs mb-4 tracking-[0.3em] uppercase">[ Operational Sector ]
-                        </div>
-                        <h2 class="text-4xl md:text-6xl font-black italic mb-6 uppercase tracking-tighter">01. Sector
-                            Selection</h2>
-                        <p class="text-slate-500 mb-10 text-lg leading-relaxed max-w-2xl">To build a high-performance
-                            alignment plan, we must define your theater of operations. Where do you compete?</p>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <button @click="industry = 'Retail/E-commerce'; auditStep = 2"
-                                class="p-8 border border-slate-200 bg-slate-50 hover:border-blue-500 transition-all project-card text-left group">
-                                <div class="font-black text-sm uppercase mb-2 group-hover:text-blue-500 italic">Retail &
-                                    E-commerce</div>
-                                <div class="text-[10px] mono text-slate-400 uppercase tracking-widest">Inventory,
-                                    logistics, and retail marketing.</div>
-                            </button>
-                            <button @click="industry = 'Professional Services'; auditStep = 2"
-                                class="p-8 border border-slate-200 bg-slate-50 hover:border-blue-500 transition-all project-card text-left group">
-                                <div class="font-black text-sm uppercase mb-2 group-hover:text-blue-500 italic">
-                                    Professional Services</div>
-                                <div class="text-[10px] mono text-slate-400 uppercase tracking-widest">Agencies,
-                                    Consulting, and Client Management.</div>
-                            </button>
-                            <button @click="industry = 'Industrial/Engineering'; auditStep = 2"
-                                class="p-8 border border-slate-200 bg-slate-50 hover:border-blue-500 transition-all project-card text-left group">
-                                <div class="font-black text-sm uppercase mb-2 group-hover:text-blue-500 italic">
-                                    Industrial & Engineering</div>
-                                <div class="text-[10px] mono text-slate-400 uppercase tracking-widest">Manufacturing,
-                                    construction, and power.</div>
-                            </button>
-                            <button @click="industry = 'Finance/Real Estate'; auditStep = 2"
-                                class="p-8 border border-slate-200 bg-slate-50 hover:border-blue-500 transition-all project-card text-left group">
-                                <div class="font-black text-sm uppercase mb-2 group-hover:text-blue-500 italic">Finance
-                                    & Real Estate</div>
-                                <div class="text-[10px] mono text-slate-400 uppercase tracking-widest">High-volume
-                                    transactions and databases.</div>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Step 2: DNA -->
-                    <div x-show="auditStep === 2" x-transition:enter="transition ease-out duration-300 transform"
-                        x-transition:enter-start="opacity-0 translate-x-12"
-                        x-transition:enter-end="opacity-100 translate-x-0">
-                        <div class="mono text-blue-500 text-xs mb-4 tracking-[0.3em] uppercase">[ Operational DNA ]
-                        </div>
-                        <h2 class="text-4xl md:text-6xl font-black italic mb-6 uppercase tracking-tighter">02. Business
-                            Logic</h2>
-                        <p class="text-slate-500 mb-8 text-lg leading-relaxed">Define your core mechanics. Who are your
-                            customers and what is your primary output?</p>
-
-                        <textarea x-model="businessDetail" rows="6"
-                            class="w-full p-6 bg-slate-50 border border-slate-200 text-slate-900 rounded-sm focus:border-blue-500 outline-none transition mono text-xs uppercase tracking-widest"
-                            placeholder="Example: We run a regional logistics firm using a fleet of 15 trucks..."></textarea>
-
-                        <div class="mt-12 flex justify-between items-center">
-                            <button @click="auditStep = 1"
-                                class="mono text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-white transition">Back
-                                to Sector</button>
-                            <button @click="auditStep = 3" :disabled="businessDetail.length < 10"
-                                class="btn-premium btn-primary px-12 py-5 disabled:opacity-20 disabled:cursor-not-allowed">Confirm
-                                Logic</button>
-                        </div>
-                    </div>
-
-                    <!-- Step 3: Time Leak -->
-                    <div x-show="auditStep === 3" x-transition:enter="transition ease-out duration-300 transform"
-                        x-transition:enter-start="opacity-0 translate-x-12"
-                        x-transition:enter-end="opacity-100 translate-x-0">
-                        <div class="mono text-blue-500 text-xs mb-4 tracking-[0.3em] uppercase">[ The Chaos Tax ]</div>
-                        <h2 class="text-4xl md:text-6xl font-black italic mb-6 uppercase tracking-tighter">03. The Time
-                            Leak</h2>
-                        <p class="text-slate-500 mb-10 text-lg leading-relaxed">How many hours a week do you personally
-                            spend on manual Operations instead of growth?</p>
-
-                        <div class="px-4">
-                            <input type="range" x-model="hours" min="5" max="100"
-                                class="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
-                            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="p-8 bg-slate-50 border border-slate-200 rounded">
-                                    <div class="text-[10px] mono text-slate-400 uppercase font-black mb-2">Operational
-                                        waste</div>
-                                    <div class="text-5xl font-black text-slate-900 italic" x-text="hours + ' hrs'">
-                                    </div>
-                                </div>
-                                <div class="p-8 bg-slate-50 border border-slate-200 rounded">
-                                    <div class="text-[10px] mono text-slate-400 uppercase font-black mb-2">Scale
-                                        Suppression</div>
-                                    <div class="text-5xl font-black text-blue-600 italic"
-                                        x-text="(hours * 1.5).toFixed(0) + '%'"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-12 flex justify-between items-center">
-                            <button @click="auditStep = 2"
-                                class="mono text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-white transition">Back
-                                to Logic</button>
-                            <button @click="auditStep = 4" class="btn-premium btn-primary px-12 py-5">Analyze
-                                Workload</button>
-                        </div>
-                    </div>
-
-                    <!-- Step 4: Friction -->
-                    <div x-show="auditStep === 4" x-transition:enter="transition ease-out duration-300 transform"
-                        x-transition:enter-start="opacity-0 translate-x-12"
-                        x-transition:enter-end="opacity-100 translate-x-0">
-                        <div class="mono text-blue-500 text-xs mb-4 tracking-[0.3em] uppercase">[ Friction Points ]
-                        </div>
-                        <h2 class="text-4xl md:text-6xl font-black italic mb-6 uppercase tracking-tighter">04. The
-                            Manual Grind</h2>
-                        <p class="text-slate-500 mb-8 text-lg leading-relaxed">Where does the engine seize? Describe the
-                            manual steps that slow down your output.</p>
-
-                        <textarea x-model="workflow" rows="6"
-                            class="w-full p-6 bg-slate-50 border border-slate-200 text-slate-900 rounded-sm focus:border-blue-500 outline-none transition mono text-xs uppercase tracking-widest"
-                            placeholder="Write a comprehensive description of your manual workflow, stating all nodes of operations"></textarea>
-
-                        <div class="mt-12 flex justify-between items-center">
-                            <button @click="auditStep = 3"
-                                class="mono text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-white transition">Back
-                                to Leak</button>
-                            <button @click="auditStep = 5" :disabled="workflow.length < 10"
-                                class="btn-premium btn-primary px-12 py-5 disabled:opacity-20">Generate Plan</button>
-                        </div>
-                    </div>
-
-                    <!-- Step 5: Contact -->
-                    <div x-show="auditStep === 5" x-transition:enter="transition ease-out duration-300 transform"
-                        x-transition:enter-start="opacity-0 translate-x-12"
-                        x-transition:enter-end="opacity-100 translate-x-0">
-                        <div class="text-center mb-12">
-                            <div
-                                class="inline-block bg-blue-600 text-white px-4 py-1 text-[10px] font-black uppercase mb-6 tracking-[0.3em]">
-                                Alignment Proto-Ready</div>
-                            <h2 class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter mb-4">05.
-                                Secure Your Audit</h2>
-                            <p class="text-slate-500 text-lg">Contact Information required. Wilhelm will personally
-                                authorize
-                                the Full 100% Upscale Report.</p>
-                        </div>
-
-                        <form class="max-w-xl mx-auto space-y-4" @submit.prevent="submitAudit()">
-                            <input type="text" x-model="auditName" placeholder="Full Name or Business Name"
-                                class="w-full p-5 bg-slate-50 border border-slate-200 text-slate-900 rounded-sm focus:border-blue-500 outline-none transition mono text-[10px] font-black uppercase tracking-[0.2em]"
-                                required>
-                            <input type="email" x-model="auditEmail" placeholder="Email"
-                                class="w-full p-5 bg-slate-50 border border-slate-200 text-slate-900 rounded-sm focus:border-blue-500 outline-none transition mono text-[10px] font-black uppercase tracking-[0.2em]"
-                                required>
-                            <input type="tel" x-model="auditPhone" placeholder="Phone Number"
-                                class="w-full p-5 bg-slate-50 border border-slate-200 text-slate-900 rounded-sm focus:border-blue-500 outline-none transition mono text-[10px] font-black uppercase tracking-[0.2em]"
-                                required>
-
-                            <button type="submit" class="w-full btn-premium btn-primary py-6 text-sm shadow-2xl mt-6">
-                                RECEIVE FULL ALIGNMENT PLAN
-                            </button>
-                        </form>
-
-                        <div class="mt-12 text-center">
-                            <p class="text-[9px] mono text-slate-600 uppercase tracking-[0.2em]">Data encrypted via
-                                industrial-grade structural logic.</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </template>
 
     <!-- Intelligence Center -->
     <template x-if="page === 'intelligence'">
-        <div x-transition class="pt-32 pb-40 px-6 md:px-10 max-w-5xl mx-auto">
+        <div x-transition class="pt-32 pb-40 px-6 md:px-10 max-w-7xl mx-auto">
             <header class="mb-24 text-center">
                 <div class="flex items-center justify-center space-x-3 mb-6">
                     <span class="w-2 h-2 bg-blue-600 rounded-full animate-ping"></span>
-                    <div class="mono text-blue-600 text-[10px] font-black uppercase tracking-[0.4em]">[ AUTONOMOUS
-                        INTELLIGENCE STREAM ]</div>
+                    <div class="mono text-blue-600 text-[10px] font-black uppercase tracking-[0.4em]">[ ALGORITHMIC
+                        INTELLIGENCE HUB ]</div>
                 </div>
-                <h2 class="text-6xl md:text-8xl font-black italic uppercase tracking-tighter leading-none mb-8">
+                <h2 class="text-6xl md:text-9xl font-black italic uppercase tracking-tighter leading-none mb-8">
                     LOGIC LEDGER</h2>
                 <div class="h-1 w-24 bg-blue-600 mx-auto mb-10"></div>
-                <p class="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed font-medium">
-                    Decoding global volatility into precise operational advantages through algorithmic intelligence.
+                <p class="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed font-bold uppercase tracking-tight">
+                    Decoding global markets into precise operational protocols.
                 </p>
             </header>
 
-            <div class="space-y-24">
+            <!-- Logic Ledger Snippets Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <template x-for="node in intelNodes" :key="node.id">
-                    <article class="relative group" x-data="{ currentSlide: 1, totalSlides: 3 }">
-                        <!-- Connecting Line -->
-                        <div class="absolute -left-8 top-0 bottom-0 w-px bg-slate-200 hidden md:block"></div>
+                    <div class="group relative bg-white border border-slate-200 p-8 hover:border-blue-600 transition-all duration-500 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-2xl rounded-sm cursor-pointer"
+                        @click="openFullReport(node)">
 
-                        <div
-                            class="bg-white border border-slate-100 rounded-[3rem] overflow-hidden shadow-2xl transition-all duration-700 hover:shadow-blue-900/10 flex flex-col md:min-h-[650px]">
-                            <!-- Header Info -->
-                            <div class="p-8 flex items-center justify-between border-b border-slate-50">
-                                <div class="flex items-center space-x-4">
-                                    <div
-                                        class="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center text-white text-[10px] font-black italic">
-                                        W</div>
-                                    <div>
-                                        <div class="text-[10px] mono text-blue-600 font-bold uppercase tracking-widest"
-                                            x-text="node.sector"></div>
-                                        <div class="text-[9px] text-slate-400 uppercase tracking-widest"
-                                            x-text="new Date(node.createdAt).toLocaleDateString()"></div>
-                                    </div>
-                                </div>
-                                <div class="flex items-center bg-slate-100 rounded-full px-4 py-1.5 gap-3">
-                                    <button @click="vote(node.id, 'like')"
-                                        class="flex items-center gap-1.5 text-xs font-bold"
-                                        :class="node.userVote === 'LIKE' ? 'text-blue-600' : 'text-slate-400'">
-                                        <svg class="w-4 h-4" :fill="node.userVote === 'LIKE' ? 'currentColor' : 'none'"
-                                            stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M14 10h4.704a2 2 0 011.94 2.415l-1.448 6A2 2 0 0117.256 20H7m7-10V5a2 2 0 00-2-2h-1a2 2 0 00-2 2v10m0 10H5a2 2 0 01-2-2v-7a2 2 0 012-2h2m3 10V10">
-                                            </path>
-                                        </svg>
-                                        <span x-text="node.likes"></span>
-                                    </button>
-                                    <button @click="vote(node.id, 'dislike')"
-                                        class="flex items-center gap-1.5 text-xs font-bold"
-                                        :class="node.userVote === 'DISLIKE' ? 'text-red-500' : 'text-slate-400'">
-                                        <svg class="w-4 h-4"
-                                            :fill="node.userVote === 'DISLIKE' ? 'currentColor' : 'none'"
-                                            stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M10 14H5.296a2 2 0 01-1.94-2.415l1.448-6A2 2 0 016.744 4H17m-7 10V19a2 2 0 002 2h1a2 2 0 002-2V9m0-5h2a2 2 0 012 2v7a2 2 0 01-2 2h-2m-3-10V14">
-                                            </path>
-                                        </svg>
-                                        <span x-text="node.dislikes"></span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Swipeable Content Area -->
-                            <div class="flex-grow relative overflow-hidden flex flex-col">
-                                <!-- Slide 1: The Big Picture -->
-                                <div class="absolute inset-0 p-10 md:p-14 flex flex-col justify-center transition-all duration-700"
-                                    :class="currentSlide === 1 ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20 pointer-events-none'">
-                                    <span
-                                        class="text-[10px] font-black text-green-600 uppercase tracking-[0.4em] mb-4">01
-                                        // The Big Picture</span>
-                                    <h3 class="text-3xl md:text-5xl font-black italic tracking-tighter text-slate-900 mb-8 leading-[0.9] font-lora"
-                                        x-text="sanitizeText(node.title)"></h3>
-                                    <div class="relative pl-8 mb-8 border-l-4 border-blue-600">
-                                        <p class="text-lg md:text-xl text-slate-600 leading-tight font-montserrat"
-                                            x-text="sanitizeText(node.insight)"></p>
-                                    </div>
-                                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
-                                        <span
-                                            class="text-[8px] mono text-slate-400 uppercase tracking-widest block mb-2">Market
-                                            Catalyst</span>
-                                        <p class="text-sm text-slate-600 leading-relaxed font-montserrat"
-                                            x-text="node.marketEvent"></p>
-                                    </div>
-                                </div>
-
-                                <!-- Slide 2: Strategic Breakdown -->
-                                <div class="absolute inset-0 p-10 md:p-14 flex flex-col justify-center transition-all duration-700"
-                                    :class="currentSlide === 2 ? 'opacity-100 translate-x-0' : (currentSlide < 2 ? 'opacity-0 translate-x-20 pointer-events-none' : 'opacity-0 -translate-x-20 pointer-events-none')">
-                                    <span
-                                        class="text-[10px] font-black text-blue-600 uppercase tracking-[0.4em] mb-4">02
-                                        // Dynamic Strategy</span>
-                                    <h4 class="text-2xl font-black italic mb-6 font-lora">Executive Logic Analysis</h4>
-                                    <p class="text-base text-slate-700 leading-relaxed mb-8 font-montserrat italic"
-                                        x-text="sanitizeText(node.logicAnalysis)"></p>
-
-                                    <div class="grid grid-cols-2 gap-4" x-show="node.logicFramework">
-                                        <div class="bg-slate-900 p-5 rounded-2xl text-white">
-                                            <span
-                                                class="text-[8px] mono text-blue-400 uppercase tracking-widest block mb-3">Structural
-                                                Weakness</span>
-                                            <ul class="text-[10px] space-y-2 opacity-80 font-montserrat">
-                                                <template x-for="item in (node.logicFramework?.problemStructure || [])"
-                                                    :key="item">
-                                                    <li class="flex items-start"><span
-                                                            class="mr-2 text-blue-500">→</span><span
-                                                            x-text="item"></span></li>
-                                                </template>
-                                            </ul>
-                                        </div>
-                                        <div class="bg-blue-600 p-5 rounded-2xl text-white">
-                                            <span
-                                                class="text-[8px] mono text-blue-100 uppercase tracking-widest block mb-3">System
-                                                Recovery</span>
-                                            <ul class="text-[10px] space-y-2 font-montserrat">
-                                                <template
-                                                    x-for="item in (node.logicFramework?.transformationModel || [])"
-                                                    :key="item">
-                                                    <li class="flex items-start"><span class="mr-2">⚡</span><span
-                                                            x-text="item"></span></li>
-                                                </template>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Slide 3: Growth Outcome -->
-                                <div class="absolute inset-0 p-10 md:p-14 flex flex-col justify-center transition-all duration-700"
-                                    :class="currentSlide === 3 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20 pointer-events-none'">
-                                    <span
-                                        class="text-[10px] font-black text-purple-600 uppercase tracking-[0.4em] mb-4">03
-                                        // Final Proposition</span>
-                                    <div
-                                        class="bg-slate-50 p-10 rounded-[2rem] border-2 border-dashed border-slate-200 mb-8">
-                                        <h4 class="text-3xl font-black italic mb-4 font-lora">Strategic Conclusion</h4>
-                                        <p class="text-lg text-slate-600 font-montserrat leading-relaxed"
-                                            x-text="sanitizeText(node.strategicConclusion) || 'Contact WilBak for detailed operational execution.'">
-                                        </p>
-                                    </div>
-                                    <div class="flex items-center space-x-6">
-                                        <div class="flex-grow h-px bg-slate-100"></div>
-                                        <button @click="openTransformationModal(node)"
-                                            class="px-10 py-5 bg-green-600 text-white font-black italic tracking-widest text-xs skew-x-[-12deg] hover:bg-slate-900 transition-all shadow-xl shadow-green-900/10">
-                                            <span class="skew-x-[12deg] flex items-center">
-                                                TRANSFORMATION PROTOCOL <svg class="w-4 h-4 ml-3" fill="none"
-                                                    stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="3" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                                </svg>
-                                            </span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Navigation Controls -->
-                            <div class="p-8 border-t border-slate-50 mt-auto flex flex-col gap-4">
-                                <div class="flex justify-between items-center">
-                                    <div class="flex gap-2">
-                                        <template x-for="i in 3">
-                                            <div class="h-1 rounded-full transition-all duration-500"
-                                                :class="currentSlide === i ? 'w-8 bg-blue-600' : 'w-2 bg-slate-200'">
-                                            </div>
-                                        </template>
-                                    </div>
-                                    <div class="flex gap-4">
-                                        <button @click="if(currentSlide > 1) currentSlide--"
-                                            class="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center hover:bg-slate-950 hover:text-white transition-all disabled:opacity-20"
-                                            :disabled="currentSlide === 1">←</button>
-                                        <button @click="if(currentSlide < 3) currentSlide++"
-                                            class="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center hover:bg-slate-950 hover:text-white transition-all disabled:opacity-20"
-                                            :disabled="currentSlide === 3">→</button>
-                                    </div>
-                                </div>
-                                <div class="flex justify-between items-center bg-slate-50 p-4 rounded-3xl px-8">
-                                    <button @click="openFullReport(node)"
-                                        class="flex items-center space-x-3 text-[10px] font-black mono text-blue-600 uppercase tracking-[0.2em] group">
-                                        <span>READ FULL REPORT</span>
-                                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none"
-                                            stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                                        </svg>
-                                    </button>
-                                    <button
-                                        @click="const url = `${window.location.origin}/insight/${node.id}`; navigator.clipboard.writeText(url); if(window.WebApp && WebApp.showAlert) { WebApp.showAlert('LINK SECURED'); WebApp.HapticFeedback.notificationOccurred('success'); } else { alert('LINK SECURED TO CLIPBOARD'); }"
-                                        class="text-[10px] font-black mono text-slate-400 uppercase tracking-widest hover:text-blue-600 transition-colors">SHARE</button>
-                                </div>
-                            </div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span
+                                class="text-[8px] mono px-2 py-1 bg-blue-50 text-blue-600 rounded-full font-black uppercase tracking-widest italic"
+                                x-text="node.sector"></span>
+                            <span class="text-[9px] mono text-slate-400 font-bold"
+                                x-text="new Date(node.createdAt).toLocaleDateString()"></span>
                         </div>
-                    </article>
+
+                        <div class="space-y-4 mb-8">
+                            <h3 class="text-xl md:text-2xl font-black uppercase italic tracking-tighter leading-tight group-hover:text-blue-600 transition-colors"
+                                x-text="node.title"></h3>
+                            <p class="text-xs text-slate-500 font-bold uppercase tracking-tight leading-relaxed line-clamp-4"
+                                x-text="sanitizeText(node.insight)"></p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Preview Image if exists -->
+                            <template x-if="node.images && node.images.length > 0">
+                                <div
+                                    class="aspect-video w-full overflow-hidden mb-4 border border-slate-100 p-1 group-hover:border-blue-100 transition-colors">
+                                    <img :src="node.images[0]"
+                                        class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                                </div>
+                            </template>
+
+                            <button
+                                class="w-full py-4 border-2 border-slate-900 text-slate-900 font-black uppercase italic text-xs skew-x-[-12deg] group-hover:bg-slate-900 group-hover:text-white transition-all overflow-hidden relative">
+                                <span class="skew-x-[12deg] inline-block relative z-10 tracking-widest">DECODE FULL
+                                    BRIEFING</span>
+                            </button>
+                        </div>
+
+                        <!-- Interaction Stats -->
+                        <div
+                            class="mt-6 pt-6 border-t border-slate-50 flex items-center justify-between text-[10px] mono text-slate-400 font-black">
+                            <span>👍 <span x-text="node.likes"></span> VALUED</span>
+                            <span>👎 <span x-text="node.dislikes"></span> IRRELEVANT</span>
+                        </div>
+                    </div>
                 </template>
             </div>
 
@@ -1362,11 +1095,9 @@
             </div>
 
             <div x-show="!loadingIntel && intelNodes.length === 0"
-                class="py-40 text-center border-2 border-dashed border-slate-100 rounded-3xl">
-                <div class="text-6xl mb-8 opacity-20 italic font-black">NULL DATA</div>
-                <p class="mono text-slate-400 text-xs uppercase tracking-[0.3em] mb-4">AWAITING MARKET VOLATILITY</p>
-                <p class="text-slate-400 text-[10px] max-w-xs mx-auto leading-relaxed">The logic hubs are scanning. No
-                    active high-stakes events detected in the current sector.</p>
+                class="py-40 text-center border-2 border-dashed border-slate-100 rounded-sm">
+                <div class="text-6xl mb-8 opacity-10 italic font-black uppercase">Null Data</div>
+                <p class="mono text-slate-400 text-xs uppercase tracking-[0.3em] mb-4">Awaiting Market Signal</p>
             </div>
         </div>
     </template>
@@ -1671,7 +1402,7 @@
             </div>
 
             <div class="p-8 bg-slate-50 border-t border-slate-100">
-                <button @click="showModal = false; page = 'audit'; window.location.hash = 'audit'"
+                <button @click="showModal = false; showAuditModal = true; auditStep = 1"
                     class="w-full py-5 bg-slate-900 text-white font-black italic tracking-[0.2em] text-xs skew-x-[-6deg] hover:bg-blue-600 transition-all">
                     <span class="skew-x-[6deg] flex items-center justify-center">
                         PROCEED TO AUDIT PROTOCOL <span class="ml-4">→</span>
@@ -1681,113 +1412,325 @@
         </div>
     </div>
 
-    <!-- Full Report Modal (News Article Style) -->
-    <div x-show="showFullReportModal" x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 translate-y-20" x-transition:enter-end="opacity-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0"
-        x-transition:leave-end="opacity-0 translate-y-20"
-        class="fixed inset-0 z-[120] flex items-center justify-center p-0 md:p-10 bg-slate-950/90 backdrop-blur-2xl"
+    <!-- Efficiency Audit Protocol Modal -->
+    <div x-show="showAuditModal" x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-95"
+        class="fixed inset-0 z-[150] flex items-center justify-center p-4 md:p-10 bg-slate-950/90 backdrop-blur-xl"
         style="display: none;">
+
         <div
-            class="bg-white w-full max-w-5xl h-full md:h-auto md:max-h-[95vh] overflow-hidden flex flex-col md:rounded-[3rem] shadow-2xl">
-            <!-- Sticky Header -->
-            <div class="p-6 md:p-10 border-b border-slate-100 flex justify-between items-center bg-white z-10">
-                <div class="flex items-center space-x-6">
-                    <div
-                        class="w-12 h-12 bg-slate-950 rounded-2xl flex items-center justify-center text-white font-black italic text-xl">
-                        W</div>
-                    <div>
-                        <div class="text-[10px] mono text-blue-600 font-bold uppercase tracking-widest"
-                            x-text="selectedNode?.sector"></div>
-                        <div class="text-[9px] text-slate-400 uppercase tracking-widest"
-                            x-text="selectedNode ? new Date(selectedNode.createdAt).toDateString() : ''"></div>
+            class="bg-white w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col relative rounded-sm border-t-4 border-blue-600">
+            <button @click="showAuditModal = false"
+                class="absolute top-6 right-6 w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center hover:bg-slate-200 z-10">
+                <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+
+            <div class="flex-grow overflow-y-auto p-8 md:p-16 custom-scrollbar">
+                <!-- Progress -->
+                <div
+                    class="mb-12 flex justify-between items-center text-[10px] font-black mono text-blue-500 uppercase tracking-widest">
+                    <div class="flex space-x-2">
+                        <template x-for="i in 5">
+                            <div class="h-1 w-12 rounded-full transition-all duration-500"
+                                :class="auditStep >= i ? 'bg-blue-600' : 'bg-slate-200'"></div>
+                        </template>
+                    </div>
+                    <span>Phase <span x-text="auditStep"></span> / 5</span>
+                </div>
+
+                <!-- Steps -->
+                <div class="relative">
+                    <div x-show="auditStep === 1" x-transition>
+                        <h2 class="text-4xl md:text-6xl font-black italic mb-10 uppercase tracking-tighter">01. Sector
+                            Selection</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <button @click="industry = 'Retail/E-commerce'; auditStep = 2"
+                                class="p-8 border border-slate-200 bg-slate-50 hover:border-blue-500 transition-all text-left">
+                                <div class="font-black text-sm uppercase mb-2 italic">Retail & E-commerce</div>
+                                <div class="text-[10px] mono text-slate-400 uppercase tracking-widest">Inventory &
+                                    logistics.</div>
+                            </button>
+                            <button @click="industry = 'Professional Services'; auditStep = 2"
+                                class="p-8 border border-slate-200 bg-slate-50 hover:border-blue-500 transition-all text-left">
+                                <div class="font-black text-sm uppercase mb-2 italic">Professional Services</div>
+                                <div class="text-[10px] mono text-slate-400 uppercase tracking-widest">Client
+                                    Management.</div>
+                            </button>
+                            <button @click="industry = 'Industrial/Engineering'; auditStep = 2"
+                                class="p-8 border border-slate-200 bg-slate-50 hover:border-blue-500 transition-all text-left">
+                                <div class="font-black text-sm uppercase mb-2 italic">Industrial & Engineering</div>
+                                <div class="text-[10px] mono text-slate-400 uppercase tracking-widest">Manufacturing.
+                                </div>
+                            </button>
+                            <button @click="industry = 'Finance/Real Estate'; auditStep = 2"
+                                class="p-8 border border-slate-200 bg-slate-50 hover:border-blue-500 transition-all text-left">
+                                <div class="font-black text-sm uppercase mb-2 italic">Finance & Real Estate</div>
+                                <div class="text-[10px] mono text-slate-400 uppercase tracking-widest">Wealth &
+                                    Property.</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div x-show="auditStep === 2" x-transition>
+                        <h2 class="text-4xl md:text-6xl font-black italic mb-6 uppercase tracking-tighter">02. Logic
+                            Mapping</h2>
+                        <p class="text-slate-500 mb-8 text-sm font-bold uppercase tracking-tight">Describe your highest
+                            friction operational bottleneck.</p>
+                        <textarea x-model="businessDetail" rows="6"
+                            class="w-full p-8 bg-slate-50 border border-slate-200 text-slate-950 mono text-xs uppercase tracking-widest outline-none focus:border-blue-600"
+                            placeholder="EX: MANUAL DATA ENTRY IN FINANCE..."></textarea>
+                        <div class="mt-12 flex justify-between">
+                            <button @click="auditStep = 1"
+                                class="mono text-[10px] font-black uppercase text-slate-400">BACK</button>
+                            <button @click="auditStep = 3" :disabled="businessDetail.length < 10"
+                                class="btn-premium btn-primary px-12 py-5 disabled:opacity-20">NEXT PHASE</button>
+                        </div>
+                    </div>
+
+                    <div x-show="auditStep === 3" x-transition>
+                        <h2 class="text-4xl md:text-6xl font-black italic mb-10 uppercase tracking-tighter">03.
+                            Identifier</h2>
+                        <div class="space-y-6">
+                            <input x-model="leadName" type="text" placeholder="EXECUTIVE NAME"
+                                class="w-full p-8 bg-slate-50 border border-slate-200 mono text-xs focus:border-blue-600 outline-none uppercase tracking-widest">
+                            <input x-model="leadEmail" type="email" placeholder="SECURE EMAIL"
+                                class="w-full p-8 bg-slate-50 border border-slate-200 mono text-xs focus:border-blue-600 outline-none uppercase tracking-widest">
+                        </div>
+                        <div class="mt-12 flex justify-between">
+                            <button @click="auditStep = 2"
+                                class="mono text-[10px] font-black uppercase text-slate-400">BACK</button>
+                            <button @click="auditStep = 4" :disabled="!leadName || !leadEmail"
+                                class="btn-premium btn-primary px-12 py-5 disabled:opacity-20">CONTINUE</button>
+                        </div>
+                    </div>
+
+                    <div x-show="auditStep === 4" x-transition>
+                        <h2 class="text-4xl md:text-6xl font-black italic mb-10 uppercase tracking-tighter">04.
+                            Connection</h2>
+                        <input x-model="leadPhone" type="tel" placeholder="MOBILE ACCESS (WHATSAPP)"
+                            class="w-full p-8 bg-slate-50 border border-slate-200 mono text-xs focus:border-blue-600 outline-none uppercase tracking-widest">
+                        <div class="mt-12 flex justify-between">
+                            <button @click="auditStep = 3"
+                                class="mono text-[10px] font-black uppercase text-slate-400">BACK</button>
+                            <button @click="auditStep = 5" :disabled="!leadPhone"
+                                class="btn-premium btn-primary px-12 py-5 disabled:opacity-20">PREPARE
+                                TRANSMISSION</button>
+                        </div>
+                    </div>
+
+                    <div x-show="auditStep === 5" x-transition>
+                        <h2 class="text-4xl md:text-6xl font-black italic mb-10 uppercase tracking-tighter">05. Execute
+                        </h2>
+                        <div class="bg-slate-900 text-white p-10 mb-10 border-l-4 border-blue-600">
+                            <label class="text-[9px] mono text-blue-400 uppercase tracking-[0.4em] mb-4 block">Operation
+                                Summary</label>
+                            <p class="text-sm font-black uppercase italic tracking-widest">Target Sector: <span
+                                    class="text-blue-500" x-text="industry"></span></p>
+                            <p class="text-sm font-black uppercase italic tracking-widest">Receiver: <span
+                                    class="text-blue-500" x-text="leadName"></span></p>
+                        </div>
+                        <button @click="submitLead"
+                            class="w-full py-6 bg-blue-600 text-white font-black italic text-sm tracking-[0.3em] uppercase hover:bg-slate-950 transition-all">INITIALIZE
+                            TRANSMISSION</button>
                     </div>
                 </div>
-                <button @click="showFullReportModal = false"
-                    class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center hover:bg-slate-200 transition-colors">
-                    <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            </div>
+        </div>
+    </div>
+
+    <!-- Full Report Modal (Real News Style) -->
+    <div x-show="showFullReportModal" x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0" class="fixed inset-0 z-[120] flex items-center justify-center p-0 md:p-8"
+        @keydown.escape.window="showFullReportModal = false" style="display: none;">
+
+        <div @click="showFullReportModal = false" class="absolute inset-0 bg-slate-900/95 backdrop-blur-md"></div>
+
+        <div class="relative bg-white w-full max-w-6xl h-full md:h-[95vh] overflow-hidden flex flex-col shadow-2xl rounded-sm"
+            @click.stop>
+
+            <!-- News Header -->
+            <div class="px-6 py-4 border-b border-slate-200 flex justify-between items-center bg-white z-20">
+                <div class="flex items-center space-x-4">
+                    <span class="text-[10px] mono text-blue-600 font-black uppercase tracking-widest italic"
+                        x-text="selectedNode?.sector"></span>
+                    <div class="h-4 w-[1px] bg-slate-200"></div>
+                    <span class="text-[10px] mono text-slate-400 font-bold"
+                        x-text="selectedNode ? new Date(selectedNode.createdAt).toLocaleDateString() : ''"></span>
+                </div>
+                <button @click="showFullReportModal = false" class="p-2 hover:bg-slate-100 transition-colors">
+                    <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                         </path>
                     </svg>
                 </button>
             </div>
 
-            <div class="flex-grow overflow-y-auto p-8 md:p-20 custom-scrollbar">
-                <template x-if="selectedNode">
-                    <div class="max-w-3xl mx-auto">
-                        <span class="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em] mb-6 block">FULL
-                            INTELLIGENCE BRIEFING</span>
-                        <h1 class="text-4xl md:text-7xl font-black italic tracking-tighter text-slate-900 mb-12 leading-[0.9] font-lora"
-                            x-text="sanitizeText(selectedNode.title)"></h1>
+            <!-- News Content -->
+            <div class="flex-grow overflow-y-auto hide-scrollbar">
 
-                        <div class="prose prose-slate max-w-none">
-                            <div class="relative pl-10 border-l-4 border-blue-600 mb-16">
-                                <p class="text-xl md:text-3xl font-montserrat text-slate-600 leading-tight italic"
-                                    x-text="sanitizeText(selectedNode.insight)"></p>
-                            </div>
+                <!-- Headline Area -->
+                <div class="px-6 md:px-20 py-16 md:py-24 border-b border-slate-100 bg-slate-50/50">
+                    <div class="max-w-4xl mx-auto text-center md:text-left">
+                        <label class="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em] mb-6 block">Wilbak
+                            Strategic IntelligenceBriefing</label>
+                        <h1 class="text-4xl md:text-7xl font-black uppercase italic tracking-tighter leading-[0.9] text-slate-950 mb-10"
+                            x-text="selectedNode?.title"></h1>
+                        <p class="text-xl md:text-2xl text-slate-600 font-bold uppercase tracking-tight leading-relaxed italic"
+                            x-text="sanitizeText(selectedNode?.insight)"></p>
+                    </div>
+                </div>
 
-                            <div class="grid md:grid-cols-2 gap-12 mb-20">
-                                <div class="space-y-6">
-                                    <h4 class="text-xs font-black uppercase tracking-[0.3em] text-slate-400">Strategic
-                                        Logic</h4>
-                                    <p class="text-lg text-slate-700 leading-relaxed font-lora italic"
-                                        x-text="sanitizeText(selectedNode.logicAnalysis)"></p>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+                    <!-- Main Article Body -->
+                    <div class="lg:col-span-8 px-6 md:px-20 py-16 lg:border-r border-slate-100">
+
+                        <!-- Premium Image Gallery -->
+                        <template x-if="selectedNode?.images && selectedNode?.images.length > 0">
+                            <div class="space-y-6 mb-16">
+                                <div
+                                    class="aspect-video w-full bg-slate-100 overflow-hidden border border-slate-200 p-1 rounded-sm shadow-xl">
+                                    <img :src="selectedNode.images[0]" class="w-full h-full object-cover">
                                 </div>
-                                <div class="bg-slate-50 p-10 rounded-[2rem]">
-                                    <h4 class="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-6">Market
-                                        Event</h4>
-                                    <p class="text-sm text-slate-600 leading-relaxed font-montserrat"
-                                        x-text="sanitizeText(selectedNode.marketEvent)"></p>
-                                </div>
-                            </div>
-
-                            <template x-if="selectedNode.logicFramework">
-                                <div class="mb-20">
-                                    <h4 class="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-10">
-                                        Systems Framework</h4>
-                                    <div class="grid md:grid-cols-2 gap-6">
-                                        <div class="bg-slate-900 p-10 rounded-3xl text-white">
-                                            <span
-                                                class="text-[9px] mono text-blue-400 uppercase tracking-widest block mb-6">Structural
-                                                Drag</span>
-                                            <ul class="text-xs space-y-4 opacity-90">
-                                                <template
-                                                    x-for="item in (selectedNode.logicFramework.problemStructure || [])">
-                                                    <li class="flex items-start"><span
-                                                            class="mr-4 text-blue-500">→</span><span
-                                                            x-text="sanitizeText(item)"></span></li>
-                                                </template>
-                                            </ul>
-                                        </div>
-                                        <div class="bg-blue-600 p-10 rounded-3xl text-white">
-                                            <span
-                                                class="text-[9px] mono text-blue-100 uppercase tracking-widest block mb-6">Alignment
-                                                Logic</span>
-                                            <ul class="text-xs space-y-4">
-                                                <template
-                                                    x-for="item in (selectedNode.logicFramework.transformationModel || [])">
-                                                    <li class="flex items-start"><span class="mr-4">⚡</span><span
-                                                            x-text="sanitizeText(item)"></span></li>
-                                                </template>
-                                            </ul>
-                                        </div>
+                                <template x-if="selectedNode.images.length > 1">
+                                    <div class="grid grid-cols-2 gap-6">
+                                        <template x-for="(img, index) in selectedNode.images.slice(1, 3)">
+                                            <div
+                                                class="aspect-square bg-slate-100 overflow-hidden border border-slate-200 p-1 rounded-sm shadow-lg">
+                                                <img :src="img" class="w-full h-full object-cover">
+                                            </div>
+                                        </template>
                                     </div>
-                                </div>
-                            </template>
+                                </template>
+                            </div>
+                        </template>
 
-                            <div class="bg-slate-950 p-12 md:p-20 rounded-[3rem] text-white">
-                                <h4 class="text-[10px] mono text-blue-400 uppercase tracking-widest mb-8">Strategic
-                                    Conclusion</h4>
-                                <p class="text-3xl md:text-5xl font-black italic tracking-tighter leading-none mb-12 font-lora"
-                                    x-text="sanitizeText(selectedNode.strategicConclusion)"></p>
-                                <button @click="showFullReportModal = false; showModal = true"
-                                    class="w-full py-6 bg-white text-slate-950 font-black italic text-xs tracking-[0.3em] uppercase transition-transform hover:scale-[1.02]">
-                                    INITIALIZE TRANSFORMATION PROTOCOL →
+                        <div class="space-y-16">
+                            <!-- Field: Market Event -->
+                            <section>
+                                <label
+                                    class="text-[10px] mono text-blue-600 uppercase tracking-widest font-black mb-6 flex items-center">
+                                    <span class="w-8 h-px bg-blue-600 mr-3"></span> Market Dynamics Analysis
+                                </label>
+                                <div class="text-lg text-slate-800 leading-relaxed font-bold uppercase tracking-tight">
+                                    <p x-text="sanitizeText(selectedNode?.marketEvent)"></p>
+                                </div>
+                            </section>
+
+                            <!-- Field: Logic Analysis -->
+                            <section>
+                                <label
+                                    class="text-[10px] mono text-blue-600 uppercase tracking-widest font-black mb-6 flex items-center">
+                                    <span class="w-8 h-px bg-blue-600 mr-3"></span> Engine Logic Processing
+                                </label>
+                                <div
+                                    class="text-lg text-slate-800 leading-relaxed space-y-4 font-bold uppercase tracking-tight">
+                                    <p x-text="sanitizeText(selectedNode?.logicAnalysis)"></p>
+                                </div>
+                            </section>
+
+                            <!-- Custom Rendering for Frameworks -->
+                            <section x-show="selectedNode?.logicFramework">
+                                <label
+                                    class="text-[10px] mono text-blue-600 uppercase tracking-widest font-black mb-6 flex items-center">
+                                    <span class="w-8 h-px bg-blue-600 mr-3"></span> Strategic Frameworks
+                                </label>
+                                <div class="pt-2" x-html="renderNested(selectedNode?.logicFramework)"></div>
+                            </section>
+
+                            <!-- Custom Rendering for Conversion -->
+                            <section x-show="selectedNode?.conversionStep">
+                                <label
+                                    class="text-[10px] mono text-blue-600 uppercase tracking-widest font-black mb-6 flex items-center">
+                                    <span class="w-8 h-px bg-blue-600 mr-3"></span> Implementation Roadmap
+                                </label>
+                                <div class="pt-2" x-html="renderNested(selectedNode?.conversionStep)"></div>
+                            </section>
+
+                            <!-- Strategic Conclusion -->
+                            <section x-show="selectedNode?.strategicConclusion"
+                                class="bg-slate-900 text-white p-12 border-l-8 border-blue-600 mt-20">
+                                <label
+                                    class="text-[10px] mono text-blue-500 uppercase tracking-widest font-black mb-4 block">Executive
+                                    Summary</label>
+                                <blockquote
+                                    class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter leading-tight"
+                                    x-text="sanitizeText(selectedNode?.strategicConclusion)"></blockquote>
+                            </section>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Interaction -->
+                    <div class="lg:col-span-4 bg-slate-50/80 flex flex-col">
+                        <div class="p-8 md:p-12 space-y-12 h-fit lg:sticky lg:top-0">
+
+                            <!-- Voting Tools -->
+                            <section class="space-y-6">
+                                <label
+                                    class="text-[10px] mono text-slate-400 uppercase tracking-widest font-black block">Intel
+                                    Valuation</label>
+                                <div class="flex flex-col space-y-3">
+                                    <button @click="vote(selectedNode.id, 'LIKE')"
+                                        class="flex items-center justify-between px-6 py-5 border-2 transition-all font-black italic text-xs skew-x-[-12deg]"
+                                        :class="selectedNode?.userVote === 'LIKE' ? 'bg-green-600 border-green-600 text-white' : 'border-slate-800 text-slate-800 hover:border-green-600 hover:text-green-600'">
+                                        <span class="skew-x-[12deg]">VALUABLE ASSET</span>
+                                        <span class="skew-x-[12deg] text-[10px]" x-text="selectedNode?.likes"></span>
+                                    </button>
+                                    <button @click="vote(selectedNode.id, 'DISLIKE')"
+                                        class="flex items-center justify-between px-6 py-5 border-2 transition-all font-black italic text-xs skew-x-[-12deg]"
+                                        :class="selectedNode?.userVote === 'DISLIKE' ? 'bg-red-600 border-red-600 text-white' : 'border-slate-800 text-slate-800 hover:border-red-600 hover:text-red-600'">
+                                        <span class="skew-x-[12deg]">NON-RELEVANT SIGNAL</span>
+                                        <span class="skew-x-[12deg] text-[10px]" x-text="selectedNode?.dislikes"></span>
+                                    </button>
+                                </div>
+                            </section>
+
+                            <!-- Distribution -->
+                            <section x-show="selectedNode?.sourceUrl">
+                                <label
+                                    class="text-[10px] mono text-slate-400 uppercase tracking-widest font-black block mb-4">Original
+                                    Signal Source</label>
+                                <a :href="selectedNode?.sourceUrl" target="_blank"
+                                    class="block w-full text-center py-4 bg-slate-200 text-slate-600 font-black text-[10px] uppercase tracking-widest hover:bg-slate-900 hover:text-white transition-all italic">
+                                    VERIFY AT SOURCE
+                                </a>
+                            </section>
+
+                            <!-- CONVERSION CTA (Only in Modal) -->
+                            <div class="pt-8 border-t border-slate-200">
+                                <section
+                                    class="bg-blue-600 text-white p-8 rounded-sm shadow-2xl relative overflow-hidden group">
+                                    <div
+                                        class="absolute inset-0 bg-white/5 industrial-grid opacity-20 pointer-events-none">
+                                    </div>
+                                    <h4
+                                        class="text-2xl font-black uppercase italic tracking-tighter leading-none mb-4 relative z-10">
+                                        Scale your Operations?</h4>
+                                    <p
+                                        class="text-[10px] uppercase font-bold opacity-80 leading-relaxed mb-8 relative z-10">
+                                        Authorized Wilbak efficiency audit for <span
+                                            x-text="selectedNode?.sector"></span> sectors.</p>
+                                    <button @click="openTransformationModal(selectedNode)"
+                                        class="w-full py-5 bg-white text-blue-600 font-black uppercase italic text-xs skew-x-[-12deg] hover:bg-slate-950 hover:text-white transition-all relative z-10">
+                                        <span class="skew-x-[12deg] inline-block tracking-widest">START FREE
+                                            AUDIT</span>
+                                    </button>
+                                </section>
+
+                                <button
+                                    onclick="const url = `${window.location.origin}/insight/${selectedNode.id}`; navigator.clipboard.writeText(url).then(() => WebApp.showAlert('LINK COPIED.'))"
+                                    class="w-full mt-6 py-4 border-2 border-slate-300 text-slate-400 font-bold uppercase text-[9px] tracking-widest hover:border-slate-800 hover:text-slate-800 transition-all italic">
+                                    ENCRYPT & SHARE LINK
                                 </button>
                             </div>
                         </div>
                     </div>
-                </template>
+                </div>
             </div>
         </div>
     </div>

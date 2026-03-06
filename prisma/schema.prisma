@@ -54,9 +54,11 @@ model CaseStudy {
 model IntelligenceNode {
   id                  String   @id @default(cuid())
   createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
   sector              String   // Finance, Real Estate, Trading, Positioning
   title               String   // Headline
   insight             String   @db.Text // Groq's Executive "Crux" 
+  images              Json?    // Array of Cloudinary URLs
   sourceUrl           String?
   marketEvent         String   @db.Text
   logicAnalysis       String   @db.Text // Groq-speed breakdown

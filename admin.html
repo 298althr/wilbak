@@ -183,10 +183,59 @@
                     <input type="url" name="sourceUrl" placeholder="https://..."
                         class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white placeholder-slate-500 outline-none focus:border-blue-600 transition">
                 </div>
+                <div class="pt-4 space-y-4">
+                    <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block">IMAGE PAYLOAD (MAX
+                        3)</label>
+                    <div id="imagePreviewContainer" class="grid grid-cols-3 gap-2"></div>
+                    <div class="flex items-center space-x-2">
+                        <input type="file" id="imageInput" accept="image/*" class="hidden"
+                            onchange="uploadToCloudinary(this)">
+                        <button type="button" onclick="document.getElementById('imageInput').click()"
+                            class="flex-grow py-3 border border-dashed border-slate-700 text-[10px] mono text-slate-500 uppercase hover:border-blue-500 hover:text-blue-500 transition">
+                            + ADD VISUAL INTEL
+                        </button>
+                    </div>
+                </div>
+                <div id="advancedFields" class="hidden pt-6 border-t border-slate-800 space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-2">DATE
+                                OVERRIDE</label>
+                            <input type="datetime-local" name="createdAt"
+                                class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono text-white outline-none focus:border-blue-600 transition">
+                        </div>
+                        <div>
+                            <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-2">NODE
+                                STATUS</label>
+                            <select name="status"
+                                class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase text-white outline-none focus:border-blue-600 transition">
+                                <option value="ACTIVE">ACTIVE</option>
+                                <option value="ARCHIVED">ARCHIVED</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-1">LIKES</label>
+                            <input type="number" name="likes" value="0"
+                                class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono text-white outline-none focus:border-blue-600 transition">
+                        </div>
+                        <div>
+                            <label
+                                class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-1">DISLIKES</label>
+                            <input type="number" name="dislikes" value="0"
+                                class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono text-white outline-none focus:border-blue-600 transition">
+                        </div>
+                    </div>
+                </div>
                 <div class="pt-4">
+                    <button type="button" onclick="document.getElementById('advancedFields').classList.toggle('hidden')"
+                        class="text-[8px] mono text-slate-500 uppercase mb-4 block hover:text-blue-400">Toggle Advanced
+                        Override</button>
                     <button type="submit" id="postNewsBtn"
                         class="w-full py-4 bg-green-600 text-white font-black uppercase italic text-xs skew-x-[-12deg] hover:bg-green-500 transition-all">
-                        <span class="skew-x-[12deg] inline-block">DEPLOY INTELLIGENCE</span>
+                        <span id="submitBtnText" class="skew-x-[12deg] inline-block">DEPLOY INTELLIGENCE</span>
                     </button>
                 </div>
             </form>
@@ -259,9 +308,29 @@
             </div>
         </div>
 
-        <div id="leadsContainer" class="space-y-4 pb-20">
-            <!-- Leads will be injected here -->
-            <div class="text-center py-20 opacity-20 mono text-[10px] uppercase tracking-[0.5em]">No Data Cached</div>
+        <div class="mb-12">
+            <div class="flex border-b border-slate-800 mb-8">
+                <button onclick="switchTab('leads')" id="tab-leads"
+                    class="px-8 py-4 text-[10px] mono border-b-2 border-blue-600 text-blue-500 font-bold uppercase tracking-widest">Leads
+                    Hub</button>
+                <button onclick="switchTab('intelligence')" id="tab-intelligence"
+                    class="px-8 py-4 text-[10px] mono border-b-2 border-transparent text-slate-500 font-bold uppercase tracking-widest hover:text-white transition">Intelligence
+                    Hub</button>
+            </div>
+
+            <div id="leads-view" class="space-y-4">
+                <div id="leadsContainer" class="space-y-4 pb-20">
+                    <div class="text-center py-20 opacity-20 mono text-[10px] uppercase tracking-[0.5em]">No Data Cached
+                    </div>
+                </div>
+            </div>
+
+            <div id="intelligence-view" class="hidden space-y-4">
+                <div id="nodesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-20">
+                    <div class="col-span-full text-center py-20 opacity-20 mono text-[10px] uppercase tracking-[0.5em]">
+                        No Intelligence Logged</div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -271,6 +340,9 @@
         WebApp.enableClosingConfirmation();
 
         let leads = [];
+        let nodes = [];
+        let uploadedImages = [];
+        let editingNodeId = null;
 
         async function init() {
             const initData = WebApp.initData;
@@ -284,19 +356,25 @@
             }
 
             try {
-                const response = await fetch('/api/admin/leads', {
+                // Fetch Leads
+                const leadsRes = await fetch('/api/admin/leads', {
                     headers: { 'X-Telegram-Init-Data': initData }
                 });
-                if (response.ok) {
-                    leads = await response.json();
-                    renderLeads(leads);
-                    document.getElementById('auth-gate').classList.add('hidden');
-                    document.getElementById('admin-panel').classList.remove('hidden');
-                } else {
-                    throw new Error('Unauthorized');
-                }
+                if (leadsRes.ok) leads = await leadsRes.json();
+
+                // Fetch Intelligence
+                const nodesRes = await fetch('/api/admin/intelligence/list', {
+                    headers: { 'X-Telegram-Init-Data': initData }
+                });
+                if (nodesRes.ok) nodes = await nodesRes.json();
+
+                renderLeads(leads);
+                renderNodes(nodes);
+
+                document.getElementById('auth-gate').classList.add('hidden');
+                document.getElementById('admin-panel').classList.remove('hidden');
             } catch (e) {
-                document.getElementById('auth-gate').innerHTML = `<div class="text-red-500 font-black italic">PROTOCOL ERROR. CONTACT FOUNDER.</div>`;
+                document.getElementById('auth-gate').innerHTML = `<div class="text-red-500 font-black italic">PROTOCOL ERROR. ${e.message}</div>`;
             }
         }
 
@@ -344,16 +422,111 @@
             document.body.style.overflow = 'auto';
         }
 
-        function openNewsModal() {
+        function openNewsModal(nodeId = null) {
             WebApp.HapticFeedback.impactOccurred('medium');
+            const form = document.getElementById('newsForm');
+            form.reset();
+            uploadedImages = [];
+            renderImagePreviews();
+            editingNodeId = nodeId;
+            document.getElementById('advancedFields').classList.add('hidden');
+
+            if (nodeId) {
+                const node = nodes.find(n => n.id === nodeId);
+                if (node) {
+                    form.querySelector('[name="sector"]').value = node.sector.toUpperCase();
+                    form.querySelector('[name="title"]').value = node.title;
+                    form.querySelector('[name="insight"]').value = node.insight;
+                    form.querySelector('[name="marketEvent"]').value = formatValue(node.marketEvent);
+                    form.querySelector('[name="logicAnalysis"]').value = formatValue(node.logicAnalysis);
+                    form.querySelector('[name="conversionStep"]').value = formatValue(node.conversionStep);
+                    form.querySelector('[name="strategicConclusion"]').value = formatValue(node.strategicConclusion);
+                    form.querySelector('[name="logicFramework"]').value = formatValue(node.logicFramework);
+                    form.querySelector('[name="caseStudyEvidence"]').value = formatValue(node.caseStudyEvidence);
+                    form.querySelector('[name="sourceUrl"]').value = node.sourceUrl || '';
+                    form.querySelector('[name="status"]').value = node.status;
+                    form.querySelector('[name="likes"]').value = node.likes;
+                    form.querySelector('[name="dislikes"]').value = node.dislikes;
+
+                    if (node.createdAt) {
+                        const date = new Date(node.createdAt);
+                        form.querySelector('[name="createdAt"]').value = date.toISOString().slice(0, 16);
+                    }
+
+                    if (node.images && Array.isArray(node.images)) {
+                        uploadedImages = [...node.images];
+                        renderImagePreviews();
+                    }
+
+                    document.getElementById('submitBtnText').innerText = 'UPDATE INTELLIGENCE';
+                }
+            } else {
+                document.getElementById('submitBtnText').innerText = 'DEPLOY INTELLIGENCE';
+            }
+
             document.getElementById('newsModal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
+        }
+
+        async function uploadToCloudinary(input) {
+            if (!input.files || !input.files[0]) return;
+            if (uploadedImages.length >= 3) {
+                WebApp.showAlert('MAX 3 IMAGES ALLOWED.');
+                return;
+            }
+
+            const btn = document.querySelector('button[onclick="document.getElementById(\'imageInput\').click()"]');
+            btn.innerText = 'UPLOADING...';
+            btn.disabled = true;
+
+            const formData = new FormData();
+            formData.append('image', input.files[0]);
+
+            try {
+                const res = await fetch('/api/admin/upload-image', {
+                    method: 'POST',
+                    headers: { 'X-Telegram-Init-Data': WebApp.initData },
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.success) {
+                    uploadedImages.push(data.url);
+                    renderImagePreviews();
+                    WebApp.HapticFeedback.notificationOccurred('success');
+                } else {
+                    WebApp.showAlert('UPLOAD FAILED: ' + data.error);
+                }
+            } catch (e) {
+                WebApp.showAlert('NETWORK ERROR DURING UPLOAD.');
+            } finally {
+                btn.innerText = '+ ADD VISUAL INTEL';
+                btn.disabled = false;
+                input.value = '';
+            }
+        }
+
+        function renderImagePreviews() {
+            const container = document.getElementById('imagePreviewContainer');
+            container.innerHTML = uploadedImages.map((url, index) => `
+                <div class="relative aspect-square bg-slate-900 border border-slate-700 overflow-hidden">
+                    <img src="${url}" class="w-full h-full object-cover">
+                    <button type="button" onclick="removeImage(${index})" class="absolute top-1 right-1 bg-red-600 text-white p-1 rounded-full shadow-lg">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function removeImage(index) {
+            uploadedImages.splice(index, 1);
+            renderImagePreviews();
         }
 
         function closeNewsModal() {
             document.getElementById('newsModal').classList.add('hidden');
             document.getElementById('jsonPasteArea').classList.add('hidden');
             document.body.style.overflow = 'auto';
+            editingNodeId = null;
         }
 
         function toggleJsonPaste() {
@@ -421,19 +594,17 @@
                 document.getElementById('jsonPasteArea').classList.add('hidden');
                 document.getElementById('jsonInput').value = '';
 
-                // Visual confirmation
-                const btn = document.querySelector('button[onclick="toggleJsonPaste()"]');
-                btn.innerText = 'DATA INJECTED';
-                btn.classList.replace('text-blue-500', 'text-green-500');
-                setTimeout(() => {
-                    btn.innerText = 'PASTE JSON';
-                    btn.classList.replace('text-green-500', 'text-blue-500');
-                }, 2000);
-
             } catch (e) {
                 WebApp.showAlert('INVALID JSON STRUCTURE: Please verify your syntax.');
                 WebApp.HapticFeedback.notificationOccurred('error');
             }
+        }
+
+        function formatValue(val) {
+            if (typeof val === 'object' && val !== null) {
+                return JSON.stringify(val, null, 2);
+            }
+            return val || '';
         }
 
         async function postManualNews(e) {
@@ -445,37 +616,37 @@
 
             // Merge with complex data if available from JSON injection
             if (window.lastInjectedData) {
-                // Parse any modified JSON back from the textareas
-                const updateIfJson = (fieldName) => {
-                    const field = form.querySelector(`[name="${fieldName}"]`);
-                    if (field) {
-                        try {
-                            const val = field.value.trim();
-                            if (val.startsWith('{') || val.startsWith('[')) {
-                                data[fieldName] = JSON.parse(val);
-                            } else {
-                                data[fieldName] = val;
-                            }
-                        } catch (e) {
-                            data[fieldName] = field.value; // Keep as string if not valid JSON
-                        }
-                    }
-                };
-
-                updateIfJson('conversionStep');
-                updateIfJson('logicFramework');
-                updateIfJson('caseStudyEvidence');
-
                 data = { ...window.lastInjectedData, ...data };
             }
+
+            // Ensure JSON fields are handled correctly from textareas (which might have been edited)
+            const jsonFields = ['conversionStep', 'logicFramework', 'caseStudyEvidence'];
+            jsonFields.forEach(field => {
+                const element = form.querySelector(`[name="${field}"]`);
+                if (element && element.value.trim()) {
+                    try {
+                        const val = element.value.trim();
+                        if (val.startsWith('{') || val.startsWith('[')) {
+                            data[field] = JSON.parse(val);
+                        }
+                    } catch (e) {
+                        console.warn('JSON Parse Error for field:', field, e);
+                    }
+                }
+            });
+
+            data.images = uploadedImages;
 
             btn.disabled = true;
             btn.classList.add('opacity-50', 'animate-pulse');
             WebApp.HapticFeedback.impactOccurred('heavy');
 
+            const url = editingNodeId ? `/api/admin/intelligence/${editingNodeId}` : '/api/admin/intelligence/create';
+            const method = editingNodeId ? 'PUT' : 'POST';
+
             try {
-                const response = await fetch('/api/admin/intelligence/create', {
-                    method: 'POST',
+                const response = await fetch(url, {
+                    method: method,
                     headers: {
                         'X-Telegram-Init-Data': WebApp.initData,
                         'Content-Type': 'application/json'
@@ -484,9 +655,10 @@
                 });
 
                 if (response.ok) {
-                    WebApp.showAlert('INTELLIGENCE DEPLOYED SUCCESSFULLY.');
+                    WebApp.showAlert(editingNodeId ? 'INTELLIGENCE UPDATED.' : 'INTELLIGENCE DEPLOYED.');
                     form.reset();
                     closeNewsModal();
+                    location.reload();
                 } else {
                     const resData = await response.json();
                     WebApp.showAlert('DEPLOYMENT FAILURE: ' + (resData.error || 'System error'));
@@ -540,7 +712,77 @@
             `).join('');
         }
 
-        // Search and Filter logic
+        function renderNodes(data) {
+            const container = document.getElementById('nodesContainer');
+            if (data.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-20 opacity-20 mono text-[10px] uppercase tracking-[0.5em]">No Intelligence Found</div>`;
+                return;
+            }
+
+            container.innerHTML = data.map(node => `
+                <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-sm relative overflow-hidden group hover:border-blue-600 transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex-grow pr-4">
+                            <div class="text-[9px] mono text-blue-500 uppercase tracking-widest mb-1">${new Date(node.createdAt).toLocaleDateString()}</div>
+                            <h3 class="text-lg font-black uppercase italic">${node.title}</h3>
+                        </div>
+                        <div class="flex space-x-2 shrink-0">
+                             <button onclick="openNewsModal('${node.id}')" class="p-2 border border-slate-700 bg-slate-800 text-blue-400 hover:bg-blue-600 hover:text-white transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                             </button>
+                             <button onclick="deleteNode('${node.id}')" class="p-2 border border-slate-700 bg-slate-800 text-red-400 hover:bg-red-600 hover:text-white transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                             </button>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 mb-4">
+                        <span class="text-[8px] mono px-2 py-1 bg-blue-600/20 text-blue-400 rounded-full uppercase italic">${node.sector}</span>
+                        <span class="text-[8px] mono text-slate-500 uppercase tracking-widest">👍 ${node.likes} / 👎 ${node.dislikes} / ${node.status}</span>
+                    </div>
+                    ${node.images && node.images.length > 0 ? `
+                        <div class="grid grid-cols-3 gap-1 mb-4">
+                            ${node.images.map(img => `<img src="${img}" class="w-full h-12 object-cover border border-slate-800">`).join('')}
+                        </div>
+                    ` : ''}
+                    <div class="text-[10px] text-slate-400 font-bold uppercase line-clamp-2">${node.insight}</div>
+                </div>
+            `).join('');
+        }
+
+        async function deleteNode(id) {
+            WebApp.showConfirm('ARE YOU SURE YOU WANT TO PURGE THIS INTELLIGENCE NODE?', async (ok) => {
+                if (!ok) return;
+                WebApp.HapticFeedback.impactOccurred('heavy');
+                try {
+                    const res = await fetch(`/api/admin/intelligence/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'X-Telegram-Init-Data': WebApp.initData }
+                    });
+                    if (res.ok) {
+                        WebApp.HapticFeedback.notificationOccurred('success');
+                        location.reload();
+                    } else {
+                        WebApp.showAlert('PURGE FAILED.');
+                    }
+                } catch (e) {
+                    WebApp.showAlert('NETWORK ERROR DURING PURGE.');
+                }
+            });
+        }
+
+        function switchTab(tab) {
+            WebApp.HapticFeedback.impactOccurred('light');
+            document.getElementById('leads-view').classList.add('hidden');
+            document.getElementById('intelligence-view').classList.add('hidden');
+            document.getElementById('tab-leads').classList.remove('border-blue-600', 'text-blue-500');
+            document.getElementById('tab-leads').classList.add('border-transparent', 'text-slate-500');
+            document.getElementById('tab-intelligence').classList.remove('border-blue-600', 'text-blue-500');
+            document.getElementById('tab-intelligence').classList.add('border-transparent', 'text-slate-500');
+
+            document.getElementById(`${tab}-view`).classList.remove('hidden');
+            document.getElementById(`tab-${tab}`).classList.add('border-blue-600', 'text-blue-500');
+            document.getElementById(`tab-${tab}`).classList.remove('border-transparent', 'text-slate-500');
+        }
         document.getElementById('searchInput').addEventListener('input', filterLeads);
         document.getElementById('dateFilter').addEventListener('change', filterLeads);
 

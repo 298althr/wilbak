@@ -9,9 +9,24 @@ const multer = require('multer');
 const csv = require('csv-parser');
 const { Parser } = require('json2csv');
 const { PrismaClient } = require('@prisma/client');
+const cloudinary = require('cloudinary').v2;
 require('dotenv').config();
 
 const app = express();
+
+// Cloudinary Handshake
+if (process.env.CLOUDINARY_URL) {
+    const url = process.env.CLOUDINARY_URL;
+    const parts = url.split('://')[1].split('@');
+    const [apiKey, apiSecret] = parts[0].split(':');
+    const cloudName = parts[1];
+    cloudinary.config({
+        cloud_name: cloudName,
+        api_key: apiKey,
+        api_secret: apiSecret,
+        secure: true
+    });
+}
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 4000;
 
@@ -507,6 +522,36 @@ app.post('/api/admin/intelligence/trigger', verifyTelegramAdmin, async (req, res
     }
 });
 
+// Admin Image Upload to Cloudinary
+app.post('/api/admin/upload-image', verifyTelegramAdmin, upload.single('image'), async (req, res) => {
+    try {
+        if (!req.file) return res.status(400).json({ error: 'No image provided' });
+
+        const result = await cloudinary.uploader.upload(req.file.path, {
+            folder: 'wilbak_intelligence',
+            resource_type: 'auto'
+        });
+
+        fs.unlinkSync(req.file.path); // Clean up temp file
+        res.json({ success: true, url: result.secure_url });
+    } catch (e) {
+        console.error('Upload Error:', e);
+        res.status(500).json({ error: 'Cloudinary transmission failed' });
+    }
+});
+
+// Admin Intelligence Node List (Full Data)
+app.get('/api/admin/intelligence/list', verifyTelegramAdmin, async (req, res) => {
+    try {
+        const nodes = await prisma.intelligenceNode.findMany({
+            orderBy: { createdAt: 'desc' }
+        });
+        res.json(nodes);
+    } catch (e) {
+        res.status(500).json({ error: 'Intelligence retrieval failure' });
+    }
+});
+
 // Single Insight View with SEO Injection
 app.get('/insight/:id', async (req, res) => {
     try {
@@ -529,6 +574,7 @@ app.get('/insight/:id', async (req, res) => {
             '{{LOGIC_ANALYSIS}}': node.logicAnalysis,
             '{{CONVERSION_STEP}}': JSON.stringify(node.conversionStep || {}),
             '{{LOGIC_FRAMEWORK}}': JSON.stringify(node.logicFramework || {}),
+            '{{IMAGES}}': JSON.stringify(node.images || []),
             '{{STRATEGIC_CONCLUSION}}': node.strategicConclusion || '',
             '{{DATE}}': node.createdAt.toDateString(),
             '{{URL}}': `https://${req.get('host')}/insight/${node.id}`
@@ -551,28 +597,85 @@ app.post('/api/admin/intelligence/create', verifyTelegramAdmin, async (req, res)
         const {
             sector, title, insight, marketEvent, logicAnalysis,
             logicFramework, caseStudyEvidence, conversionStep,
-            strategicConclusion, sourceUrl
+            strategicConclusion, sourceUrl, images, createdAt
         } = req.body;
 
-        const node = await prisma.intelligenceNode.create({
-            data: {
-                sector: sector.toUpperCase(),
-                title,
-                insight,
-                marketEvent: marketEvent || title,
-                logicAnalysis: logicAnalysis || insight,
-                logicFramework: logicFramework || null,
-                caseStudyEvidence: caseStudyEvidence || null,
-                conversionStep: conversionStep || null,
-                strategicConclusion: strategicConclusion || null,
-                sourceUrl: sourceUrl || null
-            }
+        const data = {
+            sector: sector.toUpperCase(),
+            title,
+            insight,
+            marketEvent: marketEvent || title,
+            logicAnalysis: logicAnalysis || insight,
+            logicFramework: typeof logicFramework === 'string' ? JSON.parse(logicFramework) : logicFramework,
+            caseStudyEvidence: typeof caseStudyEvidence === 'string' ? JSON.parse(caseStudyEvidence) : caseStudyEvidence,
+            conversionStep: typeof conversionStep === 'string' ? JSON.parse(conversionStep) : conversionStep,
+            strategicConclusion: strategicConclusion || null,
+            sourceUrl: sourceUrl || null,
+            images: images || [],
+        };
+
+        if (createdAt) data.createdAt = new Date(createdAt);
+
+        const node = await prisma.intelligenceNode.create({ data });
+        res.json({ success: true, id: node.id });
+    } catch (e) {
+        console.error('Manual Creation Error:', e);
+        res.status(500).json({ error: 'Intelligence injection failure: ' + e.message });
+    }
+});
+
+// Admin Update Intelligence Node
+app.put('/api/admin/intelligence/:id', verifyTelegramAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const {
+            sector, title, insight, marketEvent, logicAnalysis,
+            logicFramework, caseStudyEvidence, conversionStep,
+            strategicConclusion, sourceUrl, images, createdAt,
+            likes, dislikes, status
+        } = req.body;
+
+        const data = {
+            sector: sector?.toUpperCase(),
+            title,
+            insight,
+            marketEvent,
+            logicAnalysis,
+            logicFramework: typeof logicFramework === 'string' ? JSON.parse(logicFramework) : logicFramework,
+            caseStudyEvidence: typeof caseStudyEvidence === 'string' ? JSON.parse(caseStudyEvidence) : caseStudyEvidence,
+            conversionStep: typeof conversionStep === 'string' ? JSON.parse(conversionStep) : conversionStep,
+            strategicConclusion,
+            sourceUrl,
+            images,
+            status
+        };
+
+        if (createdAt) data.createdAt = new Date(createdAt);
+        if (likes !== undefined) data.likes = parseInt(likes);
+        if (dislikes !== undefined) data.dislikes = parseInt(dislikes);
+
+        const node = await prisma.intelligenceNode.update({
+            where: { id },
+            data
         });
 
         res.json({ success: true, id: node.id });
     } catch (e) {
-        console.error('Manual Creation Error:', e);
-        res.status(500).json({ error: 'Data persistence failure.' });
+        console.error('Update Error:', e);
+        res.status(500).json({ error: 'Intelligence update failure: ' + e.message });
+    }
+});
+
+// Admin Delete Intelligence Node
+app.delete('/api/admin/intelligence/:id', verifyTelegramAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+        await prisma.vote.deleteMany({ where: { nodeId: id } }); // Cleanup votes
+        await prisma.intelligenceNode.delete({ where: { id } });
+        res.json({ success: true });
+    } catch (e) {
+        console.error('Delete Error:', e);
+        res.status(500).json({ error: 'Intelligence purging failure' });
     }
 });
 

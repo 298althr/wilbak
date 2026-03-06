@@ -58,123 +58,241 @@
     </style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center p-4 md:p-10" x-data="{ 
-    currentSlide: 1, 
-    totalSlides: 3,
+<body class="bg-slate-50 text-slate-900" x-data="{ 
     logicFramework: {{LOGIC_FRAMEWORK}},
     conversionStep: {{CONVERSION_STEP}},
-    transformationModal: false
-}">
+    images: {{IMAGES}},
+    transformationModal: false,
+    showAuditModal: false,
+    auditStep: 1,
+    industry: '',
+    businessDetail: '',
+    leadName: '',
+    leadEmail: '',
+    leadPhone: '',
+    successModal: false,
+    
+    async submitLead() {
+        try {
+            const auditData = {
+                industry: this.industry,
+                businessDetail: this.businessDetail,
+                auditName: this.leadName,
+                auditEmail: this.leadEmail,
+                auditPhone: this.leadPhone
+            };
+            const response = await fetch('/api/audit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(auditData)
+            });
+            if (response.ok) {
+                this.successModal = true;
+                this.showAuditModal = false;
+                this.transformationModal = false;
+                this.auditStep = 1;
+            } else {
+                alert('Transmission error.');
+            }
+        } catch (error) { console.error('Audit error:', error); }
+    },
+    
+    sanitizeText(text) {
+        if (!text) return '';
+        return text.replace(/\[oai_citation:.*?\]\(.*?\)/g, '').replace(/\[oai_citation:.*?\]/g, '').trim();
+    },
 
-    <div class="report-card w-full max-w-4xl min-h-[700px] flex flex-col relative overflow-hidden">
+    renderNested(obj) {
+        if (!obj) return '';
+        if (typeof obj === 'string') return `<p class=" mb-4 leading-relaxed">${this.sanitizeText(obj)}</p>`;
+    if (Array.isArray(obj)) {
+    return `<ul class="space-y-3 mb-6">` + obj.map(item => `
+        <li class="flex items-start">
+            <span class="text-blue-500 mr-2 mt-1">▹</span>
+            <div class="text-sm text-slate-700 font-bold">${this.renderNested(item)}</div>
+        </li>`).join('') + `
+    </ul>`;
+    }
+    if (typeof obj === 'object') {
+    return Object.entries(obj).map(([key, value]) => `
+    <div class="mb-6 last:mb-0 bg-white p-6 border-l-4 border-blue-600 shadow-sm">
+        <h4 class="text-[10px] mono text-blue-600 uppercase tracking-widest mb-3 font-black">${key.replace(/([A-Z])/g, '
+            $1').replace(/_/g, ' ').trim()}</h4>
+        <div class="text-sm text-slate-800">${this.renderNested(value)}</div>
+    </div>
+    `).join('');
+    }
+    return obj;
+    }
+    }">
 
-        <!-- Premium Header -->
-        <div class="p-8 md:p-12 flex items-center justify-between border-b border-slate-50 bg-slate-50/30">
-            <div class="flex items-center space-x-6">
-                <div
-                    class="w-14 h-14 bg-slate-950 rounded-2xl flex items-center justify-center text-white font-black italic text-2xl">
-                    W</div>
-                <div>
-                    <div class="text-[10px] mono text-blue-600 font-bold uppercase tracking-widest">{{SECTOR}}</div>
-                    <div class="text-[10px] text-slate-400 uppercase tracking-widest">{{DATE}}</div>
+    <div
+        class="w-full max-w-6xl mx-auto my-10 md:my-20 bg-white shadow-2xl overflow-hidden rounded-sm flex flex-col min-h-screen">
+
+        <!-- Premium Navigation -->
+        <nav class="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-white sticky top-0 z-50">
+            <div class="flex items-center space-x-4">
+                <a href="/" class="block">
+                    <img src="/logo.png" alt="WILBAK" class="h-8">
+                </a>
+                <div class="h-4 w-px bg-slate-200 mx-4"></div>
+                <div class="hidden md:block">
+                    <div class="text-[10px] mono text-blue-600 font-black uppercase tracking-widest">{{SECTOR}}</div>
+                    <div class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">{{DATE}}</div>
                 </div>
             </div>
-            <a href="/"
-                class="text-[10px] mono font-bold uppercase tracking-widest text-slate-400 hover:text-blue-600 transition">BACK
-                TO HUB ←</a>
-        </div>
+            <a href="/#insights"
+                class="text-[10px] mono font-black uppercase tracking-widest text-slate-400 hover:text-blue-600 transition flex items-center">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                BACK TO LOGIC LEDGER
+            </a>
+        </nav>
 
-        <!-- Slides Area -->
-        <div class="flex-grow relative flex flex-col">
+        <!-- Article Content -->
+        <div class="flex-grow">
 
-            <!-- Slide 1: Big Picture -->
-            <div class="absolute inset-0 p-10 md:p-20 flex flex-col justify-center transition-all duration-700"
-                :class="currentSlide === 1 ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20 pointer-events-none'">
-                <span class="text-[10px] font-black text-green-600 uppercase tracking-[0.5em] mb-6">01 // THE BIG
-                    PICTURE</span>
-                <h1
-                    class="text-4xl md:text-7xl font-black italic tracking-tighter text-slate-900 mb-10 leading-[0.9] font-lora">
-                    {{TITLE}}</h1>
-                <div class="relative pl-10 border-l-4 border-blue-600">
-                    <p class="text-2xl md:text-4xl text-slate-600 leading-tight font-montserrat">{{INSIGHT}}</p>
+            <!-- Hero Header -->
+            <header class="px-8 md:px-24 py-20 md:py-32 border-b border-slate-50 bg-slate-50/30">
+                <div class="max-w-4xl mx-auto">
+                    <label class="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em] mb-8 block">Exclusive
+                        Strategic Briefing</label>
+                    <h1
+                        class="text-4xl md:text-8xl font-black italic tracking-tighter text-slate-950 mb-12 leading-[0.9] font-lora uppercase">
+                        {{TITLE}}</h1>
+                    <p
+                        class="text-xl md:text-3xl text-slate-600 leading-tight font-bold italic uppercase tracking-tight">
+                        {{INSIGHT}}</p>
                 </div>
-            </div>
+            </header>
 
-            <!-- Slide 2: Strategy -->
-            <div class="absolute inset-0 p-10 md:p-20 flex flex-col justify-center transition-all duration-700"
-                :class="currentSlide === 2 ? 'opacity-100 translate-x-0' : (currentSlide < 2 ? 'opacity-0 translate-x-20 pointer-events-none' : 'opacity-0 -translate-x-20 pointer-events-none')">
-                <span class="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em] mb-6">02 // STRATEGIC
-                    LOGIC</span>
-                <h2 class="text-3xl md:text-5xl font-black italic mb-8 font-lora">Operational Analysis</h2>
-                <p class="text-xl text-slate-700 leading-relaxed mb-12 italic font-montserrat">{{LOGIC_ANALYSIS}}</p>
+            <div class="grid grid-cols-1 lg:grid-cols-12">
+                <!-- Main Body -->
+                <main class="lg:col-span-8 px-8 md:px-24 py-20 lg:border-r border-slate-100">
 
-                <div class="grid md:grid-cols-2 gap-8" x-show="logicFramework">
-                    <div class="bg-slate-900 p-10 rounded-3xl text-white">
-                        <span class="text-[9px] mono text-blue-400 uppercase tracking-widest block mb-4">Structural
-                            Drag</span>
-                        <ul class="text-xs space-y-3 opacity-90">
-                            <template x-for="item in (logicFramework.problemStructure || [])">
-                                <li class="flex items-start"><span class="mr-3 text-blue-500">→</span><span
-                                        x-text="item"></span></li>
+                    <!-- Gallery -->
+                    <template x-if="images && images.length > 0">
+                        <div class="space-y-8 mb-20">
+                            <div
+                                class="aspect-video w-full bg-slate-100 overflow-hidden border border-slate-200 p-1 rounded-sm shadow-2xl">
+                                <img :src="images[0]" class="w-full h-full object-cover">
+                            </div>
+                            <template x-if="images.length > 1">
+                                <div class="grid grid-cols-2 gap-8">
+                                    <template x-for="img in images.slice(1, 3)">
+                                        <div
+                                            class="aspect-square bg-slate-100 overflow-hidden border border-slate-200 p-1 rounded-sm shadow-xl">
+                                            <img :src="img" class="w-full h-full object-cover">
+                                        </div>
+                                    </template>
+                                </div>
                             </template>
-                        </ul>
-                    </div>
-                    <div class="bg-blue-600 p-10 rounded-3xl text-white">
-                        <span class="text-[9px] mono text-blue-100 uppercase tracking-widest block mb-4">Alignment
-                            Logic</span>
-                        <ul class="text-xs space-y-3">
-                            <template x-for="item in (logicFramework.transformationModel || [])">
-                                <li class="flex items-start"><span class="mr-3">⚡</span><span x-text="item"></span></li>
-                            </template>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+                        </div>
+                    </template>
 
-            <!-- Slide 3: Outcome -->
-            <div class="absolute inset-0 p-10 md:p-20 flex flex-col justify-center transition-all duration-700"
-                :class="currentSlide === 3 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20 pointer-events-none'">
-                <span class="text-[10px] font-black text-purple-600 uppercase tracking-[0.5em] mb-6">03 // GROWTH
-                    PROPOSITION</span>
-                <div class="bg-slate-50 p-12 md:p-16 rounded-[3rem] border-2 border-dashed border-slate-200 mb-12">
-                    <h3 class="text-4xl font-black italic mb-6 font-lora">Strategic Conclusion</h3>
-                    <p class="text-2xl text-slate-600 font-montserrat leading-relaxed">{{STRATEGIC_CONCLUSION}}</p>
-                </div>
-                <div class="flex items-center space-x-8">
-                    <div class="flex-grow h-px bg-slate-200"></div>
-                    <button @click="transformationModal = true"
-                        class="px-12 py-7 bg-green-600 text-white font-black italic tracking-widest text-sm skew-x-[-12deg] hover:bg-slate-950 transition-all shadow-2xl shadow-green-900/20">
-                        <span class="skew-x-[12deg] flex items-center">
-                            TRANSFORMATION PROTOCOL <svg class="w-6 h-6 ml-4" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
-                        </span>
-                    </button>
-                </div>
-            </div>
+                    <!-- Textual Clusters -->
+                    <div class="space-y-20">
+                        <section>
+                            <label
+                                class="text-[10px] mono text-blue-600 uppercase tracking-widest font-black mb-8 block">Market
+                                Dynamics Analysis</label>
+                            <div class="text-xl text-slate-800 leading-relaxed font-bold uppercase tracking-tight">
+                                {{MARKET_EVENT}}
+                            </div>
+                        </section>
 
+                        <section>
+                            <label
+                                class="text-[10px] mono text-blue-600 uppercase tracking-widest font-black mb-8 block">Engine
+                                Logic Processing</label>
+                            <div
+                                class="text-xl text-slate-800 leading-relaxed font-bold uppercase tracking-tight italic">
+                                {{LOGIC_ANALYSIS}}
+                            </div>
+                        </section>
+
+                        <section x-show="logicFramework">
+                            <label
+                                class="text-[10px] mono text-blue-600 uppercase tracking-widest font-black mb-8 block">Strategic
+                                Frameworks</label>
+                            <div x-html="renderNested(logicFramework)"></div>
+                        </section>
+
+                        <section x-show="conversionStep">
+                            <label
+                                class="text-[10px] mono text-blue-600 uppercase tracking-widest font-black mb-8 block">Implementation
+                                Protocol</label>
+                            <div x-html="renderNested(conversionStep)"></div>
+                        </section>
+
+                        <section
+                            class="bg-slate-950 text-white p-12 md:p-20 border-l-8 border-blue-600 rounded-sm shadow-2xl">
+                            <label
+                                class="text-[10px] mono text-blue-400 uppercase tracking-widest font-black mb-6 block">Strategic
+                                Conclusion</label>
+                            <blockquote
+                                class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter leading-none font-lora">
+                                {{STRATEGIC_CONCLUSION}}
+                            </blockquote>
+                        </section>
+                    </div>
+                </main>
+
+                <!-- Sidebar / CTA -->
+                <aside class="lg:col-span-4 bg-slate-50/50">
+                    <div class="p-8 md:p-12 space-y-12 lg:sticky lg:top-24">
+
+                        <div class="bg-blue-600 text-white p-10 rounded-sm shadow-2xl relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-white/5 industrial-grid opacity-20 pointer-events-none">
+                            </div>
+                            <h4
+                                class="text-3xl font-black uppercase italic tracking-tighter leading-none mb-6 relative z-10">
+                                Maximize Operational Output</h4>
+                            <p
+                                class="text-xs uppercase font-bold opacity-80 leading-relaxed mb-10 relative z-10 font-montserrat">
+                                Wilbak Engineering processes high-volatility signals into stable profit growth logic.
+                            </p>
+                            <button @click="transformationModal = true"
+                                class="w-full py-6 bg-white text-blue-600 font-black uppercase italic text-xs skew-x-[-12deg] hover:bg-slate-950 hover:text-white transition-all relative z-10">
+                                <span class="skew-x-[12deg] inline-block tracking-[0.2em]">INITIALIZE AUDIT</span>
+                            </button>
+                        </div>
+
+                        <div class="space-y-4">
+                            <label
+                                class="text-[10px] mono text-slate-400 uppercase tracking-widest font-black block">Information
+                                Lifecycle</label>
+                            <div class="p-6 bg-white border border-slate-200 rounded-sm">
+                                <div
+                                    class="flex justify-between items-center mb-4 text-[10px] font-black uppercase tracking-widest">
+                                    <span class="text-slate-400">STATUS:</span>
+                                    <span class="text-green-600">LIVE SIGNAL</span>
+                                </div>
+                                <div
+                                    class="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
+                                    <span class="text-slate-400">ACCURACY:</span>
+                                    <span class="text-blue-600">99.8% VERIFIED</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button
+                            onclick="navigator.clipboard.writeText(window.location.href).then(() => alert('INTEL LINK SECURED'))"
+                            class="w-full py-5 border-2 border-slate-200 text-slate-400 font-black uppercase text-[10px] tracking-[0.2em] hover:border-slate-800 hover:text-slate-800 transition-all italic">
+                            ENCRYPT & SHARE BRIEFING
+                        </button>
+
+                    </div>
+                </aside>
+            </div>
         </div>
 
-        <!-- Footer Navigation -->
-        <div class="p-8 md:p-12 border-t border-slate-50 mt-auto flex justify-between items-center bg-slate-50/20">
-            <div class="flex gap-3">
-                <template x-for="i in 3">
-                    <div class="h-1.5 rounded-full transition-all duration-500"
-                        :class="currentSlide === i ? 'w-10 bg-blue-600' : 'w-3 bg-slate-200'"></div>
-                </template>
-            </div>
-            <div class="flex gap-6">
-                <button @click="if(currentSlide > 1) currentSlide--"
-                    class="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-950 hover:text-white transition-all disabled:opacity-30"
-                    :disabled="currentSlide === 1">←</button>
-                <button @click="if(currentSlide < 3) currentSlide++"
-                    class="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-950 hover:text-white transition-all disabled:opacity-30"
-                    :disabled="currentSlide === 3">→</button>
-            </div>
-        </div>
-
+        <!-- Footer -->
+        <footer class="px-8 py-10 border-t border-slate-100 text-center bg-white">
+            <p class="text-[9px] mono text-slate-400 font-black uppercase tracking-[0.4em]">© 2026 WILBAK ENGINEERING
+                GROUP // PHYSICALLY RECONDITIONING GLOBAL OPERATIONS</p>
+        </footer>
     </div>
 
     <!-- Transformation Modal -->
@@ -235,10 +353,156 @@
             </div>
 
             <div class="p-8 bg-slate-50 border-t border-slate-100">
-                <a href="/#audit"
-                    class="w-full block py-5 bg-slate-950 text-white text-center font-black italic tracking-widest text-xs skew-x-[-6deg]">
-                    <span class="skew-x-[6deg]">PROCEED TO AUDIT PROTOCOL →</span>
-                </a>
+                <button @click="transformationModal = false; showAuditModal = true; auditStep = 1"
+                    class="w-full py-5 bg-slate-950 text-white font-black italic tracking-widest text-xs skew-x-[-6deg] hover:bg-blue-600 transition-all">
+                    <span class="skew-x-[6deg] flex items-center justify-center">
+                        PROCEED TO AUDIT PROTOCOL <span class="ml-4">→</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Efficiency Audit Protocol Modal -->
+    <div x-show="showAuditModal" x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-95"
+        class="fixed inset-0 z-[150] flex items-center justify-center p-4 md:p-10 bg-slate-950/90 backdrop-blur-xl"
+        style="display: none;">
+
+        <div
+            class="bg-white w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col relative rounded-sm border-t-4 border-blue-600">
+            <button @click="showAuditModal = false"
+                class="absolute top-6 right-6 w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center hover:bg-slate-200 z-10">
+                <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+
+            <div class="flex-grow overflow-y-auto p-8 md:p-16">
+                <!-- Progress -->
+                <div
+                    class="mb-12 flex justify-between items-center text-[10px] font-black mono text-blue-500 uppercase tracking-widest">
+                    <div class="flex space-x-2">
+                        <template x-for="i in 5">
+                            <div class="h-1 w-12 rounded-full transition-all duration-500"
+                                :class="auditStep >= i ? 'bg-blue-600' : 'bg-slate-200'"></div>
+                        </template>
+                    </div>
+                    <span>Phase <span x-text="auditStep"></span> / 5</span>
+                </div>
+
+                <!-- Steps -->
+                <div class="relative">
+                    <div x-show="auditStep === 1" x-transition>
+                        <h2 class="text-4xl md:text-6xl font-black italic mb-10 uppercase tracking-tighter">01. Sector
+                            Selection</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <button @click="industry = 'Retail/E-commerce'; auditStep = 2"
+                                class="p-8 border border-slate-200 bg-slate-50 hover:border-blue-500 transition-all text-left">
+                                <div class="font-black text-sm uppercase mb-2 italic">Retail & E-commerce</div>
+                                <div class="text-[10px] mono text-slate-400 uppercase tracking-widest">Inventory &
+                                    logistics.</div>
+                            </button>
+                            <button @click="industry = 'Professional Services'; auditStep = 2"
+                                class="p-8 border border-slate-200 bg-slate-50 hover:border-blue-500 transition-all text-left">
+                                <div class="font-black text-sm uppercase mb-2 italic">Professional Services</div>
+                                <div class="text-[10px] mono text-slate-400 uppercase tracking-widest">Client
+                                    Management.</div>
+                            </button>
+                            <button @click="industry = 'Industrial/Engineering'; auditStep = 2"
+                                class="p-8 border border-slate-200 bg-slate-50 hover:border-blue-500 transition-all text-left">
+                                <div class="font-black text-sm uppercase mb-2 italic">Industrial & Engineering</div>
+                                <div class="text-[10px] mono text-slate-400 uppercase tracking-widest">Manufacturing.
+                                </div>
+                            </button>
+                            <button @click="industry = 'Finance/Real Estate'; auditStep = 2"
+                                class="p-8 border border-slate-200 bg-slate-50 hover:border-blue-500 transition-all text-left">
+                                <div class="font-black text-sm uppercase mb-2 italic">Finance & Real Estate</div>
+                                <div class="text-[10px] mono text-slate-400 uppercase tracking-widest">Wealth &
+                                    Property.</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div x-show="auditStep === 2" x-transition>
+                        <h2 class="text-4xl md:text-6xl font-black italic mb-6 uppercase tracking-tighter">02. Logic
+                            Mapping</h2>
+                        <textarea x-model="businessDetail" rows="6"
+                            class="w-full p-8 bg-slate-50 border border-slate-200 text-slate-950 mono text-xs uppercase tracking-widest outline-none focus:border-blue-600"
+                            placeholder="EX: MANUAL DATA ENTRY IN FINANCE..."></textarea>
+                        <div class="mt-12 flex justify-between">
+                            <button @click="auditStep = 1"
+                                class="mono text-[10px] font-black uppercase text-slate-400">BACK</button>
+                            <button @click="auditStep = 3" :disabled="businessDetail.length < 10"
+                                class="btn-premium btn-primary px-12 py-5 disabled:opacity-20">NEXT PHASE</button>
+                        </div>
+                    </div>
+
+                    <div x-show="auditStep === 3" x-transition>
+                        <h2 class="text-4xl md:text-6xl font-black italic mb-10 uppercase tracking-tighter">03.
+                            Identifier</h2>
+                        <div class="space-y-6">
+                            <input x-model="leadName" type="text" placeholder="EXECUTIVE NAME"
+                                class="w-full p-8 bg-slate-50 border border-slate-200 mono text-xs focus:border-blue-600 outline-none uppercase tracking-widest">
+                            <input x-model="leadEmail" type="email" placeholder="SECURE EMAIL"
+                                class="w-full p-8 bg-slate-50 border border-slate-200 mono text-xs focus:border-blue-600 outline-none uppercase tracking-widest">
+                        </div>
+                        <div class="mt-12 flex justify-between">
+                            <button @click="auditStep = 2"
+                                class="mono text-[10px] font-black uppercase text-slate-400">BACK</button>
+                            <button @click="auditStep = 4" :disabled="!leadName || !leadEmail"
+                                class="btn-premium btn-primary px-12 py-5 disabled:opacity-20">CONTINUE</button>
+                        </div>
+                    </div>
+
+                    <div x-show="auditStep === 4" x-transition>
+                        <h2 class="text-4xl md:text-6xl font-black italic mb-10 uppercase tracking-tighter">04.
+                            Connection</h2>
+                        <input x-model="leadPhone" type="tel" placeholder="MOBILE ACCESS (WHATSAPP)"
+                            class="w-full p-8 bg-slate-50 border border-slate-200 mono text-xs focus:border-blue-600 outline-none uppercase tracking-widest">
+                        <div class="mt-12 flex justify-between">
+                            <button @click="auditStep = 3"
+                                class="mono text-[10px] font-black uppercase text-slate-400">BACK</button>
+                            <button @click="auditStep = 5" :disabled="!leadPhone"
+                                class="btn-premium btn-primary px-12 py-5 disabled:opacity-20">PREPARE
+                                TRANSMISSION</button>
+                        </div>
+                    </div>
+
+                    <div x-show="auditStep === 5" x-transition>
+                        <h2 class="text-4xl md:text-6xl font-black italic mb-10 uppercase tracking-tighter">05. Execute
+                        </h2>
+                        <button @click="submitLead"
+                            class="w-full py-6 bg-blue-600 text-white font-black italic text-sm tracking-[0.3em] uppercase hover:bg-slate-950 transition-all">INITIALIZE
+                            TRANSMISSION</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div x-show="successModal" x-transition
+        class="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-slate-950/90 backdrop-blur-xl"
+        style="display: none;">
+        <div
+            class="bg-white max-w-lg w-full p-12 text-center rounded-sm border-t-4 border-blue-600 shadow-2xl overflow-hidden relative">
+            <div class="absolute inset-0 opacity-10 pointer-events-none industrial-grid"></div>
+            <div class="relative z-10">
+                <div
+                    class="w-20 h-20 bg-blue-600 rounded-full mx-auto flex items-center justify-center mb-8 shadow-2xl shadow-blue-500/20">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="text-3xl font-black text-slate-950 mb-6 uppercase italic tracking-tighter">TRANSMISSION
+                    RECEIVED.</h3>
+                <p class="text-slate-500 mb-10 font-bold uppercase text-xs tracking-widest leading-relaxed">Agent
+                    Wilhelm will personally review your operational logic and authorize the structural alignment plan
+                    within 24 hours.</p>
+                <a href="/" class="btn-premium btn-primary inline-block w-full py-5 text-sm">RETURN TO COMMAND HUB</a>
             </div>
         </div>
     </div>
