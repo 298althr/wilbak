@@ -459,6 +459,7 @@
             const form = document.getElementById('newsForm');
             form.reset();
             uploadedImages = [];
+            window.lastInjectedData = null; // Clear any previous JSON injection data
             renderImagePreviews();
             editingNodeId = nodeId;
             document.getElementById('advancedFields').classList.add('hidden');
@@ -559,6 +560,7 @@
             document.getElementById('jsonPasteArea').classList.add('hidden');
             document.body.style.overflow = 'auto';
             editingNodeId = null;
+            window.lastInjectedData = null;
         }
 
         function toggleJsonPaste() {

@@ -98,6 +98,25 @@ const verifyTelegramAdmin = (req, res, next) => {
     }
 };
 
+const safeJsonParse = (val) => {
+    if (typeof val === 'object' && val !== null) return val;
+    if (typeof val !== 'string' || !val.trim()) return null;
+    try {
+        const cleaned = val.trim();
+        if (cleaned.startsWith('{') || cleaned.startsWith('[')) {
+            return JSON.parse(cleaned);
+        }
+        return null;
+    } catch (e) {
+        return null;
+    }
+};
+
+const sanitizeNodeData = (raw) => {
+    const { id, likes, dislikes, votes, leads, ...data } = raw;
+    return data;
+};
+
 const sendTelegramMessage = (message) => {
     return new Promise((resolve, reject) => {
         const data = JSON.stringify({
@@ -617,17 +636,17 @@ app.post('/api/admin/intelligence/create', verifyTelegramAdmin, async (req, res)
         } = req.body;
 
         const data = {
-            sector: sector.toUpperCase(),
-            title,
-            insight,
-            marketEvent: marketEvent || title,
-            logicAnalysis: logicAnalysis || insight,
-            logicFramework: typeof logicFramework === 'string' ? JSON.parse(logicFramework) : logicFramework,
-            caseStudyEvidence: typeof caseStudyEvidence === 'string' ? JSON.parse(caseStudyEvidence) : caseStudyEvidence,
-            conversionStep: typeof conversionStep === 'string' ? JSON.parse(conversionStep) : conversionStep,
+            sector: (sector || '').toUpperCase(),
+            title: title || 'UNTITLED REPORT',
+            insight: insight || '',
+            marketEvent: marketEvent || title || '',
+            logicAnalysis: logicAnalysis || insight || '',
+            logicFramework: safeJsonParse(logicFramework),
+            caseStudyEvidence: safeJsonParse(caseStudyEvidence),
+            conversionStep: safeJsonParse(conversionStep),
             strategicConclusion: strategicConclusion || null,
             sourceUrl: sourceUrl || null,
-            images: images || [],
+            images: Array.isArray(images) ? images : [],
         };
 
         if (createdAt) data.createdAt = new Date(createdAt);
@@ -660,18 +679,16 @@ app.post('/api/admin/intelligence/import', verifyTelegramAdmin, async (req, res)
 
         let createdCount = 0;
         for (const item of nodes) {
-            // Clean ID to allow database to regenerate or use provided if needed
-            const { id, likes, dislikes, votes, ...nodeData } = item;
+            const nodeData = sanitizeNodeData(item);
 
             await prisma.intelligenceNode.create({
                 data: {
                     ...nodeData,
-                    likes: likes || 0,
-                    dislikes: dislikes || 0,
-                    // Handle JSON fields if they are strings
-                    logicFramework: typeof nodeData.logicFramework === 'string' ? JSON.parse(nodeData.logicFramework) : (nodeData.logicFramework || null),
-                    caseStudyEvidence: typeof nodeData.caseStudyEvidence === 'string' ? JSON.parse(nodeData.caseStudyEvidence) : (nodeData.caseStudyEvidence || null),
-                    conversionStep: typeof nodeData.conversionStep === 'string' ? JSON.parse(nodeData.conversionStep) : (nodeData.conversionStep || null),
+                    likes: item.likes || 0,
+                    dislikes: item.dislikes || 0,
+                    logicFramework: safeJsonParse(nodeData.logicFramework),
+                    caseStudyEvidence: safeJsonParse(nodeData.caseStudyEvidence),
+                    conversionStep: safeJsonParse(nodeData.conversionStep),
                     images: Array.isArray(nodeData.images) ? nodeData.images : []
                 }
             });
@@ -701,9 +718,9 @@ app.put('/api/admin/intelligence/:id', verifyTelegramAdmin, async (req, res) => 
             insight,
             marketEvent,
             logicAnalysis,
-            logicFramework: typeof logicFramework === 'string' ? JSON.parse(logicFramework) : logicFramework,
-            caseStudyEvidence: typeof caseStudyEvidence === 'string' ? JSON.parse(caseStudyEvidence) : caseStudyEvidence,
-            conversionStep: typeof conversionStep === 'string' ? JSON.parse(conversionStep) : conversionStep,
+            logicFramework: safeJsonParse(logicFramework),
+            caseStudyEvidence: safeJsonParse(caseStudyEvidence),
+            conversionStep: safeJsonParse(conversionStep),
             strategicConclusion,
             sourceUrl,
             images,
