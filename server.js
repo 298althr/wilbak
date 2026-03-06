@@ -198,13 +198,14 @@ app.get('/api/admin/leads/export', verifyTelegramAdmin, async (req, res) => {
 
 // --- INTELLIGENCE ENGINE: SCHEDULER & ORCHESTRATION ---
 
-const triggerResearchProtocol = async (query = "Finance Business Real Estate") => {
+const triggerResearchProtocol = async (query = "Finance Business") => {
     const GROQ_API_KEY = process.env.GROQ_API_KEY;
     const BRIGHTDATA_API_KEY = process.env.BRIGHTDATA_API_KEY;
+    let createdCount = 0;
 
     if (!GROQ_API_KEY) {
-        console.error('[AUTONOMOUS_PULSE] CRITICAL: GROQ_API_KEY is missing from environment.');
-        return;
+        console.error('[AUTONOMOUS_PULSE] CRITICAL: GROQ_API_KEY is missing.');
+        throw new Error('GROQ_API_KEY missing');
     }
 
     const securePost = (url, headers, body) => {
@@ -241,15 +242,14 @@ const triggerResearchProtocol = async (query = "Finance Business Real Estate") =
     };
 
     try {
-        console.log(`[AUTONOMOUS_PULSE] Initiating Research Loop: ${query}`);
+        console.log(`[AUTONOMOUS_PULSE] Initiating Targeted Scan: "${query}"`);
         let rawSignals = [];
 
         // 1. SENSOR (Bright Data)
         if (BRIGHTDATA_API_KEY) {
-            console.log('[AUTONOMOUS_PULSE] Contacting Discovery Sensor (BrightData)...');
             const resA = await securePost('https://api.brightdata.com/serp/query',
                 { 'Authorization': `Bearer ${BRIGHTDATA_API_KEY}` },
-                { "count": 3, "query": { "q": `${query} market impact middle east conflict business opportunities` }, "search_engine": "google" }
+                { "count": 3, "query": { "q": `${query} market news business impact` }, "search_engine": "google" }
             );
 
             if (resA.ok) {
@@ -257,55 +257,40 @@ const triggerResearchProtocol = async (query = "Finance Business Real Estate") =
                     const serp = JSON.parse(resA.data);
                     if (serp.organic) {
                         rawSignals = serp.organic.map(item => ({
-                            sector: query.split(' ')[0].toUpperCase(),
+                            sector: query.toUpperCase(),
                             title: item.title,
                             details: item.description || item.snippet,
                             url: item.link
                         }));
-                        console.log(`[AUTONOMOUS_PULSE] Sensor detected ${rawSignals.length} market signals.`);
                     }
-                } catch (pe) {
-                    console.error('[AUTONOMOUS_PULSE] Sensor Data Parse Failure');
-                }
+                } catch (pe) { console.error('[AUTONOMOUS_PULSE] Sensor Data Parse Failure'); }
             }
-        } else {
-            console.warn('[AUTONOMOUS_PULSE] Sensor Offline (No BRIGHTDATA_API_KEY). Using Fallback.');
         }
 
-        // Fallback context if scraper fails or 404s
+        // Fallback context if scraper fails
         if (rawSignals.length === 0) {
-            console.log('[AUTONOMOUS_PULSE] Deploying Strategic Fallback Context.');
+            console.log('[AUTONOMOUS_PULSE] Scraper returned zero data. Deploying Strategic Fallback.');
             rawSignals = [
-                { sector: 'STRATEGY', title: 'Middle East Trade Shift', details: 'Sea route tensions near Iran causing rising insurance costs for shipping.' },
-                { sector: 'FINANCE', title: 'Gold and Oil Volatility', details: 'Israel-Iran tensions driving safe-haven demand in global commodity markets.' }
+                {
+                    sector: query.toUpperCase(),
+                    title: `${query} Operational Shift`,
+                    details: 'Recent market indicators show rising volatility in this sector requiring automated logic to maintain stability.'
+                }
             ];
         }
 
         // 2. ORCHESTRATOR (Groq)
-        console.log(`[AUTONOMOUS_PULSE] Orchestrating ${rawSignals.length} signals through Groq AI...`);
         for (const signal of rawSignals) {
-            const prompt = `
-                SYSTEM: Act as Wilhelm Rybak, CEO of Wilbak Engineering. 
-                Speak in SIMPLE English that a computer-illiterate business owner can understand. NO JARGON.
-                
-                CONTEXT: Current global tensions (Iran, Israel, USA). 
-                TASK: Find the POSITIVE business opportunity or "Stable Positioning" in this event.
-                
-                INPUT: ${signal.title} - ${signal.details}
-                
-                Format as JSON ONLY: 
-                {
-                  "headline": "Simple, bold name for the news",
-                  "mainPoint": "1-sentence summary of the news in simple words",
-                  "whatItMeans": "How this affects a normal business owner's money or operations",
-                  "theSolution": "Why Wilbak's automation or logic is the answer to stay safe or profit"
-                }
-            `;
+            const prompt = `SYSTEM: Wilhelm Rybak, CEO. 
+SPEAK: Simple English. No jargon.
+TASK: Find the POSITIVE opportunity for a business in this event.
+INPUT: ${signal.title} - ${signal.details}
+FORMAT: JSON { "headline": "Title", "mainPoint": "1 sentence summary", "whatItMeans": "Effect on owner", "theSolution": "Wilbak fix" }`;
 
             const groqRes = await securePost('https://api.groq.com/openai/v1/chat/completions',
                 { 'Authorization': `Bearer ${GROQ_API_KEY}` },
                 {
-                    model: 'llama-3.3-70b-versatile',
+                    model: 'llama-3.1-8b-instant',
                     messages: [{ role: 'user', content: prompt }],
                     response_format: { type: 'json_object' }
                 }
@@ -316,7 +301,6 @@ const triggerResearchProtocol = async (query = "Finance Business Real Estate") =
                     const groqData = JSON.parse(groqRes.data);
                     const analysis = JSON.parse(groqData.choices[0].message.content);
 
-                    // 3. LEDGER (Database)
                     await prisma.intelligenceNode.create({
                         data: {
                             sector: signal.sector,
@@ -328,17 +312,14 @@ const triggerResearchProtocol = async (query = "Finance Business Real Estate") =
                             sourceUrl: signal.url || null
                         }
                     });
-                    console.log(`[AUTONOMOUS_PULSE] Ledger Updated: ${analysis.headline}`);
-                } catch (pe) {
-                    console.error('[AUTONOMOUS_PULSE] Orchestrator Result Parse Failure');
-                }
-            } else {
-                console.error(`[AUTONOMOUS_PULSE] Orchestrator Failure for signal: ${signal.title}`);
+                    createdCount++;
+                } catch (e) { console.error('[AUTONOMOUS_PULSE] AI Result Failure'); }
             }
         }
-        console.log(`[AUTONOMOUS_PULSE] Cycle Complete. Systems Nominal.`);
+        return createdCount;
     } catch (e) {
-        console.error('[AUTONOMOUS_PULSE] CRITICAL FAILURE:', e);
+        console.error('[AUTONOMOUS_PULSE] Protocol Loop Failure:', e);
+        throw e;
     }
 };
 
@@ -412,10 +393,10 @@ app.post('/api/intelligence/:id/vote', async (req, res) => {
 app.post('/api/admin/intelligence/trigger', verifyTelegramAdmin, async (req, res) => {
     const { query } = req.body;
     try {
-        await triggerResearchProtocol(query || "Finance Business");
-        res.json({ success: true });
+        const count = await triggerResearchProtocol(query || "Finance Business");
+        res.json({ success: true, count });
     } catch (e) {
-        res.status(500).json({ error: 'Manual Protocol Failure' });
+        res.status(500).json({ error: e.message || 'Manual Protocol Failure' });
     }
 });
 

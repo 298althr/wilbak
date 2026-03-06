@@ -90,7 +90,8 @@
     <div id="newsModal" class="hidden fixed inset-0 z-[150] modal-blur flex items-center justify-center p-4">
         <div class="bg-slate-950 border border-slate-800 w-full max-w-lg rounded-sm overflow-hidden shadow-2xl">
             <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-900/50">
-                <h3 class="text-xl font-black uppercase italic italic tracking-tighter">INJECT INTELLIGENCE</h3>
+                <h3 class="text-xl font-black uppercase italic italic tracking-tighter text-sky-400">INJECT INTELLIGENCE
+                </h3>
                 <button onclick="closeNewsModal()" class="text-slate-500 hover:text-white transition p-2">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
@@ -103,7 +104,7 @@
                     <div class="col-span-1">
                         <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-2">SECTOR</label>
                         <select name="sector" required
-                            class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest outline-none focus:border-blue-600 transition">
+                            class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white outline-none focus:border-blue-600 transition">
                             <option value="FINANCE">FINANCE</option>
                             <option value="REAL ESTATE">REAL ESTATE</option>
                             <option value="TRADING">TRADING</option>
@@ -115,36 +116,36 @@
                 <div>
                     <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-2">HEADLINE</label>
                     <input type="text" name="title" required placeholder="Impactful title..."
-                        class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest outline-none focus:border-blue-600 transition">
+                        class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white placeholder-slate-500 outline-none focus:border-blue-600 transition">
                 </div>
                 <div>
                     <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-2">INSIGHT
                         (CRUX)</label>
                     <textarea name="insight" required placeholder="The executive summary..."
-                        class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest outline-none focus:border-blue-600 transition h-20"></textarea>
+                        class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white placeholder-slate-500 outline-none focus:border-blue-600 transition h-24"></textarea>
                 </div>
                 <div>
                     <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-2">MARKET EVENT
                         (SOURCE DATA)</label>
                     <textarea name="marketEvent" placeholder="Raw context or signal details..."
-                        class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest outline-none focus:border-blue-600 transition h-20"></textarea>
+                        class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white placeholder-slate-500 outline-none focus:border-blue-600 transition h-24"></textarea>
                 </div>
                 <div>
                     <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-2">LOGIC ANALYSIS
                         (BREAKDOWN)</label>
                     <textarea name="logicAnalysis" placeholder="What it means for the money..."
-                        class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest outline-none focus:border-blue-600 transition h-20"></textarea>
+                        class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white placeholder-slate-500 outline-none focus:border-blue-600 transition h-24"></textarea>
                 </div>
                 <div>
                     <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-2">THE SOLUTION
                         (CONVERSION)</label>
                     <textarea name="conversionStep" placeholder="The Wilbak fix..."
-                        class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest outline-none focus:border-blue-600 transition h-20"></textarea>
+                        class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white placeholder-slate-500 outline-none focus:border-blue-600 transition h-24"></textarea>
                 </div>
                 <div>
                     <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-2">SOURCE URL</label>
                     <input type="url" name="sourceUrl" placeholder="https://..."
-                        class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest outline-none focus:border-blue-600 transition">
+                        class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white placeholder-slate-500 outline-none focus:border-blue-600 transition">
                 </div>
                 <div class="pt-4">
                     <button type="submit" id="postNewsBtn"
@@ -432,7 +433,8 @@
                 });
                 const result = await response.json();
                 if (response.ok) {
-                    WebApp.showConfirm('INTEL SYNC SUCCESSFUL. DO YOU WANT TO VIEW THE GLOBAL LOGIC HUB?', (ok) => {
+                    const count = result.count || 0;
+                    WebApp.showConfirm(`SENSORY SCAN COMPLETE: ${count} NEW INSIGHTS DEPLOYED. DO YOU WANT TO VIEW THE GLOBAL LOGIC HUB?`, (ok) => {
                         if (ok) window.location.href = 'index.html#intelligence';
                     });
                 } else {
