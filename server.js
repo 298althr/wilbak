@@ -408,7 +408,7 @@ app.post('/api/intelligence/:id/vote', async (req, res) => {
     }
 });
 
-// Admin Trigger (Manual)
+// Admin Trigger (Manual AI Scan)
 app.post('/api/admin/intelligence/trigger', verifyTelegramAdmin, async (req, res) => {
     const { query } = req.body;
     try {
@@ -416,6 +416,34 @@ app.post('/api/admin/intelligence/trigger', verifyTelegramAdmin, async (req, res
         res.json({ success: true });
     } catch (e) {
         res.status(500).json({ error: 'Manual Protocol Failure' });
+    }
+});
+
+// Admin Manual Create (Manual Entry)
+app.post('/api/admin/intelligence/create', verifyTelegramAdmin, async (req, res) => {
+    try {
+        const { sector, title, insight, marketEvent, logicAnalysis, conversionStep, sourceUrl } = req.body;
+
+        if (!sector || !title || !insight) {
+            return res.status(400).json({ error: 'Sector, Title, and Insight are required for alignment.' });
+        }
+
+        const node = await prisma.intelligenceNode.create({
+            data: {
+                sector: sector.toUpperCase(),
+                title,
+                insight,
+                marketEvent: marketEvent || title,
+                logicAnalysis: logicAnalysis || insight,
+                conversionStep: conversionStep || "Contact Wilbak for an operative audit.",
+                sourceUrl: sourceUrl || null
+            }
+        });
+
+        res.json({ success: true, id: node.id });
+    } catch (e) {
+        console.error('Manual Creation Error:', e);
+        res.status(500).json({ error: 'Data persistence failure.' });
     }
 });
 
