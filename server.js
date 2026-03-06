@@ -300,41 +300,58 @@ const triggerResearchProtocol = async (query = "Finance Business") => {
             ];
         }
 
-        // 2. ORCHESTRATOR (Groq)
-        for (const signal of rawSignals) {
-            const prompt = `SYSTEM: Wilhelm Rybak, CEO. 
-SPEAK: Simple English. No jargon.
-TASK: Find the POSITIVE opportunity for a business in this event.
+        // 2. ORCHESTRATOR (Groq) - Upgraded to Strategic Reporting
+        const prompt = `SYSTEM: Wilhelm Rybak, CEO. High-Performance Strategist.
+SPEAK: Clear, Executive English. Sophisticated but direct.
+TASK: Analyze the provided business signal and generate a high-fidelity strategic report.
 INPUT: ${signal.title} - ${signal.details}
-FORMAT: JSON { "headline": "Title", "mainPoint": "1 sentence summary", "whatItMeans": "Effect on owner", "theSolution": "Wilbak fix" }`;
+FORMAT: JSON { 
+    "headline": "Impactful Title", 
+    "mainPoint": "The executive summary (Crux)", 
+    "marketContext": "Detailed context of the event",
+    "logicAnalysis": "Deep breakdown of why this matters for revenue/efficiency",
+    "logicFramework": {
+        "problemStructure": ["Point 1", "Point 2"],
+        "transformationModel": ["Point 1", "Point 2"]
+    },
+    "conversionStep": {
+        "phase1": "Initial action",
+        "phase2": "Implementation",
+        "phase3": "Expansion"
+    },
+    "strategicConclusion": "Final authoritative thought"
+}`;
 
-            const groqRes = await securePost('https://api.groq.com/openai/v1/chat/completions',
-                { 'Authorization': `Bearer ${GROQ_API_KEY}` },
-                {
-                    model: 'llama-3.1-8b-instant',
-                    messages: [{ role: 'user', content: prompt }],
-                    response_format: { type: 'json_object' }
-                }
-            );
+        const groqRes = await securePost('https://api.groq.com/openai/v1/chat/completions',
+            { 'Authorization': `Bearer ${GROQ_API_KEY}` },
+            {
+                model: 'llama-3.1-70b-versatile',
+                messages: [{ role: 'user', content: prompt }],
+                response_format: { type: 'json_object' }
+            }
+        );
 
-            if (groqRes.ok) {
-                try {
-                    const groqData = JSON.parse(groqRes.data);
-                    const analysis = JSON.parse(groqData.choices[0].message.content);
+        if (groqRes.ok) {
+            try {
+                const groqData = JSON.parse(groqRes.data);
+                const analysis = JSON.parse(groqData.choices[0].message.content);
 
-                    await prisma.intelligenceNode.create({
-                        data: {
-                            sector: signal.sector,
-                            title: analysis.headline,
-                            insight: analysis.mainPoint,
-                            marketEvent: signal.details,
-                            logicAnalysis: analysis.whatItMeans,
-                            conversionStep: analysis.theSolution,
-                            sourceUrl: signal.url || null
-                        }
-                    });
-                    createdCount++;
-                } catch (e) { console.error('[AUTONOMOUS_PULSE] AI Result Failure'); }
+                await prisma.intelligenceNode.create({
+                    data: {
+                        sector: signal.sector,
+                        title: analysis.headline,
+                        insight: analysis.mainPoint,
+                        marketEvent: analysis.marketContext || signal.details,
+                        logicAnalysis: analysis.logicAnalysis || analysis.mainPoint,
+                        logicFramework: analysis.logicFramework || null,
+                        conversionStep: analysis.conversionStep || null,
+                        strategicConclusion: analysis.strategicConclusion || null,
+                        sourceUrl: signal.url || null
+                    }
+                });
+                createdCount++;
+            } catch (e) {
+                console.error('[AUTONOMOUS_PULSE] AI Result Failure/Persistence Error:', e);
             }
         }
         return createdCount;
@@ -510,7 +527,9 @@ app.get('/insight/:id', async (req, res) => {
             '{{INSIGHT}}': node.insight,
             '{{MARKET_EVENT}}': node.marketEvent,
             '{{LOGIC_ANALYSIS}}': node.logicAnalysis,
-            '{{CONVERSION_STEP}}': node.conversionStep,
+            '{{CONVERSION_STEP}}': JSON.stringify(node.conversionStep || {}),
+            '{{LOGIC_FRAMEWORK}}': JSON.stringify(node.logicFramework || {}),
+            '{{STRATEGIC_CONCLUSION}}': node.strategicConclusion || '',
             '{{DATE}}': node.createdAt.toDateString(),
             '{{URL}}': `https://${req.get('host')}/insight/${node.id}`
         };
@@ -529,11 +548,11 @@ app.get('/insight/:id', async (req, res) => {
 // Admin Manual Create (Manual Entry)
 app.post('/api/admin/intelligence/create', verifyTelegramAdmin, async (req, res) => {
     try {
-        const { sector, title, insight, marketEvent, logicAnalysis, conversionStep, sourceUrl } = req.body;
-
-        if (!sector || !title || !insight) {
-            return res.status(400).json({ error: 'Sector, Title, and Insight are required for alignment.' });
-        }
+        const {
+            sector, title, insight, marketEvent, logicAnalysis,
+            logicFramework, caseStudyEvidence, conversionStep,
+            strategicConclusion, sourceUrl
+        } = req.body;
 
         const node = await prisma.intelligenceNode.create({
             data: {
@@ -542,7 +561,10 @@ app.post('/api/admin/intelligence/create', verifyTelegramAdmin, async (req, res)
                 insight,
                 marketEvent: marketEvent || title,
                 logicAnalysis: logicAnalysis || insight,
-                conversionStep: conversionStep || "Contact Wilbak for an operative audit.",
+                logicFramework: logicFramework || null,
+                caseStudyEvidence: caseStudyEvidence || null,
+                conversionStep: conversionStep || null,
+                strategicConclusion: strategicConclusion || null,
                 sourceUrl: sourceUrl || null
             }
         });

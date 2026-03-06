@@ -52,19 +52,22 @@ model CaseStudy {
 }
 
 model IntelligenceNode {
-  id              String   @id @default(cuid())
-  createdAt       DateTime @default(now())
-  sector          String   // Finance, Real Estate, Trading, Positioning
-  title           String   // Headline
-  insight         String   @db.Text // Groq's Executive "Crux" 
-  sourceUrl       String?
-  marketEvent     String   @db.Text
-  logicAnalysis   String   @db.Text // Groq-speed breakdown
-  conversionStep  String   @db.Text // The call to action
-  likes           Int      @default(0)
-  dislikes        Int      @default(0)
-  status          String   @default("ACTIVE")
-  votes           Vote[]
+  id                  String   @id @default(cuid())
+  createdAt           DateTime @default(now())
+  sector              String   // Finance, Real Estate, Trading, Positioning
+  title               String   // Headline
+  insight             String   @db.Text // Groq's Executive "Crux" 
+  sourceUrl           String?
+  marketEvent         String   @db.Text
+  logicAnalysis       String   @db.Text // Groq-speed breakdown
+  logicFramework      Json?    // Structural inefficiencies and transformation models
+  caseStudyEvidence   Json?    // Success stories and benchmarks
+  strategicConclusion String?  @db.Text 
+  conversionStep      Json?    // Phased action plan (diagnose, map, implement, etc.)
+  likes               Int      @default(0)
+  dislikes            Int      @default(0)
+  status              String   @default("ACTIVE")
+  votes               Vote[]
 }
 
 model Vote {

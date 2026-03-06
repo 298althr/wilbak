@@ -360,7 +360,17 @@
                 if (data.market_event || data.marketEvent) form.querySelector('[name="marketEvent"]').value = data.market_event || data.marketEvent;
                 if (data.logic_analysis || data.logicAnalysis) form.querySelector('[name="logicAnalysis"]').value = data.logic_analysis || data.logicAnalysis;
                 if (data.solution || data.conversionStep) form.querySelector('[name="conversionStep"]').value = data.solution || data.conversionStep;
-                if (data.source_url || data.sourceUrl) form.querySelector('[name="sourceUrl"]').value = data.source_url || data.sourceUrl;
+                if (data.logic_framework || data.logicFramework) data.logicFramework = data.logic_framework || data.logicFramework;
+                if (data.case_study_evidence || data.caseStudyEvidence) data.caseStudyEvidence = data.case_study_evidence || data.caseStudyEvidence;
+                if (data.strategic_conclusion || data.strategicConclusion) data.strategicConclusion = data.strategic_conclusion || data.strategicConclusion;
+
+                // Store nested objects directly in the data object for the POST request
+                // The form submission logic will need to be updated or we send the 'data' object directly
+
+                // For now, let's update the manual creation logic to just send the whole parsed 'data' object
+                // if it comes from JSON, otherwise use form data.
+
+                window.lastInjectedData = data; // Cache for submission
 
                 WebApp.HapticFeedback.notificationOccurred('success');
                 document.getElementById('jsonPasteArea').classList.add('hidden');
@@ -386,7 +396,12 @@
             const form = e.target;
             const btn = document.getElementById('postNewsBtn');
             const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
+            let data = Object.fromEntries(formData.entries());
+
+            // Merge with complex data if available from JSON injection
+            if (window.lastInjectedData) {
+                data = { ...data, ...window.lastInjectedData };
+            }
 
             btn.disabled = true;
             btn.classList.add('opacity-50', 'animate-pulse');
