@@ -292,16 +292,24 @@
 </head>
 
 <body class="bg-slate-50 text-slate-900" x-data="{ 
-    page: 'home', 
+    page: 'main', // main, expertise, about, contact
     mobileMenu: false, 
     successModal: false,
-    transformationModal: false,
+    showModal: false, // Transformation Modal
+    showFullReportModal: false, // Full Report Modal
     selectedNode: null,
+    intelNodes: [],
     
     openTransformationModal(node) {
         this.selectedNode = node;
-        this.transformationModal = true;
+        this.showModal = true;
     },
+
+    openFullReport(node) {
+        this.selectedNode = node;
+        this.showFullReportModal = true;
+    },
+
     auditStep: 1,
     industry: '',
     hours: 40,
@@ -310,8 +318,14 @@
     auditName: '',
     auditEmail: '',
     auditPhone: '',
-    intelNodes: [],
-    loadingIntel: false,
+    loadingIntel: true,
+    
+    sanitizeText(text) {
+        if (!text) return '';
+        // Strip [oai_citation:...] tags
+        return text.replace(/\[oai_citation:.*?\]\(.*?\)/g, '').replace(/\[oai_citation:.*?\]/g, '').trim();
+    },
+
     async fetchIntel() {
         if (this.loadingIntel) return;
         this.loadingIntel = true;
@@ -332,6 +346,7 @@
             this.page = 'intelligence';
             this.fetchIntel();
         }
+        this.fetchIntel();
     },
     async submitAudit() {
         try {
@@ -1156,8 +1171,7 @@
                     LOGIC LEDGER</h2>
                 <div class="h-1 w-24 bg-blue-600 mx-auto mb-10"></div>
                 <p class="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed font-medium">
-                    Decoding global volatility into precise operational advantages for the high-performance business
-                    owner.
+                    Decoding global volatility into precise operational advantages through algorithmic intelligence.
                 </p>
             </header>
 
@@ -1168,7 +1182,7 @@
                         <div class="absolute -left-8 top-0 bottom-0 w-px bg-slate-200 hidden md:block"></div>
 
                         <div
-                            class="bg-white border border-slate-100 rounded-[2.5rem] overflow-hidden shadow-2xl transition-all duration-700 hover:shadow-blue-900/10 flex flex-col md:h-[650px]">
+                            class="bg-white border border-slate-100 rounded-[3rem] overflow-hidden shadow-2xl transition-all duration-700 hover:shadow-blue-900/10 flex flex-col md:min-h-[650px]">
                             <!-- Header Info -->
                             <div class="p-8 flex items-center justify-between border-b border-slate-50">
                                 <div class="flex items-center space-x-4">
@@ -1217,11 +1231,11 @@
                                     <span
                                         class="text-[10px] font-black text-green-600 uppercase tracking-[0.4em] mb-4">01
                                         // The Big Picture</span>
-                                    <h3 class="text-4xl md:text-5xl font-black italic tracking-tighter text-slate-900 mb-8 leading-[0.9] font-lora"
-                                        x-text="node.title"></h3>
+                                    <h3 class="text-3xl md:text-5xl font-black italic tracking-tighter text-slate-900 mb-8 leading-[0.9] font-lora"
+                                        x-text="sanitizeText(node.title)"></h3>
                                     <div class="relative pl-8 mb-8 border-l-4 border-blue-600">
-                                        <p class="text-xl md:text-2xl text-slate-600 leading-tight font-montserrat"
-                                            x-text="node.insight"></p>
+                                        <p class="text-lg md:text-xl text-slate-600 leading-tight font-montserrat"
+                                            x-text="sanitizeText(node.insight)"></p>
                                     </div>
                                     <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
                                         <span
@@ -1239,8 +1253,8 @@
                                         class="text-[10px] font-black text-blue-600 uppercase tracking-[0.4em] mb-4">02
                                         // Dynamic Strategy</span>
                                     <h4 class="text-2xl font-black italic mb-6 font-lora">Executive Logic Analysis</h4>
-                                    <p class="text-lg text-slate-700 leading-relaxed mb-8 font-montserrat italic"
-                                        x-text="node.logicAnalysis"></p>
+                                    <p class="text-base text-slate-700 leading-relaxed mb-8 font-montserrat italic"
+                                        x-text="sanitizeText(node.logicAnalysis)"></p>
 
                                     <div class="grid grid-cols-2 gap-4" x-show="node.logicFramework">
                                         <div class="bg-slate-900 p-5 rounded-2xl text-white">
@@ -1281,8 +1295,8 @@
                                     <div
                                         class="bg-slate-50 p-10 rounded-[2rem] border-2 border-dashed border-slate-200 mb-8">
                                         <h4 class="text-3xl font-black italic mb-4 font-lora">Strategic Conclusion</h4>
-                                        <p class="text-xl text-slate-600 font-montserrat leading-relaxed"
-                                            x-text="node.strategicConclusion || 'Contact WilBak for detailed operational execution.'">
+                                        <p class="text-lg text-slate-600 font-montserrat leading-relaxed"
+                                            x-text="sanitizeText(node.strategicConclusion) || 'Contact WilBak for detailed operational execution.'">
                                         </p>
                                     </div>
                                     <div class="flex items-center space-x-6">
@@ -1320,13 +1334,19 @@
                                             :disabled="currentSlide === 3">→</button>
                                     </div>
                                 </div>
-                                <div class="flex justify-between items-center bg-slate-50 p-2 rounded-2xl px-6">
-                                    <div class="text-[9px] mono text-slate-400 font-bold uppercase"
-                                        x-text="'NODE INDEX: ' + node.id.substring(0,8)"></div>
+                                <div class="flex justify-between items-center bg-slate-50 p-4 rounded-3xl px-8">
+                                    <button @click="openFullReport(node)"
+                                        class="flex items-center space-x-3 text-[10px] font-black mono text-blue-600 uppercase tracking-[0.2em] group">
+                                        <span>READ FULL REPORT</span>
+                                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                        </svg>
+                                    </button>
                                     <button
-                                        @click="const url = `${window.location.origin}/insight/${node.id}`; navigator.clipboard.writeText(url); WebApp.showAlert('LINK SECURED'); WebApp.HapticFeedback.notificationOccurred('success')"
-                                        class="text-[9px] font-black mono text-blue-600 uppercase tracking-widest hover:underline">SHARE
-                                        INTEL</button>
+                                        @click="const url = `${window.location.origin}/insight/${node.id}`; navigator.clipboard.writeText(url); if(window.WebApp && WebApp.showAlert) { WebApp.showAlert('LINK SECURED'); WebApp.HapticFeedback.notificationOccurred('success'); } else { alert('LINK SECURED TO CLIPBOARD'); }"
+                                        class="text-[10px] font-black mono text-slate-400 uppercase tracking-widest hover:text-blue-600 transition-colors">SHARE</button>
                                 </div>
                             </div>
                         </div>
@@ -1583,7 +1603,7 @@
     </footer>
 
     <!-- Transformation Modal -->
-    <div x-show="transformationModal" x-transition:enter="transition ease-out duration-300"
+    <div x-show="showModal" x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 translate-y-20" x-transition:enter-end="opacity-100 translate-y-0"
         x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-20"
@@ -1597,7 +1617,7 @@
                         Plan</span>
                     <h3 class="text-2xl font-black italic font-lora text-slate-950">Phased Transformation Protocol</h3>
                 </div>
-                <button @click="transformationModal = false"
+                <button @click="showModal = false"
                     class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center hover:bg-slate-200 transition-colors">
                     <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
@@ -1651,12 +1671,123 @@
             </div>
 
             <div class="p-8 bg-slate-50 border-t border-slate-100">
-                <button @click="transformationModal = false; page = 'audit'"
+                <button @click="showModal = false; page = 'audit'; window.location.hash = 'audit'"
                     class="w-full py-5 bg-slate-900 text-white font-black italic tracking-[0.2em] text-xs skew-x-[-6deg] hover:bg-blue-600 transition-all">
                     <span class="skew-x-[6deg] flex items-center justify-center">
                         PROCEED TO AUDIT PROTOCOL <span class="ml-4">→</span>
                     </span>
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Full Report Modal (News Article Style) -->
+    <div x-show="showFullReportModal" x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 translate-y-20" x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 translate-y-20"
+        class="fixed inset-0 z-[120] flex items-center justify-center p-0 md:p-10 bg-slate-950/90 backdrop-blur-2xl"
+        style="display: none;">
+        <div
+            class="bg-white w-full max-w-5xl h-full md:h-auto md:max-h-[95vh] overflow-hidden flex flex-col md:rounded-[3rem] shadow-2xl">
+            <!-- Sticky Header -->
+            <div class="p-6 md:p-10 border-b border-slate-100 flex justify-between items-center bg-white z-10">
+                <div class="flex items-center space-x-6">
+                    <div
+                        class="w-12 h-12 bg-slate-950 rounded-2xl flex items-center justify-center text-white font-black italic text-xl">
+                        W</div>
+                    <div>
+                        <div class="text-[10px] mono text-blue-600 font-bold uppercase tracking-widest"
+                            x-text="selectedNode?.sector"></div>
+                        <div class="text-[9px] text-slate-400 uppercase tracking-widest"
+                            x-text="selectedNode ? new Date(selectedNode.createdAt).toDateString() : ''"></div>
+                    </div>
+                </div>
+                <button @click="showFullReportModal = false"
+                    class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center hover:bg-slate-200 transition-colors">
+                    <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="flex-grow overflow-y-auto p-8 md:p-20 custom-scrollbar">
+                <template x-if="selectedNode">
+                    <div class="max-w-3xl mx-auto">
+                        <span class="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em] mb-6 block">FULL
+                            INTELLIGENCE BRIEFING</span>
+                        <h1 class="text-4xl md:text-7xl font-black italic tracking-tighter text-slate-900 mb-12 leading-[0.9] font-lora"
+                            x-text="sanitizeText(selectedNode.title)"></h1>
+
+                        <div class="prose prose-slate max-w-none">
+                            <div class="relative pl-10 border-l-4 border-blue-600 mb-16">
+                                <p class="text-xl md:text-3xl font-montserrat text-slate-600 leading-tight italic"
+                                    x-text="sanitizeText(selectedNode.insight)"></p>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-12 mb-20">
+                                <div class="space-y-6">
+                                    <h4 class="text-xs font-black uppercase tracking-[0.3em] text-slate-400">Strategic
+                                        Logic</h4>
+                                    <p class="text-lg text-slate-700 leading-relaxed font-lora italic"
+                                        x-text="sanitizeText(selectedNode.logicAnalysis)"></p>
+                                </div>
+                                <div class="bg-slate-50 p-10 rounded-[2rem]">
+                                    <h4 class="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-6">Market
+                                        Event</h4>
+                                    <p class="text-sm text-slate-600 leading-relaxed font-montserrat"
+                                        x-text="sanitizeText(selectedNode.marketEvent)"></p>
+                                </div>
+                            </div>
+
+                            <template x-if="selectedNode.logicFramework">
+                                <div class="mb-20">
+                                    <h4 class="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-10">
+                                        Systems Framework</h4>
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <div class="bg-slate-900 p-10 rounded-3xl text-white">
+                                            <span
+                                                class="text-[9px] mono text-blue-400 uppercase tracking-widest block mb-6">Structural
+                                                Drag</span>
+                                            <ul class="text-xs space-y-4 opacity-90">
+                                                <template
+                                                    x-for="item in (selectedNode.logicFramework.problemStructure || [])">
+                                                    <li class="flex items-start"><span
+                                                            class="mr-4 text-blue-500">→</span><span
+                                                            x-text="sanitizeText(item)"></span></li>
+                                                </template>
+                                            </ul>
+                                        </div>
+                                        <div class="bg-blue-600 p-10 rounded-3xl text-white">
+                                            <span
+                                                class="text-[9px] mono text-blue-100 uppercase tracking-widest block mb-6">Alignment
+                                                Logic</span>
+                                            <ul class="text-xs space-y-4">
+                                                <template
+                                                    x-for="item in (selectedNode.logicFramework.transformationModel || [])">
+                                                    <li class="flex items-start"><span class="mr-4">⚡</span><span
+                                                            x-text="sanitizeText(item)"></span></li>
+                                                </template>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <div class="bg-slate-950 p-12 md:p-20 rounded-[3rem] text-white">
+                                <h4 class="text-[10px] mono text-blue-400 uppercase tracking-widest mb-8">Strategic
+                                    Conclusion</h4>
+                                <p class="text-3xl md:text-5xl font-black italic tracking-tighter leading-none mb-12 font-lora"
+                                    x-text="sanitizeText(selectedNode.strategicConclusion)"></p>
+                                <button @click="showFullReportModal = false; showModal = true"
+                                    class="w-full py-6 bg-white text-slate-950 font-black italic text-xs tracking-[0.3em] uppercase transition-transform hover:scale-[1.02]">
+                                    INITIALIZE TRANSFORMATION PROTOCOL →
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
             </div>
         </div>
     </div>
