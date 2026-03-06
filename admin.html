@@ -173,12 +173,6 @@
                         class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white placeholder-slate-500 outline-none focus:border-blue-600 transition h-24"></textarea>
                 </div>
                 <div>
-                    <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-1">CASE STUDY
-                        EVIDENCE (JSON)</label>
-                    <textarea name="caseStudyEvidence" placeholder='{ "results": [...] }'
-                        class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white placeholder-slate-500 outline-none focus:border-blue-600 transition h-24"></textarea>
-                </div>
-                <div>
                     <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-2">SOURCE URL</label>
                     <input type="url" name="sourceUrl" placeholder="https://..."
                         class="w-full bg-slate-900 border border-slate-800 p-3 text-xs mono uppercase tracking-widest text-white placeholder-slate-500 outline-none focus:border-blue-600 transition">
@@ -475,7 +469,6 @@
                     form.querySelector('[name="conversionStep"]').value = formatValue(node.conversionStep);
                     form.querySelector('[name="strategicConclusion"]').value = formatValue(node.strategicConclusion);
                     form.querySelector('[name="logicFramework"]').value = formatValue(node.logicFramework);
-                    form.querySelector('[name="caseStudyEvidence"]').value = formatValue(node.caseStudyEvidence);
                     form.querySelector('[name="sourceUrl"]').value = node.sourceUrl || '';
                     form.querySelector('[name="status"]').value = node.status;
                     form.querySelector('[name="likes"]').value = node.likes;
@@ -614,11 +607,6 @@
                     form.querySelector('[name="logicFramework"]').value = formatValue(lf);
                     data.logicFramework = lf;
                 }
-                if (data.case_study_evidence || data.caseStudyEvidence) {
-                    const cse = data.case_study_evidence || data.caseStudyEvidence;
-                    form.querySelector('[name="caseStudyEvidence"]').value = formatValue(cse);
-                    data.caseStudyEvidence = cse;
-                }
 
                 if (data.source_url || data.sourceUrl) form.querySelector('[name="sourceUrl"]').value = data.source_url || data.sourceUrl;
 
@@ -654,7 +642,7 @@
             }
 
             // Ensure JSON fields are handled correctly from textareas (which might have been edited)
-            const jsonFields = ['conversionStep', 'logicFramework', 'caseStudyEvidence'];
+            const jsonFields = ['conversionStep', 'logicFramework'];
             jsonFields.forEach(field => {
                 const element = form.querySelector(`[name="${field}"]`);
                 if (element && element.value.trim()) {
