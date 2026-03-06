@@ -92,11 +92,28 @@
             <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-900/50">
                 <h3 class="text-xl font-black uppercase italic italic tracking-tighter text-sky-400">INJECT INTELLIGENCE
                 </h3>
-                <button onclick="closeNewsModal()" class="text-slate-500 hover:text-white transition p-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                        </path>
-                    </svg>
+                <div class="flex items-center space-x-2">
+                    <button onclick="toggleJsonPaste()"
+                        class="text-[9px] mono text-blue-500 hover:text-blue-400 font-bold uppercase tracking-widest border border-blue-500/30 px-2 py-1 rounded">
+                        PASTE JSON
+                    </button>
+                    <button onclick="closeNewsModal()" class="text-slate-500 hover:text-white transition p-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div id="jsonPasteArea" class="hidden p-6 bg-slate-900 border-b border-slate-800">
+                <label class="text-[8px] mono text-blue-500 uppercase tracking-widest block mb-2">RAW JSON
+                    INJECTOR</label>
+                <textarea id="jsonInput" placeholder='{ "title": "...", "insight": "..." }'
+                    class="w-full bg-slate-950 border border-slate-800 p-4 text-[10px] mono text-blue-400 placeholder-slate-700 outline-none focus:border-blue-600 transition h-32 mb-4"></textarea>
+                <button onclick="processJsonInjection()"
+                    class="w-full py-2 bg-blue-600 text-white font-black uppercase italic text-[10px] skew-x-[-12deg]">
+                    <span class="skew-x-[12deg] inline-block">PARSE & POPULATE</span>
                 </button>
             </div>
             <form id="newsForm" onsubmit="postManualNews(event)" class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
@@ -316,7 +333,52 @@
 
         function closeNewsModal() {
             document.getElementById('newsModal').classList.add('hidden');
+            document.getElementById('jsonPasteArea').classList.add('hidden');
             document.body.style.overflow = 'auto';
+        }
+
+        function toggleJsonPaste() {
+            const area = document.getElementById('jsonPasteArea');
+            area.classList.toggle('hidden');
+            if (!area.classList.contains('hidden')) {
+                document.getElementById('jsonInput').focus();
+            }
+        }
+
+        function processJsonInjection() {
+            const jsonText = document.getElementById('jsonInput').value;
+            try {
+                // Handle smart quotes common in copy-pastes
+                const normalized = jsonText.replace(/[\u201C\u201D]/g, '"').replace(/[\u2018\u2019]/g, "'");
+                const data = JSON.parse(normalized);
+                const form = document.getElementById('newsForm');
+
+                // Mapping JSON keys to form inputs
+                if (data.sector) form.querySelector('[name="sector"]').value = data.sector.toUpperCase();
+                if (data.title || data.headline) form.querySelector('[name="title"]').value = data.title || data.headline;
+                if (data.insight) form.querySelector('[name="insight"]').value = data.insight;
+                if (data.market_event || data.marketEvent) form.querySelector('[name="marketEvent"]').value = data.market_event || data.marketEvent;
+                if (data.logic_analysis || data.logicAnalysis) form.querySelector('[name="logicAnalysis"]').value = data.logic_analysis || data.logicAnalysis;
+                if (data.solution || data.conversionStep) form.querySelector('[name="conversionStep"]').value = data.solution || data.conversionStep;
+                if (data.source_url || data.sourceUrl) form.querySelector('[name="sourceUrl"]').value = data.source_url || data.sourceUrl;
+
+                WebApp.HapticFeedback.notificationOccurred('success');
+                document.getElementById('jsonPasteArea').classList.add('hidden');
+                document.getElementById('jsonInput').value = '';
+
+                // Visual confirmation
+                const btn = document.querySelector('button[onclick="toggleJsonPaste()"]');
+                btn.innerText = 'DATA INJECTED';
+                btn.classList.replace('text-blue-500', 'text-green-500');
+                setTimeout(() => {
+                    btn.innerText = 'PASTE JSON';
+                    btn.classList.replace('text-green-500', 'text-blue-500');
+                }, 2000);
+
+            } catch (e) {
+                WebApp.showAlert('INVALID JSON STRUCTURE: Please verify your syntax.');
+                WebApp.HapticFeedback.notificationOccurred('error');
+            }
         }
 
         async function postManualNews(e) {
