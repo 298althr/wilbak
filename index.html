@@ -61,6 +61,132 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('wilbakApp', () => ({
+                page: 'home',
+                mobileMenu: false,
+                successModal: false,
+                showModal: false,
+                showFullReportModal: false,
+                showAuditModal: false,
+                selectedNode: null,
+                intelNodes: [],
+                auditStep: 1,
+                industry: '',
+                businessDetail: '',
+                leadName: '',
+                leadEmail: '',
+                leadPhone: '',
+                loadingIntel: false,
+
+                openTransformationModal(node) {
+                    this.selectedNode = node;
+                    this.showModal = true;
+                },
+
+                openFullReport(node) {
+                    this.selectedNode = node;
+                    this.showFullReportModal = true;
+                },
+
+                renderNested(obj) {
+                    if (!obj) return '';
+                    if (typeof obj === 'string') return `<p class=" mb-4 leading-relaxed">${this.sanitizeText(obj)}</p>`;
+                    if (Array.isArray(obj)) {
+                        return `<ul class="space-y-3 mb-6">` + obj.map(item => `
+                            <li class="flex items-start">
+                                <span class="text-blue-500 mr-2 mt-1">▹</span>
+                                <div class="text-sm text-slate-700 font-bold">${this.renderNested(item)}</div>
+                            </li>`).join('') + `
+                        </ul>`;
+                    }
+                    if (typeof obj === 'object') {
+                        return Object.entries(obj).map(([key, value]) => `
+                        <div class="mb-6 last:mb-0 bg-slate-50/50 p-4 border-l-2 border-blue-600">
+                            <h4 class="text-[9px] mono text-blue-600 uppercase tracking-widest mb-2 font-black">${key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').trim()}</h4>
+                            <div class="text-sm text-slate-800">${this.renderNested(value)}</div>
+                        </div>
+                        `).join('');
+                    }
+                    return obj;
+                },
+
+                sanitizeText(text) {
+                    if (!text) return '';
+                    return text.replace(/\[oai_citation:.*?\]\(.*?\)/g, '').replace(/\[oai_citation:.*?\]/g, '').trim();
+                },
+
+                async fetchIntel() {
+                    if (this.loadingIntel) return;
+                    this.loadingIntel = true;
+                    try {
+                        const response = await fetch('/api/intelligence');
+                        this.intelNodes = await response.json();
+                    } catch (e) {
+                        console.error('Intel link failed');
+                    } finally {
+                        this.loadingIntel = false;
+                    }
+                },
+
+                init() {
+                    const hash = window.location.hash.replace('#', '');
+                    if (hash === 'audit') this.page = 'audit';
+                    if (hash === 'insights') {
+                        this.page = 'intelligence';
+                        this.fetchIntel();
+                    }
+                    this.fetchIntel();
+                },
+
+                async submitLead() {
+                    try {
+                        const auditData = {
+                            industry: this.industry,
+                            businessDetail: this.businessDetail,
+                            auditName: this.leadName,
+                            auditEmail: this.leadEmail,
+                            auditPhone: this.leadPhone
+                        };
+                        const response = await fetch('/api/audit', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(auditData)
+                        });
+                        if (response.ok) {
+                            this.successModal = true;
+                            this.showAuditModal = false;
+                            this.showModal = false;
+                            this.showFullReportModal = false;
+                            this.auditStep = 1;
+                            this.industry = '';
+                            this.businessDetail = '';
+                            this.leadName = '';
+                            this.leadEmail = '';
+                            this.leadPhone = '';
+                        } else {
+                            alert('Transmission error.');
+                        }
+                    } catch (error) { console.error('Audit error:', error); }
+                },
+
+                async vote(id, type) {
+                    try {
+                        const response = await fetch(`/api/intelligence/${id}/vote`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ type })
+                        });
+                        const data = await response.json();
+                        if (data.success) {
+                            await this.fetchIntel();
+                        }
+                    } catch (e) { console.error('Vote failed'); }
+                }
+            }));
+        });
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -291,154 +417,7 @@
     </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900" x-data="{ 
-    page: 'main', // main, expertise, about, contact
-    mobileMenu: false, 
-    successModal: false,
-    showModal: false, // Transformation Modal
-    showFullReportModal: false, // Full Report Modal
-    showAuditModal: false, // Audit Modal
-    selectedNode: null,
-    intelNodes: [],
-    
-    openTransformationModal(node) {
-        this.selectedNode = node;
-        this.showModal = true;
-    },
-
-    openFullReport(node) {
-        this.selectedNode = node;
-        this.showFullReportModal = true;
-    },
-
-    auditStep: 1,
-    industry: '',
-    businessDetail: '',
-    leadName: '',
-    leadEmail: '',
-    leadPhone: '',
-    loadingIntel: false,
-    
-    renderNested(obj) {
-        if (!obj) return '';
-        if (typeof obj === 'string') return `<p class=" mb-4 leading-relaxed">${this.sanitizeText(obj)}</p>`;
-    if (Array.isArray(obj)) {
-    return `<ul class="space-y-3 mb-6">` + obj.map(item => `
-        <li class="flex items-start">
-            <span class="text-blue-500 mr-2 mt-1">▹</span>
-            <div class="text-sm text-slate-700 font-bold">${this.renderNested(item)}</div>
-        </li>`).join('') + `
-    </ul>`;
-    }
-    if (typeof obj === 'object') {
-    return Object.entries(obj).map(([key, value]) => `
-    <div class="mb-6 last:mb-0 bg-slate-50/50 p-4 border-l-2 border-blue-600">
-        <h4 class="text-[9px] mono text-blue-600 uppercase tracking-widest mb-2 font-black">${key.replace(/([A-Z])/g, '
-            $1').replace(/_/g, ' ').trim()}</h4>
-        <div class="text-sm text-slate-800">${this.renderNested(value)}</div>
-    </div>
-    `).join('');
-    }
-    return obj;
-    },
-
-    renderNested(obj) {
-    if (!obj) return '';
-    if (typeof obj === 'string') return `<p class=" mb-4 leading-relaxed">${this.sanitizeText(obj)}</p>`;
-    if (Array.isArray(obj)) {
-    return `<ul class="space-y-3 mb-6">` + obj.map(item => `
-        <li class="flex items-start">
-            <span class="text-blue-500 mr-2 mt-1">▹</span>
-            <div class="text-sm text-slate-700">${this.renderNested(item)}</div>
-        </li>`).join('') + `
-    </ul>`;
-    }
-    if (typeof obj === 'object') {
-    return Object.entries(obj).map(([key, value]) => `
-    <div class="mb-6 last:mb-0 bg-slate-50/50 p-4 border-l-2 border-blue-600">
-        <h4 class="text-[9px] mono text-blue-600 uppercase tracking-widest mb-2 font-black">${key.replace(/([A-Z])/g, '
-            $1').trim()}</h4>
-        <div class="text-sm text-slate-800">${this.renderNested(value)}</div>
-    </div>
-    `).join('');
-    }
-    return obj;
-    },
-
-    sanitizeText(text) {
-    if (!text) return '';
-    // Strip [oai_citation:...] tags
-    return text.replace(/\[oai_citation:.*?\]\(.*?\)/g, '').replace(/\[oai_citation:.*?\]/g, '').trim();
-    },
-
-    async fetchIntel() {
-    if (this.loadingIntel) return;
-    this.loadingIntel = true;
-    try {
-    const response = await fetch('/api/intelligence');
-    this.intelNodes = await response.json();
-    } catch (e) {
-    console.error('Intel link failed');
-    } finally {
-    this.loadingIntel = false;
-    }
-    },
-    init() {
-    // Simple Hash Routing for SEO/Ads deep linking
-    const hash = window.location.hash.replace('#', '');
-    if (hash === 'audit') this.page = 'audit';
-    if (hash === 'insights') {
-    this.page = 'intelligence';
-    this.fetchIntel();
-    }
-    this.fetchIntel();
-    },
-    async submitLead() {
-    try {
-    const auditData = {
-    industry: this.industry,
-    businessDetail: this.businessDetail,
-    auditName: this.leadName,
-    auditEmail: this.leadEmail,
-    auditPhone: this.leadPhone
-    };
-    const response = await fetch('/api/audit', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(auditData)
-    });
-    if (response.ok) {
-    this.successModal = true;
-    this.showAuditModal = false;
-    this.showModal = false;
-    this.showFullReportModal = false;
-    // Reset audit
-    this.auditStep = 1;
-    this.industry = '';
-    this.businessDetail = '';
-    this.leadName = '';
-    this.leadEmail = '';
-    this.leadPhone = '';
-    } else {
-    alert('Transmission error.');
-    }
-    } catch (error) { console.error('Audit error:', error); }
-    },
-    async vote(id, type) {
-    try {
-    const response = await fetch(`/api/intelligence/${id}/vote`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ type })
-    });
-    const data = await response.json();
-    if (data.success) {
-    // Refresh data to get verified counts and states
-    await this.fetchIntel();
-    }
-    } catch (e) { console.error('Vote failed'); }
-    },
-    }">
+<body class="bg-slate-50 text-slate-900" x-data="wilbakApp">
 
     <nav
         class="flex justify-between items-center px-6 md:px-10 py-6 bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
