@@ -440,7 +440,7 @@
             <a @click="page = 'intelligence'; fetchIntel()"
                 :class="page === 'intelligence' ? 'text-blue-600' : 'text-slate-500'"
                 class="hover:text-blue-600 transition outline-none">News & Insights</a>
-            <a class="btn-premium bg-slate-900 text-white hover:bg-blue-700" @click="page = 'audit'">Audit Site</a>
+            <a class="btn-premium bg-slate-900 text-white hover:bg-blue-700" @click="page = 'audit'">Business Audit</a>
         </div>
 
         <!-- Mobile Menu Toggle -->
@@ -468,7 +468,7 @@
                 <a @click="page = 'intelligence'; fetchIntel(); mobileMenu = false" class="text-slate-900">News &
                     Insights</a>
                 <a class="bg-slate-900 text-white px-6 py-4 text-center rounded-sm"
-                    @click="page = 'audit'; mobileMenu = false">Audit Site</a>
+                    @click="page = 'audit'; mobileMenu = false">Business Audit</a>
             </div>
         </div>
     </nav>
@@ -1011,14 +1011,14 @@
                         INTELLIGENCE HUB ]</div>
                 </div>
                 <h2 class="text-6xl md:text-9xl font-black italic uppercase tracking-tighter leading-none mb-8">
-                    LOGIC LEDGER</h2>
+                    BUSINESS INSIGHTS</h2>
                 <div class="h-1 w-24 bg-blue-600 mx-auto mb-10"></div>
                 <p class="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed font-bold tracking-tight">
-                    Decoding global markets into precise operational protocols.
+                    Transforming global markets into precise operational protocols.
                 </p>
             </header>
 
-            <!-- Logic Ledger Snippets Grid -->
+            <!-- BUSINESS INSIGHTS Snippets Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <template x-for="node in intelNodes" :key="node.id">
                     <div class="group relative bg-white border border-slate-200 p-8 hover:border-blue-600 transition-all duration-500 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-2xl rounded-sm cursor-pointer"
@@ -1051,8 +1051,8 @@
 
                             <a :href="`/insight/${node.id}`" @click.stop
                                 class="block w-full py-4 border-2 border-slate-900 text-slate-900 font-black uppercase italic text-xs skew-x-[-12deg] group-hover:bg-slate-900 group-hover:text-white transition-all overflow-hidden relative text-center">
-                                <span class="skew-x-[12deg] inline-block relative z-10 tracking-widest">DECODE FULL
-                                    BRIEFING</span>
+                                <span class="skew-x-[12deg] inline-block relative z-10 tracking-widest">READ FULL
+                                    ARTICLE</span>
                             </a>
                         </div>
 
