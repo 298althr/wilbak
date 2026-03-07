@@ -612,7 +612,10 @@ app.get('/insight/:id', async (req, res) => {
             '{{IMAGES}}': JSON.stringify(node.images || []),
             '{{STRATEGIC_CONCLUSION}}': node.strategicConclusion || '',
             '{{DATE}}': node.createdAt.toDateString(),
-            '{{URL}}': `https://${req.get('host')}/insight/${node.id}`
+            '{{URL}}': `https://${req.get('host')}/insight/${node.id}`,
+            '{{LIKES}}': String(node.likes || 0),
+            '{{DISLIKES}}': String(node.dislikes || 0),
+            '{{NODE_ID}}': node.id
         };
 
         Object.keys(replacements).forEach(key => {

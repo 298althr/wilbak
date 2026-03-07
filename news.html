@@ -7,18 +7,30 @@
     <title>{{TITLE}} | The Wilbak Report</title>
 
     <!-- SEO -->
+    <meta name="description" content="{{INSIGHT}}">
     <meta property="og:title" content="{{TITLE}}">
     <meta property="og:description" content="{{INSIGHT}}">
     <meta property="og:url" content="{{URL}}">
+    <meta property="og:type" content="article">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Flaticon icons CDN -->
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <script>
+        const PAGE_NODE_ID = '{{NODE_ID}}';
+        const INITIAL_LIKES = {{LIKES}};
+        const INITIAL_DISLIKES = {{DISLIKES}};
+
         document.addEventListener('alpine:init', () => {
             Alpine.data('newsApp', () => ({
-                logicFramework: {{ LOGIC_FRAMEWORK }},
-                conversionStep: {{ CONVERSION_STEP }},
-                images: {{ IMAGES }},
+                logicFramework: {{LOGIC_FRAMEWORK}},
+                conversionStep: {{CONVERSION_STEP}},
+                images: {{IMAGES}},
                 transformationModal: false,
                 showAuditModal: false,
                 auditStep: 1,
@@ -28,6 +40,32 @@
                 leadEmail: '',
                 leadPhone: '',
                 successModal: false,
+                likes: INITIAL_LIKES,
+                dislikes: INITIAL_DISLIKES,
+                userVote: null,
+                voteLoading: false,
+
+                async castVote(type) {
+                    if (this.voteLoading || this.userVote) return;
+                    this.voteLoading = true;
+                    try {
+                        const res = await fetch(`/api/intelligence/${PAGE_NODE_ID}/vote`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ voteType: type })
+                        });
+                        const data = await res.json();
+                        if (data.success) {
+                            this.userVote = type;
+                            if (type === 'LIKE') this.likes++;
+                            else this.dislikes++;
+                        }
+                    } catch (e) {
+                        console.error('Vote error:', e);
+                    } finally {
+                        this.voteLoading = false;
+                    }
+                },
 
                 async submitLead() {
                     try {
@@ -61,21 +99,46 @@
                     return text.replace(/\[oai_citation:.*?\]\(.*?\)/g, '').replace(/\[oai_citation:.*?\]/g, '').trim();
                 },
 
+                hasKeyStats(framework) {
+                    if (!framework || typeof framework !== 'object') return false;
+                    const checkArr = (arr) => Array.isArray(arr) && arr.some(item =>
+                        typeof item === 'string' && /\d+[%+xX]|\d+\.\d+|\d{1,3}(,\d{3})+/.test(item)
+                    );
+                    const vals = Object.values(framework);
+                    return vals.some(v => checkArr(v) || (typeof v === 'string' && /\d+[%+xX]|\d+\.\d+/.test(v)));
+                },
+
+                extractStats(text) {
+                    if (!text) return [];
+                    const matches = [];
+                    const patterns = [
+                        /(\d+[\.,]?\d*\%[\+\-]?)\s*([^.]{5,60})/g,
+                        /(\+?\d+[\.,]?\d*[xX])\s*([^.]{5,50})/g,
+                        /(\d+[\.,]?\d*\s*(billion|million|trillion)[\+]?)\s*([^.]{5,50})/gi,
+                    ];
+                    patterns.forEach(p => {
+                        let m;
+                        while ((m = p.exec(text)) !== null && matches.length < 4) {
+                            matches.push({ num: m[1], label: (m[2] || m[3] || '').trim().replace(/^[,\s]+/, '') });
+                        }
+                    });
+                    return matches.slice(0, 3);
+                },
+
                 renderNested(obj) {
                     if (!obj) return '';
-                    if (typeof obj === 'string') return `<p class="mb-6 leading-relaxed text-slate-700">${this.sanitizeText(obj)}</p>`;
+                    if (typeof obj === 'string') return `<p class="mb-5 leading-relaxed text-slate-700 text-base font-normal">${this.sanitizeText(obj)}</p>`;
                     if (Array.isArray(obj)) {
-                        return `<ul class="space-y-4 mb-8">` + obj.map(item => `
-                            <li class="flex items-start">
-                                <span class="text-blue-500 mr-3 mt-1 font-black">▹</span>
-                                <div class="text-base text-slate-700 font-medium">${this.renderNested(item)}</div>
-                            </li>`).join('') + `
-                        </ul>`;
+                        return `<ul class="space-y-4 mb-8">` + obj.map((item, i) => `
+                            <li class="flex items-start gap-4">
+                                <span class="flex-shrink-0 w-6 h-6 bg-[#121b31] text-white text-[10px] font-black flex items-center justify-center mt-0.5">${i + 1}</span>
+                                <div class="text-base text-slate-700 font-normal leading-relaxed">${typeof item === 'string' ? this.sanitizeText(item) : this.renderNested(item)}</div>
+                            </li>`).join('') + `</ul>`;
                     }
                     if (typeof obj === 'object') {
                         return Object.entries(obj).map(([key, value]) => `
-                        <div class="mb-8 last:mb-0 bg-white p-8 border-l-4 border-blue-600 shadow-sm rounded-sm">
-                            <h4 class="text-[10px] mono text-blue-600 uppercase tracking-widest mb-4 font-black">${key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').trim()}</h4>
+                        <div class="mb-8 last:mb-0">
+                            <h4 class="text-[10px] font-mono text-blue-600 uppercase tracking-[0.2em] mb-4 font-bold border-b border-blue-100 pb-2">${key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').trim()}</h4>
                             <div class="text-base text-slate-800">${this.renderNested(value)}</div>
                         </div>
                         `).join('');
@@ -85,434 +148,635 @@
             }));
         });
     </script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:wght@100..800&display=swap"
-        rel="stylesheet">
 
     <style>
         :root {
-            --paper-white: #fdfdfd;
-            --ink-black: #1a1a1a;
-            --action-green: #00a86b;
-            --accent-blue: #0056b3;
-            --soft-grey: #f4f4f4;
+            --ink: #121b31;
+            --accent: #2563eb;
+            --muted: #4b5a7a;
+            --paper: #ffffff;
+            --soft: #f0f4ff;
         }
+
+        * { box-sizing: border-box; }
 
         body {
-            background-color: var(--soft-grey);
-            font-family: 'Montserrat', sans-serif;
-            color: var(--ink-black);
-            overflow-x: hidden;
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: #f0f4ff;
+            color: var(--ink);
+            min-height: 100vh;
         }
 
-        .font-lora {
-            font-family: 'Lora', serif;
+        .serif { font-family: 'Playfair Display', serif; }
+        .mono { font-family: 'IBM Plex Mono', monospace; }
+
+        /* Masthead double rule */
+        .double-rule {
+            border-top: 4px double var(--ink);
         }
 
-        .mono {
-            font-family: 'JetBrains Mono', monospace;
+        /* Section label */
+        .section-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 600;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 4px;
+            display: block;
+            margin-bottom: 14px;
         }
 
-        .report-card {
-            background: var(--paper-white);
-            border-radius: 40px;
-            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.1);
+        /* Pull quote */
+        .pull-quote {
+            border-left: 3px solid var(--accent);
+            padding: 12px 20px;
+            background: rgba(37,99,235,0.05);
+            margin: 20px 0;
         }
 
-        .slide-enter {
-            opacity: 0;
-            transform: translateX(20px);
+        .pull-quote p {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-style: italic;
+            color: var(--ink);
+            line-height: 1.5;
+            margin: 0;
         }
 
-        .slide-enter-active {
-            transition: all 0.5s ease-out;
+        /* Stat block */
+        .stat-block {
+            background: var(--ink);
+            color: white;
+            padding: 20px 16px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .stat-block .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: #60a5fa;
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-block .stat-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #93c5fd;
+            display: block;
+            margin-top: 6px;
+            line-height: 1.6;
+        }
+
+        /* Phase box */
+        .phase-box {
+            border: 1px solid #c5d0e8;
+            background: #f8faff;
+            padding: 16px 18px;
+            margin-bottom: 12px;
+        }
+
+        .phase-tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 8px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: white;
+            background: var(--accent);
+            padding: 3px 10px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        /* Vote button */
+        .vote-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #64748b;
+        }
+
+        .vote-btn:hover:not(:disabled) {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(37,99,235,0.05);
+        }
+
+        .vote-btn.voted-like {
+            border-color: #16a34a;
+            color: #16a34a;
+            background: #f0fdf4;
+        }
+
+        .vote-btn.voted-dislike {
+            border-color: #dc2626;
+            color: #dc2626;
+            background: #fef2f2;
+        }
+
+        .vote-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* CTA button */
+        .cta-primary {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: white;
+            color: var(--accent);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            transform: skewX(-8deg);
+            transition: all 0.2s;
+        }
+
+        .cta-primary span { display: inline-block; transform: skewX(8deg); }
+        .cta-primary:hover { background: #dbeafe; }
+
+        /* Conclusion band */
+        .conclusion-band {
+            background: var(--ink);
+            color: white;
+            padding: 40px;
+            position: relative;
+        }
+
+        .conclusion-band .section-label {
+            color: #60a5fa;
+            border-color: #60a5fa;
+        }
+
+        /* Ornament */
+        .ornament {
+            text-align: center;
+            color: var(--muted);
+            letter-spacing: 0.3em;
+            font-size: 12px;
+            margin: 4px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stat-block .stat-num { font-size: 36px; }
         }
     </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900" x-data="newsApp">
+<body x-data="newsApp">
 
-    <div
-        class="w-full max-w-6xl mx-auto my-10 md:my-20 bg-white shadow-2xl overflow-hidden rounded-sm flex flex-col min-h-screen">
-
-        <!-- Premium Navigation -->
-        <nav class="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-white sticky top-0 z-50">
-            <div class="flex items-center space-x-4">
-                <a href="/" class="block">
-                    <img src="/logo.png" alt="WILBAK" class="h-8">
+    <!-- Navigation Bar -->
+    <nav style="background: white; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 50;">
+        <div style="max-width: 1100px; margin: 0 auto; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <a href="/" style="display: block;">
+                    <img src="/logo.png" alt="WILBAK" style="height: 28px;">
                 </a>
-                <div class="h-4 w-px bg-slate-200 mx-4"></div>
-                <div class="hidden md:block">
-                    <div class="text-[10px] mono text-blue-600 font-black uppercase tracking-widest">{{SECTOR}}</div>
-                    <div class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">{{DATE}}</div>
-                </div>
-            </div>
-            <a href="/#insights"
-                class="text-[10px] mono font-black uppercase tracking-widest text-slate-400 hover:text-blue-600 transition flex items-center">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                </svg>
-                BACK TO LOGIC LEDGER
-            </a>
-        </nav>
-
-        <!-- Article Content -->
-        <div class="flex-grow">
-
-            <!-- Hero Header -->
-            <header class="px-8 md:px-24 py-20 md:py-32 border-b border-slate-50 bg-slate-50/30">
-                <div class="max-w-4xl mx-auto">
-                    <label class="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em] mb-8 block">Exclusive
-                        Strategic Briefing</label>
-                    <h1
-                        class="text-4xl md:text-8xl font-black italic tracking-tighter text-slate-950 mb-12 leading-[0.9] font-lora">
-                        {{TITLE}}</h1>
-                    <p
-                        class="text-xl md:text-3xl text-slate-600 leading-tight font-bold italic tracking-tight">
-                        {{INSIGHT}}</p>
-                </div>
-            </header>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12">
-                <!-- Main Body -->
-                <main class="lg:col-span-8 px-8 md:px-24 py-20 lg:border-r border-slate-100">
-
-                    <!-- Gallery -->
-                    <template x-if="images && images.length > 0">
-                        <div class="space-y-8 mb-20">
-                            <div
-                                class="aspect-video w-full bg-slate-100 overflow-hidden border border-slate-200 p-1 rounded-sm shadow-2xl">
-                                <img :src="images[0]" class="w-full h-full object-cover">
-                            </div>
-                            <template x-if="images.length > 1">
-                                <div class="grid grid-cols-2 gap-8">
-                                    <template x-for="img in images.slice(1, 3)">
-                                        <div
-                                            class="aspect-square bg-slate-100 overflow-hidden border border-slate-200 p-1 rounded-sm shadow-xl">
-                                            <img :src="img" class="w-full h-full object-cover">
-                                        </div>
-                                    </template>
-                                </div>
-                            </template>
-                        </div>
-                    </template>
-
-                    <!-- Textual Clusters -->
-                    <div class="space-y-20">
-                        <section>
-                            <label
-                                class="text-[10px] mono text-blue-600 uppercase tracking-widest font-black mb-8 block">Market
-                                Dynamics Analysis</label>
-                            <div class="text-xl text-slate-800 leading-relaxed font-bold tracking-tight">
-                                {{MARKET_EVENT}}
-                            </div>
-                        </section>
-
-                        <section>
-                            <label
-                                class="text-[10px] mono text-blue-600 uppercase tracking-widest font-black mb-8 block">Engine
-                                Logic Processing</label>
-                            <div
-                                class="text-xl text-slate-800 leading-relaxed font-medium tracking-normal normal-case">
-                                {{LOGIC_ANALYSIS}}
-                            </div>
-                        </section>
-
-                        <section x-show="logicFramework">
-                            <label
-                                class="text-[10px] mono text-blue-600 uppercase tracking-widest font-black mb-8 block">Strategic
-                                Frameworks</label>
-                            <div x-html="renderNested(logicFramework)"></div>
-                        </section>
-
-                        <section x-show="conversionStep">
-                            <label
-                                class="text-[10px] mono text-blue-600 uppercase tracking-widest font-black mb-8 block">Implementation
-                                Protocol</label>
-                            <div x-html="renderNested(conversionStep)"></div>
-                        </section>
-
-                        <section
-                            class="bg-slate-950 text-white p-12 md:p-20 border-l-8 border-blue-600 rounded-sm shadow-2xl">
-                            <label
-                                class="text-[10px] mono text-blue-400 uppercase tracking-widest font-black mb-6 block">Strategic
-                                Conclusion</label>
-                            <blockquote
-                                class="text-3xl md:text-5xl font-black italic tracking-tighter leading-none font-lora">
-                                {{STRATEGIC_CONCLUSION}}
-                            </blockquote>
-                        </section>
-                    </div>
-                </main>
-
-                <!-- Sidebar / CTA -->
-                <aside class="lg:col-span-4 bg-slate-50/50">
-                    <div class="p-8 md:p-12 space-y-12 lg:sticky lg:top-24">
-
-                        <div class="bg-blue-600 text-white p-10 rounded-sm shadow-2xl relative overflow-hidden group">
-                            <div class="absolute inset-0 bg-white/5 industrial-grid opacity-20 pointer-events-none">
-                            </div>
-                            <h4
-                                class="text-3xl font-black uppercase italic tracking-tighter leading-none mb-6 relative z-10">
-                                Maximize Operational Output</h4>
-                            <p
-                                class="text-xs uppercase font-bold opacity-80 leading-relaxed mb-10 relative z-10 font-montserrat">
-                                Wilbak Engineering processes high-volatility signals into stable profit growth logic.
-                            </p>
-                            <button @click="transformationModal = true"
-                                class="w-full py-6 bg-white text-blue-600 font-black uppercase italic text-xs skew-x-[-12deg] hover:bg-slate-950 hover:text-white transition-all relative z-10">
-                                <span class="skew-x-[12deg] inline-block tracking-[0.2em]">INITIALIZE AUDIT</span>
-                            </button>
-                        </div>
-
-                        <div class="space-y-4">
-                            <label
-                                class="text-[10px] mono text-slate-400 uppercase tracking-widest font-black block">Information
-                                Lifecycle</label>
-                            <div class="p-6 bg-white border border-slate-200 rounded-sm">
-                                <div
-                                    class="flex justify-between items-center mb-4 text-[10px] font-black uppercase tracking-widest">
-                                    <span class="text-slate-400">STATUS:</span>
-                                    <span class="text-green-600">LIVE SIGNAL</span>
-                                </div>
-                                <div
-                                    class="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
-                                    <span class="text-slate-400">ACCURACY:</span>
-                                    <span class="text-blue-600">99.8% VERIFIED</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button
-                            onclick="navigator.clipboard.writeText(window.location.href).then(() => alert('INTEL LINK SECURED'))"
-                            class="w-full py-5 border-2 border-slate-200 text-slate-400 font-black uppercase text-[10px] tracking-[0.2em] hover:border-slate-800 hover:text-slate-800 transition-all italic">
-                            ENCRYPT & SHARE BRIEFING
-                        </button>
-
-                    </div>
-                </aside>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <footer class="px-8 py-10 border-t border-slate-100 text-center bg-white">
-            <p class="text-[9px] mono text-slate-400 font-black uppercase tracking-[0.4em]">© 2026 WILBAK ENGINEERING
-                GROUP // PHYSICALLY RECONDITIONING GLOBAL OPERATIONS</p>
-        </footer>
-    </div>
-
-    <!-- Transformation Modal -->
-    <div x-show="transformationModal" x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 translate-y-20" x-transition:enter-end="opacity-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0"
-        x-transition:leave-end="opacity-0 translate-y-20"
-        class="fixed inset-0 z-[110] flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-xl"
-        style="display: none;">
-        <div class="bg-white max-w-2xl w-full rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
-            <div class="p-8 border-b border-slate-100 flex justify-between items-center">
+                <div style="width: 1px; height: 18px; background: #e2e8f0;"></div>
                 <div>
-                    <span class="text-[10px] mono text-blue-600 font-bold uppercase tracking-widest">Alignment
-                        Plan</span>
-                    <h3 class="text-2xl font-black italic font-lora text-slate-950">Phased Protocol</h3>
+                    <div class="mono" style="font-size: 9px; color: var(--accent); font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;">{{SECTOR}}</div>
+                    <div class="mono" style="font-size: 8px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;">{{DATE}}</div>
                 </div>
-                <button @click="transformationModal = false"
-                    class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                        </path>
-                    </svg>
-                </button>
             </div>
+            <a href="/#insights" style="display: flex; align-items: center; gap: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#2563eb'" onmouseout="this.style.color='#4b5a7a'">
+                <i class="fi fi-sr-arrow-left" style="font-size: 11px;"></i>
+                Back to Logic Ledger
+            </a>
+        </div>
+    </nav>
 
-            <div class="p-10 overflow-y-auto space-y-12">
-                <!-- Phases -->
-                <div class="relative pl-12">
-                    <div
-                        class="absolute left-0 top-0 w-8 h-8 bg-slate-900 rounded-full flex items-center justify-center text-white text-xs font-black">
-                        1</div>
-                    <h4 class="text-[10px] mono text-blue-600 font-bold uppercase tracking-widest mb-2">Phase 01:
-                        Diagnosis</h4>
-                    <p class="text-lg text-slate-700 font-montserrat"
-                        x-text="conversionStep.phase1_diagnosis || conversionStep.phase1 || conversionStep || 'Assessment pulse.'">
-                    </p>
+    <!-- Page Container -->
+    <div style="max-width: 1100px; margin: 32px auto; background: white; border: 1px solid #c5d0e8; box-shadow: 4px 4px 0 #b8c4df, 8px 8px 0 #a8b6d4;">
+
+        <!-- MASTHEAD -->
+        <div style="border-bottom: 4px double var(--ink); padding: 28px 40px 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+                <div class="mono" style="font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); line-height: 1.8;">
+                    Intelligence Division &nbsp;·&nbsp; {{DATE}}
                 </div>
-                <div class="relative pl-12">
-                    <div
-                        class="absolute left-0 top-0 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-black">
-                        2</div>
-                    <h4 class="text-[10px] mono text-blue-600 font-bold uppercase tracking-widest mb-2">Phase 02:
-                        Mapping</h4>
-                    <p class="text-lg text-slate-700 font-montserrat"
-                        x-text="conversionStep.phase2_processMapping || conversionStep.phase2 || 'Logic deployment.'">
-                    </p>
-                </div>
-                <div class="relative pl-12">
-                    <div
-                        class="absolute left-0 top-0 w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white text-xs font-black">
-                        3</div>
-                    <h4 class="text-[10px] mono text-blue-600 font-bold uppercase tracking-widest mb-2">Phase 03:
-                        Implementation</h4>
-                    <p class="text-lg text-slate-700 font-montserrat"
-                        x-text="conversionStep.phase3_systemImplementation || conversionStep.phase3 || 'Scaling pulse.'">
-                    </p>
+                <div style="background: var(--accent); color: white; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; padding: 4px 14px;">
+                    {{SECTOR}}
                 </div>
             </div>
 
-            <div class="p-8 bg-slate-50 border-t border-slate-100">
-                <button @click="transformationModal = false; showAuditModal = true; auditStep = 1"
-                    class="w-full py-5 bg-slate-950 text-white font-black italic tracking-widest text-xs skew-x-[-6deg] hover:bg-blue-600 transition-all">
-                    <span class="skew-x-[6deg] flex items-center justify-center">
-                        PROCEED TO AUDIT PROTOCOL <span class="ml-4">→</span>
-                    </span>
+            <div style="text-align: center; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 16px 0 10px; margin: 10px 0;">
+                <span class="mono" style="font-family: 'Playfair Display', serif; font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px;">The Wilbak Intelligence Report</span>
+                <h1 class="serif" style="font-size: clamp(26px, 4vw, 46px); font-weight: 900; line-height: 1.1; color: var(--ink); max-width: 820px; margin: 10px auto 0;">{{TITLE}}</h1>
+                <p style="font-size: 15px; font-weight: 400; line-height: 1.6; color: #2a3550; margin-top: 14px; max-width: 680px; margin-left: auto; margin-right: auto;">{{INSIGHT}}</p>
+            </div>
+
+            <!-- Vote + Share row -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; flex-wrap: wrap; gap: 12px;">
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <!-- LIKE button -->
+                    <button
+                        class="vote-btn"
+                        :class="userVote === 'LIKE' ? 'voted-like' : ''"
+                        :disabled="!!userVote || voteLoading"
+                        @click="castVote('LIKE')"
+                        title="This intel is valuable">
+                        <i class="fi fi-sr-thumbs-up" style="font-size: 16px;"></i>
+                        <span x-text="likes"></span>
+                        <span>VALUED</span>
+                    </button>
+                    <!-- DISLIKE button -->
+                    <button
+                        class="vote-btn"
+                        :class="userVote === 'DISLIKE' ? 'voted-dislike' : ''"
+                        :disabled="!!userVote || voteLoading"
+                        @click="castVote('DISLIKE')"
+                        title="Not relevant to me">
+                        <i class="fi fi-sr-thumbs-down" style="font-size: 16px;"></i>
+                        <span x-text="dislikes"></span>
+                        <span>IRRELEVANT</span>
+                    </button>
+                    <span x-show="userVote" class="mono" style="font-size: 9px; color: #16a34a; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600;">✓ Vote Recorded</span>
+                </div>
+                <button
+                    onclick="navigator.clipboard.writeText(window.location.href).then(() => { this.textContent = 'LINK COPIED ✓'; setTimeout(() => this.textContent = 'SHARE BRIEFING', 2000); })"
+                    class="mono"
+                    style="font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600; color: var(--muted); background: none; border: 1px solid #c5d0e8; padding: 8px 16px; cursor: pointer; transition: all 0.2s;"
+                    onmouseover="this.style.borderColor='#2563eb'; this.style.color='#2563eb'"
+                    onmouseout="this.style.borderColor='#c5d0e8'; this.style.color='#4b5a7a'">
+                    <i class="fi fi-sr-share" style="margin-right: 6px;"></i>Share Briefing
                 </button>
             </div>
         </div>
-    </div>
 
-    <!-- Efficiency Audit Protocol Modal -->
-    <div x-show="showAuditModal" x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
-        x-transition:leave-end="opacity-0 scale-95"
-        class="fixed inset-0 z-[150] flex items-center justify-center p-4 md:p-10 bg-slate-950/90 backdrop-blur-xl"
-        style="display: none;">
-
-        <div
-            class="bg-white w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col relative rounded-sm border-t-4 border-blue-600">
-            <button @click="showAuditModal = false"
-                class="absolute top-6 right-6 w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center hover:bg-slate-200 z-10">
-                <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-
-            <div class="flex-grow overflow-y-auto p-8 md:p-16">
-                <!-- Progress -->
-                <div
-                    class="mb-12 flex justify-between items-center text-[10px] font-black mono text-blue-500 uppercase tracking-widest">
-                    <div class="flex space-x-2">
-                        <template x-for="i in 5">
-                            <div class="h-1 w-12 rounded-full transition-all duration-500"
-                                :class="auditStep >= i ? 'bg-blue-600' : 'bg-slate-200'"></div>
+        <!-- GALLERY (if images) -->
+        <template x-if="images && images.length > 0">
+            <div style="border-bottom: 1px solid #c5d0e8; padding: 0;">
+                <div style="aspect-ratio: 16/7; overflow: hidden;">
+                    <img :src="images[0]" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <template x-if="images.length > 1">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #c5d0e8;">
+                        <template x-for="img in images.slice(1, 3)">
+                            <div style="aspect-ratio: 16/7; overflow: hidden; background: white;">
+                                <img :src="img" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
                         </template>
                     </div>
-                    <span>Phase <span x-text="auditStep"></span> / 5</span>
+                </template>
+            </div>
+        </template>
+
+        <!-- MAIN BODY: 3-column at desktop -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid #c5d0e8;">
+
+            <!-- Col 1: Market Event -->
+            <div style="padding: 28px; border-right: 1px solid #c5d0e8;">
+                <span class="section-label">Market Event</span>
+                <h2 class="serif" style="font-size: 20px; font-weight: 700; line-height: 1.25; margin-bottom: 14px; color: var(--ink);">What Happened & Why It Matters</h2>
+                <div style="font-size: 14px; line-height: 1.8; color: #1e2d4a; font-weight: 400;">{{MARKET_EVENT}}</div>
+            </div>
+
+            <!-- Col 2: Logic Analysis -->
+            <div style="padding: 28px; border-right: 1px solid #c5d0e8;">
+                <span class="section-label" style="color: #121b31; border-color: #121b31;">Engine Logic</span>
+                <h2 class="serif" style="font-size: 20px; font-weight: 700; line-height: 1.25; margin-bottom: 14px; color: var(--ink);">The Deeper Mechanics</h2>
+                <div style="font-size: 14px; line-height: 1.8; color: #1e2d4a; font-weight: 400; text-transform: none;">{{LOGIC_ANALYSIS}}</div>
+            </div>
+
+            <!-- Col 3: Adaptive Key Stats or Pull Quote -->
+            <div style="padding: 28px;">
+                <span class="section-label" style="color: #2563eb; border-color: #2563eb;">By The Numbers</span>
+
+                <!-- Adaptive: if logicFramework has stats, render stat blocks -->
+                <template x-if="logicFramework && (logicFramework.keyStats || logicFramework.problemStructure)">
+                    <div>
+                        <template x-if="logicFramework.keyStats">
+                            <div>
+                                <template x-for="(val, key) in Object.entries(logicFramework.keyStats).slice(0, 3)">
+                                    <div class="stat-block" style="margin-bottom: 10px;">
+                                        <span class="stat-num" x-text="val[1] || val"></span>
+                                        <span class="stat-label" x-text="(val[0] || key).replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').trim()"></span>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                        <template x-if="!logicFramework.keyStats && logicFramework.problemStructure">
+                            <div class="pull-quote"><p>"The data signals a structural shift — not a cyclical blip. Position ahead of the crowd."</p></div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- Fallback pull quote if no logicFramework stats -->
+                <template x-if="!logicFramework || (!logicFramework.keyStats && !logicFramework.problemStructure)">
+                    <div class="pull-quote"><p>"Intelligence without action is noise. Convert signal to structure."</p></div>
+                </template>
+
+                <!-- Hardcoded stats parsed from logicAnalysis (shown always as additional context) -->
+                <div style="margin-top: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">Signal Quality: 99.8% Verified · Live Data</div>
+            </div>
+        </div>
+
+        <!-- LOGIC FRAMEWORK: full width 2-col split -->
+        <template x-if="logicFramework && (logicFramework.problemStructure || logicFramework.transformationModel)">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid #c5d0e8;">
+
+                <!-- Problem Structure -->
+                <div style="padding: 28px; border-right: 1px solid #c5d0e8;" x-show="logicFramework.problemStructure">
+                    <span class="section-label">Problem Structure</span>
+                    <template x-if="logicFramework.problemStructure">
+                        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                            <template x-for="(item, i) in logicFramework.problemStructure">
+                                <li style="display: flex; gap: 12px; align-items: flex-start; font-size: 13px; line-height: 1.7; color: #1e2d4a;">
+                                    <span style="flex-shrink: 0; width: 22px; height: 22px; background: #121b31; color: white; font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px;" x-text="i+1"></span>
+                                    <span x-text="item"></span>
+                                </li>
+                            </template>
+                        </ul>
+                    </template>
                 </div>
 
-                <!-- Steps -->
-                <div class="relative">
-                    <div x-show="auditStep === 1" x-transition>
-                        <h2 class="text-4xl md:text-6xl font-black italic mb-10 uppercase tracking-tighter">01. Sector
-                            Selection</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <button @click="industry = 'Retail/E-commerce'; auditStep = 2"
-                                class="p-8 border border-slate-200 bg-slate-50 hover:border-blue-500 transition-all text-left">
-                                <div class="font-black text-sm uppercase mb-2 italic">Retail & E-commerce</div>
-                                <div class="text-[10px] mono text-slate-400 uppercase tracking-widest">Inventory &
-                                    logistics.</div>
-                            </button>
-                            <button @click="industry = 'Professional Services'; auditStep = 2"
-                                class="p-8 border border-slate-200 bg-slate-50 hover:border-blue-500 transition-all text-left">
-                                <div class="font-black text-sm uppercase mb-2 italic">Professional Services</div>
-                                <div class="text-[10px] mono text-slate-400 uppercase tracking-widest">Client
-                                    Management.</div>
-                            </button>
-                            <button @click="industry = 'Industrial/Engineering'; auditStep = 2"
-                                class="p-8 border border-slate-200 bg-slate-50 hover:border-blue-500 transition-all text-left">
-                                <div class="font-black text-sm uppercase mb-2 italic">Industrial & Engineering</div>
-                                <div class="text-[10px] mono text-slate-400 uppercase tracking-widest">Manufacturing.
-                                </div>
-                            </button>
-                            <button @click="industry = 'Finance/Real Estate'; auditStep = 2"
-                                class="p-8 border border-slate-200 bg-slate-50 hover:border-blue-500 transition-all text-left">
-                                <div class="font-black text-sm uppercase mb-2 italic">Finance & Real Estate</div>
-                                <div class="text-[10px] mono text-slate-400 uppercase tracking-widest">Wealth &
-                                    Property.</div>
-                            </button>
-                        </div>
-                    </div>
+                <!-- Transformation Model -->
+                <div style="padding: 28px;" x-show="logicFramework.transformationModel">
+                    <span class="section-label" style="color: #2563eb; border-color: #2563eb;">Transformation Model</span>
+                    <template x-if="logicFramework.transformationModel">
+                        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                            <template x-for="(item, i) in logicFramework.transformationModel">
+                                <li style="display: flex; gap: 12px; align-items: flex-start; font-size: 13px; line-height: 1.7; color: #1e2d4a;">
+                                    <span style="flex-shrink: 0; width: 22px; height: 22px; background: #2563eb; color: white; font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px;" x-text="i+1"></span>
+                                    <span x-text="item"></span>
+                                </li>
+                            </template>
+                        </ul>
+                    </template>
+                </div>
 
-                    <div x-show="auditStep === 2" x-transition>
-                        <h2 class="text-4xl md:text-6xl font-black italic mb-6 uppercase tracking-tighter">02. Logic
-                            Mapping</h2>
-                        <textarea x-model="businessDetail" rows="6"
-                            class="w-full p-8 bg-slate-50 border border-slate-200 text-slate-950 mono text-xs uppercase tracking-widest outline-none focus:border-blue-600"
-                            placeholder="EX: MANUAL DATA ENTRY IN FINANCE..."></textarea>
-                        <div class="mt-12 flex justify-between">
-                            <button @click="auditStep = 1"
-                                class="mono text-[10px] font-black uppercase text-slate-400">BACK</button>
-                            <button @click="auditStep = 3" :disabled="businessDetail.length < 10"
-                                class="btn-premium btn-primary px-12 py-5 disabled:opacity-20">NEXT PHASE</button>
-                        </div>
+                <!-- Fallback for other logicFramework shapes -->
+                <template x-if="!logicFramework.problemStructure && !logicFramework.transformationModel">
+                    <div style="grid-column: 1/-1; padding: 28px;">
+                        <span class="section-label">Strategic Frameworks</span>
+                        <div x-html="renderNested(logicFramework)"></div>
                     </div>
+                </template>
+            </div>
+        </template>
 
-                    <div x-show="auditStep === 3" x-transition>
-                        <h2 class="text-4xl md:text-6xl font-black italic mb-10 uppercase tracking-tighter">03.
-                            Identifier</h2>
-                        <div class="space-y-6">
-                            <input x-model="leadName" type="text" placeholder="EXECUTIVE NAME"
-                                class="w-full p-8 bg-slate-50 border border-slate-200 mono text-xs focus:border-blue-600 outline-none uppercase tracking-widest">
-                            <input x-model="leadEmail" type="email" placeholder="SECURE EMAIL"
-                                class="w-full p-8 bg-slate-50 border border-slate-200 mono text-xs focus:border-blue-600 outline-none uppercase tracking-widest">
+        <!-- CONVERSION STEPS (phases) -->
+        <template x-if="conversionStep && typeof conversionStep === 'object'">
+            <div style="border-bottom: 1px solid #c5d0e8; padding: 28px 40px;">
+                <span class="section-label" style="color: #121b31; border-color: #121b31;">Conversion Phases</span>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-top: 4px;">
+                    <template x-for="([key, val]) in Object.entries(conversionStep)">
+                        <div class="phase-box">
+                            <span class="phase-tag" x-text="key.replace(/phase\d+_?/i, '').replace(/([A-Z])/g, ' $1').trim() || key"></span>
+                            <p style="font-size: 13px; line-height: 1.7; color: #1e2d4a; margin: 0;" x-text="typeof val === 'string' ? val : JSON.stringify(val)"></p>
                         </div>
-                        <div class="mt-12 flex justify-between">
-                            <button @click="auditStep = 2"
-                                class="mono text-[10px] font-black uppercase text-slate-400">BACK</button>
-                            <button @click="auditStep = 4" :disabled="!leadName || !leadEmail"
-                                class="btn-premium btn-primary px-12 py-5 disabled:opacity-20">CONTINUE</button>
-                        </div>
-                    </div>
+                    </template>
+                </div>
+            </div>
+        </template>
 
-                    <div x-show="auditStep === 4" x-transition>
-                        <h2 class="text-4xl md:text-6xl font-black italic mb-10 uppercase tracking-tighter">04.
-                            Connection</h2>
-                        <input x-model="leadPhone" type="tel" placeholder="MOBILE ACCESS (WHATSAPP)"
-                            class="w-full p-8 bg-slate-50 border border-slate-200 mono text-xs focus:border-blue-600 outline-none uppercase tracking-widest">
-                        <div class="mt-12 flex justify-between">
-                            <button @click="auditStep = 3"
-                                class="mono text-[10px] font-black uppercase text-slate-400">BACK</button>
-                            <button @click="auditStep = 5" :disabled="!leadPhone"
-                                class="btn-premium btn-primary px-12 py-5 disabled:opacity-20">PREPARE
-                                TRANSMISSION</button>
-                        </div>
-                    </div>
+        <!-- STRATEGIC CONCLUSION (dark band) -->
+        <div class="conclusion-band">
+            <span class="section-label">Strategic Conclusion</span>
+            <h2 class="serif" style="color: white; font-size: 26px; margin-bottom: 16px; font-weight: 700; line-height: 1.2;">The Window to Position Is Open</h2>
+            <p style="color: #93c5fd; font-size: 15px; line-height: 1.8; font-weight: 400; margin: 0;">{{STRATEGIC_CONCLUSION}}</p>
+        </div>
 
-                    <div x-show="auditStep === 5" x-transition>
-                        <h2 class="text-4xl md:text-6xl font-black italic mb-10 uppercase tracking-tighter">05. Execute
-                        </h2>
-                        <button @click="submitLead"
-                            class="w-full py-6 bg-blue-600 text-white font-black italic text-sm tracking-[0.3em] uppercase hover:bg-slate-950 transition-all">INITIALIZE
-                            TRANSMISSION</button>
+        <!-- CTA BAND -->
+        <div style="background: #2563eb; padding: 40px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 32px;">
+            <div>
+                <div class="mono" style="font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 8px;">Wilbak Engineering</div>
+                <h3 class="serif" style="font-size: 28px; font-weight: 900; color: white; line-height: 1.1; margin: 0 0 10px;">Maximize Your Operational Output</h3>
+                <p style="font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.85); margin: 0; line-height: 1.6;">We convert high-volatility intelligence like this into stable operational profit logic. Your efficiency audit starts here.</p>
+            </div>
+            <div style="min-width: 200px;">
+                <button @click="transformationModal = true" class="cta-primary">
+                    <span><i class="fi fi-sr-bolt" style="margin-right: 8px;"></i>Initialize Audit</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- SOURCE STRIP -->
+        <div style="border-top: 2px double var(--ink); padding: 12px 40px; display: flex; justify-content: space-between; align-items: center; background: white; flex-wrap: wrap; gap: 8px;">
+            <a href="{{URL}}" class="mono" style="font-size: 9px; color: var(--accent); text-decoration: none; letter-spacing: 0.05em;">↗ Source Intelligence Briefing · {{DATE}}</a>
+            <span class="mono" style="font-size: 9px; color: var(--muted); letter-spacing: 0.08em;">© 2026 WILBAK ENGINEERING GROUP</span>
+        </div>
+    </div>
+
+    <!-- TRANSFORMATION MODAL -->
+    <div x-show="transformationModal"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 translate-y-8"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 translate-y-8"
+        class="fixed inset-0 z-[110] flex items-center justify-center p-4"
+        style="background: rgba(18,27,49,0.85); backdrop-filter: blur(8px); display: none;">
+        <div style="background: white; max-width: 640px; width: 100%; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; border-top: 4px solid #2563eb;">
+            <div style="padding: 24px 28px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <span class="mono" style="font-size: 9px; color: #2563eb; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700;">Alignment Plan</span>
+                    <h3 class="serif" style="font-size: 24px; font-weight: 700; color: #121b31; margin: 4px 0 0;">Phased Protocol</h3>
+                </div>
+                <button @click="transformationModal = false" style="width: 36px; height: 36px; border-radius: 50%; background: #f1f5f9; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                    <i class="fi fi-sr-cross-small" style="font-size: 14px; color: #64748b;"></i>
+                </button>
+            </div>
+
+            <div style="padding: 28px; overflow-y: auto; flex-grow: 1; display: flex; flex-direction: column; gap: 24px;">
+                <div style="display: flex; gap: 16px; align-items: flex-start;">
+                    <div style="width: 32px; height: 32px; background: #121b31; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; flex-shrink: 0;">1</div>
+                    <div>
+                        <span class="mono" style="font-size: 9px; color: #2563eb; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 6px;">Phase 01: Diagnosis</span>
+                        <p style="font-size: 15px; color: #334155; margin: 0; line-height: 1.65;" x-text="conversionStep && (conversionStep.phase1_diagnosis || conversionStep.phase1) ? (conversionStep.phase1_diagnosis || conversionStep.phase1) : 'Assessment and system mapping.'"></p>
                     </div>
+                </div>
+                <div style="display: flex; gap: 16px; align-items: flex-start;">
+                    <div style="width: 32px; height: 32px; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; flex-shrink: 0;">2</div>
+                    <div>
+                        <span class="mono" style="font-size: 9px; color: #2563eb; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 6px;">Phase 02: Mapping</span>
+                        <p style="font-size: 15px; color: #334155; margin: 0; line-height: 1.65;" x-text="conversionStep && (conversionStep.phase2_processMapping || conversionStep.phase2) ? (conversionStep.phase2_processMapping || conversionStep.phase2) : 'Logic deployment and process design.'"></p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 16px; align-items: flex-start;">
+                    <div style="width: 32px; height: 32px; background: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; flex-shrink: 0;">3</div>
+                    <div>
+                        <span class="mono" style="font-size: 9px; color: #2563eb; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 6px;">Phase 03: Implementation</span>
+                        <p style="font-size: 15px; color: #334155; margin: 0; line-height: 1.65;" x-text="conversionStep && (conversionStep.phase3_systemImplementation || conversionStep.phase3) ? (conversionStep.phase3_systemImplementation || conversionStep.phase3) : 'Scaling and system integration.'"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="padding: 20px 28px; background: #f8fafc; border-top: 1px solid #e2e8f0;">
+                <button @click="transformationModal = false; showAuditModal = true; auditStep = 1"
+                    style="width: 100%; padding: 16px; background: #121b31; color: white; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.2s;"
+                    onmouseover="this.style.background='#2563eb'"
+                    onmouseout="this.style.background='#121b31'">
+                    Proceed to Audit Protocol →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUDIT MODAL -->
+    <div x-show="showAuditModal"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-95"
+        class="fixed inset-0 z-[150] flex items-center justify-center p-4"
+        style="background: rgba(18,27,49,0.92); backdrop-filter: blur(10px); display: none;">
+
+        <div style="background: white; width: 100%; max-width: 680px; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; position: relative; border-top: 4px solid #2563eb;">
+            <button @click="showAuditModal = false"
+                style="position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; background: #f1f5f9; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10;">
+                <i class="fi fi-sr-cross-small" style="font-size: 14px; color: #64748b;"></i>
+            </button>
+
+            <div style="flex-grow: 1; overflow-y: auto; padding: 40px;">
+                <!-- Progress -->
+                <div style="margin-bottom: 40px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; gap: 6px;">
+                        <template x-for="i in 5">
+                            <div style="height: 4px; width: 40px; border-radius: 2px; transition: background 0.3s;"
+                                :style="auditStep >= i ? 'background:#2563eb' : 'background:#e2e8f0'"></div>
+                        </template>
+                    </div>
+                    <span class="mono" style="font-size: 9px; color: #2563eb; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700;">Phase <span x-text="auditStep"></span> / 5</span>
+                </div>
+
+                <div x-show="auditStep === 1" x-transition>
+                    <h2 class="serif" style="font-size: clamp(28px, 5vw, 52px); font-weight: 900; font-style: italic; margin-bottom: 32px; color: #121b31;">01. Sector</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <template x-for="sector in [['Retail/E-commerce','Inventory & logistics'],['Professional Services','Client management'],['Industrial/Engineering','Manufacturing ops'],['Finance/Real Estate','Wealth & property']]">
+                            <button @click="industry = sector[0]; auditStep = 2"
+                                style="padding: 20px; border: 1px solid #e2e8f0; background: #f8fafc; text-align: left; cursor: pointer; transition: border-color 0.2s;"
+                                onmouseover="this.style.borderColor='#2563eb'"
+                                onmouseout="this.style.borderColor='#e2e8f0'">
+                                <div style="font-weight: 700; font-size: 13px; font-style: italic; text-transform: uppercase; margin-bottom: 4px;" x-text="sector[0]"></div>
+                                <div class="mono" style="font-size: 9px; color: #94a3b8; letter-spacing: 0.12em; text-transform: uppercase;" x-text="sector[1]"></div>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+
+                <div x-show="auditStep === 2" x-transition>
+                    <h2 class="serif" style="font-size: clamp(28px, 5vw, 52px); font-weight: 900; font-style: italic; margin-bottom: 20px; color: #121b31;">02. Logic Mapping</h2>
+                    <textarea x-model="businessDetail" rows="5"
+                        style="width: 100%; padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; outline: none; color: #121b31; resize: none;"
+                        onfocus="this.style.borderColor='#2563eb'"
+                        onblur="this.style.borderColor='#e2e8f0'"
+                        placeholder="DESCRIBE YOUR KEY OPERATIONAL BOTTLENECK..."></textarea>
+                    <div style="margin-top: 24px; display: flex; justify-content: space-between;">
+                        <button @click="auditStep = 1" class="mono" style="font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #94a3b8; background: none; border: none; cursor: pointer;">← Back</button>
+                        <button @click="auditStep = 3" :disabled="businessDetail.length < 10"
+                            style="padding: 12px 28px; background: #2563eb; color: white; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; border: none; cursor: pointer; opacity: 1;"
+                            :style="businessDetail.length < 10 ? 'opacity:0.3;cursor:not-allowed' : 'opacity:1'">Next Phase →</button>
+                    </div>
+                </div>
+
+                <div x-show="auditStep === 3" x-transition>
+                    <h2 class="serif" style="font-size: clamp(28px, 5vw, 52px); font-weight: 900; font-style: italic; margin-bottom: 28px; color: #121b31;">03. Identifier</h2>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <input x-model="leadName" type="text" placeholder="FULL NAME"
+                            style="width: 100%; padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; outline: none; color: #121b31;"
+                            onfocus="this.style.borderColor='#2563eb'"
+                            onblur="this.style.borderColor='#e2e8f0'">
+                        <input x-model="leadEmail" type="email" placeholder="EMAIL ADDRESS"
+                            style="width: 100%; padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; outline: none; color: #121b31;"
+                            onfocus="this.style.borderColor='#2563eb'"
+                            onblur="this.style.borderColor='#e2e8f0'">
+                    </div>
+                    <div style="margin-top: 24px; display: flex; justify-content: space-between;">
+                        <button @click="auditStep = 2" class="mono" style="font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #94a3b8; background: none; border: none; cursor: pointer;">← Back</button>
+                        <button @click="auditStep = 4" :disabled="!leadName || !leadEmail"
+                            style="padding: 12px 28px; background: #2563eb; color: white; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; border: none; cursor: pointer;"
+                            :style="(!leadName || !leadEmail) ? 'opacity:0.3;cursor:not-allowed' : 'opacity:1'">Continue →</button>
+                    </div>
+                </div>
+
+                <div x-show="auditStep === 4" x-transition>
+                    <h2 class="serif" style="font-size: clamp(28px, 5vw, 52px); font-weight: 900; font-style: italic; margin-bottom: 28px; color: #121b31;">04. Connection</h2>
+                    <input x-model="leadPhone" type="tel" placeholder="WHATSAPP / MOBILE"
+                        style="width: 100%; padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; outline: none; color: #121b31;"
+                        onfocus="this.style.borderColor='#2563eb'"
+                        onblur="this.style.borderColor='#e2e8f0'">
+                    <div style="margin-top: 24px; display: flex; justify-content: space-between;">
+                        <button @click="auditStep = 3" class="mono" style="font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #94a3b8; background: none; border: none; cursor: pointer;">← Back</button>
+                        <button @click="auditStep = 5" :disabled="!leadPhone"
+                            style="padding: 12px 28px; background: #2563eb; color: white; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; border: none; cursor: pointer;"
+                            :style="!leadPhone ? 'opacity:0.3;cursor:not-allowed' : 'opacity:1'">Prepare →</button>
+                    </div>
+                </div>
+
+                <div x-show="auditStep === 5" x-transition>
+                    <h2 class="serif" style="font-size: clamp(28px, 5vw, 52px); font-weight: 900; font-style: italic; margin-bottom: 28px; color: #121b31;">05. Execute</h2>
+                    <p style="font-size: 14px; color: #64748b; margin-bottom: 24px; line-height: 1.7;">Ready to transmit your intelligence request to the Wilbak Engineering team. You'll receive a personalized structural alignment plan within 24 hours.</p>
+                    <button @click="submitLead()"
+                        style="width: 100%; padding: 18px; background: #2563eb; color: white; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.2s;"
+                        onmouseover="this.style.background='#121b31'"
+                        onmouseout="this.style.background='#2563eb'">
+                        <i class="fi fi-sr-bolt" style="margin-right: 10px;"></i>Initialize Transmission
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Success Modal -->
+    <!-- SUCCESS MODAL -->
     <div x-show="successModal" x-transition
-        class="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-slate-950/90 backdrop-blur-xl"
-        style="display: none;">
-        <div
-            class="bg-white max-w-lg w-full p-12 text-center rounded-sm border-t-4 border-blue-600 shadow-2xl overflow-hidden relative">
-            <div class="absolute inset-0 opacity-10 pointer-events-none industrial-grid"></div>
-            <div class="relative z-10">
-                <div
-                    class="w-20 h-20 bg-blue-600 rounded-full mx-auto flex items-center justify-center mb-8 shadow-2xl shadow-blue-500/20">
-                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                </div>
-                <h3 class="text-3xl font-black text-slate-950 mb-6 uppercase italic tracking-tighter">TRANSMISSION
-                    RECEIVED.</h3>
-                <p class="text-slate-500 mb-10 font-bold uppercase text-xs tracking-widest leading-relaxed">Agent
-                    Wilhelm will personally review your operational logic and authorize the structural alignment plan
-                    within 24 hours.</p>
-                <a href="/" class="btn-premium btn-primary inline-block w-full py-5 text-sm">RETURN TO COMMAND HUB</a>
+        class="fixed inset-0 z-[200] flex items-center justify-center p-6"
+        style="background: rgba(18,27,49,0.92); backdrop-filter: blur(10px); display: none;">
+        <div style="background: white; max-width: 460px; width: 100%; padding: 48px; text-align: center; border-top: 4px solid #2563eb; position: relative; overflow: hidden;">
+            <div style="width: 72px; height: 72px; background: #2563eb; border-radius: 50%; margin: 0 auto 24px; display: flex; align-items: center; justify-content: center;">
+                <i class="fi fi-sr-check" style="font-size: 28px; color: white;"></i>
             </div>
+            <h3 class="serif" style="font-size: 28px; font-weight: 900; color: #121b31; margin-bottom: 12px; font-style: italic;">Transmission Received.</h3>
+            <p style="font-size: 13px; color: #64748b; margin-bottom: 32px; line-height: 1.7; font-weight: 400;">Wilbak Engineering will personally review your operational logic and authorize the structural alignment plan within 24 hours.</p>
+            <a href="/" style="display: block; width: 100%; padding: 16px; background: #121b31; color: white; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; transition: background 0.2s;"
+                onmouseover="this.style.background='#2563eb'"
+                onmouseout="this.style.background='#121b31'">
+                Return to Command Hub
+            </a>
         </div>
     </div>
+
+    <!-- Mobile responsive -->
+    <style>
+        @media (max-width: 768px) {
+            div[style*="grid-template-columns: 1fr 1fr 1fr"] {
+                display: block !important;
+            }
+            div[style*="grid-template-columns: 1fr 1fr"] {
+                display: block !important;
+            }
+            div[style*="grid-template-columns: 1fr auto"] {
+                display: block !important;
+                text-align: center;
+            }
+            div[style*="padding: 40px"] { padding: 24px !important; }
+            div[style*="padding: 28px 40px"] { padding: 20px !important; }
+        }
+    </style>
 
 </body>
-
 </html>
