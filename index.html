@@ -1021,8 +1021,7 @@
             <!-- BUSINESS INSIGHTS Snippets Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <template x-for="node in intelNodes" :key="node.id">
-                    <div class="group relative bg-white border border-slate-200 p-8 hover:border-blue-600 transition-all duration-500 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-2xl rounded-sm cursor-pointer"
-                        @click="openFullReport(node)">
+                    <div class="group relative bg-white border border-slate-200 p-8 hover:border-blue-600 transition-all duration-500 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-2xl rounded-sm cursor-default">
 
                         <div class="flex justify-between items-center mb-6">
                             <span
