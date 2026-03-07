@@ -25,6 +25,8 @@
         const PAGE_NODE_ID = '{{NODE_ID}}';
         const INITIAL_LIKES = {{LIKES}};
         const INITIAL_DISLIKES = {{DISLIKES}};
+        // Injected by server from session cookie lookup — null means no prior vote
+        const INITIAL_USER_VOTE = {{USER_VOTE}};
 
         document.addEventListener('alpine:init', () => {
             Alpine.data('newsApp', () => ({
@@ -42,23 +44,32 @@
                 successModal: false,
                 likes: INITIAL_LIKES,
                 dislikes: INITIAL_DISLIKES,
-                userVote: null,
+                userVote: INITIAL_USER_VOTE,  // preset from server session lookup
                 voteLoading: false,
 
                 async castVote(type) {
-                    if (this.voteLoading || this.userVote) return;
+                    if (this.voteLoading) return;
+                    // If already voted this type, allow toggling off (server handles decrement)
                     this.voteLoading = true;
+                    const prevVote = this.userVote;
                     try {
                         const res = await fetch(`/api/intelligence/${PAGE_NODE_ID}/vote`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ voteType: type })
+                            // Server reads req.body.type — must match exactly
+                            body: JSON.stringify({ type: type })
                         });
                         const data = await res.json();
                         if (data.success) {
-                            this.userVote = type;
-                            if (type === 'LIKE') this.likes++;
-                            else this.dislikes++;
+                            const newVote = data.userVote; // null = toggled off, 'LIKE'/'DISLIKE' = active
+                            this.userVote = newVote;
+                            // Adjust counts based on transition
+                            if (prevVote === 'LIKE' && newVote === null) this.likes--;
+                            else if (prevVote === 'DISLIKE' && newVote === null) this.dislikes--;
+                            else if (prevVote === 'LIKE' && newVote === 'DISLIKE') { this.likes--; this.dislikes++; }
+                            else if (prevVote === 'DISLIKE' && newVote === 'LIKE') { this.dislikes--; this.likes++; }
+                            else if (newVote === 'LIKE') this.likes++;
+                            else if (newVote === 'DISLIKE') this.dislikes++;
                         }
                     } catch (e) {
                         console.error('Vote error:', e);

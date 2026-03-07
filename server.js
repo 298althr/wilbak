@@ -600,6 +600,11 @@ app.get('/insight/:id', async (req, res) => {
         let template = fs.readFileSync(path.join(__dirname, 'news.html'), 'utf8');
 
         // Dynamic Injections for SEO and Display
+        const sessionId = req.sessionId;
+        const existingVote = await prisma.vote.findUnique({
+            where: { nodeId_sessionId: { nodeId: node.id, sessionId } }
+        });
+
         const replacements = {
             '{{ID}}': node.id,
             '{{TITLE}}': node.title,
@@ -615,7 +620,8 @@ app.get('/insight/:id', async (req, res) => {
             '{{URL}}': `https://${req.get('host')}/insight/${node.id}`,
             '{{LIKES}}': String(node.likes || 0),
             '{{DISLIKES}}': String(node.dislikes || 0),
-            '{{NODE_ID}}': node.id
+            '{{NODE_ID}}': node.id,
+            '{{USER_VOTE}}': existingVote ? existingVote.type : 'null'
         };
 
         Object.keys(replacements).forEach(key => {
