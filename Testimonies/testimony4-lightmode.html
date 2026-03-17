@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Global Alpha Network | Institutional Platinum Tier (Mobile Optimized)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0F172A;
+            --gold: #B5932F;
+            --platinum: #F1F5F9;
+            --blue: #2563EB;
+            --teal: #0D9488;
+            --glass: rgba(255, 255, 255, 0.85);
+            --border: rgba(15, 23, 42, 0.08);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #F8FAFC;
+            color: #1E293B;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* HAPTIC ANIMATED BACKGROUND */
+        #haptic-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 32px -4px rgba(15, 23, 42, 0.05);
+        }
+
+        .platinum-gradient {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F1F5F9 100%);
+            border: 1px solid rgba(15, 23, 42, 0.05);
+        }
+
+        .text-gradient-gold {
+            background: linear-gradient(90deg, #92751F, #D4AF37, #92751F);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* NODE GRID - RESPONSIVE TWEAKS */
+        .node-box {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.03);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            position: relative;
+        }
+
+        .node-box.active {
+            background: var(--teal);
+            border-color: #5EEAD4;
+            box-shadow: 0 0 15px rgba(13, 148, 136, 0.3);
+        }
+
+        .workflow-step {
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 800;
+            background: rgba(15, 23, 42, 0.03);
+            opacity: 0.5;
+            transition: 0.3s;
+            text-align: center;
+            letter-spacing: 0.05em;
+            color: #64748B;
+        }
+
+        .workflow-step.processing {
+            opacity: 1;
+            border-color: #3B82F6;
+            color: #2563EB;
+            background: rgba(59, 130, 246, 0.08);
+        }
+
+        /* MODAL FULLSCREEN ON MOBILE */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            padding: 0;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #FFFFFF;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            padding: 24px;
+            padding-top: 80px;
+        }
+
+        @media (min-width: 1024px) {
+            .modal { padding: 40px; background: rgba(248, 250, 252, 0.9); }
+            .modal-content { border-radius: 48px; height: auto; max-height: 90vh; padding: 48px; border: 1px solid var(--border); }
+        }
+
+        /* TABLE SCROLL */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 0 -24px;
+            padding: 0 24px;
+        }
+
+        /* HAPTIC FEEDBACK ANIMATION */
+        @keyframes haptic-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.96); }
+            100% { transform: scale(1); }
+        }
+
+        .haptic-active {
+            animation: haptic-pulse 0.1s ease-out;
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        /* IPHONE 12 SPECIFIC OVERRIDES */
+        @media (max-width: 428px) {
+            h1 { font-size: 3.5rem !important; }
+            .node-grid-mobile {
+                grid-template-columns: repeat(4, 1fr) !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="p-6 md:p-12 lg:p-20">
+    <!-- HAPTIC CANVAS BACKGROUND -->
+    <canvas id="haptic-canvas"></canvas>
+
+    <div class="max-w-7xl mx-auto">
+        <!-- SELECTORS -->
+        <div class="mb-10 flex gap-3 overflow-x-auto pb-4 no-scrollbar items-center" id="ui-selectors"></div>
+
+        <header class="mb-16 md:mb-24">
+            <div class="flex items-center gap-4 mb-6">
+                <div id="ui-avatar"
+                    class="w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-800 rounded-2xl flex items-center justify-center text-white font-bold text-xl uppercase shadow-lg">
+                </div>
+                <div>
+                    <span id="ui-tier-badge"
+                        class="px-3 py-1 bg-blue-600/5 text-blue-700 border border-blue-600/10 rounded-full text-[9px] font-black uppercase tracking-[0.2em]"></span>
+                    <p id="ui-asset-type" class="text-[10px] text-slate-500 font-medium uppercase mt-1 tracking-wide">
+                    </p>
+                </div>
+            </div>
+            <h1 id="ui-hero" class="serif text-5xl md:text-8xl mb-8 leading-[1.1] text-slate-900 tracking-tight"></h1>
+            <p id="ui-sub" class="text-lg md:text-2xl text-slate-500 font-light leading-relaxed max-w-4xl"></p>
+        </header>
+
+        <section class="grid lg:grid-cols-12 gap-10 md:gap-16 mb-24">
+            <!-- REPORTING -->
+            <div class="lg:col-span-7">
+                <h3
+                    class="text-[9px] font-black text-blue-600 uppercase tracking-[0.4em] mb-10 flex items-center gap-4">
+                    <span class="w-12 h-[1px] bg-blue-600/20"></span> Institutional Proof
+                </h3>
+                <div id="ui-reporting" class="space-y-10 text-lg md:text-2xl text-slate-700 font-light leading-relaxed italic opacity-90"></div>
+            </div>
+
+            <!-- CARDS -->
+            <div class="lg:col-span-5 space-y-6">
+                <div id="platinum-card"
+                    class="platinum-gradient p-8 md:p-10 rounded-[40px] relative overflow-hidden group border border-slate-200">
+                    <div class="relative z-10">
+                        <span class="text-gradient-gold text-[9px] uppercase font-black tracking-[0.4em]">Sovereign Status</span>
+                        <h4 class="serif text-3xl md:text-4xl mt-4 mb-3 text-slate-900">Core Engine</h4>
+                        <p class="text-sm text-slate-500 leading-relaxed font-light mb-8">Full-stack multi-node integration. Verified sub-millisecond latency shielding.</p>
+                        
+                        <div class="grid grid-cols-2 gap-6 border-t border-slate-200 pt-8">
+                            <div>
+                                <p class="text-[8px] text-slate-400 uppercase font-black mb-1">Active Nodes</p>
+                                <p class="text-xl font-bold text-slate-900" id="stat-nodes">11 / 11</p>
+                            </div>
+                            <div>
+                                <p class="text-[8px] text-slate-400 uppercase font-black mb-1">Status</p>
+                                <p class="text-xl font-bold text-teal-600">Verifed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 md:p-10 rounded-[40px] glass-card">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Base Capital</p>
+                            <h4 id="ui-start-val" class="serif text-4xl text-slate-900"></h4>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Yield</p>
+                            <p class="text-xl font-bold text-blue-600" id="ui-target-yield"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 pt-8 border-t border-slate-100">
+                        <canvas id="miniChart" height="100"></canvas>
+                    </div>
+
+                    <button id="trigger-haptics" onclick="toggleModal(); triggerHaptic('standard')"
+                        class="w-full mt-8 py-5 bg-slate-900 text-white rounded-[20px] text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-600 transition-all active:scale-[0.98]">
+                        Strategic Expanded Audit
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ENGINE SECTION -->
+        <div class="glass-card rounded-[40px] md:rounded-[60px] p-8 md:p-16 mb-24 relative overflow-hidden">
+            <div class="flex flex-col md:row justify-between items-start mb-12">
+                <h3 class="serif text-3xl md:text-4xl mb-3 text-slate-900">Execution Matrix</h3>
+                <div class="flex items-center gap-3 px-4 py-2 bg-white border border-slate-100 rounded-xl shadow-sm">
+                    <div class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+                    </div>
+                    <span class="text-[10px] font-black text-teal-600 uppercase tracking-widest" id="ui-confidence"></span>
+                </div>
+            </div>
+
+            <div id="nodeGrid" class="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-11 gap-4 md:gap-6 mb-12"></div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 pt-10 border-t border-slate-100">
+                <div class="workflow-step" id="step-ingest">INGEST</div>
+                <div class="workflow-step" id="step-process">PROCESS</div>
+                <div class="workflow-step" id="step-gate">GATE</div>
+                <div class="workflow-step" id="step-pipe">PIPE</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EXPANDED MODAL -->
+    <div id="scalingModal" class="modal">
+        <div class="modal-content relative">
+            <button onclick="toggleModal()"
+                class="fixed top-6 right-6 p-2 bg-white rounded-full shadow-lg z-[110] border border-slate-100 active:scale-95 transition-transform">
+                <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <div class="lg:grid lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-1 mb-12 lg:mb-0">
+                    <span class="px-3 py-1 bg-blue-600/5 text-blue-700 border border-blue-600/10 rounded-full text-[9px] font-black uppercase tracking-widest">Audit</span>
+                    <h2 id="modal-title" class="serif text-4xl text-slate-900 mt-6 mb-3"></h2>
+                    <p id="modal-sub" class="text-base text-slate-500 mb-8 font-light"></p>
+                    
+                    <div class="grid grid-cols-2 lg:grid-cols-1 gap-4">
+                        <div class="p-6 rounded-[32px] bg-slate-50 border border-slate-100">
+                            <p class="text-[8px] text-slate-400 font-bold uppercase tracking-widest mb-1">CAR</p>
+                            <p class="text-2xl font-light text-teal-600" id="modal-car"></p>
+                        </div>
+                        <div class="p-6 rounded-[32px] bg-slate-50 border border-slate-100">
+                            <p class="text-[8px] text-slate-400 font-bold uppercase tracking-widest mb-1">Max DD</p>
+                            <p class="text-2xl font-light text-red-500" id="modal-drawdown"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 space-y-10">
+                    <div class="p-6 md:p-10 rounded-[32px] bg-white border border-slate-100 shadow-sm overflow-hidden">
+                        <canvas id="mainChart" height="200"></canvas>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div id="modal-hardening" class="space-y-3"></div>
+                        <div class="p-6 rounded-[32px] bg-slate-50 border border-slate-100">
+                            <canvas id="radarChart" height="220"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="premium-table">
+                            <thead>
+                                <tr>
+                                    <th>Period</th>
+                                    <th>Equity</th>
+                                    <th>Mom</th>
+                                    <th>ROI</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ledger-body"></tbody>
+                        </table>
+                    </div>
+                    
+                    <div id="modal-disclaimer" class="p-6 bg-slate-50 border border-slate-100 text-slate-400 rounded-[24px] text-[8px] leading-relaxed"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- HAPTIC ANIMATED ENGINE ---
+        const canvas = document.getElementById('haptic-canvas');
+        const ctx = canvas.getContext('2d');
+        let points = [];
+        let mouse = { x: 0, y: 0, active: false };
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            points = [];
+            for (let i = 0; i < 40; i++) {
+                points.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    r: Math.random() * 2 + 1
+                });
+            }
+        }
+
+        function drawCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = 'rgba(37, 99, 235, 0.05)';
+            ctx.lineWidth = 0.5;
+
+            points.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(37, 99, 235, 0.1)';
+                ctx.fill();
+
+                points.forEach(p2 => {
+                    let d = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (d < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                });
+
+                if (mouse.active) {
+                    let dMatch = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+                    if (dMatch < 200) {
+                        p.vx += (p.x - mouse.x) * 0.001;
+                        p.vy += (p.y - mouse.y) * 0.001;
+                    }
+                }
+            });
+            requestAnimationFrame(drawCanvas);
+        }
+
+        function triggerHaptic(type) {
+            if (window.navigator && window.navigator.vibrate) {
+                if (type === 'standard') navigator.vibrate(10);
+                if (type === 'heavy') navigator.vibrate([20, 10, 20]);
+                if (type === 'pulse') navigator.vibrate(5);
+            }
+            document.body.classList.add('haptic-active');
+            setTimeout(() => document.body.classList.remove('haptic-active'), 100);
+            
+            // Create a visual shockwave on background
+            points.forEach(p => {
+                let dx = p.x - mouse.x;
+                let dy = p.y - mouse.y;
+                let d = Math.hypot(dx, dy);
+                if (d < 300) {
+                    p.vx += (dx / d) * 5;
+                    p.vy += (dy / d) * 5;
+                }
+            });
+        }
+
+        window.addEventListener('mousedown', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true; });
+        window.addEventListener('mouseup', () => { mouse.active = false; });
+        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        window.addEventListener('touchstart', (e) => { 
+            mouse.x = e.touches[0].clientX; 
+            mouse.y = e.touches[0].clientY; 
+            mouse.active = true;
+            triggerHaptic('pulse');
+        });
+        window.addEventListener('touchend', () => { mouse.active = false; });
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        drawCanvas();
+
+        // --- DATA & LOGIC ---
+        const DATABASE = {
+            thorne: {
+                name: "Thorne-Blackwood", tier: "Institutional Tier", asset: "L1 Liquidity",
+                hero: "The 72-Month Standard.", sub: "Transitioned to 11-node precision, removing human bias entirely.",
+                startVal: 2000, nodes: 11, conf: "72.4%",
+                reporting: ["Watch the engine in sandbox mode for 60 days.", "The Hard Breaker node stopped a fat-finger trade in milliseconds.", "The engine validates market regime before committing."],
+                hardening: [
+                    { t: "Institutional Cal", d: "Hardening engines to meet $2K latency targets." },
+                    { t: "72.4% Gate", d: "Mandatory confidence threshold for routing." }
+                ],
+                backtest: {
+                    pnl: [21000, 35000, 52000, 82000, 145000, 210000, 285000, 320000, 352400],
+                    metrics: { car: "176.2%", draw: "2.8%", target: "+642%" },
+                    disc: "Institutional Tier. 2% Position Size. 7% Haircut."
+                }
+            },
+            agri: {
+                name: "Agri-Growth", tier: "Growth Tier", asset: "Agri Revenue",
+                hero: "Capital Base While You Sleep.", sub: "Custom negotiation for minimal risk and maximum stability.",
+                startVal: 500, nodes: 9, conf: "65.0%",
+                reporting: ["Agreed to a 'very slow' growth model.", "Stripping high-risk nodes for low-beta stock focus.", "Watch the monthly budget fuel growth automatically."],
+                hardening: [
+                    { t: "Safety Mode", d: "Prioritizing low-beta, high-liquidity assets." },
+                    { t: "65% Gate", d: "Heightened exit sensitivity to protect the base." }
+                ],
+                backtest: {
+                    pnl: [5000, 11500, 18000, 24500, 32000, 41000],
+                    metrics: { car: "82.4%", draw: "1.2%", target: "+410%" },
+                    disc: "Growth model. 22% Error Haircut applied."
+                }
+            }
+        };
+
+        let mChart = null, sChart = null, rChart = null;
+
+        function init() {
+            const container = document.getElementById('ui-selectors');
+            container.innerHTML = Object.keys(DATABASE).map(key => `
+                <button onclick="select('${key}'); triggerHaptic('standard')" class="shrink-0 px-6 py-3 bg-white border border-slate-200 rounded-xl text-[9px] font-black uppercase tracking-widest text-slate-500 active:scale-95 transition-all">
+                    ${DATABASE[key].name}
+                </button>
+            `).join('');
+            select('thorne');
+        }
+
+        function select(key) {
+            const d = DATABASE[key];
+            document.getElementById('ui-avatar').innerText = d.name.substring(0, 2);
+            document.getElementById('ui-tier-badge').innerText = d.tier;
+            document.getElementById('ui-asset-type').innerText = d.asset;
+            document.getElementById('ui-hero').innerText = d.hero;
+            document.getElementById('ui-sub').innerText = d.sub;
+            document.getElementById('ui-start-val').innerText = '$' + d.startVal.toLocaleString();
+            document.getElementById('ui-target-yield').innerText = d.backtest.metrics.target;
+            document.getElementById('ui-reporting').innerHTML = d.reporting.map(p => `<p>${p}</p>`).join('');
+            document.getElementById('stat-nodes').innerText = `${d.nodes} / 11`;
+            document.getElementById('ui-confidence').innerText = `${d.conf} CONFIDENCE`;
+
+            const nodes = ["L2 DEPTH", "ORATS", "SENTIMENT", "RL EXEC", "HARD BREAK", "REGIME", "VOL BIAS", "FLOW", "SKEW", "LIQ", "PIPE"];
+            document.getElementById('nodeGrid').innerHTML = nodes.map((n, i) => `
+                <div class="flex flex-col items-center gap-2">
+                    <div class="node-box ${i < d.nodes ? 'active' : ''}" onclick="triggerHaptic('pulse')"></div>
+                    <span class="text-[7px] text-slate-400 font-bold tracking-tighter">${n}</span>
+                </div>
+            `).join('');
+
+            if (window.timer) clearInterval(window.timer);
+            let step = 0;
+            window.timer = setInterval(() => {
+                document.querySelectorAll('.workflow-step').forEach(s => s.classList.remove('processing'));
+                const ids = ['step-ingest', 'step-process', 'step-gate', 'step-pipe'];
+                document.getElementById(ids[step]).classList.add('processing');
+                step = (step + 1) % 4;
+            }, 1200);
+
+            renderCharts(d);
+        }
+
+        function renderCharts(d) {
+            Chart.defaults.color = '#94A3B8';
+            Chart.defaults.font.family = "'Plus Jakarta Sans'";
+
+            const ctxM = document.getElementById('miniChart').getContext('2d');
+            if (mChart) mChart.destroy();
+            mChart = new Chart(ctxM, {
+                type: 'line',
+                data: {
+                    labels: d.backtest.pnl.map((_, i) => i),
+                    datasets: [{ data: d.backtest.pnl, borderColor: '#2563EB', borderWidth: 2, pointRadius: 0, fill: true, backgroundColor: 'rgba(37, 99, 235, 0.05)', tension: 0.4 }]
+                },
+                options: { plugins: { legend: false }, scales: { x: { display: false }, y: { display: false } } }
+            });
+
+            document.getElementById('modal-title').innerText = d.name;
+            document.getElementById('modal-sub').innerText = 'Institutional Audit Report';
+            document.getElementById('modal-car').innerText = d.backtest.metrics.car;
+            document.getElementById('modal-drawdown').innerText = d.backtest.metrics.draw;
+            document.getElementById('modal-disclaimer').innerText = d.backtest.disc;
+
+            document.getElementById('modal-hardening').innerHTML = d.hardening.map(item => `
+                <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                    <p class="text-[9px] font-black text-blue-600 mb-1 uppercase">${item.t}</p>
+                    <p class="text-xs text-slate-500 font-light">${item.d}</p>
+                </div>
+            `).join('');
+
+            document.getElementById('ledger-body').innerHTML = d.backtest.pnl.map((v, i) => `
+                <tr>
+                    <td class="text-slate-400 font-bold text-[10px]">M0${i+1}</td>
+                    <td class="text-slate-900 font-bold text-[11px]">$${v.toLocaleString()}</td>
+                    <td class="text-teal-600 font-medium text-[10px]">+$${(v - (i === 0 ? d.startVal : d.backtest.pnl[i-1])).toLocaleString()}</td>
+                    <td><span class="px-2 py-1 bg-white border border-slate-100 rounded-full text-[9px] font-bold text-teal-600">${(( (v - (i === 0 ? d.startVal : d.backtest.pnl[i-1])) / (i === 0 ? d.startVal : d.backtest.pnl[i-1])) * 100).toFixed(1)}%</span></td>
+                </tr>
+            `).join('');
+
+            const ctxS = document.getElementById('mainChart').getContext('2d');
+            if (sChart) sChart.destroy();
+            sChart = new Chart(ctxS, {
+                type: 'line',
+                data: {
+                    labels: d.backtest.pnl.map((_, i) => i + 1),
+                    datasets: [{ label: 'Equity', data: d.backtest.pnl, borderColor: '#2563EB', borderWidth: 3, pointRadius: 4, fill: true, backgroundColor: 'rgba(37, 99, 235, 0.05)', tension: 0.3 }]
+                },
+                options: { plugins: { legend: false }, scales: { y: { ticks: { callback: v => '$' + v.toLocaleString() } } } }
+            });
+
+            const ctxR = document.getElementById('radarChart').getContext('2d');
+            if (rChart) rChart.destroy();
+            rChart = new Chart(ctxR, {
+                type: 'radar',
+                data: {
+                    labels: ['Prec', 'Lat', 'Risk', 'Up', 'Alpha', 'Liq'],
+                    datasets: [{ data: [98, 99, 95, 99, 92, 96], backgroundColor: 'rgba(37, 99, 235, 0.05)', borderColor: '#2563EB', borderWidth: 2 }]
+                },
+                options: { scales: { r: { ticks: { display: false }, pointLabels: { font: { size: 9 } } } }, plugins: { legend: false } }
+            });
+        }
+
+        function toggleModal() { document.getElementById('scalingModal').classList.toggle('active'); }
+        init();
+    </script>
+</body>
+
+</html>

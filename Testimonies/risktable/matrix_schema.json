@@ -1,0 +1,272 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hedgefund.ai/schemas/investor-risk-matrix/v1.0.0",
+  "title": "Investor Risk & Return Matrix",
+  "description": "Complete data schema for the hedge fund AI pipeline investor risk matrix, projection table, and 12-month compounding journey planner.",
+  "version": "1.0.0",
+  "type": "object",
+  "required": ["meta","design_system","configuration","infra_tiers","projection_matrix","compounding_journeys"],
+
+  "properties": {
+
+    "meta": {
+      "type": "object",
+      "description": "Document-level metadata",
+      "required": ["title","version","generated_at","trading_days_per_month","disclaimer"],
+      "properties": {
+        "title":                    { "type": "string", "description": "Human-readable document title" },
+        "version":                  { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$", "description": "Semantic version of this schema" },
+        "generated_at":             { "type": "string", "format": "date-time", "description": "ISO 8601 UTC timestamp of generation" },
+        "trading_days_per_month":   { "type": "integer", "minimum": 1, "maximum": 31, "description": "Number of active trading days assumed per month" },
+        "position_sizing_model":    { "type": "string", "enum": ["fixed_fractional","kelly","fixed_lot"], "description": "Position sizing methodology used" },
+        "error_range_pct":          { "type": "number", "minimum": 0, "maximum": 100, "description": "Plus/minus % range applied to projections for uncertainty" },
+        "disclaimer":               { "type": "string", "description": "Legal disclaimer text" }
+      },
+      "additionalProperties": false
+    },
+
+    "design_system": {
+      "type": "object",
+      "description": "UI design tokens and colour mappings for rendering the matrix",
+      "required": ["colors","roi_heat_bands","tier_theme_colors"],
+      "properties": {
+
+        "colors": {
+          "type": "object",
+          "description": "Named colour palette. All values are hex strings.",
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}$"
+          }
+        },
+
+        "roi_heat_bands": {
+          "type": "array",
+          "description": "Ordered colour bands used to visually encode ROI levels in heat tables",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["band","label","text","bg"],
+            "properties": {
+              "band":    { "type": "integer", "minimum": 0, "description": "Band index — 0 is lowest/negative" },
+              "label":   { "type": "string",  "description": "Human-readable band description" },
+              "roi_min": { "type": ["number","null"], "description": "Lower bound of ROI % (null = no lower bound)" },
+              "roi_max": { "type": ["number","null"], "description": "Upper bound of ROI % (null = no upper bound)" },
+              "text":    { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$", "description": "Foreground/text colour hex" },
+              "bg":      { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$", "description": "Background fill colour hex" }
+            },
+            "additionalProperties": false
+          }
+        },
+
+        "tier_theme_colors": {
+          "type": "array",
+          "description": "Per-tier accent colour triplets used for tier cards, badges, and borders",
+          "minItems": 6,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "required": ["tier_index","accent","soft","mid"],
+            "properties": {
+              "tier_index": { "type": "integer", "minimum": 0, "maximum": 5, "description": "Zero-based tier index matching infra_tiers array" },
+              "accent":     { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$", "description": "Primary accent colour — used for borders, labels" },
+              "soft":       { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$", "description": "Light tinted background — used for active card backgrounds" },
+              "mid":        { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$", "description": "Mid-tone — used for dividers and pill borders" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "configuration": {
+      "type": "object",
+      "description": "Runtime configuration values that drive all calculations",
+      "required": ["risk_steps_pct","capital_levels_usd","trading_days_per_month","position_sizing","gross_formula","net_formula","compounding"],
+      "properties": {
+        "risk_steps_pct": {
+          "type": "array",
+          "description": "Ordered list of risk percentages offered to investors",
+          "items": { "type": "number", "minimum": 0.1, "maximum": 100 },
+          "minItems": 1
+        },
+        "capital_levels_usd": {
+          "type": "array",
+          "description": "Ordered list of starting capital amounts in USD",
+          "items": { "type": "integer", "minimum": 100 },
+          "minItems": 1
+        },
+        "trading_days_per_month": { "type": "integer" },
+        "position_sizing":        { "type": "string", "description": "Human-readable formula string for position size" },
+        "gross_formula":          { "type": "string", "description": "Human-readable gross P&L formula" },
+        "net_formula":            { "type": "string", "description": "Human-readable net P&L formula after costs" },
+        "compounding":            { "type": "string", "description": "Description of compounding method" }
+      },
+      "additionalProperties": false
+    },
+
+    "infra_tiers": {
+      "type": "array",
+      "description": "The 6 infrastructure budget tiers from MVP to Full Institutional",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "$ref": "#/definitions/InfraTier"
+      }
+    },
+
+    "projection_matrix": {
+      "type": "array",
+      "description": "Full 6×8×6 matrix: for every tier, every risk %, every capital level",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": ["tier_index","grade","budget_usd_monthly","risk_scenarios"],
+        "properties": {
+          "tier_index":          { "type": "integer", "minimum": 0, "maximum": 5 },
+          "grade":               { "type": "string" },
+          "budget_usd_monthly":  { "type": "integer" },
+          "risk_scenarios": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["risk_pct","capitals"],
+              "properties": {
+                "risk_pct": { "type": "number", "description": "Risk percentage per trade" },
+                "capitals": {
+                  "type": "array",
+                  "items": { "$ref": "#/definitions/ProjectionCell" }
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+
+    "compounding_journeys": {
+      "type": "array",
+      "description": "12-month compounding journeys for all 6×6×8 combinations",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": ["tier_index","grade","journeys"],
+        "properties": {
+          "tier_index": { "type": "integer" },
+          "grade":      { "type": "string" },
+          "journeys": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["capital_usd","risk_scenarios"],
+              "properties": {
+                "capital_usd": { "type": "integer" },
+                "risk_scenarios": {
+                  "type": "array",
+                  "items": { "$ref": "#/definitions/CompoundingJourney" }
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+
+  "definitions": {
+
+    "InfraTier": {
+      "type": "object",
+      "description": "A single infrastructure budget tier with its model parameters",
+      "required": ["tier_index","budget_usd_monthly","label","grade","tag","model_parameters"],
+      "properties": {
+        "tier_index":           { "type": "integer", "minimum": 0, "description": "Zero-based index" },
+        "budget_usd_monthly":   { "type": "integer", "minimum": 0, "description": "Monthly infrastructure cost in USD" },
+        "label":                { "type": "string",  "description": "Display label e.g. $200, $1K" },
+        "grade":                { "type": "string",  "description": "Tier grade name e.g. MVP, Semi-Pro" },
+        "tag":                  { "type": "string",  "description": "Short descriptor tag" },
+        "model_parameters":     { "$ref": "#/definitions/ModelParameters" }
+      },
+      "additionalProperties": false
+    },
+
+    "ModelParameters": {
+      "type": "object",
+      "description": "Trading model assumptions for a given infrastructure tier",
+      "required": ["win_rate","win_rate_pct","risk_reward","trades_per_day","trades_per_month","slippage_decimal","slippage_bps","error_factor","error_haircut_pct"],
+      "properties": {
+        "win_rate":           { "type": "number",  "minimum": 0, "maximum": 1,    "description": "Decimal win rate e.g. 0.66" },
+        "win_rate_pct":       { "type": "number",  "minimum": 0, "maximum": 100,  "description": "Win rate as percentage e.g. 66" },
+        "risk_reward":        { "type": "number",  "minimum": 0,                  "description": "Risk-to-reward ratio e.g. 2.0 means 1:2" },
+        "trades_per_day":     { "type": "integer", "minimum": 1,                  "description": "Target number of trades executed per day" },
+        "trades_per_month":   { "type": "integer", "minimum": 1,                  "description": "trades_per_day × trading_days_per_month" },
+        "slippage_decimal":   { "type": "number",  "minimum": 0,                  "description": "Slippage as decimal fraction e.g. 0.001" },
+        "slippage_bps":       { "type": "number",  "minimum": 0,                  "description": "Slippage in basis points e.g. 10" },
+        "error_factor":       { "type": "number",  "minimum": 0, "maximum": 1,    "description": "Multiplier applied to gross P&L for noise/error e.g. 0.83" },
+        "error_haircut_pct":  { "type": "integer", "minimum": 0, "maximum": 100,  "description": "Error haircut as integer percentage e.g. 17" }
+      },
+      "additionalProperties": false
+    },
+
+    "ProjectionCell": {
+      "type": "object",
+      "description": "A single projection cell: one tier + one risk % + one capital level",
+      "required": ["capital_usd","position_size_usd","monthly_profit_usd","monthly_roi_pct","annual_profit_usd","annual_roi_pct","range_low_usd","range_high_usd"],
+      "properties": {
+        "capital_usd":          { "type": "integer", "description": "Starting capital in USD" },
+        "position_size_usd":    { "type": "integer", "description": "Dollar value of each position (capital × risk%)" },
+        "monthly_profit_usd":   { "type": "integer", "description": "Projected net monthly profit in USD" },
+        "monthly_roi_pct":      { "type": "number",  "description": "Monthly ROI as percentage of capital" },
+        "annual_profit_usd":    { "type": "integer", "description": "Monthly profit × 12 (flat, non-compounded)" },
+        "annual_roi_pct":       { "type": "number",  "description": "Annual ROI as percentage of capital (flat)" },
+        "range_low_usd":        { "type": "integer", "description": "Low scenario = monthly_profit × 0.72 (−28%)" },
+        "range_high_usd":       { "type": "integer", "description": "High scenario = monthly_profit × 1.28 (+28%)" }
+      },
+      "additionalProperties": false
+    },
+
+    "CompoundingJourney": {
+      "type": "object",
+      "description": "12-month compounding projection for one tier + capital + risk combination",
+      "required": ["risk_pct","position_size_usd","months","total_gain_usd","total_roi_pct","final_balance_usd"],
+      "properties": {
+        "risk_pct":             { "type": "number",  "description": "Risk percentage per trade used for this journey" },
+        "position_size_usd":    { "type": "integer", "description": "Initial position size (opening capital × risk%)" },
+        "months": {
+          "type": "array",
+          "description": "Month-by-month compounding breakdown",
+          "minItems": 12,
+          "maxItems": 12,
+          "items": { "$ref": "#/definitions/MonthlyRow" }
+        },
+        "total_gain_usd":       { "type": "integer", "description": "Total USD gained over 12 months vs starting capital" },
+        "total_roi_pct":        { "type": "number",  "description": "Total compounded ROI % vs starting capital" },
+        "final_balance_usd":    { "type": "integer", "description": "Closing account balance after month 12" }
+      },
+      "additionalProperties": false
+    },
+
+    "MonthlyRow": {
+      "type": "object",
+      "description": "One month of a compounding journey",
+      "required": ["month","opening_balance_usd","monthly_profit_usd","monthly_roi_pct","closing_balance_usd"],
+      "properties": {
+        "month":                 { "type": "integer", "minimum": 1, "maximum": 12, "description": "Month number" },
+        "opening_balance_usd":   { "type": "integer", "description": "Account balance at start of month (includes prior months' compounded gains)" },
+        "monthly_profit_usd":    { "type": "integer", "description": "Net profit generated this month based on opening balance" },
+        "monthly_roi_pct":       { "type": "number",  "description": "ROI % of opening balance for this month" },
+        "closing_balance_usd":   { "type": "integer", "description": "opening_balance + monthly_profit" }
+      },
+      "additionalProperties": false
+    }
+  },
+
+  "additionalProperties": false
+}

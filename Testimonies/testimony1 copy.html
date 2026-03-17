@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Asset Infrastructure | 8-Case Master Template</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root { --ink: #0F172A; --body: #1E293B; --blue: #1D4ED8; --teal: #0D9488; --gold: #D4AF37; --red: #E11D48; }
+        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; color: var(--body); line-height: 1.6; }
+        .serif { font-family: 'Playfair Display', serif; }
+        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border: 1px solid #E2E8F0; }
+        
+        /* POWER HOUSE CERTIFICATION */
+        .power-house-card { 
+            background: linear-gradient(145deg, #0F172A, #1e293b); 
+            border: 2px solid var(--gold); 
+            position: relative; overflow: hidden; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .power-house-card::before {
+            content: "CERTIFIED PARTNER";
+            position: absolute; top: 15px; right: -35px; transform: rotate(45deg);
+            background: var(--gold); color: #000; font-size: 9px; font-weight: 900; padding: 4px 40px; letter-spacing: 1px;
+        }
+
+        .engine-container { background: var(--ink); border-radius: 40px; padding: 48px; color: white; position: relative; overflow: hidden; }
+        .node-grid { display: grid; grid-template-columns: repeat(11, 1fr); gap: 10px; margin-bottom: 40px; }
+        .node-box { width: 100%; aspect-ratio: 1; background: rgba(255,255,255,0.05); border-radius: 8px; transition: all 0.3s ease; }
+        .node-box.active { background: var(--teal); box-shadow: 0 0 15px var(--teal); }
+        .node-box.disabled { opacity: 0.1; background: #334155; pointer-events: none; }
+        
+        .workflow-step { padding: 12px 20px; border-radius: 10px; font-size: 10px; font-weight: 800; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); opacity: 0.5; }
+        .workflow-step.processing { opacity: 1; border-color: var(--blue); color: var(--blue); background: rgba(29, 78, 216, 0.1); }
+        
+        .modal { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.98); z-index: 100; align-items: center; justify-content: center; padding: 40px; }
+        .modal.active { display: flex; }
+
+        .selector-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+        .analysis-box { border-left: 4px solid var(--blue); padding-left: 2rem; margin: 3rem 0; }
+    </style>
+</head>
+<body class="p-6 md:p-12 lg:p-20">
+
+    <div class="max-w-6xl mx-auto">
+        <div class="mb-16 p-6 bg-white rounded-3xl border shadow-sm">
+            <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-4">Partner Infrastructure Access</span>
+            <div class="selector-scroll" id="ui-selectors"></div>
+        </div>
+
+        <header class="mb-24">
+            <div class="flex items-center gap-3 mb-8">
+                <div id="ui-avatar" class="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center text-white font-bold text-sm uppercase"></div>
+                <span id="ui-tier-badge" class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-[10px] font-black uppercase tracking-widest"></span>
+            </div>
+            <h1 id="ui-hero" class="serif text-6xl md:text-8xl mb-10 leading-tight text-slate-900"></h1>
+            <p id="ui-sub" class="text-2xl text-slate-500 font-light leading-relaxed max-w-4xl"></p>
+        </header>
+
+        <section class="grid lg:grid-cols-12 gap-16 mb-32">
+            <div class="lg:col-span-8">
+                <h3 class="text-[10px] font-black text-blue-600 uppercase tracking-[0.2em] mb-12">Executive Summary & Testimonial</h3>
+                <div id="ui-reporting-container" class="space-y-12 text-xl text-slate-700 leading-relaxed font-light"></div>
+                
+                <div class="analysis-box">
+                    <h4 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-6">Technical Backtest Deep-Dive</h4>
+                    <div id="ui-analysis" class="text-lg text-slate-600 italic leading-relaxed"></div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-4 space-y-8">
+                <div id="tier-card" class="p-8 rounded-[32px] power-house-card text-white hidden">
+                    <h4 class="serif text-3xl mb-4">Power House</h4>
+                    <p id="tier-card-desc" class="text-xs text-slate-400 leading-relaxed"></p>
+                </div>
+                <div class="p-8 rounded-[32px] bg-slate-50 border border-slate-200">
+                    <p class="text-[10px] font-black text-slate-400 uppercase mb-2">Baseline Injection</p>
+                    <h4 id="ui-start" class="serif text-4xl text-slate-900"></h4>
+                </div>
+                <div class="p-8 rounded-[32px] bg-blue-50 border border-blue-100">
+                    <p class="text-[10px] font-black text-blue-400 uppercase mb-2">Monthly Commitment</p>
+                    <h4 id="ui-monthly" class="serif text-4xl text-blue-900"></h4>
+                </div>
+                <button onclick="toggleModal()" class="w-full py-6 bg-slate-900 text-white rounded-[32px] text-xs font-black uppercase tracking-widest hover:bg-blue-700 transition">View Live P&L Curve</button>
+            </div>
+        </section>
+
+        <div class="engine-container mb-32">
+            <div class="node-grid" id="nodeGrid"></div>
+            <div class="flex flex-wrap gap-4 justify-between mt-12 border-t border-white/10 pt-12">
+                <div class="workflow-step" id="step-ingest">1. Ingest</div>
+                <div class="workflow-step" id="step-process">2. Process</div>
+                <div class="workflow-step" id="step-gate">3. Gate</div>
+                <div class="workflow-step" id="step-pipe">4. Execution</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="scalingModal" class="modal">
+        <div class="bg-white rounded-[50px] w-full max-w-5xl p-16 relative overflow-y-auto max-h-[90vh]">
+            <button onclick="toggleModal()" class="absolute top-12 right-12 text-3xl font-light">✕</button>
+            <h2 id="modal-name" class="serif text-5xl mb-4"></h2>
+            <div class="mb-12"><canvas id="scalingChart" height="150"></canvas></div>
+            <div id="modal-disclaimer" class="p-8 bg-slate-900 text-slate-400 rounded-3xl text-xs"></div>
+        </div>
+    </div>
+
+    <script>
+        const DATABASE = {
+            canada_dealers: {
+                name: "NorthStar Motors", tier: "Strategic Partner", hero: "NorthStar Canada: Breeding Alpha from Assets.",
+                sub: "How we turned 4 luxury vehicle titles into a $600k monthly stability engine through annual return recycling.",
+                start: "4 Luxury Units", monthly: "$12,000", nodesActive: 10,
+                reporting: [
+                    "We met the team in early 2021. Our dealership was asset-rich but cash-flow inconsistent. We decided to 'anchor' a strategy using 4 of our high-value units for a full year. We weren't just trading money; we were trading the latent value of our floor plan.",
+                    "The first 6 months were an absolute roller coaster. We saw months where we pulled $700k, followed immediately by a 'bad' month of $150k. It tested our resolve, but the annual redesign at the risk endpoint kept us from over-leveraging during the peaks.",
+                    "By the end of 2025, the accumulated returns began to 'breed.' The capital wasn't just sitting there; it was fueling higher profit margins. Now, it has subtly stabilized. We are coasting at $600k monthly with almost zero manual intervention."
+                ],
+                analysis: "The volatility (150k - 700k) was a result of the 'ORATS Greeks' node reacting to high-delta automotive sector shifts. By redesigning the risk endpoint annually, we successfully 'bred' a secondary capital base that now acts as a buffer, creating that terminal stability at 600k.",
+                backtest: { pnl: [150000, 700000, 220000, 680000, 150000, 590000, 410000, 550000, 610000, 600000, 605000, 600000], disclaimer: "Asset-backed accumulation model. Terminal stability achieved via accumulated margin breeding." }
+            },
+            beijing: {
+                name: "Beijing Power", tier: "Power House Tier", hero: "Beijing Power: Crossing the 12-Hour Gap.",
+                sub: "Direct partnership since 2021. Stabilizing energy capital in a high-volatility local market.",
+                start: "$1,900", monthly: "$2,000", nodesActive: 11,
+                reporting: [
+                    "The language barrier was our first hurdle, the time zone was our second. We needed a system that functioned as a 'ghost trader' while Beijing slept. Our history with this team allowed us to trust the 11-node pipeline implicitly.",
+                    "We spent 12 months in the 'up and down' phase. It was a grind. But the stabilization we've seen in the last 60 days is profound. We have become a literal power house in the region."
+                ],
+                analysis: "Beijing's P&L shows a classic 'Hardening Curve.' The mid-year fluctuations represent the engine learning the specific liquidity patterns of the Beijing Energy Exchange. The flatline at the end confirms terminal risk-stabilization.",
+                backtest: { pnl: [20000, 45000, 38000, 60000, 90000, 85000, 120000, 160000, 210000, 310000, 350000, 360000], disclaimer: "Direct Partnership logic. 7% Error Haircut. 12-month stabilization cycle complete." }
+            },
+            dubai_auto: {
+                name: "Al-Maktoum Auto", tier: "Power House Tier", hero: "Dubai Auto: Inventory as Alpha.",
+                sub: "Using luxury fleet turnover to fuel a sub-millisecond trade engine in the heart of Dubai.",
+                start: "$150,000", monthly: "$25,000", nodesActive: 11,
+                reporting: [
+                    "In Dubai, luxury cars are liquid assets. We met the team and asked: 'Can we use our inventory turnover to fuel a trade engine?' The answer was a custom-designed strategy that injects capital periodically upon every high-ticket sale.",
+                    "The success was immediate. We transformed our showroom from a retail space into a capital powerhouse. We are now direct partners, influencing the very risk parameters the engine uses."
+                ],
+                analysis: "By utilizing 'Flow Scan' nodes on high-ticket sales data, we synchronized capital injections with market dip-buying. This turned retail profit into institutional-grade leverage.",
+                backtest: { pnl: [150000, 210000, 340000, 480000, 610000, 750000, 920000, 1100000, 1350000, 1600000, 1900000, 2100000], disclaimer: "Inventory-based injection model. 11-node authorization." }
+            },
+            dubai_luxury: {
+                name: "Oudh & Gold Ltd", tier: "Power House Tier", hero: "Dubai Luxury: The Scent of Profit.",
+                sub: "Stabilizing high-margin jewelry and perfume yields through automated family office strategies.",
+                start: "$80,000", monthly: "$15,000", nodesActive: 11,
+                reporting: [
+                    "Jewelry is a game of spikes. Big sales, long droughts. We needed the engine to 'catch' our spikes and distribute them into a stable growth curve. This direct partnership has been our finest business move since 2022.",
+                    "The engine treats our gold inventory as a baseline, ensuring that even on slow retail months, our capital base is expanding through the Skew-Adj node."
+                ],
+                analysis: "The 'spike-and-smooth' strategy uses luxury retail overflows to fund low-beta market positions, effectively turning jewelry sales into a permanent annuity.",
+                backtest: { pnl: [80000, 120000, 190000, 280000, 390000, 510000, 640000, 800000, 980000, 1200000, 1450000, 1550000], disclaimer: "Gold-backed hedge model. Full node authorization." }
+            },
+            mexico_wine: {
+                name: "Valle de Oro", tier: "Growth Tier", hero: "Mexico Wine: Harvesting Yields.",
+                sub: "Turning seasonal vineyard production into year-round market liquidity.",
+                start: "$3,500", monthly: "$1,500", nodesActive: 8,
+                reporting: [
+                    "Our capital is tied to the soil and the harvest. When we met the team, we needed a way to survive the 'dormant' months. We designed a strategy that injects capital during our peak sales months.",
+                    "It has been life-changing. The trade engine provides a secondary 'harvest' that doesn't depend on the weather."
+                ],
+                analysis: "The 8-node configuration was chosen to prioritize 'Sentiment' and 'Regime Detect,' ensuring the small capital base is never exposed to high-volatility 'Black Swan' events.",
+                backtest: { pnl: [3500, 7200, 12000, 18000, 24000, 31000, 39000, 48000, 56000, 65000, 72000, 85000], disclaimer: "Small business yield model. 22% Error Haircut." }
+            },
+            penn_const: {
+                name: "Keystone CM", tier: "Growth Tier", hero: "PA Construction: Bridging Projects.",
+                sub: "Managing project overhead through a disciplined 9-node risk engine in Pennsylvania.",
+                start: "$5,000", monthly: "$2,500", nodesActive: 9,
+                reporting: [
+                    "We have massive overhead sitting in bank accounts between construction phases. We met the team at a trade show and realized we were losing money by being 'safe.' We injected our overhead into the engine.",
+                    "The 'Hard Breaker' node is our best friend. It knows exactly when to pull back so our project payroll is always protected."
+                ],
+                analysis: "By isolating 'Regime Detect' logic, we ensured that construction project capital only enters the market during low-volatility windows, protecting the principal at all costs.",
+                backtest: { pnl: [5000, 11000, 19500, 29000, 42000, 58000, 71000, 85000, 102000, 125000, 148000, 165000], disclaimer: "Project-overhead protection model. 9-node authorization." }
+            },
+            thorne: {
+                name: "Thorne-Blackwood", tier: "Institutional Tier", hero: "Thorne: The 11-Node Standard.",
+                sub: "Our flagship institutional partnership, removing human bias from high-frequency routing.",
+                start: "$2,000", monthly: "$2,000", nodesActive: 11,
+                reporting: ["We started in sandbox mode, watching the engine for 60 days. The moment it stopped a fat-finger trade via the Hard-Breaker node, we went full institutional."],
+                analysis: "Standard institutional-grade performance. High-velocity routing through the 'IBKR Pipe' ensures maximum execution efficiency with minimum slippage.",
+                backtest: { pnl: [21000, 35000, 52000, 82000, 145000, 210000, 285000, 320000, 352400], disclaimer: "7% Error Haircut applied. Institutional latency model." }
+            },
+            agri: {
+                name: "Agri-Growth", tier: "Seed Tier", hero: "Agri-Growth: Slow and Steady.",
+                sub: "Agricultural seed capital translated into a resilient, low-risk stock accumulation plan.",
+                start: "$500", monthly: "$200", nodesActive: 7,
+                reporting: ["We needed the engine to be 'boring.' No high-risk gambles. Just steady growth to protect our farm's legacy."],
+                analysis: "A minimal 7-node setup that removes all high-leverage execution nodes, focusing purely on long-term accumulation and wealth preservation.",
+                backtest: { pnl: [500, 1200, 2800, 4500, 6800, 9200], disclaimer: "22% Noise Haircut. Seed capital preservation focus." }
+            }
+        };
+
+        let activeChart = null;
+
+        function initSelectors() {
+            const container = document.getElementById('ui-selectors');
+            container.innerHTML = Object.keys(DATABASE).map(key => `
+                <button onclick="updateUI('${key}')" class="px-5 py-2 whitespace-nowrap bg-white border border-slate-200 rounded-xl text-[10px] font-black uppercase tracking-tight hover:bg-slate-900 hover:text-white transition">
+                    ${DATABASE[key].name}
+                </button>
+            `).join('');
+        }
+
+        function updateUI(key) {
+            const d = DATABASE[key];
+            document.getElementById('ui-avatar').innerText = d.name.substring(0,2);
+            document.getElementById('ui-tier-badge').innerText = d.tier;
+            document.getElementById('ui-hero').innerText = d.hero;
+            document.getElementById('ui-sub').innerText = d.sub;
+            document.getElementById('ui-start').innerText = d.start;
+            document.getElementById('ui-monthly').innerText = d.monthly;
+
+            const tCard = document.getElementById('tier-card');
+            const tDesc = document.getElementById('tier-card-desc');
+            if(d.tier === "Power House Tier") {
+                tCard.classList.remove('hidden');
+                tDesc.innerText = `Strategic Direct Partner status. Authorized for full 11-node execution pipeline. History: 2021-Present.`;
+            } else { tCard.classList.add('hidden'); }
+
+            document.getElementById('ui-reporting-container').innerHTML = d.reporting.map(p => `<p>${p}</p>`).join('');
+            document.getElementById('ui-analysis').innerHTML = `"${d.analysis}"`;
+
+            const nodes = ["L2 Depth", "ORATS Greeks", "Sentiment", "RL Exec", "Hard Breaker", "Regime Detect", "Vol Bias", "Flow Scan", "Skew Adj", "Liq Node", "IBKR Pipe"];
+            document.getElementById('nodeGrid').innerHTML = nodes.map((n, i) => `
+                <div class="flex flex-col items-center gap-2">
+                    <div class="node-box ${i < d.nodesActive ? '' : 'disabled'}" id="box-${i}"></div>
+                    <span class="text-[7px] text-slate-400 font-black uppercase text-center">${n}</span>
+                </div>
+            `).join('');
+
+            if(window.animLoop) clearInterval(window.animLoop);
+            startPipelineAnimation(d.nodesActive);
+
+            document.getElementById('modal-name').innerText = `${d.name} Performance Analysis`;
+            document.getElementById('modal-disclaimer').innerText = d.backtest.disclaimer;
+            renderChart(d);
+        }
+
+        function startPipelineAnimation(activeNodes) {
+            const steps = [{id:'step-ingest',n:[0,1,2]},{id:'step-process',n:[5,6,7]},{id:'step-gate',n:[8,9,3]},{id:'step-pipe',n:[4,10]}];
+            let current = 0;
+            window.animLoop = setInterval(() => {
+                document.querySelectorAll('.workflow-step').forEach(s => s.classList.remove('processing'));
+                document.querySelectorAll('.node-box').forEach(b => b.classList.remove('active'));
+                const step = steps[current];
+                document.getElementById(step.id).classList.add('processing');
+                step.n.forEach(nIdx => { if(nIdx < activeNodes) document.getElementById(`box-${nIdx}`).classList.add('active'); });
+                current = (current + 1) % steps.length;
+            }, 1200);
+        }
+
+        function renderChart(d) {
+            const ctx = document.getElementById('scalingChart').getContext('2d');
+            if(activeChart) activeChart.destroy();
+            activeChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: d.backtest.pnl.map((_, i) => `Month ${i+1}`),
+                    datasets: [{
+                        data: d.backtest.pnl,
+                        borderColor: '#1D4ED8', borderWidth: 4, fill: true, backgroundColor: 'rgba(29,78,216,0.05)', tension: 0.4, pointRadius: 4, pointBackgroundColor: '#fff'
+                    }]
+                },
+                options: { responsive: true, plugins: { legend: { display: false } } }
+            });
+        }
+
+        function toggleModal() { document.getElementById('scalingModal').classList.toggle('active'); }
+
+        initSelectors();
+        updateUI('canada_dealers');
+    </script>
+</body>
+</html>

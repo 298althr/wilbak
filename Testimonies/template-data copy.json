@@ -1,0 +1,50 @@
+{
+  "partner": {
+    "id": "thorne",
+    "name": "Thorne-Blackwood",
+    "tier": "Institutional Tier",
+    "status": "Sovereign Tier",
+    "asset_collateral": "L1 Liquidity Pool Anchor",
+    "initial_value": 2000000,
+    "currency": "USD",
+    "timeline_months": 72,
+    "authorized_nodes": 11,
+    "hero_statement": "The 72-Month Institutional Standard.",
+    "sub_narrative": "A six-year evolution using a high-liquidity anchor to survive three global regime shifts via a 72-month locked-horizon anchor.",
+    "testimony": [
+      "We didn't enter for short-term gains. We required an infrastructure that could handle an L1 anchor without slippage.",
+      "The drama on our chart reflects the Hard Breaker node stopping market noise at Month 24.",
+      "This is the platinum standard for institutional management."
+    ],
+    "performance_model": {
+      "engine": "Stochastic Drama Engine",
+      "volatility_base": 0.05,
+      "upward_trend_bias": 1.4,
+      "regime_thresholds": {
+        "drama_dip_probability": 0.12,
+        "consolidation_probability": 0.18,
+        "hard_breaker_floor": "0.75 * initial_value"
+      },
+      "pnl_data": "Generated dynamically over 72 points with upward bias and managed volatility"
+    },
+    "technical_specs": {
+      "authorization": "Direct Sovereign Integration",
+      "latency_shielding": "Sub-millisecond",
+      "validation_gate": "72.4% AI Confidence",
+      "nodes": [
+        "L2 DEPTH",
+        "ORATS GREEKS",
+        "SENTIMENT",
+        "RL EXEC",
+        "HARD BREAKER",
+        "REGIME DETECT",
+        "VOL BIAS",
+        "FLOW SCAN",
+        "SKEW ADJ",
+        "LIQ NODE",
+        "IBKR PIPE"
+      ]
+    },
+    "compliance_disclaimer": "Institutional Sovereign Model. 72-Month Track. Baseline: 1.5% Risk."
+  }
+}

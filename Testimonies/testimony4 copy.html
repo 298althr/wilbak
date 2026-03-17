@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Alpha Network | Institutional Platinum Tier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0F172A;
+            --gold: #D4AF37;
+            --platinum: #E5E7EB;
+            --blue: #2563EB;
+            --teal: #0D9488;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #020617;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* PREMIUM GRADIENTS */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .platinum-gradient {
+            background: linear-gradient(135deg, #0F172A 0%, #1e293b 50%, #0F172A 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .text-gradient-gold {
+            background: linear-gradient(90deg, #D4AF37, #F5E0A3, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* CHART ANIMATIONS */
+        .chart-container {
+            position: relative;
+            border-radius: 32px;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid var(--border);
+            padding: 32px;
+        }
+
+        /* NODE GRID */
+        .node-box {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .node-box::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            opacity: 0;
+            transition: 0.5s;
+            box-shadow: 0 0 20px var(--teal);
+        }
+
+        .node-box.active {
+            background: var(--teal);
+            border-color: #5EEAD4;
+        }
+
+        .node-box.active::after {
+            opacity: 0.5;
+        }
+
+        .workflow-step {
+            padding: 16px 24px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 800;
+            background: rgba(255, 255, 255, 0.02);
+            opacity: 0.3;
+            transition: 0.4s;
+            border: 1px solid transparent;
+            text-align: center;
+            letter-spacing: 0.1em;
+        }
+
+        .workflow-step.processing {
+            opacity: 1;
+            border-color: #3B82F6;
+            color: #60A5FA;
+            background: rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #0F172A;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 1200px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 48px;
+            padding: 48px;
+            scrollbar-width: thin;
+            scrollbar-color: #334155 #020617;
+        }
+
+        /* CUSTOM TABLE */
+        .premium-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+
+        .premium-table th {
+            text-align: left;
+            padding: 16px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #64748B;
+        }
+
+        .premium-table td {
+            padding: 20px 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        .premium-table tr td:first-child {
+            border-radius: 16px 0 0 16px;
+        }
+
+        .premium-table tr td:last-child {
+            border-radius: 0 16px 16px 0;
+        }
+
+        .premium-table tr:hover td {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ANIMATED BACKGROUND */
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(37, 99, 235, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(13, 148, 136, 0.05) 0%, transparent 40%);
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+    </style>
+</head>
+
+<body class="p-6 md:p-12 lg:p-20">
+    <div class="bg-glow"></div>
+
+    <div class="max-w-7xl mx-auto">
+        <!-- SELECTORS -->
+        <div class="mb-16 flex gap-4 overflow-x-auto pb-4 no-scrollbar" id="ui-selectors"></div>
+
+        <header class="mb-24">
+            <div class="flex items-center gap-6 mb-8">
+                <div id="ui-avatar"
+                    class="w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-900 rounded-3xl flex items-center justify-center text-white font-bold text-2xl uppercase shadow-2xl border border-white/10">
+                </div>
+                <div>
+                    <span id="ui-tier-badge"
+                        class="px-4 py-1.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full text-[10px] font-black uppercase tracking-[0.2em]"></span>
+                    <p id="ui-asset-type" class="text-[11px] text-slate-400 font-medium uppercase mt-2 tracking-wide opacity-60">
+                    </p>
+                </div>
+            </div>
+            <h1 id="ui-hero" class="serif text-5xl md:text-8xl mb-10 leading-[1.05] text-white tracking-tight"></h1>
+            <p id="ui-sub" class="text-xl md:text-2xl text-slate-400 font-light leading-relaxed max-w-4xl"></p>
+        </header>
+
+        <section class="grid lg:grid-cols-12 gap-16 mb-32">
+            <!-- REPORTING -->
+            <div class="lg:col-span-7">
+                <h3
+                    class="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-12 flex items-center gap-6">
+                    <span class="w-16 h-[1px] bg-blue-500/30"></span> Institutional Proof of Concept
+                </h3>
+                <div id="ui-reporting" class="space-y-12 text-xl md:text-2xl text-slate-300 font-light leading-relaxed italic opacity-80"></div>
+            </div>
+
+            <!-- CARDS -->
+            <div class="lg:col-span-5 space-y-8">
+                <div id="platinum-card"
+                    class="platinum-gradient p-10 rounded-[48px] text-white relative overflow-hidden group">
+                    <div class="absolute -top-32 -right-32 w-80 h-80 bg-blue-600/10 rounded-full blur-[100px] group-hover:bg-blue-600/20 transition-all duration-700"></div>
+                    <div class="relative z-10">
+                        <span class="text-gradient-gold text-[10px] uppercase font-black tracking-[0.4em]">Sovereign Status</span>
+                        <h4 class="serif text-4xl mt-6 mb-4">Core Infrastructure</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed font-light mb-10">Full-stack multi-node integration. Verified sub-millisecond latency shielding via private liquidity gates.</p>
+                        
+                        <div class="grid grid-cols-2 gap-8 border-t border-white/5 pt-10">
+                            <div>
+                                <p class="text-[9px] text-slate-500 uppercase font-black tracking-widest mb-2">Connected Nodes</p>
+                                <p class="text-2xl font-bold text-white" id="stat-nodes">11 / 11</p>
+                            </div>
+                            <div>
+                                <p class="text-[9px] text-slate-500 uppercase font-black tracking-widest mb-2">Verification</p>
+                                <p class="text-2xl font-bold text-teal-400">99.9% Uptime</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-10 rounded-[48px] glass-card text-white">
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Month 1 Baseline</p>
+                            <h4 id="ui-start-val" class="serif text-5xl text-white"></h4>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Target Yield</p>
+                            <p class="text-2xl font-bold text-blue-400" id="ui-target-yield">+84.2%</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12 pt-10 border-t border-white/5">
+                        <div class="flex justify-between items-end mb-6">
+                            <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Growth Velocity</p>
+                            <span class="text-[10px] font-bold text-teal-400 px-2 py-1 bg-teal-400/10 rounded">LIVE FEED</span>
+                        </div>
+                        <canvas id="miniChart" height="120"></canvas>
+                    </div>
+
+                    <button onclick="toggleModal()"
+                        class="w-full mt-10 py-6 bg-blue-600 text-white rounded-[24px] text-[11px] font-black uppercase tracking-[0.3em] hover:bg-blue-500 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300">
+                        Expansion Ledger & Hardening Audit
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ENGINE SECTION -->
+        <div class="glass-card rounded-[60px] p-16 text-white mb-32 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-blue-600/5 to-transparent"></div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 relative z-10">
+                <div>
+                    <h3 class="serif text-4xl mb-4">Multi-Node AI Engine</h3>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.5em]">Active Neural Execution Matrix</p>
+                </div>
+                <div class="flex items-center gap-4 px-6 py-3 bg-teal-500/5 border border-teal-500/20 rounded-2xl mt-8 md:mt-0">
+                    <div class="relative flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-teal-500"></span>
+                    </div>
+                    <span class="text-[11px] font-black text-teal-400 uppercase tracking-widest" id="ui-confidence">72.4% GATE CONFIDENCE</span>
+                </div>
+            </div>
+
+            <div id="nodeGrid" class="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-11 gap-6 mb-20 relative z-10"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 pt-16 border-t border-white/5 relative z-10">
+                <div class="workflow-step" id="step-ingest">CONCURRENT INGEST</div>
+                <div class="workflow-step" id="step-process">ASYNC PROCESSING</div>
+                <div class="workflow-step" id="step-gate">PRECISION GATE</div>
+                <div class="workflow-step" id="step-pipe">CORE ROUTING</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EXPANDED MODAL -->
+    <div id="scalingModal" class="modal">
+        <div class="modal-content relative">
+            <button onclick="toggleModal()"
+                class="absolute top-12 right-12 text-slate-500 hover:text-white transition-all duration-300">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <div class="grid lg:grid-cols-3 gap-16">
+                <!-- LEFT COLUMN: HEADER & METRICS -->
+                <div class="lg:col-span-1">
+                    <span class="px-4 py-1.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full text-[9px] font-black uppercase tracking-widest">Strategic Audit</span>
+                    <h2 id="modal-title" class="serif text-6xl text-white mt-8 mb-4 leading-tight"></h2>
+                    <p id="modal-sub" class="text-xl text-slate-400 mb-12 font-light"></p>
+                    
+                    <div class="space-y-6">
+                        <div class="p-8 rounded-3xl bg-white/5 border border-white/5">
+                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-2">Compound Annual Return</p>
+                            <p class="text-4xl font-light text-teal-400" id="modal-car">114.2%</p>
+                        </div>
+                        <div class="p-8 rounded-3xl bg-white/5 border border-white/5">
+                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-2">Max Drawdown (Hardened)</p>
+                            <p class="text-4xl font-light text-red-400" id="modal-drawdown">4.12%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: CHART & TABLE -->
+                <div class="lg:col-span-2 space-y-12">
+                    <div class="p-10 rounded-[48px] bg-slate-950/50 border border-white/5">
+                        <div class="flex justify-between items-center mb-8">
+                            <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest">Performance Trajectory</h4>
+                            <div class="flex gap-4">
+                                <span class="flex items-center gap-2 text-[10px] text-slate-500"><span class="w-2 h-2 rounded-full bg-blue-500"></span> Realized P&L</span>
+                                <span class="flex items-center gap-2 text-[10px] text-slate-500"><span class="w-2 h-2 rounded-full bg-slate-700"></span> Projection</span>
+                            </div>
+                        </div>
+                        <canvas id="mainChart" height="180"></canvas>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Hardening Timeline</h4>
+                            <div id="modal-hardening" class="space-y-4"></div>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Execution Reliability</h4>
+                            <canvas id="radarChart" height="200"></canvas>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Strategic Ledger</h4>
+                        <div class="overflow-x-auto">
+                            <table class="premium-table">
+                                <thead>
+                                    <tr>
+                                        <th>Period</th>
+                                        <th>Equity Value</th>
+                                        <th>MoM Change</th>
+                                        <th>ROI</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ledger-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="modal-disclaimer"
+                class="mt-16 p-8 bg-black/40 border border-white/5 text-slate-500 rounded-[32px] text-[10px] leading-relaxed font-medium"></div>
+        </div>
+    </div>
+
+    <script>
+        const DATABASE = {
+            thorne: {
+                name: "Thorne-Blackwood",
+                tier: "Institutional Tier",
+                asset: "L1 Liquidity Pool",
+                hero: "The 72-Month Sovereign Standard.",
+                sub: "Transitioned to an 11-node trade engine via verified remote logic, removing human bias entirely through 72 months of hardening.",
+                startVal: 2000,
+                monthly: 2000,
+                nodes: 11,
+                confidence: "72.4%",
+                reporting: [
+                    "Our initial skepticism was high. Trading high-frequency quants remotely felt like a risk we couldn't justify to our board. We started in the 'Developmental Tunnel', watching the engine in sandbox mode for 60 days.",
+                    "The shift happened when we saw the 'Hard Breaker' node in action. It stopped a potential fat-finger trade in milliseconds. That moment proved the infrastructure was more disciplined than any human trader we've hired.",
+                    "Today, we operate at a 72.4% confidence threshold. The engine doesn't just trade; it validates market regime before a single dollar is committed."
+                ],
+                hardening: [
+                    { t: "Institutional Cal", d: "Hardening engines to meet the $2K infrastructure latency requirements." },
+                    { t: "72.4% Gate", d: "Mandatory composite confidence threshold required for live order routing." },
+                    { t: "Managed Scaling", d: "Systematic position sizing increases as node stability was proven over 90 days." }
+                ],
+                backtest: {
+                    period: "9 Months (Audit Oct 2024)",
+                    factor: 1.0,
+                    pnl: [21000, 35000, 52000, 82000, 145000, 210000, 285000, 320000, 352400],
+                    metrics: { car: "176.2%", draw: "2.8%", target: "+642%" },
+                    disclaimer: "Institutional Tier. Baseline calculation: 2% position size | Institutional Slippage Model | 7% Error Haircut."
+                }
+            },
+            agri: {
+                name: "Agri-Growth Farm",
+                tier: "Growth Tier",
+                asset: "Agricultural Revenue",
+                hero: "Building a Capital Base While You Sleep.",
+                sub: "A custom negotiation for a farm business requiring minimal risk and maximum stability, converting harvest revenue into a collateralized alpha engine.",
+                startVal: 500,
+                monthly: 200,
+                nodes: 9,
+                confidence: "65.0%",
+                reporting: [
+                    "We didn't have much to start with, only $500, but we needed the capital to grow while we were out in the fields. The negotiation was tough; we needed the team to agree to a 'very slow' growth model.",
+                    "The engine was tuned specifically for us—stripping away high-risk nodes and focusing on low-beta stock acquisition. It’s a minimal risk strategy that actually lets us sleep during the harvest seasons.",
+                    "Watching the system acquire stocks automatically while our monthly $200 budget fuels it has been life-changing. It's not about the millions yet; it's about the resilience of the base."
+                ],
+                hardening: [
+                    { t: "Agri-Safety Mode", d: "Calibrating sensors to prioritize low-beta, high-liquidity assets only." },
+                    { t: "The 65% Safety Gate", d: "Reduced threshold for entry but heightened exit sensitivity to protect the base." },
+                    { t: "Base-Builder Logic", d: "Modified pipeline to ignore high-volatility regime shifts entirely." }
+                ],
+                backtest: {
+                    period: "6 Months (Audit March 2025)",
+                    factor: 0.65,
+                    pnl: [5000, 11500, 18000, 24500, 32000, 41000],
+                    metrics: { car: "82.4%", draw: "1.2%", target: "+410%" },
+                    disclaimer: "Growth model: Capital accumulation focus | 22% Error Haircut applied for infrastructure noise."
+                }
+            }
+        };
+
+        let mChart = null, sChart = null, rChart = null;
+
+        function init() {
+            const container = document.getElementById('ui-selectors');
+            container.innerHTML = Object.keys(DATABASE).map(key => `
+                <button onclick="select('${key}')" class="px-8 py-4 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white hover:border-blue-500 transition-all duration-300">
+                    ${DATABASE[key].name}
+                </button>
+            `).join('');
+            select('thorne');
+        }
+
+        function select(key) {
+            const d = DATABASE[key];
+            const html = document.documentElement;
+            
+            document.getElementById('ui-avatar').innerText = d.name.substring(0, 2);
+            document.getElementById('ui-tier-badge').innerText = d.tier;
+            document.getElementById('ui-asset-type').innerText = `Initial Collateral: ${d.asset}`;
+            document.getElementById('ui-hero').innerText = d.hero;
+            document.getElementById('ui-sub').innerText = d.sub;
+            document.getElementById('ui-start-val').innerText = '$' + d.startVal.toLocaleString();
+            document.getElementById('ui-target-yield').innerText = d.backtest.metrics.target;
+            document.getElementById('ui-reporting').innerHTML = d.reporting.map(p => `<p class="fade-in">${p}</p>`).join('');
+            document.getElementById('stat-nodes').innerText = `${d.nodes} / 11`;
+            document.getElementById('ui-confidence').innerText = `${d.confidence} GATE CONFIDENCE`;
+
+            const plat = document.getElementById('platinum-card');
+            if (d.tier === "Institutional Tier") plat.classList.remove('hidden'); else plat.classList.add('hidden');
+
+            const nodes = ["L2 DEPTH", "ORATS GREEKS", "SENTIMENT", "RL EXEC", "HARD BREAKER", "REGIME DETECT", "VOL BIAS", "FLOW SCAN", "SKEW ADJ", "LIQ NODE", "CORE PIPE"];
+            document.getElementById('nodeGrid').innerHTML = nodes.map((n, i) => `
+                <div class="flex flex-col items-center gap-3">
+                    <div class="node-box ${i < d.nodes ? 'active' : ''}"></div>
+                    <span class="text-[8px] text-slate-500 font-bold text-center tracking-tighter">${n}</span>
+                </div>
+            `).join('');
+
+            if (window.timer) clearInterval(window.timer);
+            let step = 0;
+            window.timer = setInterval(() => {
+                document.querySelectorAll('.workflow-step').forEach(s => s.classList.remove('processing'));
+                const ids = ['step-ingest', 'step-process', 'step-gate', 'step-pipe'];
+                document.getElementById(ids[step]).classList.add('processing');
+                step = (step + 1) % 4;
+            }, 1000);
+
+            renderCharts(d);
+        }
+
+        function renderCharts(d) {
+            // MINI CHART
+            const ctxM = document.getElementById('miniChart').getContext('2d');
+            if (mChart) mChart.destroy();
+            mChart = new Chart(ctxM, {
+                type: 'line',
+                data: {
+                    labels: d.backtest.pnl.map((_, i) => i),
+                    datasets: [{
+                        data: d.backtest.pnl,
+                        borderColor: '#3B82F6',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        fill: true,
+                        backgroundColor: (c) => {
+                            const g = c.chart.ctx.createLinearGradient(0, 0, 0, 100);
+                            g.addColorStop(0, 'rgba(59, 130, 246, 0.2)');
+                            g.addColorStop(1, 'transparent');
+                            return g;
+                        },
+                        tension: 0.4
+                    }]
+                },
+                options: { plugins: { legend: false }, scales: { x: { display: false }, y: { display: false } }, animation: { duration: 2000 } }
+            });
+
+            // MODAL STATIC DATA
+            document.getElementById('modal-title').innerText = d.name;
+            document.getElementById('modal-sub').innerText = d.backtest.period;
+            document.getElementById('modal-car').innerText = d.backtest.metrics.car;
+            document.getElementById('modal-drawdown').innerText = d.backtest.metrics.draw;
+            document.getElementById('modal-disclaimer').innerText = d.backtest.disclaimer;
+
+            // HARDENING ITEMS
+            document.getElementById('modal-hardening').innerHTML = d.hardening.map(item => `
+                <div class="p-6 bg-white/5 rounded-2xl border border-white/5 hover:border-white/10 transition-all">
+                    <p class="text-[10px] font-black text-blue-400 mb-1 uppercase tracking-widest">${item.t}</p>
+                    <p class="text-xs text-slate-400 leading-relaxed">${item.d}</p>
+                </div>
+            `).join('');
+
+            // LEDGER TABLE
+            document.getElementById('ledger-body').innerHTML = d.backtest.pnl.map((v, i) => {
+                const prev = i === 0 ? d.startVal : d.backtest.pnl[i-1];
+                const diff = v - prev;
+                const perc = ((diff / prev) * 100).toFixed(1);
+                return `
+                <tr>
+                    <td class="text-slate-500 font-bold text-[11px]">Audit Month 0${i+1}</td>
+                    <td class="text-white font-bold">$${v.toLocaleString()}</td>
+                    <td class="${diff >= 0 ? 'text-teal-400' : 'text-red-400'} font-medium">+$${diff.toLocaleString()}</td>
+                    <td><span class="px-3 py-1 bg-white/5 rounded-full text-[10px] font-bold ${diff >= 0 ? 'text-teal-400' : 'text-red-400'}">${perc}%</span></td>
+                </tr>
+            `}).join('');
+
+            // MAIN CHART
+            const ctxS = document.getElementById('mainChart').getContext('2d');
+            if (sChart) sChart.destroy();
+            sChart = new Chart(ctxS, {
+                type: 'line',
+                data: {
+                    labels: d.backtest.pnl.map((_, i) => `Month ${i+1}`),
+                    datasets: [{
+                        label: 'Hardened Equity',
+                        data: d.backtest.pnl,
+                        borderColor: '#2563EB',
+                        borderWidth: 4,
+                        pointBackgroundColor: '#2563EB',
+                        pointBorderColor: '#0F172A',
+                        pointBorderWidth: 2,
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        fill: true,
+                        backgroundColor: (c) => {
+                            const g = c.chart.ctx.createLinearGradient(0, 0, 0, 400);
+                            g.addColorStop(0, 'rgba(37, 99, 235, 0.1)');
+                            g.addColorStop(1, 'transparent');
+                            return g;
+                        },
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: false },
+                    scales: {
+                        y: { 
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { color: '#64748B', font: { size: 10 }, callback: v => '$' + v.toLocaleString() }
+                        },
+                        x: { grid: { display: false }, ticks: { color: '#64748B', font: { size: 10 } } }
+                    }
+                }
+            });
+
+            // RADAR CHART
+            const ctxR = document.getElementById('radarChart').getContext('2d');
+            if (rChart) rChart.destroy();
+            rChart = new Chart(ctxR, {
+                type: 'radar',
+                data: {
+                    labels: ['Precision', 'Latency', 'Risk MGMT', 'Uptime', 'Alpha', 'Liquidity'],
+                    datasets: [{
+                        data: d.nodes >= 11 ? [98, 99, 95, 99, 92, 96] : [85, 90, 99, 95, 78, 88],
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        borderColor: '#3B82F6',
+                        pointBackgroundColor: '#3B82F6',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(255,255,255,0.1)' },
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            pointLabels: { color: '#64748B', font: { size: 8 } },
+                            ticks: { display: false, max: 100 }
+                        }
+                    },
+                    plugins: { legend: false }
+                }
+            });
+        }
+
+        function toggleModal() { document.getElementById('scalingModal').classList.toggle('active'); }
+        init();
+    </script>
+</body>
+</html>

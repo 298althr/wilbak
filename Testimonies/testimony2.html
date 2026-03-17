@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Alpha Network | Institutional Asset-to-Alpha Matrix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0F172A;
+            --platinum: #E2E8F0;
+            --gold: #D4AF37;
+            --blue: #2563EB;
+            --teal: #0D9488;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020617;
+            color: #94A3B8;
+            scroll-behavior: smooth;
+        }
+
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* TIER RANKING DESIGN */
+        .card-tier-1 {
+            border-top: 4px solid #64748B;
+            background: #0F172A;
+        }
+
+        /* Seed */
+        .card-tier-2 {
+            border-top: 4px solid var(--blue);
+            background: linear-gradient(145deg, #0F172A, #1E293B);
+        }
+
+        /* Growth */
+        .card-tier-3 {
+            border-top: 4px solid var(--teal);
+            background: linear-gradient(145deg, #0F172A, #064E3B);
+        }
+
+        /* Institutional */
+        .card-tier-4 {
+            border: 1px solid rgba(226, 232, 240, 0.2);
+            background: radial-gradient(circle at top right, #1E293B, #020617);
+            box-shadow: 0 0 40px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Platinum Power House */
+
+        .platinum-glow {
+            text-shadow: 0 0 20px rgba(226, 232, 240, 0.5);
+            color: white;
+        }
+
+        /* CALCULATOR & GRAPH MODULATION */
+        .calc-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 12px;
+            padding: 12px;
+            width: 100%;
+        }
+
+        .knowledge-node {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            background: #334155;
+            transition: 0.3s;
+        }
+
+        .knowledge-node.active {
+            background: var(--blue);
+            box-shadow: 0 0 15px var(--blue);
+        }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 10px;
+        }
+
+        .phase-pill {
+            cursor: pointer;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            transition: 0.3s;
+            border: 1px solid #334155;
+        }
+
+        .phase-pill.active {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: white;
+        }
+
+        @keyframes pulse-border {
+            0% {
+                border-color: rgba(37, 99, 235, 0.2);
+            }
+
+            50% {
+                border-color: rgba(37, 99, 235, 0.8);
+            }
+
+            100% {
+                border-color: rgba(37, 99, 235, 0.2);
+            }
+        }
+
+        .active-pipeline {
+            animation: pulse-border 2s infinite;
+        }
+    </style>
+</head>
+
+<body class="p-4 md:p-10">
+
+    <div class="max-w-7xl mx-auto">
+        <nav
+            class="flex flex-wrap justify-between items-center mb-12 p-8 bg-[#0F172A] rounded-[32px] border border-white/5">
+            <div class="flex items-center gap-6">
+                <div class="text-white font-black text-2xl tracking-tighter">GAN<span class="text-blue-500">.</span>CORE
+                </div>
+                <div class="h-8 w-[1px] bg-white/10 hidden md:block"></div>
+                <div class="hidden md:flex gap-4" id="tier-filters">
+                    <button onclick="filterTier('all')"
+                        class="text-[10px] font-bold uppercase tracking-widest text-white">All Nodes</button>
+                    <button onclick="filterTier('Platinum')"
+                        class="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-white transition">Platinum</button>
+                    <button onclick="filterTier('Institutional')"
+                        class="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-white transition">Institutional</button>
+                </div>
+            </div>
+            <div class="flex gap-4 mt-4 md:mt-0">
+                <span class="text-[10px] font-black text-teal-500 uppercase flex items-center gap-2">
+                    <span class="w-2 h-2 bg-teal-500 rounded-full animate-pulse"></span> 11-Node Live
+                </span>
+            </div>
+        </nav>
+
+        <header class="mb-24 text-center md:text-left">
+            <h1 class="serif text-6xl md:text-8xl text-white mb-6 leading-none">The 72-Month <br><span
+                    class="platinum-glow">Sovereign Proof.</span></h1>
+            <p class="text-xl md:text-2xl font-light max-w-3xl leading-relaxed">Eight global entities. One unified
+                11-node engine. From seasonal wine yields to industrial energy credits—this is the physics of automated
+                alpha.</p>
+        </header>
+
+        <section class="grid lg:grid-cols-12 gap-8 mb-32">
+            <div class="lg:col-span-8 bg-[#0F172A] rounded-[48px] p-10 border border-white/5 relative overflow-hidden">
+                <div class="flex flex-wrap justify-between items-center mb-12 gap-4">
+                    <h2 class="serif text-4xl text-white">Dynamic Backtest Engine</h2>
+                    <div class="flex gap-2" id="phase-selectors">
+                        <div onclick="setPhase(24)" class="phase-pill active" id="p24">24 Months</div>
+                        <div onclick="setPhase(36)" class="phase-pill" id="p36">36 Months</div>
+                        <div onclick="setPhase(72)" class="phase-pill" id="p72">72 Months</div>
+                    </div>
+                </div>
+
+                <div class="mb-8 h-[400px]">
+                    <canvas id="mainStochasticChart"></canvas>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 pt-10 border-t border-white/5">
+                    <div>
+                        <p class="text-[10px] font-black uppercase text-slate-500 mb-2">Alpha Confidence</p>
+                        <p class="text-3xl text-white font-bold" id="stat-confidence">72.4%</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black uppercase text-slate-500 mb-2">Max Drawdown Event</p>
+                        <p class="text-3xl text-red-500 font-bold" id="stat-drawdown">-12.4%</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black uppercase text-slate-500 mb-2">Terminal Multiplier</p>
+                        <p class="text-3xl text-teal-500 font-bold" id="stat-multiplier">4.8x</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-4 space-y-8">
+                <div class="bg-blue-600 rounded-[48px] p-10 text-white shadow-2xl shadow-blue-900/20">
+                    <h3 class="serif text-3xl mb-6">Yield Estimator</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-[10px] font-black uppercase opacity-60">Asset Valuation (USD)</label>
+                            <input type="number" id="calc-asset" value="200000" class="calc-input mt-2"
+                                oninput="runCalculation()">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-black uppercase opacity-60">Risk Tolerance</label>
+                            <select id="calc-risk" class="calc-input mt-2" onchange="runCalculation()">
+                                <option value="0.05">Conservative (Seed)</option>
+                                <option value="0.12" selected>Moderate (Institutional)</option>
+                                <option value="0.25">Aggressive (Platinum)</option>
+                            </select>
+                        </div>
+                        <div class="pt-6">
+                            <p class="text-[10px] font-black uppercase opacity-60 mb-2">Est. Annual Return</p>
+                            <p class="text-5xl font-black" id="calc-result">$0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#0F172A] rounded-[48px] p-10 border border-white/5">
+                    <h3 class="text-[10px] font-black uppercase text-blue-500 mb-6 tracking-widest">Node Knowledge Graph
+                    </h3>
+                    <div class="grid grid-cols-11 gap-2 mb-8" id="knowledge-graph-ui">
+                    </div>
+                    <p class="text-sm leading-relaxed" id="node-description">Select a business node to inspect
+                        infrastructure hardening levels.</p>
+                </div>
+            </div>
+        </section>
+
+        <h2 class="serif text-5xl text-white mb-16">The Institutional Ledger</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-32" id="partner-grid">
+        </div>
+
+        <section class="bg-white rounded-[60px] p-12 md:p-24 mb-32 text-slate-900">
+            <div class="max-w-4xl">
+                <h2 class="serif text-5xl md:text-7xl mb-12">The Infrastructure of Trust.</h2>
+                <div class="grid md:grid-cols-2 gap-16">
+                    <div class="space-y-8">
+                        <div>
+                            <h4 class="font-black text-xs uppercase tracking-widest text-blue-600 mb-2">01. Concurrent
+                                Ingest</h4>
+                            <p class="text-lg text-slate-500 font-light">Simultaneous processing of L2 Orderbook depth
+                                and Sentiment data flows.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-black text-xs uppercase tracking-widest text-blue-600 mb-2">02. Asynchronous
+                                Process</h4>
+                            <p class="text-lg text-slate-500 font-light">Removing sequential latency to ensure 72.4%
+                                confidence gates are met in sub-milliseconds.</p>
+                        </div>
+                    </div>
+                    <div class="space-y-8">
+                        <div>
+                            <h4 class="font-black text-xs uppercase tracking-widest text-blue-600 mb-2">03. Hard Breaker
+                                Logic</h4>
+                            <p class="text-lg text-slate-500 font-light">A mandatory exit switch that triggers when
+                                volatility exceeds the asset-collateral threshold.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-black text-xs uppercase tracking-widest text-blue-600 mb-2">04. IBKR
+                                Pipeline</h4>
+                            <p class="text-lg text-slate-500 font-light">Final execution routing through hardened
+                                institutional gateways.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const DATABASE = [
+            { id: 'tb', name: "Thorne-Blackwood", tier: "Platinum", asset: "L1 Liquidity Pool", val: 2000000, nodes: 11, trend: 0.08, vol: 0.12, desc: "The gold standard of 72-month institutional stability.", testimony: "Transitioned from a $200 sandbox to a multi-million terminal engine. The 72-month chart shows the 'drama' of the 2024 regime shift and the sub-millisecond recovery." },
+            { id: 'bp', name: "Beijing Power House", tier: "Platinum", asset: "Energy Credits", val: 850000, nodes: 11, trend: 0.07, vol: 0.15, desc: "Direct cross-border integration for energy-backed assets.", testimony: "Beijing Power utilized energy inventory as a collateral anchor, bridging the 12-hour latency gap via our surrogate engine nodes." },
+            { id: 'dm', name: "Al-Maktoum Auto", tier: "Institutional", asset: "Luxury Fleet", val: 450000, nodes: 10, trend: 0.06, vol: 0.10, desc: "Inventory-to-Alpha rotation for Dubai luxury markets.", testimony: "Turned showroom 'dead capital' into a high-frequency growth vehicle. The fleet value is tracked in USD at Month 1." },
+            { id: 'og', name: "Oudh & Gold", tier: "Institutional", asset: "Gold Reserves", val: 620000, nodes: 10, trend: 0.05, vol: 0.08, desc: "Physical gold-backed stability for retail giants.", testimony: "Absorbing high-ticket retail spikes into a smooth, 36-month automated accumulation curve." },
+            { id: 'nm', name: "NorthStar Motors", tier: "Growth", asset: "4 Luxury Vehicles", val: 150000, nodes: 9, trend: 0.05, vol: 0.20, desc: "Canadian asset breeding strategy using dealership inventory.", testimony: "The first 12 months were volatile, swinging from 700k to 150k until the Risk Endpoint recalibration at Month 14." },
+            { id: 'kc', name: "Keystone CM", tier: "Growth", asset: "Heavy Machinery", val: 120000, nodes: 9, trend: 0.04, vol: 0.14, desc: "Pennsylvania-based heavy equipment equity leverage.", testimony: "Building a secondary revenue stream that rivals primary construction contracts by utilizing project overhead gaps." },
+            { id: 'vo', name: "Valle de Oro", tier: "Seed", asset: "Wine Inventory", val: 45000, nodes: 8, trend: 0.03, vol: 0.18, desc: "Seasonal liquidity engine for Mexican wineries.", testimony: "Farming capital year-round while the grapes grow. Removing the seasonal 'Harvest Gap' in winery cashflow." },
+            { id: 'ag', name: "Agri-Growth Farm", tier: "Seed", asset: "Land Equity", val: 25000, nodes: 7, trend: 0.03, vol: 0.05, desc: "Conservative stock accumulation for small farm holdings.", testimony: "Minimal risk, maximum peace. The system acquires low-beta stocks automatically while we work the fields." }
+        ];
+
+        let activeChart = null;
+        let currentPhase = 36;
+        let currentPartner = DATABASE[0];
+
+        function init() {
+            renderPartners('all');
+            renderKnowledgeGraph();
+            updateDashboard(DATABASE[0]);
+            runCalculation();
+        }
+
+        function renderPartners(filter) {
+            const grid = document.getElementById('partner-grid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' ? DATABASE : DATABASE.filter(d => d.tier === filter);
+
+            filtered.forEach((p, index) => {
+                const tierRank = p.tier === 'Platinum' ? 4 : (p.tier === 'Institutional' ? 3 : (p.tier === 'Growth' ? 2 : 1));
+                const card = document.createElement('div');
+                card.className = `p-8 rounded-[40px] card-tier-${tierRank} border border-white/5 cursor-pointer hover:scale-[1.02] transition duration-500`;
+                card.onclick = () => updateDashboard(p);
+                card.innerHTML = `
+                    <p class="text-[9px] font-black text-blue-500 uppercase tracking-widest mb-4">${p.tier} Tier</p>
+                    <h3 class="serif text-2xl text-white mb-2">${p.name}</h3>
+                    <p class="text-xs text-slate-500 mb-6 leading-relaxed">${p.desc}</p>
+                    <div class="flex justify-between items-end">
+                        <div>
+                            <p class="text-[9px] font-black text-slate-600 uppercase">Collateral</p>
+                            <p class="text-sm font-bold text-slate-300">${p.asset}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[9px] font-black text-slate-600 uppercase">Node Auth</p>
+                            <p class="text-sm font-bold text-teal-500">${p.nodes}/11</p>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function generateStochasticData(startVal, months, trend, vol) {
+            let data = [startVal];
+            let current = startVal;
+            for (let i = 1; i < months; i++) {
+                let drama = (Math.random() - 0.45) * vol; // Biased upwards but volatile
+                if (i % 12 === 0) drama -= 0.1; // Simulated year-end drawdown
+                current = current * (1 + trend + drama);
+                data.push(Math.round(current));
+            }
+            return data;
+        }
+
+        function updateDashboard(partner) {
+            currentPartner = partner;
+            document.getElementById('node-description').innerText = partner.testimony;
+
+            // Highlight nodes in knowledge graph
+            document.querySelectorAll('.knowledge-node').forEach((n, i) => {
+                n.className = i < partner.nodes ? 'knowledge-node active' : 'knowledge-node';
+            });
+
+            renderMainChart();
+        }
+
+        function renderMainChart() {
+            const ctx = document.getElementById('mainStochasticChart').getContext('2d');
+            if (activeChart) activeChart.destroy();
+
+            const pnlData = generateStochasticData(currentPartner.val, currentPhase, currentPartner.trend, currentPartner.vol);
+
+            activeChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({ length: currentPhase }, (_, i) => `M${i + 1}`),
+                    datasets: [{
+                        label: 'Portfolio Value (USD)',
+                        data: pnlData,
+                        borderColor: '#2563EB',
+                        borderWidth: 3,
+                        fill: true,
+                        backgroundColor: 'rgba(37, 99, 235, 0.05)',
+                        tension: 0.4,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointBackgroundColor: '#FFF'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#475569', maxRotation: 0, autoSkip: true, maxTicksLimit: 12 } },
+                        y: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#475569', callback: v => '$' + v.toLocaleString() } }
+                    }
+                }
+            });
+
+            // Update Stats
+            document.getElementById('stat-multiplier').innerText = (pnlData[pnlData.length - 1] / pnlData[0]).toFixed(1) + 'x';
+        }
+
+        function setPhase(m) {
+            currentPhase = m;
+            document.querySelectorAll('.phase-pill').forEach(p => p.classList.remove('active'));
+            document.getElementById(`p${m}`).classList.add('active');
+            renderMainChart();
+        }
+
+        function renderKnowledgeGraph() {
+            const container = document.getElementById('knowledge-graph-ui');
+            for (let i = 0; i < 11; i++) {
+                const node = document.createElement('div');
+                node.className = 'knowledge-node';
+                container.appendChild(node);
+            }
+        }
+
+        function runCalculation() {
+            const asset = document.getElementById('calc-asset').value;
+            const risk = document.getElementById('calc-risk').value;
+            const annual = asset * (1 + (risk * 2.4)); // Theoretical alpha multiplier
+            document.getElementById('calc-result').innerText = '$' + Math.round(annual).toLocaleString();
+        }
+
+        function filterTier(tier) {
+            renderPartners(tier);
+        }
+
+        window.onload = init;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORTHOM8pro | Institutional Sovereign Trading</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <link href="assets/css/global.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="blueprint-bg"></div>
+
+    <!-- NAVIGATION -->
+    <nav class="app-header">
+        <div class="flex items-center gap-3">
+            <a href="index.html" class="brand-link">
+                <div class="brand-icon">O8</div>
+                <span class="brand-text">ORTHOM8pro</span>
+            </a>
+        </div>
+        <div class="flex items-center gap-4">
+            <!-- Desktop Nav -->
+            <div class="desktop-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#engine" class="nav-link">The Engine</a>
+                <a href="index.html#performance" class="nav-link">Performance</a>
+                <div class="dropdown">
+                    <a href="testimony/master-matrix.html"
+                        class="dropdown-trigger nav-link flex items-center gap-1 group">
+                        <span>Testimonies</span>
+                        <svg class="dropdown-arrow w-3 h-3 cursor-pointer group-hover:translate-y-0.5 transition-transform"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="testimony/master-matrix.html?partner=thorne" class="dropdown-item">
+                            <div class="w-2 h-2 rounded-full bg-slate-900"></div><span>Thorne-Blackwood</span>
+                        </a>
+                        <a href="testimony/master-matrix.html?partner=beijing" class="dropdown-item">
+                            <div class="w-2 h-2 rounded-full bg-blue-600"></div><span>Beijing Power</span>
+                        </a>
+                        <a href="testimony/master-matrix.html?partner=northstar" class="dropdown-item">
+                            <div class="w-2 h-2 rounded-full bg-amber-500"></div><span>NorthStar Motors</span>
+                        </a>
+                        <a href="testimony/master-matrix.html?partner=dubai_auto" class="dropdown-item">
+                            <div class="w-2 h-2 rounded-full bg-slate-400"></div><span>Al-Maktoum Auto</span>
+                        </a>
+                        <a href="testimony/master-matrix.html?partner=oudh" class="dropdown-item">
+                            <div class="w-2 h-2 rounded-full bg-yellow-600"></div><span>Oudh & Gold</span>
+                        </a>
+                        <a href="testimony/master-matrix.html?partner=agri" class="dropdown-item">
+                            <div class="w-2 h-2 rounded-full bg-green-600"></div><span>Agri-Growth</span>
+                        </a>
+                        <a href="testimony/master-matrix.html?partner=valle" class="dropdown-item">
+                            <div class="w-2 h-2 rounded-full bg-red-400"></div><span>Valle de Oro</span>
+                        </a>
+                        <a href="testimony/master-matrix.html?partner=keystone" class="dropdown-item">
+                            <div class="w-2 h-2 rounded-full bg-slate-500"></div><span>Keystone CM</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="view-schema/view-schema.html"
+                        class="dropdown-trigger nav-link flex items-center gap-1 group">
+                        <span>View Schema</span>
+                        <svg class="dropdown-arrow w-3 h-3 cursor-pointer group-hover:translate-y-0.5 transition-transform"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="view-schema/view-schema.html#pipeline" class="dropdown-item">
+                            <div class="w-2 h-2 rounded-full bg-blue-600"></div><span>Phase 01: Ingest</span>
+                        </a>
+                        <a href="view-schema/view-schema.html#pipeline" class="dropdown-item">
+                            <div class="w-2 h-2 rounded-full bg-teal-500"></div><span>Phase 02: Gate</span>
+                        </a>
+                        <a href="view-schema/view-schema.html#pipeline" class="dropdown-item">
+                            <div class="w-2 h-2 rounded-full bg-slate-900"></div><span>Phase 03: Exit</span>
+                        </a>
+                    </div>
+                </div>
+                <a href="risktable/investor-risk-matrix.html" class="nav-link">Risk Analysis</a>
+            </div>
+            <a href="submit-asset/submit-asset.html" class="cta-outline">Audit Asset</a>
+
+            <!-- Mobile Hamburger -->
+            <button id="mobile-menu-btn" class="hamburger-btn" aria-label="Open menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="mobile-menu-panel translate-x-full">
+        <div class="mobile-menu-header">
+            <div class="flex items-center gap-3">
+                <div class="brand-icon">O8</div>
+                <span class="brand-text">ORTHOM8pro</span>
+            </div>
+            <button id="mobile-menu-close" class="p-2" aria-label="Close menu">
+                <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+        <nav class="mobile-nav-list">
+            <a href="index.html" class="mobile-nav-link">Home</a>
+            <a href="index.html#engine" class="mobile-nav-link">The Engine</a>
+            <a href="index.html#performance" class="mobile-nav-link">Performance</a>
+            <a href="testimony/master-matrix.html" class="mobile-nav-link">Testimonies</a>
+            <div class="mobile-sub-nav">
+                <a href="testimony/master-matrix.html?partner=thorne" class="mobile-sub-link">→ Thorne-Blackwood</a>
+                <a href="testimony/master-matrix.html?partner=beijing" class="mobile-sub-link">→ Beijing Power</a>
+                <a href="testimony/master-matrix.html?partner=northstar" class="mobile-sub-link">→ NorthStar Motors</a>
+                <a href="testimony/master-matrix.html?partner=dubai_auto" class="mobile-sub-link">→ Al-Maktoum Auto</a>
+                <a href="testimony/master-matrix.html?partner=oudh" class="mobile-sub-link">→ Oudh &amp; Gold</a>
+                <a href="testimony/master-matrix.html?partner=agri" class="mobile-sub-link">→ Agri-Growth</a>
+                <a href="testimony/master-matrix.html?partner=valle" class="mobile-sub-link">→ Valle de Oro</a>
+                <a href="testimony/master-matrix.html?partner=keystone" class="mobile-sub-link">→ Keystone CM</a>
+            </div>
+            <a href="view-schema/view-schema.html" class="mobile-nav-link">View Schema</a>
+            <div class="mobile-sub-nav">
+                <a href="view-schema/view-schema.html#pipeline" class="mobile-sub-link">→ Phase 01: Ingest</a>
+                <a href="view-schema/view-schema.html#pipeline" class="mobile-sub-link">→ Phase 02: Gate</a>
+                <a href="view-schema/view-schema.html#pipeline" class="mobile-sub-link">→ Phase 03: Exit</a>
+            </div>
+            <a href="risktable/investor-risk-matrix.html" class="mobile-nav-link">Risk Analysis</a>
+        </nav>
+        <div class="mt-auto">
+            <a href="submit-asset/submit-asset.html" class="cta-primary w-full text-center block">Audit Asset</a>
+        </div>
+    </div>
+
+    <!-- HERO SECTION — Editorial Split: White left, photo bleeds from right -->
+    <section class="relative w-full overflow-hidden bg-white" style="min-height: 100vh;">
+
+        <!-- Photo panel: right 55%, fades into white on the left edge. On mobile, acts as full background watermark -->
+        <div class="absolute inset-0 lg:inset-y-0 lg:right-0 lg:left-auto w-full lg:w-[58%] z-0">
+            <img src="https://images.unsplash.com/photo-1579621970795-87facc2f976d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Institutional Sovereign Trading" class="w-full h-full object-cover object-center"
+                style="filter: brightness(0.88) saturate(0.95);">
+            <!-- Desktop Gradient: White fade from left — blends photo into the white content side -->
+            <div class="hidden lg:block absolute inset-0"
+                style="background: linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.6) 20%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);">
+            </div>
+            <!-- Mobile Overlay: Softened white wash for legibility without fully hiding the photo -->
+            <div class="block lg:hidden absolute inset-0 bg-white/60"></div>
+            <!-- Subtle white scatter dots pattern overlay on photo -->
+            <div class="absolute inset-0 opacity-[0.06]"
+                style="background-image: radial-gradient(circle, #1e293b 1px, transparent 1px); background-size: 28px 28px;">
+            </div>
+        </div>
+
+        <!-- Content sits on the white left side -->
+        <main class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 pt-10 sm:pt-20 pb-24 sm:pb-40"
+            style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+            <div class="lg:w-[54%]">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 rounded-full mb-8 border border-blue-100">
+                    <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-blue-600">Institutional Sovereign
+                        Gateway</span>
+                </div>
+                <h1
+                    class="serif text-5xl sm:text-7xl md:text-8xl lg:text-9xl mb-8 text-slate-900 leading-[0.95] tracking-tight">
+                    Institutional Alpha. <br><span class="italic font-light text-slate-400">Sovereign Control.</span>
+                </h1>
+                <p class="text-base sm:text-xl text-slate-500 font-light leading-relaxed max-w-xl mb-10">
+                    Move beyond the developmental tunnel. Deploy high-fidelity AI trading logic on an 11-node sovereign
+                    engine hardened for institutional resilience.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 mb-12 sm:mb-16">
+                    <a href="submit-asset/submit-asset.html" class="cta-primary text-center">Initialize Ingest</a>
+                    <a href="risktable/investor-risk-matrix.html"
+                        class="px-8 py-4 sm:py-5 border border-slate-200 rounded-2xl text-[11px] font-black uppercase tracking-widest text-slate-500 hover:bg-slate-50 transition-all text-center flex items-center justify-center">Audit
+                        the Matrix</a>
+                </div>
+                <div class="flex flex-wrap items-center gap-6 sm:gap-10 pt-8 border-t border-slate-200/60">
+                    <div>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Active Liquidity
+                        </p>
+                        <p class="text-xl sm:text-2xl font-black text-slate-900">$84M+</p>
+                    </div>
+                    <div class="w-px h-10 bg-slate-200 hidden sm:block"></div>
+                    <div>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Logic Nodes</p>
+                        <p class="text-xl sm:text-2xl font-black text-slate-900">11/11 Active</p>
+                    </div>
+                    <div class="w-px h-10 bg-slate-200 hidden sm:block"></div>
+                    <div class="flex -space-x-4 pl-2 sm:pl-0">
+                        <div
+                            class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white bg-slate-900 flex items-center justify-center text-[9px] sm:text-[10px] text-white font-black">
+                            TB</div>
+                        <div
+                            class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white bg-slate-700 flex items-center justify-center text-[9px] sm:text-[10px] text-white font-black">
+                            BP</div>
+                        <div
+                            class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white bg-slate-400 flex items-center justify-center text-[9px] sm:text-[10px] text-white font-black">
+                            MA</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating card: absolute on desktop, visible bottom-right of the white section -->
+            <div class="hidden lg:block absolute right-[8%] bottom-[12%] z-20">
+                <div class="card-base card-platinum scale-[1.1] -rotate-3 shadow-2xl">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em]">Sovereign
+                                Node</span>
+                            <h4 class="serif text-3xl mt-4">Institutional Core</h4>
+                        </div>
+                        <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center">
+                            <div class="w-4 h-4 bg-blue-500 rounded-full blur-[2px]"></div>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <p class="text-[9px] font-bold text-slate-400 uppercase mb-2">Auth Sequence</p>
+                        <div class="flex gap-1.5">
+                            <div class="w-3 h-1 bg-blue-500 rounded-full"></div>
+                            <div class="w-3 h-1 bg-blue-500 rounded-full"></div>
+                            <div class="w-3 h-1 bg-blue-500 rounded-full"></div>
+                            <div class="w-3 h-1 bg-slate-700 rounded-full"></div>
+                            <div class="w-3 h-1 bg-slate-700 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-base card-gold absolute -bottom-10 -left-14 -rotate-12 scale-90 -z-10 blur-[1px]">
+                </div>
+            </div>
+        </main>
+    </section>
+
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 relative z-20">
+
+        <!-- ENGINE SECTION — Editorial card: photo as tall image insert left, pure white content right -->
+        <section id="engine" class="mt-20 sm:mt-40 lg:mt-60 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+            <!-- Left: tall photo card with dot-grid pattern overlay -->
+            <div class="order-2 lg:order-1 space-y-6">
+                <!-- Photo insert — rounded editorial card -->
+                <div class="relative rounded-[32px] overflow-hidden shadow-xl shadow-slate-200/80 border border-slate-100"
+                    style="aspect-ratio: 4/5;">
+                    <img src="https://images.unsplash.com/photo-1570902803014-25a4c344d4e6?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Engine Architecture" class="w-full h-full object-cover"
+                        style="filter: brightness(0.92) saturate(0.85);">
+                    <!-- White dot grid pattern over photo -->
+                    <div class="absolute inset-0"
+                        style="background-image: radial-gradient(circle, rgba(255,255,255,0.45) 1px, transparent 1px); background-size: 22px 22px;">
+                    </div>
+                    <!-- Bottom caption bar -->
+                    <div class="absolute bottom-0 inset-x-0 p-4 sm:p-5 backdrop-blur-sm"
+                        style="background: rgba(255,255,255,0.88);">
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-[0.4em] mb-2 sm:mb-1">
+                            Infrastructure Layer</p>
+                        <div class="flex flex-wrap gap-2 sm:gap-3">
+                            <div class="node-circle active w-[28px] h-[28px] sm:w-[32px] sm:h-[32px]"><span
+                                    class="text-[8px] sm:text-[9px] font-black">L2</span></div>
+                            <div class="node-circle active w-[28px] h-[28px] sm:w-[32px] sm:h-[32px]"><span
+                                    class="text-[8px] sm:text-[9px] font-black">OG</span></div>
+                            <div class="node-circle active w-[28px] h-[28px] sm:w-[32px] sm:h-[32px]"><span
+                                    class="text-[8px] sm:text-[9px] font-black">RL</span></div>
+                            <div class="node-circle active w-[28px] h-[28px] sm:w-[32px] sm:h-[32px]"><span
+                                    class="text-[8px] sm:text-[9px] font-black">HB</span></div>
+                            <div class="node-circle w-[28px] h-[28px] sm:w-[32px] sm:h-[32px]"><span
+                                    class="text-[8px] sm:text-[9px] font-black">+7</span></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Hard Breaker card below photo -->
+                <div
+                    class="p-6 sm:p-8 bg-white border border-slate-100 rounded-[28px] shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -mr-16 -mt-16"></div>
+                    <span class="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-3 block">Active Logic
+                        Path</span>
+                    <h4 class="serif text-2xl mb-3">The "Hard Breaker" Fail-Safe</h4>
+                    <p class="text-slate-500 font-medium text-sm leading-relaxed">
+                        Our proprietary node monitors macro regime shifts in real-time. If volatility exceeds the
+                        72-month anchor, the engine enters "Sovereign Preservation" instantly.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right: clean white text content -->
+            <div class="order-1 lg:order-2">
+                <h2 class="serif text-4xl sm:text-5xl md:text-7xl text-slate-900 mb-8">Hardware-Grade <br><span
+                        class="italic font-light text-slate-400">Software Precision.</span></h2>
+                <p class="text-xl text-slate-500 font-light leading-relaxed">
+                    We don't just trade. We architect digital vaults for capital. Each node in the Alpha Matrix is a
+                    specialized logic module built to handle specific market inefficiencies with nanosecond latency.
+                </p>
+                <div class="mt-10 space-y-5">
+                    <div class="flex items-center gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                        <div class="w-8 h-8 rounded-xl bg-teal-50 flex-shrink-0 flex items-center justify-center">
+                            <svg class="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <p class="text-sm font-bold text-slate-700 uppercase tracking-wide">Reality-Adjusted ROI
+                            Modeling</p>
+                    </div>
+                    <div class="flex items-center gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                        <div class="w-8 h-8 rounded-xl bg-teal-50 flex-shrink-0 flex items-center justify-center">
+                            <svg class="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <p class="text-sm font-bold text-slate-700 uppercase tracking-wide">L2 Order Book Sentiment
+                            Liquidity</p>
+                    </div>
+                    <div class="flex items-center gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                        <div class="w-8 h-8 rounded-xl bg-teal-50 flex-shrink-0 flex items-center justify-center">
+                            <svg class="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <p class="text-sm font-bold text-slate-700 uppercase tracking-wide">Nanosecond IBKR Pipe
+                            Integration</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TIERED CERTIFICATIONS / PERFORMANCE — Watermark texture + light cards -->
+        <section id="performance" class="mt-20 sm:mt-40 lg:mt-60 relative">
+
+            <!-- Photo as ultra-light watermark texture across the whole section -->
+            <div class="absolute inset-0 z-0 rounded-[40px] overflow-hidden pointer-events-none">
+                <img src="https://images.unsplash.com/photo-1707157284454-553ef0a4ed0d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="" aria-hidden="true" class="w-full h-full object-cover object-center"
+                    style="filter: brightness(1.1) saturate(0.2); opacity: 0.09;">
+            </div>
+
+            <!-- Horizontal line pattern overlay (light mode grid) -->
+            <div class="absolute inset-0 z-0 pointer-events-none"
+                style="background-image: repeating-linear-gradient(0deg, rgba(15,23,42,0.04) 0px, rgba(15,23,42,0.04) 1px, transparent 1px, transparent 40px);">
+            </div>
+
+            <!-- Content stays fully light -->
+            <div class="relative z-10">
+                <div class="flex flex-col lg:flex-row gap-10 lg:gap-20 items-start mb-12 sm:mb-16">
+                    <!-- Left: text header -->
+                    <div class="lg:w-1/2">
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 rounded-full mb-6 border border-blue-100">
+                            <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                            <span class="text-[9px] font-black uppercase tracking-[0.4em] text-blue-600">Verified
+                                Capital Tiers</span>
+                        </div>
+                        <h2 class="serif text-4xl sm:text-5xl md:text-7xl text-slate-900 mb-4">Tiered Certifications.
+                        </h2>
+                        <p class="text-slate-400 font-medium max-w-md">From early-stage seed ventures to L1
+                            institutional anchors — a verified path for every level of capital growth.</p>
+                    </div>
+                    <!-- Right: large decorative stat -->
+                    <div class="lg:w-1/2 flex items-end justify-start lg:justify-end">
+                        <div
+                            class="p-5 sm:p-6 bg-white rounded-[20px] sm:rounded-[24px] border border-slate-100 shadow-sm flex flex-wrap gap-4 sm:gap-8 w-full sm:w-auto overflow-hidden">
+                            <div class="text-left sm:text-center w-1/3 sm:w-auto">
+                                <p class="text-3xl sm:text-4xl font-black text-slate-900">5</p>
+                                <p
+                                    class="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">
+                                    Capital Tiers</p>
+                            </div>
+                            <div class="hidden sm:block w-px bg-slate-100"></div>
+                            <div
+                                class="text-left sm:text-center w-1/3 sm:w-auto border-l sm:border-0 border-slate-100 pl-4 sm:pl-0">
+                                <p class="text-3xl sm:text-4xl font-black text-blue-600">$2M</p>
+                                <p
+                                    class="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">
+                                    Anchor Max</p>
+                            </div>
+                            <div class="hidden sm:block w-px bg-slate-100"></div>
+                            <div
+                                class="text-left sm:text-center w-1/4 sm:w-auto border-l sm:border-0 border-slate-100 pl-4 sm:pl-0">
+                                <p class="text-3xl sm:text-4xl font-black text-teal-600">100%</p>
+                                <p
+                                    class="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest mt-1">
+                                    Collateral</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
+                    <div class="card-base card-white">
+                        <div><span class="text-[9px] font-black uppercase tracking-[0.2em] opacity-40">Tier 01</span>
+                            <h5 class="serif text-xl mt-2">Seed Growth</h5>
+                        </div>
+                        <div>
+                            <p class="text-[8px] font-black uppercase text-slate-400">Entry</p>
+                            <p class="text-lg font-black">$25K Capital</p>
+                        </div>
+                    </div>
+                    <div class="card-base card-silver">
+                        <div><span class="text-[9px] font-black uppercase tracking-[0.2em] opacity-50">Tier 02</span>
+                            <h5 class="serif text-xl mt-2">Active Alpha</h5>
+                        </div>
+                        <div>
+                            <p class="text-[8px] font-black uppercase text-slate-800">Entry</p>
+                            <p class="text-lg font-black">$120K Capital</p>
+                        </div>
+                    </div>
+                    <div class="card-base card-blue">
+                        <div><span class="text-[9px] font-black uppercase tracking-[0.2em] opacity-50">Tier 03</span>
+                            <h5 class="serif text-xl mt-2">Powerhouse</h5>
+                        </div>
+                        <div>
+                            <p class="text-[8px] font-black uppercase text-blue-200">Entry</p>
+                            <p class="text-lg font-black">$450K Capital</p>
+                        </div>
+                    </div>
+                    <div class="card-base card-gold">
+                        <div><span class="text-[9px] font-black uppercase tracking-[0.2em] opacity-40">Tier 04</span>
+                            <h5 class="serif text-xl mt-2">Strategic</h5>
+                        </div>
+                        <div>
+                            <p class="text-[8px] font-black uppercase text-[#433308] opacity-60">Entry</p>
+                            <p class="text-lg font-black">$620K+ Gold</p>
+                        </div>
+                    </div>
+                    <div class="card-base card-platinum">
+                        <div><span class="text-[9px] font-black uppercase tracking-[0.2em] text-blue-400">Tier 05</span>
+                            <h5 class="serif text-xl mt-2 text-white">Institutional</h5>
+                        </div>
+                        <div>
+                            <p class="text-[8px] font-black uppercase text-slate-400">Entry</p>
+                            <p class="text-lg font-black text-white">$2.0M Anchor</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- CTA SECTION -->
+        <section class="mt-20 sm:mt-40 lg:mt-60 relative">
+            <div class="glass px-6 py-12 sm:p-16 md:p-32 rounded-[32px] sm:rounded-[60px] text-center overflow-hidden">
+                <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-blue-100 rounded-full blur-[60px] opacity-50">
+                </div>
+                <div class="relative z-10">
+                    <h2 class="serif text-4xl sm:text-5xl md:text-8xl mb-6 sm:mb-8 leading-tight">Ready to Audit Your
+                        <br><span class="italic font-light text-blue-600">Liquid Potential?</span>
+                    </h2>
+                    <p class="text-base sm:text-xl text-slate-500 max-w-2xl mx-auto mb-10 sm:mb-16">
+                        Access the terminal today. Define your capital benchmarks and let the 11-node engine simulate
+                        your path to alpha.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
+                        <a href="submit-asset/submit-asset.html" class="cta-primary">Submit for Audit</a>
+                        <a href="risktable/investor-risk-matrix.html"
+                            class="px-8 py-4 sm:px-10 sm:py-5 bg-white border border-slate-200 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all flex items-center justify-center">View
+                            Live Matrix</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="py-20 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div
+                        class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white text-[10px] font-black">
+                        O8</div>
+                    <span class="text-[10px] font-black uppercase tracking-[0.2em]">ORTHOM8pro</span>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed font-medium">Providing sovereign-grade signal
+                    intelligence and liquid execution anchors for the modern investor archive.</p>
+            </div>
+            <div>
+                <h6 class="text-[10px] font-black uppercase tracking-widest mb-6 text-slate-900">Architecture</h6>
+                <ul class="text-[10px] font-bold text-slate-400 space-y-4 uppercase tracking-widest">
+                    <li class="hover:text-blue-600 cursor-pointer">Terminal Hub</li>
+                    <li class="hover:text-blue-600 cursor-pointer">Logic Nodes</li>
+                    <li class="hover:text-blue-600 cursor-pointer">Audit Ledger</li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="text-[10px] font-black uppercase tracking-widest mb-6 text-slate-900">Governance</h6>
+                <ul class="text-[10px] font-bold text-slate-400 space-y-4 uppercase tracking-widest">
+                    <li class="hover:text-blue-600 cursor-pointer">Sovereign Tiers</li>
+                    <li class="hover:text-blue-600 cursor-pointer">Risk Reality</li>
+                    <li class="hover:text-blue-600 cursor-pointer">KYC Ingest</li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="text-[10px] font-black uppercase tracking-widest mb-6 text-slate-900">Security</h6>
+                <div class="p-4 bg-white rounded-2xl border border-slate-200">
+                    <p class="text-[8px] font-black uppercase text-slate-400 mb-2">Network Status</p>
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-teal-500"></div>
+                        <span class="text-[9px] font-black text-slate-900 uppercase tracking-widest">SHA-512
+                            Encrypted</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-8 mt-20 pt-10 border-t border-slate-200 text-center">
+            <p class="text-[8px] font-black text-slate-300 uppercase tracking-[0.5em]">© 2024 ORTHOM8pro | Sovereign
+                Institutional Grade</p>
+        </div>
+    </footer>
+
+    <script>
+        // Desktop Dropdown Logic
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            const arrow = dropdown.querySelector('.dropdown-arrow');
+            if (arrow) {
+                arrow.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const isActive = dropdown.classList.contains('active');
+                    dropdowns.forEach(d => d.classList.remove('active'));
+                    if (!isActive) dropdown.classList.add('active');
+                });
+            }
+            dropdown.querySelectorAll('.dropdown-item').forEach(item => {
+                item.addEventListener('click', () => dropdown.classList.remove('active'));
+            });
+        });
+        window.addEventListener('click', function (event) {
+            if (!event.target.closest('.dropdown')) {
+                dropdowns.forEach(d => d.classList.remove('active'));
+            }
+        });
+
+        // Mobile Menu Logic
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.remove('translate-x-full'));
+        mobileMenuClose.addEventListener('click', () => mobileMenu.classList.add('translate-x-full'));
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('translate-x-full'));
+        });
+    </script>
+</body>
+
+</html>

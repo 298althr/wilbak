@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipeline Ledger | High-Velocity Capital Security</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <link href="../assets/css/global.css" rel="stylesheet">
+    <style>
+        /* Blueprint Background */
+        .blueprint {
+            background-image: radial-gradient(var(--grid) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .slippage-tag {
+            background: rgba(239, 68, 68, 0.08);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .pipeline-connector {
+            height: 2px;
+            background: linear-gradient(90deg, #E2E8F0 0%, var(--accent) 50%, #E2E8F0 100%);
+            opacity: 0.3;
+        }
+    </style>
+</head>
+
+<body class="blueprint">
+
+    <!-- NAVIGATION -->
+    <nav class="app-header">
+        <div class="flex items-center gap-3">
+            <a href="../index.html" class="brand-link">
+                <div class="brand-icon">O8</div>
+                <span class="brand-text">ORTHOM8pro</span>
+            </a>
+        </div>
+        <div class="flex items-center gap-4">
+            <!-- Desktop Nav -->
+            <div class="desktop-nav">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../index.html#engine" class="nav-link">The Engine</a>
+                <a href="../index.html#performance" class="nav-link">Performance</a>
+                <div class="dropdown">
+                    <a href="../testimony/master-matrix.html" class="dropdown-trigger nav-link flex items-center gap-1 group">
+                        <span>Testimonies</span>
+                        <svg class="dropdown-arrow w-3 h-3 cursor-pointer group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="../testimony/master-matrix.html?partner=thorne" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-slate-900"></div><span>Thorne-Blackwood</span></a>
+                        <a href="../testimony/master-matrix.html?partner=beijing" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-blue-600"></div><span>Beijing Power</span></a>
+                        <a href="../testimony/master-matrix.html?partner=northstar" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-amber-500"></div><span>NorthStar Motors</span></a>
+                        <a href="../testimony/master-matrix.html?partner=dubai_auto" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-slate-400"></div><span>Al-Maktoum Auto</span></a>
+                        <a href="../testimony/master-matrix.html?partner=oudh" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-yellow-600"></div><span>Oudh & Gold</span></a>
+                        <a href="../testimony/master-matrix.html?partner=agri" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-green-600"></div><span>Agri-Growth</span></a>
+                        <a href="../testimony/master-matrix.html?partner=valle" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-red-400"></div><span>Valle de Oro</span></a>
+                        <a href="../testimony/master-matrix.html?partner=keystone" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-slate-500"></div><span>Keystone CM</span></a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="../view-schema/view-schema.html" class="dropdown-trigger nav-link flex items-center gap-1 group">
+                        <span>View Schema</span>
+                        <svg class="dropdown-arrow w-3 h-3 cursor-pointer group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="../view-schema/view-schema.html#pipeline" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-blue-600"></div><span>Phase 01: Ingest</span></a>
+                        <a href="../view-schema/view-schema.html#pipeline" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-teal-500"></div><span>Phase 02: Gate</span></a>
+                        <a href="../view-schema/view-schema.html#pipeline" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-slate-900"></div><span>Phase 03: Exit</span></a>
+                    </div>
+                </div>
+                <a href="../risktable/investor-risk-matrix.html" class="nav-link">Risk Analysis</a>
+            </div>
+            <a href="../submit-asset/submit-asset.html" class="cta-outline">Audit Asset</a>
+            
+            <!-- Mobile Hamburger -->
+            <button id="mobile-menu-btn" class="hamburger-btn" aria-label="Open menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="mobile-menu-panel translate-x-full">
+        <div class="mobile-menu-header">
+            <div class="flex items-center gap-3">
+                <div class="brand-icon">O8</div>
+                <span class="brand-text">ORTHOM8pro</span>
+            </div>
+            <button id="mobile-menu-close" class="p-2" aria-label="Close menu">
+                <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <nav class="mobile-nav-list">
+            <a href="../index.html" class="mobile-nav-link">Home</a>
+            <a href="../index.html#engine" class="mobile-nav-link">The Engine</a>
+            <a href="../index.html#performance" class="mobile-nav-link">Performance</a>
+            <a href="../testimony/master-matrix.html" class="mobile-nav-link">Testimonies</a>
+            <div class="mobile-sub-nav">
+                <a href="../testimony/master-matrix.html?partner=thorne" class="mobile-sub-link">→ Thorne-Blackwood</a>
+                <a href="../testimony/master-matrix.html?partner=beijing" class="mobile-sub-link">→ Beijing Power</a>
+                <a href="../testimony/master-matrix.html?partner=northstar" class="mobile-sub-link">→ NorthStar Motors</a>
+                <a href="../testimony/master-matrix.html?partner=dubai_auto" class="mobile-sub-link">→ Al-Maktoum Auto</a>
+                <a href="../testimony/master-matrix.html?partner=oudh" class="mobile-sub-link">→ Oudh &amp; Gold</a>
+                <a href="../testimony/master-matrix.html?partner=agri" class="mobile-sub-link">→ Agri-Growth</a>
+                <a href="../testimony/master-matrix.html?partner=valle" class="mobile-sub-link">→ Valle de Oro</a>
+                <a href="../testimony/master-matrix.html?partner=keystone" class="mobile-sub-link">→ Keystone CM</a>
+            </div>
+            <a href="../view-schema/view-schema.html" class="mobile-nav-link">View Schema</a>
+            <div class="mobile-sub-nav">
+                <a href="../view-schema/view-schema.html#pipeline" class="mobile-sub-link">→ Phase 01: Ingest</a>
+                <a href="../view-schema/view-schema.html#pipeline" class="mobile-sub-link">→ Phase 02: Gate</a>
+                <a href="../view-schema/view-schema.html#pipeline" class="mobile-sub-link">→ Phase 03: Exit</a>
+            </div>
+            <a href="../risktable/investor-risk-matrix.html" class="mobile-nav-link">Risk Analysis</a>
+        </nav>
+        <div class="mt-auto">
+            <a href="../submit-asset/submit-asset.html" class="cta-primary w-full text-center block">Audit Asset</a>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="relative w-full overflow-hidden" style="min-height: 90vh;">
+
+        <!-- Full-bleed hero image with dark overlay -->
+        <div class="absolute inset-0 z-0">
+            <img
+                src="https://images.unsplash.com/photo-1758626054657-a33847437867?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="11-Node Sovereign Engine Architecture"
+                class="w-full h-full object-cover object-center"
+                style="filter: brightness(0.55) saturate(1.2);"
+            >
+            <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(15,23,42,0.75) 0%, rgba(15,23,42,0.1) 35%, rgba(15,23,42,0.45) 70%, rgba(15,23,42,0.97) 100%);"></div>
+        </div>
+
+        <!-- Hero Content overlaid on image -->
+        <div class="relative z-10 flex flex-col justify-end h-full px-5 sm:px-12 lg:px-20 pb-10 sm:pb-16" style="min-height: 90vh;">
+
+            <!-- Live status badge -->
+            <div class="mb-5 sm:mb-8">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm">
+                    <div class="w-2 h-2 rounded-full bg-teal-400 node-active"></div>
+                    <span class="text-[9px] font-black uppercase tracking-[0.4em] text-teal-300">Technical Engine v4.02 — Live</span>
+                </div>
+            </div>
+
+            <!-- Main headline -->
+            <div class="max-w-4xl mb-6 sm:mb-10">
+                <h1 class="serif text-5xl sm:text-7xl md:text-9xl text-white leading-[1.0] mb-4 sm:mb-6">
+                    11 Nodes.<br>
+                    <span class="italic font-light text-white/70">Total Security.</span>
+                </h1>
+                <p class="text-white/60 text-base sm:text-xl font-light leading-relaxed max-w-2xl">
+                    A sovereign-grade, multi-node signal engine. Each node processes $1B+ potential throughput with a hard-coded 22% risk buffer — eliminating human bias entirely.
+                </p>
+            </div>
+
+            <!-- CTA row -->
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-8 sm:mb-12">
+                <a href="#pipeline" class="cta-primary" onclick="document.getElementById('pipeline').scrollIntoView({behavior:'smooth'}); return false;">
+                    Audit the Pipeline
+                </a>
+                <span class="text-white/30 text-[10px] font-black uppercase tracking-widest">↓ Scroll to explore</span>
+            </div>
+
+            <!-- NODE STRIP — glassmorphism bar at bottom of hero -->
+            <div class="w-full bg-white/8 backdrop-blur-xl border border-white/15 rounded-[24px] sm:rounded-[32px] p-5 sm:p-8"
+                 style="background: rgba(255,255,255,0.07);">
+                <p class="text-[9px] font-black text-white/35 uppercase tracking-[0.4em] mb-5">Signal Architecture — 11 Active Nodes</p>
+                <div class="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-11 gap-3 sm:gap-4">
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-blue-400 node-active" style="box-shadow: 0 0 10px rgba(96,165,250,0.8);"></div>
+                        <span class="text-[7px] font-black uppercase tracking-tight text-white/45 text-center">L2 Depth</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-blue-400 node-active" style="box-shadow: 0 0 10px rgba(96,165,250,0.8);"></div>
+                        <span class="text-[7px] font-black uppercase tracking-tight text-white/45 text-center">Greeks</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-blue-400 node-active" style="box-shadow: 0 0 10px rgba(96,165,250,0.8);"></div>
+                        <span class="text-[7px] font-black uppercase tracking-tight text-white/45 text-center">Sentiment</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-teal-400 node-active" style="box-shadow: 0 0 10px rgba(52,211,153,0.8);"></div>
+                        <span class="text-[7px] font-black uppercase tracking-tight text-white/45 text-center">RL-Logic</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-400 node-active" style="box-shadow: 0 0 10px rgba(248,113,113,0.8);"></div>
+                        <span class="text-[7px] font-black uppercase tracking-tight text-red-400 text-center">Breaker</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-white/30"></div>
+                        <span class="text-[7px] font-black uppercase tracking-tight text-white/35 text-center">Regime</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-white/30"></div>
+                        <span class="text-[7px] font-black uppercase tracking-tight text-white/35 text-center">Vol-Bias</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-white/30"></div>
+                        <span class="text-[7px] font-black uppercase tracking-tight text-white/35 text-center">Flow-Scan</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-white/30"></div>
+                        <span class="text-[7px] font-black uppercase tracking-tight text-white/35 text-center">Skew-Adj</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-white/30"></div>
+                        <span class="text-[7px] font-black uppercase tracking-tight text-white/35 text-center">Liq-Agg</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-white" style="box-shadow: 0 0 12px rgba(255,255,255,0.9);"></div>
+                        <span class="text-[7px] font-black uppercase tracking-tight text-white text-center">Output</span>
+                    </div>
+                </div>
+
+                <!-- Stats bar -->
+                <div class="flex flex-wrap gap-6 sm:gap-10 mt-6 sm:mt-8 pt-5 sm:pt-8 border-t border-white/10">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl sm:text-2xl font-bold text-white">0.4ms</span>
+                        <span class="text-[9px] font-black text-white/35 uppercase tracking-widest">Latency</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl sm:text-2xl font-bold text-teal-400">100%</span>
+                        <span class="text-[9px] font-black text-white/35 uppercase tracking-widest">Collateralized</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl sm:text-2xl font-bold text-white">72.4%</span>
+                        <span class="text-[9px] font-black text-white/35 uppercase tracking-widest">Confidence Gate</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl sm:text-2xl font-bold text-red-400">22%</span>
+                        <span class="text-[9px] font-black text-white/35 uppercase tracking-widest">Risk Buffer</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="max-w-6xl mx-auto px-6" id="pipeline">
+        <div class="mb-20 text-center md:text-left">
+            <h2 class="serif text-4xl text-slate-900 mb-2">The Pipeline Ledger</h2>
+            <p class="text-slate-500 font-light italic">Click any phase to audit cost implications and risk performance.
+            </p>
+        </div>
+
+        <div class="space-y-12">
+            <div class="grid md:grid-cols-3 gap-8 items-stretch" onclick="openModal('phase1')">
+                <div class="md:col-span-1 flex flex-col justify-center">
+                    <span class="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-4">Phase 01</span>
+                    <h2 class="serif text-3xl mb-4 text-slate-900">Dirty Data Ingest</h2>
+                    <p class="text-sm text-slate-500 leading-relaxed">Processing raw institutional feeds. We assume 14%
+                        of data is market noise.</p>
+                </div>
+                <div class="md:col-span-2 glass-card p-10 rounded-[40px] flex items-center justify-between">
+                    <div class="space-y-4 w-full">
+                        <div class="flex justify-between items-center p-4 bg-white rounded-xl border border-slate-100">
+                            <span class="text-[10px] font-black uppercase">L2 Depth Filtering</span>
+                            <span class="slippage-tag">Audited Noise: 14%</span>
+                        </div>
+                        <div class="flex justify-between items-center p-4 bg-white rounded-xl border border-slate-100">
+                            <span class="text-[10px] font-black uppercase">Price Feed Latency</span>
+                            <span class="slippage-tag">Cost: 0.08%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pipeline-connector"></div>
+
+            <div class="grid md:grid-cols-3 gap-8 items-stretch" onclick="openModal('phase2')">
+                <div class="md:col-span-2 glass-card p-10 rounded-[40px] border-l-8 border-teal-500">
+                    <div class="flex items-center gap-6 mb-8">
+                        <div
+                            class="w-12 h-12 bg-teal-500/10 rounded-full flex items-center justify-center text-teal-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04M12 21.48l.307-.13c.333-.141.657-.294.97-.457A11.908 11.908 0 0018 12.001a11.908 11.908 0 00-5.723-10.022L12 1.52l-.277.118A11.908 11.908 0 006 12.001a11.908 11.908 0 005.723 10.022l.277.118z"
+                                    stroke-width="2" />
+                            </svg>
+                        </div>
+                        <h3 class="serif text-3xl text-slate-900">Hard Breaker Gate</h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-center">
+                            <p class="text-[9px] font-black text-slate-400 uppercase">Confidence Floor</p>
+                            <p class="text-xl font-bold text-teal-600">72.4%</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-center">
+                            <p class="text-[9px] font-black text-slate-400 uppercase">Risk rejection</p>
+                            <p class="text-xl font-bold text-red-500">92% Noise</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:col-span-1 flex flex-col justify-center">
+                    <span class="text-[10px] font-black text-teal-600 uppercase tracking-widest mb-4">Phase 02</span>
+                    <h2 class="serif text-3xl mb-4 text-slate-900">Security Sweet Spot</h2>
+                    <p class="text-sm text-slate-500 leading-relaxed">The "Breaker Node" prevents trading during 4.12%
+                        drawdown events.</p>
+                </div>
+            </div>
+
+            <div class="pipeline-connector"></div>
+
+            <div class="grid md:grid-cols-3 gap-8 items-stretch pb-20" onclick="openModal('phase3')">
+                <div class="md:col-span-1 flex flex-col justify-center">
+                    <span class="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-4">Phase 03</span>
+                    <h2 class="serif text-3xl mb-4 text-slate-900">Institutional Exit</h2>
+                    <p class="text-sm text-slate-500 leading-relaxed">Handshake with Platinum private gates at sub-2ms
+                        latency.</p>
+                </div>
+                <div
+                    class="md:col-span-2 glass-card p-10 rounded-[40px] bg-slate-900 text-white border-none shadow-2xl">
+                    <div class="flex justify-between items-center mb-6">
+                        <p class="text-[11px] font-black text-blue-400 uppercase tracking-[0.4em]">Routing Pipe</p>
+                        <span class="slippage-tag">Exit Impact: -0.05%</span>
+                    </div>
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10 text-center">
+                        <p class="text-[10px] font-black uppercase text-slate-400">Net Adjusted ROI</p>
+                        <p class="text-4xl font-black text-white">+84.2%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalContainer" class="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-slate-300 hover:text-slate-900">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M6 18L18 6M6 6l12 12" stroke-width="2" />
+                </svg>
+            </button>
+            <div id="modalHeader" class="mb-10">
+                <span id="modalPhaseTag" class="text-[10px] font-black text-blue-600 uppercase tracking-widest"></span>
+                <h2 id="modalTitle" class="serif text-4xl mt-2"></h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-10">
+                <div>
+                    <h4 class="text-[10px] font-black uppercase text-slate-400 mb-6 tracking-widest">Cost Implication
+                    </h4>
+                    <div class="h-64"><canvas id="costChart"></canvas></div>
+                </div>
+                <div>
+                    <h4 class="text-[10px] font-black uppercase text-slate-400 mb-6 tracking-widest">Risk Performance
+                    </h4>
+                    <div class="h-64"><canvas id="riskChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="py-20 bg-slate-50 border-t border-slate-200 relative z-20">
+        <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white text-[10px] font-black">O8</div>
+                    <span class="text-[10px] font-black uppercase tracking-[0.2em]">ORTHOM8pro</span>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed font-medium">Providing sovereign-grade signal intelligence and liquid execution anchors for the modern investor archive.</p>
+            </div>
+            <div>
+                <h6 class="text-[10px] font-black uppercase tracking-widest mb-6 text-slate-900">Architecture</h6>
+                <ul class="text-[10px] font-bold text-slate-400 space-y-4 uppercase tracking-widest">
+                    <li class="hover:text-blue-600 cursor-pointer">Terminal Hub</li>
+                    <li class="hover:text-blue-600 cursor-pointer">Logic Nodes</li>
+                    <li class="hover:text-blue-600 cursor-pointer">Audit Ledger</li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="text-[10px] font-black uppercase tracking-widest mb-6 text-slate-900">Governance</h6>
+                <ul class="text-[10px] font-bold text-slate-400 space-y-4 uppercase tracking-widest">
+                    <li class="hover:text-blue-600 cursor-pointer">Sovereign Tiers</li>
+                    <li class="hover:text-blue-600 cursor-pointer">Risk Reality</li>
+                    <li class="hover:text-blue-600 cursor-pointer">KYC Ingest</li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="text-[10px] font-black uppercase tracking-widest mb-6 text-slate-900">Security</h6>
+                <div class="p-4 bg-white rounded-2xl border border-slate-200">
+                    <p class="text-[8px] font-black uppercase text-slate-400 mb-2">Network Status</p>
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-teal-500"></div>
+                        <span class="text-[9px] font-black text-slate-900 uppercase tracking-widest">SHA-512 Encrypted</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-8 mt-20 pt-10 border-t border-slate-200 text-center">
+            <p class="text-[8px] font-black text-slate-300 uppercase tracking-[0.5em]">© 2024 ORTHOM8pro | Sovereign Institutional Grade</p>
+        </div>
+    </footer>
+
+    <script>
+        let costChart = null; let riskChart = null;
+        let MODAL_DATA = null;
+
+        fetch('./view-schema.json')
+            .then(r => { if (!r.ok) throw new Error('Failed'); return r.json(); })
+            .then(data => { MODAL_DATA = data; })
+            .catch(err => console.error('Failed to load view-schema.json:', err));
+
+
+
+        function openModal(key) {
+            const data = MODAL_DATA[key];
+            document.getElementById('modalPhaseTag').innerText = data.tag;
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalContainer').classList.add('active');
+            renderCharts(data);
+        }
+
+        function closeModal() { document.getElementById('modalContainer').classList.remove('active'); }
+
+        function renderCharts(data) {
+            if (costChart) costChart.destroy(); if (riskChart) riskChart.destroy();
+            costChart = new Chart(document.getElementById('costChart'), { type: 'bar', data: { labels: data.cost.labels, datasets: [{ data: data.cost.data, backgroundColor: data.cost.colors, borderRadius: 8 }] }, options: { plugins: { legend: false }, scales: { y: { display: false }, x: { grid: { display: false } } } } });
+            riskChart = new Chart(document.getElementById('riskChart'), { type: 'line', data: { labels: data.risk.labels, datasets: [{ label: data.risk.label, data: data.risk.data, borderColor: '#0D9488', backgroundColor: 'rgba(13, 148, 136, 0.1)', fill: true, tension: 0.4 }] }, options: { plugins: { legend: { position: 'bottom', labels: { size: 10 } } }, scales: { y: { display: false }, x: { grid: { display: false } } } } });
+        }
+
+        // Desktop Dropdown Logic
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            const arrow = dropdown.querySelector('.dropdown-arrow');
+            if (arrow) {
+                arrow.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const isActive = dropdown.classList.contains('active');
+                    dropdowns.forEach(d => d.classList.remove('active'));
+                    if (!isActive) dropdown.classList.add('active');
+                });
+            }
+            dropdown.querySelectorAll('.dropdown-item').forEach(item => {
+                item.addEventListener('click', () => dropdown.classList.remove('active'));
+            });
+        });
+        window.addEventListener('click', function (event) {
+            if (!event.target.closest('.dropdown')) {
+                dropdowns.forEach(d => d.classList.remove('active'));
+            }
+        });
+
+        // Mobile Menu
+        const mobileMenu = document.getElementById('mobile-menu');
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => mobileMenu.classList.remove('translate-x-full'));
+        document.getElementById('mobile-menu-close').addEventListener('click', () => mobileMenu.classList.add('translate-x-full'));
+        mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.add('translate-x-full')));
+    </script>
+</body>
+</html>

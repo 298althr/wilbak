@@ -1,0 +1,406 @@
+{
+  "thorne": {
+    "identity": {
+      "name": "Thorne-Blackwood",
+      "tier": "Institutional Tier",
+      "status": "Sovereign Tier",
+      "avatar": "TB",
+      "asset_collateral": "L1 Liquidity Pool Anchor (Verified)",
+      "initial_collateral_value": 2000000,
+      "horizon": "72 Months",
+      "tier_card_type": "Platinum"
+    },
+    "narrative": {
+      "hero": "Bridging the Gap: From Manual to 11-Node Precision.",
+      "sub": "Transitioned a $2M primary capital base to an 11-node trade engine via verified remote logic, removing human bias entirely.",
+      "reporting": [
+        "Our initial skepticism was high. Trading high-frequency quants remotely felt like a risk we couldn't justify to our board. We started in the 'Developmental Tunnel', watching the engine in sandbox mode for 60 days.",
+        "The shift happened when we saw the 'Hard Breaker' node in action. It stopped a potential fat-finger trade in milliseconds. That moment proved the infrastructure was more disciplined than any human trader we've hired.",
+        "Today, we operate at a 72.4% confidence threshold. The engine doesn't just trade; it validates market regime before a single dollar is committed. It is now our primary capital base builder."
+      ]
+    },
+    "technical_matrix": {
+      "nodes_active": 11,
+      "confidence_gate": "72.4%",
+      "active_protocol": "Sovereign Remote Logic",
+      "hardening": [
+        {
+          "t": "Institutional Cal",
+          "d": "Hardening engines to meet the $2M infrastructure latency requirements and sub-millisecond execution."
+        },
+        {
+          "t": "72.4% Gate",
+          "d": "Mandatory composite confidence threshold required for live order routing to prevent regime-drift exposure."
+        },
+        {
+          "t": "Managed Scaling",
+          "d": "Systematic position sizing increases as node stability was proven over the initial 90-day hardening window."
+        }
+      ],
+      "node_list": [
+        "L2 DEPTH",
+        "ORATS GREEKS",
+        "SENTIMENT",
+        "RL EXEC",
+        "HARD BREAKER",
+        "REGIME DETECT",
+        "VOL BIAS",
+        "FLOW SCAN",
+        "SKEW ADJ",
+        "LIQ NODE",
+        "IBKR PIPE"
+      ]
+    },
+    "backtest_performance": {
+      "period": "72 Months (Full Horizon)",
+      "live_milestones": "9 Months (Starting Oct 2024)",
+      "factor": 1.0,
+      "pnl_milestones": [21000, 35000, 52000, 82000, 145000, 210000, 285000, 320000, 352400],
+      "stochastic_logic": {
+        "engine": "Stochastic Drama Engine",
+        "volatility_base": 0.05,
+        "trend_bias": 1.4,
+        "drama_events": [
+          { "month": 24, "trigger": "Hard Breaker Activation", "effect": "Preservation Buffer" },
+          { "month": 48, "trigger": "Regime Shift", "effect": "Execution Throttling" }
+        ]
+      },
+      "disclaimer": "Institutional Sovereign Model. 72-Month Track. Baseline: 2% position size | Institutional Slippage Model | 7% Error Haircut."
+    }
+  },
+  "beijing": {
+    "identity": {
+      "name": "Beijing Power",
+      "tier": "Power House Tier",
+      "status": "Strategic Proxy",
+      "avatar": "BP",
+      "asset_collateral": "Industrial Energy Credits",
+      "initial_collateral_value": 190000,
+      "horizon": "36 Months",
+      "tier_card_type": "PowerHouse"
+    },
+    "narrative": {
+      "hero": "Beijing Power: Automated Surrogate Integration.",
+      "sub": "Automated 11-node proxying across 12-hour latency gaps, serving as a Western market surrogate since 2021.",
+      "reporting": [
+        "Acting as a Western proxy while Beijing slept was the primary directive. We needed a system that could operate autonomously during the 12-hour time gap.",
+        "Volatility in Year 2 forced the integration of a 'Language Logic' gate to parse non-Western sentiment data in real-time.",
+        "Stability has been our hallmark since the surrogate node went live. The engine successfully buffered a 15% regional credit spike."
+      ]
+    },
+    "technical_matrix": {
+      "nodes_active": 11,
+      "confidence_gate": "68.9%",
+      "active_protocol": "Automated 11-Node Proxy",
+      "hardening": [
+        {
+          "t": "Proxy Alignment",
+          "d": "Cross-border latency buffering for energy credit markets."
+        },
+        {
+          "t": "LL Gate",
+          "d": "Language Logic node for non-Western data parsing and sentiment weighting."
+        }
+      ],
+      "node_list": [
+        "L2 DEPTH",
+        "ORATS GREEKS",
+        "SENTIMENT",
+        "RL EXEC",
+        "HARD BREAKER",
+        "REGIME DETECT",
+        "VOL BIAS",
+        "FLOW SCAN",
+        "SKEW ADJ",
+        "LIQ NODE",
+        "LANG GATE"
+      ]
+    },
+    "backtest_performance": {
+      "period": "36 Months (Audit 2024)",
+      "live_milestones": "12 Months (Starting Jan 2024)",
+      "factor": 1.45,
+      "pnl_milestones": [190000, 215000, 248000, 290000, 345000, 412000, 498000, 560000, 615000],
+      "stochastic_logic": {
+        "engine": "Energy Credit Model",
+        "volatility_base": 0.08,
+        "trend_bias": 1.45,
+        "drama_events": [
+          { "month": 12, "trigger": "Region Shift", "effect": "Proxy Recalibration" }
+        ]
+      },
+      "disclaimer": "Power House Tier. 36-Month Tracked Data. Energy Credit Collateral Focus."
+    }
+  },
+  "northstar": {
+    "identity": {
+      "name": "NorthStar Motors",
+      "tier": "Strategic Partner",
+      "status": "Inventory Liquidity",
+      "avatar": "NM",
+      "asset_collateral": "4 Luxury Vehicles (Showroom Equity)",
+      "initial_collateral_value": 150000,
+      "horizon": "36 Months",
+      "tier_card_type": "Standard"
+    },
+    "narrative": {
+      "hero": "NorthStar: Breeding Asset Alpha from Showroom Static.",
+      "sub": "Turning static showroom inventory into a high-velocity terminal liquidity engine.",
+      "reporting": [
+        "We used dead showroom assets as an anchor. Year 1 saw a major dip before recovery as we learned to balance inventory rotation with trade frequency.",
+        "Recalibrating in Month 7 led to the 'Subtle Stability' we enjoy today. The engine now treats each vehicle VIN as a liquidity unit."
+      ]
+    },
+    "technical_matrix": {
+      "nodes_active": 10,
+      "confidence_gate": "62.5%",
+      "active_protocol": "Inventory-to-Capital Flow",
+      "hardening": [
+        {
+          "t": "Asset Anchor",
+          "d": "Binding VIN equity to trade-margin requirements to prevent liquidation noise."
+        },
+        {
+          "t": "Subtle Stability",
+          "d": "Month 7 logic update to prioritize low-frequency high-conviction entries."
+        }
+      ],
+      "node_list": [
+        "L2 DEPTH",
+        "ORATS GREEKS",
+        "SENTIMENT",
+        "RL EXEC",
+        "HARD BREAKER",
+        "REGIME DETECT",
+        "VOL BIAS",
+        "FLOW SCAN",
+        "SKEW ADJ",
+        "VIN BRIDGE"
+      ]
+    },
+    "backtest_performance": {
+      "period": "36 Months (Historic)",
+      "live_milestones": "Recalibrated Month 7",
+      "factor": 1.1,
+      "pnl_milestones": [150000, 165000, 140000, 160000, 195000, 245000, 312000, 420000, 545000, 610000],
+      "stochastic_logic": {
+        "engine": "Inventory Cycle Engine",
+        "volatility_base": 0.12,
+        "trend_bias": 1.3,
+        "drama_events": [
+          { "month": 7, "trigger": "Logic Recalibration", "effect": "Stability Peak" }
+        ]
+      },
+      "disclaimer": "Strategic Tier. 36-Month Historical. Recalibrated for Inventory Safety."
+    }
+  },
+  "agri": {
+    "identity": {
+      "name": "Agri-Growth",
+      "tier": "Seed Tier",
+      "status": "Resilient Accumulation",
+      "avatar": "AG",
+      "asset_collateral": "Arable Land Equity",
+      "initial_collateral_value": 25000,
+      "horizon": "24 Months",
+      "tier_card_type": "Standard"
+    },
+    "narrative": {
+      "hero": "Building a Capital Base While You Sleep.",
+      "sub": "A 24-month journey of land equity translation into long-term accumulation for a family farm.",
+      "reporting": [
+        "We needed the capital to grow while we were out in the fields. We required a 'very slow' growth model that prioritized safety over speed.",
+        "The engine focuses on low-beta stock acquisition. Minimal risk strategy that actually lets us sleep during the harvest seasons.",
+        "Watching the system acquire stocks automatically while our base fuels it has been life-changing."
+      ]
+    },
+    "technical_matrix": {
+      "nodes_active": 7,
+      "confidence_gate": "65.0%",
+      "active_protocol": "Base-Builder Logic",
+      "hardening": [
+        {
+          "t": "Agri-Safety",
+          "d": "Prioritizing low-beta, high-liquidity assets only."
+        },
+        {
+          "t": "65% Safety Gate",
+          "d": "Reduced threshold for entry but heightened exit sensitivity to protect the land equity."
+        }
+      ],
+      "node_list": [
+        "L2 DEPTH",
+        "SENTIMENT",
+        "RL EXEC",
+        "HARD BREAKER",
+        "REGIME DETECT",
+        "VOL BIAS",
+        "FLOW SCAN"
+      ]
+    },
+    "backtest_performance": {
+      "period": "24 Months (Active)",
+      "live_milestones": "N/A",
+      "factor": 1.1,
+      "pnl_milestones": [25000, 27500, 31000, 34200, 38500, 42100, 48000, 54000, 59500],
+      "stochastic_logic": {
+        "engine": "Safe-Base Accumulator",
+        "volatility_base": 0.04,
+        "trend_bias": 1.1,
+        "drama_events": []
+      },
+      "disclaimer": "Growth model: Capital accumulation focus | 22% Error Haircut applied for SME infrastructure."
+    }
+  },
+  "dubai_auto": {
+    "identity": {
+      "name": "Al-Maktoum Auto",
+      "tier": "Strategic Partner",
+      "status": "Inventory Transformation",
+      "avatar": "MA",
+      "asset_collateral": "12 Luxury Showroom Units",
+      "initial_collateral_value": 450000,
+      "horizon": "28 Months",
+      "tier_card_type": "Standard"
+    },
+    "narrative": {
+      "hero": "Dubai Auto: Inventory-to-Alpha Cycle.",
+      "sub": "Rotating high-value fleet turnover through 28 months of liquid execution, converting frozen equity into a trading buffer.",
+      "reporting": [
+        "Showroom cars are frozen money. We liquidized our fleet equity into a trading buffer to capture market alpha without selling inventory.",
+        "The engine pivot saved our margins during the 2023 volatility spike. It allowed us to maintain operations while traditional sales were stagnant."
+      ]
+    },
+    "technical_matrix": {
+      "nodes_active": 11,
+      "confidence_gate": "71.2%",
+      "active_protocol": "Fleet Liquidity Protocol",
+      "hardening": [
+        { "t": "Fleet Buffer", "d": "Mapping luxury fleet equity to collateralized trading layers." },
+        { "t": "Margin Shield", "d": "Enhanced exit logic for fleet-backed accounts during regional volatility." }
+      ],
+      "node_list": ["L2 DEPTH", "ORATS GREEKS", "SENTIMENT", "RL EXEC", "HARD BREAKER", "REGIME DETECT", "VOL BIAS", "FLOW SCAN", "SKEW ADJ", "LIQ NODE", "FLEET NODE"]
+    },
+    "backtest_performance": {
+      "period": "28 Months (Cycle)",
+      "live_milestones": "N/A",
+      "factor": 1.5,
+      "pnl_milestones": [450000, 485000, 530000, 610000, 720000, 845000, 990000, 1120000, 1250000],
+      "stochastic_logic": { "engine": "Inventory Cycle Model", "volatility_base": 0.07, "trend_bias": 1.5, "drama_events": [] },
+      "disclaimer": "Strategic Tier. 28-Month Cycle. Zero-intervention inventory model."
+    }
+  },
+  "oudh": {
+    "identity": {
+      "name": "Oudh & Gold",
+      "tier": "Strategic Partner",
+      "status": "Physical Asset Buffer",
+      "avatar": "OG",
+      "asset_collateral": "10kg Physical Gold Reserve",
+      "initial_collateral_value": 620000,
+      "horizon": "26 Months",
+      "tier_card_type": "Standard"
+    },
+    "narrative": {
+      "hero": "Oudh & Gold: Physical Resilience in Digital Markets.",
+      "sub": "26 months of family office growth curve buffered by physical gold reserves for absolute downside protection.",
+      "reporting": [
+        "Retail spikes are unpredictable, especially in the luxury sector. Using gold reserves as an anchor allows the engine to trade with zero fear.",
+        "Consistency has been key. The engine ignores retail deceleration by focusing on the underlying gold-backed collateral value."
+      ]
+    },
+    "technical_matrix": {
+      "nodes_active": 11,
+      "confidence_gate": "78.4%",
+      "active_protocol": "Gold-Anchored Alpha",
+      "hardening": [
+        { "t": "Physical Buffer", "d": "Integration of vaulted gold valuation into real-time capital utility." },
+        { "t": "Resilience Node", "d": "Modified entry logic to prioritize stability over high-frequency turnover." }
+      ],
+      "node_list": ["L2 DEPTH", "ORATS GREEKS", "SENTIMENT", "RL EXEC", "HARD BREAKER", "REGIME DETECT", "VOL BIAS", "FLOW SCAN", "SKEW ADJ", "LIQ NODE", "GOLD BRIDGE"]
+    },
+    "backtest_performance": {
+      "period": "26 Months (Cumulative)",
+      "live_milestones": "N/A",
+      "factor": 1.3,
+      "pnl_milestones": [620000, 650000, 690000, 745000, 820000, 915000, 1040000, 1180000, 1340000],
+      "stochastic_logic": { "engine": "Hard Asset Projection", "volatility_base": 0.05, "trend_bias": 1.3, "drama_events": [] },
+      "disclaimer": "Physical Asset Buffer. 26-Month Track. 10kg Vaulted Gold Anchor."
+    }
+  },
+  "valle": {
+    "identity": {
+      "name": "Valle de Oro",
+      "tier": "Growth Tier",
+      "status": "Seasonal SME",
+      "avatar": "VO",
+      "asset_collateral": "4k Barrels of Seasonal Wine",
+      "initial_collateral_value": 45000,
+      "horizon": "24 Months",
+      "tier_card_type": "Standard"
+    },
+    "narrative": {
+      "hero": "Mexico Wine: Converting Seasonal Cycles to Perpetual Alpha.",
+      "sub": "Creating consistent liquidity from once-a-year harvest equity to bridge seasonal cashflow gaps.",
+      "reporting": [
+        "Barrel equity became our foundation during the growth season gaps. When our cash was tied up in production, the engine provided the necessary delta.",
+        "It maintains our payroll during the harvest off-season, converting physical aging stock into liquid capital."
+      ]
+    },
+    "technical_matrix": {
+      "nodes_active": 8,
+      "confidence_gate": "61.2%",
+      "active_protocol": "Seasonal Yield Bridging",
+      "hardening": [
+        { "t": "Harvest Logic", "d": "Time-weighted position sizing to align with annual harvest liquidity spikes." }
+      ],
+      "node_list": ["L2 DEPTH", "SENTIMENT", "RL EXEC", "HARD BREAKER", "REGIME DETECT", "VOL BIAS", "FLOW SCAN", "YIELD NODE"]
+    },
+    "backtest_performance": {
+      "period": "24 Months (Annualized)",
+      "live_milestones": "N/A",
+      "factor": 1.2,
+      "pnl_milestones": [45000, 52000, 61000, 72000, 84000, 99000, 115000, 132000, 154000],
+      "stochastic_logic": { "engine": "Seasonal Cycle Model", "volatility_base": 0.12, "trend_bias": 1.2, "drama_events": [] },
+      "disclaimer": "Growth Tier. 24-Month SME Model. Barrel Equity Collateral."
+    }
+  },
+  "keystone": {
+    "identity": {
+      "name": "Keystone CM",
+      "tier": "Growth Tier",
+      "status": "Idle Equity Capture",
+      "avatar": "KM",
+      "asset_collateral": "Heavy Machinery Fleet",
+      "initial_collateral_value": 120000,
+      "horizon": "30 Months",
+      "tier_card_type": "Standard"
+    },
+    "narrative": {
+      "hero": "Keystone: Idle Machinery Equity to Profit.",
+      "sub": "Capturing 30-month project-phase gaps in commercial construction by liquidizing fleet value.",
+      "reporting": [
+        "When machines are idle between projects, the engine works. We used our fleet's equity as a margin anchor.",
+        "There is a unique synergy between physical building equipment and market alpha. The engine 'cools' when we deploy the fleet."
+      ]
+    },
+    "technical_matrix": {
+      "nodes_active": 9,
+      "confidence_gate": "64.5%",
+      "active_protocol": "Fleet Utilization Buffer",
+      "hardening": [
+        { "t": "Idle Equity", "d": "Calibrating risk nodes to match project-off-phase durations." }
+      ],
+      "node_list": ["L2 DEPTH", "SENTIMENT", "RL EXEC", "HARD BREAKER", "REGIME DETECT", "VOL BIAS", "FLOW SCAN", "SKEW ADJ", "MACH NODE"]
+    },
+    "backtest_performance": {
+      "period": "30 Months (Project Gap)",
+      "live_milestones": "N/A",
+      "factor": 1.4,
+      "pnl_milestones": [120000, 135000, 158000, 192000, 245000, 312000, 385000, 460000, 545000],
+      "stochastic_logic": { "engine": "Machinery Equity Model", "volatility_base": 0.08, "trend_bias": 1.4, "drama_events": [] },
+      "disclaimer": "Growth Tier. 30-Month Machinery Equity. Idle Project-Gap Focus."
+    }
+  }
+}
+

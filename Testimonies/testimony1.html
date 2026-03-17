@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Asset-to-Alpha Network | Institutional Proof</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0F172A;
+            --blue: #1D4ED8;
+            --teal: #0D9488;
+            --gold: #D4AF37;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+            color: #1E293B;
+            line-height: 1.6;
+        }
+
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* ASSET-BACKED BADGE */
+        .asset-tag {
+            background: #F1F5F9;
+            border: 1px solid #CBD5E1;
+            color: #475569;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        /* POWER HOUSE UI */
+        .power-house-card {
+            background: linear-gradient(145deg, #0F172A, #1e293b);
+            border: 2px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .power-house-card::before {
+            content: "STRATEGIC PARTNER";
+            position: absolute;
+            top: 15px;
+            right: -35px;
+            transform: rotate(45deg);
+            background: var(--gold);
+            color: #000;
+            font-size: 9px;
+            font-weight: 900;
+            padding: 4px 40px;
+            letter-spacing: 1px;
+        }
+
+        /* ENGINE MATRIX */
+        .engine-container {
+            background: var(--ink);
+            border-radius: 48px;
+            padding: 60px;
+            color: white;
+            position: relative;
+        }
+
+        .node-grid {
+            display: grid;
+            grid-template-columns: repeat(11, 1fr);
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .node-box {
+            width: 100%;
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .node-box.active {
+            background: var(--teal);
+            box-shadow: 0 0 25px var(--teal);
+            border-color: var(--teal);
+        }
+
+        .node-box.disabled {
+            opacity: 0.15;
+            filter: grayscale(1);
+        }
+
+        .workflow-step {
+            padding: 14px 24px;
+            border-radius: 14px;
+            font-size: 11px;
+            font-weight: 800;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: 0.4s;
+        }
+
+        .workflow-step.processing {
+            border-color: var(--blue);
+            color: var(--blue);
+            background: rgba(29, 78, 216, 0.1);
+            box-shadow: 0 0 30px rgba(29, 78, 216, 0.2);
+        }
+
+        .selector-btn.active {
+            background: var(--ink);
+            color: white;
+            border-color: var(--ink);
+            transform: translateY(-2px);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.98);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #E2E8F0;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="p-6 md:p-12 lg:p-20">
+
+    <div class="max-w-7xl mx-auto">
+        <div class="mb-16 p-8 bg-white rounded-[40px] border shadow-sm">
+            <div class="flex justify-between items-center mb-6">
+                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Global Asset-To-Alpha
+                    Network</span>
+                <span class="text-[10px] font-bold text-blue-600 uppercase">Collateralized Verification Active</span>
+            </div>
+            <div class="flex gap-4 overflow-x-auto pb-4 custom-scrollbar" id="ui-selectors"></div>
+        </div>
+
+        <header class="mb-24">
+            <div class="flex flex-wrap items-center gap-4 mb-8">
+                <div id="ui-avatar"
+                    class="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-bold text-lg uppercase shadow-lg">
+                </div>
+                <span id="ui-tier-badge"
+                    class="px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-[10px] font-black uppercase tracking-widest"></span>
+                <div id="ui-asset-type" class="asset-tag"></div>
+            </div>
+            <h1 id="ui-hero" class="serif text-6xl md:text-8xl mb-10 leading-[1.1] text-slate-900 tracking-tight"></h1>
+            <p id="ui-sub" class="text-2xl text-slate-500 font-light leading-relaxed max-w-5xl"></p>
+        </header>
+
+        <section class="grid lg:grid-cols-12 gap-20 mb-32">
+            <div class="lg:col-span-8">
+                <h3
+                    class="text-[10px] font-black text-blue-600 uppercase tracking-[0.2em] mb-12 flex items-center gap-4">
+                    <span class="w-12 h-[1px] bg-blue-600"></span> 36-Month Strategic Narrative
+                </h3>
+                <div id="ui-reporting-container" class="space-y-12 text-2xl text-slate-700 leading-relaxed font-light">
+                </div>
+            </div>
+
+            <div class="lg:col-span-4 space-y-8">
+                <div id="tier-card" class="p-10 rounded-[48px] power-house-card text-white hidden">
+                    <p class="text-[10px] font-black text-gold uppercase mb-4 tracking-widest opacity-80">Certification
+                    </p>
+                    <h4 class="serif text-4xl mb-6">Power House</h4>
+                    <p id="tier-card-desc" class="text-sm text-slate-400 leading-relaxed"></p>
+                </div>
+
+                <div class="p-10 rounded-[48px] bg-slate-900 text-white relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition">
+                        <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M21 16.5C21 16.88 20.79 17.21 20.47 17.38L12.57 21.82C12.41 21.94 12.21 22 12 22C11.79 22 11.59 21.94 11.43 21.82L3.53 17.38C3.21 17.21 3 16.88 3 16.5V7.5C3 7.12 3.21 6.79 3.53 6.62L11.43 2.18C11.59 2.06 11.79 2 12 2C12.21 2 12.41 2.06 12.57 2.18L20.47 6.62C20.79 6.79 21 7.12 21 7.5V16.5Z" />
+                        </svg>
+                    </div>
+                    <p class="text-[10px] font-black text-teal-400 uppercase mb-4 tracking-widest">Initial Asset
+                        Valuation</p>
+                    <h4 id="ui-start" class="serif text-5xl mb-2"></h4>
+                    <p class="text-[10px] text-slate-400 uppercase font-bold">Represented in USD at Month 1</p>
+                </div>
+
+                <div class="p-10 rounded-[48px] bg-white border border-slate-200 shadow-xl">
+                    <p class="text-[10px] font-black text-slate-400 uppercase mb-6 tracking-widest">36-Month Alpha Curve
+                    </p>
+                    <canvas id="miniChart" height="180"></canvas>
+                    <button onclick="toggleModal()"
+                        class="w-full mt-8 py-5 bg-blue-600 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-900 transition-all">Deep
+                        Data Analysis</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="engine-container mb-32">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <h3 class="serif text-4xl mb-3">The 11-Node Pipeline</h3>
+                    <p class="text-[11px] font-bold text-slate-500 uppercase tracking-[0.3em]" id="ui-node-status"></p>
+                </div>
+                <div class="flex gap-2">
+                    <div class="w-2 h-2 rounded-full bg-teal-500 animate-pulse"></div>
+                    <span class="text-[9px] font-black uppercase text-teal-500">Real-Time Processing</span>
+                </div>
+            </div>
+
+            <div class="node-grid" id="nodeGrid"></div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 border-t border-white/10 pt-16">
+                <div class="workflow-step" id="step-ingest">01. ASSET INGEST</div>
+                <div class="workflow-step" id="step-process">02. REGIME ANALYSIS</div>
+                <div class="workflow-step" id="step-gate">03. RISK VALIDATION</div>
+                <div class="workflow-step" id="step-pipe">04. ALPHA EXECUTION</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="scalingModal" class="modal">
+        <div class="bg-white rounded-[60px] w-full max-w-6xl p-16 relative overflow-y-auto max-h-[95vh] shadow-2xl">
+            <button onclick="toggleModal()"
+                class="absolute top-12 right-12 text-4xl font-light hover:rotate-90 transition">✕</button>
+            <div class="flex items-center gap-6 mb-12">
+                <div id="modal-avatar"
+                    class="w-16 h-16 bg-slate-900 rounded-3xl flex items-center justify-center text-white text-2xl font-bold">
+                </div>
+                <div>
+                    <h2 id="modal-name" class="serif text-5xl text-slate-900 mb-2"></h2>
+                    <p id="modal-sub" class="text-xl text-slate-500"></p>
+                </div>
+            </div>
+            <div class="mb-12 bg-slate-50 p-10 rounded-[40px] border border-slate-100">
+                <canvas id="scalingChart" height="140"></canvas>
+            </div>
+            <div id="modal-disclaimer"
+                class="p-10 bg-slate-900 text-slate-400 rounded-[32px] text-xs leading-loose font-medium border-l-8 border-blue-600">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // GENERATE RANDOM DATA BETWEEN 24-36 MONTHS
+        function generatePNL(startVal, length, volatility, trend) {
+            let data = [startVal];
+            for (let i = 1; i < length; i++) {
+                let change = (Math.random() - 0.5) * volatility + trend;
+                let newVal = data[i - 1] + change;
+                data.push(Math.round(newVal));
+            }
+            return data;
+        }
+
+        const DATABASE = {
+            canada_dealers: {
+                name: "NorthStar Motors", tier: "Strategic Partner", asset: "4 Luxury Vehicles",
+                hero: "The Asset Breeding Strategy: Converting Inventory to Alpha.",
+                sub: "Utilizing luxury dealership assets as a collateral anchor, NorthStar successfully transitioned from inventory-heavy to liquidity-rich.",
+                startVal: 150000, nodesActive: 10, months: 36,
+                reporting: [
+                    "We didn't start with liquid cash. We started with 4 prime luxury vehicles—dead assets on our floor. We met the team in 2021 and asked: 'Can we trade the value of these without selling them?'",
+                    "The first year was a rollercoaster. Our USD representation swung between $700k and $150k. We realized the engine was over-leveraging our collateral. We pulled the annual returns and redesigned the strategy from the Risk Endpoint.",
+                    "By Month 24, we found 'Subtle Stability.' The system now breeds high profit margins by accumulating returns and only executing when our asset-base allows for safe exposure. We are now averaging $600k in consistent terminal returns."
+                ],
+                backtest: {
+                    pnl: [150000, 320000, 180000, 550000, 420000, 680000, 150000, 480000, 590000, 620000, 605000, 610000, 590000, 630000, 615000, 580000, 620000, 640000, 610000, 605000, 600000, 615000, 600000, 595000, 610000, 620000, 600000, 605000, 610000, 590000, 605000, 615000, 600000, 610000, 605000, 600000],
+                    disclaimer: "Asset-Collateralized Model. Recalibrated in Year 2 for terminal stability. 10-node authorization."
+                }
+            },
+            dubai_auto: {
+                name: "Al-Maktoum Auto", tier: "Power House Tier", asset: "Luxury Fleet (12 units)",
+                hero: "Dubai Power House: The 36-Month Liquidity Rotation.",
+                sub: "Turning luxury automobile showroom turnover into a permanent high-frequency capital fortress.",
+                startVal: 450000, nodesActive: 11, months: 36,
+                reporting: [
+                    "In Dubai, every car sitting in a showroom is lost time. We partnered with the team to use our 12-unit luxury fleet as a rotating capital base. The USD value of the fleet at the start was $450,000.",
+                    "Over 36 months, the engine's RL-Execution node turned our showroom liquidations into instant market positioning. We have completely stabilized our risk strategy, becoming a certified Power House in the region.",
+                    "We no longer rely on the sale of the vehicle to generate growth. The vehicle's value *is* the growth engine. This has turned our dealership into one of Beijing and Dubai's most sophisticated capital players."
+                ],
+                backtest: {
+                    pnl: generatePNL(450000, 36, 80000, 45000),
+                    disclaimer: "Institutional Tier. 11-node authorization. Zero-intervention rotation model."
+                }
+            },
+            dubai_gold: {
+                name: "Oudh & Gold", tier: "Power House Tier", asset: "Physical Gold Reserve (10kg)",
+                hero: "The Fragrance of Stability: 28 Months of Hardened Growth.",
+                sub: "Converting physical gold inventory into a high-frequency trading buffer for the luxury retail market.",
+                startVal: 620000, nodesActive: 11, months: 28,
+                reporting: [
+                    "Our retail cash flows in the jewelry sector are spiked and inconsistent. We met the team in 2022 to solve our 'idle inventory' problem. We referenced 10kg of our physical gold reserve as the collateral base.",
+                    "The Vol-Bias node was tuned specifically to our gold-backing. It allows us to trade with institutional confidence because the base is physically secured. We've seen 28 months of relentless, stabilized accumulation.",
+                    "Our strategy is now subtly stable, absorbing retail market shocks and outputting consistent alpha that feeds back into our procurement cycle."
+                ],
+                backtest: {
+                    pnl: generatePNL(620000, 28, 40000, 30000),
+                    disclaimer: "Power House Tier. Physical Gold Buffer. 11-node active matrix."
+                }
+            },
+            beijing_power: {
+                name: "Beijing Power", tier: "Power House Tier", asset: "Industrial Energy Credits",
+                hero: "The Beijing Power House: Direct Integration.",
+                sub: "Scaling energy-backed assets across 12-hour time zones into a stabilized global trade footprint.",
+                startVal: 200000, nodesActive: 11, months: 36,
+                reporting: [
+                    "As an energy powerhouse in Beijing, our assets are industrial. We used our energy credit reserves as the baseline for a 36-month market entry strategy. The challenge was the 12-hour gap.",
+                    "For three years, the engine functioned as our surrogate. It stabilized our risk strategy by learning the unique rhythms of the energy sector's capital flow. We are now one of the best-performing entities in Beijing.",
+                    "The journey from a $200k asset base to a terminal powerhouse was paved with 11-node precision and a deep partnership with the team starting in 2021."
+                ],
+                backtest: {
+                    pnl: generatePNL(200000, 36, 50000, 35000),
+                    disclaimer: "Cross-border Energy Integration. Terminal phase stabilization achieved in M24."
+                }
+            },
+            mexico_wine: {
+                name: "Valle de Oro", tier: "Growth Tier", asset: "Seasonal Wine Yield (4k Barrels)",
+                hero: "Mexico Wine: Seasonal Asset Fermentation.",
+                sub: "Converting seasonal wine production into a year-round automated liquidity engine.",
+                startVal: 45000, nodesActive: 8, months: 24,
+                reporting: [
+                    "Small business in Mexico is about seasons. We had 4,000 barrels of wine—collateral that only pays off once a year. We met the team and asked for a 'Slow-Growth' model based on that asset value.",
+                    "Over 24 months, the engine provided the liquidity we needed during the growing months. It smoothed out our revenue curve, turning our harvest into a 24/7 trading base.",
+                    "We are now in our second year of stabilization. The strategy has effectively removed the 'off-season' risk from our winery operations entirely."
+                ],
+                backtest: {
+                    pnl: generatePNL(45000, 24, 15000, 8000),
+                    disclaimer: "SME Seasonal Model. 8-node authorization. 22% Noise Haircut."
+                }
+            },
+            penn_const: {
+                name: "Keystone CM", tier: "Growth Tier", asset: "Heavy Machinery Fleet",
+                hero: "Pennsylvania Construction: Building the Capital Base.",
+                sub: "Leveraging heavy equipment equity to build a secondary revenue stream for a management firm.",
+                startVal: 120000, nodesActive: 9, months: 30,
+                reporting: [
+                    "In construction, your assets are your machines. We used the equity in our machinery fleet to back a 30-month trade strategy. It was about building a capital base while we build skyscrapers.",
+                    "The Hard-Breaker node protects our machinery equity. If the market shifts, the system pulls back to ensure our primary business is never compromised. It's a risk-first strategy that has redefined our firm.",
+                    "Today, our secondary revenue from the trade engine rivals our construction contracts in terms of monthly margin stability."
+                ],
+                backtest: {
+                    pnl: generatePNL(120000, 30, 30000, 20000),
+                    disclaimer: "Machinery Equity Model. Commercial overhead protection logic active."
+                }
+            },
+            thorne: {
+                name: "Thorne-Blackwood", tier: "Institutional Tier", asset: "L1 Liquidity Pool",
+                hero: "Institutional Precision: The 36-Month Standard.",
+                sub: "The baseline for 11-node precision, hardening engines to meet sub-millisecond institutional latency.",
+                startVal: 2000000, nodesActive: 11, months: 36,
+                reporting: ["We started in the Developmental Tunnel, using our L1 Liquidity Pool as the anchor. The shift happened when we saw the Hard Breaker node stop a potential fat-finger trade in milliseconds."],
+                backtest: { pnl: generatePNL(2000000, 36, 100000, 150000), disclaimer: "L1 Institutional Model. 11-node authorization." }
+            },
+            agri_growth: {
+                name: "Agri-Growth", tier: "Seed Tier", asset: "Arable Land Equity",
+                hero: "Agri-Growth: Farming Capital for the Future.",
+                sub: "Translating land equity into a safe, long-term stock accumulation strategy for a small farm.",
+                startVal: 25000, nodesActive: 7, months: 24,
+                reporting: ["We used our land equity to start a very slow growth model. The system acquires stocks automatically while our $200 monthly budget fuels the engine's processing overhead."],
+                backtest: { pnl: generatePNL(25000, 24, 5000, 4000), disclaimer: "Seed Equity Model. 7-node authorization." }
+            }
+        };
+
+        let activeChart = null;
+        let activeMiniChart = null;
+
+        function initSelectors() {
+            const container = document.getElementById('ui-selectors');
+            container.innerHTML = Object.keys(DATABASE).map(key => `
+                <button onclick="selectPartner('${key}', this)" class="selector-btn px-6 py-3 whitespace-nowrap bg-white border border-slate-200 rounded-2xl text-[10px] font-black uppercase tracking-tight hover:shadow-lg transition-all duration-300">
+                    ${DATABASE[key].name}
+                </button>
+            `).join('');
+            selectPartner('canada_dealers', container.children[0]);
+        }
+
+        function selectPartner(key, btn) {
+            document.querySelectorAll('.selector-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            updateUI(key);
+        }
+
+        function updateUI(key) {
+            const d = DATABASE[key];
+            document.getElementById('ui-avatar').innerText = d.name.substring(0, 2);
+            document.getElementById('ui-tier-badge').innerText = d.tier;
+            document.getElementById('ui-asset-type').innerText = d.asset;
+            document.getElementById('ui-hero').innerText = d.hero;
+            document.getElementById('ui-sub').innerText = d.sub;
+            document.getElementById('ui-start').innerText = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(d.startVal);
+
+            const tCard = document.getElementById('tier-card');
+            const tDesc = document.getElementById('tier-card-desc');
+            if (d.tier === "Power House Tier") {
+                tCard.classList.remove('hidden');
+                tDesc.innerText = `Reserved for Direct Strategic Partners. Certified for High-Frequency cross-border integration and 11-node execution.`;
+            } else { tCard.classList.add('hidden'); }
+
+            document.getElementById('ui-reporting-container').innerHTML = d.reporting.map(p => `<p>${p}</p>`).join('');
+
+            const nodes = ["L2 Depth", "ORATS Greeks", "Sentiment", "RL Exec", "Hard Breaker", "Regime Detect", "Vol Bias", "Flow Scan", "Skew Adj", "Liq Node", "IBKR Pipe"];
+            document.getElementById('nodeGrid').innerHTML = nodes.map((n, i) => `
+                <div class="flex flex-col items-center gap-2">
+                    <div class="node-box ${i < d.nodesActive ? 'active' : 'disabled'}" id="box-${i}"></div>
+                    <span class="text-[7px] text-slate-400 font-black uppercase text-center">${n}</span>
+                </div>
+            `).join('');
+            document.getElementById('ui-node-status').innerText = `${d.nodesActive}/11 Nodes Collateralized`;
+
+            if (window.animLoop) clearInterval(window.animLoop);
+            startPipelineAnimation(d.nodesActive);
+
+            renderMiniChart(d);
+
+            document.getElementById('modal-avatar').innerText = d.name.substring(0, 2);
+            document.getElementById('modal-name').innerText = d.name;
+            document.getElementById('modal-sub').innerText = `${d.months}-Month Performance Tracking`;
+            document.getElementById('modal-disclaimer').innerText = d.backtest.disclaimer;
+            renderMainChart(d);
+        }
+
+        function renderMiniChart(d) {
+            const ctx = document.getElementById('miniChart').getContext('2d');
+            if (activeMiniChart) activeMiniChart.destroy();
+            activeMiniChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: d.backtest.pnl.map((_, i) => i),
+                    datasets: [{ data: d.backtest.pnl, borderColor: '#1D4ED8', borderWidth: 2, fill: true, backgroundColor: 'rgba(29,78,216,0.02)', tension: 0.4, pointRadius: 0 }]
+                },
+                options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false } } }
+            });
+        }
+
+        function renderMainChart(d) {
+            const ctx = document.getElementById('scalingChart').getContext('2d');
+            if (activeChart) activeChart.destroy();
+            activeChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: d.backtest.pnl.map((_, i) => `M${i + 1}`),
+                    datasets: [{
+                        data: d.backtest.pnl,
+                        borderColor: '#1D4ED8', borderWidth: 4, fill: true, backgroundColor: 'rgba(29,78,216,0.05)', tension: 0.4, pointRadius: 4, pointHoverRadius: 8, pointBackgroundColor: '#FFF'
+                    }]
+                },
+                options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { ticks: { callback: value => '$' + value.toLocaleString() } } } }
+            });
+        }
+
+        function startPipelineAnimation(activeNodes) {
+            const steps = [{ id: 'step-ingest', n: [0, 1, 2] }, { id: 'step-process', n: [5, 6, 7] }, { id: 'step-gate', n: [8, 9, 3] }, { id: 'step-pipe', n: [4, 10] }];
+            let current = 0;
+            window.animLoop = setInterval(() => {
+                document.querySelectorAll('.workflow-step').forEach(s => s.classList.remove('processing'));
+                document.querySelectorAll('.node-box').forEach(b => b.classList.remove('active'));
+                const step = steps[current];
+                document.getElementById(step.id).classList.add('processing');
+                step.n.forEach(nIdx => { if (nIdx < activeNodes) document.getElementById(`box-${nIdx}`).classList.add('active'); });
+                current = (current + 1) % steps.length;
+            }, 1200);
+        }
+
+        function toggleModal() { document.getElementById('scalingModal').classList.toggle('active'); }
+
+        initSelectors();
+    </script>
+</body>
+
+</html>

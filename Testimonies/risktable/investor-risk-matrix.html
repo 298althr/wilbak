@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk & Return Matrix | Sovereign Alpha Terminal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="../assets/css/global.css" rel="stylesheet">
+    <style>
+        :root {
+            --body: #1E293B;
+            --sub: #475569;
+            --hint: #64748B;
+            --surface: #F8FAFF;
+            --amber: #B45309;
+            --rose: #BE123C;
+            --violet: #6D28D9;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -40px); }
+        }
+
+        /* TIER CARDS */
+        .tier-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tier-card.active {
+            background: white;
+            border-color: var(--ink);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.12);
+        }
+
+        .tier-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .tier-card.active .tier-indicator {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* MATRIX HEATMAP */
+        .matrix-table th, .matrix-table td {
+            border: 1px solid var(--border);
+            padding: 12px 16px;
+            text-align: center;
+        }
+
+        .matrix-table tr:hover td {
+            background: rgba(15, 23, 42, 0.02);
+        }
+
+        .cell-profit { font-weight: 800; font-size: 13px; color: var(--ink); }
+        .roi-chip {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 99px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* CONTROLS */
+        .pill-btn {
+            padding: 8px 18px;
+            border-radius: 99px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: 0.2s;
+            border: 1.5px solid var(--border);
+            background: white;
+            color: var(--sub);
+        }
+
+        .pill-btn.active {
+            background: var(--ink);
+            color: white;
+            border-color: var(--ink);
+            box-shadow: 0 8px 16px -4px rgba(15, 23, 42, 0.2);
+        }
+
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <div class="blueprint-bg"></div>
+    <div class="orb bg-blue-400 w-[600px] h-[600px] -top-40 -left-40" style="animation: float 20s infinite"></div>
+    <div class="orb bg-violet-400 w-[500px] h-[500px] top-1/2 -right-40" style="animation: float 18s infinite reverse"></div>
+
+    <!-- NAVIGATION -->
+    <nav class="app-header">
+        <div class="flex items-center gap-3">
+            <a href="../index.html" class="brand-link">
+                <div class="brand-icon">O8</div>
+                <span class="brand-text">ORTHOM8pro</span>
+            </a>
+        </div>
+        <div class="flex items-center gap-4">
+            <!-- Desktop Nav -->
+            <div class="desktop-nav">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../index.html#engine" class="nav-link">The Engine</a>
+                <a href="../index.html#performance" class="nav-link">Performance</a>
+                <div class="dropdown">
+                    <a href="../testimony/master-matrix.html" class="dropdown-trigger nav-link flex items-center gap-1 group">
+                        <span>Testimonies</span>
+                        <svg class="dropdown-arrow w-3 h-3 cursor-pointer group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="../testimony/master-matrix.html?partner=thorne" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-slate-900"></div><span>Thorne-Blackwood</span></a>
+                        <a href="../testimony/master-matrix.html?partner=beijing" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-blue-600"></div><span>Beijing Power</span></a>
+                        <a href="../testimony/master-matrix.html?partner=northstar" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-amber-500"></div><span>NorthStar Motors</span></a>
+                        <a href="../testimony/master-matrix.html?partner=dubai_auto" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-slate-400"></div><span>Al-Maktoum Auto</span></a>
+                        <a href="../testimony/master-matrix.html?partner=oudh" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-yellow-600"></div><span>Oudh & Gold</span></a>
+                        <a href="../testimony/master-matrix.html?partner=agri" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-green-600"></div><span>Agri-Growth</span></a>
+                        <a href="../testimony/master-matrix.html?partner=valle" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-red-400"></div><span>Valle de Oro</span></a>
+                        <a href="../testimony/master-matrix.html?partner=keystone" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-slate-500"></div><span>Keystone CM</span></a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="../view-schema/view-schema.html" class="dropdown-trigger nav-link flex items-center gap-1 group">
+                        <span>View Schema</span>
+                        <svg class="dropdown-arrow w-3 h-3 cursor-pointer group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="../view-schema/view-schema.html#pipeline" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-blue-600"></div><span>Phase 01: Ingest</span></a>
+                        <a href="../view-schema/view-schema.html#pipeline" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-teal-500"></div><span>Phase 02: Gate</span></a>
+                        <a href="../view-schema/view-schema.html#pipeline" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-slate-900"></div><span>Phase 03: Exit</span></a>
+                    </div>
+                </div>
+                <a href="../risktable/investor-risk-matrix.html" class="nav-link">Risk Analysis</a>
+            </div>
+            <a href="../submit-asset/submit-asset.html" class="cta-outline">Audit Asset</a>
+            
+            <!-- Mobile Hamburger -->
+            <button id="mobile-menu-btn" class="hamburger-btn" aria-label="Open menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="mobile-menu-panel translate-x-full">
+        <div class="mobile-menu-header">
+            <div class="flex items-center gap-3">
+                <div class="brand-icon">O8</div>
+                <span class="brand-text">ORTHOM8pro</span>
+            </div>
+            <button id="mobile-menu-close" class="p-2" aria-label="Close menu">
+                <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <nav class="mobile-nav-list">
+            <a href="../index.html" class="mobile-nav-link">Home</a>
+            <a href="../index.html#engine" class="mobile-nav-link">The Engine</a>
+            <a href="../index.html#performance" class="mobile-nav-link">Performance</a>
+            <a href="../testimony/master-matrix.html" class="mobile-nav-link">Testimonies</a>
+            <div class="mobile-sub-nav">
+                <a href="../testimony/master-matrix.html?partner=thorne" class="mobile-sub-link">→ Thorne-Blackwood</a>
+                <a href="../testimony/master-matrix.html?partner=beijing" class="mobile-sub-link">→ Beijing Power</a>
+                <a href="../testimony/master-matrix.html?partner=northstar" class="mobile-sub-link">→ NorthStar Motors</a>
+                <a href="../testimony/master-matrix.html?partner=dubai_auto" class="mobile-sub-link">→ Al-Maktoum Auto</a>
+                <a href="../testimony/master-matrix.html?partner=oudh" class="mobile-sub-link">→ Oudh &amp; Gold</a>
+                <a href="../testimony/master-matrix.html?partner=agri" class="mobile-sub-link">→ Agri-Growth</a>
+                <a href="../testimony/master-matrix.html?partner=valle" class="mobile-sub-link">→ Valle de Oro</a>
+                <a href="../testimony/master-matrix.html?partner=keystone" class="mobile-sub-link">→ Keystone CM</a>
+            </div>
+            <a href="../view-schema/view-schema.html" class="mobile-nav-link">View Schema</a>
+            <div class="mobile-sub-nav">
+                <a href="../view-schema/view-schema.html#pipeline" class="mobile-sub-link">→ Phase 01: Ingest</a>
+                <a href="../view-schema/view-schema.html#pipeline" class="mobile-sub-link">→ Phase 02: Gate</a>
+                <a href="../view-schema/view-schema.html#pipeline" class="mobile-sub-link">→ Phase 03: Exit</a>
+            </div>
+            <a href="../risktable/investor-risk-matrix.html" class="mobile-nav-link">Risk Analysis</a>
+        </nav>
+        <div class="mt-auto">
+            <a href="../submit-asset/submit-asset.html" class="cta-primary w-full text-center block">Audit Asset</a>
+        </div>
+    </div>
+
+
+    <!-- HERO — Split Panel Style -->
+    <section class="relative w-full overflow-hidden bg-slate-950" style="min-height: 72vh;">
+
+        <!-- Right: Hero image panel (clipped with angled left edge) -->
+        <div class="absolute inset-y-0 right-0 w-full lg:w-[58%] z-0 overflow-hidden">
+            <img
+                src="https://images.unsplash.com/photo-1740908900846-4bbd4f22c975?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Projected Alpha Return Matrix"
+                class="w-full h-full object-cover object-center"
+                style="filter: brightness(0.65) saturate(1.1);"
+            >
+            <!-- Diagonal clip from left (desktop only) -->
+            <div class="absolute inset-0 hidden lg:block" style="background: linear-gradient(105deg, #020617 0%, #020617 28%, transparent 52%);"></div>
+            <!-- Full dark overlay on mobile so text stays readable -->
+            <div class="absolute inset-0 lg:hidden" style="background: rgba(2,6,23,0.82);"></div>
+            <!-- Bottom fade always -->
+            <div class="absolute inset-x-0 bottom-0 h-32" style="background: linear-gradient(to top, #020617, transparent);"></div>
+        </div>
+
+        <!-- Left: Content panel -->
+        <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 flex items-center" style="min-height: 72vh;">
+            <div class="w-full lg:w-[50%] py-16 sm:py-20">
+
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-sm">
+                    <div class="w-2 h-2 rounded-full bg-amber-400" style="animation: pulse 2s infinite;"></div>
+                    <span class="text-[9px] font-black uppercase tracking-[0.4em] text-amber-300">Performance Modeling Terminal</span>
+                </div>
+
+                <!-- Headline -->
+                <h1 class="serif text-5xl sm:text-6xl md:text-7xl text-white leading-[1.05] mb-6">
+                    Projected Alpha<br>
+                    <span class="italic font-light text-amber-400">Return Matrix.</span>
+                </h1>
+
+                <!-- Subtext -->
+                <p class="text-slate-400 font-light text-base sm:text-lg leading-relaxed mb-10 max-w-md">
+                    Calibration adjusted for infrastructure slippage, API latency, and signal quality. Model your annual alpha across capital sizing and risk tiers.
+                </p>
+
+                <!-- CTA + scroll hint -->
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                    <a href="#" onclick="document.querySelector('#tier-container').scrollIntoView({behavior:'smooth'}); return false;"
+                       class="cta-primary">
+                        Model My Alpha
+                    </a>
+                    <div class="flex items-center gap-3 text-slate-500">
+                        <div class="w-8 h-px bg-slate-600"></div>
+                        <span class="text-[10px] font-black uppercase tracking-widest">Select a tier below</span>
+                    </div>
+                </div>
+
+                <!-- Inline key metrics strip -->
+                <div class="flex flex-wrap gap-6 sm:gap-8 mt-12 pt-8 border-t border-white/10">
+                    <div>
+                        <p class="text-2xl font-bold text-white">6</p>
+                        <p class="text-[9px] font-black text-slate-500 uppercase tracking-widest mt-1">Infra Tiers</p>
+                    </div>
+                    <div class="w-px h-10 bg-white/10 self-center hidden sm:block"></div>
+                    <div>
+                        <p class="text-2xl font-bold text-amber-400">72.4%</p>
+                        <p class="text-[9px] font-black text-slate-500 uppercase tracking-widest mt-1">Confidence Gate</p>
+                    </div>
+                    <div class="w-px h-10 bg-white/10 self-center hidden sm:block"></div>
+                    <div>
+                        <p class="text-2xl font-bold text-teal-400">22%</p>
+                        <p class="text-[9px] font-black text-slate-500 uppercase tracking-widest mt-1">Risk Buffer</p>
+                    </div>
+                    <div class="w-px h-10 bg-white/10 self-center hidden sm:block"></div>
+                    <div>
+                        <p class="text-2xl font-bold text-white">$1B+</p>
+                        <p class="text-[9px] font-black text-slate-500 uppercase tracking-widest mt-1">Throughput/Node</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-5 sm:px-8 py-10 sm:py-14 relative z-10">
+
+        <!-- TIER SELECTOR -->
+        <section class="mb-12">
+            <h2 class="text-[10px] font-black uppercase text-slate-400 tracking-[0.3em] mb-6">Step 1: Select Infrastructure Grade</h2>
+            <div class="grid grid-cols-2 lg:grid-cols-6 gap-4" id="tier-container">
+                <!-- Tiers injected via JS -->
+            </div>
+        </section>
+
+        <!-- TIER DETAILS & CONFIG -->
+        <div class="grid lg:grid-cols-12 gap-8 mb-12">
+            <div class="lg:col-span-8 bg-white/70 backdrop-blur-xl border border-white rounded-[40px] p-10 shadow-xl shadow-slate-200/50">
+                <div class="flex flex-col md:flex-row justify-between gap-8 mb-10 pb-10 border-b border-slate-100">
+                    <div>
+                        <span id="tier-grade" class="px-3 py-1 bg-slate-900 text-white rounded-full text-[10px] font-black uppercase tracking-widest">---</span>
+                        <h3 id="tier-tag" class="serif text-3xl mt-4 mb-2">---</h3>
+                        <p id="tier-desc" class="text-sm text-slate-400 font-medium max-w-md">---</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-x-12 gap-y-6">
+                        <div>
+                            <p class="text-[9px] text-slate-400 uppercase font-black">Trade Win Rate</p>
+                            <p id="stat-win" class="text-xl font-extrabold text-slate-900">--%</p>
+                        </div>
+                        <div>
+                            <p class="text-[9px] text-slate-400 uppercase font-black">R:R Ratio</p>
+                            <p id="stat-rr" class="text-xl font-extrabold text-amber-600">1 : --</p>
+                        </div>
+                        <div>
+                            <p class="text-[9px] text-slate-400 uppercase font-black">Avg Completed</p>
+                            <p id="stat-trades" class="text-xl font-extrabold text-blue-600">--/mo</p>
+                        </div>
+                        <div>
+                            <p class="text-[9px] text-slate-400 uppercase font-black">Infra Cost</p>
+                            <p id="stat-cost" class="text-xl font-extrabold text-rose-600">$---</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MATRIX HEADER CONTROLS -->
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="text-[10px] font-black uppercase text-slate-400 tracking-widest">Step 2: Filter by Risk Focus</h4>
+                            <span id="risk-val" class="text-xs font-black text-slate-900">Highlight: 2.5%</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2" id="risk-selector">
+                            <!-- Injected JS -->
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="text-[10px] font-black uppercase text-slate-400 tracking-widest">Step 3: Select Capital Benchmark</h4>
+                            <span id="cap-val" class="text-xs font-black text-slate-900">Capital: $10,000</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2" id="cap-selector">
+                            <!-- Injected JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REALITY PROFILE -->
+            <div class="lg:col-span-4 bg-slate-900 rounded-[40px] p-10 text-white relative overflow-hidden">
+                <div class="absolute -top-24 -right-24 w-60 h-60 bg-teal-500/10 rounded-full blur-[60px]"></div>
+                <div class="relative z-10">
+                    <span class="text-[10px] font-black text-teal-400 uppercase tracking-[0.4em]">Reality Profile</span>
+                    <h4 class="serif text-3xl mt-6 mb-8">Operational Hardening</h4>
+                    
+                    <div class="space-y-6 mb-12">
+                        <div class="flex justify-between items-center pb-4 border-b border-white/10">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">API Uptime</span>
+                            <span id="prof-uptime" class="text-sm font-black">--%</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-4 border-b border-white/10">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">Signal Latency</span>
+                            <span id="prof-latency" class="text-sm font-black">--ms</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-4 border-b border-white/10">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">Data Quality scrub</span>
+                            <span id="prof-quality" class="text-sm font-black text-teal-400">--%</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-4 border-b border-white/10">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">Reality Haircut</span>
+                            <span id="prof-haircut" class="text-sm font-black text-rose-400">---</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <p class="text-[9px] font-bold text-slate-500 uppercase mb-2">Architect's Note</p>
+                        <p id="tier-notes" class="text-[11px] text-slate-300 italic leading-relaxed">
+                            "---"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MATRIX TABLE -->
+        <section class="mb-24">
+            <div class="flex justify-between items-end mb-8">
+                <div>
+                    <h2 class="serif text-4xl mb-2 text-slate-900">The Projection Matrix</h2>
+                    <p class="text-sm text-slate-400 font-medium">Click any cell to inspect the 12-month compounding journey.</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-[9px] font-black uppercase text-slate-400 block mb-1">Reality Baseline</span>
+                    <span id="matrix-status" class="text-[11px] font-extrabold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100 tracking-wider uppercase">---</span>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-[40px] border border-slate-100 shadow-2xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="matrix-table w-full border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50">
+                                <th class="text-[10px] font-black text-slate-400 uppercase text-left sticky left-0 bg-slate-50 z-20" style="min-width: 140px;">
+                                    Risk &darr; / Capital &rarr;
+                                </th>
+                                <!-- Capitals injected here -->
+                            </tr>
+                        </thead>
+                        <tbody id="matrix-body">
+                            <!-- Matrix rows injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    <!-- FOOTER -->
+    <footer class="py-20 bg-slate-50 border-t border-slate-200 relative z-20">
+        <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white text-[10px] font-black">O8</div>
+                    <span class="text-[10px] font-black uppercase tracking-[0.2em]">ORTHOM8pro</span>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed font-medium">Providing sovereign-grade signal intelligence and liquid execution anchors for the modern investor archive.</p>
+            </div>
+            <div>
+                <h6 class="text-[10px] font-black uppercase tracking-widest mb-6 text-slate-900">Architecture</h6>
+                <ul class="text-[10px] font-bold text-slate-400 space-y-4 uppercase tracking-widest">
+                    <li class="hover:text-blue-600 cursor-pointer">Terminal Hub</li>
+                    <li class="hover:text-blue-600 cursor-pointer">Logic Nodes</li>
+                    <li class="hover:text-blue-600 cursor-pointer">Audit Ledger</li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="text-[10px] font-black uppercase tracking-widest mb-6 text-slate-900">Governance</h6>
+                <ul class="text-[10px] font-bold text-slate-400 space-y-4 uppercase tracking-widest">
+                    <li class="hover:text-blue-600 cursor-pointer">Sovereign Tiers</li>
+                    <li class="hover:text-blue-600 cursor-pointer">Risk Reality</li>
+                    <li class="hover:text-blue-600 cursor-pointer">KYC Ingest</li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="text-[10px] font-black uppercase tracking-widest mb-6 text-slate-900">Security</h6>
+                <div class="p-4 bg-white rounded-2xl border border-slate-200">
+                    <p class="text-[8px] font-black uppercase text-slate-400 mb-2">Network Status</p>
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-teal-500"></div>
+                        <span class="text-[9px] font-black text-slate-900 uppercase tracking-widest">SHA-512 Encrypted</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-8 mt-20 pt-10 border-t border-slate-200 text-center">
+            <p class="text-[8px] font-black text-slate-300 uppercase tracking-[0.5em]">© 2024 ORTHOM8pro | Sovereign Institutional Grade</p>
+        </div>
+    </footer>
+    </main>
+
+    <!-- JOURNEY MODAL -->
+    <div id="journeyModal" class="modal">
+        <div class="bg-white rounded-[40px] w-full max-w-3xl overflow-hidden shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute top-8 right-8 text-2xl text-slate-400 hover:text-slate-900 select-none">&times;</button>
+            
+            <div class="p-10 border-b border-slate-100" id="modal-header">
+                <span class="text-[9px] font-black text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">Deep Audit Journey</span>
+                <h2 id="modal-title" class="serif text-4xl mt-6 mb-2">---</h2>
+                <p id="modal-subtitle" class="text-slate-400 font-medium text-sm">12-Month Compounding Roadmap</p>
+            </div>
+
+            <div class="p-10 bg-slate-50 max-h-[500px] overflow-y-auto">
+                <div class="grid grid-cols-3 gap-6 mb-10">
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200">
+                        <p class="text-[9px] font-black text-slate-400 uppercase mb-2">Starting Balance</p>
+                        <p id="m-start" class="text-2xl font-extrabold text-slate-900">$---</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200">
+                        <p class="text-[9px] font-black text-slate-400 uppercase mb-2">Projected Profit</p>
+                        <p id="m-profit" class="text-2xl font-extrabold text-teal-600">$---</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200">
+                        <p class="text-[9px] font-black text-slate-400 uppercase mb-2">Total Yield (12m)</p>
+                        <p id="m-yield" class="text-2xl font-extrabold text-violet-600">---%</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4" id="month-list">
+                    <!-- Months injected here -->
+                </div>
+            </div>
+
+            <div class="p-8 bg-white text-center">
+                <button onclick="closeModal()" class="px-10 py-5 bg-slate-900 text-white rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-blue-600 transition-all">Confirm Audit & Exit</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let MASTER_DATA = null;
+
+        fetch('./investor-risk-matrix.json')
+            .then(r => { if (!r.ok) throw new Error('Failed'); return r.json(); })
+            .then(data => { MASTER_DATA = data; init(); })
+            .catch(err => {
+                console.error('Failed to load investor-risk-matrix.json:', err);
+                document.getElementById('tier-container').innerHTML = `<p class="text-red-500 text-xs font-black uppercase col-span-6 p-4">⚠ Data load failed — serve via HTTP, not file://</p>`;
+            });
+
+
+
+        let state = {
+            tier: 3,
+            risk: 2.5,
+            capital: 10000
+        };
+
+        function init() {
+            renderTierCards();
+            renderSelectors();
+            updateUI();
+        }
+
+        function renderTierCards() {
+            const container = document.getElementById('tier-container');
+            container.innerHTML = MASTER_DATA.infra_tiers.map((t, i) => `
+                <div onclick="selectTier(${i})" class="tier-card p-6 rounded-[32px] bg-white/50 ${state.tier === i ? 'active' : ''}">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="tier-indicator" style="background: ${t.tier_index === 5 ? '#BE123C' : '#0F172A'}"></div>
+                        <span class="text-[9px] font-black uppercase tracking-widest text-slate-400">${t.grade}</span>
+                    </div>
+                    <p class="text-2xl font-black text-slate-900 serif leading-none mb-1">${t.label}</p>
+                    <p class="text-[8px] font-bold text-slate-400 uppercase tracking-widest">monthly infra</p>
+                </div>
+            `).join('');
+        }
+
+        function renderSelectors() {
+            const riskContainer = document.getElementById('risk-selector');
+            riskContainer.innerHTML = MASTER_DATA.configuration.risk_steps_pct.map(r => `
+                <button onclick="selectRisk(${r})" class="pill-btn ${state.risk === r ? 'active' : ''}">${r}%</button>
+            `).join('');
+
+            const capContainer = document.getElementById('cap-selector');
+            capContainer.innerHTML = MASTER_DATA.configuration.capital_levels_usd.map(c => `
+                <button onclick="selectCap(${c})" class="pill-btn ${state.capital === c ? 'active' : ''}">$${c.toLocaleString()}</button>
+            `).join('');
+        }
+
+        function selectTier(idx) { state.tier = idx; updateUI(); }
+        function selectRisk(r) { state.risk = r; updateUI(); }
+        function selectCap(c) { state.capital = c; updateUI(); }
+
+        function calculateROI(tierIdx, cap, risk) {
+            const t = MASTER_DATA.infra_tiers[tierIdx];
+            const p = t.params;
+            const pos = cap * (risk / 100);
+            const n = p.trades;
+            
+            // Formula: (n × win_rate × position_usd × rr) − (n × (1 − win_rate) × position_usd)
+            const gross = (n * p.win_rate * pos * p.rr) - (n * (1 - p.win_rate) * pos);
+            // Formula: round((gross − n × position_usd × slippage_decimal) × error_factor)
+            const net = Math.round((gross - n * pos * p.slip) * p.ef);
+            const roi = parseFloat(((net / cap) * 100).toFixed(1));
+            const annual = Math.round(net * 12);
+            return { profit: net, roi, annual };
+        }
+
+        function updateUI() {
+            renderTierCards();
+            renderSelectors();
+            
+            const tier = MASTER_DATA.infra_tiers[state.tier];
+            document.getElementById('tier-grade').innerText = tier.grade;
+            document.getElementById('tier-tag').innerText = tier.tag;
+            document.getElementById('tier-desc').innerText = tier.reality.notes;
+            document.getElementById('stat-win').innerText = (tier.params.win_rate * 100).toFixed(1) + '%';
+            document.getElementById('stat-rr').innerText = '1 : ' + tier.params.rr;
+            document.getElementById('stat-trades').innerText = tier.params.trades + '/mo';
+            document.getElementById('stat-cost').innerText = tier.label;
+
+            document.getElementById('prof-uptime').innerText = tier.reality.uptime + '%';
+            document.getElementById('prof-latency').innerText = tier.reality.latency + 'ms';
+            document.getElementById('prof-quality').innerText = tier.reality.quality + '%';
+            document.getElementById('prof-haircut').innerText = '-' + tier.reality.haircut;
+            document.getElementById('tier-notes').innerText = `"${tier.reality.notes}"`;
+
+            document.getElementById('risk-val').innerText = `Highlight: ${state.risk}%`;
+            document.getElementById('cap-val').innerText = `Capital: $${state.capital.toLocaleString()}`;
+            document.getElementById('matrix-status').innerText = `${tier.grade} Infrastructure Baseline`;
+
+            renderMatrix();
+        }
+
+        function renderMatrix() {
+            const head = document.querySelector('.matrix-table thead tr');
+            const caps = MASTER_DATA.configuration.capital_levels_usd;
+            const risks = MASTER_DATA.configuration.risk_steps_pct;
+
+            head.innerHTML = `<th class="text-[10px] font-black text-slate-400 uppercase text-left sticky left-0 bg-slate-50 z-20" style="min-width: 140px;">Risk &darr; / Capital &rarr;</th>` +
+                caps.map(c => `<th class="text-[11px] font-black text-slate-900 uppercase">$${c >= 1000 ? (c / 1000) + 'K' : c}</th>`).join('');
+
+            const body = document.getElementById('matrix-body');
+            body.innerHTML = risks.map(r => {
+                const isActiveRisk = r === state.risk;
+                return `<tr class="${isActiveRisk ? 'bg-amber-50/50' : ''}">
+                    <td class="sticky left-0 bg-white z-10 text-left">
+                        <div class="flex items-center gap-3">
+                            <div class="w-1 h-6 rounded-full ${isActiveRisk ? 'bg-amber-600' : 'bg-slate-100'}"></div>
+                            <div>
+                                <span class="block text-sm font-black text-slate-900">${r}%</span>
+                                <span class="text-[8px] font-bold text-slate-400 uppercase">risk/trade</span>
+                            </div>
+                        </div>
+                    </td>
+                    ${caps.map(c => {
+                        const res = calculateROI(state.tier, c, r);
+                        const band = MASTER_DATA.heat_bands.find(b => res.roi <= b.max);
+                        const isSelected = isActiveRisk && c === state.capital;
+                        return `
+                            <td onclick="openModal(${state.tier}, ${c}, ${r})" class="cursor-pointer hov-effect ${isSelected ? 'outline outline-2 outline-slate-900 z-10' : ''}">
+                                <div class="cell-profit">$${res.profit.toLocaleString()}</div>
+                                <div class="roi-chip" style="color: ${band.text}; background: ${band.bg}">${res.roi}%</div>
+                                <div class="text-[8px] font-bold text-slate-400 uppercase mt-1 tracking-tighter">$${(res.annual/1000).toFixed(1)}K/yr</div>
+                            </td>
+                        `;
+                    }).join('')}
+                </tr>`;
+            }).join('');
+        }
+
+        function openModal(tierIdx, cap, risk) {
+            const modal = document.getElementById('journeyModal');
+            const res = calculateROI(tierIdx, cap, risk);
+            const tier = MASTER_DATA.infra_tiers[tierIdx];
+            
+            document.getElementById('modal-title').innerText = `${tier.grade} | ${risk}% Risk`;
+            document.getElementById('m-start').innerText = `$${cap.toLocaleString()}`;
+            document.getElementById('m-profit').innerText = `$${res.profit.toLocaleString()}/mo`;
+            
+            // Simple compounding for 12 months
+            let list = '';
+            let current = cap;
+            for (let i = 1; i <= 12; i++) {
+                const monthly = calculateROI(tierIdx, current, risk);
+                current += monthly.profit;
+                list += `
+                    <div class="flex justify-between items-center p-4 bg-white rounded-2xl border border-slate-200">
+                        <span class="text-[10px] font-black uppercase text-slate-400">Month ${i}</span>
+                        <div class="text-right">
+                            <span class="block text-xs font-black text-slate-900">$${current.toLocaleString()}</span>
+                            <span class="text-[9px] font-bold text-teal-600">+$${monthly.profit.toLocaleString()} Profit</span>
+                        </div>
+                    </div>
+                `;
+            }
+            document.getElementById('m-yield').innerText = (((current - cap) / cap) * 100).toFixed(1) + '%';
+            document.getElementById('month-list').innerHTML = list;
+            
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('journeyModal').classList.remove('active');
+        }
+
+        // Desktop Dropdown Logic
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            const arrow = dropdown.querySelector('.dropdown-arrow');
+            if (arrow) {
+                arrow.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const isActive = dropdown.classList.contains('active');
+                    dropdowns.forEach(d => d.classList.remove('active'));
+                    if (!isActive) dropdown.classList.add('active');
+                });
+            }
+            dropdown.querySelectorAll('.dropdown-item').forEach(item => {
+                item.addEventListener('click', () => dropdown.classList.remove('active'));
+            });
+        });
+        window.addEventListener('click', function (event) {
+            if (!event.target.closest('.dropdown')) {
+                dropdowns.forEach(d => d.classList.remove('active'));
+            }
+            const modal = document.getElementById('journeyModal');
+            if (event.target == modal) closeModal();
+        });
+
+        // Mobile Menu
+        const mobileMenu = document.getElementById('mobile-menu');
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => mobileMenu.classList.remove('translate-x-full'));
+        document.getElementById('mobile-menu-close').addEventListener('click', () => mobileMenu.classList.add('translate-x-full'));
+        mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.add('translate-x-full')));
+
+        init();
+    </script>
+</body>
+</html>

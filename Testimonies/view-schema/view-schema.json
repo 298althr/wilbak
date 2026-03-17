@@ -1,0 +1,44 @@
+{
+  "phase1": {
+    "tag": "Phase 01: Ingestion",
+    "title": "Dirty Data Haircuts",
+    "cost": {
+      "labels": ["Base", "Infra", "Noise", "Latency"],
+      "data": [100, -7, -14, -0.08],
+      "colors": ["#2563EB", "#EF4444", "#F59E0B", "#EF4444"]
+    },
+    "risk": {
+      "labels": ["M1", "M2", "M3", "M4"],
+      "data": [98, 92, 95, 89],
+      "label": "Signal Integrity (%)"
+    }
+  },
+  "phase2": {
+    "tag": "Phase 02: Gate",
+    "title": "Safety Threshold Performance",
+    "cost": {
+      "labels": ["Raw", "Rejected", "Hardened"],
+      "data": [100, -92, 8],
+      "colors": ["#64748B", "#EF4444", "#0D9488"]
+    },
+    "risk": {
+      "labels": ["W1", "W2", "W3", "W4"],
+      "data": [0.5, 1.2, 0.8, 0.4],
+      "label": "Max Drawdown Trace (%)"
+    }
+  },
+  "phase3": {
+    "tag": "Phase 03: Exit",
+    "title": "Execution Efficiency",
+    "cost": {
+      "labels": ["Gross", "Slip", "Fee", "Net"],
+      "data": [92, -0.05, -0.15, 91.8],
+      "colors": ["#0D9488", "#EF4444", "#EF4444", "#2563EB"]
+    },
+    "risk": {
+      "labels": ["T1", "T2", "T3", "T4"],
+      "data": [99.8, 99.9, 99.7, 99.9],
+      "label": "Execution Reliability (%)"
+    }
+  }
+}

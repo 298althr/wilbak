@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "trading_days_per_month": 21,
+    "compounding_model": "linear_flat"
+  },
+  "configuration": {
+    "risk_steps_pct": [1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5],
+    "capital_levels_usd": [1000, 2000, 5000, 10000, 25000, 50000]
+  },
+  "infra_tiers": [
+    {
+      "tier_index": 0, "budget": 200, "label": "$200", "grade": "MVP", "tag": "Paper / Proof of Concept",
+      "params": { "win_rate": 0.516, "rr": 1.26, "trades": 10, "slip": 0.0048, "ef": 0.57 },
+      "reality": { "uptime": 91, "latency": 2800, "quality": 87, "haircut": "43%", "notes": "MVP is intentionally conservative. Free-tier API response 800-3500ms." }
+    },
+    {
+      "tier_index": 1, "budget": 500, "label": "$500", "grade": "Early Live", "tag": "First Live Capital",
+      "params": { "win_rate": 0.526, "rr": 1.34, "trades": 14, "slip": 0.0038, "ef": 0.61 },
+      "reality": { "uptime": 93.5, "latency": 1200, "quality": 89, "haircut": "39%", "notes": "Real fills introduce slippage. News arrives 2-5 seconds late." }
+    },
+    {
+      "tier_index": 2, "budget": 1000, "label": "$1K", "grade": "Semi-Pro", "tag": "L2 Order Book Active",
+      "params": { "win_rate": 0.536, "rr": 1.44, "trades": 16, "slip": 0.0028, "ef": 0.65 },
+      "reality": { "uptime": 95.5, "latency": 480, "quality": 91, "haircut": "35%", "notes": "L2 Order book provides genuine edge on entry timing." }
+    },
+    {
+      "tier_index": 3, "budget": 2000, "label": "$2K", "grade": "Institutional", "tag": "Full 11-Node Pipeline",
+      "params": { "win_rate": 0.544, "rr": 1.54, "trades": 16, "slip": 0.0022, "ef": 0.69 },
+      "reality": { "uptime": 97, "latency": 210, "quality": 93, "haircut": "31%", "notes": "RL execution node makes limit/market decisions. Full audit trail." }
+    },
+    {
+      "tier_index": 4, "budget": 5000, "label": "$5K", "grade": "Professional", "tag": "Co-Location + Multi-Asset",
+      "params": { "win_rate": 0.553, "rr": 1.65, "trades": 16, "slip": 0.0016, "ef": 0.73 },
+      "reality": { "uptime": 98.2, "latency": 55, "quality": 95, "haircut": "27%", "notes": "Co-located VPS in same datacenter as IBKR engine." }
+    },
+    {
+      "tier_index": 5, "budget": 10000, "label": "$10K", "grade": "Full Institutional", "tag": "Nanosecond + HFT-Lite",
+      "params": { "win_rate": 0.561, "rr": 1.78, "trades": 15, "slip": 0.0011, "ef": 0.77 },
+      "reality": { "uptime": 99.1, "latency": 12, "quality": 97, "haircut": "23%", "notes": "Maximum edge. 15 trades/month reflects highest-conviction setups only." }
+    }
+  ],
+  "heat_bands": [
+    { "max": 0, "text": "#64748B", "bg": "#F1F5F9" },
+    { "max": 3, "text": "#92400E", "bg": "#FFFBEB" },
+    { "max": 6, "text": "#0369A1", "bg": "#F0F9FF" },
+    { "max": 12, "text": "#0D9488", "bg": "#F0FDFA" },
+    { "max": 25, "text": "#6D28D9", "bg": "#F5F3FF" },
+    { "max": 999, "text": "#9F1239", "bg": "#FFF1F2" }
+  ]
+}

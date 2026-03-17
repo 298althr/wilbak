@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Alpha Network | T5 Institutional Matrix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0F172A;
+            --gold: #B5932F;
+            --platinum: #F1F5F9;
+            --blue: #2563EB;
+            --teal: #0D9488;
+            --glass: rgba(255, 255, 255, 0.7);
+            --border: rgba(15, 23, 42, 0.08);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FDFDFD;
+            color: #1E293B;
+            overflow-x: hidden;
+        }
+
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .platinum-card {
+            background: linear-gradient(165deg, #0F172A 0%, #1E293B 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 40px 80px -20px rgba(15, 23, 42, 0.4);
+        }
+
+        .selector-btn {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
+        }
+
+        .selector-btn.active {
+            background: var(--ink);
+            color: white;
+            border-color: var(--ink);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -8px rgba(15, 23, 42, 0.2);
+        }
+
+        .node-box {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            background: #F1F5F9;
+            transition: 0.5s;
+            border: 1px solid var(--border);
+        }
+
+        .node-box.active {
+            background: var(--teal);
+            box-shadow: 0 0 25px rgba(13, 148, 136, 0.4);
+            border-color: var(--teal);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .chart-glow {
+            filter: drop-shadow(0px 10px 15px rgba(37, 99, 235, 0.1));
+        }
+    </style>
+</head>
+
+<body class="p-4 md:p-12 lg:p-16">
+
+    <div class="max-w-7xl mx-auto">
+        <div class="mb-16 p-8 bg-white border border-slate-100 rounded-[40px] shadow-sm">
+            <div class="flex justify-between items-center mb-8 px-2">
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></div>
+                    <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-[0.2em]">Institutional
+                        Asset Database T5</span>
+                </div>
+                <span class="text-[10px] font-bold text-teal-600 uppercase bg-teal-50 px-3 py-1 rounded-full">Live
+                    Collateral Active</span>
+            </div>
+            <div class="flex gap-4 overflow-x-auto pb-4 custom-scrollbar" id="partner-nav"></div>
+        </div>
+
+        <header class="mb-24 grid lg:grid-cols-2 gap-12 items-end">
+            <div>
+                <div class="flex items-center gap-4 mb-8">
+                    <div id="ui-avatar"
+                        class="w-16 h-16 bg-slate-900 rounded-[22px] flex items-center justify-center text-white font-bold text-2xl">
+                    </div>
+                    <div>
+                        <span id="ui-tier"
+                            class="px-4 py-1.5 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase tracking-widest border border-slate-200"></span>
+                        <p id="ui-asset" class="text-[11px] text-blue-600 font-bold uppercase mt-2"></p>
+                    </div>
+                </div>
+                <h1 id="ui-hero"
+                    class="serif text-5xl md:text-7xl lg:text-8xl mb-8 leading-[1.05] text-slate-900 tracking-tight">
+                </h1>
+            </div>
+            <div class="pb-4">
+                <p id="ui-sub" class="text-2xl text-slate-500 font-light leading-relaxed"></p>
+            </div>
+        </header>
+
+        <section class="grid lg:grid-cols-12 gap-16 mb-32">
+            <div class="lg:col-span-7">
+                <div class="p-1 w-20 bg-blue-600 mb-12"></div>
+                <div id="ui-testimony" class="space-y-10 text-2xl text-slate-700 font-light leading-relaxed italic">
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 space-y-8">
+                <div id="platinum-card"
+                    class="platinum-card p-12 rounded-[50px] text-white relative overflow-hidden hidden">
+                    <div class="absolute -top-24 -right-24 w-80 h-80 bg-blue-500/10 rounded-full blur-[80px]"></div>
+                    <div class="relative z-10">
+                        <span class="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em]">Sovereign
+                            Tier</span>
+                        <h4 class="serif text-4xl mt-6 mb-4">Institutional Core</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed font-light mb-8">Full 11-node authorization.
+                            Reserved for L1 liquidity anchors with a 72-month locked-horizon commitment.</p>
+                        <div class="grid grid-cols-2 gap-8 border-t border-slate-800 pt-8">
+                            <div>
+                                <p class="text-[9px] text-slate-500 uppercase font-black mb-1">Authorization</p>
+                                <p class="text-2xl font-bold text-slate-200">Full Matrix</p>
+                            </div>
+                            <div>
+                                <p class="text-[9px] text-slate-500 uppercase font-black mb-1">Horizon</p>
+                                <p class="text-2xl font-bold text-slate-200">72 Months</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-slate-100 p-10 rounded-[50px] shadow-xl shadow-slate-200/50">
+                    <p class="text-[10px] font-black text-slate-400 uppercase mb-4 tracking-widest">Collateral Value
+                        (USD Equivalent)</p>
+                    <h4 id="ui-val" class="serif text-5xl text-slate-900 mb-10"></h4>
+
+                    <div class="space-y-6 pt-10 border-t border-slate-50">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Alpha
+                                Curve</span>
+                            <span id="ui-months"
+                                class="text-[10px] font-black text-blue-600 px-3 py-1 bg-blue-50 rounded-full"></span>
+                        </div>
+                        <div class="chart-glow">
+                            <canvas id="miniChart" height="160"></canvas>
+                        </div>
+                    </div>
+
+                    <button onclick="toggleModal()"
+                        class="w-full mt-10 py-6 bg-slate-900 text-white rounded-[24px] text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-600 transition-all shadow-xl">Deep
+                        Data Analysis</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="bg-white border border-slate-100 rounded-[60px] p-16 shadow-sm mb-32">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <h3 class="serif text-4xl mb-2 text-slate-900">Alpha-to-Asset Pipeline</h3>
+                    <p id="ui-node-status" class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em]"></p>
+                </div>
+                <div id="radar-box" class="w-32 h-32 opacity-80">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+
+            <div id="nodeGrid" class="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-11 gap-4 mb-16"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 pt-12 border-t border-slate-100">
+                <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                    <p class="text-[9px] font-black text-blue-600 mb-2">01. INGEST</p>
+                    <p class="text-xs font-bold text-slate-800">Physical Asset Collateralization</p>
+                </div>
+                <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                    <p class="text-[9px] font-black text-blue-600 mb-2">02. ANALYZE</p>
+                    <p class="text-xs font-bold text-slate-800">72.4% AI Regime Verification</p>
+                </div>
+                <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                    <p class="text-[9px] font-black text-blue-600 mb-2">03. SHIELD</p>
+                    <p class="text-xs font-bold text-slate-800">Hard Breaker Volatility Protection</p>
+                </div>
+                <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                    <p class="text-[9px] font-black text-blue-600 mb-2">04. EXECUTE</p>
+                    <p class="text-xs font-bold text-slate-800">Institutional IBKR Pipeline</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="scalingModal" class="modal">
+        <div class="bg-white rounded-[60px] w-full max-w-6xl p-16 relative shadow-2xl overflow-y-auto max-h-[90vh]">
+            <button onclick="toggleModal()" class="absolute top-12 right-12 text-4xl font-light">✕</button>
+            <h2 id="modal-name" class="serif text-5xl mb-2"></h2>
+            <p id="modal-sub" class="text-xl text-slate-400 mb-12"></p>
+            <div class="bg-slate-50 p-12 rounded-[50px] border border-slate-100 mb-10">
+                <canvas id="mainChart" height="150"></canvas>
+            </div>
+            <div id="modal-disc"
+                class="p-10 bg-slate-900 text-slate-400 rounded-[35px] text-xs leading-loose font-medium border-l-[12px] border-blue-600">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DRAMA ENGINE: Generates a realistic "Stock Market" path with dips, flat zones, and upward breakouts.
+        function generateDrama(start, months, volBase, trend) {
+            let data = [start];
+            let current = start;
+            for (let i = 1; i < months; i++) {
+                let regime = Math.random();
+                let change = 0;
+                if (regime > 0.85) change = current * (Math.random() * volBase * -1.5); // Drama Dip
+                else if (regime > 0.7) change = current * (Math.random() * 0.005); // Consolidation
+                else change = current * (Math.random() * volBase) * trend; // Growth
+                current += change;
+                if (current < start * 0.75) current = start * 0.8; // Hard Breaker Floor
+                data.push(Math.round(current));
+            }
+            return data;
+        }
+
+        const DATABASE = {
+            thorne: {
+                name: "Thorne-Blackwood", tier: "Institutional Tier", asset: "L1 Liquidity Pool Anchor",
+                hero: "The 72-Month Institutional Standard.",
+                sub: "A six-year evolution using a high-liquidity anchor to survive three global regime shifts.",
+                start: 2000000, nodes: 11, months: 72,
+                testimony: [
+                    "We didn't enter for short-term gains. We required an infrastructure that could handle an L1 Liquidity Pool anchor without execution slippage.",
+                    "Over 72 months, the 'drama' on our chart reflects the system's Hard Breaker in action. When the market shifted in Month 24, the engine throttled back, preserving our collateral until the 72.4% confidence gate reopened.",
+                    "Today, this partnership is the platinum standard for how institutional capital should be managed."
+                ],
+                pnl: generateDrama(2000000, 72, 0.06, 1.3),
+                disc: "Institutional Sovereign Model. 72-Month Backtest. Baseline: 1.5% Position Risk."
+            },
+            beijing: {
+                name: "Beijing Power", tier: "Power House Tier", asset: "Industrial Energy Credits",
+                hero: "Beijing Power: Direct Surrogate Integration.",
+                sub: "Overcoming 12-hour latency through an automated 11-node proxy since 2021.",
+                start: 190000, nodes: 11, months: 36,
+                testimony: [
+                    "We needed a system that acted as a Western proxy while Beijing slept. Our energy credit reserves were the collateral base.",
+                    "The volatility you see in Year 2 was localized latency on our end. The engine adapted by integrating a Language Logic Gate, removing execution drag."
+                ],
+                pnl: generateDrama(190000, 36, 0.08, 1.4),
+                disc: "Power House Tier. 36-Month Data. Energy Credit Collateral Model."
+            },
+            northstar: {
+                name: "NorthStar Motors", tier: "Strategic Partner", asset: "4 Luxury Vehicles",
+                hero: "NorthStar: Breeding Asset Alpha.",
+                sub: "Converting physical automobile inventory into a $600k terminal liquidity engine over 36 months.",
+                start: 150000, nodes: 10, months: 36,
+                testimony: [
+                    "We used our 4 luxury vehicles—dead showroom assets—as our anchor. Year 1 was messy, with a dip to $150k after a spike.",
+                    "Recalibrating in Month 7 led to 'Subtle Stability.' The engine now breeds margins while ignoring market noise."
+                ],
+                // Hardcoded to match specific story drama
+                pnl: [150000, 320000, 480000, 700000, 400000, 250000, 150000, 300000, 450000, 550000, 600000, 615000, 605000, 600000, 610000, 620000, 615000, 610000, 605000, 600000, 610000, 615000, 620000, 615000, 610000, 605000, 600000, 610000, 615000, 620000, 615000, 610000, 605000, 600000, 610000, 605000],
+                disc: "Strategic Tier. 36-Month Historical. Recalibrated in Month 7."
+            },
+            dubai_gold: {
+                name: "Oudh & Gold", tier: "Power House Tier", asset: "10kg Physical Gold Reserve",
+                hero: "Oudh & Gold: The Fragrance of Resilience.",
+                sub: "Translating 26 months of retail spikes into a smooth family office growth curve via physical gold buffering.",
+                start: 620000, nodes: 11, months: 26,
+                testimony: [
+                    "Retail jewelry spikes in Dubai are unpredictable. We used our gold reserve as a volatility buffer. The engine uses this physical anchor to trade with zero fear.",
+                    "Even when retail was slow, the gold-backed alpha was consistent. The 'steady' sections on our chart show the engine waiting for alignment."
+                ],
+                pnl: generateDrama(620000, 26, 0.05, 1.4),
+                disc: "Power House Tier. 26-Month Physical Asset Buffer."
+            },
+            valle_oro: {
+                name: "Valle de Oro", tier: "Growth Tier", asset: "4k Barrels of Seasonal Wine",
+                hero: "Mexico Wine: Seasonal Fermentation.",
+                sub: "Converting a once-a-year harvest yield into a 24-month perpetual liquidity cycle.",
+                start: 45000, nodes: 8, months: 24,
+                testimony: [
+                    "Wineries are cash-starved during growing months. Our barrel equity became the foundation.",
+                    "The chart shows the 'Harvest Gap'—the engine maintains our payroll during the off-season. It's a business life-support system."
+                ],
+                pnl: generateDrama(45000, 24, 0.12, 1.2),
+                disc: "Growth Tier. 24-Month SME Model. 22% Haircut applied."
+            }
+        };
+
+        let activeM = null, activeL = null, activeR = null;
+
+        function init() {
+            const nav = document.getElementById('partner-nav');
+            nav.innerHTML = Object.keys(DATABASE).map(k => `
+                <button onclick="select('${k}', this)" class="selector-btn px-6 py-3 rounded-2xl bg-white text-[10px] font-black uppercase tracking-widest">${DATABASE[k].name}</button>
+            `).join('');
+            select('thorne', nav.children[0]);
+        }
+
+        function select(key, btn) {
+            document.querySelectorAll('.selector-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const d = DATABASE[key];
+
+            document.getElementById('ui-avatar').innerText = d.name.substring(0, 2);
+            document.getElementById('ui-tier').innerText = d.tier;
+            document.getElementById('ui-asset').innerText = d.asset;
+            document.getElementById('ui-hero').innerText = d.hero;
+            document.getElementById('ui-sub').innerText = d.sub;
+            document.getElementById('ui-val').innerText = '$' + d.start.toLocaleString();
+            document.getElementById('ui-testimony').innerHTML = d.testimony.map(p => `<p>"${p}"</p>`).join('');
+            document.getElementById('ui-months').innerText = `${d.months} Months`;
+            document.getElementById('ui-node-status').innerText = `${d.nodes}/11 Nodes Authorized for ${d.name}`;
+
+            const plat = document.getElementById('platinum-card');
+            if (d.tier === "Institutional Tier") plat.classList.remove('hidden'); else plat.classList.add('hidden');
+
+            // NODES
+            const nodes = ["L2 DEPTH", "ORATS GREEKS", "SENTIMENT", "RL EXEC", "HARD BREAKER", "REGIME DETECT", "VOL BIAS", "FLOW SCAN", "SKEW ADJ", "LIQ NODE", "IBKR PIPE"];
+            document.getElementById('nodeGrid').innerHTML = nodes.map((n, i) => `
+                <div class="flex flex-col items-center gap-3">
+                    <div class="node-box ${i < d.nodes ? 'active' : ''}"></div>
+                    <span class="text-[7px] text-slate-400 font-bold text-center uppercase">${n}</span>
+                </div>
+            `).join('');
+
+            renderCharts(d);
+        }
+
+        function renderCharts(d) {
+            const ctxM = document.getElementById('miniChart').getContext('2d');
+            if (activeM) activeM.destroy();
+            activeM = new Chart(ctxM, {
+                type: 'line',
+                data: { labels: d.pnl.map((_, i) => i), datasets: [{ data: d.pnl, borderColor: '#2563EB', borderWidth: 2, pointRadius: 0, fill: true, backgroundColor: 'rgba(37,99,235,0.02)', tension: 0.4 }] },
+                options: { plugins: { legend: false }, scales: { x: { display: false }, y: { display: false } } }
+            });
+
+            const ctxL = document.getElementById('mainChart').getContext('2d');
+            if (activeL) activeL.destroy();
+            document.getElementById('modal-name').innerText = d.name;
+            document.getElementById('modal-sub').innerText = `${d.months}-Month Performance Tracking`;
+            document.getElementById('modal-disc').innerText = d.disc;
+            activeL = new Chart(ctxL, {
+                type: 'line',
+                data: { labels: d.pnl.map((_, i) => `M${i + 1}`), datasets: [{ data: d.pnl, borderColor: '#2563EB', borderWidth: 4, pointRadius: d.months > 40 ? 0 : 4, fill: true, backgroundColor: 'rgba(37,99,235,0.05)', tension: 0.3 }] },
+                options: { plugins: { legend: false }, scales: { y: { ticks: { callback: v => '$' + v.toLocaleString() } } } }
+            });
+
+            const ctxR = document.getElementById('radarChart').getContext('2d');
+            if (activeR) activeR.destroy();
+            activeR = new Chart(ctxR, {
+                type: 'radar',
+                data: {
+                    labels: ['Prec', 'Lat', 'Risk', 'Up', 'Alpha', 'Liq'],
+                    datasets: [{ data: d.nodes >= 11 ? [98, 99, 95, 99, 92, 96] : [85, 90, 99, 95, 78, 88], backgroundColor: 'rgba(37, 99, 235, 0.05)', borderColor: '#2563EB', borderWidth: 1, pointRadius: 0 }]
+                },
+                options: { scales: { r: { display: false } }, plugins: { legend: false } }
+            });
+        }
+
+        function toggleModal() { document.getElementById('scalingModal').classList.toggle('active'); }
+        init();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Partners | ORTHOM8pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <link href="../assets/css/global.css" rel="stylesheet">
+    <style>
+        /* HERO IMAGE CONTAINER */
+        .hero-image {
+            width: 100%;
+            height: 480px;
+            border-radius: 48px;
+            background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.6) 100%);
+        }
+
+        /* PARTNER SELECTOR BUTTONS */
+        .selector-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
+            white-space: nowrap;
+        }
+        .selector-btn.active {
+            background: var(--ink);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -5px rgba(15, 23, 42, 0.2);
+        }
+
+        /* FADE IN ANIMATION */
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out both;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CUSTOM SCROLLBAR FOR MODAL */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* MODAL METRICS CHIPS */
+        .metric-chip {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px 20px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            gap: 4px;
+        }
+        .metric-chip .val {
+            font-size: 22px;
+            font-weight: 900;
+            color: #0F172A;
+        }
+        .metric-chip .lbl {
+            font-size: 8px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="blueprint-bg"></div>
+    <div class="orb bg-blue-400 w-[600px] h-[600px] -top-20 -left-20"></div>
+    <div class="orb bg-teal-400 w-[500px] h-[500px] bottom-0 -right-20"></div>
+
+    <!-- NAVIGATION -->
+    <nav class="app-header">
+        <div class="flex items-center gap-3">
+            <a href="../index.html" class="brand-link">
+                <div class="brand-icon">O8</div>
+                <span class="brand-text">ORTHOM8pro</span>
+            </a>
+        </div>
+        <div class="flex items-center gap-4">
+            <!-- Desktop Nav -->
+            <div class="desktop-nav">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../index.html#engine" class="nav-link">The Engine</a>
+                <a href="../index.html#performance" class="nav-link">Performance</a>
+                <div class="dropdown">
+                    <a href="../testimony/master-matrix.html" class="dropdown-trigger nav-link flex items-center gap-1 group">
+                        <span>Testimonies</span>
+                        <svg class="dropdown-arrow w-3 h-3 cursor-pointer group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="../testimony/master-matrix.html?partner=thorne" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-slate-900"></div><span>Thorne-Blackwood</span></a>
+                        <a href="../testimony/master-matrix.html?partner=beijing" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-blue-600"></div><span>Beijing Power</span></a>
+                        <a href="../testimony/master-matrix.html?partner=northstar" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-amber-500"></div><span>NorthStar Motors</span></a>
+                        <a href="../testimony/master-matrix.html?partner=dubai_auto" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-slate-400"></div><span>Al-Maktoum Auto</span></a>
+                        <a href="../testimony/master-matrix.html?partner=oudh" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-yellow-600"></div><span>Oudh & Gold</span></a>
+                        <a href="../testimony/master-matrix.html?partner=agri" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-green-600"></div><span>Agri-Growth</span></a>
+                        <a href="../testimony/master-matrix.html?partner=valle" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-red-400"></div><span>Valle de Oro</span></a>
+                        <a href="../testimony/master-matrix.html?partner=keystone" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-slate-500"></div><span>Keystone CM</span></a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="../view-schema/view-schema.html" class="dropdown-trigger nav-link flex items-center gap-1 group">
+                        <span>View Schema</span>
+                        <svg class="dropdown-arrow w-3 h-3 cursor-pointer group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="../view-schema/view-schema.html#pipeline" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-blue-600"></div><span>Phase 01: Ingest</span></a>
+                        <a href="../view-schema/view-schema.html#pipeline" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-teal-500"></div><span>Phase 02: Gate</span></a>
+                        <a href="../view-schema/view-schema.html#pipeline" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-slate-900"></div><span>Phase 03: Exit</span></a>
+                    </div>
+                </div>
+                <a href="../risktable/investor-risk-matrix.html" class="nav-link">Risk Analysis</a>
+            </div>
+            <a href="../submit-asset/submit-asset.html" class="cta-outline">Audit Asset</a>
+            
+            <!-- Mobile Hamburger -->
+            <button id="mobile-menu-btn" class="hamburger-btn" aria-label="Open menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="mobile-menu-panel translate-x-full">
+        <div class="mobile-menu-header">
+            <div class="flex items-center gap-3">
+                <div class="brand-icon">O8</div>
+                <span class="brand-text">ORTHOM8pro</span>
+            </div>
+            <button id="mobile-menu-close" class="p-2" aria-label="Close menu">
+                <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <nav class="mobile-nav-list">
+            <a href="../index.html" class="mobile-nav-link">Home</a>
+            <a href="../index.html#engine" class="mobile-nav-link">The Engine</a>
+            <a href="../index.html#performance" class="mobile-nav-link">Performance</a>
+            <a href="../testimony/master-matrix.html" class="mobile-nav-link">Testimonies</a>
+            <div class="mobile-sub-nav">
+                <a href="../testimony/master-matrix.html?partner=thorne" class="mobile-sub-link">→ Thorne-Blackwood</a>
+                <a href="../testimony/master-matrix.html?partner=beijing" class="mobile-sub-link">→ Beijing Power</a>
+                <a href="../testimony/master-matrix.html?partner=northstar" class="mobile-sub-link">→ NorthStar Motors</a>
+                <a href="../testimony/master-matrix.html?partner=dubai_auto" class="mobile-sub-link">→ Al-Maktoum Auto</a>
+                <a href="../testimony/master-matrix.html?partner=oudh" class="mobile-sub-link">→ Oudh &amp; Gold</a>
+                <a href="../testimony/master-matrix.html?partner=agri" class="mobile-sub-link">→ Agri-Growth</a>
+                <a href="../testimony/master-matrix.html?partner=valle" class="mobile-sub-link">→ Valle de Oro</a>
+                <a href="../testimony/master-matrix.html?partner=keystone" class="mobile-sub-link">→ Keystone CM</a>
+            </div>
+            <a href="../view-schema/view-schema.html" class="mobile-nav-link">View Schema</a>
+            <div class="mobile-sub-nav">
+                <a href="../view-schema/view-schema.html#pipeline" class="mobile-sub-link">→ Phase 01: Ingest</a>
+                <a href="../view-schema/view-schema.html#pipeline" class="mobile-sub-link">→ Phase 02: Gate</a>
+                <a href="../view-schema/view-schema.html#pipeline" class="mobile-sub-link">→ Phase 03: Exit</a>
+            </div>
+            <a href="../risktable/investor-risk-matrix.html" class="mobile-nav-link">Risk Analysis</a>
+        </nav>
+        <div class="mt-auto">
+            <a href="../submit-asset/submit-asset.html" class="cta-primary w-full text-center block">Audit Asset</a>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-12 relative z-20">
+        <!-- HERO AREA -->
+        <section class="mb-12 sm:mb-24">
+            <div class="hero-image mb-8 sm:mb-16 flex flex-col justify-end p-6 sm:p-12">
+                <div class="max-w-3xl">
+                    <span class="text-[10px] font-black text-white/60 uppercase tracking-[0.4em] mb-4 block">Archive Selection</span>
+                    <h1 class="serif text-4xl sm:text-6xl md:text-8xl text-white mb-4 sm:mb-6 leading-none">The Sovereign <br><span class="italic font-light">Testimony Archive.</span></h1>
+                    <p class="text-base sm:text-xl text-white/80 font-light max-w-2xl">A curated repository of institutional growth arcs, liquidity translations, and node-hardened performance history.</p>
+                </div>
+            </div>
+
+            <!-- PARTNER SELECTOR -->
+            <div class="flex gap-3 overflow-x-auto pb-4 no-scrollbar" id="partner-nav"></div>
+        </section>
+
+        <!-- DYNAMIC CONTENT HEADER -->
+        <section class="grid lg:grid-cols-12 gap-8 lg:gap-16 mb-12 sm:mb-24 items-start">
+            <div class="lg:col-span-7 fade-in">
+                <div class="flex items-center gap-4 sm:gap-6 mb-8 sm:mb-10">
+                    <div id="ui-avatar" class="w-12 h-12 sm:w-16 sm:h-16 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-bold text-lg sm:text-xl uppercase shadow-xl"></div>
+                    <div>
+                        <span id="ui-tier" class="px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-[9px] font-black uppercase tracking-widest border border-blue-100"></span>
+                        <p id="ui-asset" class="text-[10px] text-slate-500 font-bold uppercase mt-2 tracking-wider"></p>
+                    </div>
+                </div>
+                <h2 id="ui-hero" class="serif text-3xl sm:text-5xl md:text-7xl mb-6 sm:mb-8 leading-[1.1] text-slate-900 tracking-tight"></h2>
+                <div id="ui-reporting" class="space-y-6 sm:space-y-10 text-lg sm:text-2xl text-slate-700 font-light leading-relaxed italic border-l-2 border-slate-200 pl-6 sm:pl-10 ml-1 sm:ml-2"></div>
+            </div>
+
+            <div class="lg:col-span-5 space-y-8">
+                <!-- DYNAMIC TIER CARD -->
+                <div id="tier-card" class="card-base transition-all duration-700">
+                    <span id="card-status" class="text-[10px] font-black uppercase tracking-[0.4em] opacity-60"></span>
+                    <h4 id="card-title" class="serif text-4xl mt-6 mb-4"></h4>
+                    <p id="card-desc" class="text-sm font-light leading-relaxed mb-10 opacity-70"></p>
+                    
+                    <div class="grid grid-cols-2 gap-10 border-t border-current border-opacity-10 pt-10">
+                        <div>
+                            <p class="text-[9px] uppercase font-black opacity-50 tracking-tighter">Auth Nodes</p>
+                            <p id="card-nodes" class="text-2xl font-bold"></p>
+                        </div>
+                        <div>
+                            <p class="text-[9px] uppercase font-black opacity-50 tracking-tighter">Time Horizon</p>
+                            <p id="card-horizon" class="text-2xl font-bold"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VALUE CARD -->
+                <div class="bg-white border border-slate-100 p-10 rounded-[48px] shadow-2xl relative shadow-slate-200/50">
+                    <div class="flex justify-between items-start mb-10">
+                        <div>
+                            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Anchor Collateral Value</p>
+                            <h4 id="ui-val" class="serif text-5xl text-slate-900"></h4>
+                        </div>
+                        <div class="bg-teal-50 px-4 py-2 rounded-xl border border-teal-100 italic">
+                            <span id="ui-confidence" class="text-[9px] font-black text-teal-600"></span>
+                        </div>
+                    </div>
+                    <div class="mb-10">
+                        <canvas id="miniChart" height="120"></canvas>
+                    </div>
+                    <button onclick="toggleModal()" class="w-full py-6 bg-slate-900 text-white rounded-[24px] text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-600 transition-all active:scale-[0.98] shadow-xl shadow-slate-900/10">Analyze Performance Ledger</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- MATRIX SECTION -->
+        <section class="glass-card p-6 sm:p-12 md:p-16 mb-16 sm:mb-24">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-6 sm:gap-8 mb-10 sm:mb-16">
+                <div class="max-w-xl">
+                    <h3 class="serif text-3xl sm:text-4xl mb-3">Hardened Logic Matrix</h3>
+                    <p id="ui-node-status" class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.4em]"></p>
+                </div>
+                <div id="ui-hardening-badges" class="flex gap-4 overflow-x-auto no-scrollbar pb-2"></div>
+            </div>
+            <div id="nodeGrid" class="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-11 gap-3 md:gap-6"></div>
+        </section>
+    </main>
+
+    <!-- PERFORMANCE MODAL -->
+    <div id="performanceModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-6 bg-slate-900/90 backdrop-blur-xl transition-all">
+        <div class="bg-white w-full max-w-5xl rounded-[56px] p-12 max-h-[90vh] overflow-y-auto relative custom-scrollbar">
+            <button onclick="toggleModal()" class="absolute top-10 right-10 w-12 h-12 flex items-center justify-center rounded-full border border-slate-100 hover:rotate-90 transition-transform text-2xl font-light">✕</button>
+            
+            <div class="mb-12">
+                <span class="px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-[9px] font-black uppercase tracking-widest border border-blue-100">Audit Milestone Report</span>
+                <h2 id="modal-name" class="serif text-6xl text-slate-900 mt-8 mb-4"></h2>
+                <p id="modal-period" class="text-xl text-slate-500 font-light"></p>
+            </div>
+
+            <!-- PERFORMANCE METRICS ROW -->
+            <div id="modal-metrics" class="flex flex-wrap gap-4 mb-10"></div>
+
+            <div class="grid lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-8">
+                    <div class="p-8 bg-slate-50 rounded-[40px] border border-slate-100 shadow-inner">
+                        <canvas id="mainChart" height="240"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-4 space-y-6">
+                    <div class="p-8 bg-slate-900 text-slate-400 rounded-[32px] text-xs leading-relaxed font-light border-l-[8px] border-blue-600 shadow-xl" id="modal-disc"></div>
+                    <div class="p-8 border border-slate-100 rounded-[32px]">
+                        <h5 class="text-[9px] font-black text-blue-600 uppercase mb-6 tracking-widest">Engine Drama Events</h5>
+                        <div id="ui-events" class="space-y-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="py-20 bg-slate-50 border-t border-slate-200 relative z-20">
+        <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white text-[10px] font-black">O8</div>
+                    <span class="text-[10px] font-black uppercase tracking-[0.2em]">ORTHOM8pro</span>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed font-medium">Providing sovereign-grade signal intelligence and liquid execution anchors for the modern investor archive.</p>
+            </div>
+            <div>
+                <h6 class="text-[10px] font-black uppercase tracking-widest mb-6 text-slate-900">Architecture</h6>
+                <ul class="text-[10px] font-bold text-slate-400 space-y-4 uppercase tracking-widest">
+                    <li class="hover:text-blue-600 cursor-pointer">Terminal Hub</li>
+                    <li class="hover:text-blue-600 cursor-pointer">Logic Nodes</li>
+                    <li class="hover:text-blue-600 cursor-pointer">Audit Ledger</li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="text-[10px] font-black uppercase tracking-widest mb-6 text-slate-900">Governance</h6>
+                <ul class="text-[10px] font-bold text-slate-400 space-y-4 uppercase tracking-widest">
+                    <li class="hover:text-blue-600 cursor-pointer">Sovereign Tiers</li>
+                    <li class="hover:text-blue-600 cursor-pointer">Risk Reality</li>
+                    <li class="hover:text-blue-600 cursor-pointer">KYC Ingest</li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="text-[10px] font-black uppercase tracking-widest mb-6 text-slate-900">Security</h6>
+                <div class="p-4 bg-white rounded-2xl border border-slate-200">
+                    <p class="text-[8px] font-black uppercase text-slate-400 mb-2">Network Status</p>
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-teal-500"></div>
+                        <span class="text-[9px] font-black text-slate-900 uppercase tracking-widest">SHA-512 Encrypted</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-8 mt-20 pt-10 border-t border-slate-200 text-center">
+            <p class="text-[8px] font-black text-slate-300 uppercase tracking-[0.5em]">© 2024 ORTHOM8pro | Sovereign Institutional Grade</p>
+        </div>
+    </footer>
+
+    <script>
+        let MASTER_DATA = null;
+        let activeM = null, activeL = null;
+
+        // Show a minimal loading state while JSON fetches
+        document.getElementById('partner-nav').innerHTML = `
+            <div class="flex items-center gap-3 px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                <div class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></div>
+                Loading Partner Archive...
+            </div>
+        `;
+
+        fetch('./master-matrix.json')
+            .then(r => { if (!r.ok) throw new Error('Network response not ok'); return r.json(); })
+            .then(data => { MASTER_DATA = data; init(); })
+            .catch(err => {
+                console.error('Failed to load master-matrix.json:', err);
+                document.getElementById('partner-nav').innerHTML = `
+                    <div class="px-8 py-4 text-[10px] font-black text-red-500 uppercase tracking-widest">
+                        ⚠ Data load failed. Serve this page via HTTP (not file://).
+                    </div>
+                `;
+            });
+
+
+
+
+        function init() {
+            // Populate nav
+            const nav = document.getElementById('partner-nav');
+            
+            nav.innerHTML = Object.keys(MASTER_DATA).map(k => `
+                <button onclick="select('${k}', this)" data-key="${k}" class="selector-btn shrink-0 px-8 py-4 rounded-2xl bg-white text-[10px] font-black uppercase tracking-widest">
+                    ${MASTER_DATA[k].identity.name}
+                </button>
+            `).join('');
+
+            // Deep link support
+            const urlParams = new URLSearchParams(window.location.search);
+            const partnerKey = urlParams.get('partner');
+            if (partnerKey && MASTER_DATA[partnerKey]) {
+                const btn = Array.from(nav.children).find(b => b.getAttribute('data-key') === partnerKey);
+                select(partnerKey, btn || nav.children[0], true);
+            } else {
+                select('thorne', nav.children[0], true);
+            }
+        }
+
+        function select(k, btn, isInitial = false) {
+            document.querySelectorAll('.selector-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const d = MASTER_DATA[k];
+            const meta = d.identity;
+            const content = d.narrative;
+            const tech = d.technical_matrix;
+
+            // Header UI
+            document.getElementById('ui-avatar').innerText = meta.avatar;
+            document.getElementById('ui-tier').innerText = meta.tier;
+            document.getElementById('ui-asset').innerText = meta.asset_collateral;
+            document.getElementById('ui-hero').innerText = content.hero;
+            document.getElementById('ui-reporting').innerHTML = content.reporting.map(p => `<p class="fade-slide">"${p}"</p>`).join('');
+
+            // Tier Card UI — fully data-driven
+            const tc = document.getElementById('tier-card');
+            tc.className = `card-base card-${meta.tier_card_type} transition-all duration-700`;
+            document.getElementById('card-status').innerText = `Status: ${meta.status}`;
+            document.getElementById('card-title').innerText = meta.name;
+            document.getElementById('card-desc').innerText = content.sub;
+            document.getElementById('card-nodes').innerText = `${tech.nodes_active} Nodes`;
+            document.getElementById('card-horizon').innerText = meta.horizon;
+
+            // Metrics & Confidence
+            document.getElementById('ui-val').innerText = '$' + meta.initial_collateral_value.toLocaleString();
+            document.getElementById('ui-confidence').innerText = tech.confidence_gate + ' AI Confidence';
+            document.getElementById('ui-node-status').innerText = `${tech.nodes_active}/11 Sovereign Nodes Integrated`;
+
+            // Hardening Badges
+            document.getElementById('ui-hardening-badges').innerHTML = tech.hardening.map(h => `
+                <div class="shrink-0 p-4 bg-white border border-slate-100 rounded-2xl shadow-sm min-w-[200px]">
+                    <p class="text-[9px] font-black text-blue-600 mb-1 uppercase tracking-tighter">${h.t}</p>
+                    <p class="text-[8px] text-slate-400 font-medium">${h.d}</p>
+                </div>
+            `).join('');
+
+            // NODE GRID — use per-partner node_list from data (padded to 11 slots)
+            const nodeList = tech.node_list || [];
+            const maxNodes = 11;
+            const slots = Array.from({ length: maxNodes }, (_, i) => ({
+                label: nodeList[i] ? nodeList[i] : '—',
+                active: i < tech.nodes_active
+            }));
+            document.getElementById('nodeGrid').innerHTML = slots.map(s => `
+                <div class="flex flex-col items-center gap-3">
+                    <div class="node-box ${s.active ? 'active' : ''}"></div>
+                    <span class="text-[7px] text-slate-400 font-bold tracking-tighter text-center leading-tight">${s.label}</span>
+                </div>
+            `).join('');
+
+            updateCharts(d);
+
+            // Only scroll on user interaction, not initial load
+            if (!isInitial) {
+                const navElement = document.getElementById('partner-nav');
+                if (navElement) {
+                    const top = navElement.getBoundingClientRect().top + window.pageYOffset - 40;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            }
+        }
+
+        function updateCharts(d) {
+            Chart.defaults.color = '#94A3B8';
+            Chart.defaults.font.family = "'Plus Jakarta Sans'";
+
+            // Mini sparkline chart on card
+            const ctxM = document.getElementById('miniChart').getContext('2d');
+            if (activeM) activeM.destroy();
+            activeM = new Chart(ctxM, {
+                type: 'line',
+                data: {
+                    labels: d.backtest.pnl.map((_, i) => i),
+                    datasets: [{ data: d.backtest.pnl, borderColor: '#2563EB', borderWidth: 2, pointRadius: 0, fill: true, backgroundColor: 'rgba(37, 99, 235, 0.05)', tension: 0.4 }]
+                },
+                options: { plugins: { legend: false }, scales: { x: { display: false }, y: { display: false } } }
+            });
+
+            // --- MODAL DATA ---
+            document.getElementById('modal-name').innerText = d.identity.name;
+            document.getElementById('modal-period').innerText = d.backtest.period;
+            document.getElementById('modal-disc').innerText = d.backtest.disc;
+
+            // Computed performance metrics
+            const pnl = d.backtest.pnl;
+            const startVal = pnl[0];
+            const endVal = pnl[pnl.length - 1];
+            const totalReturn = (((endVal - startVal) / startVal) * 100).toFixed(1);
+            const peakVal = Math.max(...pnl);
+            const factor = d.identity.initial_collateral_value > 0
+                ? (endVal / d.identity.initial_collateral_value).toFixed(2)
+                : '—';
+
+            document.getElementById('modal-metrics').innerHTML = [
+                { val: '+' + totalReturn + '%', lbl: 'Total Return' },
+                { val: factor + 'x', lbl: 'Capital Factor' },
+                { val: '$' + peakVal.toLocaleString(), lbl: 'Peak PnL' },
+                { val: d.technical_matrix.confidence_gate, lbl: 'Gate Threshold' },
+                { val: d.technical_matrix.nodes_active + '/11', lbl: 'Active Nodes' }
+            ].map(m => `
+                <div class="metric-chip">
+                    <span class="val">${m.val}</span>
+                    <span class="lbl">${m.lbl}</span>
+                </div>
+            `).join('');
+
+            // Drama Events (stochastic engine events)
+            const dramaEvents = d.backtest.stochastic_logic && d.backtest.stochastic_logic.drama_events
+                ? d.backtest.stochastic_logic.drama_events
+                : [];
+
+            if (dramaEvents.length > 0) {
+                document.getElementById('ui-events').innerHTML = dramaEvents.map(ev => `
+                    <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                        <div class="shrink-0 w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center">
+                            <div class="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
+                        </div>
+                        <div>
+                            <p class="text-[9px] font-black text-slate-900 uppercase tracking-wider">Month ${ev.month} — ${ev.trigger}</p>
+                            <p class="text-[9px] text-slate-400 mt-0.5 font-medium">${ev.effect}</p>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                document.getElementById('ui-events').innerHTML = `
+                    <div class="flex items-center gap-3 p-4 bg-teal-50 rounded-xl border border-teal-100">
+                        <div class="w-2 h-2 rounded-full bg-teal-500"></div>
+                        <p class="text-[9px] font-black text-teal-700 uppercase tracking-wider">Zero Drama Events — Stable Execution</p>
+                    </div>
+                `;
+            }
+
+            // Full performance chart in modal
+            const ctxL = document.getElementById('mainChart').getContext('2d');
+            if (activeL) activeL.destroy();
+            activeL = new Chart(ctxL, {
+                type: 'line',
+                data: {
+                    labels: d.backtest.pnl.map((_, i) => `M${i + 1}`),
+                    datasets: [{
+                        label: 'PnL Milestone',
+                        data: d.backtest.pnl,
+                        borderColor: '#2563EB',
+                        borderWidth: 3,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#2563EB',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        fill: true,
+                        backgroundColor: 'rgba(37, 99, 235, 0.06)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { ticks: { callback: v => '$' + (v >= 1000000 ? (v/1000000).toFixed(1)+'M' : v.toLocaleString()) } }
+                    }
+                }
+            });
+        }
+
+        function toggleModal() {
+            document.getElementById('performanceModal').classList.toggle('hidden');
+            document.getElementById('performanceModal').classList.toggle('flex');
+        }
+
+        // Desktop Dropdown Logic
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            const arrow = dropdown.querySelector('.dropdown-arrow');
+            if (arrow) {
+                arrow.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const isActive = dropdown.classList.contains('active');
+                    dropdowns.forEach(d => d.classList.remove('active'));
+                    if (!isActive) dropdown.classList.add('active');
+                });
+            }
+            dropdown.querySelectorAll('.dropdown-item').forEach(item => {
+                item.addEventListener('click', () => dropdown.classList.remove('active'));
+            });
+        });
+        window.addEventListener('click', function (event) {
+            if (!event.target.closest('.dropdown')) {
+                dropdowns.forEach(d => d.classList.remove('active'));
+            }
+        });
+
+        // Mobile Menu
+        const mobileMenu = document.getElementById('mobile-menu');
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => mobileMenu.classList.remove('translate-x-full'));
+        document.getElementById('mobile-menu-close').addEventListener('click', () => mobileMenu.classList.add('translate-x-full'));
+        mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.add('translate-x-full')));
+
+        init();
+    </script>
+</body>
+</html>

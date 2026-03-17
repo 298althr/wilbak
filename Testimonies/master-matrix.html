@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Alpha Network | Master Institutional Matrix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0F172A;
+            --blue: #2563EB;
+            --teal: #0D9488;
+            --border: rgba(15, 23, 42, 0.08);
+            --platinum: linear-gradient(165deg, #0F172A 0%, #1E293B 100%);
+            --powerhouse: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #F8FAFC;
+            color: #1E293B;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* GLASS MORPHISM */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 24px -2px rgba(15, 23, 42, 0.05);
+        }
+
+        /* TIER CARDS - HIGH LEVEL CERTIFICATION DESIGN */
+        .card-platinum {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.05) 0%, transparent 40%),
+                linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)),
+                url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            box-shadow: 0 40px 80px -20px rgba(15, 23, 42, 0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-platinum::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(45deg, transparent, transparent 100px, rgba(255,255,255,0.02) 100px, rgba(255,255,255,0.02) 101px);
+            pointer-events: none;
+        }
+
+        .card-gold {
+            background: linear-gradient(135deg, #B5932F 0%, #E8C158 50%, #B5932F 100%);
+            background-image: 
+                radial-gradient(circle at 50% -20%, rgba(255,255,255,0.4) 0%, transparent 60%),
+                linear-gradient(45deg, rgba(146, 117, 31, 0.1) 25%, transparent 25%, transparent 50%, rgba(146, 117, 31, 0.1) 50%, rgba(146, 117, 31, 0.1) 75%, transparent 75%, transparent);
+            background-size: 100% 100%, 4px 4px;
+            border: 2px solid #92751F;
+            color: #2D2408;
+            box-shadow: 0 40px 80px -20px rgba(181, 147, 47, 0.4);
+        }
+        .card-gold::after {
+            content: '';
+            position: absolute;
+            inset: 15px;
+            border: 1px solid rgba(45, 36, 8, 0.1);
+            pointer-events: none;
+            border-radius: 40px;
+        }
+
+        .card-blue {
+            background: #1E40AF;
+            background-image: 
+                linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%),
+                repeating-radial-gradient(circle at 0 0, transparent 0, transparent 40px, rgba(255,255,255,0.05) 40px, rgba(255,255,255,0.05) 80px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            box-shadow: 0 40px 80px -20px rgba(37, 99, 235, 0.4);
+        }
+        .card-blue::before {
+            content: 'CERTIFIED SOVEREIGN';
+            position: absolute;
+            top: 40px; right: -30px;
+            transform: rotate(45deg);
+            background: rgba(255,255,255,0.1);
+            padding: 5px 40px;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .card-silver {
+            background: #F1F5F9;
+            background-image: 
+                linear-gradient(135deg, #F1F5F9 0%, #94A3B8 100%),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.2) 2px, rgba(255,255,255,0.2) 4px);
+            border: 2px solid #CBD5E1;
+            color: #0F172A;
+            box-shadow: 0 40px 80px -20px rgba(148, 163, 184, 0.3);
+        }
+
+        .card-white {
+            background: #FFFFFF;
+            background-image: 
+                linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%),
+                radial-gradient(circle at 100% 0%, rgba(15,23,42,0.02) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(15,23,42,0.02) 0%, transparent 50%);
+            border: 1px solid var(--border);
+            color: #334155;
+            box-shadow: 0 40px 80px -20px rgba(0,0,0,0.08);
+        }
+        .card-white::after {
+            content: '';
+            position: absolute;
+            inset: 20px;
+            border: 0.5px solid rgba(15, 23, 42, 0.05);
+            border-radius: 36px;
+            pointer-events: none;
+        }
+
+        /* NAVIGATION */
+        .selector-btn {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        .selector-btn.active {
+            background: var(--ink);
+            color: white;
+            border-color: var(--ink);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(15, 23, 42, 0.2);
+        }
+
+        /* NODE GRID */
+        .node-box {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            background: #F1F5F9;
+            transition: 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            border: 1px solid transparent;
+        }
+
+        .node-box.active {
+            background: var(--teal);
+            box-shadow: 0 0 25px rgba(13, 148, 136, 0.4);
+            border-color: #5EEAD4;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 1100px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 56px;
+            position: relative;
+            transform: scale(0.95);
+            transition: 0.4s;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        /* SCROLLBAR */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 10px;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            animation: fadeIn 0.8s forwards;
+        }
+    </style>
+</head>
+
+<body class="p-4 md:p-12 lg:p-20">
+
+    <div class="max-w-7xl mx-auto">
+        <!-- GLOBAL NAVIGATION -->
+        <nav class="mb-16 p-8 glass-card rounded-[40px]">
+            <div class="flex justify-between items-center mb-6 px-2">
+                <div>
+                    <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-[0.3em]">Institutional Matrix T7</span>
+                    <h2 class="serif text-xl text-slate-900">Alpha Master Data</h2>
+                </div>
+                <span class="text-[9px] font-black text-blue-600 uppercase bg-blue-50 px-4 py-2 rounded-full border border-blue-100">8 Sovereign Partners</span>
+            </div>
+            <div class="flex gap-4 overflow-x-auto pb-4 custom-scrollbar" id="partner-nav"></div>
+        </nav>
+
+        <!-- HERO SECTION -->
+        <header class="mb-24 grid lg:grid-cols-2 gap-16 items-start">
+            <div class="reveal">
+                <div class="flex items-center gap-6 mb-10">
+                    <div id="ui-avatar" class="w-20 h-20 bg-slate-900 rounded-[28px] flex items-center justify-center text-white font-bold text-2xl uppercase shadow-2xl"></div>
+                    <div>
+                        <span id="ui-tier" class="px-5 py-2 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase tracking-widest border border-slate-200"></span>
+                        <p id="ui-asset" class="text-[11px] text-blue-600 font-bold uppercase mt-3 tracking-wider"></p>
+                    </div>
+                </div>
+                <h1 id="ui-hero" class="serif text-5xl md:text-7xl lg:text-8xl mb-10 leading-[1.05] text-slate-900 tracking-tight"></h1>
+                <p id="ui-sub" class="text-2xl text-slate-500 font-light leading-relaxed max-w-2xl"></p>
+            </div>
+
+            <div class="space-y-8 reveal" style="animation-delay: 0.2s;">
+                <!-- DYNAMIC TIER CARD -->
+                <div id="tier-card" class="p-12 rounded-[56px] relative overflow-hidden transition-all duration-500">
+                    <div id="tier-content" class="relative z-10">
+                        <span id="card-status" class="text-[10px] font-black uppercase tracking-[0.4em] opacity-60"></span>
+                        <h4 id="card-title" class="serif text-4xl mt-6 mb-4"></h4>
+                        <p id="card-desc" class="text-sm font-light leading-relaxed mb-10 opacity-70"></p>
+                        
+                        <div class="grid grid-cols-2 gap-10 border-t border-current border-opacity-10 pt-10">
+                            <div>
+                                <p class="text-[9px] uppercase font-black opacity-50 tracking-tighter">Authorization</p>
+                                <p id="card-nodes" class="text-2xl font-bold"></p>
+                            </div>
+                            <div>
+                                <p class="text-[9px] uppercase font-black opacity-50 tracking-tighter">Locked Horizon</p>
+                                <p id="card-horizon" class="text-2xl font-bold"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VALUE CARD -->
+                <div class="bg-white border border-slate-100 p-12 rounded-[56px] shadow-2xl relative">
+                    <p class="text-[10px] font-black text-slate-400 uppercase mb-4 tracking-widest">Master Collateral Value</p>
+                    <h4 id="ui-val" class="serif text-6xl text-slate-900 mb-10"></h4>
+                    <canvas id="miniChart" height="140"></canvas>
+                    <button onclick="toggleModal()" class="w-full mt-10 py-7 bg-slate-900 text-white rounded-[28px] text-[10px] font-black uppercase tracking-[0.3em] hover:bg-blue-600 transition-all shadow-xl shadow-slate-900/10">Deep Data Ledger Analysis</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- REPORTING SECTION -->
+        <section class="mb-32 grid lg:grid-cols-12 gap-20">
+            <div class="lg:col-span-12 reveal" style="animation-delay: 0.3s;">
+                <h3 class="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em] mb-16 flex items-center gap-6">
+                    <span class="w-12 h-0.5 bg-blue-600/20"></span> Sovereign Backstory & Strategy
+                </h3>
+                <div id="ui-reporting" class="space-y-12 text-3xl text-slate-700 font-light leading-snug italic max-w-5xl"></div>
+            </div>
+        </section>
+
+        <!-- HARDENING & NODES -->
+        <section class="mb-32 reveal" style="animation-delay: 0.4s;">
+            <div class="grid lg:grid-cols-3 gap-8 mb-16" id="ui-hardening"></div>
+
+            <div class="p-16 glass-card rounded-[64px]">
+                <div class="flex justify-between items-end mb-16">
+                    <div>
+                        <h3 class="serif text-4xl mb-3">Multi-Node Matrix</h3>
+                        <p id="ui-node-status" class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.4em]"></p>
+                    </div>
+                    <div class="px-6 py-3 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
+                        <div class="w-2 h-2 rounded-full bg-teal-500 animate-pulse"></div>
+                        <span id="ui-confidence" class="text-[10px] font-black text-teal-600 uppercase"></span>
+                    </div>
+                </div>
+                <div id="nodeGrid" class="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-11 gap-6"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODAL -->
+    <div id="scalingModal" class="modal">
+        <div class="modal-content p-16">
+            <button onclick="toggleModal()" class="absolute top-12 right-12 text-3xl font-light hover:rotate-90 transition-all duration-300">✕</button>
+            <span class="px-4 py-1.5 bg-blue-600/5 text-blue-600 rounded-full text-[9px] font-black uppercase tracking-widest border border-blue-100">Performance Audit</span>
+            <h2 id="modal-name" class="serif text-6xl text-slate-900 mt-8 mb-4"></h2>
+            <p id="modal-period" class="text-xl text-slate-500 font-light mb-16"></p>
+            
+            <div class="bg-slate-50 p-12 rounded-[48px] border border-slate-100 mb-12 shadow-inner">
+                <canvas id="mainChart" height="150"></canvas>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div id="modal-disc" class="p-10 bg-slate-900 text-slate-400 rounded-[40px] text-xs leading-relaxed font-light border-l-[10px] border-blue-600 shadow-2xl"></div>
+                <div class="p-10 bg-blue-50/50 rounded-[40px] border border-blue-100">
+                    <h5 class="text-[10px] font-black text-blue-600 uppercase mb-6 tracking-widest">Logic Events</h5>
+                    <div id="ui-events" class="space-y-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // EMBEDDED MASTER DATA (Bypass fetch requirement for local file access)
+        const MASTER_DATA = {
+  "thorne": {
+    "identity": {
+      "name": "Thorne-Blackwood",
+      "tier": "Institutional Tier",
+      "status": "Sovereign Tier",
+      "avatar": "TB",
+      "asset_collateral": "L1 Liquidity Pool Anchor (Verified)",
+      "initial_collateral_value": 2000000,
+      "horizon": "72 Months",
+      "tier_card_type": "Platinum"
+    },
+    "narrative": {
+      "hero": "Bridging the Gap: From Manual to 11-Node Precision.",
+      "sub": "Transitioned a $2M primary capital base to an 11-node trade engine via verified remote logic, removing human bias entirely.",
+      "reporting": [
+        "Our initial skepticism was high. Trading high-frequency quants remotely felt like a risk we couldn't justify to our board. We started in the 'Developmental Tunnel', watching the engine in sandbox mode for 60 days.",
+        "The shift happened when we saw the 'Hard Breaker' node in action. It stopped a potential fat-finger trade in milliseconds. That moment proved the infrastructure was more disciplined than any human trader we've hired.",
+        "Today, we operate at a 72.4% confidence threshold. The engine doesn't just trade; it validates market regime before a single dollar is committed. It is now our primary capital base builder."
+      ]
+    },
+    "technical_matrix": {
+      "nodes_active": 11,
+      "confidence_gate": "72.4%",
+      "active_protocol": "Sovereign Remote Logic",
+      "hardening": [
+        {
+          "t": "Institutional Cal",
+          "d": "Hardening engines to meet the $2M infrastructure latency requirements and sub-millisecond execution."
+        },
+        {
+          "t": "72.4% Gate",
+          "d": "Mandatory composite confidence threshold required for live order routing to prevent regime-drift exposure."
+        },
+        {
+          "t": "Managed Scaling",
+          "d": "Systematic position sizing increases as node stability was proven over the initial 90-day hardening window."
+        }
+      ],
+      "node_list": [
+        "L2 DEPTH",
+        "ORATS GREEKS",
+        "SENTIMENT",
+        "RL EXEC",
+        "HARD BREAKER",
+        "REGIME DETECT",
+        "VOL BIAS",
+        "FLOW SCAN",
+        "SKEW ADJ",
+        "LIQ NODE",
+        "IBKR PIPE"
+      ]
+    },
+    "backtest_performance": {
+      "period": "72 Months (Full Horizon)",
+      "live_milestones": "9 Months (Starting Oct 2024)",
+      "factor": 1.0,
+      "pnl_milestones": [21000, 35000, 52000, 82000, 145000, 210000, 285000, 320000, 352400],
+      "stochastic_logic": {
+        "engine": "Stochastic Drama Engine",
+        "volatility_base": 0.05,
+        "trend_bias": 1.4,
+        "drama_events": [
+          { "month": 24, "trigger": "Hard Breaker Activation", "effect": "Preservation Buffer" },
+          { "month": 48, "trigger": "Regime Shift", "effect": "Execution Throttling" }
+        ]
+      },
+      "disclaimer": "Institutional Sovereign Model. 72-Month Track. Baseline: 2% position size | Institutional Slippage Model | 7% Error Haircut."
+    }
+  },
+  "beijing": {
+    "identity": {
+      "name": "Beijing Power",
+      "tier": "Power House Tier",
+      "status": "Strategic Proxy",
+      "avatar": "BP",
+      "asset_collateral": "Industrial Energy Credits",
+      "initial_collateral_value": 190000,
+      "horizon": "36 Months",
+      "tier_card_type": "PowerHouse"
+    },
+    "narrative": {
+      "hero": "Beijing Power: Automated Surrogate Integration.",
+      "sub": "Automated 11-node proxying across 12-hour latency gaps, serving as a Western market surrogate since 2021.",
+      "reporting": [
+        "Acting as a Western proxy while Beijing slept was the primary directive. We needed a system that could operate autonomously during the 12-hour time gap.",
+        "Volatility in Year 2 forced the integration of a 'Language Logic' gate to parse non-Western sentiment data in real-time.",
+        "Stability has been our hallmark since the surrogate node went live. The engine successfully buffered a 15% regional credit spike."
+      ]
+    },
+    "technical_matrix": {
+      "nodes_active": 11,
+      "confidence_gate": "68.9%",
+      "active_protocol": "Automated 11-Node Proxy",
+      "hardening": [
+        {
+          "t": "Proxy Alignment",
+          "d": "Cross-border latency buffering for energy credit markets."
+        },
+        {
+          "t": "LL Gate",
+          "d": "Language Logic node for non-Western data parsing and sentiment weighting."
+        }
+      ],
+      "node_list": [
+        "L2 DEPTH",
+        "ORATS GREEKS",
+        "SENTIMENT",
+        "RL EXEC",
+        "HARD BREAKER",
+        "REGIME DETECT",
+        "VOL BIAS",
+        "FLOW SCAN",
+        "SKEW ADJ",
+        "LIQ NODE",
+        "LANG GATE"
+      ]
+    },
+    "backtest_performance": {
+      "period": "36 Months (Audit 2024)",
+      "live_milestones": "12 Months (Starting Jan 2024)",
+      "factor": 1.45,
+      "pnl_milestones": [190000, 215000, 248000, 290000, 345000, 412000, 498000, 560000, 615000],
+      "stochastic_logic": {
+        "engine": "Energy Credit Model",
+        "volatility_base": 0.08,
+        "trend_bias": 1.45,
+        "drama_events": [
+          { "month": 12, "trigger": "Region Shift", "effect": "Proxy Recalibration" }
+        ]
+      },
+      "disclaimer": "Power House Tier. 36-Month Tracked Data. Energy Credit Collateral Focus."
+    }
+  },
+  "northstar": {
+    "identity": {
+      "name": "NorthStar Motors",
+      "tier": "Strategic Partner",
+      "status": "Inventory Liquidity",
+      "avatar": "NM",
+      "asset_collateral": "4 Luxury Vehicles (Showroom Equity)",
+      "initial_collateral_value": 150000,
+      "horizon": "36 Months",
+      "tier_card_type": "Standard"
+    },
+    "narrative": {
+      "hero": "NorthStar: Breeding Asset Alpha from Showroom Static.",
+      "sub": "Turning static showroom inventory into a high-velocity terminal liquidity engine.",
+      "reporting": [
+        "We used dead showroom assets as an anchor. Year 1 saw a major dip before recovery as we learned to balance inventory rotation with trade frequency.",
+        "Recalibrating in Month 7 led to the 'Subtle Stability' we enjoy today. The engine now treats each vehicle VIN as a liquidity unit."
+      ]
+    },
+    "technical_matrix": {
+      "nodes_active": 10,
+      "confidence_gate": "62.5%",
+      "active_protocol": "Inventory-to-Capital Flow",
+      "hardening": [
+        {
+          "t": "Asset Anchor",
+          "d": "Binding VIN equity to trade-margin requirements to prevent liquidation noise."
+        },
+        {
+          "t": "Subtle Stability",
+          "d": "Month 7 logic update to prioritize low-frequency high-conviction entries."
+        }
+      ],
+      "node_list": [
+        "L2 DEPTH",
+        "ORATS GREEKS",
+        "SENTIMENT",
+        "RL EXEC",
+        "HARD BREAKER",
+        "REGIME DETECT",
+        "VOL BIAS",
+        "FLOW SCAN",
+        "SKEW ADJ",
+        "VIN BRIDGE"
+      ]
+    },
+    "backtest_performance": {
+      "period": "36 Months (Historic)",
+      "live_milestones": "Recalibrated Month 7",
+      "factor": 1.1,
+      "pnl_milestones": [150000, 165000, 140000, 160000, 195000, 245000, 312000, 420000, 545000, 610000],
+      "stochastic_logic": {
+        "engine": "Inventory Cycle Engine",
+        "volatility_base": 0.12,
+        "trend_bias": 1.3,
+        "drama_events": [
+          { "month": 7, "trigger": "Logic Recalibration", "effect": "Stability Peak" }
+        ]
+      },
+      "disclaimer": "Strategic Tier. 36-Month Historical. Recalibrated for Inventory Safety."
+    }
+  },
+  "agri": {
+    "identity": {
+      "name": "Agri-Growth",
+      "tier": "Seed Tier",
+      "status": "Resilient Accumulation",
+      "avatar": "AG",
+      "asset_collateral": "Arable Land Equity",
+      "initial_collateral_value": 25000,
+      "horizon": "24 Months",
+      "tier_card_type": "Standard"
+    },
+    "narrative": {
+      "hero": "Building a Capital Base While You Sleep.",
+      "sub": "A 24-month journey of land equity translation into long-term accumulation for a family farm.",
+      "reporting": [
+        "We needed the capital to grow while we were out in the fields. We required a 'very slow' growth model that prioritized safety over speed.",
+        "The engine focuses on low-beta stock acquisition. Minimal risk strategy that actually lets us sleep during the harvest seasons.",
+        "Watching the system acquire stocks automatically while our base fuels it has been life-changing."
+      ]
+    },
+    "technical_matrix": {
+      "nodes_active": 7,
+      "confidence_gate": "65.0%",
+      "active_protocol": "Base-Builder Logic",
+      "hardening": [
+        {
+          "t": "Agri-Safety",
+          "d": "Prioritizing low-beta, high-liquidity assets only."
+        },
+        {
+          "t": "65% Safety Gate",
+          "d": "Reduced threshold for entry but heightened exit sensitivity to protect the land equity."
+        }
+      ],
+      "node_list": [
+        "L2 DEPTH",
+        "SENTIMENT",
+        "RL EXEC",
+        "HARD BREAKER",
+        "REGIME DETECT",
+        "VOL BIAS",
+        "FLOW SCAN"
+      ]
+    },
+    "backtest_performance": {
+      "period": "24 Months (Active)",
+      "live_milestones": "N/A",
+      "factor": 1.1,
+      "pnl_milestones": [25000, 27500, 31000, 34200, 38500, 42100, 48000, 54000, 59500],
+      "stochastic_logic": {
+        "engine": "Safe-Base Accumulator",
+        "volatility_base": 0.04,
+        "trend_bias": 1.1,
+        "drama_events": []
+      },
+      "disclaimer": "Growth model: Capital accumulation focus | 22% Error Haircut applied for SME infrastructure."
+    }
+  },
+  "dubai_auto": {
+    "identity": {
+      "name": "Al-Maktoum Auto",
+      "tier": "Strategic Partner",
+      "status": "Inventory Transformation",
+      "avatar": "MA",
+      "asset_collateral": "12 Luxury Showroom Units",
+      "initial_collateral_value": 450000,
+      "horizon": "28 Months",
+      "tier_card_type": "Standard"
+    },
+    "narrative": {
+      "hero": "Dubai Auto: Inventory-to-Alpha Cycle.",
+      "sub": "Rotating high-value fleet turnover through 28 months of liquid execution, converting frozen equity into a trading buffer.",
+      "reporting": [
+        "Showroom cars are frozen money. We liquidized our fleet equity into a trading buffer to capture market alpha without selling inventory.",
+        "The engine pivot saved our margins during the 2023 volatility spike. It allowed us to maintain operations while traditional sales were stagnant."
+      ]
+    },
+    "technical_matrix": {
+      "nodes_active": 11,
+      "confidence_gate": "71.2%",
+      "active_protocol": "Fleet Liquidity Protocol",
+      "hardening": [
+        { "t": "Fleet Buffer", "d": "Mapping luxury fleet equity to collateralized trading layers." },
+        { "t": "Margin Shield", "d": "Enhanced exit logic for fleet-backed accounts during regional volatility." }
+      ],
+      "node_list": ["L2 DEPTH", "ORATS GREEKS", "SENTIMENT", "RL EXEC", "HARD BREAKER", "REGIME DETECT", "VOL BIAS", "FLOW SCAN", "SKEW ADJ", "LIQ NODE", "FLEET NODE"]
+    },
+    "backtest_performance": {
+      "period": "28 Months (Cycle)",
+      "live_milestones": "N/A",
+      "factor": 1.5,
+      "pnl_milestones": [450000, 485000, 530000, 610000, 720000, 845000, 990000, 1120000, 1250000],
+      "stochastic_logic": { "engine": "Inventory Cycle Model", "volatility_base": 0.07, "trend_bias": 1.5, "drama_events": [] },
+      "disclaimer": "Strategic Tier. 28-Month Cycle. Zero-intervention inventory model."
+    }
+  },
+  "oudh": {
+    "identity": {
+      "name": "Oudh & Gold",
+      "tier": "Strategic Partner",
+      "status": "Physical Asset Buffer",
+      "avatar": "OG",
+      "asset_collateral": "10kg Physical Gold Reserve",
+      "initial_collateral_value": 620000,
+      "horizon": "26 Months",
+      "tier_card_type": "Standard"
+    },
+    "narrative": {
+      "hero": "Oudh & Gold: Physical Resilience in Digital Markets.",
+      "sub": "26 months of family office growth curve buffered by physical gold reserves for absolute downside protection.",
+      "reporting": [
+        "Retail spikes are unpredictable, especially in the luxury sector. Using gold reserves as an anchor allows the engine to trade with zero fear.",
+        "Consistency has been key. The engine ignores retail deceleration by focusing on the underlying gold-backed collateral value."
+      ]
+    },
+    "technical_matrix": {
+      "nodes_active": 11,
+      "confidence_gate": "78.4%",
+      "active_protocol": "Gold-Anchored Alpha",
+      "hardening": [
+        { "t": "Physical Buffer", "d": "Integration of vaulted gold valuation into real-time capital utility." },
+        { "t": "Resilience Node", "d": "Modified entry logic to prioritize stability over high-frequency turnover." }
+      ],
+      "node_list": ["L2 DEPTH", "ORATS GREEKS", "SENTIMENT", "RL EXEC", "HARD BREAKER", "REGIME DETECT", "VOL BIAS", "FLOW SCAN", "SKEW ADJ", "LIQ NODE", "GOLD BRIDGE"]
+    },
+    "backtest_performance": {
+      "period": "26 Months (Cumulative)",
+      "live_milestones": "N/A",
+      "factor": 1.3,
+      "pnl_milestones": [620000, 650000, 690000, 745000, 820000, 915000, 1040000, 1180000, 1340000],
+      "stochastic_logic": { "engine": "Hard Asset Projection", "volatility_base": 0.05, "trend_bias": 1.3, "drama_events": [] },
+      "disclaimer": "Physical Asset Buffer. 26-Month Track. 10kg Vaulted Gold Anchor."
+    }
+  },
+  "valle": {
+    "identity": {
+      "name": "Valle de Oro",
+      "tier": "Growth Tier",
+      "status": "Seasonal SME",
+      "avatar": "VO",
+      "asset_collateral": "4k Barrels of Seasonal Wine",
+      "initial_collateral_value": 45000,
+      "horizon": "24 Months",
+      "tier_card_type": "Standard"
+    },
+    "narrative": {
+      "hero": "Mexico Wine: Converting Seasonal Cycles to Perpetual Alpha.",
+      "sub": "Creating consistent liquidity from once-a-year harvest equity to bridge seasonal cashflow gaps.",
+      "reporting": [
+        "Barrel equity became our foundation during the growth season gaps. When our cash was tied up in production, the engine provided the necessary delta.",
+        "It maintains our payroll during the harvest off-season, converting physical aging stock into liquid capital."
+      ]
+    },
+    "technical_matrix": {
+      "nodes_active": 8,
+      "confidence_gate": "61.2%",
+      "active_protocol": "Seasonal Yield Bridging",
+      "hardening": [
+        { "t": "Harvest Logic", "d": "Time-weighted position sizing to align with annual harvest liquidity spikes." }
+      ],
+      "node_list": ["L2 DEPTH", "SENTIMENT", "RL EXEC", "HARD BREAKER", "REGIME DETECT", "VOL BIAS", "FLOW SCAN", "YIELD NODE"]
+    },
+    "backtest_performance": {
+      "period": "24 Months (Annualized)",
+      "live_milestones": "N/A",
+      "factor": 1.2,
+      "pnl_milestones": [45000, 52000, 61000, 72000, 84000, 99000, 115000, 132000, 154000],
+      "stochastic_logic": { "engine": "Seasonal Cycle Model", "volatility_base": 0.12, "trend_bias": 1.2, "drama_events": [] },
+      "disclaimer": "Growth Tier. 24-Month SME Model. Barrel Equity Collateral."
+    }
+  },
+  "keystone": {
+    "identity": {
+      "name": "Keystone CM",
+      "tier": "Growth Tier",
+      "status": "Idle Equity Capture",
+      "avatar": "KM",
+      "asset_collateral": "Heavy Machinery Fleet",
+      "initial_collateral_value": 120000,
+      "horizon": "30 Months",
+      "tier_card_type": "Standard"
+    },
+    "narrative": {
+      "hero": "Keystone: Idle Machinery Equity to Profit.",
+      "sub": "Capturing 30-month project-phase gaps in commercial construction by liquidizing fleet value.",
+      "reporting": [
+        "When machines are idle between projects, the engine works. We used our fleet's equity as a margin anchor.",
+        "There is a unique synergy between physical building equipment and market alpha. The engine 'cools' when we deploy the fleet."
+      ]
+    },
+    "technical_matrix": {
+      "nodes_active": 9,
+      "confidence_gate": "64.5%",
+      "active_protocol": "Fleet Utilization Buffer",
+      "hardening": [
+        { "t": "Idle Equity", "d": "Calibrating risk nodes to match project-off-phase durations." }
+      ],
+      "node_list": ["L2 DEPTH", "SENTIMENT", "RL EXEC", "HARD BREAKER", "REGIME DETECT", "VOL BIAS", "FLOW SCAN", "SKEW ADJ", "MACH NODE"]
+    },
+    "backtest_performance": {
+      "period": "30 Months (Project Gap)",
+      "live_milestones": "N/A",
+      "factor": 1.4,
+      "pnl_milestones": [120000, 135000, 158000, 192000, 245000, 312000, 385000, 460000, 545000],
+      "stochastic_logic": { "engine": "Machinery Equity Model", "volatility_base": 0.08, "trend_bias": 1.4, "drama_events": [] },
+      "disclaimer": "Growth Tier. 30-Month Machinery Equity. Idle Project-Gap Focus."
+    }
+  }
+};
+
+        let activeM = null, activeL = null;
+
+        // STOCHASTIC VISUALIZER (For Demo Purposes)
+        function generateDrama(start, months, vol, trend) {
+            let data = [start]; let current = start;
+            for (let i = 1; i < months; i++) {
+                let regime = Math.random();
+                let change = (regime > 0.9) ? current * (Math.random() * vol * -1.8) : (regime > 0.75 ? current * 0.001 : current * (Math.random() * vol) * trend);
+                current += change; if (current < start * 0.7) current = start * 0.75;
+                data.push(Math.round(current));
+            }
+            return data;
+        }
+
+        function init() {
+            const nav = document.getElementById('partner-nav');
+            nav.innerHTML = Object.keys(MASTER_DATA).map(k => `
+                <button onclick="select('${k}', this)" class="selector-btn px-8 py-4 rounded-3xl bg-white text-[10px] font-black uppercase tracking-widest">
+                    ${MASTER_DATA[k].identity.name}
+                </button>
+            `).join('');
+            select('thorne', nav.children[0]);
+        }
+
+        function select(k, btn) {
+            document.querySelectorAll('.selector-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const d = MASTER_DATA[k];
+            const meta = d.identity;
+            const content = d.narrative;
+            const tech = d.technical_matrix;
+            const perf = d.backtest_performance;
+
+            // UI UPDATES
+            document.getElementById('ui-avatar').innerText = meta.avatar;
+            document.getElementById('ui-tier').innerText = meta.tier;
+            document.getElementById('ui-asset').innerText = meta.asset_collateral;
+            document.getElementById('ui-hero').innerText = content.hero;
+            document.getElementById('ui-sub').innerText = content.sub;
+            document.getElementById('ui-val').innerText = '$' + meta.initial_collateral_value.toLocaleString();
+            document.getElementById('ui-reporting').innerHTML = content.reporting.map(p => `<p class="fade-in">"${p}"</p>`).join('');
+            document.getElementById('ui-node-status').innerText = `${tech.nodes_active}/11 Nodes Active for ${meta.name}`;
+            document.getElementById('ui-confidence').innerText = tech.confidence_gate + ' AI GATE';
+
+            // TIER CARD STYLE MAPPING
+            const tierStyles = {
+                "Institutional Tier": "platinum",
+                "Strategic Partner": "gold",
+                "Power House Tier": "blue",
+                "Growth Tier": "silver",
+                "Seed Tier": "white"
+            };
+            const styleKey = tierStyles[meta.tier] || "white";
+
+            const card = document.getElementById('tier-card');
+            card.className = `p-12 rounded-[56px] relative overflow-hidden transition-all duration-500 card-${styleKey}`;
+            document.getElementById('card-status').innerText = meta.status;
+            document.getElementById('card-title').innerText = meta.tier;
+            document.getElementById('card-desc').innerText = content.sub;
+            document.getElementById('card-nodes').innerText = `${tech.nodes_active} Nodes`;
+            document.getElementById('card-horizon').innerText = meta.horizon;
+
+            // HARDENING
+            document.getElementById('ui-hardening').innerHTML = tech.hardening.map(h => `
+                <div class="p-8 bg-white border border-slate-100 rounded-[36px] shadow-sm hover:shadow-xl transition-all">
+                    <span class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-[10px] font-bold mb-6 italic">v2</span>
+                    <p class="text-[10px] font-black text-blue-600 mb-3 uppercase tracking-widest">${h.t}</p>
+                    <p class="text-sm text-slate-500 font-medium leading-relaxed">${h.d}</p>
+                </div>
+            `).join('');
+
+            // NODES
+            const nodeList = ["L2 DEPTH", "ORATS GREEKS", "SENTIMENT", "RL EXEC", "HARD BREAKER", "REGIME DETECT", "VOL BIAS", "FLOW SCAN", "SKEW ADJ", "LIQ NODE", "PIPE CORE"];
+            document.getElementById('nodeGrid').innerHTML = nodeList.map((n, i) => `
+                <div class="flex flex-col items-center gap-4">
+                    <div class="node-box ${i < tech.nodes_active ? 'active' : ''}"></div>
+                    <span class="text-[8px] text-slate-400 font-bold text-center uppercase tracking-tighter">${n}</span>
+                </div>
+            `).join('');
+
+            // MODAL STATIC DATA
+            document.getElementById('modal-name').innerText = meta.name;
+            document.getElementById('modal-period').innerText = perf.period;
+            document.getElementById('modal-disc').innerText = perf.disclaimer;
+            document.getElementById('ui-events').innerHTML = (perf.stochastic_logic.drama_events || []).map(e => `
+                <div class="flex justify-between items-center p-4 bg-white rounded-2xl border border-blue-50">
+                    <span class="text-[10px] font-bold text-blue-600 uppercase">Month ${e.month}</span>
+                    <span class="text-xs font-medium text-slate-500">${e.trigger}</span>
+                </div>
+            `).join('') || '<p class="text-[10px] text-slate-400">No Hardening Events Logged.</p>';
+
+            renderCharts(d);
+        }
+
+        function renderCharts(d) {
+            const chartData = generateDrama(d.identity.initial_collateral_value, 24, d.backtest_performance.stochastic_logic.volatility_base, d.backtest_performance.stochastic_logic.trend_bias);
+
+            // MINI CHART
+            const ctxM = document.getElementById('miniChart').getContext('2d');
+            if (activeM) activeM.destroy();
+            activeM = new Chart(ctxM, {
+                type: 'line',
+                data: {
+                    labels: chartData.map((_, i) => i),
+                    datasets: [{
+                        data: chartData,
+                        borderColor: '#2563EB',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        fill: true,
+                        backgroundColor: (c) => {
+                            const g = c.chart.ctx.createLinearGradient(0, 0, 0, 100);
+                            g.addColorStop(0, 'rgba(37, 99, 235, 0.1)');
+                            g.addColorStop(1, 'transparent');
+                            return g;
+                        },
+                        tension: 0.4
+                    }]
+                },
+                options: { plugins: { legend: false }, scales: { x: { display: false }, y: { display: false } } }
+            });
+
+            // MAIN CHART (MODAL)
+            const ctxL = document.getElementById('mainChart').getContext('2d');
+            if (activeL) activeL.destroy();
+            activeL = new Chart(ctxL, {
+                type: 'line',
+                data: {
+                    labels: chartData.map((_, i) => `Month ${i+1}`),
+                    datasets: [{
+                        label: 'Equity Value',
+                        data: chartData,
+                        borderColor: '#2563EB',
+                        borderWidth: 4,
+                        pointBackgroundColor: '#FFFFFF',
+                        pointBorderColor: '#2563EB',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        fill: true,
+                        backgroundColor: (c) => {
+                            const g = c.chart.ctx.createLinearGradient(0, 0, 0, 400);
+                            g.addColorStop(0, 'rgba(37, 99, 235, 0.05)');
+                            g.addColorStop(1, 'transparent');
+                            return g;
+                        },
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    plugins: { legend: false },
+                    interaction: { intersect: false, mode: 'index' },
+                    scales: {
+                        y: { grid: { color: 'rgba(0,0,0,0.03)' }, ticks: { callback: v => '$' + v.toLocaleString() } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        function toggleModal() {
+            document.getElementById('scalingModal').classList.toggle('active');
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

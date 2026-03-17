@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Data Architect | Liquidity Engineering</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0F172A;
+            --accent: #2563EB;
+            --muted: #64748B;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0F172A;
+            color: white;
+            scroll-behavior: smooth;
+        }
+
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #FFFFFF, #94A3B8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Node Animation */
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .node-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2563EB;
+            box-shadow: 0 0 15px #2563EB;
+        }
+
+        .node-active {
+            animation: pulse 2s infinite;
+        }
+
+        .testimony-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .testimony-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: #2563EB;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2070"
+                class="w-full h-full object-cover opacity-10 grayscale" alt="Data Grid">
+            <div class="absolute inset-0 bg-gradient-to-b from-[#0F172A] via-transparent to-[#0F172A]"></div>
+        </div>
+
+        <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
+            <div class="inline-block px-4 py-1.5 mb-8 glass rounded-full border border-blue-500/30">
+                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-blue-400">Institutional Data
+                    Architecture</span>
+            </div>
+            <h1 class="serif text-6xl md:text-8xl lg:text-9xl leading-tight mb-8 text-gradient">
+                We Architect <br> <span class="italic">Liquidity.</span>
+            </h1>
+            <p class="max-w-2xl mx-auto text-xl text-slate-400 font-light leading-relaxed mb-12">
+                Static inventory, frozen land equity, and idle machinery are data-design failures. We build 11-node
+                financial engines that solve the pain of capital through high-velocity data structures.
+            </p>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+                <a href="#matrix"
+                    class="px-12 py-6 bg-blue-600 text-white font-black text-[11px] uppercase tracking-widest rounded-full hover:bg-blue-700 transition-all">Begin
+                    Technical Audit</a>
+                <a href="#"
+                    class="px-12 py-6 glass text-white font-black text-[11px] uppercase tracking-widest rounded-full hover:bg-white/10 transition-all">View
+                    Schema</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-6 border-y border-white/5">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
+            <div>
+                <h2 class="serif text-5xl mb-8">The Liquidity Gap</h2>
+                <p class="text-slate-400 text-lg mb-8 leading-relaxed">
+                    Most business owners are sitting on wealth they cannot move. We see businesses not as collections of
+                    things, but as data silos waiting for a structural anchor.
+                </p>
+                <div class="space-y-6">
+                    <div class="flex gap-4 p-6 glass rounded-3xl">
+                        <div class="text-blue-500 font-bold">01</div>
+                        <p class="text-sm font-medium">Extracting hidden alpha from physical showroom units and
+                            industrial credits.</p>
+                    </div>
+                    <div class="flex gap-4 p-6 glass rounded-3xl">
+                        <div class="text-blue-500 font-bold">02</div>
+                        <p class="text-sm font-medium">Bridging seasonal cashflow gaps via barrel-equity and harvest
+                            logic.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="relative">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2070"
+                    class="rounded-[40px] opacity-50 border border-white/10" alt="Financial Architecture">
+                <div class="absolute -bottom-10 -left-10 glass p-8 rounded-3xl max-w-xs">
+                    <p class="text-[10px] font-black uppercase text-blue-500 mb-2 tracking-widest">Active Logic</p>
+                    <p class="serif text-xl">"Structural precision over market guessing."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="matrix" class="py-32 px-6 bg-[#0B1222]">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-end mb-20">
+                <div class="max-w-xl">
+                    <h2 class="serif text-5xl mb-4 text-white">The Proof of Architecture</h2>
+                    <p class="text-slate-500 uppercase text-[10px] font-black tracking-widest">8 Verified Engines |
+                        Multiple Asset Classes</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" id="testimony-grid">
+                <div class="testimony-card p-10 glass rounded-[40px]">
+                    <span
+                        class="text-[9px] font-black text-blue-500 uppercase tracking-widest mb-6 block">Thorne-Blackwood</span>
+                    <p class="text-sm text-slate-300 italic leading-relaxed mb-8">"The 'Hard Breaker' node proved the
+                        infrastructure was more disciplined than any human trader we've hired."</p>
+                    <div class="pt-6 border-t border-white/5">
+                        <p class="text-[8px] text-slate-500 uppercase font-black">Anchor Asset</p>
+                        <p class="text-xs font-bold text-white">L1 Liquidity Pool</p>
+                    </div>
+                </div>
+
+                <div class="testimony-card p-10 glass rounded-[40px]">
+                    <span class="text-[9px] font-black text-blue-500 uppercase tracking-widest mb-6 block">Beijing
+                        Power</span>
+                    <p class="text-sm text-slate-300 italic leading-relaxed mb-8">"Autonomous operations during the
+                        12-hour gap... serving as a Western market surrogate."</p>
+                    <div class="pt-6 border-t border-white/5">
+                        <p class="text-[8px] text-slate-500 uppercase font-black">Anchor Asset</p>
+                        <p class="text-xs font-bold text-white">Industrial Energy Credits</p>
+                    </div>
+                </div>
+
+                <div class="testimony-card p-10 glass rounded-[40px]">
+                    <span class="text-[9px] font-black text-blue-500 uppercase tracking-widest mb-6 block">NorthStar
+                        Motors</span>
+                    <p class="text-sm text-slate-300 italic leading-relaxed mb-8">"Turning dead showroom assets into a
+                        high-velocity terminal liquidity engine."</p>
+                    <div class="pt-6 border-t border-white/5">
+                        <p class="text-[8px] text-slate-500 uppercase font-black">Anchor Asset</p>
+                        <p class="text-xs font-bold text-white">Showroom Inventory</p>
+                    </div>
+                </div>
+
+                <div class="testimony-card p-10 glass rounded-[40px]">
+                    <span
+                        class="text-[9px] font-black text-blue-500 uppercase tracking-widest mb-6 block">Agri-Growth</span>
+                    <p class="text-sm text-slate-300 italic leading-relaxed mb-8">"A 'very slow' growth model that lets
+                        us sleep during the harvest seasons."</p>
+                    <div class="pt-6 border-t border-white/5">
+                        <p class="text-[8px] text-slate-500 uppercase font-black">Anchor Asset</p>
+                        <p class="text-xs font-bold text-white">Arable Land Equity</p>
+                    </div>
+                </div>
+
+                <div class="testimony-card p-10 glass rounded-[40px]">
+                    <span class="text-[9px] font-black text-blue-500 uppercase tracking-widest mb-6 block">Al-Maktoum
+                        Auto</span>
+                    <p class="text-sm text-slate-300 italic leading-relaxed mb-8">"We liquidized our fleet equity into a
+                        trading buffer without selling inventory."</p>
+                    <div class="pt-6 border-t border-white/5">
+                        <p class="text-[8px] text-slate-500 uppercase font-black">Anchor Asset</p>
+                        <p class="text-xs font-bold text-white">12 Luxury Units</p>
+                    </div>
+                </div>
+
+                <div class="testimony-card p-10 glass rounded-[40px]">
+                    <span class="text-[9px] font-black text-blue-500 uppercase tracking-widest mb-6 block">Oudh &
+                        Gold</span>
+                    <p class="text-sm text-slate-300 italic leading-relaxed mb-8">"Using gold reserves as an anchor
+                        allows the engine to trade with zero fear."</p>
+                    <div class="pt-6 border-t border-white/5">
+                        <p class="text-[8px] text-slate-500 uppercase font-black">Anchor Asset</p>
+                        <p class="text-xs font-bold text-white">10kg Physical Gold</p>
+                    </div>
+                </div>
+
+                <div class="testimony-card p-10 glass rounded-[40px]">
+                    <span class="text-[9px] font-black text-blue-500 uppercase tracking-widest mb-6 block">Valle de
+                        Oro</span>
+                    <p class="text-sm text-slate-300 italic leading-relaxed mb-8">"Barrel equity became our foundation
+                        during growth season gaps."</p>
+                    <div class="pt-6 border-t border-white/5">
+                        <p class="text-[8px] text-slate-500 uppercase font-black">Anchor Asset</p>
+                        <p class="text-xs font-bold text-white">4k Seasonal Barrels</p>
+                    </div>
+                </div>
+
+                <div class="testimony-card p-10 glass rounded-[40px]">
+                    <span class="text-[9px] font-black text-blue-500 uppercase tracking-widest mb-6 block">Keystone
+                        CM</span>
+                    <p class="text-sm text-slate-300 italic leading-relaxed mb-8">"Unique synergy between physical
+                        building equipment and market alpha."</p>
+                    <div class="pt-6 border-t border-white/5">
+                        <p class="text-[8px] text-slate-500 uppercase font-black">Anchor Asset</p>
+                        <p class="text-xs font-bold text-white">Heavy Machinery</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-6">
+        <div class="max-w-5xl mx-auto text-center mb-24">
+            <h2 class="serif text-5xl mb-6">The 11-Node Architecture</h2>
+            <p class="text-slate-400">A decentralized decision matrix that validates market regimes before exposure.</p>
+        </div>
+
+        <div class="max-w-4xl mx-auto glass p-16 rounded-[60px] relative overflow-hidden">
+            <div class="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-11 gap-4">
+                <div class="flex flex-col items-center gap-4">
+                    <div class="node-dot node-active"></div>
+                    <span class="text-[7px] font-black text-blue-400 uppercase tracking-widest">L2 Depth</span>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="node-dot node-active"></div><span
+                        class="text-[7px] font-black text-blue-400 uppercase tracking-widest">Sentiment</span>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="node-dot node-active"></div><span
+                        class="text-[7px] font-black text-blue-400 uppercase tracking-widest">RL Exec</span>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="node-dot node-active"></div><span
+                        class="text-[7px] font-black text-blue-400 uppercase tracking-widest">Breaker</span>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="node-dot"></div><span
+                        class="text-[7px] font-black text-slate-600 uppercase tracking-widest">Regime</span>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="node-dot"></div><span
+                        class="text-[7px] font-black text-slate-600 uppercase tracking-widest">Flow</span>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="node-dot"></div><span
+                        class="text-[7px] font-black text-slate-600 uppercase tracking-widest">Skew</span>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="node-dot"></div><span
+                        class="text-[7px] font-black text-slate-600 uppercase tracking-widest">Liquidity</span>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="node-dot"></div><span
+                        class="text-[7px] font-black text-slate-600 uppercase tracking-widest">Bridge</span>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="node-dot"></div><span
+                        class="text-[7px] font-black text-slate-600 uppercase tracking-widest">Anchor</span>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="node-dot"></div><span
+                        class="text-[7px] font-black text-slate-600 uppercase tracking-widest">Audit</span>
+                </div>
+            </div>
+
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500/5 to-transparent"></div>
+        </div>
+    </section>
+
+    <footer class="py-20 border-t border-white/5 text-center">
+        <p class="serif text-2xl mb-8">Ready to liquidize your static data?</p>
+        <button
+            class="px-12 py-6 bg-white text-black font-black text-[11px] uppercase tracking-widest rounded-full hover:bg-slate-200 transition-all">Submit
+            Asset for Audit</button>
+        <div class="mt-20 text-[9px] text-slate-600 uppercase font-bold tracking-[0.5em]">
+            Data Architect | Liquidity Engineer | Sovereign Tier Matrix
+        </div>
+    </footer>
+
+</body>
+
+</html>

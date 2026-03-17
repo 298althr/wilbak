@@ -1,0 +1,52 @@
+{
+  "thorne": {
+    "name": "Thorne-Blackwood",
+    "tier": "Institutional Tier",
+    "hero": "Bridging the Gap: From Manual to 11-Node Precision.",
+    "sub": "Transitioned to an 11-node trade engine via verified remote logic, removing human bias entirely.",
+    "start": "$2,000",
+    "monthly": "$2,000",
+    "nodesActive": 11,
+    "reporting": [
+      "Our initial skepticism was high. Trading high-frequency quants remotely felt like a risk we couldn't justify to our board. We started in the 'Developmental Tunnel', watching the engine in sandbox mode for 60 days.",
+      "The shift happened when we saw the 'Hard Breaker' node in action. It stopped a potential fat-finger trade in milliseconds. That moment proved the infrastructure was more disciplined than any human trader we've hired.",
+      "Today, we operate at a 72.4% confidence threshold. The engine doesn't just trade; it validates market regime before a single dollar is committed. It is now our primary capital base builder."
+    ],
+    "hardening": [
+      { "t": "Institutional Cal", "d": "Hardening engines to meet the $2K infrastructure latency requirements." },
+      { "t": "72.4% Gate", "d": "Mandatory composite confidence threshold required for live order routing." },
+      { "t": "Managed Scaling", "d": "Systematic position sizing increases as node stability was proven over 90 days." }
+    ],
+    "backtest": {
+      "period": "9 Months (Starting Oct 2024)",
+      "factor": 1.0,
+      "pnl": [21000, 35000, 52000, 82000, 145000, 210000, 285000, 320000, 352400],
+      "disclaimer": "Baseline calculation: 2% position size | Institutional Slippage Model | 7% Error Haircut."
+    }
+  },
+  "agri": {
+    "name": "Agri-Growth Farm",
+    "tier": "Growth Tier",
+    "hero": "Building a Capital Base While You Sleep.",
+    "sub": "A custom negotiation for a farm business requiring minimal risk and maximum stability.",
+    "start": "$500",
+    "monthly": "$200",
+    "nodesActive": 9,
+    "reporting": [
+      "We didn't have much to start with, only $500, but we needed the capital to grow while we were out in the fields. The negotiation was tough; we needed the team to agree to a 'very slow' growth model.",
+      "The engine was tuned specifically for us—stripping away high-risk nodes and focusing on low-beta stock acquisition. It’s a minimal risk strategy that actually lets us sleep during the harvest seasons.",
+      "Watching the system acquire stocks automatically while our monthly $200 budget fuels it has been life-changing. It's not about the millions yet; it's about the resilience of the capital base we're building."
+    ],
+    "hardening": [
+      { "t": "Agri-Safety Mode", "d": "Calibrating sensors to prioritize low-beta, high-liquidity assets only." },
+      { "t": "The 65% Safety Gate", "d": "Reduced threshold for entry but heightened exit sensitivity to protect the $500 base." },
+      { "t": "Base-Builder Logic", "d": "Modified pipeline to ignore high-volatility regime shifts entirely." }
+    ],
+    "backtest": {
+      "period": "6 Months (Starting March 2025)",
+      "factor": 0.65,
+      "pnl": [5000, 11500, 18000, 24500, 32000, 41000],
+      "disclaimer": "Growth model: Capital accumulation focus | 22% Error Haircut applied for infrastructure noise."
+    }
+  }
+}
