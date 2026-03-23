@@ -1126,7 +1126,45 @@
                 </svg>
             </button>
 
-            <div class="flex-grow overflow-y-auto p-10 md:p-16">
+            <!-- Step 0: Phased Protocol (Alignment Plan) -->
+            <div x-show="auditStep === 0" class="flex flex-col h-full overflow-hidden" x-transition>
+                <div class="p-8 md:p-12 border-b border-slate-100">
+                    <span class="mono text-[10px] text-blue-600 font-black uppercase tracking-[0.3em] mb-2 block">Alignment Plan</span>
+                    <h3 class="serif text-4xl font-black italic text-slate-950 uppercase tracking-tighter">Phased Protocol</h3>
+                </div>
+                <div class="flex-grow overflow-y-auto p-8 md:p-12 space-y-10 custom-scrollbar">
+                    <div class="flex gap-6">
+                        <div class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-white mono font-bold text-xs flex-shrink-0">1</div>
+                        <div>
+                            <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest mb-2 block">Phase 01: Diagnosis</span>
+                            <p class="text-sm text-slate-600 leading-relaxed">Audit alignment in 2-4 weeks: Map current objectives/KPIs/projects against strategic goals using a Balanced Scorecard or strategy map. Assess capacity gaps (staffing/structure), role mismatches (skills audit), visibility issues (team surveys/Gantt charts for priorities), and communication bottlenecks. Identify root causes like vague metrics or resource shortfalls.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6">
+                        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white mono font-bold text-xs flex-shrink-0">2</div>
+                        <div>
+                            <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest mb-2 block">Phase 02: Mapping</span>
+                            <p class="text-sm text-slate-600 leading-relaxed">Cascade priorities organization-wide in 4-6 weeks: Break strategy into SMART objectives and OKRs (e.g., 'Establish AI-enhanced customer presence: 15 events, 50 hires, 950 transactions by Q4'). Create process maps linking high-level goals to daily tasks/responsibilities. Assign clear owners at every level, define shared success metrics to prevent drift.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6">
+                        <div class="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white mono font-bold text-xs flex-shrink-0">3</div>
+                        <div>
+                            <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest mb-2 block">Phase 03: Implementation</span>
+                            <p class="text-sm text-slate-600 leading-relaxed">Roll out systems and rhythms in 6-8 weeks (ongoing): Deploy dashboards or OKR software for real-time progress visibility and weekly/bi-weekly check-ins. Repurpose existing meetings as decision points (clarify next steps, risks, support needs). Build trust loops for early issue-raising, integrate AI tools for rapid prototyping/experimentation.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-8 bg-slate-50 border-t border-slate-100">
+                    <button @click="auditStep = 1"
+                        class="w-full py-6 bg-slate-950 text-white font-black italic text-xs tracking-[0.4em] uppercase hover:bg-blue-600 transition-all shadow-xl">
+                        PROCEED TO AUDIT PROTOCOL →
+                    </button>
+                </div>
+            </div>
+
+            <!-- Audit Form (Starts at Step 1) -->
+            <div x-show="auditStep > 0" class="flex-grow overflow-y-auto p-10 md:p-16" x-transition>
                 <!-- Progress -->
                 <div class="mb-16 flex justify-between items-center text-[10px] font-black mono text-blue-500 uppercase tracking-widest">
                     <div class="flex space-x-3">
@@ -1160,13 +1198,12 @@
                             class="w-full p-8 bg-slate-50 border-2 border-slate-100 text-slate-950 mono text-xs uppercase tracking-widest outline-none focus:border-blue-600 focus:bg-white transition-all"
                             placeholder="EX: MANUAL DATA ENTRY IN FINANCE..."></textarea>
                         <div class="mt-12 flex justify-between items-center">
-                            <button @click="auditStep = 1" class="mono text-[10px] font-black uppercase text-slate-400 hover:text-blue-600 transition-colors">← Back</button>
+                            <button @click="auditStep = 0" class="mono text-[10px] font-black uppercase text-slate-400 hover:text-blue-600 transition-colors">← Back to Plan</button>
                             <button @click="auditStep = 3" :disabled="businessDetail.length < 10"
                                 class="bg-slate-900 text-white px-16 py-6 font-black uppercase tracking-widest text-xs disabled:opacity-20 hover:bg-blue-600 transition-all">Confirm Logic</button>
                         </div>
                     </div>
 
-                    <!-- Additional steps 3, 4, 5 omitted for brevity in chunking but essential to complete the modal -->
                     <div x-show="auditStep === 3" x-transition x-cloak>
                         <h2 class="serif text-5xl md:text-7xl font-black italic mb-10 text-slate-900 uppercase tracking-tighter">03. Identifier</h2>
                         <div class="space-y-6">
@@ -1221,7 +1258,7 @@
             <div class="relative z-10">
                 <h3 class="serif text-4xl font-black text-slate-900 italic uppercase tracking-tighter mb-6">Transmission Received.</h3>
                 <p class="text-slate-500 mb-10 leading-relaxed font-bold uppercase text-xs tracking-widest">Wilbak Engineering is analyzing your operational DNA.</p>
-                <button @click="successModal = false" class="bg-slate-900 text-white px-12 py-5 font-black uppercase text-xs tracking-widest">Close Hub</button>
+                <button @click="successModal = false; auditStep = 0" class="bg-slate-900 text-white px-12 py-5 font-black uppercase text-xs tracking-widest">Close Hub</button>
             </div>
         </div>
     </div>
