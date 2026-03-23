@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  ═══════════════════════════════════════════════════════════════════════════
+   ORTHOM8pro  ·  Page Template  ·  page-template.html
+  ═══════════════════════════════════════════════════════════════════════════
+
+  HOW TO USE THIS TEMPLATE
+  ─────────────────────────────────────────────────────────────────────────
+  1. Duplicate this file into the relevant folder  (e.g. about/about.html)
+  2. Update <title>, <meta name="description">, and <meta property="og:…">
+  3. Set window.O8.activeNav to the key matching your page's nav link
+     (see available keys in the nav below — the data-nav attribute)
+  4. Replace the <!-- PAGE CONTENT --> region with your sections
+  5. Keep the <head> font link and both CSS links intact
+  6. Keep the footer and both <script> tags at the bottom intact
+  7. Adjust relative paths to assets (../assets/ vs ./assets/) per depth
+
+  FOLDER STRUCTURE ASSUMPTION
+  ─────────────────────────────────────────────────────────────────────────
+  /                          Root
+  ├── index.html             Home (depth 0  → paths: ./assets/…)
+  ├── assets/
+  │   ├── css/
+  │   │   └── o8-system.css
+  │   └── js/
+  │       └── o8-page.js
+  ├── the-engine/
+  │   └── engine_nodes.html  (depth 1 → paths: ../assets/…)
+  ├── performance/
+  │   └── index.html
+  ├── testimony/
+  │   └── master-matrix.html
+  ├── risktable/
+  │   └── investor-risk-matrix.html
+  ├── submit-asset/
+  │   └── submit-asset.html
+  └── about/
+      └── about.html
+
+  NAMING CONVENTION
+  ─────────────────────────────────────────────────────────────────────────
+  CSS classes:
+    o8-*         → design system components (defined in o8-system.css)
+    reveal       → scroll-triggered animation target (handled by o8-page.js)
+    reveal-left  → slides in from left on scroll
+    reveal-right → slides in from right on scroll
+    reveal-fade  → fades in only, no translate
+
+  JS functions (all global, defined in o8-page.js):
+    o8OpenModal(id)            → opens modal with that DOM id
+    o8CloseModal(id, event)    → closes modal; pass event for backdrop
+    o8ToggleAccordion(el)      → toggle accordion row open/closed
+    o8SwitchTab(tabsId, idx)   → switch tabs/panels pair
+    o8PipelineClick(el)        → click a pipeline node manually
+
+  ═══════════════════════════════════════════════════════════════════════════
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ── SEO & Open Graph ─────────────────────────── -->
+  <!--
+    CHANGE THESE FOR EVERY PAGE:
+    • title:          "[Page Name] — ORTHOM8pro"
+    • description:    One sentence describing this page (150 chars max)
+    • og:title:       Same as title
+    • og:description: Same as description
+    • og:image:       Absolute URL to a 1200×630 image for this page
+    • og:url:         Absolute canonical URL for this page
+  -->
+  <title>Page Title — ORTHOM8pro</title>
+  <meta name="description" content="Page description goes here — max 150 characters.">
+  <meta property="og:title"       content="Page Title — ORTHOM8pro">
+  <meta property="og:description" content="Page description goes here.">
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://orthom8pro.com/page-path/">
+  <meta property="og:image"       content="https://orthom8pro.com/assets/images/og-default.jpg">
+  <meta name="twitter:card"       content="summary_large_image">
+  <meta name="twitter:title"      content="Page Title — ORTHOM8pro">
+  <meta name="twitter:description" content="Page description goes here.">
+  <meta name="twitter:image"      content="https://orthom8pro.com/assets/images/og-default.jpg">
+
+  <!-- ── Fonts (do not remove) ────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Instrument+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <!-- ── Design System CSS (do not remove) ────────── -->
+  <!-- Adjust path depth: root → ./assets/css/  |  subfolder → ../assets/css/ -->
+  <link rel="stylesheet" href="../assets/css/o8-system.css">
+
+  <!-- ── Page-specific CSS (optional) ─────────────── -->
+  <!--
+    Add extra styles only this page needs. Do NOT re-declare any
+    token or class already in o8-system.css.
+  -->
+  <style>
+    /* Page-specific overrides only */
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       HEADER  (identical on every page — do not modify structure)
+       Only change: set data-nav on the active link to match O8.activeNav
+       ═══════════════════════════════════════════════ -->
+  <header class="o8-header" id="mainHeader">
+
+    <!-- Logo -->
+    <a href="../index.html" class="o8-logo">
+      <div class="o8-logo-mark">O8</div>
+      <span class="o8-logo-name">ORTHOM8pro</span>
+    </a>
+
+    <!-- Desktop nav
+         data-nav must match window.O8.activeNav value set below -->
+    <nav class="o8-nav">
+      <a href="../index.html"                          class="o8-nav-link" data-nav="home">Home</a>
+      <a href="../the-engine/engine_nodes.html"        class="o8-nav-link" data-nav="engine">The Engine</a>
+      <a href="../performance/index.html"              class="o8-nav-link" data-nav="performance">Performance</a>
+      <a href="../testimony/master-matrix.html"        class="o8-nav-link" data-nav="testimony">Evidence</a>
+      <a href="../risktable/investor-risk-matrix.html" class="o8-nav-link" data-nav="risk">Risk Matrix</a>
+      <a href="../about/about.html"                    class="o8-nav-link" data-nav="about">About</a>
+    </nav>
+
+    <!-- Desktop CTA -->
+    <a href="../submit-asset/submit-asset.html" class="o8-header-cta">Audit Asset</a>
+
+    <!-- Mobile hamburger button -->
+    <button class="o8-mobile-btn" id="o8MobileBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile menu overlay -->
+  <div class="o8-mobile-menu" id="o8MobileMenu" role="dialog" aria-label="Navigation">
+    <div class="o8-mobile-menu-head">
+      <a href="../index.html" class="o8-logo">
+        <div class="o8-logo-mark">O8</div>
+        <span class="o8-logo-name">ORTHOM8pro</span>
+      </a>
+      <button class="o8-mobile-close" id="o8MobileClose" aria-label="Close menu">✕</button>
+    </div>
+    <nav class="o8-mobile-nav">
+      <a href="../index.html">Home</a>
+      <a href="../the-engine/engine_nodes.html">The Engine</a>
+      <a href="../performance/index.html">Performance</a>
+      <a href="../testimony/master-matrix.html">Evidence</a>
+      <a href="../risktable/investor-risk-matrix.html">Risk Matrix</a>
+      <a href="../about/about.html">About</a>
+    </nav>
+    <div class="o8-mobile-cta">
+      <a href="../submit-asset/submit-asset.html" class="btn-primary" style="width:100%;justify-content:center">
+        Audit Asset →
+      </a>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════
+       PAGE CONTENT
+       ─────────────────────────────────────────────
+       Replace everything between these comments with
+       your page's sections.
+
+       SECTION PATTERNS AVAILABLE:
+       ────────────────────────────
+       A. Standard light section
+       B. Alternate-bg section (--off)
+       C. Dark section (--dark)
+       D. Marquee ticker
+       E. Stats strip
+       F. How-grid (2×2 step layout)
+       G. Photo feature split
+       H. Proof / testimonial grid
+       I. Accordion list
+       J. Tabs
+       K. Risk table
+       L. CTA section (always last before footer)
+
+       Each pattern is shown below with comments.
+       Delete the patterns you don't need.
+       ═══════════════════════════════════════════════ -->
+
+  <!-- ── PATTERN A: Page Hero ────────────────────── -->
+  <!--
+    The hero for INNER pages is simpler than the home hero.
+    No pipeline panel. Just an editorial header with eyebrow + title + desc.
+    For the full split-hero with pipeline, see index.html.
+  -->
+  <section style="padding-top: calc(var(--header-h) + 80px); padding-bottom: 80px; border-bottom: 1px solid var(--color-rule);">
+    <div class="container">
+      <div style="max-width: 720px;">
+        <!-- Eyebrow -->
+        <span class="o8-tag" style="margin-bottom: 24px; display: inline-flex;">
+          Section Category · Subsection
+        </span>
+
+        <!-- Title — use type-display-lg or type-display-md depending on length -->
+        <h1 class="type-display-lg" style="margin-bottom: 20px;">
+          Page Heading<br>
+          <em>In Italic Gold.</em>
+        </h1>
+
+        <!-- Lead paragraph -->
+        <p class="type-body-lg" style="max-width: 540px; margin-bottom: 36px;">
+          One or two sentences introducing this page. Keep it tight —
+          this is the first thing an investor reads.
+        </p>
+
+        <!-- Actions -->
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <a href="#section-anchor" class="btn-primary">
+            Primary Action
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+          <a href="#" class="btn-ghost">Secondary Action</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── PATTERN B: Standard Section (light bg) ─── -->
+  <section class="o8-section" id="section-anchor">
+    <div class="container">
+
+      <!-- Section header -->
+      <div class="o8-section-header reveal">
+        <span class="o8-section-num">01 — Section Label</span>
+        <h2 class="type-section-head">
+          Section Heading <em>with Gold.</em>
+        </h2>
+        <p class="o8-section-desc">
+          Optional lead paragraph below the heading. Describe the section
+          briefly in 1–2 sentences. Max-width is already constrained.
+        </p>
+      </div>
+
+      <!-- Your section content here -->
+      <!-- e.g. grid, cards, text blocks -->
+
+    </div>
+  </section>
+
+
+  <!-- ── PATTERN C: Dark Section ───────────────── -->
+  <section class="o8-section o8-section--dark" id="dark-section">
+    <div class="container">
+
+      <div class="o8-section-header reveal">
+        <!-- o8-section-num is automatically gold on dark sections -->
+        <span class="o8-section-num">02 — Dark Section</span>
+        <h2 class="type-section-head" style="color: var(--color-white);">
+          Heading on Dark<br>
+          <em>background.</em>
+        </h2>
+      </div>
+
+      <!-- Your dark section content here -->
+
+    </div>
+  </section>
+
+
+  <!-- ── PATTERN D: Marquee Ticker ────────────── -->
+  <!--
+    The track is filled automatically by o8-page.js using
+    window.O8.marqueeItems (or the default set if not provided).
+    Just include this markup — no JS needed per-page.
+  -->
+  <div class="o8-marquee">
+    <div class="o8-marquee-track" id="marqueeTrack"></div>
+  </div>
+
+
+  <!-- ── PATTERN E: Stats Strip ───────────────── -->
+  <!--
+    Add data-count, data-prefix, data-suffix to drive the counter animation.
+    Numbers animate in when the strip enters the viewport.
+    Use exactly 5 cells (the grid is repeat(5,1fr)).
+    For fewer stats: remove cells and adjust grid-template-columns inline.
+  -->
+  <div class="o8-stats-strip">
+    <div class="container">
+      <div class="o8-stats-inner">
+
+        <div class="o8-stats-cell reveal">
+          <span class="o8-stats-num" data-count="11" data-suffix="">0</span>
+          <div class="o8-stats-lbl">Pipeline Nodes</div>
+        </div>
+
+        <div class="o8-stats-cell reveal" style="transition-delay: 0.05s">
+          <span class="o8-stats-num" data-count="320" data-suffix="ms">0ms</span>
+          <div class="o8-stats-lbl">Signal Latency</div>
+        </div>
+
+        <div class="o8-stats-cell reveal" style="transition-delay: 0.1s">
+          <span class="o8-stats-num" data-count="72" data-suffix="%">0%</span>
+          <div class="o8-stats-lbl">Confidence Gate</div>
+        </div>
+
+        <div class="o8-stats-cell reveal" style="transition-delay: 0.15s">
+          <span class="o8-stats-num" data-count="9" data-suffix="">0</span>
+          <div class="o8-stats-lbl">Kill-Switch Triggers</div>
+        </div>
+
+        <div class="o8-stats-cell reveal" style="transition-delay: 0.2s">
+          <span class="o8-stats-num" data-count="2" data-prefix="$" data-suffix="M+">$0M+</span>
+          <div class="o8-stats-lbl">Max Capital Anchor</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── PATTERN F: How-Grid (2×2 steps) ───────── -->
+  <!--
+    The 1px gap between cells is achieved by setting background on
+    .o8-how-grid and gap:1px. Each cell has background:white.
+    Images are optional inside cells.
+  -->
+  <section class="o8-section">
+    <div class="container">
+      <div class="o8-section-header reveal">
+        <span class="o8-section-num">03 — Process</span>
+        <h2 class="type-section-head">How it <em>works.</em></h2>
+      </div>
+    </div>
+    <div class="o8-how-grid">
+
+      <div class="o8-how-cell reveal">
+        <div class="o8-how-num">01</div>
+        <h3 class="o8-how-title">Step Title</h3>
+        <p class="o8-how-desc">
+          Describe what happens in this step. Keep it to 3–4 sentences.
+          Use facts and specifics — no marketing fluff.
+        </p>
+        <!-- Optional image -->
+        <img
+          src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80&auto=format"
+          alt="Step 1"
+          class="o8-how-img"
+          loading="lazy"
+        >
+      </div>
+
+      <div class="o8-how-cell reveal" style="transition-delay: 0.1s">
+        <div class="o8-how-num">02</div>
+        <h3 class="o8-how-title">Step Title</h3>
+        <p class="o8-how-desc">Description.</p>
+        <img src="https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=600&q=80&auto=format" alt="Step 2" class="o8-how-img" loading="lazy">
+      </div>
+
+      <div class="o8-how-cell reveal" style="transition-delay: 0.15s">
+        <div class="o8-how-num">03</div>
+        <h3 class="o8-how-title">Step Title</h3>
+        <p class="o8-how-desc">Description.</p>
+        <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80&auto=format" alt="Step 3" class="o8-how-img" loading="lazy">
+      </div>
+
+      <div class="o8-how-cell reveal" style="transition-delay: 0.2s">
+        <div class="o8-how-num">04</div>
+        <h3 class="o8-how-title">Step Title</h3>
+        <p class="o8-how-desc">Description.</p>
+        <img src="https://images.unsplash.com/photo-1560221328-12fe60f83ab8?w=600&q=80&auto=format" alt="Step 4" class="o8-how-img" loading="lazy">
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ── PATTERN G: Photo Feature Split ──────────── -->
+  <!--
+    Add class o8-photo-feature--flip to reverse (image on right).
+    The image panel and content panel are equal-width by default.
+    Replace the img src with any Unsplash URL: ?w=900&q=80&auto=format
+  -->
+  <div class="o8-photo-feature reveal">
+    <div class="o8-pf-img">
+      <img
+        src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&q=80&auto=format"
+        alt="Infrastructure"
+        loading="lazy"
+      >
+    </div>
+    <div class="o8-pf-content">
+      <span class="o8-section-num" style="margin-bottom: 16px;">04 — Infrastructure</span>
+      <h2 class="type-section-head">
+        Built for <em>sovereign</em><br>capital.
+      </h2>
+      <p class="type-body" style="margin-top: 16px;">
+        Lead paragraph describing the content. 2–3 sentences.
+      </p>
+      <!-- Optional feature list -->
+      <ul class="o8-pf-list">
+        <li>Feature label <strong>Value</strong></li>
+        <li>Feature label <strong>Value</strong></li>
+        <li>Feature label <strong>Value</strong></li>
+        <li>Feature label <strong>Value</strong></li>
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- ── PATTERN H: Proof / Testimonial Grid ───── -->
+  <!--
+    Three columns by default.
+    Add class o8-proof-card--dark to any card for the inverted dark treatment.
+    Always keep one dark card for visual contrast.
+  -->
+  <section class="o8-section o8-section--off" id="proof">
+    <div class="container">
+      <div class="o8-section-header reveal">
+        <span class="o8-section-num">05 — Evidence</span>
+        <h2 class="type-section-head">Partners who <em>trust the engine.</em></h2>
+      </div>
+    </div>
+    <div class="o8-proof-grid reveal">
+
+      <div class="o8-proof-card">
+        <div class="o8-proof-logo">Partner Name</div>
+        <div class="o8-proof-quote">
+          "Pull quote from the partner — make it specific and credible,
+          referencing a concrete outcome."
+        </div>
+        <div class="o8-proof-attr">Name · Title</div>
+        <div class="o8-proof-divider">
+          <div class="o8-proof-stat">+18.4%</div>
+          <div class="o8-proof-stat-lbl">Q4 Alpha Generated</div>
+        </div>
+      </div>
+
+      <!-- Dark card — always include one -->
+      <div class="o8-proof-card o8-proof-card--dark">
+        <div class="o8-proof-logo">Partner Name</div>
+        <div class="o8-proof-quote">"Quote."</div>
+        <div class="o8-proof-attr">Name · Title</div>
+        <div class="o8-proof-divider">
+          <div class="o8-proof-stat">$450K</div>
+          <div class="o8-proof-stat-lbl">Capital Unlocked</div>
+        </div>
+      </div>
+
+      <div class="o8-proof-card">
+        <div class="o8-proof-logo">Partner Name</div>
+        <div class="o8-proof-quote">"Quote."</div>
+        <div class="o8-proof-attr">Name · Title</div>
+        <div class="o8-proof-divider">
+          <div class="o8-proof-stat">$2.0M</div>
+          <div class="o8-proof-stat-lbl">Anchor Position Active</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ── PATTERN I: Accordion ─────────────────── -->
+  <!--
+    Works on both dark and light backgrounds.
+    For dark surface (inside .o8-section--dark): use as shown.
+    For light surface: add class o8-accordion-row--light to each row.
+
+    onclick="o8ToggleAccordion(this)" is the only JS needed.
+  -->
+  <section class="o8-section o8-section--dark" id="accordion-section">
+    <div class="container">
+      <div class="o8-section-header reveal">
+        <span class="o8-section-num">06 — Detail</span>
+        <h2 class="type-section-head" style="color: var(--color-white);">
+          Expandable <em>detail rows.</em>
+        </h2>
+      </div>
+
+      <!-- Accordion container — add border-top once, not on each row -->
+      <div style="border-top: 1px solid rgba(255,255,255,0.06);">
+
+        <div class="o8-accordion-row" onclick="o8ToggleAccordion(this)">
+          <div class="o8-accordion-head">
+            <span class="o8-acc-id">01</span>
+            <span class="o8-badge o8-badge--data">Data</span>
+            <span class="o8-acc-name">Row Title — Node or Feature Name</span>
+            <span class="o8-acc-meta">120ms</span>
+            <!-- Importance dots: 10 dots total, filled = gold -->
+            <div class="o8-importance-dots" style="width: 80px; flex-shrink: 0;">
+              <div class="o8-importance-dot o8-importance-dot--filled"></div>
+              <div class="o8-importance-dot o8-importance-dot--filled"></div>
+              <div class="o8-importance-dot o8-importance-dot--filled"></div>
+              <div class="o8-importance-dot o8-importance-dot--filled"></div>
+              <div class="o8-importance-dot o8-importance-dot--filled"></div>
+              <div class="o8-importance-dot o8-importance-dot--filled"></div>
+              <div class="o8-importance-dot o8-importance-dot--filled"></div>
+              <div class="o8-importance-dot o8-importance-dot--filled"></div>
+              <div class="o8-importance-dot o8-importance-dot--filled"></div>
+              <div class="o8-importance-dot o8-importance-dot--filled"></div>
+            </div>
+            <svg class="o8-acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+          </div>
+          <div class="o8-accordion-body">
+            <!-- Main logic paragraph -->
+            <p style="font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.8; font-weight: 300; max-width: 720px;">
+              Main logic description. As long as needed. This is the full
+              technical explanation of what this row/node/feature does.
+            </p>
+
+            <!-- Three-column detail grid -->
+            <div class="o8-accordion-body-grid">
+
+              <div class="o8-acc-block">
+                <div class="o8-acc-block-label">Outputs</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;">
+                  <span class="o8-chip o8-chip--dark">output_field</span>
+                  <span class="o8-chip o8-chip--dark">another_field</span>
+                </div>
+              </div>
+
+              <div class="o8-acc-block">
+                <div class="o8-acc-block-label">Providers</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;">
+                  <span class="o8-chip o8-chip--dark">Scraper API</span>
+                  <span class="o8-chip o8-chip--dark">Yahoo Finance</span>
+                </div>
+              </div>
+
+              <div class="o8-acc-block">
+                <div class="o8-acc-block-label">Failure Mode</div>
+                <div class="o8-acc-block-text">
+                  Describe what happens if this node fails and how the
+                  system degrades gracefully.
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Gold insight callout -->
+            <div class="o8-insight-callout">
+              Key insight or notable fact about this row — written in
+              italics in a gold-bordered callout.
+            </div>
+          </div>
+        </div>
+
+        <!-- Repeat .o8-accordion-row blocks as needed -->
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── PATTERN J: Tabs ───────────────────────── -->
+  <!--
+    Tab ids: the wrapper id is used by o8SwitchTab.
+    onclick="o8SwitchTab('myTabs', 0)"  — always pass the wrapper id + index.
+    Panels wrapper id must be the tabs id + "Panels" (e.g. "myTabsPanels").
+  -->
+  <section class="o8-section">
+    <div class="container">
+      <div class="o8-section-header reveal">
+        <span class="o8-section-num">07 — Comparison</span>
+        <h2 class="type-section-head">Tabbed <em>content.</em></h2>
+      </div>
+
+      <!-- Tab headers -->
+      <div class="o8-tabs" id="myTabs">
+        <div class="o8-tab active" onclick="o8SwitchTab('myTabs', 0)">Tab One</div>
+        <div class="o8-tab"        onclick="o8SwitchTab('myTabs', 1)">Tab Two</div>
+        <div class="o8-tab"        onclick="o8SwitchTab('myTabs', 2)">Tab Three</div>
+      </div>
+
+      <!-- Tab panels — id must be tabsId + "Panels" -->
+      <div id="myTabsPanels" style="padding-top: 48px;">
+
+        <div class="o8-tab-panel active">
+          <!-- Tab 1 content — any layout works here -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;">
+            <div>
+              <h3 class="type-display-sm" style="margin-bottom: 16px;">Tab One Heading</h3>
+              <p class="type-body">Description for tab one content.</p>
+              <!-- Metric cards 2×2 -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px;">
+                <div class="o8-metric-card">
+                  <div class="o8-metric-val">51.6%</div>
+                  <div class="o8-metric-lbl">Win Rate</div>
+                </div>
+                <div class="o8-metric-card">
+                  <div class="o8-metric-val o8-metric-val--gold">1.84%</div>
+                  <div class="o8-metric-lbl">Monthly ROI</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <img
+                src="https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?w=600&q=80&auto=format"
+                alt="Tab 1"
+                style="width: 100%; height: 320px; object-fit: cover;"
+                loading="lazy"
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="o8-tab-panel">
+          <p class="type-body">Tab Two content.</p>
+        </div>
+
+        <div class="o8-tab-panel">
+          <p class="type-body">Tab Three content.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── PATTERN K: Risk / Data Table ────────────── -->
+  <section class="o8-section">
+    <div class="container">
+      <div class="o8-section-header reveal">
+        <span class="o8-section-num">08 — Data Table</span>
+        <h2 class="type-section-head">Projection <em>intelligence.</em></h2>
+      </div>
+
+      <div style="overflow-x: auto;" class="reveal">
+        <table class="o8-table">
+          <thead>
+            <tr>
+              <th>Tier</th>
+              <th>Win Rate</th>
+              <th>Monthly ROI</th>
+              <th>$10K Capital</th>
+              <th>$25K Capital</th>
+              <th>$50K Capital</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>MVP · $200/mo</td>
+              <td>51.6%</td>
+              <td>
+                <div>1.84%</div>
+                <!-- Mini bar: set width to (roi / maxRoi * 100)% -->
+                <div class="o8-roi-bar"><div class="o8-roi-fill" style="width: 14%"></div></div>
+              </td>
+              <td>$184</td>
+              <td>$460</td>
+              <td>$920</td>
+            </tr>
+            <tr>
+              <td>Institutional · $2K/mo</td>
+              <td>54.4%</td>
+              <td>
+                <div>8.38%</div>
+                <div class="o8-roi-bar"><div class="o8-roi-fill" style="width: 65%"></div></div>
+              </td>
+              <td>$838</td>
+              <td>$2,095</td>
+              <td>$4,190</td>
+            </tr>
+            <!-- Add more rows as needed -->
+          </tbody>
+        </table>
+      </div>
+
+      <p style="font-size: 10px; color: var(--color-muted); margin-top: 20px; font-style: italic;">
+        Illustrative projections. ±28% variance applied. Not financial advice.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ── PATTERN L: CTA (always last before footer) ── -->
+  <section class="o8-cta">
+    <div class="o8-cta-bg"></div>
+    <div class="container">
+      <div class="o8-cta-inner">
+        <h2>Ready to audit your<br><em>liquid potential?</em></h2>
+        <p>
+          Access the terminal. Define your capital benchmarks and let the
+          11-node engine simulate your path to alpha.
+        </p>
+        <div class="o8-cta-actions">
+          <a href="../submit-asset/submit-asset.html" class="btn-gold">Submit for Audit →</a>
+          <a href="../risktable/investor-risk-matrix.html" class="btn-outline-light">View Risk Matrix</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       MODALS  (place before closing </body>)
+       Add as many as needed. IDs must be unique.
+       Open with: o8OpenModal('modalId')
+       ═══════════════════════════════════════════════ -->
+
+  <!-- Example modal -->
+  <div class="o8-modal-overlay" id="exampleModal" onclick="o8CloseModal('exampleModal', event)">
+    <div class="o8-modal-box">
+      <div class="o8-modal-header">
+        <div>
+          <span class="type-overline-gold" style="display: block; margin-bottom: 6px;">Modal Category</span>
+          <h3>Modal Title</h3>
+        </div>
+        <button class="btn-icon" onclick="o8CloseModal('exampleModal')">✕</button>
+      </div>
+      <div class="o8-modal-body">
+
+        <p class="type-body-sm" style="margin-bottom: 24px;">
+          Introductory paragraph for the modal. Keep it brief — under 50 words.
+        </p>
+
+        <!-- Example form inside modal -->
+        <div class="o8-form-grid">
+
+          <div class="o8-field">
+            <label class="o8-label">Full Legal Name</label>
+            <input class="o8-input" type="text" placeholder="e.g. Thorne Capital Partners LLC">
+          </div>
+
+          <div class="o8-field">
+            <label class="o8-label">Asset Class</label>
+            <select class="o8-select">
+              <option>Real Estate Portfolio</option>
+              <option>Automotive Fleet</option>
+              <option>Commodities</option>
+            </select>
+          </div>
+
+          <div class="o8-form-grid o8-form-grid--2">
+            <div class="o8-field">
+              <label class="o8-label">Asset Value</label>
+              <input class="o8-input" type="text" placeholder="$0,000,000">
+            </div>
+            <div class="o8-field">
+              <label class="o8-label">Target Tier</label>
+              <select class="o8-select">
+                <option>Seed Growth ($25K)</option>
+                <option>Active Alpha ($120K)</option>
+                <option>Institutional ($2M)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="o8-field">
+            <label class="o8-label">Email</label>
+            <input class="o8-input" type="email" placeholder="capital@yourfirm.com">
+          </div>
+
+          <button class="btn-primary" style="width: 100%; justify-content: center; margin-top: 8px;">
+            Submit
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </button>
+
+          <p class="o8-form-note">
+            Institutional enquiries only. All data handled under NDA.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER  (identical on every page — do not modify)
+       ═══════════════════════════════════════════════ -->
+  <footer class="o8-footer">
+    <div class="container">
+      <div class="o8-footer-inner">
+
+        <!-- Brand column -->
+        <div>
+          <div class="o8-logo-mark">O8</div>
+          <div class="o8-footer-brand-name">ORTHOM8pro</div>
+          <div class="o8-footer-brand-desc">
+            Sovereign-tier AI trading infrastructure. Bridging traditional
+            finance and emerging technology since 2022.
+          </div>
+        </div>
+
+        <!-- Nav column 1 -->
+        <div>
+          <div class="o8-footer-col-title">Platform</div>
+          <ul class="o8-footer-links">
+            <li><a href="../the-engine/engine_nodes.html">The Engine</a></li>
+            <li><a href="../performance/index.html">Capital Tiers</a></li>
+            <li><a href="../risktable/investor-risk-matrix.html">Risk Matrix</a></li>
+            <li><a href="../submit-asset/submit-asset.html">Submit Asset</a></li>
+          </ul>
+        </div>
+
+        <!-- Nav column 2 -->
+        <div>
+          <div class="o8-footer-col-title">Technology</div>
+          <ul class="o8-footer-links">
+            <li><a href="../the-engine/engine_nodes.html#node-01">Data Ingest</a></li>
+            <li><a href="../the-engine/engine_nodes.html#node-09">Confidence Gate</a></li>
+            <li><a href="../the-engine/engine_nodes.html#node-06">Regime Detection</a></li>
+            <li><a href="../the-engine/engine_nodes.html#node-11">Circuit Breaker</a></li>
+          </ul>
+        </div>
+
+        <!-- Nav column 3 -->
+        <div>
+          <div class="o8-footer-col-title">Company</div>
+          <ul class="o8-footer-links">
+            <li><a href="../about/about.html">About</a></li>
+            <li><a href="../testimony/master-matrix.html">Evidence</a></li>
+            <li><a href="#">Compliance</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="o8-footer-bottom">
+        <div class="o8-footer-copy">© 2025 ORTHOM8pro · Sovereign Institutional Grade</div>
+        <div class="o8-footer-legal">Not a registered investment adviser. Institutional clients only. Capital at risk.</div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════
+       SCRIPTS — keep in this order
+       ═══════════════════════════════════════════════ -->
+
+  <!--
+    PAGE CONFIG — set BEFORE o8-page.js loads.
+
+    window.O8.activeNav   → which nav link to mark active (data-nav value)
+    window.O8.marqueeItems → override the default ticker items (optional)
+    window.O8.pipeline     → array of node objects for the pipeline visualiser
+                             (only needed on the home/engine pages)
+
+    Available activeNav values:
+      'home' | 'engine' | 'performance' | 'testimony' | 'risk' | 'about'
+  -->
+  <script>
+    window.O8 = {
+      activeNav: 'home',   /* ← CHANGE THIS for each page */
+
+      /* Optional: override marquee items for this page */
+      /*
+      marqueeItems: [
+        { val: '11/11',   label: 'Active Nodes' },
+        { val: '320ms',   label: 'Avg Latency'  },
+        { val: '72%',     label: 'Conf. Gate'   },
+      ],
+      */
+
+      /* Optional: pipeline nodes (only if page has #pipelineNodes) */
+      /*
+      pipeline: [
+        { id: '01', name: 'Data Ingest',    latency: '120ms' },
+        { id: '02', name: 'Null Triage',    latency: '15ms'  },
+        { id: '09', name: 'Confidence Gate',latency: '20ms'  },
+        { id: '11', name: 'Circuit Breaker',latency: '8ms'   },
+      ],
+      */
+    };
+  </script>
+
+  <!-- Shared utilities — adjust path depth as needed -->
+  <!-- Root depth    : ./assets/js/o8-page.js  -->
+  <!-- Subfolder depth: ../assets/js/o8-page.js -->
+  <script src="../assets/js/o8-page.js"></script>
+
+  <!-- Page-specific JS — goes here, after o8-page.js -->
+  <script>
+    /*
+     * Put page-specific logic here.
+     * o8Init() has already run by the time this executes.
+     *
+     * Common things to do here:
+     *   - Populate dynamic content (tables, accordions) from a data array
+     *   - Wire up page-specific modal triggers
+     *   - Add page-specific event listeners
+     */
+  </script>
+
+</body>
+</html>

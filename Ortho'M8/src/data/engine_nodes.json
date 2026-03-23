@@ -1,0 +1,214 @@
+{
+  "_meta": {
+    "description": "ORTHOM8pro 11-Node Pipeline — data extracted from monolith (ORTHOM8pro_index.html)",
+    "last_updated": "2026-03"
+  },
+
+  "cat_colors": {
+    "data":  { "bg": "rgba(29,78,216,0.15)",   "color": "#93c5fd" },
+    "ai":    { "bg": "rgba(109,40,217,0.15)",  "color": "#c4b5fd" },
+    "logic": { "bg": "rgba(3,105,161,0.15)",   "color": "#7dd3fc" },
+    "risk":  { "bg": "rgba(180,83,9,0.15)",    "color": "#fcd34d" }
+  },
+
+  "nodes": [
+    {
+      "id": "01", "name": "Data Ingest", "cat": "data", "catLabel": "Data",
+      "latency": "120ms", "importance": 10,
+      "tagline": "Raw market data captured from scraper API",
+      "logic": "Fetches one record per ticker per pipeline run at $0.0015/record. Tracks null fields automatically and assigns a completeness score (0–100%). Every pipeline run starts here — without it, nothing runs. At 12 trades/day on the $2K tier, this node fires ~252 times per trading day.",
+      "providers": ["Scraper API (Bright Data)", "Yahoo Finance fallback"],
+      "outputs": ["closing_price","volume","market_cap","pe_ratio","52w_range","bid_ask","completeness_pct"],
+      "failure": "Hard abort — no data means no signal. Rate limits handled with exponential backoff.",
+      "insight": "This node is the entry point. Data quality at ingestion directly determines maximum signal accuracy achievable downstream.",
+      "db": ["market_snapshots"],
+      "tier": "MVP $200"
+    },
+    {
+      "id": "02", "name": "Null Triage", "cat": "logic", "catLabel": "Logic",
+      "latency": "15ms", "importance": 9,
+      "tagline": "Detects missing fields and routes to cheapest filler",
+      "logic": "Scans the ingested record for null fields. Categorises each missing field by which provider can fill it most cheaply. Builds a priority-ordered enrichment queue — Finnhub free first, then FMP, then Alpha Vantage, then Claude AI as last resort. Avoids paying for data you already have.",
+      "providers": ["Internal logic — no external API"],
+      "outputs": ["null_fields[]","fill_routing_map","enrichment_priority_queue"],
+      "failure": "Non-blocking. If triage fails, enrichers are called in default order. Minor cost inefficiency only.",
+      "insight": "Futures contracts legitimately have many null fields. Triage prevents wasted API calls on fields that are structurally unavailable.",
+      "db": ["enriched_records"],
+      "tier": "MVP $200"
+    },
+    {
+      "id": "03", "name": "Multi-Provider Enrichers", "cat": "data", "catLabel": "Data",
+      "latency": "280ms", "importance": 8,
+      "tagline": "Parallel null-filling waterfall across paid data providers",
+      "logic": "Three enrichment providers run in parallel after triage. Finnhub fills analyst ratings and insider transactions. FMP fills fundamentals, earnings estimates, and ratios. Alpha Vantage fills OHLCV bars and technical indicators (RSI, MACD, Bollinger Bands, EMA, ATR, ADX). Results are deep-merged into a unified enriched record.",
+      "providers": ["Finnhub (free → paid)","FMP Starter/Pro","Alpha Vantage","Polygon.io free"],
+      "outputs": ["fundamentals","earnings_estimates","analyst_ratings","insider_transactions","technical_indicators","news_headlines"],
+      "failure": "Partial tolerance. If one provider fails, others continue. Enriched record flagged with completeness_pct.",
+      "insight": "This node contributes most to signal completeness. At $2K tier, paid plans unlock higher rate limits and more endpoints.",
+      "db": ["financials","earnings_estimates","analyst_ratings","ohlcv_bars"],
+      "tier": "MVP $200"
+    },
+    {
+      "id": "04", "name": "L2 Order Book Depth", "cat": "data", "catLabel": "Data",
+      "latency": "35ms", "importance": 7,
+      "tagline": "Real-time bid/ask ladder and microstructure signals",
+      "logic": "Captures the top 10 bid and ask levels every 500ms. Computes the order book imbalance ratio: (bid_vol − ask_vol) / (bid_vol + ask_vol). A positive imbalance suggests buy pressure. Imbalance is fed into confidence scoring with 20% weight on volume confirmation. Also detects thin books that could cause high slippage.",
+      "providers": ["Polygon.io paid L2 ($150–$199/mo)","Databento (backup, $150/mo)"],
+      "outputs": ["best_bid","best_ask","spread_bps","bid_depth_10","ask_depth_10","imbalance_ratio","vwap_intraday"],
+      "failure": "Graceful degrade. If L2 unavailable, confidence node receives volume_confirmation = 0. Gate threshold harder to pass.",
+      "insight": "Only available on Polygon paid tier. At MVP $200, this node is inactive — a major reason win rate is capped at 60% at that tier.",
+      "db": ["order_book_depth"],
+      "tier": "Semi-Pro $1K"
+    },
+    {
+      "id": "05", "name": "Options Greeks Node", "cat": "data", "catLabel": "Data",
+      "latency": "90ms", "importance": 5,
+      "tagline": "Delta, Gamma, Theta, Vega — live volatility surface",
+      "logic": "Fetches options Greeks for the at-the-money contract nearest expiry. IV rank and IV percentile are the primary signals — high IV rank (>70) flags earnings catalyst or event-driven setups. Delta estimates directional sensitivity. Feeds into sentiment and confidence nodes.",
+      "providers": ["ORATS ($199–$399/mo)","Tradier (alternative)"],
+      "outputs": ["delta","gamma","theta","vega","rho","implied_vol","iv_percentile","iv_rank","historical_vol_30"],
+      "failure": "Non-blocking. If ORATS unavailable, Greeks are nulled and confidence node runs without IV context. Confidence ceiling drops slightly.",
+      "insight": "Active only from $2K institutional tier. Unlocking this node is one of the biggest qualitative jumps in signal quality.",
+      "db": ["options_greeks"],
+      "tier": "Institutional $2K"
+    },
+    {
+      "id": "06", "name": "Regime Detection AI", "cat": "ai", "catLabel": "AI",
+      "latency": "650ms", "importance": 8,
+      "tagline": "Classifies current market state every 15 minutes",
+      "logic": "Claude Sonnet 4 analyses ADX value, VIX level, market breadth indicator, and 20-day rolling volatility to classify the market into one of 7 states: trending_bull, trending_bear, mean_reverting, high_volatility, low_volatility, crisis, or undefined. Each regime maps to a recommended strategy playbook (momentum, mean_reversion, hold, defensive).",
+      "providers": ["Claude Sonnet 4 (Anthropic API)"],
+      "outputs": ["regime_state","regime_confidence","recommended_strategy","active_playbook"],
+      "failure": "Falls back to last known regime classification. If stale by >30 min, strategy defaults to 'hold' until re-classified.",
+      "insight": "Without regime detection, win rate degrades by ~3–5% across all tiers. This is the intelligence layer that prevents strategy mismatch.",
+      "db": ["market_regimes"],
+      "tier": "Semi-Pro $1K"
+    },
+    {
+      "id": "07", "name": "AI Sentiment Scorer", "cat": "ai", "catLabel": "AI",
+      "latency": "1100ms", "importance": 9,
+      "tagline": "News + analyst signals → bullish/bearish score with reasoning",
+      "logic": "The most token-intensive node. Claude receives: latest news headlines (last 4h), analyst rating actions (upgrades/downgrades), insider transaction summary, and earnings surprise history. It outputs a sentiment score (−1 to +1), a label (bullish/bearish/neutral), a risk flag (low/medium/high/critical), and a black_swan_detected boolean.",
+      "providers": ["Claude Sonnet 4 (Anthropic API)","Finnhub news stream","FMP news"],
+      "outputs": ["sentiment_score","sentiment_label","confidence","risk_flag","black_swan_detected","reasoning","key_entities"],
+      "failure": "If Claude API unavailable, sentiment set to neutral (0.0) and confidence drops. Gate harder to pass — reducing trade frequency but protecting capital.",
+      "insight": "Contributes 20% weight to the confidence gate. The black_swan_detected flag has fired on major earnings misses and macro announcements.",
+      "db": ["ai_sentiment_scores","news_articles"],
+      "tier": "MVP $200"
+    },
+    {
+      "id": "08", "name": "Correlation Guard", "cat": "risk", "catLabel": "Risk",
+      "latency": "45ms", "importance": 7,
+      "tagline": "Prevents over-exposure to correlated positions",
+      "logic": "Computes rolling 20-day pairwise Pearson correlations across all instruments in the watchlist. If the candidate trade instrument has |correlation| > 0.70 with any currently open position, the correlation_guard score is penalised. High correlation clustering feeds into confidence scoring with 10% weight.",
+      "providers": ["Internal — reads from PostgreSQL correlation_matrix table"],
+      "outputs": ["correlation_score","correlated_positions[]","exceeds_threshold_flag","portfolio_concentration_risk"],
+      "failure": "If correlation data stale (>8h), guard score defaults to 0.5 (neutral penalty). Threshold enforcement continues at reduced weight.",
+      "insight": "Critical for multi-position portfolios. A fund running 5 correlated long positions is concentrated in one bet. This node prevents that silently.",
+      "db": ["correlation_matrix"],
+      "tier": "Semi-Pro $1K"
+    },
+    {
+      "id": "09", "name": "Confidence Gate", "cat": "logic", "catLabel": "Logic",
+      "latency": "20ms", "importance": 10,
+      "tagline": "72% composite threshold — the trade filter that protects capital",
+      "logic": "Weighted composite of 6 factors: technical_alignment (25%), volume_confirmation (20%), ai_sentiment (20%), risk_reward_ratio (15%), regime_filter (10%), correlation_guard (10%). If composite_score ≥ 0.72, the trade passes and an action (buy/sell) with direction (long/short) is emitted. Stop-loss and take-profit calculated using ATR-14 and the active regime playbook.",
+      "providers": ["Internal — aggregates all upstream node outputs"],
+      "outputs": ["composite_score","passes_gate","action","direction","stop_loss","take_profit","suggested_size_pct","reasoning"],
+      "failure": "If any upstream node fails, that factor defaults to its neutral/penalty value. The gate continues to operate — it never crashes.",
+      "insight": "This is the most important node. At $2K institutional tier, all 6 factors are fully populated — why win rate climbs from 60% to 68%.",
+      "db": ["confidence_scores"],
+      "tier": "MVP $200"
+    },
+    {
+      "id": "10", "name": "RL Execution Node", "cat": "ai", "catLabel": "AI",
+      "latency": "380ms", "importance": 6,
+      "tagline": "Reinforcement learning selects optimal order type and timing",
+      "logic": "After the confidence gate passes, this node decides whether to execute as a market order, limit order, or stop-limit. It analyses real-time L2 book spread, current volatility (ATR), and time-of-day liquidity patterns to minimise slippage. All execution decisions are sent to IBKR TWS via the REST API.",
+      "providers": ["Claude Sonnet 4 (Anthropic API)","IBKR TWS API"],
+      "outputs": ["rl_order_type","rl_confidence","ibkr_order_id","fill_price","actual_slippage_bps","execution_latency_ms"],
+      "failure": "If IBKR connection fails, order queued for retry (up to 3 attempts). If IBKR TWS offline, circuit breaker triggered immediately.",
+      "insight": "Reduces average slippage from 15bps (market order default) to 8bps at the $2K tier, directly improving net P&L.",
+      "db": ["trades","positions"],
+      "tier": "Institutional $2K"
+    },
+    {
+      "id": "11", "name": "Circuit Breaker", "cat": "risk", "catLabel": "Risk",
+      "latency": "8ms", "importance": 10,
+      "tagline": "Autonomous kill switch — halts all trading on anomaly detection",
+      "logic": "Monitors 9 trigger conditions in real time: daily_loss_limit (2% per instrument), portfolio_var_breach (5% VaR), ai_anomaly (black_swan_detected flag from sentiment node), fat_finger_detected (order size >5× normal), flash_crash (price movement >3% in <60s), api_data_glitch (completeness_pct <40%), correlation_breach, manual_override, drawdown_limit.",
+      "providers": ["Internal monitoring — no external API","IBKR TWS (cancel orders)"],
+      "outputs": ["breaker_active","trigger_type","trades_halted","resolution_required"],
+      "failure": "The circuit breaker has no failure mode — it is designed to fail safe (halt all activity) rather than fail open.",
+      "insight": "Has been triggered by stale data feeds, pre-market gap-up events, and earnings black swan moments. Always active, every cycle.",
+      "db": ["circuit_breaker_events","portfolios"],
+      "tier": "MVP $200"
+    }
+  ],
+
+  "tiers": [
+    {
+      "key": "mvp_200", "label": "MVP", "capital": "$200/mo", "min_cap": "$1K",
+      "name": "Seed Growth", "nodes": "6 nodes", "win_rate": "51.6%",
+      "trades_day": "10/mo", "latency": "2,800ms", "slippage": "48 bps",
+      "monthly_roi": "1.84%", "sample_profit": "$184",
+      "desc": "Free-tier APIs only. L1 quotes, basic AI sentiment. Pure proof-of-concept before committing live capital. Ideal for paper trading validation.",
+      "features": ["Scraper API + Yahoo Finance","Finnhub free tier","FMP Starter ($19/mo)","Alpha Vantage free","Claude AI (~$65/mo)","L1 market data only","Manual circuit breaker"],
+      "image": "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?w=600&q=80&auto=format"
+    },
+    {
+      "key": "early_live_500", "label": "Early Live", "capital": "$500/mo", "min_cap": "$2K",
+      "name": "Active Alpha", "nodes": "7 nodes", "win_rate": "52.6%",
+      "trades_day": "14/mo", "latency": "1,200ms", "slippage": "38 bps",
+      "monthly_roi": "3.88%", "sample_profit": "$388",
+      "desc": "Real-time news stream and paid technical indicators. Still L1 constrained but live capital is possible with careful position sizing.",
+      "features": ["Finnhub paid ($50/mo)","FMP Pro ($49/mo)","Alpha Vantage ($100/mo)","Claude AI (~$120/mo)","Real-time news stream","Technical indicators (RSI, MACD)","Soft circuit breaker"],
+      "image": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80&auto=format"
+    },
+    {
+      "key": "semi_pro_1000", "label": "Semi-Pro", "capital": "$1K/mo", "min_cap": "$5K",
+      "name": "Powerhouse", "nodes": "9 nodes", "win_rate": "53.6%",
+      "trades_day": "16/mo", "latency": "450ms", "slippage": "28 bps",
+      "monthly_roi": "6.34%", "sample_profit": "$634",
+      "desc": "True L2 order book active. Correlation matrix wired and refreshing. Regime detection classifying market state every 15 minutes.",
+      "features": ["Polygon paid L2 ($150/mo)","FMP Pro ($79/mo)","Alpha Vantage Premium ($100/mo)","Claude AI (~$200/mo)","True L2 depth","Regime switching AI","Correlation guard","Hard circuit breaker"],
+      "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80&auto=format"
+    },
+    {
+      "key": "institutional_2000", "label": "Institutional", "capital": "$2K/mo", "min_cap": "$10K",
+      "name": "Strategic", "nodes": "11 nodes", "win_rate": "54.4%",
+      "trades_day": "16/mo", "latency": "320ms", "slippage": "22 bps",
+      "monthly_roi": "8.38%", "sample_profit": "$838",
+      "desc": "Options Greeks live via ORATS. RL-based execution node selects Limit vs Market. Complete 11-node pipeline. Investor-presentable at this tier.",
+      "features": ["ORATS Greeks ($199/mo)","Polygon paid ($199/mo)","Databento backup ($150/mo)","Claude AI (~$350/mo)","Options Greeks (Δ Γ Θ V)","RL order execution","Full audit trail","AI anomaly detection"],
+      "image": "https://images.unsplash.com/photo-1560221328-12fe60f83ab8?w=600&q=80&auto=format"
+    },
+    {
+      "key": "professional_5000", "label": "Professional", "capital": "$5K/mo", "min_cap": "$25K",
+      "name": "Sovereign", "nodes": "11+ nodes", "win_rate": "55.3%",
+      "trades_day": "16/mo", "latency": "120ms", "slippage": "16 bps",
+      "monthly_roi": "10.84%", "sample_profit": "$1,084",
+      "desc": "Bloomberg-equivalent data stack. Multi-asset coverage across equity, futures, and FX. Dedicated VPS with co-location latency advantage.",
+      "features": ["Bloomberg alt feeds ($1,200/mo)","ORATS full ($399/mo)","Dedicated VPS ($500/mo)","Claude AI (~$600/mo)","Co-location ready","Multi-asset (EQ/FUT/FX)","Proprietary signals layer","Full redundancy"],
+      "image": "https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=600&q=80&auto=format"
+    },
+    {
+      "key": "full_institutional_10000", "label": "Full Instit.", "capital": "$10K/mo", "min_cap": "$50K",
+      "name": "Institutional", "nodes": "11+ nodes", "win_rate": "56.1%",
+      "trades_day": "15/mo", "latency": "80ms", "slippage": "11 bps",
+      "monthly_roi": "12.90%", "sample_profit": "$1,290",
+      "desc": "Nanosecond tick data, L3 order flow, HFT-lite execution routing, full hot-standby redundancy. The ceiling for this architecture.",
+      "features": ["Databento L3 ($800/mo)","Bloomberg alt feeds ($1,200/mo)","Claude AI ($1,200/mo)","IBKR SmartRoute (free)","Hot standby infra ($1,500/mo)","Multi-jurisdiction","L3 nanosecond tick data","HFT-lite execution"],
+      "image": "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80&auto=format"
+    }
+  ],
+
+  "risk_matrix": [
+    { "tier": "MVP · $200/mo",               "roi": "1.84%",  "cap_10k": "$184",  "cap_25k": "$460",  "cap_50k": "$920",  "cap_100k": "$1,840", "cap_250k": "$4,600", "cap_500k": "$9,200",  "win_rate": "51.6%" },
+    { "tier": "Early Live · $500/mo",         "roi": "3.88%",  "cap_10k": "$388",  "cap_25k": "$970",  "cap_50k": "$1,940","cap_100k": "$3,880", "cap_250k": "$9,700", "cap_500k": "$19,400", "win_rate": "52.6%" },
+    { "tier": "Semi-Pro · $1K/mo",            "roi": "6.34%",  "cap_10k": "$634",  "cap_25k": "$1,585","cap_50k": "$3,170","cap_100k": "$6,340", "cap_250k": "$15,850","cap_500k": "$31,700", "win_rate": "53.6%" },
+    { "tier": "Institutional · $2K/mo",       "roi": "8.38%",  "cap_10k": "$838",  "cap_25k": "$2,095","cap_50k": "$4,190","cap_100k": "$8,380", "cap_250k": "$20,950","cap_500k": "$41,900", "win_rate": "54.4%" },
+    { "tier": "Professional · $5K/mo",        "roi": "10.84%", "cap_10k": "$1,084","cap_25k": "$2,710","cap_50k": "$5,420","cap_100k": "$10,840","cap_250k": "$27,100","cap_500k": "$54,200", "win_rate": "55.3%" },
+    { "tier": "Full Institutional · $10K/mo", "roi": "12.90%", "cap_10k": "$1,290","cap_25k": "$3,225","cap_50k": "$6,450","cap_100k": "$12,900","cap_250k": "$32,250","cap_500k": "$64,500", "win_rate": "56.1%" }
+  ]
+}

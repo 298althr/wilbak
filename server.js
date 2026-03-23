@@ -272,10 +272,8 @@ const triggerResearchProtocol = async (query = "Finance Business") => {
     const BRIGHTDATA_API_KEY = process.env.BRIGHTDATA_API_KEY;
     let createdCount = 0;
 
-    if (!GROQ_API_KEY) {
-        console.error('[AUTONOMOUS_PULSE] CRITICAL: GROQ_API_KEY is missing.');
-        throw new Error('GROQ_API_KEY missing');
-    }
+    if (!GROQ_API_KEY) throw new Error('GROQ_API_KEY missing - Configure in environment');
+    if (!BRIGHTDATA_API_KEY) throw new Error('BRIGHTDATA_API_KEY missing - Configure in environment');
 
     const securePost = (url, headers, body) => {
         return new Promise((resolve) => {
@@ -287,7 +285,7 @@ const triggerResearchProtocol = async (query = "Finance Business") => {
                 headers: {
                     ...headers,
                     'Content-Type': 'application/json',
-                    'User-Agent': 'Wilbak-Intelligence-Engine/1.0'
+                    'User-Agent': 'Wilbak-Intelligence-Engine/2.0'
                 }
             };
             const req = https.request(options, (res) => {
@@ -296,80 +294,89 @@ const triggerResearchProtocol = async (query = "Finance Business") => {
                 res.on('end', () => {
                     const response = { ok: res.statusCode < 300, status: res.statusCode, data: data };
                     if (!response.ok) {
-                        console.error(`[AUTONOMOUS_PULSE] API ERROR: ${parsedUrl.hostname} returned status ${res.statusCode}`);
+                        console.error(`[AUTONOMOUS_PULSE] API ERROR: ${parsedUrl.hostname} returned status ${res.statusCode} | Body: ${data.slice(0, 100)}`);
                     }
                     resolve(response);
                 });
             });
             req.on('error', (e) => {
                 console.error(`[AUTONOMOUS_PULSE] NETWORK FAILURE: ${parsedUrl.hostname} - ${e.message}`);
-                resolve({ ok: false, status: 500 });
+                resolve({ ok: false, status: 500, data: e.message });
             });
-            req.write(JSON.stringify(body));
+            if (body) req.write(JSON.stringify(body));
             req.end();
         });
     };
 
     try {
-        console.log(`[AUTONOMOUS_PULSE] Initiating Targeted Scan: "${query}"`);
+        console.log(`[AUTONOMOUS_PULSE] Initiating Targeted Scan: "${query}" (USA/Canada/Europe Focus)`);
         let rawSignals = [];
 
         // 1. SENSOR (Bright Data)
-        if (BRIGHTDATA_API_KEY) {
-            const resA = await securePost('https://api.brightdata.com/serp/query',
-                { 'Authorization': `Bearer ${BRIGHTDATA_API_KEY}` },
-                { "count": 3, "query": { "q": `${query} market news business impact` }, "search_engine": "google" }
-            );
+        // Request up to 10 results to ensure we find unique ones.
+        const resA = await securePost('https://api.brightdata.com/serp/query',
+            { 'Authorization': `Bearer ${BRIGHTDATA_API_KEY}` },
+            { 
+                "count": 10, 
+                "query": { "q": `${query} market logic business impact "USA" OR "Canada" OR "Europe"` }, 
+                "search_engine": "google" 
+            }
+        );
 
-            if (resA.ok) {
-                try {
-                    const serp = JSON.parse(resA.data);
-                    if (serp.organic) {
-                        rawSignals = serp.organic.map(item => ({
-                            sector: query.toUpperCase(),
-                            title: item.title,
-                            details: item.description || item.snippet,
-                            url: item.link
-                        }));
-                    }
-                } catch (pe) { console.error('[AUTONOMOUS_PULSE] Sensor Data Parse Failure'); }
+        if (!resA.ok) {
+            throw new Error(`BrightData API failed: Status ${resA.status}. Ensure BrightData SERP API is enabled & key is correct.`);
+        }
+
+        try {
+            const serp = JSON.parse(resA.data);
+            if (serp.organic) {
+                rawSignals = serp.organic.map(item => ({
+                    sector: query.toUpperCase(),
+                    title: item.title,
+                    details: item.description || item.snippet,
+                    url: item.link || ''
+                })).filter(s => s.details && s.url);
+            }
+        } catch (pe) {
+            throw new Error('BrightData Parsing Error. Unrecognized response shape.');
+        }
+
+        if (rawSignals.length === 0) {
+            throw new Error('BrightData returned 0 valid organic search results for this sector.');
+        }
+
+        console.log(`[AUTONOMOUS_PULSE] Found ${rawSignals.length} raw signals. Deduplicating...`);
+        let uniqueSignals = [];
+
+        // DB Deduplication
+        for (const signal of rawSignals) {
+            if (uniqueSignals.length >= 2) break; // Limit to 2 distinct insights per run
+            
+            const existing = await prisma.intelligenceNode.findFirst({
+                where: { sourceUrl: signal.url }
+            });
+            
+            if (!existing) {
+                uniqueSignals.push(signal);
             }
         }
 
-        // Fallback context if scraper fails
-        if (rawSignals.length === 0) {
-            console.log('[AUTONOMOUS_PULSE] Scraper returned zero data. Deploying Strategic Fallback.');
-            rawSignals = [
-                {
-                    sector: query.toUpperCase(),
-                    title: `${query} Operational Shift`,
-                    details: 'Recent market indicators show rising volatility in this sector requiring automated logic to maintain stability.'
-                }
-            ];
+        if (uniqueSignals.length === 0) {
+            throw new Error('Found news, but all articles have already been processed in the database. Try a more specific sector.');
         }
 
-        // 2. ORCHESTRATOR (Groq) - Upgraded to Strategic Reporting
-        for (const signal of rawSignals) {
-            const prompt = `SYSTEM: Wilhelm Rybak, CEO. High-Performance Strategist.
+        // 2. ORCHESTRATOR (Groq) - Template Driven
+        const templatePath = path.join(__dirname, 'newsdata-template.json');
+        const templateStr = fs.readFileSync(templatePath, 'utf8');
+
+        for (const signal of uniqueSignals) {
+            const prompt = `SYSTEM: Wilhelm Rybak, CEO. High-Performance Strategist. Focus heavily on North American/European business impact.
 SPEAK: Clear, Executive English. Sophisticated but direct.
 TASK: Analyze the provided business signal and generate a high-fidelity strategic report.
 INPUT: ${signal.title} - ${signal.details}
-FORMAT: JSON { 
-    "headline": "Impactful Title", 
-    "mainPoint": "The executive summary (Crux)", 
-    "marketContext": "Detailed context of the event",
-    "logicAnalysis": "Deep breakdown of why this matters for revenue/efficiency",
-    "logicFramework": {
-        "problemStructure": ["Point 1", "Point 2"],
-        "transformationModel": ["Point 1", "Point 2"]
-    },
-    "conversionStep": {
-        "phase1": "Initial action",
-        "phase2": "Implementation",
-        "phase3": "Expansion"
-    },
-    "strategicConclusion": "Final authoritative thought"
-}`;
+REQUIRED FORMAT: You must output ONLY a raw JSON object perfectly matching the structure of this template. Do not wrap it in markdown block quotes. Fill in every field with original, deep intellectual analysis based on the INPUT. Keep the exact nested JSON keys.
+TEMPLATE:
+${templateStr}`;
 
             const groqRes = await securePost('https://api.groq.com/openai/v1/chat/completions',
                 { 'Authorization': `Bearer ${GROQ_API_KEY}` },
@@ -383,31 +390,49 @@ FORMAT: JSON {
             if (groqRes.ok) {
                 try {
                     const groqData = JSON.parse(groqRes.data);
-                    const analysis = JSON.parse(groqData.choices[0].message.content);
+                    const analysisStr = groqData.choices[0].message.content;
+                    // In case model wraps in markdown
+                    const cleanAnalysisStr = analysisStr.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
+                    const analysis = JSON.parse(cleanAnalysisStr);
 
+                    const defaultImages = [
+                        `https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop`,
+                        `https://images.unsplash.com/photo-1551288049-bbbda5e66ef2?q=80&w=800&auto=format&fit=crop`,
+                        `https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=800&auto=format&fit=crop`
+                    ];
                     await prisma.intelligenceNode.create({
                         data: {
-                            sector: signal.sector,
-                            title: analysis.headline,
-                            insight: analysis.mainPoint,
-                            marketEvent: analysis.marketContext || signal.details,
-                            logicAnalysis: analysis.logicAnalysis || analysis.mainPoint,
+                            sector: query.toUpperCase(),
+                            title: analysis.title || analysis.headline || signal.title,
+                            insight: analysis.insight || analysis.mainPoint || "No insight provided.",
+                            marketEvent: analysis.marketEvent || analysis.marketContext || signal.details,
+                            logicAnalysis: analysis.logicAnalysis || analysis.insight,
                             logicFramework: analysis.logicFramework || null,
                             conversionStep: analysis.conversionStep || null,
-                            strategicConclusion: analysis.strategicConclusion || null,
-                            sourceUrl: signal.url || null
+                            strategicConclusion: analysis.strategicConclusion || "",
+                            sourceUrl: signal.url || null,
+                            images: [defaultImages[Math.floor(Math.random() * defaultImages.length)]]
                         }
                     });
                     createdCount++;
+                    console.log(`[AUTONOMOUS_PULSE] Generated & persisted: ${signal.title.substring(0, 40)}...`);
                 } catch (e) {
-                    console.error('[AUTONOMOUS_PULSE] AI Result Failure/Persistence Error:', e);
+                    console.error('[AUTONOMOUS_PULSE] AI JSON Parsing/Persistence Error:', e);
                 }
+            } else {
+                console.error('[AUTONOMOUS_PULSE] Groq generation failed. Status:', groqRes.status);
             }
         }
+
+        // Fallback catch if Llama-3 parsing failed on both
+        if (createdCount === 0) {
+            throw new Error('News successfully extracted, but AI failed to format it according to the template pipeline.');
+        }
+
         return createdCount;
     } catch (e) {
-        console.error('[AUTONOMOUS_PULSE] Protocol Loop Failure:', e);
-        throw e;
+        console.error('[AUTONOMOUS_PULSE] Protocol Loop Failure:', e.message);
+        throw e; // Bubble the precise error to the admin frontend
     }
 };
 
@@ -854,3 +879,5 @@ app.listen(PORT, () => {
     console.log(`Wilbak Engineering Server running on port ${PORT}`);
 });
 
+
+module.exports = { app, triggerResearchProtocol, prisma };

@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ORTHOM8PRO — Sovereign Tier AI Trading Infrastructure</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════════════════════════
+       DESIGN TOKENS
+    ═══════════════════════════════════════════════════ */
+    :root {
+      --brand-cobalt:      #1A56FF;
+      --brand-cobalt-dim:  #0E38C2;
+      --brand-gold:        #B8972A;
+      --brand-gold-light:  #D4AC3A;
+      --brand-gold-pale:   rgba(184,151,42,0.12);
+      --page-bg:           #060C18;
+      --surface-bg:        #0B1325;
+      --surface-2:         #0F1A30;
+      --surface-glass:     rgba(11,19,37,0.8);
+      --tx-main:           #E8EDF5;
+      --tx-sub:            #6E7E9A;
+      --tx-muted:          #3A4A62;
+      --brand-rule:        rgba(255,255,255,0.06);
+      --brand-rule-strong: rgba(255,255,255,0.12);
+      --glow-cobalt:       rgba(26,86,255,0.15);
+      --glow-gold:         rgba(184,151,42,0.12);
+      --header-bg:         rgba(6,12,24,0.88);
+      --scan-line:         rgba(26,86,255,0.04);
+      --drawer-bg:         #080F20;
+    }
+    [data-theme="light"] {
+      --page-bg:           #F7F8FC;
+      --surface-bg:        #EDEEF5;
+      --surface-2:         #E4E6F0;
+      --surface-glass:     rgba(237,238,245,0.88);
+      --tx-main:           #0A1020;
+      --tx-sub:            #4A5568;
+      --tx-muted:          #9AA5B8;
+      --brand-rule:        rgba(0,0,0,0.07);
+      --brand-rule-strong: rgba(0,0,0,0.14);
+      --glow-cobalt:       rgba(26,86,255,0.08);
+      --glow-gold:         rgba(184,151,42,0.08);
+      --header-bg:         rgba(247,248,252,0.92);
+      --scan-line:         rgba(26,86,255,0.02);
+      --drawer-bg:         #F2F3FA;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--page-bg); color: var(--tx-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px; line-height: 1.6;
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, var(--scan-line) 2px, var(--scan-line) 4px);
+      opacity: 0.6;
+    }
+    body.drawer-open { overflow: hidden; }
+
+    /* ═══════════════════════════════════════════════════
+       TYPOGRAPHY
+    ═══════════════════════════════════════════════════ */
+    .text-eyebrow {
+      font-family: 'Fira Code', monospace; font-size: 9px; font-weight: 500;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--brand-cobalt);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .text-eyebrow::before {
+      content: ''; display: inline-block; width: 24px; height: 1px;
+      background: var(--brand-cobalt); opacity: 0.7;
+    }
+    .hero-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 5.2rem);
+      font-weight: 600; line-height: 1.08; letter-spacing: -0.02em;
+    }
+    .hero-heading em  { font-style: italic; color: var(--brand-gold-light); }
+    .hero-heading strong { font-weight: 700; }
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 4vw, 3.8rem);
+      font-weight: 600; line-height: 1.1; letter-spacing: -0.02em;
+    }
+    .section-heading em { font-style: italic; color: var(--brand-gold-light); }
+    .hero-body { font-size: 15px; line-height: 1.75; color: var(--tx-sub); }
+
+    /* ═══════════════════════════════════════════════════
+       LAYOUT
+    ═══════════════════════════════════════════════════ */
+    .layout-container { max-width: 1380px; margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 4rem); }
+
+    /* ═══════════════════════════════════════════════════
+       BUTTONS
+    ═══════════════════════════════════════════════════ */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0.7rem 1.5rem; background: var(--brand-cobalt); color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+      border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .btn-primary::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent); pointer-events: none; }
+    .btn-primary:hover { background: var(--brand-cobalt-dim); box-shadow: 0 0 24px rgba(26,86,255,0.4); transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0.7rem 1.5rem; background: transparent; color: var(--tx-main);
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+      border: 1px solid var(--brand-rule-strong); cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--brand-gold); color: var(--brand-gold-light); background: var(--brand-gold-pale); }
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0.8rem 2rem; background: var(--brand-gold); color: #060C18;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none;
+      border: none; cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+    .btn-gold:hover { background: var(--brand-gold-light); box-shadow: 0 0 28px rgba(184,151,42,0.45); transform: translateY(-1px); }
+
+    /* ═══════════════════════════════════════════════════
+       HEADER
+    ═══════════════════════════════════════════════════ */
+    #site-header {
+      position: fixed; top: 0; left: 0; right: 0; height: 68px; z-index: 200;
+      background: var(--header-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--brand-rule-strong);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(1.25rem, 3vw, 2.5rem); transition: background 0.3s;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-mark {
+      width: 38px; height: 38px; flex-shrink: 0;
+      background: var(--brand-cobalt); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Fira Code', monospace; font-size: 11px; font-weight: 700; position: relative;
+    }
+    .logo-mark::after { content: ''; position: absolute; inset: 2px; border: 1px solid rgba(255,255,255,0.2); pointer-events: none; }
+    .logo-name { font-size: 11px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--tx-main); }
+
+    .header-nav { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+    .header-nav a {
+      font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--tx-sub); text-decoration: none;
+      transition: color 0.2s; position: relative; padding-bottom: 2px;
+    }
+    .header-nav a::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 1px; background: var(--brand-cobalt); transform: scaleX(0); transform-origin: left; transition: transform 0.25s;
+    }
+    .header-nav a:hover { color: var(--tx-main); }
+    .header-nav a:hover::after { transform: scaleX(1); }
+
+    .header-controls { display: flex; align-items: center; gap: 0.75rem; }
+    .theme-btn {
+      width: 34px; height: 34px; flex-shrink: 0;
+      border: 1px solid var(--brand-rule-strong); background: transparent; color: var(--tx-sub);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 13px; transition: border-color 0.2s, color 0.2s;
+    }
+    .theme-btn:hover { border-color: var(--brand-gold); color: var(--brand-gold-light); }
+    .lang-wrap { position: relative; display: flex; align-items: center; }
+    .lang-wrap::after { content: '▾'; position: absolute; right: 8px; font-size: 8px; color: var(--tx-sub); pointer-events: none; }
+    .lang-select {
+      appearance: none; background: transparent; border: 1px solid var(--brand-rule-strong);
+      color: var(--tx-main); font-family: 'Fira Code', monospace; font-size: 10px;
+      font-weight: 500; letter-spacing: 2px; padding: 0 2rem 0 0.75rem; height: 34px; cursor: pointer;
+    }
+    .lang-select:focus { outline: none; border-color: var(--brand-cobalt); }
+    .lang-select option { background: var(--page-bg); color: var(--tx-main); }
+
+    /* Hamburger — hidden on desktop */
+    .hamburger {
+      display: none; flex-direction: column; justify-content: center; align-items: center;
+      gap: 5px; width: 40px; height: 40px; flex-shrink: 0;
+      background: transparent; border: 1px solid var(--brand-rule-strong);
+      cursor: pointer; padding: 0; transition: border-color 0.2s;
+    }
+    .hamburger:hover { border-color: var(--brand-cobalt); }
+    .hamburger span {
+      display: block; width: 20px; height: 1.5px; background: var(--tx-main);
+      transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+      transform-origin: center;
+    }
+    .hamburger.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; width: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-header-right { display: none; align-items: center; gap: 0.5rem; }
+
+    /* ═══════════════════════════════════════════════════
+       MOBILE DRAWER
+    ═══════════════════════════════════════════════════ */
+    #mobile-drawer {
+      position: fixed; top: 0; right: 0;
+      width: min(320px, 88vw); height: 100dvh;
+      z-index: 300; background: var(--drawer-bg);
+      border-left: 1px solid var(--brand-rule-strong);
+      display: flex; flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
+    }
+    #mobile-drawer.open { transform: translateX(0); }
+
+    #drawer-overlay {
+      position: fixed; inset: 0; z-index: 290;
+      background: rgba(6,12,24,0.65); backdrop-filter: blur(4px);
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    #drawer-overlay.visible { opacity: 1; pointer-events: all; }
+
+    .drawer-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1.5rem; height: 68px; flex-shrink: 0;
+      border-bottom: 1px solid var(--brand-rule-strong);
+    }
+    .drawer-close {
+      width: 36px; height: 36px; flex-shrink: 0;
+      border: 1px solid var(--brand-rule-strong); background: transparent;
+      color: var(--tx-sub); cursor: pointer; font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .drawer-close:hover { border-color: var(--brand-cobalt); color: var(--brand-cobalt); }
+
+    .drawer-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--brand-rule-strong);
+      border-bottom: 1px solid var(--brand-rule-strong); flex-shrink: 0;
+    }
+    .ds-cell { background: var(--drawer-bg); padding: 0.9rem 1rem; }
+    .ds-num { font-family: 'Fira Code', monospace; font-size: 1rem; color: var(--brand-gold-light); }
+    .ds-lbl { font-size: 8px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--tx-muted); margin-top: 3px; }
+
+    .drawer-nav { flex: 1; padding: 0.5rem 0; display: flex; flex-direction: column; }
+    .drawer-nav a {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 1.5rem;
+      font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--tx-sub); text-decoration: none;
+      border-bottom: 1px solid var(--brand-rule);
+      transition: color 0.2s, background 0.2s, padding-left 0.25s;
+    }
+    .drawer-nav a:hover { color: var(--tx-main); background: var(--brand-rule); padding-left: 2rem; }
+    .nav-arrow { color: var(--brand-cobalt); font-size: 10px; opacity: 0; transition: opacity 0.2s; }
+    .drawer-nav a:hover .nav-arrow { opacity: 1; }
+
+    .drawer-controls {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 1rem 1.5rem; border-bottom: 1px solid var(--brand-rule); flex-shrink: 0;
+    }
+    .drawer-controls .lang-wrap { flex: 1; }
+    .drawer-controls .lang-select { width: 100%; }
+
+    .drawer-footer {
+      padding: 1.25rem 1.5rem; border-top: 1px solid var(--brand-rule-strong);
+      display: flex; flex-direction: column; gap: 0.75rem; flex-shrink: 0;
+    }
+    .drawer-footer .btn-primary,
+    .drawer-footer .btn-ghost { width: 100%; justify-content: center; }
+
+    /* ═══════════════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════════════ */
+    #hero {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: calc(100svh - 68px); margin-top: 68px;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(2.5rem, 5vw, 5rem) clamp(1.25rem, 4vw, 4rem);
+      border-right: 1px solid var(--brand-rule-strong);
+      position: relative; overflow: hidden;
+    }
+    .hero-left::before {
+      content: ''; position: absolute; top: -30%; left: -20%; width: 70%; height: 80%;
+      background: radial-gradient(ellipse at center, var(--glow-cobalt), transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+    .hero-left::after {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(var(--brand-rule) 1px, transparent 1px), linear-gradient(90deg, var(--brand-rule) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0; opacity: 0.5;
+    }
+    .hero-left-content { position: relative; z-index: 1; }
+    .hero-right {
+      background: var(--surface-bg);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: clamp(2rem, 4vw, 4rem); position: relative; overflow: hidden;
+    }
+    .hero-right::before {
+      content: ''; position: absolute; bottom: -20%; right: -10%; width: 60%; height: 60%;
+      background: radial-gradient(ellipse at center, var(--glow-gold), transparent 70%);
+      pointer-events: none;
+    }
+    .corner-dec { position: absolute; width: 20px; height: 20px; pointer-events: none; z-index: 2; }
+    .corner-dec.tl { top: 14px; left: 14px; border-top: 1px solid var(--brand-cobalt); border-left: 1px solid var(--brand-cobalt); }
+    .corner-dec.tr { top: 14px; right: 14px; border-top: 1px solid var(--brand-cobalt); border-right: 1px solid var(--brand-cobalt); }
+    .corner-dec.bl { bottom: 14px; left: 14px; border-bottom: 1px solid var(--brand-cobalt); border-left: 1px solid var(--brand-cobalt); }
+    .corner-dec.br { bottom: 14px; right: 14px; border-bottom: 1px solid var(--brand-cobalt); border-right: 1px solid var(--brand-cobalt); }
+
+    .stats-ribbon {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--brand-rule-strong); margin-top: 2.5rem; padding-top: 1.5rem; gap: 1px;
+    }
+    .stat-cell { padding: 0.5rem 0; }
+    .stat-cell:first-child { border-right: 1px solid var(--brand-rule-strong); padding-right: 1.5rem; }
+    .stat-cell:last-child { padding-left: 1.5rem; }
+    .stat-num { font-family: 'Fira Code', monospace; font-size: clamp(1.2rem, 2vw, 1.8rem); font-weight: 500; color: var(--brand-gold-light); line-height: 1.2; }
+    .stat-label { font-size: 9px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--tx-sub); margin-top: 4px; }
+
+    /* ═══════════════════════════════════════════════════
+       PIPELINE TERMINAL
+    ═══════════════════════════════════════════════════ */
+    .pipeline-terminal {
+      width: 100%; max-width: 420px;
+      background: rgba(6,12,24,0.9); border: 1px solid rgba(26,86,255,0.25);
+      position: relative; z-index: 1;
+    }
+    [data-theme="light"] .pipeline-terminal { background: rgba(255,255,255,0.88); border-color: rgba(26,86,255,0.2); }
+    .pipeline-terminal::before {
+      content: ''; position: absolute; inset: -1px; border: 1px solid transparent;
+      background: linear-gradient(135deg, rgba(26,86,255,0.4), transparent 40%, rgba(184,151,42,0.3)) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out; mask-composite: exclude; pointer-events: none;
+    }
+    .terminal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px; border-bottom: 1px solid rgba(26,86,255,0.15); background: rgba(26,86,255,0.06);
+    }
+    .terminal-dots { display: flex; gap: 5px; }
+    .terminal-dot { width: 7px; height: 7px; border-radius: 50%; }
+    .td-red { background: #FF5F57; } .td-amber { background: #FEBC2E; } .td-green { background: #27C93F; }
+    .terminal-title { font-family: 'Fira Code', monospace; font-size: 9px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--brand-cobalt); }
+    .terminal-status { display: flex; align-items: center; gap: 5px; font-family: 'Fira Code', monospace; font-size: 8px; color: #27C93F; }
+    .status-dot { width: 5px; height: 5px; background: #27C93F; border-radius: 50%; animation: status-blink 2s ease-in-out infinite; }
+    .pipeline-nodes { padding: 6px 0; }
+    .pnode {
+      display: flex; align-items: center; gap: 10px; padding: 8px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      transition: background 0.3s; animation: node-pulse 3s ease-in-out infinite;
+    }
+    [data-theme="light"] .pnode { border-bottom-color: rgba(0,0,0,0.04); }
+    .pnode:hover { background: rgba(26,86,255,0.06); }
+    .pnode-num { font-family: 'Fira Code', monospace; font-size: 9px; color: rgba(110,126,154,0.5); width: 18px; flex-shrink: 0; }
+    .pnode-label { font-family: 'Fira Code', monospace; font-size: 10px; color: rgba(232,237,245,0.7); flex: 1; line-height: 1; }
+    [data-theme="light"] .pnode-label { color: rgba(10,16,32,0.65); }
+    .pnode-label.highlight { color: var(--brand-gold-light); font-weight: 500; }
+    .pnode-label.success { color: #27C93F; font-weight: 500; }
+    .pnode-bar { width: 48px; height: 2px; background: rgba(26,86,255,0.15); position: relative; overflow: hidden; flex-shrink: 0; }
+    .pnode-bar::after { content: ''; position: absolute; left: -100%; top: 0; width: 100%; height: 100%; background: var(--brand-cobalt); animation: bar-scan 2.5s linear infinite; }
+    .pnode-indicator { width: 6px; height: 6px; border-radius: 50%; background: rgba(26,86,255,0.3); flex-shrink: 0; animation: indicator-glow 2s ease-in-out infinite; }
+    .pnode-indicator.gold { animation: indicator-gold 2s ease-in-out infinite; }
+    .pnode-indicator.green { animation: indicator-green 1.5s ease-in-out infinite; }
+    .pipeline-footer {
+      padding: 10px 14px; border-top: 1px solid rgba(26,86,255,0.15);
+      display: flex; align-items: center; justify-content: space-between; background: rgba(26,86,255,0.04);
+    }
+    .pf-metric { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .pf-val { font-family: 'Fira Code', monospace; font-size: 11px; font-weight: 500; color: var(--brand-gold-light); }
+    .pf-lbl { font-family: 'Fira Code', monospace; font-size: 7px; letter-spacing: 2px; text-transform: uppercase; color: var(--tx-sub); }
+    .pf-divider { width: 1px; height: 28px; background: var(--brand-rule-strong); }
+
+    /* ═══════════════════════════════════════════════════
+       MARQUEE
+    ═══════════════════════════════════════════════════ */
+    .marquee-bar {
+      overflow: hidden; background: var(--surface-bg);
+      border-top: 1px solid var(--brand-rule-strong); border-bottom: 1px solid var(--brand-rule-strong);
+      padding: 10px 0; position: relative; z-index: 5;
+    }
+    .marquee-track {
+      display: flex; align-items: center; white-space: nowrap;
+      animation: marquee-scroll 35s linear infinite; width: max-content;
+    }
+    .marquee-item {
+      display: inline-flex; align-items: center; gap: 8px; padding: 0 1.75rem;
+      font-family: 'Fira Code', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--tx-sub);
+    }
+    .marquee-item strong { color: var(--brand-cobalt); font-weight: 500; }
+    .marquee-item .val { color: var(--tx-main); font-weight: 500; }
+    .marquee-sep { display: inline-block; width: 1px; height: 10px; background: var(--brand-rule-strong); margin: 0 0.25rem; }
+
+    /* ═══════════════════════════════════════════════════
+       STATS STRIP
+    ═══════════════════════════════════════════════════ */
+    .stats-section { border-bottom: 1px solid var(--brand-rule); }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--brand-rule-strong); border-top: none; border-bottom: none;
+    }
+    .stats-cell {
+      padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 2vw, 2rem);
+      border-right: 1px solid var(--brand-rule-strong);
+      position: relative; overflow: hidden; transition: background 0.3s;
+    }
+    .stats-cell:last-child { border-right: none; }
+    .stats-cell::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: background 0.3s; }
+    .stats-cell:hover { background: var(--surface-bg); }
+    .stats-cell:hover::before { background: var(--brand-cobalt); }
+    .stats-big-num { font-family: 'Fira Code', monospace; font-size: clamp(1.6rem, 3vw, 2.8rem); font-weight: 500; color: var(--tx-main); line-height: 1; margin-bottom: 0.5rem; }
+    .stats-big-num span { color: var(--brand-cobalt); }
+    .stats-big-label { font-size: 9px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--tx-sub); }
+
+    /* ═══════════════════════════════════════════════════
+       INTRO
+    ═══════════════════════════════════════════════════ */
+    .intro-section { padding: clamp(4rem, 8vw, 9rem) 0; border-bottom: 1px solid var(--brand-rule); }
+    .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; }
+
+    /* ═══════════════════════════════════════════════════
+       FEATURE GRID
+    ═══════════════════════════════════════════════════ */
+    .feature-section {
+      padding: clamp(4rem, 8vw, 9rem) 0;
+      background: var(--surface-bg); border-top: 1px solid var(--brand-rule); border-bottom: 1px solid var(--brand-rule);
+      position: relative; overflow: hidden;
+    }
+    .feature-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 20% 50%, var(--glow-cobalt), transparent),
+                  radial-gradient(ellipse 40% 40% at 80% 80%, var(--glow-gold), transparent);
+      pointer-events: none;
+    }
+    .feature-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--brand-rule-strong); position: relative; z-index: 1;
+      background: var(--brand-rule); gap: 1px;
+    }
+    .feature-cell {
+      background: var(--surface-bg); padding: clamp(1.75rem, 3.5vw, 3.5rem);
+      position: relative; overflow: hidden; transition: background 0.3s;
+    }
+    .feature-cell::before { content: ''; position: absolute; top: 0; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--brand-cobalt), var(--brand-gold)); transition: width 0.5s; }
+    .feature-cell:hover { background: var(--surface-2); }
+    .feature-cell:hover::before { width: 100%; }
+    .feature-num { font-family: 'Fira Code', monospace; font-size: 10px; font-weight: 500; color: var(--brand-cobalt); letter-spacing: 3px; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 10px; }
+    .feature-num::after { content: ''; display: block; height: 1px; width: 32px; background: var(--brand-cobalt); opacity: 0.4; }
+    .feature-cell h3 { font-family: 'Playfair Display', serif; font-size: clamp(1.3rem, 2.2vw, 1.9rem); font-weight: 600; color: var(--tx-main); line-height: 1.2; margin-bottom: 0.85rem; }
+    .feature-cell p { font-size: 13.5px; line-height: 1.75; color: var(--tx-sub); }
+    .feature-diagram { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 6px; }
+    .fd-row { display: flex; align-items: center; gap: 6px; font-family: 'Fira Code', monospace; font-size: 9px; color: var(--tx-muted); flex-wrap: wrap; }
+    .fd-row span { background: var(--node-bg, rgba(255,255,255,0.03)); border: 1px solid var(--brand-rule-strong); padding: 3px 8px; color: var(--tx-sub); font-size: 9px; letter-spacing: 1px; }
+    .fd-row .fd-active { border-color: rgba(26,86,255,0.3); color: var(--brand-cobalt); background: rgba(26,86,255,0.06); }
+    .fd-arrow { color: var(--brand-cobalt); opacity: 0.5; }
+
+    /* ═══════════════════════════════════════════════════
+       PHOTO SPLIT
+    ═══════════════════════════════════════════════════ */
+    .photo-split { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--brand-rule); }
+    .photo-split-img { position: relative; overflow: hidden; background: var(--surface-2); min-height: 480px; }
+    .photo-split-img img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.7) contrast(1.05); transition: filter 0.4s; }
+    .photo-split-img:hover img { filter: saturate(0.9) contrast(1.08); }
+    .photo-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(6,12,24,0.55), transparent); pointer-events: none; }
+    .photo-badge {
+      position: absolute; bottom: 1.5rem; left: 1.5rem;
+      background: var(--surface-glass); backdrop-filter: blur(12px);
+      border: 1px solid var(--brand-rule-strong); padding: 0.75rem 1.25rem;
+    }
+    .pb-val { font-family: 'Fira Code', monospace; font-size: 14px; font-weight: 500; color: var(--brand-gold-light); }
+    .pb-lbl { font-size: 8px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--tx-sub); }
+    .photo-split-content {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(2.5rem, 5vw, 5rem) clamp(1.5rem, 4vw, 4rem);
+      border-left: 1px solid var(--brand-rule-strong);
+    }
+    .spec-list { margin-top: 2rem; border-top: 1px solid var(--brand-rule-strong); padding-top: 1.5rem; }
+    .spec-row { display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 0; border-bottom: 1px solid var(--brand-rule); }
+    .spec-key { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--tx-sub); }
+    .spec-val { font-family: 'Fira Code', monospace; font-size: 12px; color: var(--tx-main); }
+
+    /* ═══════════════════════════════════════════════════
+       CTA
+    ═══════════════════════════════════════════════════ */
+    .cta-block {
+      position: relative; text-align: center;
+      padding: clamp(4.5rem, 10vw, 9rem) clamp(1.25rem, 4vw, 4rem);
+      overflow: hidden; border-top: 1px solid var(--brand-rule-strong); border-bottom: 1px solid var(--brand-rule-strong);
+      background: var(--surface-bg);
+    }
+    .cta-bg-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--brand-rule) 1px, transparent 1px), linear-gradient(90deg, var(--brand-rule) 1px, transparent 1px); background-size: 80px 80px; pointer-events: none; opacity: 0.7; }
+    .cta-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70%; height: 70%; background: radial-gradient(ellipse at center, rgba(26,86,255,0.12), transparent 70%); pointer-events: none; }
+    .cta-block::before { content: ''; position: absolute; top: 0; left: 50%; width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--brand-cobalt)); }
+    .cta-block::after  { content: ''; position: absolute; bottom: 0; left: 50%; width: 1px; height: 60px; background: linear-gradient(to top, transparent, var(--brand-cobalt)); }
+    .cta-inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+    .cta-label { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(26,86,255,0.3); padding: 5px 14px; font-family: 'Fira Code', monospace; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--brand-cobalt); margin-bottom: 2rem; }
+    .cta-label::before { content: ''; width: 6px; height: 6px; background: var(--brand-cobalt); border-radius: 50%; animation: status-blink 2s ease-in-out infinite; }
+    .cta-heading { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 4.5rem); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; color: var(--tx-main); margin-bottom: 1.5rem; }
+    .cta-heading em { font-style: italic; color: var(--brand-gold-light); }
+    .cta-body { font-size: 15px; line-height: 1.75; color: var(--tx-sub); max-width: 500px; margin-bottom: 2.5rem; }
+    .cta-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+    /* ═══════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════ */
+    #site-footer { background: var(--surface-bg); border-top: 1px solid var(--brand-rule-strong); padding: clamp(3rem, 5vw, 5rem) clamp(1.25rem, 4vw, 4rem); }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: clamp(2rem, 4vw, 3rem); max-width: 1380px; margin: 0 auto; }
+    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--tx-main); margin-bottom: 0.75rem; }
+    .footer-brand-desc { font-size: 13px; line-height: 1.7; color: var(--tx-sub); }
+    .footer-col-title { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--tx-main); margin-bottom: 1.25rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .footer-links a { font-size: 13px; color: var(--tx-sub); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--brand-cobalt); }
+    .footer-bottom { max-width: 1380px; margin: 2.5rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--brand-rule); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .footer-bottom p { font-family: 'Fira Code', monospace; font-size: 10px; color: var(--tx-muted); }
+
+    /* ═══════════════════════════════════════════════════
+       WELCOME GATE
+    ═══════════════════════════════════════════════════ */
+    #welcome-gate {
+      position: fixed; inset: 0; z-index: 9999; background: var(--page-bg);
+      display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1.5rem;
+    }
+    #welcome-gate.exiting { animation: fade-in 0.5s ease reverse forwards; }
+    .gate-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; letter-spacing: 8px; text-transform: uppercase; color: var(--tx-main); animation: fade-up 0.6s ease both; }
+    .gate-bar-wrap { width: 200px; height: 1px; background: var(--brand-rule-strong); position: relative; overflow: hidden; animation: fade-up 0.6s 0.1s ease both; }
+    .gate-bar { position: absolute; top: 0; left: 0; height: 100%; background: var(--brand-cobalt); animation: gate-load 1.4s ease forwards; }
+    .gate-status { font-family: 'Fira Code', monospace; font-size: 9px; letter-spacing: 3px; color: var(--brand-cobalt); text-transform: uppercase; animation: fade-up 0.6s 0.2s ease both; }
+
+    /* ═══════════════════════════════════════════════════
+       KEYFRAMES
+    ═══════════════════════════════════════════════════ */
+    @keyframes marquee-scroll  { 0%{ transform: translateX(0); } 100%{ transform: translateX(-50%); } }
+    @keyframes status-blink    { 0%,100%{ opacity:1; } 50%{ opacity:0.3; } }
+    @keyframes indicator-glow  { 0%,100%{ background:rgba(26,86,255,0.3); } 50%{ background:rgba(26,86,255,0.9); box-shadow:0 0 8px rgba(26,86,255,0.5); } }
+    @keyframes indicator-gold  { 0%,100%{ background:rgba(184,151,42,0.4); } 50%{ background:rgba(184,151,42,1); box-shadow:0 0 8px rgba(184,151,42,0.6); } }
+    @keyframes indicator-green { 0%,100%{ background:rgba(39,201,63,0.4); } 50%{ background:rgba(39,201,63,1); box-shadow:0 0 8px rgba(39,201,63,0.6); } }
+    @keyframes bar-scan        { 0%{ left:-100%; } 100%{ left:100%; } }
+    @keyframes node-pulse      { 0%,100%{ background:transparent; } 50%{ background:rgba(26,86,255,0.025); } }
+    @keyframes fade-up         { from{ opacity:0; transform:translateY(24px); } to{ opacity:1; transform:translateY(0); } }
+    @keyframes fade-in         { from{ opacity:0; } to{ opacity:1; } }
+    @keyframes slide-right     { from{ opacity:0; transform:translateX(-20px); } to{ opacity:1; transform:translateX(0); } }
+    @keyframes gate-load       { 0%{ width:0; } 60%{ width:70%; } 100%{ width:100%; } }
+
+    .anim-fade-up { animation: fade-up 0.7s ease both; }
+    .anim-slide-r { animation: slide-right 0.6s ease both; }
+    .delay-1 { animation-delay: 0.12s; } .delay-2 { animation-delay: 0.26s; }
+    .delay-3 { animation-delay: 0.4s; }  .delay-4 { animation-delay: 0.55s; }
+
+    #app { opacity: 0; transition: opacity 0.5s ease; }
+    #app.visible { opacity: 1; }
+
+    /* ═══════════════════════════════════════════════════
+       RESPONSIVE — TABLET  ≤ 1024px
+    ═══════════════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .header-nav, .header-controls { display: none; }
+      .hamburger, .mobile-header-right { display: flex; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .stats-cell:nth-child(even) { border-right: none; }
+      .stats-cell:nth-child(3),
+      .stats-cell:nth-child(4) { border-top: 1px solid var(--brand-rule-strong); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .intro-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    /* ═══════════════════════════════════════════════════
+       RESPONSIVE — MOBILE  ≤ 768px
+    ═══════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      #hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { border-right: none; border-bottom: 1px solid var(--brand-rule-strong); padding: 3rem 1.25rem 2.5rem; min-height: 55svh; }
+      .hero-right { padding: 2.5rem 1.25rem 3rem; min-height: auto; }
+      .pipeline-terminal { max-width: 100%; }
+      .hero-cta-row { flex-direction: column; }
+      .hero-cta-row .btn-primary,
+      .hero-cta-row .btn-ghost { justify-content: center; }
+      .marquee-item { font-size: 9px; padding: 0 1.25rem; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .photo-split { grid-template-columns: 1fr; }
+      .photo-split-img { min-height: 260px; }
+      .photo-split-content { border-left: none; border-top: 1px solid var(--brand-rule-strong); }
+      .cta-heading { font-size: clamp(1.9rem, 8vw, 3rem); }
+      .cta-actions { flex-direction: column; width: 100%; }
+      .cta-actions .btn-gold,
+      .cta-actions .btn-ghost { width: 100%; justify-content: center; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+
+    /* ═══════════════════════════════════════════════════
+       RESPONSIVE — SMALL  ≤ 420px
+    ═══════════════════════════════════════════════════ */
+    @media (max-width: 420px) {
+      .logo-name { display: none; }
+      .feature-diagram { display: none; }
+      .pnode-bar { display: none; }
+      .footer-bottom p:last-child { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Welcome Gate -->
+<div id="welcome-gate">
+  <div class="gate-logo">ORTHOM8PRO</div>
+  <div class="gate-bar-wrap"><div class="gate-bar"></div></div>
+  <div class="gate-status">Initializing sovereign architecture…</div>
+</div>
+
+<!-- Drawer Overlay -->
+<div id="drawer-overlay"></div>
+
+<!-- ═══════════════════════════════════════════
+     MOBILE DRAWER
+═══════════════════════════════════════════ -->
+<div id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+
+  <div class="drawer-header">
+    <a href="/" class="logo-wrap">
+      <div class="logo-mark">08</div>
+      <span class="logo-name">Orthom8pro</span>
+    </a>
+    <button class="drawer-close" id="drawer-close" aria-label="Close menu">✕</button>
+  </div>
+
+  <!-- Live metrics strip -->
+  <div class="drawer-stats">
+    <div class="ds-cell">
+      <div class="ds-num">$142.8M</div>
+      <div class="ds-lbl">Capital Anchor</div>
+    </div>
+    <div class="ds-cell" style="border-left:1px solid var(--brand-rule-strong);">
+      <div class="ds-num">320ms</div>
+      <div class="ds-lbl">Latency</div>
+    </div>
+    <div class="ds-cell" style="border-top:1px solid var(--brand-rule-strong);">
+      <div class="ds-num">72.4%</div>
+      <div class="ds-lbl">Confidence</div>
+    </div>
+    <div class="ds-cell" style="border-top:1px solid var(--brand-rule-strong); border-left:1px solid var(--brand-rule-strong);">
+      <div class="ds-num">&lt;1.5%</div>
+      <div class="ds-lbl">Max DD</div>
+    </div>
+  </div>
+
+  <!-- Nav links -->
+  <nav class="drawer-nav" aria-label="Mobile navigation">
+    <a href="#hero">Home <span class="nav-arrow">→</span></a>
+    <a href="#engine">The Engine <span class="nav-arrow">→</span></a>
+    <a href="#performance">Performance <span class="nav-arrow">→</span></a>
+    <a href="#evidence">Evidence <span class="nav-arrow">→</span></a>
+    <a href="#how-it-works">Risk Matrix <span class="nav-arrow">→</span></a>
+    <a href="#about">About <span class="nav-arrow">→</span></a>
+  </nav>
+
+  <!-- Theme + Language controls -->
+  <div class="drawer-controls">
+    <button class="theme-btn" id="drawer-theme-toggle" title="Toggle theme">
+      <span id="drawer-theme-icon">☀</span>
+    </button>
+    <div class="lang-wrap" style="flex:1;">
+      <select class="lang-select" id="drawer-lang-select" style="width:100%;">
+        <option value="en">EN</option>
+        <option value="es">ES</option>
+        <option value="de">DE</option>
+        <option value="fr">FR</option>
+        <option value="zh">ZH</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="drawer-footer">
+    <a href="#audit" class="btn-primary">Request Audit →</a>
+    <a href="#" class="btn-ghost">Institutional Portal</a>
+  </div>
+
+</div><!-- /mobile-drawer -->
+
+
+<!-- ═══════════════════════════════════════════
+     APP
+═══════════════════════════════════════════ -->
+<div id="app">
+
+  <!-- HEADER -->
+  <header id="site-header">
+    <a href="/" class="logo-wrap">
+      <div class="logo-mark">08</div>
+      <span class="logo-name">Orthom8pro</span>
+    </a>
+
+    <nav aria-label="Main navigation">
+      <ul class="header-nav">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#engine">The Engine</a></li>
+        <li><a href="#performance">Performance</a></li>
+        <li><a href="#evidence">Evidence</a></li>
+        <li><a href="#how-it-works">Risk Matrix</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- Desktop controls -->
+    <div class="header-controls">
+      <button class="theme-btn" id="theme-toggle" title="Toggle theme"><span id="theme-icon">☀</span></button>
+      <div class="lang-wrap">
+        <select class="lang-select" id="lang-select">
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+          <option value="de">DE</option>
+          <option value="fr">FR</option>
+          <option value="zh">ZH</option>
+        </select>
+      </div>
+      <a href="#audit" class="btn-primary">Audit Asset →</a>
+    </div>
+
+    <!-- Mobile right cluster (visible ≤ 1024px) -->
+    <div class="mobile-header-right">
+      <button class="theme-btn" id="mobile-theme-toggle" title="Toggle theme"><span id="mobile-theme-icon">☀</span></button>
+      <button class="hamburger" id="hamburger-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-drawer">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <div class="hero-left-content">
+        <span class="text-eyebrow anim-slide-r">Initializing Architecture</span>
+        <h1 class="hero-heading anim-fade-up delay-1" style="margin-top:1.25rem; margin-bottom:1.5rem;">
+          Sovereign-tier<br><em>AI trading</em><br><strong>infrastructure.</strong>
+        </h1>
+        <p class="hero-body anim-fade-up delay-2" style="max-width:440px; margin-bottom:2rem;">
+          Our 11-node pipeline transforms raw market data into confident, risk-managed trade execution for institutions.
+        </p>
+        <div class="hero-cta-row anim-fade-up delay-3" style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="#engine" class="btn-primary">Explore the Engine →</a>
+          <a href="#evidence" class="btn-ghost">View Case Studies</a>
+        </div>
+        <div class="stats-ribbon anim-fade-up delay-4">
+          <div class="stat-cell">
+            <div class="stat-num">$142.8M</div>
+            <div class="stat-label">Capital Anchor</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">11</div>
+            <div class="stat-label">Pipeline Nodes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="corner-dec tl"></div><div class="corner-dec tr"></div>
+      <div class="corner-dec bl"></div><div class="corner-dec br"></div>
+
+      <div class="pipeline-terminal anim-fade-up delay-2">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <div class="terminal-dot td-red"></div>
+            <div class="terminal-dot td-amber"></div>
+            <div class="terminal-dot td-green"></div>
+          </div>
+          <div class="terminal-title">System Status</div>
+          <div class="terminal-status"><div class="status-dot"></div>LIVE</div>
+        </div>
+        <div class="pipeline-nodes">
+          <div class="pnode" style="animation-delay:0.0s"><span class="pnode-num">01</span><span class="pnode-label">Data Ingestion Array</span><div class="pnode-bar"></div><div class="pnode-indicator"></div></div>
+          <div class="pnode" style="animation-delay:0.3s"><span class="pnode-num">02</span><span class="pnode-label">L2 Order Book Parse</span><div class="pnode-bar"></div><div class="pnode-indicator"></div></div>
+          <div class="pnode" style="animation-delay:0.6s"><span class="pnode-num">03</span><span class="pnode-label">Standard Deviation Check</span><div class="pnode-bar"></div><div class="pnode-indicator"></div></div>
+          <div class="pnode" style="animation-delay:0.9s"><span class="pnode-num">04</span><span class="pnode-label">LLM Sentiment Gate</span><div class="pnode-bar"></div><div class="pnode-indicator"></div></div>
+          <div class="pnode" style="animation-delay:1.2s; background:rgba(184,151,42,0.04);"><span class="pnode-num">05</span><span class="pnode-label highlight">CONFIDENCE &gt; 72.4%</span><div class="pnode-bar" style="background:rgba(184,151,42,0.15);"></div><div class="pnode-indicator gold"></div></div>
+          <div class="pnode" style="animation-delay:1.5s"><span class="pnode-num">06</span><span class="pnode-label">Capital Tier Mapping</span><div class="pnode-bar"></div><div class="pnode-indicator"></div></div>
+          <div class="pnode" style="animation-delay:1.8s"><span class="pnode-num">07</span><span class="pnode-label">Drawdown Boundaries</span><div class="pnode-bar"></div><div class="pnode-indicator"></div></div>
+          <div class="pnode" style="animation-delay:2.1s"><span class="pnode-num">08</span><span class="pnode-label">Volatility Constraint</span><div class="pnode-bar"></div><div class="pnode-indicator"></div></div>
+          <div class="pnode" style="animation-delay:2.4s; background:rgba(39,201,63,0.03);"><span class="pnode-num">09</span><span class="pnode-label success">RISK CLEARANCE OK</span><div class="pnode-bar" style="background:rgba(39,201,63,0.12);"></div><div class="pnode-indicator green"></div></div>
+          <div class="pnode" style="animation-delay:2.7s"><span class="pnode-num">10</span><span class="pnode-label">IBKR Secure Relay</span><div class="pnode-bar"></div><div class="pnode-indicator"></div></div>
+          <div class="pnode" style="animation-delay:3.0s; border-bottom:2px solid rgba(184,151,42,0.3);"><span class="pnode-num" style="color:var(--brand-gold-light);">11</span><span class="pnode-label" style="color:rgba(232,237,245,0.9);">Latency Execution</span><div class="pnode-bar"></div><div class="pnode-indicator gold"></div></div>
+        </div>
+        <div class="pipeline-footer">
+          <div class="pf-metric"><div class="pf-val">320ms</div><div class="pf-lbl">Latency</div></div>
+          <div class="pf-divider"></div>
+          <div class="pf-metric"><div class="pf-val">72.4%</div><div class="pf-lbl">Confidence</div></div>
+          <div class="pf-divider"></div>
+          <div class="pf-metric"><div class="pf-val">&lt;1.5%</div><div class="pf-lbl">Max DD</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-bar">
+    <div class="marquee-track">
+      <span class="marquee-item"><strong>EXECUTION:</strong> <span class="val">320ms LATENCY</span></span><span class="marquee-sep"></span>
+      <span class="marquee-item"><strong>CONFIDENCE:</strong> <span class="val">72.4% GATE</span></span><span class="marquee-sep"></span>
+      <span class="marquee-item"><strong>DRAWDOWN:</strong> <span class="val">&lt;1.5% MAX</span></span><span class="marquee-sep"></span>
+      <span class="marquee-item"><strong>CAPITAL:</strong> <span class="val">$142.8M ANCHOR</span></span><span class="marquee-sep"></span>
+      <span class="marquee-item"><strong>NODES:</strong> <span class="val">11 ACTIVE</span></span><span class="marquee-sep"></span>
+      <span class="marquee-item"><strong>STATUS:</strong> <span class="val" style="color:#27C93F;">LIVE</span></span><span class="marquee-sep"></span>
+      <span class="marquee-item"><strong>EXECUTION:</strong> <span class="val">320ms LATENCY</span></span><span class="marquee-sep"></span>
+      <span class="marquee-item"><strong>CONFIDENCE:</strong> <span class="val">72.4% GATE</span></span><span class="marquee-sep"></span>
+      <span class="marquee-item"><strong>DRAWDOWN:</strong> <span class="val">&lt;1.5% MAX</span></span><span class="marquee-sep"></span>
+      <span class="marquee-item"><strong>CAPITAL:</strong> <span class="val">$142.8M ANCHOR</span></span><span class="marquee-sep"></span>
+      <span class="marquee-item"><strong>NODES:</strong> <span class="val">11 ACTIVE</span></span><span class="marquee-sep"></span>
+      <span class="marquee-item"><strong>STATUS:</strong> <span class="val" style="color:#27C93F;">LIVE</span></span><span class="marquee-sep"></span>
+    </div>
+  </div>
+
+  <!-- STATS STRIP -->
+  <section class="stats-section" id="performance">
+    <div style="max-width:100%; overflow:hidden;">
+      <div class="stats-grid">
+        <div class="stats-cell"><div class="stats-big-num">$142<span>.8M</span></div><div class="stats-big-label">Capital Anchor</div></div>
+        <div class="stats-cell"><div class="stats-big-num">11<span> nodes</span></div><div class="stats-big-label">Pipeline Depth</div></div>
+        <div class="stats-cell"><div class="stats-big-num">320<span>ms</span></div><div class="stats-big-label">Execution Latency</div></div>
+        <div class="stats-cell"><div class="stats-big-num">&lt;1.5<span>%</span></div><div class="stats-big-label">Max Drawdown</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro-section" id="engine">
+    <div class="layout-container">
+      <div class="intro-grid">
+        <div>
+          <span class="text-eyebrow" style="margin-bottom:1.5rem; display:flex;">01 — Architecture</span>
+          <h2 class="section-heading">Where raw signal<br>becomes <em>sovereign</em><br>execution.</h2>
+        </div>
+        <div style="display:flex; flex-direction:column; justify-content:flex-end; gap:1.25rem;">
+          <p class="hero-body">ORTHOM8PRO is not a signal service. It is a sovereign capital engine — a closed-loop, 11-node AI pipeline that ingests raw market data, verifies confidence thresholds, enforces institutional drawdown limits, and executes with sub-400ms latency via encrypted relays.</p>
+          <p class="hero-body">Designed for principal capital deployment, not advisory fiction. Every node is independently gated; every execution carries a verifiable audit string.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE GRID -->
+  <section class="feature-section" id="how-it-works">
+    <div class="layout-container" style="position:relative; z-index:1;">
+      <span class="text-eyebrow" style="margin-bottom:1.5rem; display:flex;">02 — Signal Lifecycle</span>
+      <h2 class="section-heading" style="margin-bottom:3rem;">How the signal<br><em>survives the gate.</em></h2>
+      <div class="feature-grid">
+        <div class="feature-cell">
+          <div class="feature-num">NODE 01–02</div>
+          <h3>Data Ingestion</h3>
+          <p>Real-time L2 order book feeds, tick data streams, and macro event calendars are normalized, timestamped, and ingested simultaneously. Latency tolerance: 12ms.</p>
+          <div class="feature-diagram">
+            <div class="fd-row"><span class="fd-active">TICK DATA</span><span class="fd-arrow">→</span><span class="fd-active">L2 BOOK</span><span class="fd-arrow">→</span><span>NORMALIZE</span></div>
+            <div class="fd-row"><span>MACRO EVT</span><span class="fd-arrow">→</span><span>TIMESTAMP</span><span class="fd-arrow">→</span><span class="fd-active">INGEST</span></div>
+          </div>
+        </div>
+        <div class="feature-cell">
+          <div class="feature-num">NODE 03–05</div>
+          <h3>Confidence Check</h3>
+          <p>Standard deviation is computed across 14 independent signal streams. LLM sentiment analysis is gated at 72.4% minimum confidence. Signals below threshold are quarantined — never executed.</p>
+          <div class="feature-diagram">
+            <div class="fd-row"><span>σ CALC</span><span class="fd-arrow">→</span><span class="fd-active">LLM GATE</span><span class="fd-arrow">→</span><span class="fd-active">72.4% MIN</span></div>
+            <div class="fd-row"><span style="color:var(--brand-gold-light); border-color:rgba(184,151,42,0.3); background:rgba(184,151,42,0.06);">PASS</span><span class="fd-arrow">→</span><span>NODE 06</span><span style="margin-left:auto; color:#FF5F57; font-size:8px;">FAIL → QUARANTINE</span></div>
+          </div>
+        </div>
+        <div class="feature-cell">
+          <div class="feature-num">NODE 06–09</div>
+          <h3>Sovereign Anchor</h3>
+          <p>Capital tier mapping assigns dynamic position sizing relative to the sovereign anchor. Drawdown boundaries (&lt;1.5% max) and volatility constraints are enforced as hard gates before relay handoff.</p>
+          <div class="feature-diagram">
+            <div class="fd-row"><span>CAPITAL MAP</span><span class="fd-arrow">→</span><span class="fd-active">DD &lt;1.5%</span></div>
+            <div class="fd-row"><span>VOL CHECK</span><span class="fd-arrow">→</span><span style="color:#27C93F; border-color:rgba(39,201,63,0.3); background:rgba(39,201,63,0.05);">RISK CLEAR</span></div>
+          </div>
+        </div>
+        <div class="feature-cell">
+          <div class="feature-num">NODE 10–11</div>
+          <h3>Latency Execution</h3>
+          <p>IBKR Secure Relay handles execution over an encrypted channel. End-to-end latency target: 320ms. Each event produces a timestamped audit string — immutably logged.</p>
+          <div class="feature-diagram">
+            <div class="fd-row"><span class="fd-active">IBKR RELAY</span><span class="fd-arrow">→</span><span class="fd-active">EXECUTE</span><span class="fd-arrow">→</span><span>AUDIT LOG</span></div>
+            <div class="fd-row"><span style="font-size:8px; color:var(--brand-gold-light);">320ms TARGET</span><span class="fd-arrow">→</span><span style="font-size:8px;">TIMESTAMP HASH</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO SPLIT -->
+  <section class="photo-split" id="evidence">
+    <div class="photo-split-img">
+      <img src="https://images.unsplash.com/photo-1642104704074-907c0698cbd9?q=80&w=1200&auto=format&fit=crop" alt="Trading infrastructure" loading="lazy" />
+      <div class="photo-overlay"></div>
+      <div class="photo-badge"><div class="pb-val">$142.8M</div><div class="pb-lbl">Active Sovereign Capital</div></div>
+    </div>
+    <div class="photo-split-content">
+      <span class="text-eyebrow" style="margin-bottom:1.5rem; display:flex;">03 — Infrastructure</span>
+      <h2 class="section-heading" style="margin-bottom:1rem;">Institutional<br>precision,<br><em>sovereign scale.</em></h2>
+      <p class="hero-body" style="margin-top:0.5rem;">Built for principal capital deployment. Every component is independently monitored, circuit-breaker protected, and auditable in real-time.</p>
+      <div class="spec-list">
+        <div class="spec-row"><span class="spec-key">Execution Relay</span><span class="spec-val">IBKR Encrypted</span></div>
+        <div class="spec-row"><span class="spec-key">Latency Target</span><span class="spec-val">320ms</span></div>
+        <div class="spec-row"><span class="spec-key">Confidence Gate</span><span class="spec-val">≥ 72.4%</span></div>
+        <div class="spec-row"><span class="spec-key">Max Drawdown</span><span class="spec-val">&lt;1.5%</span></div>
+        <div class="spec-row"><span class="spec-key">Pipeline Depth</span><span class="spec-val">11 Nodes</span></div>
+        <div class="spec-row"><span class="spec-key">Audit Logging</span><span class="spec-val">Immutable / Hash</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-block" id="audit">
+    <div class="cta-bg-grid"></div>
+    <div class="cta-glow"></div>
+    <div class="cta-inner">
+      <div class="cta-label">Compliance Tier Open</div>
+      <h2 class="cta-heading">Understand the engine.<br><em>Then deploy it.</em></h2>
+      <p class="cta-body">Our sovereign capital tier is strictly limited. Initiate your compliance audit to verify institutional eligibility and access the full architecture brief.</p>
+      <div class="cta-actions">
+        <a href="#" class="btn-gold">Request Audit →</a>
+        <a href="#" class="btn-ghost">Institutional Portal</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="site-footer">
+    <div class="footer-grid" id="about">
+      <div>
+        <div class="footer-brand-name">ORTHOM8PRO</div>
+        <p class="footer-brand-desc">Sovereign-tier AI trading infrastructure for institutional capital deployment. 11-node pipeline. Sub-400ms execution. Immutable audit trail.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <ul class="footer-links">
+          <li><a href="#">The Engine</a></li><li><a href="#">Performance</a></li>
+          <li><a href="#">Evidence</a></li><li><a href="#">Risk Matrix</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Access</div>
+        <ul class="footer-links">
+          <li><a href="#">Request Audit</a></li><li><a href="#">Institutional Portal</a></li>
+          <li><a href="#">Compliance Brief</a></li><li><a href="#">API Access</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#">About</a></li><li><a href="#">Architecture Brief</a></li>
+          <li><a href="#">Legal &amp; Disclaimers</a></li><li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 ORTHOM8PRO — All rights reserved.</p>
+      <p>This platform does not constitute investment advice. For qualified institutional use only.</p>
+    </div>
+  </footer>
+
+</div><!-- /app -->
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+
+    /* ── Welcome Gate ─────────────────── */
+    const gate = document.getElementById('welcome-gate');
+    const app  = document.getElementById('app');
+    setTimeout(() => {
+      gate.classList.add('exiting');
+      setTimeout(() => { gate.style.display = 'none'; app.classList.add('visible'); }, 500);
+    }, 1800);
+
+    /* ── Theme ────────────────────────── */
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('o8_theme') || 'dark';
+    html.setAttribute('data-theme', savedTheme);
+
+    function syncIcons(t) {
+      const icon = t === 'dark' ? '☀' : '☪';
+      ['theme-icon','mobile-theme-icon','drawer-theme-icon'].forEach(id => {
+        const el = document.getElementById(id); if (el) el.textContent = icon;
+      });
+    }
+    syncIcons(savedTheme);
+
+    function toggleTheme() {
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('o8_theme', next);
+      syncIcons(next);
+    }
+
+    ['theme-toggle','mobile-theme-toggle','drawer-theme-toggle'].forEach(id => {
+      document.getElementById(id)?.addEventListener('click', toggleTheme);
+    });
+
+    /* ── Language ─────────────────────── */
+    const savedLang = localStorage.getItem('o8_locale') || 'en';
+    ['lang-select','drawer-lang-select'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.value = savedLang;
+        el.addEventListener('change', e => localStorage.setItem('o8_locale', e.target.value));
+      }
+    });
+
+    /* ── Mobile Drawer ────────────────── */
+    const drawer    = document.getElementById('mobile-drawer');
+    const overlay   = document.getElementById('drawer-overlay');
+    const hamburger = document.getElementById('hamburger-btn');
+    const closeBtn  = document.getElementById('drawer-close');
+
+    function openDrawer() {
+      drawer.classList.add('open');
+      overlay.classList.add('visible');
+      hamburger.classList.add('active');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('drawer-open');
+      // Trap focus to first focusable in drawer
+      setTimeout(() => closeBtn?.focus(), 50);
+    }
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      overlay.classList.remove('visible');
+      hamburger.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('drawer-open');
+      hamburger?.focus();
+    }
+
+    hamburger?.addEventListener('click', () =>
+      drawer.classList.contains('open') ? closeDrawer() : openDrawer()
+    );
+    closeBtn?.addEventListener('click', closeDrawer);
+    overlay?.addEventListener('click', closeDrawer);
+
+    // Close on nav link click
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+
+    // Close on Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+    });
+
+    /* ── Scroll fade-in ───────────────── */
+    const targets = document.querySelectorAll('.stats-cell, .feature-cell, .spec-row');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.style.opacity = '1';
+          en.target.style.transform = 'translateY(0)';
+          obs.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    targets.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(14px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      obs.observe(el);
+    });
+
+  });
+</script>
+</body>
+</html>

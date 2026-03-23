@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Founder & Philosophy | The Data Architect</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
-        rel="stylesheet">
+    <title>The Founder & Philosophy | ORTHOM8pro</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Discover the philosophy and architectural principles driving ORTHOM8pro. Built from necessity to bridge traditional finance with sovereign technology.">
+    <link href="../assets/css/tailwind.output.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <link href="../assets/css/global.css" rel="stylesheet">
     <style>
         .image-grid {
@@ -35,141 +35,89 @@
             background-image: radial-gradient(var(--border) 1px, transparent 1px);
             background-size: 40px 40px;
         }
-
     </style>
 </head>
 
 <body class="blueprint-bg">
 
     <!-- NAVIGATION -->
-    <nav class="px-6 py-5 flex justify-between items-center max-w-7xl mx-auto w-full relative z-50">
+    <nav class="app-header">
         <div class="flex items-center gap-3">
-            <a href="../index.html" class="flex items-center gap-3 no-underline">
-                <div class="w-10 h-10 bg-slate-900 rounded-[14px] flex items-center justify-center text-white text-[12px] font-black">O8</div>
-                <span class="text-[12px] font-black uppercase tracking-[0.3em]">ORTHOM8pro</span>
+            <a href="../index.html" class="brand-link">
+                <div class="brand-icon">O8</div>
+                <span class="brand-text">ORTHOM8pro</span>
             </a>
         </div>
         <div class="flex items-center gap-4">
-            <div class="hidden lg:flex items-center gap-6 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                <a href="../index.html" class="hover:text-slate-900 no-underline transition-colors">Home</a>
-                <a href="../index.html#engine" class="hover:text-slate-900 no-underline transition-colors">The Engine</a>
-                <a href="../index.html#performance" class="hover:text-slate-900 no-underline transition-colors">Performance</a>
-                <div class="dropdown">
-                    <a href="../testimony/master-matrix.html" class="dropdown-trigger hover:text-slate-900 flex items-center gap-1 group no-underline transition-colors uppercase tracking-widest">
-                        <span>Testimonies</span>
-                        <svg id="dropdown-arrow" class="w-3 h-3 cursor-pointer group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="../testimony/master-matrix.html?partner=thorne" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-slate-900"></div><span>Thorne-Blackwood</span></a>
-                        <a href="../testimony/master-matrix.html?partner=beijing" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-blue-600"></div><span>Beijing Power</span></a>
-                        <a href="../testimony/master-matrix.html?partner=northstar" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-amber-500"></div><span>NorthStar Motors</span></a>
-                        <a href="../testimony/master-matrix.html?partner=dubai_auto" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-slate-400"></div><span>Al-Maktoum Auto</span></a>
-                        <a href="../testimony/master-matrix.html?partner=oudh" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-yellow-600"></div><span>Oudh & Gold</span></a>
-                        <a href="../testimony/master-matrix.html?partner=agri" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-green-600"></div><span>Agri-Growth</span></a>
-                        <a href="../testimony/master-matrix.html?partner=valle" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-red-400"></div><span>Valle de Oro</span></a>
-                        <a href="../testimony/master-matrix.html?partner=keystone" class="dropdown-item"><div class="w-2 h-2 rounded-full bg-slate-500"></div><span>Keystone CM</span></a>
-                    </div>
-                </div>
-                <a href="../view-schema/view-schema.html" class="hover:text-slate-900 no-underline transition-colors">View Schema</a>
-                <a href="../risktable/investor-risk-matrix.html" class="hover:text-slate-900 no-underline transition-colors">Risk Analysis</a>
+            <div class="desktop-nav">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../the-engine/engine_nodes.html" class="nav-link">The Engine</a>
+                <a href="../index.html#performance" class="nav-link">Performance</a>
+                <a href="../testimony/master-matrix.html" class="nav-link">Testimonies</a>
+                <a href="../view-schema/view-schema.html" class="nav-link">View Schema</a>
+                <a href="../risktable/investor-risk-matrix.html" class="nav-link">Risk Analysis</a>
+                <a href="../about/about.html" class="nav-link text-blue-600">About</a>
             </div>
-            <a href="../submit-asset/submit-asset.html" class="hidden sm:inline-flex px-5 py-3 bg-white border border-slate-200 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-900 hover:text-white transition-all">Audit Asset</a>
-            <button id="mobile-menu-btn" class="lg:hidden flex flex-col gap-1.5 p-2" aria-label="Open menu">
-                <span class="w-6 h-0.5 bg-slate-900 block"></span>
-                <span class="w-6 h-0.5 bg-slate-900 block"></span>
-                <span class="w-6 h-0.5 bg-slate-900 block"></span>
-            </button>
+            <a href="../submit-asset/submit-asset.html" class="cta-outline">Audit Asset</a>
         </div>
     </nav>
 
-    <!-- MOBILE MENU -->
-    <div id="mobile-menu" class="fixed inset-0 bg-white z-[200] flex flex-col p-8 translate-x-full transition-transform duration-300 ease-in-out lg:hidden">
-        <div class="flex justify-between items-center mb-12">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-slate-900 rounded-[14px] flex items-center justify-center text-white text-[12px] font-black">O8</div>
-                <span class="text-[12px] font-black uppercase tracking-[0.3em]">ORTHOM8pro</span>
-            </div>
-            <button id="mobile-menu-close" class="p-2" aria-label="Close menu">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
+    <!-- HERO SECTION — Editorial Manifesto -->
+    <header class="relative w-full overflow-hidden bg-slate-950 pt-40 pb-32 border-b border-white/5 selection:bg-blue-900 selection:text-blue-100">
+        <!-- Background Image Panel -->
+        <div class="absolute inset-0 z-0">
+            <img src="../assets/images/about-hero.png" 
+                 alt="The Architect's Vision" 
+                 class="w-full h-full object-cover object-top opacity-40 grayscale hover:grayscale-0 transition-all duration-1000 scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
         </div>
-        <nav class="flex flex-col gap-2 text-[13px] font-black uppercase tracking-widest">
-            <a href="../index.html" class="py-4 border-b border-slate-100 text-slate-900 no-underline">Home</a>
-            <a href="../index.html#engine" class="py-4 border-b border-slate-100 text-slate-900 no-underline">The Engine</a>
-            <a href="../index.html#performance" class="py-4 border-b border-slate-100 text-slate-900 no-underline">Performance</a>
-            <a href="../testimony/master-matrix.html" class="py-4 border-b border-slate-100 text-slate-900 no-underline">Testimonies</a>
-            <a href="../view-schema/view-schema.html" class="py-4 border-b border-slate-100 text-slate-900 no-underline">View Schema</a>
-            <a href="../risktable/investor-risk-matrix.html" class="py-4 border-b border-slate-100 text-slate-900 no-underline">Risk Analysis</a>
-        </nav>
-        <div class="mt-auto">
-            <a href="../submit-asset/submit-asset.html" class="cta-primary w-full text-center block">Audit Asset</a>
-        </div>
-    </div>
 
-    <header class="max-w-7xl mx-auto px-5 sm:px-6 py-12 sm:py-24 text-center">
-        <h1 class="serif text-4xl sm:text-6xl md:text-8xl mb-8 leading-tight">Human Vision.<br><span class="italic font-light text-slate-400 text-3xl sm:text-5xl md:text-7xl">Driven by Logic.</span></h1>
-        <p class="max-w-2xl mx-auto text-slate-500 text-base sm:text-lg font-light leading-relaxed">
-            The Data Architect was founded on a single premise: that the world's most valuable assets are often the
-            least liquid. Our mission is to bridge that gap using sovereign-tier technology.
-        </p>
+        <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+            <nav class="flex items-center justify-center gap-4 mb-12 animate-reveal">
+                <span class="text-[9px] font-black uppercase tracking-[0.4em] text-slate-500">Architecture</span>
+                <span class="w-1 h-1 rounded-full bg-blue-500"></span>
+                <span class="text-[9px] font-black uppercase tracking-[0.4em] text-blue-400">Founder & Philosophy</span>
+            </nav>
+
+            <h1 class="serif text-5xl sm:text-7xl md:text-9xl text-white leading-[0.9] mb-12 tracking-tight animate-reveal" style="animation-delay: 0.1s;">
+                Human Vision.<br>
+                <span class="italic font-light text-slate-400">Driven by Logic.</span>
+            </h1>
+
+            <div class="max-w-2xl mx-auto animate-reveal" style="animation-delay: 0.2s;">
+                <p class="text-lg sm:text-xl text-slate-400 font-light leading-relaxed">
+                    The Data Architect was founded on a single premise: that the world's most valuable assets are often the
+                    least liquid. Our mission is to bridge that gap using sovereign-tier technology.
+                </p>
+            </div>
+        </div>
     </header>
 
-    <section class="max-w-7xl mx-auto px-6 mb-32">
+    <section class="max-w-7xl mx-auto px-6 py-20 mb-32">
         <div class="image-grid">
-            <img id="img_01" src="http://googleusercontent.com/image_collection/image_retrieval/8561994234963056674_0"
-                class="img-card md:col-span-2" alt="Office Culture">
-            <img id="img_02" src="http://googleusercontent.com/image_collection/image_retrieval/8561994234963056674_1"
-                class="img-card" alt="Tech Setup">
-            <img id="img_03" src="http://googleusercontent.com/image_collection/image_retrieval/8561994234963056674_2"
-                class="img-card" alt="Architecture">
-            <img id="img_04" src="http://googleusercontent.com/image_collection/image_retrieval/8561994234963056674_3"
-                class="img-card" alt="Asset Focus">
-            <img id="img_05" src="http://googleusercontent.com/image_collection/image_retrieval/8561994234963056674_4"
-                class="img-card md:row-span-2" alt="Founder Portrait Placeholder">
-            <img id="img_06" src="http://googleusercontent.com/image_collection/image_retrieval/8561994234963056674_5"
-                class="img-card" alt="Blueprint Detail">
-            <img id="img_07" src="http://googleusercontent.com/image_collection/image_retrieval/8561994234963056674_6"
-                class="img-card" alt="Minimalist Space">
-            <img id="img_08" src="http://googleusercontent.com/image_collection/image_retrieval/8561994234963056674_7"
-                class="img-card md:col-span-2" alt="Data Flow Visual">
-            <img id="img_09" src="http://googleusercontent.com/image_collection/image_retrieval/8561994234963056674_8"
-                class="img-card" alt="Luxury Real Estate">
-            <img id="img_10" src="http://googleusercontent.com/image_collection/image_retrieval/8561994234963056674_9"
-                class="img-card" alt="Security Terminal">
-            <img id="img_11" src="http://googleusercontent.com/image_collection/image_retrieval/8561994234963056674_10"
-                class="img-card" alt="Glass Textures">
-            <img id="img_12" src="http://googleusercontent.com/image_collection/image_retrieval/8561994234963056674_11"
-                class="img-card" alt="Sovereign Vault">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/8561994234963056674_0" class="img-card md:col-span-2" alt="Office Culture">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/8561994234963056674_1" class="img-card" alt="Tech Setup">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/8561994234963056674_2" class="img-card" alt="Architecture">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/8561994234963056674_3" class="img-card" alt="Asset Focus">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/8561994234963056674_4" class="img-card md:row-span-2" alt="Founder">
         </div>
     </section>
 
     <section class="bg-white py-32 border-y border-slate-100">
         <div class="max-w-4xl mx-auto px-6">
             <div class="mb-12">
-                <span class="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600">The Architect's
-                    Story</span>
+                <span class="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600">The Architect's Story</span>
                 <h2 class="serif text-5xl mt-4">Built from Necessity.</h2>
             </div>
             <div class="space-y-8 text-slate-600 font-light text-lg leading-relaxed">
-                <p>
-                    I spent over a decade at the intersection of traditional finance and emerging technology. What I
-                    noticed was a consistent friction: owners of significant physical wealth—real estate, machinery,
-                    commodities—were often "asset rich" but "liquidity poor."
-                </p>
-                <p>
-                    Traditional banking offered slow, debt-heavy solutions. I wanted to build something different. By
-                    applying the principles of high-frequency data processing and 11-node security logic, we created a
-                    system that allows your assets to act as a sovereign anchor for growth.
-                </p>
-                <p class="italic">
-                    "We don't just manage data; we architect the flow of value."
-                </p>
+                <p>I spent over a decade at the intersection of traditional finance and emerging technology. What I noticed was a consistent friction: owners of significant physical wealth—real estate, machinery, commodities—were often "asset rich" but "liquidity poor."</p>
+                <p>Traditional banking offered slow, debt-heavy solutions. I wanted to build something different. By applying the principles of high-frequency data processing and 11-node security logic, we created a system that allows your assets to act as a sovereign anchor for growth.</p>
+                <p class="italic">"We don't just manage data; we architect the flow of value."</p>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="py-20 bg-slate-50 border-t border-slate-200 relative z-20">
+    <footer class="py-20 bg-slate-50 border-t border-slate-200">
         <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 lg:grid-cols-4 gap-12">
             <div>
                 <div class="flex items-center gap-3 mb-6">
@@ -178,58 +126,11 @@
                 </div>
                 <p class="text-xs text-slate-400 leading-relaxed font-medium">Providing sovereign-grade signal intelligence and liquid execution anchors for the modern investor archive.</p>
             </div>
-            <div>
-                <h6 class="text-[10px] font-black uppercase tracking-widest mb-6 text-slate-900">Architecture</h6>
-                <ul class="text-[10px] font-bold text-slate-400 space-y-4 uppercase tracking-widest">
-                    <li class="hover:text-blue-600 cursor-pointer">Terminal Hub</li>
-                    <li class="hover:text-blue-600 cursor-pointer">Logic Nodes</li>
-                    <li class="hover:text-blue-600 cursor-pointer">Audit Ledger</li>
-                </ul>
-            </div>
-            <div>
-                <h6 class="text-[10px] font-black uppercase tracking-widest mb-6 text-slate-900">Governance</h6>
-                <ul class="text-[10px] font-bold text-slate-400 space-y-4 uppercase tracking-widest">
-                    <li class="hover:text-blue-600 cursor-pointer">Sovereign Tiers</li>
-                    <li class="hover:text-blue-600 cursor-pointer">Risk Reality</li>
-                    <li class="hover:text-blue-600 cursor-pointer">KYC Ingest</li>
-                </ul>
-            </div>
-            <div>
-                <h6 class="text-[10px] font-black uppercase tracking-widest mb-6 text-slate-900">Security</h6>
-                <div class="p-4 bg-white rounded-2xl border border-slate-200">
-                    <p class="text-[8px] font-black uppercase text-slate-400 mb-2">Network Status</p>
-                    <div class="flex items-center gap-2">
-                        <div class="w-2 h-2 rounded-full bg-teal-500"></div>
-                        <span class="text-[9px] font-black text-slate-900 uppercase tracking-widest">SHA-512 Encrypted</span>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="max-w-7xl mx-auto px-8 mt-20 pt-10 border-t border-slate-200 text-center">
-            <p class="text-[8px] font-black text-slate-300 uppercase tracking-[0.5em]">© 2024 ORTHOM8pro | Sovereign Institutional Grade</p>
+            <p class="text-[8px] font-black text-slate-300 uppercase tracking-[0.5em]">© 2024 ORTHOM8pro | Sovereign Grade</p>
         </div>
     </footer>
 
-    <script>
-        const dropdown = document.querySelector('.dropdown');
-        const arrow = document.getElementById('dropdown-arrow');
-        if (arrow) {
-            arrow.addEventListener('click', function(e) {
-                e.preventDefault(); e.stopPropagation();
-                dropdown.classList.toggle('active');
-            });
-        }
-        window.addEventListener('click', function(event) {
-            if (dropdown && !event.target.closest('.dropdown')) dropdown.classList.remove('active');
-        });
-        if (dropdown) dropdown.querySelectorAll('.dropdown-item').forEach(i => i.addEventListener('click', () => dropdown.classList.remove('active')));
-
-        const mobileMenu = document.getElementById('mobile-menu');
-        document.getElementById('mobile-menu-btn').addEventListener('click', () => mobileMenu.classList.remove('translate-x-full'));
-        document.getElementById('mobile-menu-close').addEventListener('click', () => mobileMenu.classList.add('translate-x-full'));
-        mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.add('translate-x-full')));
-    </script>
-
 </body>
-
 </html>

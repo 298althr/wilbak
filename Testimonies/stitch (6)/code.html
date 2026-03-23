@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORTHOM8pro | Institutional Sovereign Trading</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="ORTHOM8pro provides sovereign-tier technology bridging traditional finance and emerging technology. Discover how we turn your illiquid assets into liquid growth anchors.">
+    <meta property="og:title" content="ORTHOM8pro | Institutional Sovereign Trading">
+    <meta property="og:description" content="ORTHOM8pro provides sovereign-tier technology bridging traditional finance and emerging technology. Discover how we turn your illiquid assets into liquid growth anchors.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://orthom8pro.com/assets/images/index-hero.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ORTHOM8pro | Institutional Sovereign Trading">
+    <meta name="twitter:description" content="ORTHOM8pro provides sovereign-tier technology bridging traditional finance and emerging technology. Discover how we turn your illiquid assets into liquid growth anchors.">
+    <meta name="twitter:image" content="https://orthom8pro.com/assets/images/index-hero.jpg">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --brand-blue: #2563eb;
+            --brand-slate: #0f172a;
+        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .serif { font-family: 'Playfair Display', serif; }
+        .blueprint-bg {
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .brand-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--brand-slate);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 10px;
+        }
+        .brand-text {
+            font-weight: 800;
+            text-transform: uppercase;
+            tracking: 0.2em;
+            font-size: 12px;
+            color: var(--brand-slate);
+        }
+        .nav-link {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #64748b;
+            transition: color 0.2s;
+        }
+        .nav-link:hover { color: var(--brand-slate); }
+        .cta-outline {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--brand-slate);
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background: var(--brand-slate);
+            color: white;
+            transition: all 0.2s;
+        }
+        .cta-primary {
+            background: var(--brand-slate);
+            color: white;
+            padding: 1.25rem 2.5rem;
+            border-radius: 16px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 11px;
+            transition: transform 0.2s;
+        }
+        .cta-primary:hover { transform: translateY(-2px); }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+        }
+        .card-base {
+            padding: 2rem;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px;
+            transition: all 0.3s;
+        }
+        .card-white { background: white; border: 1px solid #f1f5f9; }
+        .card-silver { background: #f8fafc; border: 1px solid #e2e8f0; }
+        .card-blue { background: #2563eb; color: white; }
+        .card-gold { background: #fefce8; border: 1px solid #fef08a; }
+        .card-platinum { background: #0f172a; color: white; }
+        
+        .desktop-nav { display: flex; align-items: center; gap: 2rem; }
+        .hamburger-btn { display: none; }
+        @media (max-width: 1024px) {
+            .desktop-nav, .cta-outline { display: none; }
+            .hamburger-btn { display: flex; flex-direction: column; gap: 4px; }
+            .hamburger-line { width: 24px; height: 2px; background: var(--brand-slate); }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="blueprint-bg"></div>
+    <nav class="app-header">
+        <div class="flex items-center gap-3">
+            <div class="brand-icon">O8</div>
+            <span class="brand-text">ORTHOM8pro</span>
+        </div>
+        <div class="desktop-nav">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">The Engine</a>
+            <a href="#" class="nav-link">Performance</a>
+            <a href="#" class="nav-link">Testimonials</a>
+            <a href="#" class="nav-link">Risk Analysis</a>
+            <a href="#" class="nav-link">About</a>
+        </div>
+        <a href="#" class="cta-outline">Audit Asset</a>
+        <button class="hamburger-btn">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+    </nav>
+
+    <section class="relative min-h-screen flex items-center pt-20">
+        <div class="absolute inset-y-0 right-0 w-1/2 hidden lg:block">
+            <img src="https://images.unsplash.com/photo-1611974717537-48358a60bc93?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover grayscale opacity-20">
+        </div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-slate-900 text-white rounded-full mb-8">
+                    <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                    <span class="text-[9px] font-black uppercase tracking-[0.3em]">Institutional Alpha v2.8</span>
+                </div>
+                <h1 class="serif text-6xl md:text-8xl text-slate-900 leading-[0.9] mb-8">
+                    Institutional<br>
+                    <span class="italic font-light text-slate-400">Sovereign.</span>
+                </h1>
+                <p class="text-xl text-slate-500 font-light max-w-lg leading-relaxed mb-12">
+                    Deploy high-fidelity AI trading logic on an 11-node sovereign engine hardened for institutional compliance and executive transparency.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#" class="cta-primary text-center">Audit Asset</a>
+                    <a href="#" class="px-8 py-4 border border-slate-200 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-all text-center">Explore Engine</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-4">
+                        <div class="h-64 bg-slate-100 rounded-3xl overflow-hidden">
+                             <img src="https://images.unsplash.com/photo-1640341719935-77b3164924f7?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="p-6 bg-blue-50 rounded-3xl">
+                            <h4 class="serif text-xl mb-2">Hard Breaker</h4>
+                            <p class="text-sm text-slate-500">Real-time macro regime monitoring.</p>
+                        </div>
+                    </div>
+                    <div class="pt-12 space-y-4">
+                        <div class="p-6 bg-slate-900 text-white rounded-3xl">
+                            <h4 class="serif text-xl mb-2">Alpha Matrix</h4>
+                            <p class="text-sm text-slate-400">11-node logic architecture.</p>
+                        </div>
+                        <div class="h-64 bg-slate-100 rounded-3xl overflow-hidden">
+                             <img src="https://images.unsplash.com/photo-1551288049-bbbda536339a?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover grayscale">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="serif text-5xl text-slate-900 mb-8">Hardware-Grade <br><span class="italic font-light text-slate-400">Software Precision.</span></h2>
+                    <p class="text-lg text-slate-500 font-light leading-relaxed mb-8">
+                        We don't just trade. We architect digital vaults for capital. Each node in the Alpha Matrix is a specialized logic module built to handle specific market inefficiencies.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3 text-sm font-bold text-slate-700 uppercase tracking-wide">
+                            <span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span> Reality-Adjusted ROI Modeling
+                        </li>
+                        <li class="flex items-center gap-3 text-sm font-bold text-slate-700 uppercase tracking-wide">
+                            <span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span> L2 Order Book Sentiment
+                        </li>
+                        <li class="flex items-center gap-3 text-sm font-bold text-slate-700 uppercase tracking-wide">
+                            <span class="w-1.5 h-1.5 rounded-full bg-teal-500"></span> Nanosecond IBKR Integration
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-20 bg-slate-50 border-t border-slate-200">
+        <div class="container mx-auto px-6 text-center">
+             <div class="flex justify-center items-center gap-3 mb-8">
+                <div class="brand-icon">O8</div>
+                <span class="brand-text">ORTHOM8pro</span>
+            </div>
+            <p class="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em]">© 2024 ORTHOM8pro | Sovereign Institutional Grade</p>
+        </div>
+    </footer>
+</body>
+</html>

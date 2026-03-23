@@ -6,24 +6,26 @@
    Mobile-First Structure & Scale
 */
 
-/* --- CORE VARIABLES --- */
+/* --- CORE VARIABLES (Stitch Profile) --- */
 :root {
+    --brand-blue: #2563eb;
+    --brand-slate: #0f172a;
     --ink: #0F172A;
     --white: #FFFFFF;
     --page-bg: #F8FAFC;
     --accent: #2563EB;
     --teal: #0D9488;
     --danger: #EF4444;
-    --border: rgba(15, 23, 42, 0.08);
+    --border: #f1f5f9;
     --grid: rgba(15, 23, 42, 0.05);
-    --glass: rgba(255, 255, 255, 0.7);
+    --glass: rgba(255, 255, 255, 0.8);
 }
 
 /* --- BASE STYLES --- */
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: var(--page-bg);
-    color: var(--ink);
+    background-color: white;
+    color: var(--brand-slate);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     scroll-behavior: smooth;
@@ -33,84 +35,155 @@ body {
     font-family: 'Playfair Display', serif; 
 }
 
-/* --- ANIMATED BACKGROUNDS --- */
+/* --- BLUEPRINT & OVERLAYS --- */
 .blueprint-bg {
     position: fixed;
     inset: 0;
-    background-image: radial-gradient(var(--border) 1px, transparent 1px);
-    background-size: 30px 30px;
+    background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px);
+    background-size: 40px 40px;
     z-index: -1;
+    opacity: 0.5;
+    pointer-events: none;
 }
 
-.orb {
+.noise-overlay {
     position: fixed;
-    border-radius: 50%;
-    filter: blur(100px);
-    z-index: -1;
-    opacity: 0.15;
-    animation: drift 25s infinite ease-in-out;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3ExternalIcon %3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-@keyframes drift {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(60px, -80px) scale(1.1); }
+/* --- APP NAVIGATION (Stitch Logic) --- */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid var(--border);
 }
 
-/* --- GLASS MORPHISM COMPONENTS --- */
-.glass {
-    background: var(--glass);
+.brand-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--brand-slate);
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 10px;
+    flex-shrink: 0;
+}
+
+.brand-text {
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 12px;
+    color: var(--brand-slate);
+}
+
+.nav-link {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #64748b;
+    transition: color 0.2s;
+    text-decoration: none;
+}
+
+.nav-link:hover, .nav-link.active { 
+    color: var(--brand-slate); 
+}
+
+/* --- BUTTONS & ACTIONS --- */
+.cta-outline {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--brand-slate);
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: var(--brand-slate);
+    color: white;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cta-outline:hover {
+    background: white;
+    color: var(--brand-slate);
+}
+
+.cta-primary {
+    background: var(--brand-slate);
+    color: white;
+    padding: 1.25rem 2.5rem;
+    border-radius: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 11px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+}
+
+.cta-primary:hover { 
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -10px rgba(15, 23, 42, 0.3);
+}
+
+/* --- CARDS & GRIDS --- */
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.1);
-}
-
-.hero-glass {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(15, 23, 42, 0.08);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 40px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
 }
 
-.glass-card {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.04);
-    border-radius: 40px;
-    transition: all 0.4s ease;
+.card-base {
+    padding: 2.5rem;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
 }
 
-.glass-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    cursor: pointer;
+.card-base:hover {
+    transform: translateY(-8px);
 }
 
-.glass-input {
-    background: white;
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
-}
+.card-white { background: white; border: 1px solid var(--border); }
+.card-silver { background: #f8fafc; border: 1px solid #e2e8f0; }
+.card-blue { background: #2563eb; color: white; border: none; }
+.card-gold { background: #fefce8; border: 1px solid #fef08a; }
+.card-platinum { background: #0f172a; color: white; border: none; }
 
-.glass-input:focus {
-    border-color: var(--accent);
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.05);
-}
-
-/* --- BUTTONS --- */
-.cta-primary {
-    background: var(--ink); 
-    color: white;
-    padding: 16px 32px; 
-    border-radius: 20px;
-    font-weight: 800; 
-    text-transform: uppercase;
-    letter-spacing: 1px; 
-    transition: 0.3s;
-    font-size: 11px;
-    display: inline-block;
-    cursor: pointer;
+.figma-shadow {
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.05), 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
 }
 
 .cta-primary:hover {

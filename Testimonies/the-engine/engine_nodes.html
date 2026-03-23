@@ -1,106 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sovereign Partners | ORTHOM8pro</title>
+    <title>The Engine — AI Pipeline Node Map | ORTHOM8pro</title>
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Explore testimonies and performance archives of partners leveraging ORTHOM8pro's hardened institutional trading nodes.">
-    <meta property="og:title" content="Sovereign Partners | ORTHOM8pro">
-    <meta property="og:description" content="Explore testimonies and performance archives of partners leveraging ORTHOM8pro's hardened institutional trading nodes.">
+    <meta name="description" content="Explore the technical architecture of ORTHOM8pro. The 11-node AI pipeline that takes raw market data and transforms it into confident, risk-managed trade signals.">
+    <meta property="og:title" content="The Engine — AI Pipeline Node Map | ORTHOM8pro">
+    <meta property="og:description" content="Explore the technical architecture of ORTHOM8pro. The 11-node AI pipeline that transforms raw market data into confident trade signals.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://orthom8pro.com/assets/images/matrix-hero.jpg">
+    <meta property="og:image" content="https://orthom8pro.com/assets/images/index-feature1.jpg">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Sovereign Partners | ORTHOM8pro">
-    <meta name="twitter:description" content="Explore testimonies and performance archives of partners leveraging ORTHOM8pro's hardened institutional trading nodes.">
-    <meta name="twitter:image" content="https://orthom8pro.com/assets/images/matrix-hero.jpg">
+    <meta name="twitter:title" content="The Engine — AI Pipeline Node Map | ORTHOM8pro">
+    <meta name="twitter:description" content="Explore the technical architecture of ORTHOM8pro. The 11-node AI pipeline that transforms raw market data into confident trade signals.">
+    <meta name="twitter:image" content="https://orthom8pro.com/assets/images/index-feature1.jpg">
     <link href="../assets/css/tailwind.output.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <link href="../assets/css/global.css" rel="stylesheet">
     <style>
-        /* HERO IMAGE CONTAINER */
-        .hero-image {
-            width: 100%;
-            height: 480px;
-            border-radius: 48px;
-            background-image: url('../assets/images/matrix-hero.jpg');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--border);
+        .imp-bar-track{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden;}
+        .imp-bar-fill{height:100%;border-radius:4px;transition:width 1s cubic-bezier(0.4, 0, 0.2, 1);}
+        .act-track{height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
+        .act-fill{height:100%;border-radius:2px;transition:width 1.2s cubic-bezier(0.4, 0, 0.2, 1);}
+        
+        /* Modals */
+        .modal-overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .modal-box {
+            transform: scale(0.95) translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .modal-overlay.open .modal-box {
+            transform: scale(1) translateY(0);
+        }
+        
+        /* Node Hover Effects */
+        .node-card {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .node-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08); border-color: #cbd5e1;
+        }
+        .node-card:active {
+            transform: translateY(-1px);
         }
 
-        .hero-image::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.6) 100%);
+        /* Importance Row Hover */
+        .imp-row {
+            transition: background 0.15s;
         }
-
-        /* PARTNER SELECTOR BUTTONS */
-        .selector-btn {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid var(--border);
-            white-space: nowrap;
-        }
-        .selector-btn.active {
-            background: var(--ink);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px -5px rgba(15, 23, 42, 0.2);
-        }
-
-        /* FADE IN ANIMATION */
-        .fade-in {
-            animation: fadeInUp 0.6s ease-out both;
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(24px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        /* CUSTOM SCROLLBAR FOR MODAL */
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
-        /* MODAL METRICS CHIPS */
-        .metric-chip {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 16px 20px;
+        .imp-row:hover {
             background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 20px;
-            gap: 4px;
         }
-        .metric-chip .val {
-            font-size: 22px;
-            font-weight: 900;
-            color: #0F172A;
+        
+        .fadeup {
+            animation: fadeup 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            opacity: 0;
+            transform: translateY(12px);
         }
-        .metric-chip .lbl {
-            font-size: 8px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: #94a3b8;
+        @keyframes fadeup {
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 
-<body>
-
+<body class="text-slate-900 overflow-x-hidden">
     <div class="blueprint-bg"></div>
-    <div class="orb bg-blue-400 w-[600px] h-[600px] -top-20 -left-20"></div>
-    <div class="orb bg-teal-400 w-[500px] h-[500px] bottom-0 -right-20"></div>
 
                 <!-- NAVIGATION -->
     <nav class="app-header">
@@ -234,116 +207,85 @@
         </div>
     </div>
 
-    <main class="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-12 relative z-20">
-        <!-- HERO AREA -->
-        <section class="mb-12 sm:mb-24">
-            <div class="hero-image mb-8 sm:mb-16 flex flex-col justify-end p-6 sm:p-12">
-                <div class="max-w-3xl">
-                    <span class="text-[10px] font-black text-white/60 uppercase tracking-[0.4em] mb-4 block">Archive Selection</span>
-                    <h1 class="serif text-4xl sm:text-6xl md:text-8xl text-white mb-4 sm:mb-6 leading-none">The Sovereign <br><span class="italic font-light">Testimony Archive.</span></h1>
-                    <p class="text-base sm:text-xl text-white/80 font-light max-w-2xl">A curated repository of institutional growth arcs, liquidity translations, and node-hardened performance history.</p>
-                </div>
+    <main class="max-w-7xl mx-auto px-6 pt-16 sm:pt-24 pb-32">
+        
+        <!-- HEADER -->
+        <header class="mb-16">
+            <div class="flex items-center gap-3 mb-6 fadeup" style="animation-delay: 50ms;">
+                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600">AI TRADING PIPELINE — FULL NODE MAP</span>
+                <div class="h-px bg-slate-200 flex-1 hidden sm:block"></div>
             </div>
-
-            <!-- PARTNER SELECTOR -->
-            <div class="flex gap-3 overflow-x-auto pb-4 no-scrollbar snap-x snap-mandatory scroll-smooth" id="partner-nav"></div>
-        </section>
-
-        <!-- DYNAMIC CONTENT HEADER -->
-        <section class="grid lg:grid-cols-12 gap-8 lg:gap-16 mb-12 sm:mb-24 items-start">
-            <div class="lg:col-span-7 fade-in">
-                <div class="flex items-center gap-4 sm:gap-6 mb-8 sm:mb-10">
-                    <div id="ui-avatar" class="w-12 h-12 sm:w-16 sm:h-16 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-bold text-lg sm:text-xl uppercase shadow-xl"></div>
-                    <div>
-                        <span id="ui-tier" class="px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-[9px] font-black uppercase tracking-widest border border-blue-100"></span>
-                        <p id="ui-asset" class="text-[10px] text-slate-500 font-bold uppercase mt-2 tracking-wider"></p>
-                    </div>
-                </div>
-                <h2 id="ui-hero" class="serif text-3xl sm:text-5xl md:text-7xl mb-6 sm:mb-8 leading-[1.1] text-slate-900 tracking-tight"></h2>
-                <div id="ui-reporting" class="space-y-6 sm:space-y-10 text-lg sm:text-2xl text-slate-700 font-light leading-relaxed italic border-l-2 border-slate-200 pl-6 sm:pl-10 ml-1 sm:ml-2"></div>
-            </div>
-
-            <div class="lg:col-span-5 space-y-8">
-                <!-- DYNAMIC TIER CARD -->
-                <div id="tier-card" class="card-base transition-all duration-700">
-                    <span id="card-status" class="text-[10px] font-black uppercase tracking-[0.4em] opacity-60"></span>
-                    <h4 id="card-title" class="serif text-4xl mt-6 mb-4"></h4>
-                    <p id="card-desc" class="text-sm font-light leading-relaxed mb-10 opacity-70"></p>
-                    
-                    <div class="grid grid-cols-2 gap-10 border-t border-current border-opacity-10 pt-10">
-                        <div>
-                            <p class="text-[9px] uppercase font-black opacity-50 tracking-tighter">Auth Nodes</p>
-                            <p id="card-nodes" class="text-2xl font-bold"></p>
-                        </div>
-                        <div>
-                            <p class="text-[9px] uppercase font-black opacity-50 tracking-tighter">Time Horizon</p>
-                            <p id="card-horizon" class="text-2xl font-bold"></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- VALUE CARD -->
-                <div class="bg-white border border-slate-100 p-10 rounded-[48px] shadow-2xl relative shadow-slate-200/50">
-                    <div class="flex justify-between items-start mb-10">
-                        <div>
-                            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Anchor Collateral Value</p>
-                            <h4 id="ui-val" class="serif text-5xl text-slate-900"></h4>
-                        </div>
-                        <div class="bg-teal-50 px-4 py-2 rounded-xl border border-teal-100 italic">
-                            <span id="ui-confidence" class="text-[9px] font-black text-teal-600"></span>
-                        </div>
-                    </div>
-                    <div class="mb-10">
-                        <canvas id="miniChart" height="120"></canvas>
-                    </div>
-                    <button onclick="toggleModal()" class="w-full py-6 bg-slate-900 text-white rounded-[24px] text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-600 transition-all active:scale-[0.98] shadow-xl shadow-slate-900/10">Analyze Performance Ledger</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- MATRIX SECTION -->
-        <section class="glass-card p-6 sm:p-12 md:p-16 mb-16 sm:mb-24">
-            <div class="flex flex-col md:flex-row justify-between items-start gap-6 sm:gap-8 mb-10 sm:mb-16">
-                <div class="max-w-xl">
-                    <h3 class="serif text-3xl sm:text-4xl mb-3">Hardened Logic Matrix</h3>
-                    <p id="ui-node-status" class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.4em]"></p>
-                </div>
-                <div id="ui-hardening-badges" class="flex gap-4 overflow-x-auto no-scrollbar pb-2"></div>
-            </div>
-            <div id="nodeGrid" class="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-11 gap-3 md:gap-6"></div>
-        </section>
-    </main>
-
-    <!-- PERFORMANCE MODAL -->
-    <div id="performanceModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-6 bg-slate-900/90 backdrop-blur-xl transition-all">
-        <div class="bg-white w-full max-w-5xl rounded-[56px] p-12 max-h-[90vh] overflow-y-auto relative custom-scrollbar">
-            <button onclick="toggleModal()" class="absolute top-10 right-10 w-12 h-12 flex items-center justify-center rounded-full border border-slate-100 hover:rotate-90 transition-transform text-2xl font-light">✕</button>
             
-            <div class="mb-12">
-                <span class="px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-[9px] font-black uppercase tracking-widest border border-blue-100">Audit Milestone Report</span>
-                <h2 id="modal-name" class="serif text-6xl text-slate-900 mt-8 mb-4"></h2>
-                <p id="modal-period" class="text-xl text-slate-500 font-light"></p>
-            </div>
-
-            <!-- PERFORMANCE METRICS ROW -->
-            <div id="modal-metrics" class="flex flex-wrap gap-4 mb-10"></div>
-
-            <div class="grid lg:grid-cols-12 gap-12">
-                <div class="lg:col-span-8">
-                    <div class="p-8 bg-slate-50 rounded-[40px] border border-slate-100 shadow-inner">
-                        <canvas id="mainChart" height="240"></canvas>
-                    </div>
+            <div class="grid lg:grid-cols-2 gap-12 items-center mb-12">
+                <div>
+                    <h1 class="serif text-4xl sm:text-6xl lg:text-8xl mb-6 text-slate-900 leading-tight fadeup" style="animation-delay: 100ms;">
+                        Every signal.<br>
+                        Every decision.<br>
+                        <em class="text-blue-600 italic font-light">Every trade.</em>
+                    </h1>
+                    
+                    <p class="max-w-2xl text-slate-500 text-lg font-light leading-relaxed fadeup" style="animation-delay: 150ms;">
+                        The 11-node architecture that takes raw market data and transforms it into a confident, risk-managed trade signal in under 400ms. Click any node to inspect its logic, activity, and failure modes.
+                    </p>
                 </div>
-                <div class="lg:col-span-4 space-y-6">
-                    <div class="p-8 bg-slate-900 text-slate-400 rounded-[32px] text-xs leading-relaxed font-light border-l-[8px] border-blue-600 shadow-xl" id="modal-disc"></div>
-                    <div class="p-8 border border-slate-100 rounded-[32px]">
-                        <h5 class="text-[9px] font-black text-blue-600 uppercase mb-6 tracking-widest">Engine Drama Events</h5>
-                        <div id="ui-events" class="space-y-4"></div>
-                    </div>
+                <div class="fadeup rounded-[32px] overflow-hidden shadow-2xl border border-slate-200" style="animation-delay: 200ms;">
+                    <img src="../assets/images/engine-nodes.jpg" alt="Engine Nodes Architecture" class="w-full h-full object-cover min-h-[300px]">
                 </div>
             </div>
-        </div>
-    </div>
+            
+            <!-- STATS BLOCK -->
+            <div id="hero-stats" class="grid grid-cols-2 lg:grid-cols-4 gap-4 fadeup" style="animation-delay: 200ms;">
+                <!-- Auto-populated from JSON -->
+            </div>
+        </header>
+
+        <!-- IMPORTANCE RANKING CHART -->
+        <section class="mb-24 fadeup" style="animation-delay: 250ms;">
+            <div class="mb-8 border-b border-slate-200 pb-4">
+                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">RANKING</span>
+                <h2 class="serif text-3xl sm:text-4xl text-slate-900 mt-2">Nodes by importance</h2>
+                <p class="text-slate-500 font-light mt-2 max-w-xl">Ranked by their direct impact on trade quality, capital protection, and pipeline integrity. Scaled from 1 to 10.</p>
+            </div>
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div id="importanceChart" class="flex flex-col gap-2"></div>
+            </div>
+        </section>
+
+        <!-- CATEGORY FILTERS & NODE GRID -->
+        <section class="mb-24 fadeup" style="animation-delay: 300ms;">
+            <div class="mb-8 border-b border-slate-200 pb-4">
+                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">ARCHITECTURE</span>
+                <h2 class="serif text-3xl sm:text-4xl text-slate-900 mt-2">All 11 technical nodes</h2>
+                <p class="text-slate-500 font-light mt-2 max-w-xl">Click any node card to explore its operational logic, structural providers, data endpoints, schemas, and live database tables.</p>
+            </div>
+            
+            <div id="catLegend" class="flex flex-wrap gap-3 mb-8">
+                <!-- Legend goes here -->
+            </div>
+
+            <div id="nodeGrid" class="flex flex-col gap-4">
+                 <!-- Cards go here -->
+            </div>
+        </section>
+
+        <!-- FLOW DIAGRAM -->
+        <section class="mb-12 fadeup" style="animation-delay: 350ms;">
+            <div class="mb-8 border-b border-slate-200 pb-4">
+                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">FLOW</span>
+                <h2 class="serif text-3xl sm:text-4xl text-slate-900 mt-2">Pipeline signal flow</h2>
+                <p class="text-slate-500 font-light mt-2 max-w-xl">How data moves autonomously through the pipeline infrastructure points, from raw data ingest to final market execution logic.</p>
+            </div>
+            
+            <div class="bg-white rounded-[32px] p-8 lg:p-12 border border-slate-200 shadow-sm overflow-x-auto">
+                <div class="min-w-[900px]">
+                    <svg id="flowSvg" width="100%" height="400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 400">
+                      <!-- Rendered by JS -->
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+    </main>
 
     <!-- FOOTER -->
     <footer class="py-20 bg-slate-50 border-t border-slate-200 relative z-20">
@@ -353,7 +295,8 @@
                     <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white text-[10px] font-black">O8</div>
                     <span class="text-[10px] font-black uppercase tracking-[0.2em]">ORTHOM8pro</span>
                 </div>
-                <p class="text-xs text-slate-400 leading-relaxed font-medium">Providing sovereign-grade signal intelligence and liquid execution anchors for the modern investor archive.</p>
+                <p class="text-xs text-slate-400 leading-relaxed font-medium">Providing sovereign-grade signal
+                    intelligence and liquid execution anchors for the modern investor archive.</p>
             </div>
             <div>
                 <h6 class="text-[10px] font-black uppercase tracking-widest mb-6 text-slate-900">Architecture</h6>
@@ -382,237 +325,34 @@
                 </div>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto px-8 mt-20 pt-10 border-t border-slate-200 text-center">
-            <p class="text-[8px] font-black text-slate-300 uppercase tracking-[0.5em]">© 2024 ORTHOM8pro | Sovereign Institutional Grade</p>
+        <div class="max-w-7xl mx-auto px-8 mt-20 pt-10 border-t border-slate-200 text-center flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p class="text-[8px] font-black text-slate-400 uppercase tracking-[0.5em]">© 2024 ORTHOM8pro | Sovereign Institutional Grade</p>
+            <p class="text-[8px] font-black text-slate-400 uppercase tracking-widest">Pipeline Active v2.0</p>
         </div>
     </footer>
 
-    <script>
-        let MASTER_DATA = null;
-        let activeM = null, activeL = null;
-
-        // Show a minimal loading state while JSON fetches
-        document.getElementById('partner-nav').innerHTML = `
-            <div class="flex items-center gap-3 px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                <div class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></div>
-                Loading Partner Archive...
+    <!-- MODAL -->
+    <div class="modal-overlay fixed inset-0 z-[200] bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal-box bg-white rounded-[32px] w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden border border-slate-200" id="modalBox">
+            <div class="p-6 sm:p-8 border-b border-slate-200 relative bg-slate-50/50" id="modalHead">
+                <!-- Rendered remotely -->
             </div>
-        `;
-
-        fetch('./master-matrix.json')
-            .then(r => { if (!r.ok) throw new Error('Network response not ok'); return r.json(); })
-            .then(data => { MASTER_DATA = data; init(); })
-            .catch(err => {
-                console.error('Failed to load master-matrix.json:', err);
-                document.getElementById('partner-nav').innerHTML = `
-                    <div class="px-8 py-4 text-[10px] font-black text-red-500 uppercase tracking-widest">
-                        ⚠ Data load failed. Serve this page via HTTP (not file://).
-                    </div>
-                `;
-            });
+            <div class="p-6 sm:p-8 overflow-y-auto" id="modalBody">
+                <!-- Rendered remotely -->
+            </div>
+        </div>
+    </div>
 
 
-
-
-        function init() {
-            // Populate nav
-            const nav = document.getElementById('partner-nav');
-            
-            nav.innerHTML = Object.keys(MASTER_DATA).map(k => `
-                <button onclick="select('${k}', this)" data-key="${k}" class="selector-btn shrink-0 snap-center px-8 py-4 rounded-2xl bg-white text-[10px] font-black uppercase tracking-widest">
-                    ${MASTER_DATA[k].identity.name}
-                </button>
-            `).join('');
-
-            // Deep link support
-            const urlParams = new URLSearchParams(window.location.search);
-            const partnerKey = urlParams.get('partner');
-            if (partnerKey && MASTER_DATA[partnerKey]) {
-                const btn = Array.from(nav.children).find(b => b.getAttribute('data-key') === partnerKey);
-                select(partnerKey, btn || nav.children[0], true);
-            } else {
-                select('thorne', nav.children[0], true);
-            }
-        }
-
-        function select(k, btn, isInitial = false) {
-            document.querySelectorAll('.selector-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const d = MASTER_DATA[k];
-            const meta = d.identity;
-            const content = d.narrative;
-            const tech = d.technical_matrix;
-
-            // Header UI
-            document.getElementById('ui-avatar').innerText = meta.avatar;
-            document.getElementById('ui-tier').innerText = meta.tier;
-            document.getElementById('ui-asset').innerText = meta.asset_collateral;
-            document.getElementById('ui-hero').innerText = content.hero;
-            document.getElementById('ui-reporting').innerHTML = content.reporting.map(p => `<p class="fade-slide">"${p}"</p>`).join('');
-
-            // Tier Card UI — fully data-driven
-            const tc = document.getElementById('tier-card');
-            tc.className = `card-base card-${meta.tier_card_type} transition-all duration-700`;
-            document.getElementById('card-status').innerText = `Status: ${meta.status}`;
-            document.getElementById('card-title').innerText = meta.name;
-            document.getElementById('card-desc').innerText = content.sub;
-            document.getElementById('card-nodes').innerText = `${tech.nodes_active} Nodes`;
-            document.getElementById('card-horizon').innerText = meta.horizon;
-
-            // Metrics & Confidence
-            document.getElementById('ui-val').innerText = '$' + meta.initial_collateral_value.toLocaleString();
-            document.getElementById('ui-confidence').innerText = tech.confidence_gate + ' AI Confidence';
-            document.getElementById('ui-node-status').innerText = `${tech.nodes_active}/11 Sovereign Nodes Integrated`;
-
-            // Hardening Badges
-            document.getElementById('ui-hardening-badges').innerHTML = tech.hardening.map(h => `
-                <div class="shrink-0 p-4 bg-white border border-slate-100 rounded-2xl shadow-sm min-w-[200px]">
-                    <p class="text-[9px] font-black text-blue-600 mb-1 uppercase tracking-tighter">${h.t}</p>
-                    <p class="text-[8px] text-slate-400 font-medium">${h.d}</p>
-                </div>
-            `).join('');
-
-            // NODE GRID — use per-partner node_list from data (padded to 11 slots)
-            const nodeList = tech.node_list || [];
-            const maxNodes = 11;
-            const slots = Array.from({ length: maxNodes }, (_, i) => ({
-                label: nodeList[i] ? nodeList[i] : '—',
-                active: i < tech.nodes_active
-            }));
-            document.getElementById('nodeGrid').innerHTML = slots.map(s => `
-                <div class="flex flex-col items-center gap-3">
-                    <div class="node-box ${s.active ? 'active' : ''}"></div>
-                    <span class="text-[7px] text-slate-400 font-bold tracking-tighter text-center leading-tight">${s.label}</span>
-                </div>
-            `).join('');
-
-            updateCharts(d);
-
-            // Only scroll on user interaction, not initial load
-            if (!isInitial) {
-                const navElement = document.getElementById('partner-nav');
-                if (navElement) {
-                    const top = navElement.getBoundingClientRect().top + window.pageYOffset - 40;
-                    window.scrollTo({ top, behavior: 'smooth' });
-                }
-            }
-        }
-
-        function updateCharts(d) {
-            Chart.defaults.color = '#94A3B8';
-            Chart.defaults.font.family = "'Plus Jakarta Sans'";
-
-            // Mini sparkline chart on card
-            const ctxM = document.getElementById('miniChart').getContext('2d');
-            if (activeM) activeM.destroy();
-            activeM = new Chart(ctxM, {
-                type: 'line',
-                data: {
-                    labels: d.backtest.pnl.map((_, i) => i),
-                    datasets: [{ data: d.backtest.pnl, borderColor: '#2563EB', borderWidth: 2, pointRadius: 0, fill: true, backgroundColor: 'rgba(37, 99, 235, 0.05)', tension: 0.4 }]
-                },
-                options: { plugins: { legend: false }, scales: { x: { display: false }, y: { display: false } } }
-            });
-
-            // --- MODAL DATA ---
-            document.getElementById('modal-name').innerText = d.identity.name;
-            document.getElementById('modal-period').innerText = d.backtest.period;
-            document.getElementById('modal-disc').innerText = d.backtest.disc;
-
-            // Computed performance metrics
-            const pnl = d.backtest.pnl;
-            const startVal = pnl[0];
-            const endVal = pnl[pnl.length - 1];
-            const totalReturn = (((endVal - startVal) / startVal) * 100).toFixed(1);
-            const peakVal = Math.max(...pnl);
-            const factor = d.identity.initial_collateral_value > 0
-                ? (endVal / d.identity.initial_collateral_value).toFixed(2)
-                : '—';
-
-            document.getElementById('modal-metrics').innerHTML = [
-                { val: '+' + totalReturn + '%', lbl: 'Total Return' },
-                { val: factor + 'x', lbl: 'Capital Factor' },
-                { val: '$' + peakVal.toLocaleString(), lbl: 'Peak PnL' },
-                { val: d.technical_matrix.confidence_gate, lbl: 'Gate Threshold' },
-                { val: d.technical_matrix.nodes_active + '/11', lbl: 'Active Nodes' }
-            ].map(m => `
-                <div class="metric-chip">
-                    <span class="val">${m.val}</span>
-                    <span class="lbl">${m.lbl}</span>
-                </div>
-            `).join('');
-
-            // Drama Events (stochastic engine events)
-            const dramaEvents = d.backtest.stochastic_logic && d.backtest.stochastic_logic.drama_events
-                ? d.backtest.stochastic_logic.drama_events
-                : [];
-
-            if (dramaEvents.length > 0) {
-                document.getElementById('ui-events').innerHTML = dramaEvents.map(ev => `
-                    <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                        <div class="shrink-0 w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center">
-                            <div class="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
-                        </div>
-                        <div>
-                            <p class="text-[9px] font-black text-slate-900 uppercase tracking-wider">Month ${ev.month} — ${ev.trigger}</p>
-                            <p class="text-[9px] text-slate-400 mt-0.5 font-medium">${ev.effect}</p>
-                        </div>
-                    </div>
-                `).join('');
-            } else {
-                document.getElementById('ui-events').innerHTML = `
-                    <div class="flex items-center gap-3 p-4 bg-teal-50 rounded-xl border border-teal-100">
-                        <svg class="w-4 h-4 text-teal-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" /></svg>
-                        <p class="text-[9px] font-black text-teal-700 uppercase tracking-wider">Zero Drama Events — Stable Execution</p>
-                    </div>
-                `;
-            }
-
-            // Full performance chart in modal
-            const ctxL = document.getElementById('mainChart').getContext('2d');
-            if (activeL) activeL.destroy();
-            activeL = new Chart(ctxL, {
-                type: 'line',
-                data: {
-                    labels: d.backtest.pnl.map((_, i) => `M${i + 1}`),
-                    datasets: [{
-                        label: 'PnL Milestone',
-                        data: d.backtest.pnl,
-                        borderColor: '#2563EB',
-                        borderWidth: 3,
-                        pointRadius: 5,
-                        pointBackgroundColor: '#2563EB',
-                        pointBorderColor: '#fff',
-                        pointBorderWidth: 2,
-                        fill: true,
-                        backgroundColor: 'rgba(37, 99, 235, 0.06)',
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { grid: { display: false } },
-                        y: { ticks: { callback: v => '$' + (v >= 1000000 ? (v/1000000).toFixed(1)+'M' : v.toLocaleString()) } }
-                    }
-                }
-            });
-        }
-
-        function toggleModal() {
-            document.getElementById('performanceModal').classList.toggle('hidden');
-            document.getElementById('performanceModal').classList.toggle('flex');
-        }
-
-        // Desktop Dropdown Logic
+    <!-- CLIENT SIDE APP LOGIC -->
+    <script>
+        // Desktop Dropdown Navigation Logic
         const dropdowns = document.querySelectorAll('.dropdown');
         dropdowns.forEach(dropdown => {
             const arrow = dropdown.querySelector('.dropdown-arrow');
             if (arrow) {
                 arrow.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
+                    e.preventDefault(); e.stopPropagation();
                     const isActive = dropdown.classList.contains('active');
                     dropdowns.forEach(d => d.classList.remove('active'));
                     if (!isActive) dropdown.classList.add('active');
@@ -628,13 +368,339 @@
             }
         });
 
-        // Mobile Menu
+        // Mobile Menu Navigation Logic
         const mobileMenu = document.getElementById('mobile-menu');
-        document.getElementById('mobile-menu-btn').addEventListener('click', () => mobileMenu.classList.remove('translate-x-full'));
-        document.getElementById('mobile-menu-close').addEventListener('click', () => mobileMenu.classList.add('translate-x-full'));
-        mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.add('translate-x-full')));
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.remove('translate-x-full'));
+        mobileMenuClose.addEventListener('click', () => mobileMenu.classList.add('translate-x-full'));
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('translate-x-full'));
+        });
 
-        init();
+        
+        // --- DATA BINDING ---
+        const COLORS = {
+            blue:   { accent:"#2563eb", soft:"#eff6ff", mid:"#bfdbfe", text:"#1e3a8a" },
+            teal:   { accent:"#0d9488", soft:"#f0fdfa", mid:"#99f6e4", text:"#134e4a" },
+            violet: { accent:"#7c3aed", soft:"#f5f3ff", mid:"#ddd6fe", text:"#4c1d95" },
+            amber:  { accent:"#d97706", soft:"#fffbeb", mid:"#fde68a", text:"#78350f" },
+            coral:  { accent:"#dc2626", soft:"#fef2f2", mid:"#fecaca", text:"#7f1d1d" }
+        };
+
+        const IMP_COLORS = {
+            10: { bar:"#2563eb", score:"#2563eb" },
+            9:  { bar:"#0d9488", score:"#0d9488" },
+            8:  { bar:"#7c3aed", score:"#7c3aed" },
+            7:  { bar:"#d97706", score:"#d97706" },
+            6:  { bar:"#64748b", score:"#64748b" },
+            5:  { bar:"#94a3b8", score:"#94a3b8" }
+        };
+
+        let DATA = null;
+
+        async function initData() {
+            try {
+                const response = await fetch('engine_nodes.json');
+                DATA = await response.json();
+                
+                renderHeroStats();
+                renderLegend();
+                renderImportance();
+                renderNodes();
+                renderFlow();
+
+                window.addEventListener('hashchange', () => {
+                    if (window.location.hash && window.location.hash.startsWith('#node-')) {
+                        const nodeId = window.location.hash.replace('#node-', '');
+                        openNode(nodeId);
+                    }
+                });
+
+                if (window.location.hash && window.location.hash.startsWith('#node-')) {
+                    const nodeId = window.location.hash.replace('#node-', '');
+                    setTimeout(() => openNode(nodeId), 300);
+                }
+            } catch (err) {
+                console.error("Failed to load engine_nodes.json:", err);
+            }
+        }
+
+        function nodeById(id) { return DATA.nodes.find(n => n.id === id); }
+        function getCat(key) { return DATA.categories[key] || { label:key, color:"#64748b", bg:"#f1f5f9" }; }
+        function getColor(ck) { return COLORS[ck] || COLORS.blue; }
+
+        function renderHeroStats() {
+            const el = document.getElementById('hero-stats');
+            const meta = DATA.meta;
+            el.innerHTML = `
+                <div class="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm text-center">
+                    <div class="serif text-3xl font-bold text-blue-600 mb-1">${meta.total_nodes}</div>
+                    <div class="text-[10px] font-black uppercase tracking-widest text-slate-400">Total Nodes</div>
+                </div>
+                <div class="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm text-center">
+                    <div class="serif text-3xl font-bold text-teal-600 mb-1">~${meta.avg_latency_ms}ms</div>
+                    <div class="text-[10px] font-black uppercase tracking-widest text-slate-400">Avg Latency</div>
+                </div>
+                <div class="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm text-center">
+                    <div class="serif text-3xl font-bold text-violet-600 mb-1">${meta.confidence_gate_pct}%+</div>
+                    <div class="text-[10px] font-black uppercase tracking-widest text-slate-400">Conf. Threshold</div>
+                </div>
+                <div class="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm text-center">
+                    <div class="serif text-3xl font-bold text-amber-600 mb-1">${meta.trades_per_day_max}/day</div>
+                    <div class="text-[10px] font-black uppercase tracking-widest text-slate-400">Max Trades</div>
+                </div>
+            `;
+        }
+
+        function renderLegend() {
+            const el = document.getElementById('catLegend');
+            let html = '';
+            for (let k in DATA.categories) {
+                const c = DATA.categories[k];
+                html += `<span class="px-4 py-2 rounded-full text-[11px] font-black uppercase tracking-widest border" style="background:${c.bg}; color:${c.color}; border-color:${c.color}30;">${c.label}</span>`;
+            }
+            el.innerHTML = html;
+        }
+
+        function renderImportance() {
+            const el = document.getElementById('importanceChart');
+            let html = '';
+            DATA.importance_rank.forEach((r, idx) => {
+                const ic = IMP_COLORS[r.score] || IMP_COLORS[5];
+                const pct = (r.score / 10) * 100;
+                
+                html += `
+                <div class="imp-row flex items-center gap-3 cursor-pointer p-3 rounded-xl" onclick="openNode('${r.id}')">
+                    <span class="font-mono text-xs text-slate-400 w-5 text-right font-medium">${idx + 1}</span>
+                    <span class="text-sm font-bold text-slate-800 w-36 sm:w-48 whitespace-nowrap overflow-hidden text-ellipsis">${r.name}</span>
+                    <div class="imp-bar-track flex-1 border border-slate-100 hidden sm:block shadow-inner"><div class="imp-bar-fill" data-pct="${pct}" style="width:0%; background:${ic.bar};"></div></div>
+                    <span class="font-mono text-xs font-bold w-6 text-right" style="color:${ic.score};">${r.score}</span>
+                    <span class="text-xs text-slate-500 w-52 sm:w-72 hidden md:block whitespace-nowrap overflow-hidden text-ellipsis">${r.reason}</span>
+                </div>`;
+            });
+            el.innerHTML = html;
+            setTimeout(() => {
+                el.querySelectorAll('.imp-bar-fill').forEach(b => b.style.width = b.getAttribute('data-pct') + '%');
+            }, 100);
+        }
+
+        function renderNodes() {
+            const el = document.getElementById('nodeGrid');
+            let html = '';
+            DATA.nodes.forEach((n, idx) => {
+                const c = getColor(n.color_key);
+                const cat = getCat(n.category);
+                const impBg = n.importance >= 10 ? '#eff6ff' : n.importance >= 9 ? '#f0fdfa' : n.importance >= 8 ? '#f5f3ff' : '#fffbeb';
+                const impColor = n.importance >= 10 ? '#2563eb' : n.importance >= 9 ? '#0d9488' : n.importance >= 8 ? '#7c3aed' : '#d97706';
+
+                html += `
+                <div id="node-${n.id}" class="node-card bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 cursor-pointer flex flex-col lg:flex-row lg:items-center gap-6 group relative transition-all hover:shadow-lg hover:border-slate-300" onclick="openNode('${n.id}')">
+                    <div class="flex-1 flex flex-col justify-center">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded border" style="background:${c.soft}; color:${c.text}; border-color:${c.mid};">Node ${n.id}</span>
+                            <span class="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-slate-100" style="background:${impBg}; color:${impColor};">${n.importance_label}</span>
+                        </div>
+                        <h3 class="serif text-2xl sm:text-3xl text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">${n.name}</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed max-w-xl">${n.tagline}</p>
+                    </div>
+                    
+                    <div class="w-full lg:w-auto flex flex-col sm:flex-row gap-6 sm:gap-8 lg:items-center pt-6 lg:pt-0 border-t lg:border-t-0 lg:border-l border-slate-100 lg:pl-8">
+                        <div class="flex items-center gap-6 sm:gap-8 pb-6 sm:pb-0 border-b sm:border-b-0 border-slate-100 sm:pr-8 sm:border-r">
+                            <div class="flex flex-col">
+                                <span class="font-mono text-base font-bold text-slate-900">${n.avg_latency_ms}ms</span>
+                                <span class="text-[9px] font-black uppercase tracking-widest text-slate-400">Latency</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-mono text-base font-bold text-slate-900">${n.activity_pct}%</span>
+                                <span class="text-[9px] font-black uppercase tracking-widest text-slate-400">Activity</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-mono text-base font-bold text-slate-900">${n.calls_per_run}</span>
+                                <span class="text-[9px] font-black uppercase tracking-widest text-slate-400">Calls / Run</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between lg:justify-end gap-6 min-w-[120px]">
+                            <div class="flex flex-col lg:items-end">
+                                <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Min. req</span>
+                                <span class="text-sm font-bold text-slate-700">${n.min_tier}</span>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 group-hover:text-blue-600 group-hover:bg-blue-50 group-hover:border-blue-200 transition-all flex-shrink-0">
+                                <svg class="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            });
+            el.innerHTML = html;
+            setTimeout(() => {
+                el.querySelectorAll('.act-fill').forEach(f => f.style.width = f.getAttribute('data-pct') + '%');
+            }, 200);
+        }
+
+        function renderFlow() {
+            const svg = document.getElementById('flowSvg');
+            const positions = {
+                '01':{x:60,y:200}, '02':{x:220,y:200}, '03':{x:400,y:100}, '04':{x:400,y:230},
+                '05':{x:400,y:330}, '06':{x:600,y:100}, '07':{x:600,y:230}, '08':{x:600,y:330},
+                '09':{x:800,y:200}, '10':{x:960,y:140}, '11':{x:960,y:270}
+            };
+            const W = 130, H = 50;
+            let html = '';
+
+            DATA.flow.forEach(f => {
+                const from = positions[f.from];
+                const to = positions[f.to];
+                if (!from || !to) return;
+                
+                let x1 = from.x + W, y1 = from.y + H/2;
+                let x2 = to.x, y2 = to.y + H/2;
+                
+                if (f.to === '09' && ['04','06','07','08'].includes(f.from)) {
+                    x2 = to.x; y2 = to.y + H/2;
+                }
+                if (f.from === '11' && f.to === '09') { // backwards routing
+                    html += `<path d="M${positions['11'].x + W/2},${positions['11'].y} L${positions['11'].x + W/2},${positions['11'].y - 30} L${positions['09'].x + W/2},${positions['09'].y - 30} L${positions['09'].x + W/2},${positions['09'].y}" fill="none" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arr)"/>`;
+                    return;
+                }
+                const cx1 = x1 + Math.abs(x2 - x1) * 0.4;
+                const cx2 = x2 - Math.abs(x2 - x1) * 0.4;
+                html += `<path d="M${x1},${y1} C${cx1},${y1} ${cx2},${y2} ${x2},${y2}" fill="none" class="stroke-slate-300" stroke-width="1.5" marker-end="url(#arr)"/>`;
+            });
+
+            DATA.nodes.forEach(n => {
+                const pos = positions[n.id];
+                if (!pos) return;
+                const c = getColor(n.color_key);
+                html += `
+                <g onclick="openNode('${n.id}')" style="cursor:pointer" class="transition-transform transform hover:-translate-y-1">
+                    <rect x="${pos.x}" y="${pos.y}" width="${W}" height="${H}" rx="12" fill="${c.soft}" stroke="${c.mid}" stroke-width="1.5" class="shadow-sm"/>
+                    <rect x="${pos.x}" y="${pos.y}" width="6" height="${H}" rx="3" fill="${c.accent}"/>
+                    <text x="${pos.x + 16}" y="${pos.y + 18}" font-family="DM Mono, ui-monospace, SFMono-Regular, monospace" font-size="10" font-weight="700" fill="${c.accent}">NODE ${n.id}</text>
+                    <text x="${pos.x + 16}" y="${pos.y + 36}" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="700" fill="${c.text}">${n.name.length > 15 ? n.name.substring(0, 13) + '..' : n.name}</text>
+                </g>`;
+            });
+
+            svg.innerHTML = `<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#cbd5e1"/></marker></defs>${html}`;
+        }
+
+        function openNode(id) {
+            const n = nodeById(id);
+            if (!n) return;
+            const c = getColor(n.color_key);
+            const cat = getCat(n.category);
+
+            // Modal Header
+            document.getElementById('modalHead').innerHTML = `
+                <div class="flex justify-between items-start gap-4">
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded border" style="background:${c.soft}; color:${c.text}; border-color:${c.mid};">Node ${n.id}</span>
+                            <span class="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-slate-100" style="background:${cat.bg}; color:${cat.color};">${cat.label}</span>
+                        </div>
+                        <h2 class="serif text-3xl sm:text-4xl text-slate-900 mb-2 leading-tight">${n.name}</h2>
+                        <p class="text-slate-500 font-light text-sm sm:text-base">${n.tagline}</p>
+                    </div>
+                    <button class="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-slate-50 transition-colors shadow-sm flex-shrink-0" onclick="closeModal()">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            `;
+
+            // Modal Body
+            let body = `
+                <!-- Metrics -->
+                <div class="mb-10">
+                    <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Activity Metrics</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4 shadow-sm">
+                            <div class="font-mono text-lg font-bold text-slate-900 mb-1">${n.avg_latency_ms}ms</div>
+                            <div class="text-[9px] font-black uppercase tracking-widest text-slate-400">Average Latency</div>
+                        </div>
+                        <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4 shadow-sm">
+                            <div class="font-mono text-lg font-bold text-slate-900 mb-1">${n.activity_pct}%</div>
+                            <div class="text-[9px] font-black uppercase tracking-widest text-slate-400">Activity Rate</div>
+                        </div>
+                        <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4 shadow-sm">
+                            <div class="font-mono text-lg font-bold text-slate-900 mb-1">${n.calls_per_run}</div>
+                            <div class="text-[9px] font-black uppercase tracking-widest text-slate-400">Calls / Run</div>
+                        </div>
+                        <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4 shadow-sm">
+                            <div class="font-mono text-sm sm:text-base font-bold text-slate-900 mb-1 whitespace-nowrap overflow-hidden text-ellipsis leading-tight">${n.refresh_interval}</div>
+                            <div class="text-[9px] font-black uppercase tracking-widest text-slate-400">Refresh Interval</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logic -->
+                <div class="mb-10">
+                    <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">How it works</h4>
+                    <p class="text-slate-600 font-light text-base leading-relaxed p-5 bg-white border border-slate-100 rounded-2xl shadow-sm">${n.logic}</p>
+                </div>
+
+                <!-- Insight (Blue tint) -->
+                <div class="mb-10">
+                    <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Critical Insight</h4>
+                    <div class="p-5 bg-blue-50 border border-blue-200 rounded-2xl shadow-sm">
+                        <p class="text-blue-900 font-medium text-sm leading-relaxed">${n.insight}</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-10">
+                    <!-- Outputs -->
+                    <div>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Node Outputs</h4>
+                        <div class="flex flex-wrap gap-2">
+                            ${n.outputs.map(o => `<span class="px-3 py-1.5 bg-slate-100 border border-slate-200 text-slate-600 font-mono text-[10px] rounded-lg shadow-sm font-bold">${o}</span>`).join('')}
+                        </div>
+                    </div>
+                    <!-- Providers -->
+                    <div>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Data Providers</h4>
+                        <div class="flex flex-wrap gap-2">
+                            ${n.providers.map(p => `<span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 font-mono text-[10px] rounded-lg shadow-sm font-bold">${p}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-4">
+                    <!-- Failure Mode -->
+                    <div>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Failure Override Mode</h4>
+                        <div class="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-xl shadow-sm">
+                            <p class="text-red-900 text-sm font-medium leading-relaxed">${n.failure_mode}</p>
+                        </div>
+                    </div>
+                    <!-- Database Tables -->
+                    <div>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Target Database Tables</h4>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            ${n.db_tables.map(t => `<span class="px-3 py-1.5 bg-violet-50 border border-violet-200 text-violet-700 font-mono text-[10px] rounded-lg font-bold shadow-sm">${t}</span>`).join('')}
+                        </div>
+                        <p class="text-xs text-slate-500">Minimum infrastructure tier required: <strong class="text-slate-900">${n.min_tier}</strong></p>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('modalBody').innerHTML = body;
+            document.getElementById('modalOverlay').classList.add('open');
+            document.body.style.overflow = 'hidden'; // Stop scroll
+        }
+
+        function closeModal(e) {
+            if (e && e.target !== document.getElementById('modalOverlay')) return;
+            document.getElementById('modalOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Initialize script
+        window.addEventListener('DOMContentLoaded', initData);
+
     </script>
 </body>
 </html>
