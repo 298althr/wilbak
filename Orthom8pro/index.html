@@ -1267,7 +1267,108 @@
             </div>
         </div>
     </div>
-    </div>
+    </div> <!-- /#app -->
 
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        /* ── Welcome Gate ─────────────────── */
+        const gate = document.getElementById('welcome-gate');
+        const app  = document.getElementById('app');
+        setTimeout(() => {
+          if (gate) gate.classList.add('exiting');
+          setTimeout(() => { 
+            if (gate) gate.style.display = 'none'; 
+            if (app) app.classList.add('visible'); 
+          }, 500);
+        }, 1800);
+
+        /* ── Theme ────────────────────────── */
+        const html = document.documentElement;
+        const savedTheme = localStorage.getItem('o8_theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+
+        function syncIcons(t) {
+          const icon = t === 'dark' ? '☀' : '☪';
+          ['theme-icon','mobile-theme-icon','drawer-theme-icon'].forEach(id => {
+            const el = document.getElementById(id); if (el) el.textContent = icon;
+          });
+        }
+        syncIcons(savedTheme);
+
+        function toggleTheme() {
+          const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          html.setAttribute('data-theme', next);
+          localStorage.setItem('o8_theme', next);
+          syncIcons(next);
+        }
+
+        ['theme-toggle','mobile-theme-toggle','drawer-theme-toggle'].forEach(id => {
+          document.getElementById(id)?.addEventListener('click', toggleTheme);
+        });
+
+        /* ── Language ─────────────────────── */
+        const savedLang = localStorage.getItem('o8_locale') || 'en';
+        ['lang-select','drawer-lang-select'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.value = savedLang;
+            el.addEventListener('change', e => localStorage.setItem('o8_locale', e.target.value));
+          }
+        });
+
+        /* ── Mobile Drawer ────────────────── */
+        const drawer    = document.getElementById('mobile-drawer');
+        const overlay   = document.getElementById('drawer-overlay');
+        const hamburger = document.getElementById('hamburger-btn');
+        const closeBtn  = document.getElementById('drawer-close');
+
+        function openDrawer() {
+          drawer.classList.add('open');
+          overlay.classList.add('visible');
+          hamburger.classList.add('active');
+          hamburger.setAttribute('aria-expanded', 'true');
+          document.body.classList.add('drawer-open');
+          setTimeout(() => closeBtn?.focus(), 50);
+        }
+        function closeDrawer() {
+          drawer.classList.remove('open');
+          overlay.classList.remove('visible');
+          hamburger.classList.remove('active');
+          hamburger.setAttribute('aria-expanded', 'false');
+          document.body.classList.remove('drawer-open');
+          hamburger?.focus();
+        }
+
+        hamburger?.addEventListener('click', () =>
+          drawer.classList.contains('open') ? closeDrawer() : openDrawer()
+        );
+        closeBtn?.addEventListener('click', closeDrawer);
+        overlay?.addEventListener('click', closeDrawer);
+
+        drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+
+        document.addEventListener('keydown', e => {
+          if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+        });
+
+        /* ── Scroll fade-in ───────────────── */
+        const targets = document.querySelectorAll('.stats-cell, .feature-cell, .spec-row');
+        const obs = new IntersectionObserver(entries => {
+          entries.forEach(en => {
+            if (en.isIntersecting) {
+              en.target.style.opacity = '1';
+              en.target.style.transform = 'translateY(0)';
+              obs.unobserve(en.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        targets.forEach(el => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(14px)';
+          el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          obs.observe(el);
+        });
+      });
+    </script>
 </body>
 </html>
