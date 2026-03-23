@@ -615,38 +615,43 @@
     }
   </style>
 </head>
-<body x-data="{
-    showAuditModal: false,
-    auditStep: 1,
-    industry: '',
-    businessDetail: '',
-    leadName: '',
-    leadEmail: '',
-    leadPhone: '',
-    successModal: false,
-    async submitLead() {
-        const auditData = {
-            industry: this.industry,
-            businessDetail: this.businessDetail,
-            auditName: this.leadName,
-            auditEmail: this.leadEmail,
-            auditPhone: this.leadPhone
-        };
-        try {
-            const response = await fetch('/api/audit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(auditData)
-            });
-            if (response.ok) {
-                this.successModal = true;
-                this.showAuditModal = false;
-            } else {
-                alert('Transmission Failure');
+<body>
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('o8Audit', () => ({
+            showAuditModal: false,
+            auditStep: 0,
+            industry: '',
+            businessDetail: '',
+            leadName: '',
+            leadEmail: '',
+            leadPhone: '',
+            successModal: false,
+            open() { this.auditStep = 0; this.showAuditModal = true; },
+            async submitLead() {
+                const auditData = {
+                    industry: this.industry,
+                    businessDetail: this.businessDetail,
+                    auditName: this.leadName,
+                    auditEmail: this.leadEmail,
+                    auditPhone: this.leadPhone
+                };
+                try {
+                    const response = await fetch('/api/audit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(auditData)
+                    });
+                    if (response.ok) {
+                        this.successModal = true;
+                        this.showAuditModal = false;
+                    }
+                } catch (e) { console.error(e); }
             }
-        } catch (e) { console.error(e); }
-    }
-}">
+        }));
+    });
+</script>
 
 <!-- Welcome Gate -->
 <div id="welcome-gate">
@@ -719,7 +724,7 @@
 
   <!-- CTA -->
   <div class="drawer-footer">
-    <a href="#audit" class="btn-primary">Request Audit →</a>
+    <button @click="open()" class="btn-primary">BUSINESS AUDIT</button>
     <a href="#" class="btn-ghost">Institutional Portal</a>
   </div>
 
@@ -729,7 +734,7 @@
 <!-- ═══════════════════════════════════════════
      APP
 ═══════════════════════════════════════════ -->
-<div id="app">
+<div id="app" x-data="o8Audit">
 
   <!-- HEADER -->
   <header id="site-header">
@@ -761,7 +766,7 @@
           <option value="zh">ZH</option>
         </select>
       </div>
-      <button @click="showAuditModal = true" class="btn-primary">BUSINESS AUDIT</button>
+        <button @click="open()" class="btn-primary">BUSINESS AUDIT</button>
     </div>
 
     <!-- Mobile right cluster (visible ≤ 1024px) -->
@@ -962,7 +967,7 @@
       <h2 class="cta-heading">Understand the engine.<br><em>Then deploy it.</em></h2>
       <p class="cta-body">Our sovereign capital tier is strictly limited. Initiate your compliance audit to verify institutional eligibility and access the full architecture brief.</p>
       <div class="cta-actions">
-        <button @click="showAuditModal = true" class="btn-gold">BUSINESS AUDIT</button>
+        <button @click="open()" class="btn-gold">BUSINESS AUDIT</button>
         <a href="#" class="btn-ghost">Institutional Portal</a>
       </div>
     </div>
@@ -1261,6 +1266,7 @@
                 <button @click="successModal = false; auditStep = 0" class="bg-slate-900 text-white px-12 py-5 font-black uppercase text-xs tracking-widest">Close Hub</button>
             </div>
         </div>
+    </div>
     </div>
 
 </body>
