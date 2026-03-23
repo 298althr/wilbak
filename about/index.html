@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Wilbak Engineering</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --neon-blue: #0076FF;
+            --deep-obsidian: #0A0C10;
+        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fcfdfe; color: #0F172A; }
+        .mono { font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+        .serif { font-family: 'Lora', serif; }
+        .lake-gradient {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%),
+                url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover; background-position: center;
+        }
+        .btn-premium {
+            display: inline-block; padding: 0.75rem 2rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.25em; font-size: 10px; transition: all 0.3s ease; border-radius: 0.125rem;
+            border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; text-align: center;
+        }
+        .btn-primary { background-color: #2563eb; color: #ffffff; }
+        .industrial-grid {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .footer-link { color: #94a3b8; transition: color 0.2s ease; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em; }
+        .footer-link:hover { color: #3b82f6; }
+        
+        #page-loader {
+            position: fixed; inset: 0; background: #0A0C10; z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+        #page-loader.fade-out { opacity: 0; pointer-events: none; }
+        .loader-spin {
+            width: 40px; height: 40px; border: 3px solid rgba(0, 118, 255, 0.1);
+            border-top: 3px solid #0076FF; border-radius: 50%; animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+
+<body x-data="{ mobileMenu: false }">
+
+    <!-- Page Loader -->
+    <div id="page-loader">
+        <div class="loader-spin mb-4"></div>
+        <div class="mono text-[10px] text-blue-500 uppercase tracking-[0.4em] animate-pulse">Initializing Protocol...</div>
+    </div>
+
+    <nav class="flex justify-between items-center px-6 md:px-10 py-6 bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <a href="/" class="cursor-pointer">
+            <img src="/logo.png" alt="WILBAK ENGINEERING" class="h-8 md:h-10">
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center space-x-10 font-bold text-xs uppercase tracking-[0.2em]">
+            <a href="/" class="text-slate-500 hover:text-blue-600 transition">Home</a>
+            <a href="/projects/" class="text-slate-500 hover:text-blue-600 transition">Projects</a>
+            <a href="/about/" class="text-blue-600 transition">About</a>
+            <a href="/Orthom8pro/" class="text-slate-500 hover:text-blue-600 transition">OrthoMate™</a>
+            <a href="/contact/" class="text-slate-500 hover:text-blue-600 transition">Contact</a>
+            <a href="/insight/" class="text-slate-500 hover:text-blue-600 transition">News & Insights</a>
+            <a href="/audit/" class="btn-premium bg-slate-900 text-white hover:bg-blue-700">Business Audit</a>
+        </div>
+
+        <!-- Mobile Toggle -->
+        <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-slate-900">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path x-show="!mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                <path x-show="mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" x-cloak class="absolute top-full left-0 w-full bg-white border-b border-slate-200 md:hidden z-40 shadow-xl p-8 space-y-6 flex flex-col font-bold text-xs uppercase tracking-[0.2em]">
+            <a href="/" class="text-slate-900">Home</a>
+            <a href="/projects/" class="text-slate-900">Projects</a>
+            <a href="/about/" class="text-blue-600">About</a>
+            <a href="/Orthom8pro/" class="text-slate-900">OrthoMate™</a>
+            <a href="/contact/" class="text-slate-900">Contact</a>
+            <a href="/insight/" class="text-slate-900">News & Insights</a>
+            <a href="/audit/" class="bg-slate-900 text-white px-6 py-4 text-center rounded-sm">Business Audit</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="lake-gradient text-white py-32 px-10 relative overflow-hidden">
+            <div class="max-w-6xl mx-auto">
+                <div class="inline-block bg-blue-600 text-[10px] font-black px-4 py-1 mb-6 uppercase tracking-[0.3em]">ESTABLISHED 2006</div>
+                <h2 class="text-5xl md:text-8xl font-black italic tracking-tighter leading-none mb-8">
+                    20 YEARS OF <br> <span class="text-blue-400 font-light underline decoration-1 underline-offset-8">DATA DOMINANCE.</span>
+                </h2>
+                <p class="text-xl text-slate-300 max-w-2xl leading-relaxed">
+                    Wilbak Engineering marks two decades of structural and data engineering. We don't just solve problems; we outbuild them.
+                </p>
+            </div>
+        </section>
+
+        <section class="py-24 px-10 bg-white">
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+                <div>
+                    <h3 class="text-4xl font-black uppercase italic mb-8">The Professional Overview</h3>
+                    <div class="space-y-6 text-slate-600 leading-relaxed">
+                        <p>I am Wilhelm Rybak, a Data and Structural Engineer. I’ve spent two decades in the trenches of industrial infrastructure, moving between Doha's heat and Alaska's cold.</p>
+                        <p>My philosophy: **Nature is the ultimate engineer.** If you want a data grid to last, you leverage the environment. This obsession is why I demand rugged reliability from everything I build for businesses and Individuals.</p>
+                        <p class="font-bold text-slate-900 italic border-l-4 border-blue-600 pl-6">
+                            "My 'retirement plan' is a data center cooled by the lake outside my window. That's the level of obsession I bring to your project."
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-12">
+                    <div class="relative group">
+                        <img src="https://res.cloudinary.com/dt6n4pnjb/image/upload/v1771986355/02_edy5z7.png" alt="Wilhelm Rybak" class="w-full grayscale transition shadow-2xl rounded-sm">
+                        <div class="absolute -bottom-4 -left-4 bg-slate-900 text-white p-4 shadow-2xl skew-x-[-10deg] animate-fade-in">
+                            <div class="skew-x-[10deg]">
+                                <h4 class="text-lg font-black uppercase italic">Wilhelm Rybak</h4>
+                                <p class="text-[9px] mono text-blue-400 uppercase tracking-widest font-bold">Founder / Principal</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 px-10 bg-slate-50 border-t border-slate-200">
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+                <div class="bg-white border p-12 hover:border-blue-500 transition shadow-sm">
+                    <h4 class="text-2xl font-black uppercase italic mb-6">Field & Structural</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-8">The boots-on-the-ground. Specialists in physical and safety gears, overhauling nodes under extreme conditions globally.</p>
+                    <div class="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                        <span>Deployment Ready: Houston, TX</span>
+                    </div>
+                </div>
+                <div class="bg-white border p-12 hover:border-blue-500 transition shadow-sm">
+                    <h4 class="text-2xl font-black uppercase italic mb-6">Data & AI Hub</h4>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-8">The logic behind OrthoMate™. Elite architects managing predictive AI training for Business Finance Management.</p>
+                    <div class="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                        <span>Processing Protocol: v4.2</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-950 text-white pt-20 pb-10 px-10">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-16 border-b border-slate-900 pb-16">
+            <div>
+                <img src="/logo.png" alt="WILBAK" class="h-10 mb-6 invert brightness-0">
+                <p class="text-slate-400 text-sm leading-relaxed">Operational logic for businesses that value performance over hype.</p>
+            </div>
+            <div>
+                <h5 class="font-bold text-xs uppercase tracking-[0.3em] text-blue-500 mb-8">Navigation</h5>
+                <ul class="space-y-4">
+                    <li><a href="/" class="footer-link">Home</a></li>
+                    <li><a href="/projects/" class="footer-link">Projects</a></li>
+                    <li><a href="/about/" class="footer-link">About</a></li>
+                    <li><a href="/Orthom8pro/" class="footer-link">OrthoMate™</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-bold text-xs uppercase tracking-[0.3em] text-slate-500 mb-8">System Status</h5>
+                <div class="bg-slate-900 p-6 rounded-sm border border-slate-800 text-[10px] mono">
+                    <div class="flex justify-between mb-2"><span>Status:</span><span class="text-green-500 font-black">Active</span></div>
+                    <div class="flex justify-between"><span>Location:</span><span class="text-slate-300 uppercase">Texas, USA</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="pt-10 text-center text-[9px] font-bold text-slate-600 uppercase tracking-[0.4em]">
+            © 2026 Wilbak Engineering Group // Built for Unbreakable Performance
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('page-loader');
+            setTimeout(() => {
+                loader.classList.add('fade-out');
+                setTimeout(() => loader.style.display = 'none', 500);
+            }, 800);
+        });
+
+        // Intercept link clicks for loader
+        document.querySelectorAll('a').forEach(link => {
+            if (link.hostname === window.location.hostname && !link.hash) {
+                link.addEventListener('click', (e) => {
+                    const loader = document.getElementById('page-loader');
+                    loader.style.display = 'flex';
+                    loader.classList.remove('fade-out');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

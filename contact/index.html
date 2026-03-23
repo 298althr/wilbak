@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Wilbak Engineering</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --neon-blue: #0076FF; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fcfdfe; color: #0F172A; }
+        .mono { font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+        .industrial-grid { background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 40px 40px; }
+        .btn-premium { display: inline-block; padding: 0.75rem 2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.25em; font-size: 10px; border-radius: 0.125rem; border: 1px solid rgba(0,0,0,0.1); cursor: pointer; text-align: center; }
+        .btn-primary { background-color: #2563eb; color: #ffffff; }
+        #page-loader { position: fixed; inset: 0; background: #0A0C10; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease; }
+        #page-loader.fade-out { opacity: 0; pointer-events: none; }
+        .loader-spin { width: 40px; height: 40px; border: 3px solid rgba(0, 118, 255, 0.1); border-top: 3px solid #0076FF; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+
+<body x-data="{ mobileMenu: false }">
+
+    <div id="page-loader">
+        <div class="loader-spin mb-4"></div>
+        <div class="mono text-[10px] text-blue-500 uppercase tracking-[0.4em] animate-pulse">Initializing Protocol...</div>
+    </div>
+
+    <nav class="flex justify-between items-center px-6 md:px-10 py-6 bg-white border-b border-slate-200 sticky top-0 z-50">
+        <a href="/"><img src="/logo.png" alt="WILBAK" class="h-8 md:h-10"></a>
+        <div class="hidden md:flex items-center space-x-10 font-bold text-xs uppercase tracking-[0.2em]">
+            <a href="/" class="text-slate-500 hover:text-blue-600 transition">Home</a>
+            <a href="/projects/" class="text-slate-500 hover:text-blue-600 transition">Projects</a>
+            <a href="/about/" class="text-slate-500 hover:text-blue-600 transition">About</a>
+            <a href="/Orthom8pro/" class="text-slate-500 hover:text-blue-600 transition">OrthoMate™</a>
+            <a href="/contact/" class="text-blue-600 transition">Contact</a>
+            <a href="/insight/" class="text-slate-500 hover:text-blue-600 transition">News & Insights</a>
+            <a href="/audit/" class="btn-premium bg-slate-900 text-white">Business Audit</a>
+        </div>
+        <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-slate-900">☰</button>
+    </nav>
+
+    <main class="min-h-screen pt-32 pb-40 px-6 max-w-6xl mx-auto industrial-grid">
+        <div class="mb-20 px-4 md:px-0">
+            <div class="mono text-blue-600 text-sm mb-4 tracking-[0.4em] uppercase font-bold text-center md:text-left">[ Contact Information ]</div>
+            <h2 class="text-6xl md:text-9xl font-black italic uppercase tracking-tighter leading-none mb-8 text-center md:text-left">Let's <span class="text-blue-600">Connect.</span></h2>
+            <p class="text-xl text-slate-500 max-w-2xl mx-auto md:mx-0 leading-relaxed text-center md:text-left">Ready to scale your business? Reach out to Wilhelm directly for technical inquiries and operational support.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-16 px-4 md:px-0">
+            <div class="space-y-12">
+                <div class="bg-slate-50 border p-10 hover:border-blue-500 transition group rounded-sm shadow-sm">
+                    <h4 class="font-bold uppercase text-[10px] mono text-slate-400 mb-6 tracking-widest italic">Email Address</h4>
+                    <a href="mailto:wilhelm@wilbakengineering.com" class="text-xl md:text-2xl font-black text-slate-900 hover:text-blue-600 transition break-words uppercase italic">wilhelm@wilbakengineering.com</a>
+                </div>
+                <div class="bg-slate-50 border p-10 hover:border-blue-500 transition group rounded-sm shadow-sm">
+                    <h4 class="font-bold uppercase text-[10px] mono text-slate-400 mb-6 tracking-widest italic">Direct Phone</h4>
+                    <a href="tel:+12144939744" class="text-xl md:text-2xl font-black text-slate-900 hover:text-blue-600 transition uppercase italic">+1 214 493 9744</a>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 p-12 text-white relative overflow-hidden rounded-sm shadow-2xl">
+                <div class="absolute inset-0 opacity-10 industrial-grid"></div>
+                <div class="relative z-10">
+                    <h3 class="text-3xl font-black uppercase italic mb-10 tracking-tighter italic">Houston, Texas (USA)</h3>
+                    <div class="space-y-8">
+                        <div>
+                            <div class="text-blue-500 mono text-[10px] uppercase tracking-widest mb-2">[ Status ]</div>
+                            <div class="flex items-center space-x-2 font-black uppercase italic">
+                                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                                <span>Always Active</span>
+                            </div>
+                        </div>
+                        <a href="/audit/" class="btn-premium btn-primary w-full py-5 block hover:bg-white hover:text-slate-900 transition">REQUEST FREE AUDIT</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-950 text-white pt-20 pb-10 px-10 text-center text-[9px] font-bold text-slate-600 uppercase tracking-[0.4em]">
+        © 2026 Wilbak Engineering Group // Built for Unbreakable Performance
+    </footer>
+
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => { document.getElementById('page-loader').classList.add('fade-out'); }, 500);
+        });
+        document.querySelectorAll('a').forEach(link => {
+            if (link.hostname === window.location.hostname && !link.hash) {
+                link.addEventListener('click', () => {
+                    const loader = document.getElementById('page-loader');
+                    loader.style.display = 'flex'; loader.classList.remove('fade-out');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

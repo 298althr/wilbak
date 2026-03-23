@@ -6,1725 +6,248 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wilbak Engineering – Wilhelm Rybak | High-Performance Business Logic & Automation</title>
 
-    <!-- Primary SEO -->
-    <meta name="description"
-        content="Wilbak Engineering, led by Wilhelm Rybak, provides unbreakable business logic, industrial automation, and high-performance operative systems. Request a strategic audit for deterministic growth.">
-    <meta name="keywords"
-        content="Wilhelm Rybak, Wilbak Engineering, Wilbak, business logic, industrial automation, market intelligence center, operational audit, high-performance systems, Texas business engineering">
-    <meta name="author" content="Wilhelm Rybak">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Wilbak Engineering provides unbreakable business logic and industrial automation infrastructure. Led by Wilhelm Rybak.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://wilbakengineering.com/">
-    <meta property="og:title" content="Wilbak Engineering – Wilhelm Rybak | High-Performance Systems">
-    <meta property="og:description"
-        content="Unbreakable business systems and market updates through structural logic. Led by Wilhelm Rybak.">
-    <meta property="og:image" content="https://wilbakengineering.com/og-image.jpg">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://wilbakengineering.com/">
-    <meta property="twitter:title" content="Wilbak Engineering – Wilhelm Rybak | High-Performance Systems">
-    <meta property="twitter:description"
-        content="Structural business logic and industrial-grade automation protocols. Request an audit today.">
-    <meta property="twitter:image" content="https://wilbakengineering.com/og-image.jpg">
-
-    <!-- JSON-LD Structured Data (Person & Service) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Wilbak Engineering",
-      "legalName": "Wilbak",
-      "url": "https://wilbakengineering.com/",
-      "logo": "https://wilbak-production.up.railway.app/logo.png",
-      "founder": {
-        "@type": "Person",
-        "name": "Wilhelm Rybak",
-        "jobTitle": "CEO & Chief Systems Architect"
-      },
-      "description": "High-stakes industrial automation and deterministic business logic systems.",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Irving",
-        "addressRegion": "TX",
-        "addressCountry": "US"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+1 214-493-9744",
-        "contactType": "Customer Service"
-      }
-    }
-    </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('wilbakApp', () => ({
-                page: 'home',
-                mobileMenu: false,
-                successModal: false,
-                showModal: false,
-                showFullReportModal: false,
-                showAuditModal: false,
-                selectedNode: null,
-                intelNodes: [],
-                auditStep: 1,
-                industry: '',
-                businessDetail: '',
-                leadName: '',
-                leadEmail: '',
-                leadPhone: '',
-                loadingIntel: false,
-
-                openTransformationModal(node) {
-                    this.selectedNode = node;
-                    this.showModal = true;
-                },
-
-                openFullReport(node) {
-                    this.selectedNode = node;
-                    this.showFullReportModal = true;
-                },
-
-                renderNested(obj) {
-                    if (!obj) return '';
-                    if (typeof obj === 'string') return `<p class=" mb-4 leading-relaxed">${this.sanitizeText(obj)}</p>`;
-                    if (Array.isArray(obj)) {
-                        return `<ul class="space-y-3 mb-6">` + obj.map(item => `
-                            <li class="flex items-start">
-                                <span class="text-blue-500 mr-2 mt-1">▹</span>
-                                <div class="text-sm text-slate-700 font-bold">${this.renderNested(item)}</div>
-                            </li>`).join('') + `
-                        </ul>`;
-                    }
-                    if (typeof obj === 'object') {
-                        return Object.entries(obj).map(([key, value]) => `
-                        <div class="mb-6 last:mb-0 bg-slate-50/50 p-4 border-l-2 border-blue-600">
-                            <h4 class="text-[9px] mono text-blue-600 uppercase tracking-widest mb-2 font-black">${key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').trim()}</h4>
-                            <div class="text-sm text-slate-800">${this.renderNested(value)}</div>
-                        </div>
-                        `).join('');
-                    }
-                    return obj;
-                },
-
-                sanitizeText(text) {
-                    if (!text) return '';
-                    return text.replace(/\[oai_citation:.*?\]\(.*?\)/g, '').replace(/\[oai_citation:.*?\]/g, '').trim();
-                },
-
-                async fetchIntel() {
-                    if (this.loadingIntel) return;
-                    this.loadingIntel = true;
-                    try {
-                        const response = await fetch('/api/intelligence');
-                        this.intelNodes = await response.json();
-                    } catch (e) {
-                        console.error('Intel link failed');
-                    } finally {
-                        this.loadingIntel = false;
-                    }
-                },
-
-                init() {
-                    const hash = window.location.hash.replace('#', '');
-                    if (hash === 'audit') this.page = 'audit';
-                    if (hash === 'insights') {
-                        this.page = 'intelligence';
-                        this.fetchIntel();
-                    }
-                    this.fetchIntel();
-                },
-
-                async submitLead() {
-                    try {
-                        const auditData = {
-                            industry: this.industry,
-                            businessDetail: this.businessDetail,
-                            auditName: this.leadName,
-                            auditEmail: this.leadEmail,
-                            auditPhone: this.leadPhone
-                        };
-                        const response = await fetch('/api/audit', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(auditData)
-                        });
-                        if (response.ok) {
-                            this.successModal = true;
-                            this.showAuditModal = false;
-                            this.showModal = false;
-                            this.showFullReportModal = false;
-                            this.auditStep = 1;
-                            this.industry = '';
-                            this.businessDetail = '';
-                            this.leadName = '';
-                            this.leadEmail = '';
-                            this.leadPhone = '';
-                        } else {
-                            alert('Transmission error.');
-                        }
-                    } catch (error) { console.error('Audit error:', error); }
-                },
-
-                async vote(id, type) {
-                    try {
-                        const response = await fetch(`/api/intelligence/${id}/vote`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ type })
-                        });
-                        const data = await response.json();
-                        if (data.success) {
-                            await this.fetchIntel();
-                        }
-                    } catch (e) { console.error('Vote failed'); }
-                }
-            }));
-        });
-    </script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=JetBrains+Mono:wght@100..800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@100..800&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap" rel="stylesheet">
 
     <style>
-        :root {
-            --neon-blue: #0076FF;
-            --deep-obsidian: #0A0C10;
-            --glass-white: rgba(255, 255, 255, 0.03);
-            --industrial-gray: #1E2229;
+        :root { --neon-blue: #0076FF; --deep-obsidian: #0A0C10; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fcfdfe; color: #0F172A; scroll-behavior: smooth; }
+        .mono { font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+        .lake-gradient {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%),
+                url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover; background-position: center;
         }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #fcfdfe;
-            color: #0F172A;
-            -webkit-font-smoothing: antialiased;
-            scroll-behavior: smooth;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        .heading-precision {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 900;
-        }
-
-        .mono {
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
-        }
-
-        .editorial-quote {
-            font-family: 'Fraunces', serif;
-            font-weight: 600;
-            font-style: italic;
-        }
-
-        .font-lora, .serif {
-            font-family: 'Lora', serif;
-        }
-
-        .font-montserrat {
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .industrial-grid {
-            background-image: linear-gradient(to right, rgba(0, 118, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(0, 118, 255, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-        }
-
-        .glass-analysis {
-            background: rgba(15, 23, 42, 0.98);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
-        }
-
-        .btn-premium {
-            background: linear-gradient(135deg, #0076FF 0%, #0056B3 100%);
-            box-shadow: 0 10px 30px rgba(0, 118, 255, 0.2);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        .btn-premium:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(0, 118, 255, 0.4);
-        }
-
-        .card-shadow {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-
-        .card-shadow:hover {
-            box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.15), 0 18px 36px -18px rgba(0, 0, 0, 0.2);
-            transform: translateY(-5px);
-        }
-
         .industrial-grid {
             background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
             background-size: 40px 40px;
         }
-
-        .lake-gradient {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%),
-                url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .ortho-gradient {
-            background: radial-gradient(circle at top right, rgba(30, 64, 175, 0.9), rgba(15, 23, 42, 0.95) 60%),
-                url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .vault-gradient {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.7) 100%), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop') !important;
-            background-size: cover !important;
-            background-position: center !important;
-        }
-
-        .audit-gradient {
-            background: linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(241, 245, 249, 0.9) 100%),
-                url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .project-card {
-            border: 1px solid #e2e8f0;
-            border-left: 4px solid #334155;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card:hover {
-            border-left: 4px solid #3b82f6;
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
-            background: white;
-        }
-
-        .project-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(45deg, transparent 50%, #f1f5f9 50%);
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover::after {
-            background: linear-gradient(45deg, transparent 50%, #3b82f6 50%);
-        }
-
-        .corner-accent {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 20px;
-            height: 20px;
-            border-right: 2px solid #e2e8f0;
-            border-bottom: 2px solid #e2e8f0;
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover .corner-accent {
-            border-color: #3b82f6;
-            width: 30px;
-            height: 30px;
-        }
-
-        .feature-card:hover {
-            background: rgba(59, 130, 246, 0.05);
-            border-color: #3b82f6;
-            transition: all 0.4s ease;
-        }
-
         .btn-premium {
-            display: inline-block;
-            padding: 0.75rem 2rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            font-size: 10px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 0.125rem;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            text-align: center;
+            display: inline-block; padding: 0.75rem 2rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.25em; font-size: 10px; transition: all 0.3s ease; border-radius: 0.125rem;
+            border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; text-align: center;
         }
-
-        .btn-premium:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        .btn-primary { background-color: #2563eb; color: #ffffff; }
+        .btn-secondary { border: 1px solid #334155; color: #ffffff; }
+        .footer-link { color: #94a3b8; transition: color 0.2s ease; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em; }
+        .footer-link:hover { color: #3b82f6; }
+        
+        /* Page Loader */
+        #page-loader {
+            position: fixed; inset: 0; background: #0A0C10; z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.5s ease;
         }
-
-        .btn-primary {
-            background-color: #2563eb;
-            color: #ffffff;
+        #page-loader.fade-out { opacity: 0; pointer-events: none; }
+        .loader-spin {
+            width: 40px; height: 40px; border: 3px solid rgba(0, 118, 255, 0.1);
+            border-top: 3px solid #0076FF; border-radius: 50%; animation: spin 1s linear infinite;
         }
-
-        .btn-primary:hover {
-            background-color: #3b82f6;
-        }
-
-        .btn-secondary {
-            border: 1px solid #334155;
-            color: #ffffff;
-        }
-
-        .btn-secondary:hover {
-            background-color: #1e293b;
-        }
-
-        .footer-link {
-            color: #94a3b8;
-            transition: color 0.2s ease;
-            cursor: pointer;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-        }
-
-        .footer-link:hover {
-            color: #3b82f6;
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900" x-data="wilbakApp">
+<body x-data="{ mobileMenu: false }">
 
-    <nav
-        class="flex justify-between items-center px-6 md:px-10 py-6 bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
-        <div class="cursor-pointer" @click="page = 'home'">
-            <img src="logo.png" alt="WILBAK ENGINEERING" class="h-8 md:h-10 max-w-[150px] md:max-w-none object-contain">
-        </div>
+    <!-- Page Loader -->
+    <div id="page-loader">
+        <div class="loader-spin mb-4"></div>
+        <div class="mono text-[10px] text-blue-500 uppercase tracking-[0.4em] animate-pulse">Initializing Protocol...</div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="flex justify-between items-center px-6 md:px-10 py-6 bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <a href="/">
+            <img src="logo.png" alt="WILBAK ENGINEERING" class="h-8 md:h-10">
+        </a>
 
         <!-- Desktop Nav -->
-        <div class="hidden md:flex space-x-10 font-bold text-xs uppercase tracking-[0.2em] cursor-pointer">
-            <a @click="page = 'home'" :class="page === 'home' ? 'text-blue-600' : 'text-slate-500'"
-                class="hover:text-blue-600 transition">Home</a>
-            <a @click="page = 'projects'" :class="page === 'projects' ? 'text-blue-600' : 'text-slate-500'"
-                class="hover:text-blue-600 transition">Projects</a>
-            <a @click="page = 'about'" :class="page === 'about' ? 'text-blue-600' : 'text-slate-500'"
-                class="hover:text-blue-600 transition">About</a>
-            <a @click="page = 'orthomate'" :class="page === 'orthomate' ? 'text-blue-600' : 'text-slate-500'"
-                class="hover:text-blue-600 transition">OrthoMate™</a>
-            <a @click="page = 'contact'" :class="page === 'contact' ? 'text-blue-600' : 'text-slate-500'"
-                class="hover:text-blue-600 transition">Contact</a>
-            <a @click="page = 'intelligence'; fetchIntel()"
-                :class="page === 'intelligence' ? 'text-blue-600' : 'text-slate-500'"
-                class="hover:text-blue-600 transition outline-none">News & Insights</a>
-            <a class="btn-premium bg-slate-900 text-white hover:bg-blue-700" @click="page = 'audit'">Business Audit</a>
+        <div class="hidden md:flex items-center space-x-10 font-bold text-xs uppercase tracking-[0.2em]">
+            <a href="/" class="text-blue-600 transition">Home</a>
+            <a href="/projects/" class="text-slate-500 hover:text-blue-600 transition">Projects</a>
+            <a href="/about/" class="text-slate-500 hover:text-blue-600 transition">About</a>
+            <a href="/Orthom8pro/" class="text-slate-500 hover:text-blue-600 transition">OrthoMate™</a>
+            <a href="/contact/" class="text-slate-500 hover:text-blue-600 transition">Contact</a>
+            <a href="/insight/" class="text-slate-500 hover:text-blue-600 transition">News & Insights</a>
+            <a href="/audit/" class="btn-premium bg-slate-900 text-white hover:bg-blue-700">Business Audit</a>
         </div>
 
-        <!-- Mobile Menu Toggle -->
+        <!-- Mobile Toggle -->
         <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-slate-900">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path x-show="!mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 6h16M4 12h16m-7 6h7"></path>
-                <path x-show="mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"></path>
+                <path x-show="!mobileMenu" d="M4 6h16M4 12h16m-7 6h7" stroke-width="2" stroke-linecap="round"></path>
+                <path x-show="mobileMenu" d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round"></path>
             </svg>
         </button>
 
         <!-- Mobile Menu Overlay -->
-        <div x-show="mobileMenu" x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="opacity-0 translate-y-[-100%]" x-transition:enter-end="opacity-100 translate-y-0"
-            x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0"
-            x-transition:leave-end="opacity-0 translate-y-[-100%]"
-            class="absolute top-full left-0 w-full bg-white border-b border-slate-200 md:hidden z-40 shadow-xl">
-            <div class="flex flex-col p-8 space-y-6 font-bold text-xs uppercase tracking-[0.2em]">
-                <a @click="page = 'home'; mobileMenu = false" class="text-slate-900">Home</a>
-                <a @click="page = 'projects'; mobileMenu = false" class="text-slate-900">Projects</a>
-                <a @click="page = 'about'; mobileMenu = false" class="text-slate-900">About</a>
-                <a @click="page = 'orthomate'; mobileMenu = false" class="text-slate-900">OrthoMate™</a>
-                <a @click="page = 'contact'; mobileMenu = false" class="text-slate-900">Contact</a>
-                <a @click="page = 'intelligence'; fetchIntel(); mobileMenu = false" class="text-slate-900">News &
-                    Insights</a>
-                <a class="bg-slate-900 text-white px-6 py-4 text-center rounded-sm"
-                    @click="page = 'audit'; mobileMenu = false">Business Audit</a>
-            </div>
+        <div x-show="mobileMenu" x-cloak class="absolute top-full left-0 w-full bg-white border-b border-slate-200 md:hidden z-40 shadow-xl p-8 space-y-6 flex flex-col font-bold text-xs uppercase tracking-[0.2em]">
+            <a href="/" class="text-slate-900">Home</a>
+            <a href="/projects/" class="text-slate-900">Projects</a>
+            <a href="/about/" class="text-slate-900">About</a>
+            <a href="/Orthom8pro/" class="text-slate-900">OrthoMate™</a>
+            <a href="/contact/" class="text-slate-900">Contact</a>
+            <a href="/insight/" class="text-slate-900">News & Insights</a>
+            <a href="/audit/" class="bg-slate-900 text-white px-6 py-4 text-center rounded-sm">Business Audit</a>
         </div>
     </nav>
 
-    <template x-if="page === 'home'">
-        <div x-transition>
-            <header class="lake-gradient text-white py-24 md:py-40 px-6 md:px-10 relative overflow-hidden">
-                <div class="max-w-6xl mx-auto items-center relative z-10">
-                    <div class="max-w-3xl">
-                        <div class="mono text-blue-400 text-sm mb-4 tracking-widest uppercase">[ Operational Protocol:
-                            v3.1 ]</div>
-                        <h1 class="text-3xl sm:text-5xl md:text-8xl font-black leading-none mb-6 italic uppercase">
-                            ENGINEERING<br>BUSINESS DATA.</h1>
-                        <p class="text-xl text-slate-400 mb-10 max-w-xl leading-relaxed">
-                            We eliminate the "Chaos Tax" on your business. High-performance management systems and
-                            infrastructure engineered for zero failure and 40% lower operational waste.
-                        </p>
-                        <div class="flex space-x-6">
-                            <button @click="page = 'projects'" class="btn-premium btn-primary px-10 py-5 text-xs">Case
-                                Studies</button>
-                            <button @click="page = 'orthomate'" class="btn-premium btn-secondary px-10 py-5 text-xs">How
-                                it Works</button>
-                        </div>
-                    </div>
-                </div>
-            </header>
-
-            <!-- Trust Vault Section -->
-            <section class="relative z-20 px-10 -mt-12">
-                <div class="max-w-6xl mx-auto">
-                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                        <div
-                            class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-blue-500 flex flex-col justify-center text-center">
-                            <div class="text-white font-black text-sm uppercase tracking-tighter mb-1">Northrop Grumman
-                            </div>
-                            <div class="text-blue-400 mono text-[9px] uppercase tracking-widest">Defense Logic</div>
-                        </div>
-                        <div
-                            class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-slate-700 flex flex-col justify-center text-center">
-                            <div class="text-white font-black text-sm uppercase tracking-tighter mb-1">Toyota</div>
-                            <div class="text-slate-400 mono text-[9px] uppercase tracking-widest">Supply Rigor</div>
-                        </div>
-                        <div
-                            class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-blue-500 flex flex-col justify-center text-center">
-                            <div class="text-white font-black text-sm uppercase tracking-tighter mb-1">ConocoPhillips
-                            </div>
-                            <div class="text-blue-400 mono text-[9px] uppercase tracking-widest">Energy Flow</div>
-                        </div>
-                        <div
-                            class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-slate-700 flex flex-col justify-center text-center">
-                            <div class="text-white font-black text-sm uppercase tracking-tighter mb-1">ASDA</div>
-                            <div class="text-slate-400 mono text-[9px] uppercase tracking-widest">Retail Scale</div>
-                        </div>
-                        <div
-                            class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-blue-500 flex flex-col justify-center text-center">
-                            <div class="text-white font-black text-sm uppercase tracking-tighter mb-1">GEICO</div>
-                            <div class="text-blue-400 mono text-[9px] uppercase tracking-widest">Risk Guard</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="py-24 px-10 bg-white industrial-grid pt-32">
-                <div class="max-w-6xl mx-auto">
-                    <div class="text-center mb-16">
-                        <h2 class="text-4xl font-extrabold uppercase italic mb-4">The Operational Gap</h2>
-                        <p class="text-slate-500 uppercase tracking-widest text-xs font-bold">Small Business
-                            Inefficiency is the Invisible Profit Killer</p>
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-12">
-                        <div class="p-10 bg-red-50 border-l-4 border-red-500 shadow-sm">
-                            <h3 class="text-xl font-black uppercase mb-4 text-red-700 italic">The "Chaos Tax"</h3>
-                            <p class="text-slate-600 leading-relaxed">
-                                Manual processes and disconnected software systems eat 40% of your labor before a single
-                                sale is closed. Fragmented tools are points of failure that bottleneck your growth.
-                            </p>
-                        </div>
-                        <div class="p-10 bg-blue-50 border-l-4 border-blue-500 shadow-sm">
-                            <h3 class="text-xl font-black uppercase mb-4 text-blue-700 italic">The Wilbak Alignment</h3>
-                            <p class="text-slate-600 leading-relaxed">
-                                Our Integrated Business Management Engines and Predictive Automation eliminates 90% of
-                                manual overhead. We shift your energy from "firefighting" into "market dominance."
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Testimonials Section -->
-            <section class="py-24 px-10 bg-slate-900 text-white relative overflow-hidden">
-                <div class="absolute inset-0 opacity-5 industrial-grid"></div>
-                <div class="max-w-6xl mx-auto relative z-10">
-                    <div class="mb-16">
-                        <div class="text-blue-500 mono text-xs uppercase tracking-[0.5em] mb-4">[ Mission Feedback ]
-                        </div>
-                        <h2 class="text-4xl md:text-6xl font-black uppercase italic italic tracking-tighter">
-                            Verified<br>testimonies</h2>
-                    </div>
-
-                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <div
-                            class="p-8 border border-slate-800 bg-slate-900/50 hover:border-blue-500 transition-all duration-500 group">
-                            <div
-                                class="text-blue-500 text-3xl mb-6 opacity-50 group-hover:opacity-100 transition-opacity">
-                                "</div>
-                            <p class="text-slate-400 text-sm leading-relaxed mb-8 italic">"The Wilbak transition saved
-                                us $120k in annual manual drafting costs alone. Their logic is unbreakable."</p>
-                            <div class="border-t border-slate-800 pt-6">
-                                <h4 class="font-black uppercase italic text-sm">James McGough</h4>
-                                <p class="text-[9px] mono text-slate-500 uppercase tracking-widest mt-1 italic">CEO,
-                                    Sterling Logistics | Dallas, TX</p>
-                            </div>
-                        </div>
-
-                        <div
-                            class="p-8 border border-slate-800 bg-slate-900/50 hover:border-blue-500 transition-all duration-500 group">
-                            <div
-                                class="text-blue-500 text-3xl mb-6 opacity-50 group-hover:opacity-100 transition-opacity">
-                                "</div>
-                            <p class="text-slate-400 text-sm leading-relaxed mb-8 italic">"We eliminated the Chaos Tax
-                                in 90 days. Their Predictive AI kernels are simply unmatched in the market."</p>
-                            <div class="border-t border-slate-800 pt-6">
-                                <h4 class="font-black uppercase italic text-sm">Rachel H. Ballack</h4>
-                                <p class="text-[9px] mono text-slate-500 uppercase tracking-widest mt-1 italic">Ops
-                                    Manager, Vance Mfg | Chicago, IL</p>
-                            </div>
-                        </div>
-
-                        <div
-                            class="p-8 border border-slate-800 bg-slate-900/50 hover:border-blue-500 transition-all duration-500 group">
-                            <div
-                                class="text-blue-500 text-3xl mb-6 opacity-50 group-hover:opacity-100 transition-opacity">
-                                "</div>
-                            <p class="text-slate-400 text-sm leading-relaxed mb-8 italic">"Rugged, reliable, and
-                                deterministic. Wilbak doesn't just build systems; they build absolute business
-                                certainty."</p>
-                            <div class="border-t border-slate-800 pt-6">
-                                <h4 class="font-black uppercase italic text-sm">Marcus Thorne</h4>
-                                <p class="text-[9px] mono text-slate-500 uppercase tracking-widest mt-1 italic">Founder,
-                                    Thorne Supply | Atlanta, GA</p>
-                            </div>
-                        </div>
-
-                        <div
-                            class="p-8 border border-slate-800 bg-slate-900/50 hover:border-blue-500 transition-all duration-500 group">
-                            <div
-                                class="text-blue-500 text-3xl mb-6 opacity-50 group-hover:opacity-100 transition-opacity">
-                                "</div>
-                            <p class="text-slate-400 text-sm leading-relaxed mb-8 italic">"Their structural overview
-                                revealed leaks we've been ignoring for 10 years. Total operational dominance."</p>
-                            <div class="border-t border-slate-800 pt-6">
-                                <h4 class="font-black uppercase italic text-sm">Elena De Rossi</h4>
-                                <p class="text-[9px] mono text-slate-500 uppercase tracking-widest mt-1 italic">Infra
-                                    Director, Rossi Ind. | Seattle, WA</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </template>
-
-    <template x-if="page === 'projects'">
-        <div x-transition class="min-h-screen bg-slate-50 industrial-grid">
-            <header class="vault-gradient text-white py-32 px-10 relative overflow-hidden">
-                <div class="absolute inset-0 opacity-10 industrial-grid"></div>
-                <div class="max-w-6xl mx-auto relative z-10">
-                    <h2 class="text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-none">Our
-                        <br><span class="text-blue-500">Projects.</span>
-                    </h2>
-                    <p class="text-blue-400 mono text-sm mt-8 tracking-widest uppercase font-bold">[ Operational
-                        History: 2016 — 2026 ]</p>
-                    <p class="text-slate-400 mt-6 max-w-2xl text-lg leading-relaxed">
-                        A record of infrastructure and management systems built under pressure. We don't just deploy
-                        systems; we engineer unbreakable operational logic for the world's most demanding businesses.
+    <main>
+        <!-- Hero Section -->
+        <header class="lake-gradient text-white py-24 md:py-40 px-6 md:px-10 relative overflow-hidden">
+            <div class="max-w-6xl mx-auto relative z-10">
+                <div class="max-w-3xl">
+                    <div class="mono text-blue-400 text-sm mb-4 tracking-widest uppercase">[ Operational Protocol: v3.1 ]</div>
+                    <h1 class="text-3xl sm:text-5xl md:text-8xl font-black leading-none mb-6 italic uppercase">ENGINEERING<br>BUSINESS DATA.</h1>
+                    <p class="text-xl text-slate-400 mb-10 max-w-xl leading-relaxed">
+                        We eliminate the "Chaos Tax" on your business. High-performance infrastructure engineered for zero failure.
                     </p>
-                </div>
-            </header>
-
-            <section class="max-w-6xl mx-auto px-10 -mt-16 pb-32 relative z-20">
-                <div class="grid md:grid-cols-2 gap-8">
-
-                    <!-- Project 1: Norway Commercial Bank -->
-                    <div class="project-card p-10 bg-white shadow-sm">
-                        <div class="flex justify-between items-start mb-6">
-                            <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2023 |
-                                Oslo, Norway</span>
-                            <span
-                                class="bg-slate-100 text-[10px] font-black px-3 py-1 uppercase tracking-tighter">RENEWABLE
-                                INTEGRATION</span>
-                        </div>
-                        <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">NORWAY COMMERCIAL BANK</h3>
-                        <p class="text-slate-600 mb-8 leading-relaxed">Integrated a small, high-availability data center
-                            directly into a wind farm's power grid. Engineered to handle fluctuating voltage without
-                            affecting critical banking transactions.</p>
-                        <div class="flex justify-between items-center border-t border-slate-100 pt-6">
-                            <span class="mono text-[10px] text-slate-400 uppercase font-bold">TEAM: WILHELM + 8
-                                SPECIALISTS</span>
-                        </div>
-                        <div class="corner-accent"></div>
-                    </div>
-
-                    <!-- Project 2: Arctic Overhaul -->
-                    <div class="project-card p-10 bg-white shadow-sm">
-                        <div class="flex justify-between items-start mb-6">
-                            <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2020 |
-                                Anchorage/Remote, Alaska</span>
-                            <span
-                                class="bg-red-50 text-red-600 text-[10px] font-black px-3 py-1 uppercase tracking-tighter italic">HIGH-STAKES
-                                DEPLOYMENT</span>
-                        </div>
-                        <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">ARCTIC OVERHAUL: PROJECT
-                            "ZERO"</h3>
-                        <p class="text-slate-600 mb-8 leading-relaxed">Executed a full data center overhaul during the
-                            2020 pandemic. Spent months in coveralls and helmets on-site, swapping legacy nodes for
-                            Wilbak custom-hardened systems under extreme isolation protocols.</p>
-                        <div class="flex justify-between items-center border-t border-slate-100 pt-6">
-                            <span class="mono text-[10px] text-slate-400 uppercase font-bold text-xs">RESULT: 100%
-                                STABILITY MAINTAINED THROUGHOUT LOCKDOWN</span>
-                        </div>
-                        <div class="corner-accent"></div>
-                    </div>
-
-                    <!-- Project 3: Doha Maritime -->
-                    <div class="project-card p-10 bg-white shadow-sm">
-                        <div class="flex justify-between items-start mb-6">
-                            <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2022 |
-                                Doha, Qatar</span>
-                            <span
-                                class="bg-slate-100 text-[10px] font-black px-3 py-1 uppercase tracking-tighter">MARITIME
-                                COOLING</span>
-                        </div>
-                        <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">DOHA MARITIME MINI-CENTER
-                        </h3>
-                        <p class="text-slate-600 mb-8 leading-relaxed">Built a coastal mini-facility specifically for
-                            sports agency data processing just before the World Cup. Utilized early seawater heat
-                            exchange prototypes to fight the desert heat.</p>
-                        <div class="corner-accent"></div>
-                    </div>
-
-                    <!-- Project 4: Toyota Data Plant -->
-                    <div class="project-card p-10 bg-white shadow-sm">
-                        <div class="flex justify-between items-start mb-6">
-                            <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2018 |
-                                Georgetown, Kentucky</span>
-                            <span
-                                class="bg-slate-100 text-[10px] font-black px-3 py-1 uppercase tracking-tighter">INDUSTRIAL
-                                PARTNERSHIP</span>
-                        </div>
-                        <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">TOYOTA DATA PLANT
-                            MAINTENANCE</h3>
-                        <p class="text-slate-600 mb-8 leading-relaxed">Partnered with Toyota to manage and maintain
-                            their primary manufacturing data plant. Focused on hyper-redundant power systems to ensure
-                            zero-minute assembly line delays.</p>
-                        <div class="corner-accent"></div>
-                    </div>
-
-                    <!-- Project 5: Deep Sea -->
-                    <div class="project-card p-10 bg-white shadow-sm">
-                        <div class="flex justify-between items-start mb-6">
-                            <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2019 |
-                                Vancouver Offshore, Canada</span>
-                            <span
-                                class="bg-slate-900 text-white text-[10px] font-black px-3 py-1 uppercase tracking-tighter">DEEP
-                                SEA OPERATIONS</span>
-                        </div>
-                        <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">EXXONMOBIL DEEP OFFSHORE
-                        </h3>
-                        <p class="text-slate-600 mb-8 leading-relaxed">Managed power generation and complex salt-water
-                            cooling systems for a deep-water platform. First implementation of Wilbak's "Offshore
-                            OrthoMate" protocol for predictive pump failure.</p>
-                        <div class="corner-accent"></div>
-                    </div>
-
-                    <!-- Project 6: Signal Detection -->
-                    <div class="project-card p-10 bg-white shadow-sm">
-                        <div class="flex justify-between items-start mb-6">
-                            <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2024 | Cape
-                                Town, South Africa</span>
-                            <span
-                                class="bg-blue-50 text-blue-600 text-[10px] font-black px-3 py-1 uppercase tracking-tighter italic">PUBLIC
-                                SECTOR INFRA</span>
-                        </div>
-                        <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">SA SIGNAL DETECTION
-                            DATABASE</h3>
-                        <p class="text-slate-600 mb-8 leading-relaxed">Partnered with the Government to construct a
-                            high-security signal detection database. Engineered to withstand the unique power-grid
-                            challenges of the region.</p>
-                        <div class="corner-accent"></div>
-                    </div>
-
-                    <!-- Project 7: Encryption Hub -->
-                    <div class="project-card p-10 bg-white shadow-sm">
-                        <div class="flex justify-between items-start mb-6">
-                            <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2021 |
-                                Berlin, Germany</span>
-                            <span
-                                class="bg-slate-100 text-[10px] font-black px-3 py-1 uppercase tracking-tighter">PRIVACY
-                                HARDENING</span>
-                        </div>
-                        <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">EU CLOUD ENCRYPTION HUB
-                        </h3>
-                        <p class="text-slate-600 mb-8 leading-relaxed">Developed a physically hardened
-                            data bunker for EU-wide privacy compliance. Focused on data Privacy and fraud Prevention.
-                        </p>
-                        <div class="corner-accent"></div>
-                    </div>
-
-                    <!-- Project 8: Seismic Array -->
-                    <div class="project-card p-10 bg-white shadow-sm">
-                        <div class="flex justify-between items-start mb-6">
-                            <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2017 |
-                                Tokyo, Japan</span>
-                            <span
-                                class="bg-slate-100 text-[10px] font-black px-3 py-1 uppercase tracking-tighter">SEISMIC
-                                RESILIENCE</span>
-                        </div>
-                        <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">SEISMIC-ISOLATED NODE ARRAY
-                        </h3>
-                        <p class="text-slate-600 mb-8 leading-relaxed">Engineered a suspended,
-                            earthquake-resistant data rack system for a leading Japanese tech conglomerate. Zero data
-                            loss during test simulations.</p>
-                        <div class="corner-accent"></div>
-                    </div>
-
-                    <!-- Project 9: Sky High -->
-                    <div class="project-card p-10 bg-white shadow-sm">
-                        <div class="flex justify-between items-start mb-6">
-                            <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2016 |
-                                Singapore</span>
-                            <span class="bg-slate-100 text-[10px] font-black px-3 py-1 uppercase tracking-tighter">URBAN
-                                DENSITY</span>
-                        </div>
-                        <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">SKY-HIGH INFRASTRUCTURE
-                        </h3>
-                        <p class="text-slate-600 mb-8 leading-relaxed">Early micro-data center
-                            deployment in a high-rise commercial tower. Solved critical heat-exhaust issues in
-                            restricted urban airflow zones.</p>
-                        <div class="corner-accent"></div>
-                    </div>
-
-                    <!-- Project 10: Heat-Shield -->
-                    <div class="project-card p-10 bg-white shadow-sm">
-                        <div class="flex justify-between items-start mb-6">
-                            <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2021 |
-                                Houston, Texas</span>
-                            <span
-                                class="bg-slate-100 text-[10px] font-black px-3 py-1 uppercase tracking-tighter italic">GRID
-                                RESILIENCE</span>
-                        </div>
-                        <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">PROJECT HEAT-SHIELD</h3>
-                        <p class="text-slate-600 mb-8 leading-relaxed">Overhauled a multi-state power
-                            utility's control center to handle grid surge protection during extreme weather events.</p>
-                        <div class="corner-accent"></div>
-                    </div>
-
-                </div>
-            </section>
-        </div>
-    </template>
-
-    <template x-if="page === 'orthomate'">
-        <div x-transition class="min-h-screen bg-slate-900 text-white">
-            <section class="ortho-gradient pt-32 pb-24 px-10">
-                <div class="max-w-5xl mx-auto text-center">
-                    <div class="inline-block border border-blue-500/30 px-4 py-1 rounded-full mb-8">
-                        <span class="text-blue-400 mono text-[10px] uppercase tracking-widest animate-pulse font-bold">●
-                            System Launch: OrthoMate™ v1.0</span>
-                    </div>
-                    <h2 class="text-5xl md:text-8xl font-black italic tracking-tighter leading-none mb-8">THE
-                        PRECISION<br><span class="text-blue-500">ALIGNMENT.</span></h2>
-                    <p class="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-12">
-                        Stop treating failure as an inevitability. OrthoMate™ is the industrial protocol that manages,
-                        cools, and governs your data ecosystem—automatically.
-                    </p>
-                </div>
-            </section>
-
-            <section class="py-24 px-10 border-y border-white/10 bg-slate-900/50">
-                <div class="max-w-6xl mx-auto">
-                    <div
-                        class="grid md:grid-cols-3 gap-1 shadow-2xl bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
-                        <div class="p-12 bg-slate-900 border-b md:border-b-0 md:border-r border-slate-700 feature-card">
-                            <div class="text-blue-500 font-black text-xs uppercase tracking-widest mb-6">[ PHASE 01 ]
-                            </div>
-                            <h4 class="text-2xl font-black mb-4 uppercase italic">Audit</h4>
-                            <p class="text-sm text-slate-400 leading-relaxed">We map your infrastructure posture. No
-                                fluff—just a hard diagnostic on your energy leaks.</p>
-                        </div>
-                        <div class="p-12 bg-slate-900 border-b md:border-b-0 md:border-r border-slate-700 feature-card">
-                            <div class="text-blue-500 font-black text-xs uppercase tracking-widest mb-6">[ PHASE 02 ]
-                            </div>
-                            <h4 class="text-2xl font-black mb-4 uppercase italic">Deployment</h4>
-                            <p class="text-sm text-slate-400 leading-relaxed">My team and I design and install systems
-                                with deterministic Predictive AI kernel. We shift your business from "chaos" to "order"
-                            </p>
-                        </div>
-                        <div class="p-12 bg-slate-900 feature-card">
-                            <div class="text-blue-500 font-black text-xs uppercase tracking-widest mb-6">[ PHASE 03 ]
-                            </div>
-                            <h4 class="text-2xl font-black mb-4 uppercase italic">Governance</h4>
-                            <p class="text-sm text-slate-400 leading-relaxed">We train you to manage until you are
-                                capable on your own, then hand over the keys to a self-sustaining system.</p>
-                        </div>
-                    </div>
-
-                    <div class="mt-20 glass p-12 rounded text-center">
-                        <h3 class="text-3xl font-black mb-4 italic uppercase">"OrthoMate is the cure for the Chaos Tax."
-                        </h3>
-                        <p class="mb-10 opacity-70 max-w-2xl mx-auto">Reduce operational waste by 40% and eliminate
-                            system failure. This isn't just software; it's industrial evolution.</p>
-                        <button @click="page = 'audit'"
-                            class="bg-blue-600 text-white px-12 py-5 font-black uppercase tracking-widest text-sm hover:bg-blue-500 transition shadow-xl">Apply
-                            for Audit Protocol</button>
+                    <div class="flex space-x-6">
+                        <a href="/projects/" class="btn-premium btn-primary px-10 py-5 text-xs">Case Studies</a>
+                        <a href="/Orthom8pro/" class="btn-premium btn-secondary px-10 py-5 text-xs">How it Works</a>
                     </div>
                 </div>
-            </section>
-        </div>
-    </template>
-
-    <template x-if="page === 'about'">
-        <div x-transition>
-            <section class="lake-gradient text-white py-32 px-10 relative overflow-hidden">
-                <div class="max-w-6xl mx-auto">
-                    <div
-                        class="inline-block bg-blue-600 text-[10px] font-black px-4 py-1 mb-6 uppercase tracking-[0.3em]">
-                        ESTABLISHED 2006</div>
-                    <h2 class="text-5xl md:text-8xl font-black italic tracking-tighter leading-none mb-8">
-                        20 YEARS OF <br> <span
-                            class="text-blue-400 font-light underline decoration-1 underline-offset-8">DATA
-                            DOMINANCE.</span>
-                    </h2>
-                    <p class="text-xl text-slate-300 max-w-2xl leading-relaxed">
-                        Wilbak Engineering marks two decades of structural and data engineering. We don't just solve
-                        problems; we outbuild them.
-                    </p>
-                </div>
-            </section>
-
-            <section class="py-24 px-10 bg-white">
-                <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
-                    <div>
-                        <h3 class="text-4xl font-black uppercase italic mb-8">The Professional Overview</h3>
-                        <div class="space-y-6 text-slate-600 leading-relaxed">
-                            <p>
-                                I am Wilhelm Rybak, a Data and Structural Engineer. I’ve spent two decades in the
-                                trenches of
-                                industrial infrastructure, moving between Doha's heat and Alaska's cold.
-                            </p>
-                            <p>
-                                My philosophy: **Nature is the ultimate engineer.** If you want a data grid to last,
-                                you leverage the environment. This obsession is why I demand rugged reliability from
-                                everything I build for businesses and Individuals.
-                            </p>
-                            <p class="font-bold text-slate-900 italic border-l-4 border-blue-600 pl-6">
-                                "My 'retirement plan' is a data center cooled by the lake outside my window. That's the
-                                level of obsession I bring to your project."
-                            </p>
-                        </div>
-                    </div>
-                    <div class="space-y-12">
-                        <div class="relative group">
-                            <img src="https://res.cloudinary.com/dt6n4pnjb/image/upload/v1771986355/02_edy5z7.png"
-                                alt="Wilhelm Rybak - Operations"
-                                class="w-full grayscale hover:grayscale-0 transition-all duration-700 rounded-sm shadow-2xl border border-slate-200">
-                            <div
-                                class="absolute -bottom-4 -left-4 bg-slate-900 text-white p-4 shadow-2xl skew-x-[-10deg] z-10">
-                                <div class="skew-x-[10deg]">
-                                    <h4 class="text-lg font-black uppercase italic">Wilhelm Rybak</h4>
-                                    <p class="text-[9px] mono text-blue-400 uppercase tracking-widest font-bold">Founder
-                                        / Principal</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative group pl-12">
-                            <img src="https://res.cloudinary.com/dt6n4pnjb/image/upload/v1771986354/01_xivigh.png"
-                                alt="Wilhelm Rybak - Data Center"
-                                class="w-full grayscale hover:grayscale-0 transition-all duration-700 rounded-sm shadow-2xl border border-slate-200">
-                            <div
-                                class="absolute -top-4 -right-4 bg-blue-600 text-white px-4 py-2 text-[10px] mono uppercase tracking-widest font-black">
-                                [ Infrastructure Node: GPU Cluster ]
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="py-24 px-10 bg-slate-50 border-t border-slate-200">
-                <div class="max-w-6xl mx-auto">
-                    <div class="grid md:grid-cols-2 gap-12">
-                        <div class="bg-white border border-slate-200 shadow-sm feature-card overflow-hidden">
-                            <img src="https://res.cloudinary.com/dt6n4pnjb/image/upload/v1771986353/04_aqxmqv.jpg"
-                                alt="Offshore Project Team"
-                                class="w-full h-64 object-cover grayscale hover:grayscale-0 transition-all duration-500">
-                            <div class="p-12">
-                                <h4 class="text-2xl font-black uppercase italic mb-6">Field & Structural</h4>
-                                <p class="text-slate-500 text-sm leading-relaxed mb-8">The boots-on-the-ground.
-                                    Specialists
-                                    in physical and safety gears, overhauling nodes under extreme conditions across the
-                                    USA
-                                    and
-                                    globally.</p>
-                                <div
-                                    class="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                                    <span class="w-2 h-2 rounded-full bg-green-500"></span>
-                                    <span>Deployment Ready: Houston, TX</span>
-                                </div>
-                            </div>
-                            <div class="bg-white border border-slate-200 shadow-sm feature-card overflow-hidden">
-                                <img src="https://res.cloudinary.com/dt6n4pnjb/image/upload/v1771986354/03_lw4vvv.png"
-                                    alt="Toyota Scaling Team"
-                                    class="w-full h-64 object-cover object-top grayscale hover:grayscale-0 transition-all duration-500">
-                                <div class="p-12">
-                                    <h4 class="text-2xl font-black uppercase italic mb-6">Data & AI Hub</h4>
-                                    <p class="text-slate-500 text-sm leading-relaxed mb-8">The logic behind OrthoMate™.
-                                        Elite
-                                        architects managing predictive AI training for Business Finance Management and
-                                        continuous delivery of technical
-                                        ecosystems. </p>
-                                    <div
-                                        class="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                                        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-                                        <span>Processing Protocol: v4.2</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-            </section>
-        </div>
-    </template>
-
-
-    <!-- Intelligence Center -->
-    <template x-if="page === 'intelligence'">
-        <div x-transition class="pt-32 pb-40 px-6 md:px-10 max-w-7xl mx-auto">
-            <header class="mb-24 text-center">
-                <div class="flex items-center justify-center space-x-3 mb-6">
-                    <span class="w-2 h-2 bg-blue-600 rounded-full animate-ping"></span>
-                    <div class="mono text-blue-600 text-[10px] font-black uppercase tracking-[0.4em]">[ ALGORITHMIC
-                        INTELLIGENCE HUB ]</div>
-                </div>
-                <h2 class="text-6xl md:text-9xl font-black italic uppercase tracking-tighter leading-none mb-8">
-                    BUSINESS INSIGHTS</h2>
-                <div class="h-1 w-24 bg-blue-600 mx-auto mb-10"></div>
-                <p class="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed font-bold tracking-tight">
-                    Transforming global markets into precise operational protocols.
-                </p>
-            </header>
-
-            <!-- BUSINESS INSIGHTS Snippets Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <template x-for="node in intelNodes" :key="node.id">
-                    <div class="group relative bg-white border border-slate-200 p-8 hover:border-blue-600 transition-all duration-500 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-2xl rounded-sm cursor-default">
-
-                        <div class="flex justify-between items-center mb-6">
-                            <span
-                                class="text-[8px] mono px-2 py-1 bg-blue-50 text-blue-600 rounded-full font-black uppercase tracking-widest italic"
-                                x-text="node.sector"></span>
-                            <span class="text-[9px] mono text-slate-400 font-bold"
-                                x-text="new Date(node.createdAt).toLocaleDateString()"></span>
-                        </div>
-
-                        <div class="space-y-4 mb-8">
-                            <h3 class="text-xl md:text-2xl font-black uppercase italic tracking-tighter leading-tight group-hover:text-blue-600 transition-colors"
-                                x-text="node.title"></h3>
-                            <p class="text-xs text-slate-500 font-bold tracking-tight leading-relaxed line-clamp-4"
-                                x-text="sanitizeText(node.insight)"></p>
-                        </div>
-
-                        <div class="space-y-4">
-                            <!-- Preview Image if exists -->
-                            <template x-if="node.images && node.images.length > 0">
-                                <div
-                                    class="aspect-video w-full overflow-hidden mb-4 border border-slate-100 p-1 group-hover:border-blue-100 transition-colors">
-                                    <img :src="node.images[0]"
-                                        class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-                                </div>
-                            </template>
-
-                            <a :href="`/insight/${node.id}`" @click.stop
-                                class="block w-full py-4 border-2 border-slate-900 text-slate-900 font-black uppercase italic text-xs skew-x-[-12deg] group-hover:bg-slate-900 group-hover:text-white transition-all overflow-hidden relative text-center">
-                                <span class="skew-x-[12deg] inline-block relative z-10 tracking-widest">READ FULL
-                                    ARTICLE</span>
-                            </a>
-                        </div>
-
-                        <!-- Interaction Stats -->
-                        <div
-                            class="mt-6 pt-6 border-t border-slate-50 flex items-center justify-between text-[10px] mono text-slate-400 font-black">
-                            <span>👍 <span x-text="node.likes"></span> VALUED</span>
-                            <span>👎 <span x-text="node.dislikes"></span> IRRELEVANT</span>
-                        </div>
-                    </div>
-                </template>
             </div>
+        </header>
 
-            <div x-show="loadingIntel" class="py-40 text-center">
-                <div
-                    class="w-16 h-16 border-2 border-slate-100 border-t-blue-600 rounded-full animate-spin mx-auto mb-10">
+        <!-- Trust Vault -->
+        <section class="relative z-20 px-10 -mt-12">
+            <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-blue-500 text-center">
+                    <div class="text-white font-black text-sm uppercase mb-1 tracking-tighter">Northrop Grumman</div>
+                    <div class="text-blue-400 mono text-[9px] uppercase tracking-widest">Defense Logic</div>
                 </div>
-                <p class="mono text-slate-400 text-[10px] uppercase tracking-[0.4em]">SYNCING INTELLIGENCE LEDGER...</p>
+                <div class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-slate-700 text-center">
+                    <div class="text-white font-black text-sm uppercase mb-1 tracking-tighter">Toyota</div>
+                    <div class="text-slate-400 mono text-[9px] uppercase tracking-widest">Supply Rigor</div>
+                </div>
+                <div class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-blue-500 text-center">
+                    <div class="text-white font-black text-sm uppercase mb-1 tracking-tighter">ConocoPhillips</div>
+                    <div class="text-blue-400 mono text-[9px] uppercase tracking-widest">Energy Flow</div>
+                </div>
+                <div class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-slate-700 text-center">
+                    <div class="text-white font-black text-sm uppercase mb-1 tracking-tighter">ASDA</div>
+                    <div class="text-slate-400 mono text-[9px] uppercase tracking-widest">Retail Scale</div>
+                </div>
+                <div class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-blue-500 text-center">
+                    <div class="text-white font-black text-sm uppercase mb-1 tracking-tighter">GEICO</div>
+                    <div class="text-blue-400 mono text-[9px] uppercase tracking-widest">Risk Guard</div>
+                </div>
             </div>
+        </section>
 
-            <div x-show="!loadingIntel && intelNodes.length === 0"
-                class="py-40 text-center border-2 border-dashed border-slate-100 rounded-sm">
-                <div class="text-6xl mb-8 opacity-10 italic font-black uppercase">Null Data</div>
-                <p class="mono text-slate-400 text-xs uppercase tracking-[0.3em] mb-4">Awaiting Market Signal</p>
-            </div>
-        </div>
-    </template>
-
-    <template x-if="page === 'contact'">
-        <div x-transition class="min-h-screen bg-white industrial-grid pt-32 pb-24 px-10">
+        <!-- Operational Gap -->
+        <section class="py-24 px-10 bg-white industrial-grid pt-32">
             <div class="max-w-6xl mx-auto">
-                <div class="mb-20">
-                    <div class="mono text-blue-600 text-sm mb-4 tracking-[0.4em] uppercase font-bold">[ Contact
-                        Information ]</div>
-                    <h2 class="text-5xl md:text-8xl font-black italic uppercase tracking-tighter leading-none mb-8">
-                        Let's<br><span class="text-blue-600">Connect.</span></h2>
-                    <p class="text-xl text-slate-500 max-w-2xl leading-relaxed">
-                        Ready to scale your business? Reach out to Wilhelm directly for technical inquiries and
-                        operational support. We ensure a fast response for all our partners.
-                    </p>
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-extrabold uppercase italic mb-4">The Operational Gap</h2>
+                    <p class="text-slate-500 uppercase tracking-widest text-xs font-bold font-mono italic">Small Business Inefficiency is the Invisible Profit Killer</p>
                 </div>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="p-10 bg-red-50 border-l-4 border-red-500">
+                        <h3 class="text-xl font-black uppercase mb-4 text-red-700 italic">The "Chaos Tax"</h3>
+                        <p class="text-slate-600 leading-relaxed">Manual processes and disconnected software systems eat 40% of your labor before a single sale is closed.</p>
+                    </div>
+                    <div class="p-10 bg-blue-50 border-l-4 border-blue-500">
+                        <h3 class="text-xl font-black uppercase mb-4 text-blue-700 italic">The Wilbak Alignment</h3>
+                        <p class="text-slate-600 leading-relaxed">Our Integrated Business Management Engines eliminates 90% of manual overhead by engineering deterministic logic.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                <div class="grid md:grid-cols-2 gap-16">
-                    <!-- Contact Methods -->
-                    <div class="space-y-12">
-                        <div
-                            class="bg-slate-50 border border-slate-200 p-10 hover:border-blue-500 transition-all duration-500 group">
-                            <div class="flex items-center space-x-3 mb-6">
-                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                    </path>
-                                </svg>
-                                <h4 class="font-bold uppercase text-xs tracking-widest text-slate-400 font-mono">Email
-                                    Address</h4>
-                            </div>
-                            <a href="mailto:wilhelm@wilbakengineering.com"
-                                class="text-xl md:text-2xl font-bold text-slate-900 hover:text-blue-600 transition-colors break-words">wilhelm@wilbakengineering.com</a>
-                            <div class="mt-4 text-[10px] mono text-slate-400 uppercase tracking-widest">Average
-                                Response: &lt; 4 Hours</div>
-                        </div>
-
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div
-                                class="bg-slate-50 border border-slate-200 p-10 hover:border-blue-500 transition-all duration-500">
-                                <div class="flex items-center space-x-3 mb-6">
-                                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
-                                        </path>
-                                    </svg>
-                                    <h4 class="font-bold uppercase text-xs tracking-widest text-slate-400 font-mono">
-                                        Direct Phone</h4>
-                                </div>
-                                <a href="tel:+12144939744"
-                                    class="text-xl font-bold text-slate-900 hover:text-blue-600 transition-colors">+1
-                                    214 493 9744</a>
-                            </div>
-                            <div
-                                class="bg-slate-50 border border-slate-200 p-10 hover:border-blue-500 transition-all duration-500">
-                                <div class="flex items-center space-x-3 mb-6">
-                                    <svg class="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="currentColor">
-                                        <path
-                                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                                    </svg>
-                                    <h4 class="font-bold uppercase text-xs tracking-widest text-slate-400 font-mono">
-                                        WhatsApp</h4>
-                                </div>
-                                <a href="https://wa.me/12144939744" target="_blank"
-                                    class="text-xl font-bold text-slate-900 hover:text-blue-600 transition-colors">Chat
-                                    with us</a>
-                            </div>
-                            <div
-                                class="bg-slate-50 border border-slate-200 p-10 hover:border-blue-500 transition-all duration-500">
-                                <div class="flex items-center space-x-3 mb-6">
-                                    <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                                    </svg>
-                                    <h4 class="font-bold uppercase text-xs tracking-widest text-slate-400 font-mono">
-                                        Facebook</h4>
-                                </div>
-                                <a href="https://www.facebook.com/profile.php?id=61583536514560&mibextid=wwXIfr&mibextid=wwXIfr"
-                                    target="_blank"
-                                    class="text-xl font-bold text-slate-900 hover:text-blue-600 transition-colors">Wilbak
-                                    Page</a>
-                            </div>
+        <!-- Testimonies -->
+        <section class="py-24 px-10 bg-slate-900 text-white relative">
+            <div class="max-w-6xl mx-auto">
+                <div class="mb-16">
+                    <div class="text-blue-500 mono text-xs uppercase tracking-[0.5em] mb-4">[ Mission Feedback ]</div>
+                    <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter">Verified testimonies</h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="p-8 border border-slate-800 bg-slate-900/50 hover:border-blue-500 transition group">
+                        <p class="text-slate-400 text-sm leading-relaxed mb-8 italic">"The Wilbak transition saved us $120k in annual manual drafting costs alone. Their logic is unbreakable."</p>
+                        <div class="border-t border-slate-800 pt-6">
+                            <h4 class="font-black uppercase italic text-sm">James McGough</h4>
+                            <p class="text-[9px] mono text-slate-500 uppercase tracking-widest mt-1 italic">CEO, Sterling Logistics</p>
                         </div>
                     </div>
-
-                    <!-- Location / Stats -->
-                    <div class="bg-slate-900 p-12 text-white relative overflow-hidden group">
-                        <div class="absolute inset-0 opacity-10 industrial-grid"></div>
-                        <div class="relative z-10">
-                            <h3 class="text-3xl font-black uppercase italic mb-10 tracking-tighter">Our Current Location
-                            </h3>
-
-                            <div class="space-y-8">
-                                <div>
-                                    <div class="text-blue-500 mono text-[10px] uppercase tracking-widest mb-2">[ Main
-                                        Office ]</div>
-                                    <p class="text-2xl font-black uppercase italic">Irving, Texas (USA)</p>
-                                </div>
-
-                                <div class="grid grid-cols-2 gap-8 pt-8 border-t border-slate-800">
-                                    <div>
-                                        <div class="text-slate-500 mono text-[10px] uppercase tracking-widest mb-2">
-                                            Operating Status</div>
-                                        <div class="flex items-center space-x-2">
-                                            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                                            <span class="font-bold uppercase text-xs">Always Active</span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="text-slate-500 mono text-[10px] uppercase tracking-widest mb-2">
-                                            Timezone</div>
-                                        <div class="font-bold uppercase text-xs">UTC -6 (CST)</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mt-12">
-                                <button @click="page = 'audit'" class="btn-premium btn-primary w-full py-5">
-                                    Get Free Audit
-                                </button>
-                            </div>
+                    <div class="p-8 border border-slate-800 bg-slate-900/50 hover:border-blue-500 transition group">
+                        <p class="text-slate-400 text-sm leading-relaxed mb-8 italic">"We eliminated the Chaos Tax in 90 days. Their Predictive AI kernels are simply unmatched."</p>
+                        <div class="border-t border-slate-800 pt-6">
+                            <h4 class="font-black uppercase italic text-sm">Rachel H. Ballack</h4>
+                            <p class="text-[9px] mono text-slate-500 uppercase tracking-widest mt-1 italic">Ops Manager, Vance Mfg</p>
+                        </div>
+                    </div>
+                    <div class="p-8 border border-slate-800 bg-slate-900/50 hover:border-blue-500 transition group">
+                        <p class="text-slate-400 text-sm leading-relaxed mb-8 italic">"Rugged, reliable, and deterministic. Wilbak doesn't just build systems; they build absolute certainty."</p>
+                        <div class="border-t border-slate-800 pt-6">
+                            <h4 class="font-black uppercase italic text-sm">Marcus Thorne</h4>
+                            <p class="text-[9px] mono text-slate-500 uppercase tracking-widest mt-1 italic">Founder, Thorne Supply</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </template>
+        </section>
+    </main>
 
-
-    <footer class="bg-slate-950 text-white pt-24 pb-12 px-10 relative overflow-hidden">
-        <!-- Technical Background Detail -->
-        <div class="absolute inset-0 opacity-5 pointer-events-none industrial-grid"></div>
-
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="grid md:grid-cols-12 gap-16 mb-24">
-                <!-- Brand Column -->
-                <div class="md:col-span-5">
-                    <div class="mb-6 h-12">
-                        <img src="logo.png" alt="WILBAK ENGINEERING"
-                            class="h-full object-contain filter brightness-0 invert">
-                    </div>
-                    <p class="max-w-md text-slate-400 text-sm leading-relaxed mb-8">
-                        Operational logic for businesses that value performance over hype. We build unbreakable systems
-                        for high-stakes environments, from Arctic nodes to logistics hubs.
-                    </p>
-                    <div class="flex space-x-5">
-                        <!-- Facebook -->
-                        <a href="https://www.facebook.com/profile.php?id=61583536514560&mibextid=wwXIfr&mibextid=wwXIfr"
-                            target="_blank"
-                            class="w-8 h-8 rounded-full border border-slate-800 flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                                <path
-                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                            </svg>
-                        </a>
-                        <!-- WhatsApp -->
-                        <a href="https://wa.me/12144939744" target="_blank"
-                            class="w-8 h-8 rounded-full border border-slate-800 flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                                <path
-                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                            </svg>
-                        </a>
-                        <!-- Email -->
-                        <a href="mailto:wilhelm@wilbakengineering.com"
-                            class="w-8 h-8 rounded-full border border-slate-800 flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 transition-all duration-300">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                                <path
-                                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Links Column -->
-                <div class="md:col-span-3">
-                    <h5 class="font-bold text-xs uppercase tracking-[0.3em] text-blue-500 mb-8">Navigation</h5>
-                    <ul class="space-y-4">
-                        <li @click="page = 'home'" class="footer-link text-xs uppercase font-bold tracking-widest">
-                            Command Center</li>
-                        <li @click="page = 'projects'" class="footer-link text-xs uppercase font-bold tracking-widest">
-                            Projects</li>
-                        <li @click="page = 'about'" class="footer-link text-xs uppercase font-bold tracking-widest">
-                            Operational Lead</li>
-                        <li @click="page = 'orthomate'" class="footer-link text-xs uppercase font-bold tracking-widest">
-                            System Protocol</li>
-                        <li @click="page = 'contact'" class="footer-link text-xs uppercase font-bold tracking-widest">
-                            Contact</li>
-                        <li @click="page = 'intelligence'; fetchIntel()"
-                            class="footer-link text-xs uppercase font-bold tracking-widest">
-                            News & Insights</li>
-                        <li @click="page = 'audit'"
-                            class="footer-link text-xs uppercase font-bold tracking-widest text-blue-500">
-                            Audit Protocol</li>
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-white pt-24 pb-12 px-10 text-center">
+        <div class="max-w-7xl mx-auto mb-16 border-b border-white/5 pb-16 grid md:grid-cols-2 gap-10 text-left">
+            <div>
+                <img src="logo.png" alt="WILBAK" class="h-10 mb-6 invert brightness-0">
+                <p class="text-slate-400 text-sm leading-relaxed max-w-sm">High-performance business logic for industries that demand zero failure. Engineering certainty since 2006.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-8">
+                <div>
+                    <h5 class="font-bold text-xs uppercase tracking-widest text-blue-500 mb-6">Explore</h5>
+                    <ul class="space-y-4 text-[10px] mono uppercase tracking-widest">
+                        <li><a href="/projects/" class="footer-link">Projects</a></li>
+                        <li><a href="/about/" class="footer-link">About</a></li>
+                        <li><a href="/insight/" class="footer-link">Insights</a></li>
                     </ul>
                 </div>
-
-                <!-- Status Column -->
-                <div class="md:col-span-4">
-                    <h5 class="font-bold text-xs uppercase tracking-[0.3em] text-slate-500 mb-8">System Status</h5>
-                    <div class="bg-slate-900 border border-slate-800 p-6 rounded-sm">
-                        <div class="space-y-3">
-                            <div class="flex justify-between items-center text-[10px] mono">
-                                <span class="text-slate-500 uppercase">Operational Status:</span>
-                                <span class="text-green-500 uppercase font-black">Active</span>
-                            </div>
-                            <div class="flex justify-between items-center text-[10px] mono">
-                                <span class="text-slate-500 uppercase">Current Operation:</span>
-                                <span class="text-slate-300">Gulf of Mexico, Louisiana, USA</span>
-                            </div>
-                            <div
-                                class="flex justify-between items-center text-[10px] mono border-t border-slate-800 pt-3 mt-3">
-                                <span class="text-slate-500 uppercase">Logistics:</span>
-                                <span class="text-blue-400">Managed by Gordon Foster</span>
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                    <h5 class="font-bold text-xs uppercase tracking-widest text-slate-500 mb-6">Contact</h5>
+                    <ul class="space-y-4 text-[10px] mono uppercase tracking-widest">
+                        <li><a href="/contact/" class="footer-link">Get in Touch</a></li>
+                        <li><a href="/audit/" class="footer-link text-blue-400">Request Audit</a></li>
+                    </ul>
                 </div>
             </div>
-
-            <div class="pt-10 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6">
-                <span class="text-[9px] font-bold text-slate-600 uppercase tracking-[0.4em]">© 2026 Wilbak Engineering
-                    Group // Built for Unbreakable Performance</span>
-                <div class="flex items-center space-x-2">
-                    <span class="w-1 h-1 rounded-full bg-blue-600"></span>
-                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-[0.4em]">Physics is the only
-                        law</span>
-                </div>
-            </div>
+        </div>
+        <div class="text-[9px] font-bold text-slate-600 uppercase tracking-[0.4em]">
+            © 2026 Wilbak Engineering Group // Built for Unbreakable Performance
         </div>
     </footer>
 
-    <!-- Transformation Modal -->
-    <div x-show="showModal" x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 translate-y-20" x-transition:enter-end="opacity-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0"
-        x-transition:leave-end="opacity-0 translate-y-20"
-        class="fixed inset-0 z-[110] flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-xl"
-        style="display: none;">
-        <div
-            class="bg-white max-w-2xl w-full rounded-[2.5rem] overflow-hidden shadow-[0_0_100px_rgba(37,99,235,0.2)] flex flex-col max-h-[90vh]">
-            <div class="p-8 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                <div>
-                    <span class="text-[10px] mono text-blue-600 font-bold uppercase tracking-widest">Wilbak Alignment
-                        Plan</span>
-                    <h3 class="text-2xl font-black italic font-lora text-slate-950">Phased Transformation Protocol</h3>
-                </div>
-                <button @click="showModal = false"
-                    class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center hover:bg-slate-200 transition-colors">
-                    <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                        </path>
-                    </svg>
-                </button>
-            </div>
+    <script>
+        // Loader logic
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('page-loader');
+            setTimeout(() => {
+                loader.classList.add('fade-out');
+                setTimeout(() => loader.style.display = 'none', 500);
+            }, 800);
+        });
 
-            <div class="p-10 overflow-y-auto space-y-10 custom-scrollbar">
-                <template x-if="selectedNode">
-                    <div class="space-y-12">
-                        <!-- Phase 1: Diagnosis -->
-                        <div class="relative pl-12">
-                            <div
-                                class="absolute left-0 top-0 w-8 h-8 bg-slate-900 rounded-full flex items-center justify-center text-white text-xs font-black">
-                                1</div>
-                            <div class="absolute left-4 top-8 bottom-[-40px] w-0.5 bg-slate-100"></div>
-                            <h4 class="text-[10px] mono text-blue-600 font-bold uppercase tracking-widest mb-2">Phase
-                                01: Operational Diagnosis</h4>
-                            <p class="text-lg text-slate-700 font-montserrat leading-relaxed"
-                                x-text="selectedNode.conversionStep?.phase1_diagnosis || selectedNode.conversionStep?.phase1 || selectedNode.conversionStep || 'Initial assessment protocol.'">
-                            </p>
-                        </div>
-
-                        <!-- Phase 2: Mapping -->
-                        <div class="relative pl-12">
-                            <div
-                                class="absolute left-0 top-0 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-black">
-                                2</div>
-                            <div class="absolute left-4 top-8 bottom-[-40px] w-0.5 bg-slate-100"></div>
-                            <h4 class="text-[10px] mono text-blue-600 font-bold uppercase tracking-widest mb-2">Phase
-                                02: Systems Mapping</h4>
-                            <p class="text-lg text-slate-700 font-montserrat leading-relaxed"
-                                x-text="selectedNode.conversionStep?.phase2_processMapping || selectedNode.conversionStep?.phase2 || 'Deployment of structural logic.'">
-                            </p>
-                        </div>
-
-                        <!-- Phase 3: Implementation -->
-                        <div class="relative pl-12">
-                            <div
-                                class="absolute left-0 top-0 w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white text-xs font-black">
-                                3</div>
-                            <h4 class="text-[10px] mono text-blue-600 font-bold uppercase tracking-widest mb-2">Phase
-                                03: Full Implementation</h4>
-                            <p class="text-lg text-slate-700 font-montserrat leading-relaxed"
-                                x-text="selectedNode.conversionStep?.phase3_systemImplementation || selectedNode.conversionStep?.phase3 || 'Operational scaling logic.'">
-                            </p>
-                        </div>
-                    </div>
-                </template>
-            </div>
-
-            <div class="p-8 bg-slate-50 border-t border-slate-100">
-                <button @click="showModal = false; showAuditModal = true; auditStep = 1"
-                    class="w-full py-5 bg-slate-900 text-white font-black italic tracking-[0.2em] text-xs skew-x-[-6deg] hover:bg-blue-600 transition-all">
-                    <span class="skew-x-[6deg] flex items-center justify-center">
-                        PROCEED TO AUDIT PROTOCOL <span class="ml-4">→</span>
-                    </span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Efficiency Audit Protocol Modal -->
-    <div x-show="showAuditModal" x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
-        x-transition:leave-end="opacity-0 scale-95"
-        class="fixed inset-0 z-[150] flex items-center justify-center p-4 md:p-10 bg-slate-950/90 backdrop-blur-xl">
-        <div
-            class="bg-white w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col relative rounded-sm border-t-8 border-blue-600">
-            <button @click="showAuditModal = false"
-                class="absolute top-6 right-6 w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center hover:bg-slate-200 z-[160]">
-                <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-
-            <div class="flex-grow overflow-y-auto p-10 md:p-16 custom-scrollbar">
-                <!-- Progress -->
-                <div
-                    class="mb-16 flex justify-between items-center text-[10px] font-black mono text-blue-500 uppercase tracking-widest">
-                    <div class="flex space-x-3">
-                        <template x-for="i in 5">
-                            <div class="h-1.5 w-12 rounded-full transition-all duration-500"
-                                :class="auditStep >= i ? 'bg-blue-600' : 'bg-slate-100'"></div>
-                        </template>
-                    </div>
-                    <span>Phase <span x-text="auditStep"></span> / 5</span>
-                </div>
-
-                <!-- Steps -->
-                <div class="relative min-h-[400px]">
-                    <div x-show="auditStep === 1" x-transition x-cloak>
-                        <h2 class="serif text-5xl md:text-7xl font-black italic mb-10 text-slate-900 leading-tight uppercase tracking-tighter">01. Sector Selection</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <template x-for="sector in [['Retail/E-commerce','Inventory & logistics'],['Professional Services','Client management'],['Industrial/Engineering','Manufacturing ops'],['Finance/Real Estate','Wealth & property']]">
-                                <button @click="industry = sector[0]; auditStep = 2"
-                                    class="p-10 border-2 border-slate-100 bg-slate-50 hover:bg-white hover:border-blue-600 transition-all text-left group">
-                                    <div class="font-black text-lg uppercase mb-2 italic text-slate-900 group-hover:text-blue-600 transition-colors" x-text="sector[0]"></div>
-                                    <div class="mono text-[10px] text-slate-400 uppercase tracking-widest" x-text="sector[1]"></div>
-                                </button>
-                            </template>
-                        </div>
-                    </div>
-
-                    <div x-show="auditStep === 2" x-transition x-cloak>
-                        <h2 class="serif text-5xl md:text-7xl font-black italic mb-8 text-slate-900 leading-tight uppercase tracking-tighter">02. Logic Mapping</h2>
-                        <p class="mono text-blue-600 text-[10px] mb-8 font-black uppercase tracking-[0.3em]">Describe your primary operational bottleneck.</p>
-                        <textarea x-model="businessDetail" rows="6"
-                            class="w-full p-8 bg-slate-50 border-2 border-slate-100 text-slate-950 mono text-xs uppercase tracking-widest outline-none focus:border-blue-600 focus:bg-white transition-all"
-                            placeholder="EX: MANUAL DATA ENTRY IN FINANCE..."></textarea>
-                        <div class="mt-12 flex justify-between items-center">
-                            <button @click="auditStep = 1"
-                                class="mono text-[10px] font-black uppercase text-slate-400 hover:text-blue-600 transition-colors">← Back</button>
-                            <button @click="auditStep = 3" :disabled="businessDetail.length < 10"
-                                class="btn-premium btn-primary px-16 py-6 disabled:opacity-20 text-xs">Confirm Logic</button>
-                        </div>
-                    </div>
-
-                    <div x-show="auditStep === 3" x-transition x-cloak>
-                        <h2 class="serif text-5xl md:text-7xl font-black italic mb-10 text-slate-900 leading-tight uppercase tracking-tighter">03. Identifier</h2>
-                        <div class="space-y-6">
-                            <input x-model="leadName" type="text" placeholder="EXECUTIVE NAME"
-                                class="w-full p-8 bg-slate-50 border-2 border-slate-100 mono text-xs focus:border-blue-600 focus:bg-white outline-none uppercase tracking-widest transition-all">
-                            <input x-model="leadEmail" type="email" placeholder="SECURE EMAIL"
-                                class="w-full p-8 bg-slate-50 border-2 border-slate-100 mono text-xs focus:border-blue-600 focus:bg-white outline-none uppercase tracking-widest transition-all">
-                        </div>
-                        <div class="mt-12 flex justify-between items-center">
-                            <button @click="auditStep = 2"
-                                class="mono text-[10px] font-black uppercase text-slate-400 hover:text-blue-600 transition-colors">← Back</button>
-                            <button @click="auditStep = 4" :disabled="!leadName || !leadEmail"
-                                class="btn-premium btn-primary px-16 py-6 disabled:opacity-20 text-xs">Continue</button>
-                        </div>
-                    </div>
-
-                    <div x-show="auditStep === 4" x-transition x-cloak>
-                        <h2 class="serif text-5xl md:text-7xl font-black italic mb-10 text-slate-900 leading-tight uppercase tracking-tighter">04. Connection</h2>
-                        <input x-model="leadPhone" type="tel" placeholder="MOBILE ACCESS (WHATSAPP)"
-                            class="w-full p-8 bg-slate-50 border-2 border-slate-100 mono text-xs focus:border-blue-600 focus:bg-white outline-none uppercase tracking-widest transition-all">
-                        <div class="mt-12 flex justify-between items-center">
-                            <button @click="auditStep = 3"
-                                class="mono text-[10px] font-black uppercase text-slate-400 hover:text-blue-600 transition-colors">← Back</button>
-                            <button @click="auditStep = 5" :disabled="!leadPhone"
-                                class="btn-premium btn-primary px-16 py-6 disabled:opacity-20 text-xs">Prepare transmission</button>
-                        </div>
-                    </div>
-
-                    <div x-show="auditStep === 5" x-transition x-cloak>
-                        <h2 class="serif text-5xl md:text-7xl font-black italic mb-10 text-slate-900 leading-tight uppercase tracking-tighter">05. Execute</h2>
-                        <div class="bg-slate-900 text-white p-12 mb-10 border-l-8 border-blue-600 relative overflow-hidden">
-                            <div class="absolute inset-0 opacity-10 industrial-grid"></div>
-                            <div class="relative z-10">
-                                <label class="text-[9px] mono text-blue-400 uppercase tracking-[0.4em] mb-4 block">Operation Summary</label>
-                                <div class="space-y-3">
-                                    <p class="text-lg font-black uppercase italic tracking-widest">Target Sector: <span class="text-blue-500" x-text="industry"></span></p>
-                                    <p class="text-lg font-black uppercase italic tracking-widest">Authorized By: <span class="text-blue-500" x-text="leadName"></span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <button @click="submitLead"
-                            class="w-full py-8 bg-blue-600 text-white font-black italic text-sm tracking-[0.4em] uppercase hover:bg-slate-950 transition-all shadow-2xl">
-                            INITIALIZE TRANSMISSION
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Full Report Modal (Real News Style) -->
-    <div x-show="showFullReportModal" x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0" class="fixed inset-0 z-[120] flex items-center justify-center p-0 md:p-8"
-        @keydown.escape.window="showFullReportModal = false" style="display: none;">
-
-        <div @click="showFullReportModal = false" class="absolute inset-0 bg-slate-900/95 backdrop-blur-md"></div>
-
-        <div class="relative bg-white w-full max-w-6xl h-full md:h-[95vh] overflow-hidden flex flex-col shadow-2xl rounded-sm"
-            @click.stop>
-
-            <!-- News Header -->
-            <div class="px-6 py-4 border-b border-slate-200 flex justify-between items-center bg-white z-20">
-                <div class="flex items-center space-x-4">
-                    <span class="text-[10px] mono text-blue-600 font-black uppercase tracking-widest italic"
-                        x-text="selectedNode?.sector"></span>
-                    <div class="h-4 w-[1px] bg-slate-200"></div>
-                    <span class="text-[10px] mono text-slate-400 font-bold"
-                        x-text="selectedNode ? new Date(selectedNode.createdAt).toLocaleDateString() : ''"></span>
-                </div>
-                <button @click="showFullReportModal = false" class="p-2 hover:bg-slate-100 transition-colors">
-                    <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                        </path>
-                    </svg>
-                </button>
-            </div>
-
-            <!-- News Content -->
-            <div class="flex-grow overflow-y-auto hide-scrollbar">
-
-                <!-- Headline Area -->
-                <div class="px-6 md:px-20 py-16 md:py-24 border-b border-slate-100 bg-slate-50/50">
-                    <div class="max-w-4xl mx-auto text-center md:text-left">
-                        <label class="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em] mb-6 block">Wilbak
-                            Strategic IntelligenceBriefing</label>
-                        <h1 class="text-4xl md:text-7xl font-black uppercase italic tracking-tighter leading-[0.9] text-slate-950 mb-10"
-                            x-text="selectedNode?.title"></h1>
-                        <p class="text-xl md:text-2xl text-slate-600 font-bold tracking-tight leading-relaxed italic"
-                            x-text="sanitizeText(selectedNode?.insight)"></p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
-                    <!-- Main Article Body -->
-                    <div class="lg:col-span-8 px-6 md:px-20 py-16 lg:border-r border-slate-100">
-
-                        <!-- Premium Image Gallery -->
-                        <template x-if="selectedNode?.images && selectedNode?.images.length > 0">
-                            <div class="space-y-6 mb-16">
-                                <div
-                                    class="aspect-video w-full bg-slate-100 overflow-hidden border border-slate-200 p-1 rounded-sm shadow-xl">
-                                    <img :src="selectedNode.images[0]" class="w-full h-full object-cover">
-                                </div>
-                                <template x-if="selectedNode.images.length > 1">
-                                    <div class="grid grid-cols-2 gap-6">
-                                        <template x-for="(img, index) in selectedNode.images.slice(1, 3)">
-                                            <div
-                                                class="aspect-square bg-slate-100 overflow-hidden border border-slate-200 p-1 rounded-sm shadow-lg">
-                                                <img :src="img" class="w-full h-full object-cover">
-                                            </div>
-                                        </template>
-                                    </div>
-                                </template>
-                            </div>
-                        </template>
-
-                        <div class="space-y-16">
-                            <!-- Field: Market Event -->
-                            <section>
-                                <label
-                                    class="text-[10px] mono text-blue-600 uppercase tracking-widest font-black mb-6 flex items-center">
-                                    <span class="w-8 h-px bg-blue-600 mr-3"></span> Market Dynamics Analysis
-                                </label>
-                                <div class="text-lg text-slate-800 leading-relaxed font-bold tracking-tight">
-                                    <p x-text="sanitizeText(selectedNode?.marketEvent)"></p>
-                                </div>
-                            </section>
-
-                            <!-- Field: Logic Analysis -->
-                            <section>
-                                <label
-                                    class="text-[10px] mono text-blue-600 uppercase tracking-widest font-black mb-6 flex items-center">
-                                    <span class="w-8 h-px bg-blue-600 mr-3"></span> Engine Logic Processing
-                                </label>
-                                <div
-                                    class="text-lg text-slate-800 leading-relaxed space-y-4 font-bold uppercase tracking-tight">
-                                    <p x-text="sanitizeText(selectedNode?.logicAnalysis)"></p>
-                                </div>
-                            </section>
-
-                            <!-- Custom Rendering for Frameworks -->
-                            <section x-show="selectedNode?.logicFramework">
-                                <label
-                                    class="text-[10px] mono text-blue-600 uppercase tracking-widest font-black mb-6 flex items-center">
-                                    <span class="w-8 h-px bg-blue-600 mr-3"></span> Strategic Frameworks
-                                </label>
-                                <div class="pt-2" x-html="renderNested(selectedNode?.logicFramework)"></div>
-                            </section>
-
-                            <!-- Custom Rendering for Conversion -->
-                            <section x-show="selectedNode?.conversionStep">
-                                <label
-                                    class="text-[10px] mono text-blue-600 uppercase tracking-widest font-black mb-6 flex items-center">
-                                    <span class="w-8 h-px bg-blue-600 mr-3"></span> Implementation Roadmap
-                                </label>
-                                <div class="pt-2" x-html="renderNested(selectedNode?.conversionStep)"></div>
-                            </section>
-
-                            <!-- Strategic Conclusion -->
-                            <section x-show="selectedNode?.strategicConclusion"
-                                class="bg-slate-900 text-white p-12 border-l-8 border-blue-600 mt-20">
-                                <label
-                                    class="text-[10px] mono text-blue-500 uppercase tracking-widest font-black mb-4 block">Executive
-                                    Summary</label>
-                                <blockquote
-                                    class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter leading-tight"
-                                    x-text="sanitizeText(selectedNode?.strategicConclusion)"></blockquote>
-                            </section>
-                        </div>
-                    </div>
-
-                    <!-- Sidebar Interaction -->
-                    <div class="lg:col-span-4 bg-slate-50/80 flex flex-col">
-                        <div class="p-8 md:p-12 space-y-12 h-fit lg:sticky lg:top-0">
-
-                            <!-- Voting Tools -->
-                            <section class="space-y-6">
-                                <label
-                                    class="text-[10px] mono text-slate-400 uppercase tracking-widest font-black block">Intel
-                                    Valuation</label>
-                                <div class="flex flex-col space-y-3">
-                                    <button @click="vote(selectedNode.id, 'LIKE')"
-                                        class="flex items-center justify-between px-6 py-5 border-2 transition-all font-black italic text-xs skew-x-[-12deg]"
-                                        :class="selectedNode?.userVote === 'LIKE' ? 'bg-green-600 border-green-600 text-white' : 'border-slate-800 text-slate-800 hover:border-green-600 hover:text-green-600'">
-                                        <span class="skew-x-[12deg]">VALUABLE ASSET</span>
-                                        <span class="skew-x-[12deg] text-[10px]" x-text="selectedNode?.likes"></span>
-                                    </button>
-                                    <button @click="vote(selectedNode.id, 'DISLIKE')"
-                                        class="flex items-center justify-between px-6 py-5 border-2 transition-all font-black italic text-xs skew-x-[-12deg]"
-                                        :class="selectedNode?.userVote === 'DISLIKE' ? 'bg-red-600 border-red-600 text-white' : 'border-slate-800 text-slate-800 hover:border-red-600 hover:text-red-600'">
-                                        <span class="skew-x-[12deg]">NON-RELEVANT SIGNAL</span>
-                                        <span class="skew-x-[12deg] text-[10px]" x-text="selectedNode?.dislikes"></span>
-                                    </button>
-                                </div>
-                            </section>
-
-                            <!-- Distribution -->
-                            <section x-show="selectedNode?.sourceUrl">
-                                <label
-                                    class="text-[10px] mono text-slate-400 uppercase tracking-widest font-black block mb-4">Original
-                                    Signal Source</label>
-                                <a :href="selectedNode?.sourceUrl" target="_blank"
-                                    class="block w-full text-center py-4 bg-slate-200 text-slate-600 font-black text-[10px] uppercase tracking-widest hover:bg-slate-900 hover:text-white transition-all italic">
-                                    VERIFY AT SOURCE
-                                </a>
-                            </section>
-
-                            <!-- CONVERSION CTA (Only in Modal) -->
-                            <div class="pt-8 border-t border-slate-200">
-                                <section
-                                    class="bg-blue-600 text-white p-8 rounded-sm shadow-2xl relative overflow-hidden group">
-                                    <div
-                                        class="absolute inset-0 bg-white/5 industrial-grid opacity-20 pointer-events-none">
-                                    </div>
-                                    <h4
-                                        class="text-2xl font-black uppercase italic tracking-tighter leading-none mb-4 relative z-10">
-                                        Scale your Operations?</h4>
-                                    <p
-                                        class="text-[10px] uppercase font-bold opacity-80 leading-relaxed mb-8 relative z-10">
-                                        Authorized Wilbak efficiency audit for <span
-                                            x-text="selectedNode?.sector"></span> sectors.</p>
-                                    <button @click="openTransformationModal(selectedNode)"
-                                        class="w-full py-5 bg-white text-blue-600 font-black uppercase italic text-xs skew-x-[-12deg] hover:bg-slate-950 hover:text-white transition-all relative z-10">
-                                        <span class="skew-x-[12deg] inline-block tracking-widest">START FREE
-                                            AUDIT</span>
-                                    </button>
-                                </section>
-
-                                <button
-                                    onclick="const url = `${window.location.origin}/insight/${selectedNode.id}`; navigator.clipboard.writeText(url).then(() => WebApp.showAlert('LINK COPIED.'))"
-                                    class="w-full mt-6 py-4 border-2 border-slate-300 text-slate-400 font-bold uppercase text-[9px] tracking-widest hover:border-slate-800 hover:text-slate-800 transition-all italic">
-                                    ENCRYPT & SHARE LINK
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div x-show="successModal" x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
-        x-transition:leave-end="opacity-0 scale-95"
-        class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-900/40 backdrop-blur-sm"
-        style="display: none;">
-        <div
-            class="bg-white max-w-lg w-full p-12 text-center rounded-sm border-t-4 border-blue-600 shadow-2xl relative overflow-hidden">
-            <!-- Background Scanned Detail -->
-            <div class="absolute inset-0 opacity-10 pointer-events-none industrial-grid"></div>
-
-            <div class="relative z-10">
-                <div
-                    class="w-20 h-20 bg-blue-600 rounded-full mx-auto flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(37,99,235,0.2)]">
-                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                </div>
-
-                <div class="mono text-blue-600 text-[10px] mb-4 tracking-[0.4em] uppercase font-black">Mission Complete
-                </div>
-                <h3 class="text-4xl font-black text-slate-900 italic uppercase tracking-tighter mb-6">Information
-                    Received.
-                </h3>
-                <p class="text-slate-600 mb-10 leading-relaxed font-bold uppercase text-xs tracking-widest">WilBak
-                    Engineering Team
-                    is analyzing your Information. The Full Alignment Plan will be transmitted
-                    shortly.</p>
-
-                <button @click="successModal = false; page = 'home'"
-                    class="btn-premium btn-primary w-full py-5 text-sm">
-                    Return to Homepage
-                </button>
-            </div>
-        </div>
-    </div>
+        // Intercept link clicks to show loader
+        document.querySelectorAll('a').forEach(link => {
+            if (link.hostname === window.location.hostname && !link.hash) {
+                link.addEventListener('click', (e) => {
+                    const loader = document.getElementById('page-loader');
+                    loader.style.display = 'flex';
+                    loader.classList.remove('fade-out');
+                });
+            }
+        });
+    </script>
 </body>
-
 </html>

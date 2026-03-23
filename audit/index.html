@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Audit | Wilbak Engineering</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@100..800&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --neon-blue: #0076FF; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0A0C10; color: #E2E8F0; }
+        .mono { font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+        .serif { font-family: 'Lora', serif; }
+        .industrial-grid { background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 40px 40px; }
+        
+        #page-loader { position: fixed; inset: 0; background: #0A0C10; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease; }
+        #page-loader.fade-out { opacity: 0; pointer-events: none; }
+        .loader-spin { width: 40px; height: 40px; border: 3px solid rgba(0, 118, 255, 0.1); border-top: 3px solid #0076FF; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+
+<body x-data="auditApp">
+
+    <div id="page-loader">
+        <div class="loader-spin mb-4"></div>
+        <div class="mono text-[10px] text-blue-500 uppercase tracking-[0.4em] animate-pulse">Initializing Protocol...</div>
+    </div>
+
+    <nav class="flex justify-between items-center px-6 md:px-10 py-6 bg-slate-950 border-b border-white/5 sticky top-0 z-50">
+        <a href="/"><img src="/logo.png" alt="WILBAK" class="h-8 md:h-10 invert"></a>
+        <div class="hidden md:flex items-center space-x-10 font-bold text-xs uppercase tracking-[0.2em]">
+            <a href="/" class="text-slate-500 hover:text-blue-600 transition">Home</a>
+            <a href="/projects/" class="text-slate-500 hover:text-blue-600 transition">Projects</a>
+            <a href="/about/" class="text-slate-500 hover:text-blue-600 transition">About</a>
+            <a href="/Orthom8pro/" class="text-slate-500 hover:text-blue-600 transition">OrthoMate™</a>
+            <a href="/contact/" class="text-slate-500 hover:text-blue-600 transition">Contact</a>
+            <a href="/insight/" class="text-slate-500 hover:text-blue-600 transition">News & Insights</a>
+            <a href="/audit/" class="text-blue-600 transition tracking-[0.4em] italic font-black">Audit Protocol</a>
+        </div>
+        <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-white">☰</button>
+    </nav>
+
+    <main class="min-h-screen bg-slate-900 industrial-grid flex items-center justify-center p-4">
+        <div class="bg-white text-slate-900 w-full max-w-4xl shadow-2xl rounded-sm border-t-8 border-blue-600 overflow-hidden min-h-[600px] flex flex-col">
+            
+            <div x-show="!success" x-transition class="flex-grow p-10 md:p-16">
+                <!-- Progress -->
+                <div class="mb-16 flex justify-between items-center text-[10px] font-black mono text-blue-500 uppercase tracking-widest">
+                    <div class="flex space-x-3">
+                        <template x-for="i in 5">
+                            <div class="h-1.5 w-12 rounded-full transition-all duration-500"
+                                :class="step >= i ? 'bg-blue-600' : 'bg-slate-100'"></div>
+                        </template>
+                    </div>
+                    <span>Phase <span x-text="step"></span> / 5</span>
+                </div>
+
+                <!-- Steps -->
+                <div class="relative min-h-[400px]">
+                    <div x-show="step === 1" x-transition x-cloak>
+                        <h2 class="serif text-5xl md:text-7xl font-black italic mb-10 uppercase tracking-tighter">01. Sector Selection</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <template x-for="sector in [['Retail','Logistics'],['Service','Client management'],['Engineering','Manufacturing ops'],['Finance','Wealth management']]">
+                                <button @click="industry = sector[0]; step = 2"
+                                    class="p-10 border-2 border-slate-100 bg-slate-50 hover:bg-white hover:border-blue-600 transition text-left group">
+                                    <div class="font-black text-lg uppercase mb-2 italic text-slate-900 group-hover:text-blue-600 transition" x-text="sector[0]"></div>
+                                    <div class="mono text-[10px] text-slate-400 uppercase tracking-widest" x-text="sector[1]"></div>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+
+                    <div x-show="step === 2" x-transition x-cloak>
+                        <h2 class="serif text-5xl md:text-7xl font-black italic mb-8 uppercase tracking-tighter">02. Logic Mapping</h2>
+                        <textarea x-model="businessDetail" rows="6"
+                            class="w-full p-8 bg-slate-50 border-2 border-slate-100 mono text-xs uppercase tracking-widest outline-none focus:border-blue-600 focus:bg-white transition"
+                            placeholder="DESCRIBE BOTTLENECK..."></textarea>
+                        <div class="mt-12 flex justify-between items-center">
+                            <button @click="step = 1" class="mono text-[10px] font-black uppercase text-slate-400">← Back</button>
+                            <button @click="step = 3" :disabled="businessDetail.length < 10"
+                                class="bg-slate-900 text-white px-16 py-6 font-black uppercase tracking-widest text-xs disabled:opacity-20 hover:bg-blue-600 transition">Confirm Logic</button>
+                        </div>
+                    </div>
+
+                    <div x-show="step === 3" x-transition x-cloak>
+                        <h2 class="serif text-5xl md:text-7xl font-black italic mb-10 uppercase tracking-tighter">03. Identifier</h2>
+                        <div class="space-y-6">
+                            <input x-model="leadName" type="text" placeholder="NAME" class="w-full p-8 bg-slate-50 border-2 border-slate-100 mono text-xs uppercase tracking-widest outline-none focus:border-blue-600 transition">
+                            <input x-model="leadEmail" type="email" placeholder="EMAIL" class="w-full p-8 bg-slate-50 border-2 border-slate-100 mono text-xs uppercase tracking-widest outline-none focus:border-blue-600 transition">
+                        </div>
+                        <div class="mt-12 flex justify-between items-center">
+                            <button @click="step = 2" class="mono text-[10px] font-black uppercase text-slate-400">← Back</button>
+                            <button @click="step = 4" :disabled="!leadName || !leadEmail"
+                                class="bg-slate-900 text-white px-16 py-6 font-black uppercase tracking-widest text-xs disabled:opacity-20 hover:bg-blue-600 transition">Continue</button>
+                        </div>
+                    </div>
+
+                    <div x-show="step === 4" x-transition x-cloak>
+                        <h2 class="serif text-5xl md:text-7xl font-black italic mb-10 uppercase tracking-tighter">04. Connection</h2>
+                        <input x-model="leadPhone" type="tel" placeholder="PHONE" class="w-full p-8 bg-slate-50 border-2 border-slate-100 mono text-xs uppercase tracking-widest outline-none focus:border-blue-600 transition">
+                        <div class="mt-12 flex justify-between items-center">
+                            <button @click="step = 3" class="mono text-[10px] font-black uppercase text-slate-400">← Back</button>
+                            <button @click="step = 5" :disabled="!leadPhone"
+                                class="bg-slate-900 text-white px-16 py-6 font-black uppercase tracking-widest text-xs disabled:opacity-20 hover:bg-blue-600 transition">Finalize</button>
+                        </div>
+                    </div>
+
+                    <div x-show="step === 5" x-transition x-cloak>
+                        <h2 class="serif text-5xl md:text-7xl font-black italic mb-10 uppercase tracking-tighter">05. Execute</h2>
+                        <div class="bg-slate-900 text-white p-12 mb-10 border-l-8 border-blue-600 relative">
+                            <p class="text-[10px] mono text-blue-400 uppercase tracking-[0.4em] mb-4">Draft Summary</p>
+                            <div class="space-y-3 font-black uppercase italic tracking-widest text-xl">
+                                <p>Sector: <span class="text-blue-500" x-text="industry"></span></p>
+                                <p>Lead: <span class="text-blue-500" x-text="leadName"></span></p>
+                            </div>
+                        </div>
+                        <button @click="submitAudit" class="w-full py-8 bg-blue-600 text-white font-black italic tracking-[0.4em] uppercase hover:bg-slate-950 transition shadow-2xl">INITIALIZE TRANSMISSION</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success State -->
+            <div x-show="success" x-transition class="flex-grow p-16 text-center flex flex-col items-center justify-center">
+                <h3 class="serif text-4xl font-black text-slate-900 italic uppercase tracking-tighter mb-6">Transmission Received.</h3>
+                <p class="text-slate-500 mb-10 font-bold uppercase text-xs tracking-widest">Wilbak Engineering is analyzing your operational DNA.</p>
+                <a href="/" class="bg-slate-900 text-white px-12 py-5 font-black uppercase text-xs tracking-widest">Return to Base</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('auditApp', () => ({
+                step: 1,
+                industry: '',
+                businessDetail: '',
+                leadName: '',
+                leadEmail: '',
+                leadPhone: '',
+                success: false,
+                mobileMenu: false,
+                async submitAudit() {
+                    const data = {
+                        industry: this.industry,
+                        businessDetail: this.businessDetail,
+                        auditName: this.leadName,
+                        auditEmail: this.leadEmail,
+                        auditPhone: this.leadPhone
+                    };
+                    try {
+                        const res = await fetch('/api/audit', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data)
+                        });
+                        if (res.ok) this.success = true;
+                        else alert('Transmission failed.');
+                    } catch (e) {
+                        console.error('Audit Error:', e);
+                    }
+                }
+            }));
+        });
+
+        window.addEventListener('load', () => {
+            setTimeout(() => { document.getElementById('page-loader').classList.add('fade-out'); }, 500);
+        });
+    </script>
+</body>
+</html>
