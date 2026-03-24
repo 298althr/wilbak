@@ -1,0 +1,66 @@
+{
+  "page_meta": {
+    "title": "Our Team — Ortho'M8 AI Trading",
+    "theme": "dark"
+  },
+  "hero": {
+    "eyebrow": "Our Mission",
+    "heading": "Engineered for Trust. Driven by Intelligence.",
+    "description": "Ortho'M8 was founded on a simple principle: high-performance trading should be governed by logic, not emotion. We bridge the gap between technical complexity and transparent execution."
+  },
+  "board_of_directors": {
+    "eyebrow": "Board of Directors",
+    "heading": "Sovereign Oversight, Strategic Governance.",
+    "description": "Our board of directors brings together global expertise in quantitative finance, cybersecurity, and capital management. Every line of code in the Ortho'M8 pipeline is reviewed by specialists who understand the weight of institutional responsibility.",
+    "quote": "Transparency is not a feature; it is our foundation. Our directors ensure that every checkpoint in the 11-step pipeline adheres to global compliance and risk standards, protecting the sovereign anchor of every deployment.",
+    "image_url": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1774340162/IMG_1194_nunvgj_egct2t.jpg"
+  },
+  "founder_section": {
+    "eyebrow": "The Visionary",
+    "heading": "Founder's Note on Precision & Trust.",
+    "description": "The engine behind Ortho'M8 was born from a decade of experience in industrial engineering and high-speed infrastructure. Our goal was to create an emotionless execution relay for serious capital.",
+    "image_url": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1774340167/IMG_1201_n07tz1_raycbz.png"
+  },
+  "team_members": [
+    {
+      "name": "Marcus Thorne",
+      "title": "Director of Algorithmic Strategy",
+      "image": "1.png"
+    },
+    {
+      "name": "Sophia Chen",
+      "title": "Head of Data Engineering",
+      "image": "2.png"
+    },
+    {
+      "name": "David Miller",
+      "title": "Chief Risk Officer",
+      "image": "3.png"
+    },
+    {
+      "name": "Elena Rodriguez",
+      "title": "Director of Quantitative Research",
+      "image": "4.png"
+    }
+  ],
+  "directors_quote": "Ortho'M8 is the culmination of our belief that data, when properly gated, is the most powerful asset in any market.",
+  "footer": {
+    "brand_desc": "Ortho'M8 is an Algorithmic Capital Management system built for business excellence. Fully automated, risk-hardened, and transparent — securing your capital through intelligent engineering.",
+    "links": {
+      "platform": [
+        { "label": "How It Works", "url": "/Orthom8pro/#engine" },
+        { "label": "Performance", "url": "/Orthom8pro/#performance" }
+      ],
+      "get_started": [
+        { "label": "Book a Consultation", "url": "/audit/" },
+        { "label": "Client Portal", "url": "/contact/" }
+      ],
+      "company": [
+        { "label": "Our Team", "url": "/Orthom8pro/our-team/" },
+        { "label": "Contact", "url": "/contact/" }
+      ]
+    },
+    "copyright": "© 2025 ORTHOM8PRO — All rights reserved.",
+    "risk_disclaimer": "Trading involves risk and past performance does not guarantee future results."
+  }
+}

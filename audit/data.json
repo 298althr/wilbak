@@ -1,0 +1,67 @@
+{
+  "page_meta": {
+    "title": "Audit Protocol — Ortho'M8 AI Trading",
+    "theme": "dark"
+  },
+  "welcome_gate": {
+    "heading": "Audit Protocol",
+    "status": "Initializing audit protocol…"
+  },
+  "hero": {
+    "eyebrow": "Audit Protocol",
+    "heading": "Initialize Your Institutional Audit."
+  },
+  "form_steps": [
+    {
+      "step": 1,
+      "title": "01 — SELECT SECTOR TIER",
+      "options": [
+        { "name": "Retail Tier", "description": "Supply & E-comm" },
+        { "name": "Service Tier", "description": "Managed Services" },
+        { "name": "Engineering Tier", "description": "Industrial Overhaul" },
+        { "name": "Asset Tier", "description": "Real Estate & Finance" }
+      ]
+    },
+    {
+      "step": 2,
+      "title": "02 — CALIBRATION NOTES",
+      "placeholder": "DESCRIBE CURRENT OPERATIONAL FRICTION..."
+    },
+    {
+      "step": 3,
+      "title": "03 — PRINCIPAL IDENTIFIER",
+      "placeholders": ["FULL LEGAL NAME", "INSTITUTIONAL EMAIL"]
+    },
+    {
+      "step": 4,
+      "title": "04 — SECURE LINK",
+      "placeholder": "DIRECT PHONE NUMBER",
+      "button": "INITIALIZE TRANSMISSION"
+    }
+  ],
+  "photo_side": {
+    "video_url": "https://res.cloudinary.com/dgz88jxiy/video/upload/v1774275213/efb22533077888224530dec240bb54bc_clwgsj.mp4",
+    "badge": {
+      "id": "PROTO ID: OM8-AUD-V4",
+      "value": "95.0% Node Precision."
+    }
+  },
+  "footer": {
+    "brand_desc": "Ortho'M8 is an Algorithmic Capital Management system built for business excellence. Fully automated, risk-hardened, and transparent — securing your capital through intelligent engineering.",
+    "links": {
+      "platform": [
+        { "label": "How It Works", "url": "/Orthom8pro/#engine" },
+        { "label": "Performance", "url": "/Orthom8pro/#performance" }
+      ],
+      "identity": [
+        { "label": "Our Team", "url": "/Orthom8pro/our-team/" },
+        { "label": "Contact Office", "url": "/contact/" }
+      ],
+      "legal": [
+        { "label": "Compliance", "url": "#" },
+        { "label": "Privacy Protocol", "url": "#" }
+      ]
+    },
+    "disclaimer": "© 2025 ORTHOM8PRO — All rights reserved. Trading involves risk and past performance does not guarantee future results. This platform is intended for informational purposes only and does not constitute financial advice."
+  }
+}

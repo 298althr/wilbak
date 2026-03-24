@@ -1,0 +1,42 @@
+{
+  "page_meta": {
+    "title": "Projects | Wilbak Engineering"
+  },
+  "hero": {
+    "heading": "Our Projects.",
+    "protocol": "[ Operational History: 2016 — 2026 ]",
+    "description": "A record of infrastructure and management systems built under pressure globally."
+  },
+  "projects": [
+    {
+      "year": "2023",
+      "location": "Oslo, Norway",
+      "tag": "RENEWABLE INTEGRATION",
+      "title": "NORWAY COMMERCIAL BANK",
+      "description": "High-availability data center integrated directly into a wind farm's power grid."
+    },
+    {
+      "year": "2020",
+      "location": "Anchorage, Alaska",
+      "tag": "HIGH-STAKES",
+      "tag_type": "alert",
+      "title": "ARCTIC OVERHAUL",
+      "description": "Full data center overhaul during the 2020 pandemic isolation protocols."
+    },
+    {
+      "year": "2022",
+      "location": "Doha, Qatar",
+      "title": "DOHA MARITIME CENTER",
+      "description": "Coastal mini-facility for World Cup data processing with seawater cooling."
+    },
+    {
+      "year": "2018",
+      "location": "Toyota HQ",
+      "title": "TOYOTA DATA PLANT",
+      "description": "Managing hyper-redundant power systems for manufacturing assembly continuity."
+    }
+  ],
+  "footer": {
+    "copyright": "© 2026 Wilbak Engineering Group // Built for Unbreakable Performance"
+  }
+}

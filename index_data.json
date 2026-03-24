@@ -1,0 +1,64 @@
+{
+  "navigation": [
+    { "label": "Home", "url": "/" },
+    { "label": "Projects", "url": "/projects/" },
+    { "label": "About", "url": "/about/" },
+    { "label": "Ortho'M8", "url": "/Orthom8pro/" },
+    { "label": "Contact", "url": "/contact/" },
+    { "label": "News & Insights", "url": "/insight/" },
+    { "label": "Business Audit", "url": "/audit/", "type": "premium" }
+  ],
+  "hero": {
+    "protocol": "Operational Protocol: v3.1",
+    "heading": "ENGINEERING BUSINESS DATA.",
+    "subheading": "We eliminate the \"Chaos Tax\" on your business. High-performance infrastructure engineered for zero failure.",
+    "cta": [
+      { "label": "Case Studies", "url": "/projects/" },
+      { "label": "How it Works", "url": "/Orthom8pro/" }
+    ]
+  },
+  "trust_vault": [
+    { "name": "Northrop Grumman", "label": "Defense Logic" },
+    { "name": "Toyota", "label": "Supply Rigor" },
+    { "name": "ConocoPhillips", "label": "Energy Flow" },
+    { "name": "ASDA", "label": "Retail Scale" },
+    { "name": "GEICO", "label": "Risk Guard" }
+  ],
+  "operational_gap": {
+    "heading": "The Operational Gap",
+    "subheading": "Small Business Inefficiency is the Invisible Profit Killer",
+    "chaos_tax": {
+      "title": "The \"Chaos Tax\"",
+      "description": "Manual processes and disconnected software systems eat 40% of your labor before a single sale is closed."
+    },
+    "wilbak_alignment": {
+      "title": "The Wilbak Alignment",
+      "description": "Our Integrated Business Management Engines eliminates 90% of manual overhead by engineering deterministic logic."
+    }
+  },
+  "testimonies": {
+    "heading": "Verified testimonies",
+    "subheading": "[ Mission Feedback ]",
+    "items": [
+      {
+        "quote": "\"The Wilbak transition saved us $120k in annual manual drafting costs alone. Their logic is unbreakable.\"",
+        "author": "James McGough",
+        "title": "CEO, Sterling Logistics"
+      },
+      {
+        "quote": "\"We eliminated the Chaos Tax in 90 days. Their Predictive AI kernels are simply unmatched.\"",
+        "author": "Rachel H. Ballack",
+        "title": "Ops Manager, Vance Mfg"
+      },
+      {
+        "quote": "\"Rugged, reliable, and deterministic. Wilbak doesn't just build systems; they build absolute certainty.\"",
+        "author": "Marcus Thorne",
+        "title": "Founder, Thorne Supply"
+      }
+    ]
+  },
+  "footer": {
+    "description": "High-performance business logic for industries that demand zero failure. Engineering certainty since 2006.",
+    "copyright": "© 2026 Wilbak Engineering Group // Built for Unbreakable Performance"
+  }
+}
