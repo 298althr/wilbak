@@ -353,6 +353,7 @@
     .terminal-header {
       display: flex; align-items: center; justify-content: space-between;
       padding: 10px 14px; border-bottom: 1px solid rgba(26,86,255,0.15); background: rgba(26,86,255,0.06);
+      position: relative; z-index: 2;
     }
     .terminal-dots { display: flex; gap: 5px; }
     .terminal-dot { width: 7px; height: 7px; border-radius: 50%; }
@@ -360,7 +361,7 @@
     .terminal-title { font-family: 'Fira Code', monospace; font-size: 9px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--brand-cobalt); }
     .terminal-status { display: flex; align-items: center; gap: 5px; font-family: 'Fira Code', monospace; font-size: 8px; color: #27C93F; }
     .status-dot { width: 5px; height: 5px; background: #27C93F; border-radius: 50%; animation: status-blink 2s ease-in-out infinite; }
-    .pipeline-nodes { padding: 6px 0; }
+    .pipeline-nodes { padding: 6px 0; position: relative; z-index: 2; }
     .pnode {
       display: flex; align-items: center; gap: 10px; padding: 8px 14px;
       border-bottom: 1px solid rgba(255,255,255,0.03);
@@ -381,6 +382,7 @@
     .pipeline-footer {
       padding: 10px 14px; border-top: 1px solid rgba(26,86,255,0.15);
       display: flex; align-items: center; justify-content: space-between; background: rgba(26,86,255,0.04);
+      position: relative; z-index: 2;
     }
     .pf-metric { display: flex; flex-direction: column; align-items: center; gap: 2px; }
     .pf-val { font-family: 'Fira Code', monospace; font-size: 11px; font-weight: 500; color: var(--brand-gold-light); }
@@ -813,7 +815,11 @@
       <div class="corner-dec tl"></div><div class="corner-dec tr"></div>
       <div class="corner-dec bl"></div><div class="corner-dec br"></div>
 
-      <div class="pipeline-terminal anim-fade-up delay-2">
+      <div class="pipeline-terminal anim-fade-up delay-2 relative overflow-hidden">
+        <!-- BACKGROUND VIDEO -->
+        <video src="https://res.cloudinary.com/dgz88jxiy/video/upload/v1774330490/131766-751014982_medium_ouwdmc.mp4" 
+               class="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none" 
+               autoplay loop muted playsinline aria-hidden="true"></video>
         <div class="terminal-header">
           <div class="terminal-dots">
             <div class="terminal-dot td-red"></div>
