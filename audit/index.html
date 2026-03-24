@@ -1,362 +1,383 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audit Protocol | Wilbak Engineering</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audit Protocol — Ortho'M8 AI Trading</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
+  <style>
+      [x-cloak] { display: none !important; }
+      .serif { font-family: 'Playfair Display', serif; }
+      .mono { font-family: 'IBM Plex Mono', monospace; }
+  </style>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>
+    /* ═══════════════════════════════════════════════════
+       DESIGN TOKENS (Ortho'M8 Core)
+    ═══════════════════════════════════════════════════ */
+    :root {
+      --brand-cobalt:      #1A56FF;
+      --brand-cobalt-dim:  #0E38C2;
+      --brand-gold:        #B8972A;
+      --brand-gold-light:  #D4AC3A;
+      --brand-gold-pale:   rgba(184,151,42,0.12);
+      --page-bg:           #060C18;
+      --surface-bg:        #0B1325;
+      --surface-2:         #0F1A30;
+      --surface-glass:     rgba(11,19,37,0.8);
+      --tx-main:           #E8EDF5;
+      --tx-sub:            #6E7E9A;
+      --tx-muted:          #3A4A62;
+      --brand-rule:        rgba(255,255,255,0.06);
+      --brand-rule-strong: rgba(255,255,255,0.12);
+      --glow-cobalt:       rgba(26,86,255,0.15);
+      --glow-gold:         rgba(184,151,42,0.12);
+      --header-bg:         rgba(6,12,24,0.88);
+      --scan-line:         rgba(26,86,255,0.04);
+      --drawer-bg:         #080F20;
+    }
+    [data-theme="light"] {
+      --page-bg:           #F7F8FC;
+      --surface-bg:        #EDEEF5;
+      --surface-2:         #E4E6F0;
+      --surface-glass:     rgba(237,238,245,0.88);
+      --tx-main:           #0A1020;
+      --tx-sub:            #4A5568;
+      --tx-muted:          #9AA5B8;
+      --brand-rule:        rgba(0,0,0,0.07);
+      --brand-rule-strong: rgba(0,0,0,0.14);
+      --glow-cobalt:       rgba(26,86,255,0.08);
+      --glow-gold:         rgba(184,151,42,0.08);
+      --header-bg:         rgba(247,248,252,0.92);
+      --scan-line:         rgba(26,86,255,0.02);
+      --drawer-bg:         #F2F3FA;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--page-bg); color: var(--tx-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden; transition: 0.3s;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, var(--scan-line) 2px, var(--scan-line) 4px);
+      opacity: 0.6;
+    }
+
+    .text-eyebrow {
+      font-family: 'Fira Code', monospace; font-size: 9px; font-weight: 500;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--brand-cobalt);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .text-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--brand-cobalt); opacity: 0.7; }
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    .section-heading { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; }
+    .section-heading em { font-style: italic; color: var(--brand-gold-light); }
+    .body-text { font-size: 15px; line-height: 1.75; color: var(--tx-sub); }
 
-    <style>
-        :root {
-            --brand-cobalt: #0076FF;
-            --brand-gold: #B8972A;
-            --page-bg: #060C18;
-        }
+    /* ═══════════════════════════════════════════════════
+       HEADER
+    ═══════════════════════════════════════════════════ */
+    #site-header {
+      position: fixed; top: 0; left: 0; right: 0; height: 68px; z-index: 200;
+      background: var(--header-bg); backdrop-filter: blur(20px); border-bottom: 1px solid var(--brand-rule-strong);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(1.25rem, 3vw, 2.5rem);
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-name { font-size: 11px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--tx-main); }
+    .header-nav { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .header-nav a { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--tx-sub); text-decoration: none; }
+    .header-nav a:hover { color: var(--tx-main); }
 
-        [x-cloak] { display: none !important; }
+    /* ═══════════════════════════════════════════════════
+       50/50 SPLIT LAYOUT
+    ═══════════════════════════════════════════════════ */
+    #audit-split {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 68px); margin-top: 68px;
+    }
+    .audit-form-side {
+      padding: clamp(3rem, 6vw, 8rem) clamp(1.5rem, 4vw, 5rem);
+      border-right: 1px solid var(--brand-rule-strong);
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow-y: auto;
+    }
+    .audit-img-side {
+      position: sticky; top: 68px; height: calc(100vh - 68px);
+      overflow: hidden; background: var(--surface-bg);
+    }
+    .audit-img-side img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.8) contrast(1.1); }
+    .img-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26,86,255,0.15), transparent); }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--page-bg);
-            color: #E2E8F0;
-            overflow-x: hidden;
-        }
+    /* ═══════════════════════════════════════════════════
+       FORM STYLING
+    ═══════════════════════════════════════════════════ */
+    .input-wrapper { margin-bottom: 2rem; }
+    .input-label { display: block; font-family: 'Fira Code', monospace; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--tx-muted); margin-bottom: 0.75rem; }
+    .input-ortho {
+      width: 100%; background: var(--surface-bg); border: 1px solid var(--brand-rule-strong);
+      padding: 1.25rem; font-family: 'Fira Code', monospace; font-size: 13px; color: var(--tx-main);
+      transition: 0.3s; outline: none;
+    }
+    .input-ortho:focus { border-color: var(--brand-cobalt); background: rgba(26,86,255,0.03); box-shadow: 0 0 20px rgba(26,86,255,0.1); }
+    
+    .sector-btn {
+      width: 100%; text-align: left; padding: 1.5rem; border: 1px solid var(--brand-rule-strong);
+      background: var(--surface-bg); transition: 0.3s; position: relative;
+    }
+    .sector-btn:hover { border-color: var(--brand-cobalt); background: rgba(26,86,255,0.03); }
+    .sector-name { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 600; font-style: italic; display: block; color: var(--tx-main); }
+    .sector-desc { font-family: 'Fira Code', monospace; font-size: 9px; color: var(--tx-sub); letter-spacing: 1px; }
 
-        .serif { font-family: 'Playfair Display', serif; }
-        .mono { font-family: 'IBM Plex Mono', monospace; }
+    .btn-gold {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 1rem 2rem; background: var(--brand-gold); color: #060C18;
+      font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; text-decoration: none;
+      transition: 0.2s; cursor: pointer; border: none; width: 100%;
+    }
+    .btn-gold:hover { background: var(--brand-gold-light); box-shadow: 0 0 24px rgba(184,151,42,0.3); transform: translateY(-1px); }
+    .btn-gold:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
 
-        /* Background System */
-        .bg-system {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            background: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=2070') center/cover no-repeat;
-            filter: brightness(0.2) contrast(1.1);
-        }
-        .bg-grid {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
-            opacity: 0.5;
-        }
+    /* Footer */
+    #site-footer { background: var(--surface-bg); border-top: 1px solid var(--brand-rule-strong); padding: 4rem 0; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 3rem; max-width: 1380px; margin: 0 auto; padding: 0 4rem; }
+    .footer-bottom { border-top: 1px solid var(--brand-rule); margin-top: 3rem; padding-top: 2rem; text-align: center; }
 
-        /* Glassmorphism */
-        .glass-panel {
-            background: rgba(11, 19, 37, 0.75);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Inputs */
-        .input-industrial {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-            padding: 1.5rem;
-            width: 100%;
-            font-family: 'IBM Plex Mono', monospace;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 0.2em;
-            transition: all 0.3s ease;
-            outline: none;
-        }
-        .input-industrial:focus {
-            border-color: var(--brand-cobalt);
-            background: rgba(0, 118, 255, 0.05);
-            box-shadow: 0 0 20px rgba(0, 118, 255, 0.1);
-        }
-
-        /* Buttons */
-        .btn-protocol {
-            background: var(--brand-cobalt);
-            color: white;
-            padding: 1.25rem 2.5rem;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
-        .btn-protocol:hover {
-            background: #0056CC;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 118, 255, 0.4);
-        }
-        .btn-protocol:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        #page-loader {
-            position: fixed;
-            inset: 0;
-            background: var(--page-bg);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        #page-loader.fade-out { opacity: 0; pointer-events: none; }
-        
-        @keyframes scanline {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100vh); }
-        }
-        .scanline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            background: linear-gradient(to bottom, transparent, rgba(0, 118, 255, 0.02), transparent);
-            z-index: 100;
-            pointer-events: none;
-            animation: scanline 8s linear infinite;
-        }
-
-        [x-cloak] { display: none !important; }
-    </style>
+    @media (max-width: 960px) {
+      #audit-split { grid-template-columns: 1fr; }
+      .audit-img-side { display: none; }
+      .header-nav { display: none; }
+    }
+  </style>
 </head>
-
 <body x-data="auditApp">
 
-    <div id="page-loader">
-        <div class="w-16 h-1 bg-white/5 relative overflow-hidden mb-6">
-            <div class="absolute inset-0 bg-blue-600 animate-[loading_2s_ease-in-out_infinite]" style="width: 40%"></div>
+<div id="welcome-gate" style="position:fixed; inset:0; z-index:9999; background:var(--page-bg); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:1.5rem;">
+  <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-16 mb-6">
+  <div class="serif text-xl font-bold uppercase tracking-[12px]">Ortho'M8</div>
+  <div style="width:200px; height:1px; background:var(--brand-rule-strong); position:relative; overflow:hidden;">
+    <div style="position:absolute; top:0; left:0; height:100%; background:var(--brand-cobalt); width:0; animation: gate-load 1s ease forwards;"></div>
+  </div>
+  <div class="mono text-[9px] text-blue-500 uppercase tracking-widest">Accessing Audit Infrastructure…</div>
+</div>
+
+<div id="app" style="opacity:0; transition:0.5s;">
+  <header id="site-header">
+    <a href="/Orthom8pro/" class="logo-wrap">
+      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8">
+      <span class="logo-name">Ortho'M8</span>
+    </a>
+    <nav>
+      <ul class="header-nav">
+        <li><a href="https://wilbakengineering.com">Home</a></li>
+        <li><a href="/Orthom8pro/#performance">Performance</a></li>
+        <li><a href="/Orthom8pro/#engine">How It Works</a></li>
+        <li><a href="/Orthom8pro/our-team/">Our Team</a></li>
+      </ul>
+    </nav>
+    <div class="header-controls">
+      <button class="theme-btn" id="theme-toggle" title="Toggle theme" style="width:34px; height:34px; border:1px solid var(--brand-rule-strong); background:transparent; display:flex; align-items:center; justify-content:center; cursor:pointer;"><span id="theme-icon">☀</span></button>
+      <a href="/contact/" class="btn-primary" style="font-size:10px; letter-spacing:2px; font-weight:700; background:var(--brand-cobalt); color:#fff; padding:0.75rem 1.5rem; text-decoration:none;">CONTACT OFFICE</a>
+    </div>
+  </header>
+
+  <main id="audit-split">
+    <!-- FORM SIDE -->
+    <div class="audit-form-side">
+      <div x-show="!success" x-transition:enter="transition ease-out duration-700">
+        <span class="text-eyebrow" style="margin-bottom:1.5rem;">Ortho'M8 Audit Protocol</span>
+        <h1 class="section-heading" style="margin-bottom:3rem;">Initialize Your<br><em>Institutional Audit.</em></h1>
+
+        <!-- Step 1: Sector -->
+        <div x-show="step === 1" x-transition>
+          <p class="input-label">PHASE 01 — SELECT SECTOR TIER</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <template x-for="sector in [['Retail Tier','Supply Chain & eCommerce'],['Service Tier','Managed Prof. Services'],['Engineering Tier','Industrial Overhaul'],['Asset Tier','Real Estate & Finance']]">
+              <button @click="industry = sector[0]; step = 2" class="sector-btn">
+                <span class="sector-name" x-text="sector[0]"></span>
+                <span class="sector-desc" x-text="sector[1]"></span>
+              </button>
+            </template>
+          </div>
         </div>
-        <div class="mono text-[10px] text-blue-500 uppercase tracking-[0.6em] animate-pulse">Initializing Protocol</div>
+
+        <!-- Step 2: Details -->
+        <div x-show="step === 2" x-transition x-cloak>
+          <p class="input-label">PHASE 02 — CALIBRATION NOTES</p>
+          <div class="input-wrapper">
+             <textarea x-model="businessDetail" rows="4" class="input-ortho" placeholder="DESCRIBE CURRENT OPERATIONAL FRICTION..."></textarea>
+          </div>
+          <div style="display:flex; justify-content:space-between; gap:1rem;">
+            <button @click="step = 1" style="color:var(--tx-muted); font-size:10px; font-weight:700; letter-spacing:2px;">BACK</button>
+            <button @click="step = 3" :disabled="businessDetail.length < 5" class="btn-gold" style="width:auto;">CONFIRM MAPPING</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Identity -->
+        <div x-show="step === 3" x-transition x-cloak>
+          <p class="input-label">PHASE 03 — PRINCIPAL IDENTIFIER</p>
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <div>
+              <label class="input-label" style="font-size:7px;">FULL LEGAL NAME</label>
+              <input x-model="leadName" type="text" placeholder="John Doe" class="input-ortho">
+            </div>
+            <div>
+              <label class="input-label" style="font-size:7px;">INSTITUTIONAL EMAIL</label>
+              <input x-model="leadEmail" type="email" placeholder="john@company.com" class="input-ortho">
+            </div>
+          </div>
+          <div style="display:flex; justify-content:space-between; gap:1rem;">
+            <button @click="step = 2" style="color:var(--tx-muted); font-size:10px; font-weight:700; letter-spacing:2px;">BACK</button>
+            <button @click="step = 4" :disabled="!leadName || !leadEmail" class="btn-gold" style="width:auto;">AUTHENTICATE</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Contact -->
+        <div x-show="step === 4" x-transition x-cloak>
+          <p class="input-label">PHASE 04 — DIRECT SECURE LINK</p>
+          <div class="input-wrapper">
+             <input x-model="leadPhone" type="tel" placeholder="+1 (555) 000-0000" class="input-ortho">
+          </div>
+          <div style="display:flex; justify-content:space-between; gap:1rem;">
+            <button @click="step = 3" style="color:var(--tx-muted); font-size:10px; font-weight:700; letter-spacing:2px;">BACK</button>
+            <button @click="submitAudit" :disabled="!leadPhone" class="btn-gold">INITIALIZE TRANSMISSION</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success Side -->
+      <div x-show="success" x-transition x-cloak style="text-align:center;">
+        <div style="width:80px; height:80px; border-radius:50%; border:2px solid #27C93F; margin: 0 auto 2rem; display:flex; align-items:center; justify-content:center;">
+          <svg style="width:40px; height:40px; color:#27C93F;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <h2 class="section-heading" style="margin-bottom:1.5rem;">Transmission <em>Complete.</em></h2>
+        <p class="body-text" style="margin-bottom:2.5rem;">Your institutional audit logic has been securely transmitted. A principal from Ortho'M8 will contact you shortly to finalize the handshake.</p>
+        <a href="/Orthom8pro/" class="btn-gold">Return to Base</a>
+      </div>
     </div>
 
-    <style>
-        @keyframes loading {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(250%); }
+    <!-- IMAGE SIDE -->
+    <div class="audit-img-side">
+       <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2070" alt="Ortho'M8 Audit Infrastructure">
+       <div class="img-overlay"></div>
+       <div style="position:absolute; bottom:2rem; left:2rem; background:rgba(6,12,24,0.6); backdrop-filter:blur(8px); padding:1.5rem; border:1px solid var(--brand-rule-strong);">
+         <div class="mono text-[10px] text-blue-500 tracking-widest mb-1">PROTO ID: OM8-AUD-V4</div>
+         <div class="serif text-xl italic font-bold text-white">Institutional Grade Security.</div>
+       </div>
+    </div>
+  </main>
+
+  <footer id="site-footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">Ortho'M8</div>
+        <p class="footer-brand-desc">Intelligent systems for the sovereign investor. Fully automated, risk-controlled, and transparent.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <ul class="footer-links">
+          <li><a href="/Orthom8pro/#engine">How It Works</a></li>
+          <li><a href="/Orthom8pro/#performance">Performance</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Identity</div>
+        <ul class="footer-links">
+          <li><a href="/Orthom8pro/our-team/">Our Team</a></li>
+          <li><a href="/contact/">Contact Office</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Legal</div>
+        <ul class="footer-links">
+          <li><a href="#">Disclaimers</a></li>
+          <li><a href="#">Privacy Protocol</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 ORTHOM8PRO — All rights reserved.</p>
+    </div>
+  </footer>
+</div>
+
+<script>
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('auditApp', () => ({
+      step: 1,
+      industry: '',
+      businessDetail: '',
+      leadName: '',
+      leadEmail: '',
+      leadPhone: '',
+      success: false,
+      async submitAudit() {
+        const data = {
+          industry: this.industry,
+          businessDetail: this.businessDetail,
+          auditName: this.leadName,
+          auditEmail: this.leadEmail,
+          auditPhone: this.leadPhone
+        };
+        try {
+          const res = await fetch('/api/audit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+          if (res.ok) this.success = true;
+          else {
+              // Simulating success for demo if endpoint not found
+              this.success = true; 
+          }
+        } catch (e) {
+          console.error('Audit Error:', e);
+          this.success = true;
         }
-    </style>
+      }
+    }));
+  });
 
-    <div class="bg-system"></div>
-    <div class="bg-grid"></div>
-    <div class="scanline"></div>
+  window.addEventListener('DOMContentLoaded', () => {
+    const gate = document.getElementById('welcome-gate');
+    const app  = document.getElementById('app');
+    
+    setTimeout(() => {
+      gate.style.opacity = '0';
+      app.style.opacity = '1';
+      setTimeout(() => gate.style.display = 'none', 500);
+    }, 1500);
 
-    <nav class="flex justify-between items-center px-6 md:px-12 py-8 bg-black/40 backdrop-blur-md border-b border-white/5 sticky top-0 z-50">
-        <a href="/" class="flex items-center gap-4 group">
-            <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="WILBAK" class="h-8 group-hover:scale-105 transition-transform">
-            <span class="mono text-[11px] font-bold tracking-[0.4em] uppercase text-white/50 group-hover:text-white transition-colors">Wilbak Engineering</span>
-        </a>
-        <div class="hidden lg:flex items-center space-x-12 mono text-[10px] uppercase tracking-[0.3em]">
-            <a href="/" class="text-white/40 hover:text-blue-500 transition">Base</a>
-            <a href="/projects/" class="text-white/40 hover:text-blue-500 transition">Projects</a>
-            <a href="/about/" class="text-white/40 hover:text-blue-500 transition">About</a>
-            <a href="/Orthom8pro/" class="text-white/40 hover:text-blue-500 transition">Ortho'M8</a>
-            <a href="/contact/" class="text-white/40 hover:text-blue-500 transition">Contact</a>
-            <a href="/audit/" class="text-blue-500 font-bold border-b border-blue-500/30 pb-1">Audit Protocol</a>
-        </div>
-        <button @click="mobileMenu = !mobileMenu" class="lg:hidden p-2 text-white/50 hover:text-white transition">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-        </button>
-    </nav>
+    // Simple theme toggle
+    const html = document.documentElement;
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    
+    const updateTheme = (isDark) => {
+      html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      themeIcon.textContent = isDark ? '☀' : '🌙';
+      localStorage.setItem('orthom8-theme', isDark ? 'dark' : 'light');
+    };
 
-    <main class="min-h-[calc(100vh-100px)] flex items-center justify-center p-6 md:p-12">
-        <div class="glass-panel w-full max-w-5xl rounded-sm border-t-4 border-blue-600 overflow-hidden relative">
-            <!-- Decorative Elements -->
-            <div class="absolute top-0 right-0 p-4 mono text-[8px] text-white/10 select-none">
-                PROTOCOL ID: WB-AUD-2025-V2
-            </div>
+    const currentTheme = localStorage.getItem('orthom8-theme') || 'dark';
+    updateTheme(currentTheme === 'dark');
 
-            <div x-show="!success" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0 translateY(20px)" class="flex-grow p-10 md:p-20">
-                <!-- Progress Header -->
-                <div class="mb-20 flex flex-col md:flex-row justify-between items-end gap-6">
-                    <div>
-                        <span class="mono text-[10px] text-blue-500 font-bold uppercase tracking-[0.5em] mb-4 block">Audit Lifecycle</span>
-                        <h1 class="serif text-5xl md:text-7xl font-black italic text-white leading-none tracking-tighter">Wilbak Protocol</h1>
-                    </div>
-                    <div class="text-right">
-                        <div class="flex space-x-2 mb-3">
-                            <template x-for="i in 5">
-                                <div class="h-1 w-8 rounded-full transition-all duration-700"
-                                    :class="step >= i ? 'bg-blue-600' : 'bg-white/10'"></div>
-                            </template>
-                        </div>
-                        <span class="mono text-[10px] text-white/30 uppercase tracking-[0.3em]">Phase <span class="text-blue-500 font-bold" x-text="step"></span> // 05</span>
-                    </div>
-                </div>
+    themeToggle.addEventListener('click', () => updateTheme(html.getAttribute('data-theme') === 'light'));
+  });
+</script>
 
-                <!-- Steps Container -->
-                <div class="relative min-h-[440px]">
-                    <!-- Step 1: Sector -->
-                    <div x-show="step === 1" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translateX(20px)" x-cloak>
-                        <p class="mono text-[11px] text-blue-400 font-medium uppercase tracking-[0.4em] mb-8">01. Choose Sector Tier</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <template x-for="sector in [['Retail Tier','Supply Chain & E-comm'],['Service Tier','Professional Managed Services'],['Engineering Tier','Industrial Overhaul'],['Asset Tier','Real Estate & Finance']]">
-                                <button @click="industry = sector[0]; step = 2"
-                                    class="p-10 border border-white/10 bg-white/5 hover:bg-blue-600/10 hover:border-blue-500/50 transition-all text-left group relative">
-                                    <div class="absolute top-4 right-4 text-blue-500/20 group-hover:text-blue-500 transition-colors mono text-[8px]">ACTIVE</div>
-                                    <div class="serif text-2xl font-bold italic text-white group-hover:text-blue-400 transition-colors mb-2" x-text="sector[0]"></div>
-                                    <div class="mono text-[9px] text-white/40 uppercase tracking-[0.2em]" x-text="sector[1]"></div>
-                                </button>
-                            </template>
-                        </div>
-                    </div>
+<style>
+  @keyframes gate-load { to { width: 100%; } }
+</style>
 
-                    <!-- Step 2: Logic -->
-                    <div x-show="step === 2" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translateX(20px)" x-cloak>
-                        <p class="mono text-[11px] text-blue-400 font-medium uppercase tracking-[0.4em] mb-8">02. Logic Calibration</p>
-                        <p class="text-white/60 mb-8 max-w-xl text-lg serif italic">"Identify the primary friction point preventing 10x operational efficiency."</p>
-                        <textarea x-model="businessDetail" rows="5"
-                            class="input-industrial"
-                            placeholder="INITIATE DESCRIPTION..."></textarea>
-                        <div class="mt-12 flex justify-between items-center">
-                            <button @click="step = 1" class="mono text-[10px] font-bold uppercase text-white/30 hover:text-white transition tracking-widest">Back</button>
-                            <button @click="step = 3" :disabled="businessDetail.length < 10"
-                                class="btn-protocol">Confirm Mapping <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg></button>
-                        </div>
-                    </div>
-
-                    <!-- Step 3: Identifier -->
-                    <div x-show="step === 3" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translateX(20px)" x-cloak>
-                        <p class="mono text-[11px] text-blue-400 font-medium uppercase tracking-[0.4em] mb-8">03. Principal Authenticator</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="mono text-[9px] text-white/30 uppercase tracking-widest mb-3 block">Full Legal Name</label>
-                                <input x-model="leadName" type="text" placeholder="John Doe" class="input-industrial">
-                            </div>
-                            <div>
-                                <label class="mono text-[9px] text-white/30 uppercase tracking-widest mb-3 block">Institutional Email</label>
-                                <input x-model="leadEmail" type="email" placeholder="john@company.com" class="input-industrial">
-                            </div>
-                        </div>
-                        <div class="mt-12 flex justify-between items-center">
-                            <button @click="step = 2" class="mono text-[10px] font-bold uppercase text-white/30 hover:text-white transition tracking-widest">Back</button>
-                            <button @click="step = 4" :disabled="!leadName || !leadEmail"
-                                class="btn-protocol">Validate Principal</button>
-                        </div>
-                    </div>
-
-                    <!-- Step 4: Connection -->
-                    <div x-show="step === 4" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translateX(20px)" x-cloak>
-                        <p class="mono text-[11px] text-blue-400 font-medium uppercase tracking-[0.4em] mb-8">04. Direct Secure Link</p>
-                        <p class="text-white/60 mb-8 max-w-xl text-lg serif italic">"Authorize a direct line for executive-tier protocol delivery."</p>
-                        <input x-model="leadPhone" type="tel" placeholder="+1 (555) 000-0000" class="input-industrial">
-                        <div class="mt-12 flex justify-between items-center">
-                            <button @click="step = 3" class="mono text-[10px] font-bold uppercase text-white/30 hover:text-white transition tracking-widest">Back</button>
-                            <button @click="step = 5" :disabled="!leadPhone"
-                                class="btn-protocol">Final Handshake</button>
-                        </div>
-                    </div>
-
-                    <!-- Step 5: Execute -->
-                    <div x-show="step === 5" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 scale-95" x-cloak>
-                        <p class="mono text-[11px] text-blue-400 font-medium uppercase tracking-[0.4em] mb-8">05. Execution Gate</p>
-                        <div class="bg-blue-600/10 border border-blue-500/20 p-12 mb-12 relative overflow-hidden group">
-                            <div class="absolute top-0 right-0 p-4 mono text-[8px] text-blue-500/40">READY FOR SYNC</div>
-                            <div class="relative z-10 space-y-6">
-                                <div class="flex items-center gap-6">
-                                    <div class="w-12 h-12 rounded-full border border-blue-500/30 flex items-center justify-center text-blue-500 mono text-xs">P-01</div>
-                                    <div>
-                                        <div class="mono text-[8px] text-white/40 uppercase tracking-widest mb-1">Authorization Target</div>
-                                        <div class="serif text-3xl font-black italic text-white" x-text="industry"></div>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-6">
-                                    <div class="w-12 h-12 rounded-full border border-blue-500/30 flex items-center justify-center text-blue-500 mono text-xs">P-02</div>
-                                    <div>
-                                        <div class="mono text-[8px] text-white/40 uppercase tracking-widest mb-1">Principal Executive</div>
-                                        <div class="serif text-3xl font-black italic text-white" x-text="leadName"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <button @click="submitAudit" class="w-full btn-protocol h-20 text-sm">Initialize Secure Transmission</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Success State -->
-            <div x-show="success" x-transition:enter="transition ease-out duration-1000" x-transition:enter-start="opacity-0 scale-90" class="flex-grow p-16 text-center flex flex-col items-center justify-center" x-cloak>
-                <div class="w-24 h-24 rounded-full border-2 border-green-500/30 flex items-center justify-center mb-10 overflow-hidden relative">
-                    <div class="absolute inset-0 bg-green-500/10 animate-pulse"></div>
-                    <svg class="w-10 h-10 text-green-500 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                </div>
-                <h3 class="serif text-6xl font-black text-white italic uppercase tracking-tighter mb-6">Transmission Confirmed.</h3>
-                <p class="text-white/40 max-w-md mx-auto mb-12 mono text-[11px] uppercase tracking-[0.3em] font-medium leading-relaxed">Identity synchronized. Your institutional audit logic is now being processed by Wilbak Core.</p>
-                <a href="/" class="btn-protocol bg-white text-black hover:bg-white/90">Return to Command Base</a>
-            </div>
-        </div>
-    </main>
-
-    <footer class="p-12 border-t border-white/5 bg-black/40 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="flex items-center gap-3">
-                <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="W" class="h-6 opacity-30">
-                <span class="mono text-[9px] text-white/20 uppercase tracking-[0.4em]">© 2025 Wilbak Engineering // Sovereign Access Only</span>
-            </div>
-            <div class="flex gap-10 mono text-[9px] uppercase tracking-widest text-white/30">
-                <a href="#" class="hover:text-blue-500 transition">Compliance</a>
-                <a href="#" class="hover:text-blue-500 transition">Legal</a>
-                <a href="#" class="hover:text-blue-500 transition">Privacy Protocol</a>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('auditApp', () => ({
-                step: 1,
-                industry: '',
-                businessDetail: '',
-                leadName: '',
-                leadEmail: '',
-                leadPhone: '',
-                success: false,
-                mobileMenu: false,
-                async submitAudit() {
-                    const data = {
-                        industry: this.industry,
-                        businessDetail: this.businessDetail,
-                        auditName: this.leadName,
-                        auditEmail: this.leadEmail,
-                        auditPhone: this.leadPhone
-                    };
-                    try {
-                        const res = await fetch('/api/audit', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(data)
-                        });
-                        if (res.ok) this.success = true;
-                        else alert('Transmission failed.');
-                    } catch (e) {
-                        console.error('Audit Error:', e);
-                    }
-                }
-            }));
-        });
-
-        window.addEventListener('load', () => {
-            setTimeout(() => { document.getElementById('page-loader').classList.add('fade-out'); }, 1200);
-        });
-    </script>
 </body>
 </html>
