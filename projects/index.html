@@ -67,6 +67,18 @@
                 <path x-show="mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
         </button>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenu" x-cloak
+            class="absolute top-full left-0 w-full bg-white border-b border-slate-200 md:hidden z-40 shadow-xl p-8 space-y-6 flex flex-col font-bold text-xs uppercase tracking-[0.2em]">
+            <a href="/" class="text-slate-900">Home</a>
+            <a href="/projects/" class="text-blue-600">Projects</a>
+            <a href="/about/" class="text-slate-900">About</a>
+            <a href="/Orthom8pro/" class="text-slate-900">OrthoMate™</a>
+            <a href="/contact/" class="text-slate-900">Contact</a>
+            <a href="/insight/" class="text-slate-900">News & Insights</a>
+            <a href="/audit/" class="bg-slate-900 text-white px-6 py-4 text-center rounded-sm">Business Audit</a>
+        </div>
     </nav>
 
     <main class="min-h-screen bg-slate-50 industrial-grid">

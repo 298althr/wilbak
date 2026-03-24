@@ -45,7 +45,25 @@
             <a href="/insight/" class="text-slate-500 hover:text-blue-600 transition">News & Insights</a>
             <a href="/audit/" class="btn-premium bg-slate-900 text-white">Business Audit</a>
         </div>
-        <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-slate-900">☰</button>
+        <!-- Mobile Toggle -->
+        <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-slate-900">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path x-show="!mobileMenu" d="M4 6h16M4 12h16m-7 6h7" stroke-width="2" stroke-linecap="round"></path>
+                <path x-show="mobileMenu" d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+        </button>
+
+        <!-- Mobile Menu Overlay -->
+        <div x-show="mobileMenu" x-cloak
+            class="absolute top-full left-0 w-full bg-white border-b border-slate-200 md:hidden z-40 shadow-xl p-8 space-y-6 flex flex-col font-bold text-xs uppercase tracking-[0.2em]">
+            <a href="/" class="text-slate-900">Home</a>
+            <a href="/projects/" class="text-slate-900">Projects</a>
+            <a href="/about/" class="text-slate-900">About</a>
+            <a href="/Orthom8pro/" class="text-slate-900">OrthoMate™</a>
+            <a href="/contact/" class="text-blue-600">Contact</a>
+            <a href="/insight/" class="text-slate-900">News & Insights</a>
+            <a href="/audit/" class="bg-slate-900 text-white px-6 py-4 text-center rounded-sm">Business Audit</a>
+        </div>
     </nav>
 
     <main class="min-h-screen pt-32 pb-40 px-6 max-w-6xl mx-auto industrial-grid">

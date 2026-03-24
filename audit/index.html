@@ -230,7 +230,11 @@
       .header-nav, .header-controls { display: none; }
       .hamburger { display: flex; }
       #audit-split { grid-template-columns: 1fr; }
-      .audit-img-side { display: none; }
+      .audit-img-side {
+        position: relative; top: 0; min-height: 280px; height: auto;
+        border-bottom: 1px solid var(--brand-rule-strong);
+      }
+      .audit-form-side { padding: 3rem 1.5rem; border-right: none; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
