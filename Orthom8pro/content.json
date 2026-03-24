@@ -1,0 +1,288 @@
+{
+    "project": "Wilbak Engineering",
+    "brand": "ORTHOM8PRO (Ortho'M8)",
+    "vibe": "AI-Powered Trading, Built for Serious Investors",
+    "content": {
+        "header": {
+            "logo_text": "Ortho'M8",
+            "logo_url": "https://wilbakengineering.com/Orthom8pro/",
+            "navigation": [
+                {
+                    "label": "Home",
+                    "target": "https://wilbakengineering.com"
+                },
+                {
+                    "label": "Performance",
+                    "target": "#performance"
+                },
+                {
+                    "label": "How It Works",
+                    "target": "#engine"
+                },
+                {
+                    "label": "Safety & Risk",
+                    "target": "#how-it-works"
+                },
+                {
+                    "label": "Results",
+                    "target": "#evidence"
+                },
+                {
+                    "label": "About",
+                    "target": "#about"
+                }
+            ]
+        },
+        "hero": {
+            "eyebrow": "Smarter Trading, Powered by AI",
+            "heading": "Your money, managed by intelligent systems — not emotion.",
+            "body": "Ortho'M8 is an AI trading system that reads the market, checks the risk, and only places trades when the conditions are right. No guesswork. No panic selling. Just data-driven decisions, around the clock.",
+            "primary_cta": {
+                "label": "GET A FREE CONSULTATION",
+                "link": "/audit/"
+            },
+            "secondary_cta": {
+                "label": "See How It Works →",
+                "link": "#engine"
+            },
+            "ribbon_stats": [
+                {
+                    "label": "Total Capital Managed",
+                    "value": "$142.8M"
+                },
+                {
+                    "label": "Automated Checkpoints",
+                    "value": "11"
+                }
+            ]
+        },
+        "system_status": {
+            "title": "Live System Activity",
+            "active_protocol": "ACTIVE",
+            "nodes": [
+                {
+                    "id": "01",
+                    "label": "Collecting Live Market Data"
+                },
+                {
+                    "id": "02",
+                    "label": "Reading Buy & Sell Order Flow"
+                },
+                {
+                    "id": "03",
+                    "label": "Checking for Unusual Price Moves"
+                },
+                {
+                    "id": "04",
+                    "label": "AI Reads Market Sentiment"
+                },
+                {
+                    "id": "05",
+                    "label": "CONFIDENCE ABOVE THRESHOLD",
+                    "highlight": true
+                },
+                {
+                    "id": "06",
+                    "label": "Calculating Trade Size"
+                },
+                {
+                    "id": "07",
+                    "label": "Setting Loss Limits"
+                },
+                {
+                    "id": "08",
+                    "label": "Verifying Market Stability"
+                },
+                {
+                    "id": "09",
+                    "label": "RISK CHECK PASSED",
+                    "success": true
+                },
+                {
+                    "id": "10",
+                    "label": "Sending Secure Trade Order"
+                },
+                {
+                    "id": "11",
+                    "label": "Trade Executed",
+                    "active": true
+                }
+            ],
+            "metrics": {
+                "latency": "320ms",
+                "confidence": "72.4%",
+                "max_drawdown": "<1.5%"
+            }
+        },
+        "stats_strip": {
+            "id": "performance",
+            "metrics": [
+                {
+                    "label": "Total Capital Managed",
+                    "value": "$142.8M"
+                },
+                {
+                    "label": "Automated Safety Checks",
+                    "value": "11 steps"
+                },
+                {
+                    "label": "Trade Execution Speed",
+                    "value": "320ms"
+                },
+                {
+                    "label": "Max Allowed Daily Loss",
+                    "value": "<1.5%"
+                }
+            ]
+        },
+        "architecture_intro": {
+            "id": "engine",
+            "eyebrow": "01 — How It Works",
+            "heading": "From market data to a smart trade — in under a second.",
+            "body": [
+                "Most trading platforms either rely on human emotion or basic automation. Ortho'M8 is different. It uses an 11-step AI pipeline that continuously watches the markets, filters out noise, and only acts when it has high confidence in an opportunity — all within strict safety boundaries.",
+                "Think of it like having a tireless, emotionless expert trader working for you 24/7 — one that never chases losses, never panics, and logs every single decision it makes."
+            ]
+        },
+        "signal_lifecycle": {
+            "id": "how-it-works",
+            "eyebrow": "02 — The 11-Step Process",
+            "heading": "Every trade passes 11 safety checkpoints.",
+            "logic_nodes": [
+                {
+                    "range": "STEP 01–02",
+                    "title": "Gather Market Data",
+                    "description": "The system continuously pulls in live price data, buyer and seller activity, and major news events from multiple sources — all at once, in real time. If data is delayed even slightly, the system pauses and waits.",
+                    "diagram": [
+                        "LIVE PRICES",
+                        "BUY/SELL FLOW",
+                        "NORMALIZE",
+                        "NEWS EVENTS",
+                        "TIMESTAMP",
+                        "INGEST"
+                    ]
+                },
+                {
+                    "range": "STEP 03–05",
+                    "title": "AI Confidence Check",
+                    "description": "Before any trade is considered, the AI cross-checks 14 different market signals and reads current sentiment across financial news. A trade is only considered if the AI is at least 72.4% confident. Anything below that is discarded automatically — it never reaches execution.",
+                    "diagram": [
+                        "SIGNAL CHECK",
+                        "AI ANALYSIS",
+                        "72.4% MIN",
+                        "APPROVED",
+                        "NEXT STEP"
+                    ]
+                },
+                {
+                    "range": "STEP 06–09",
+                    "title": "Risk & Safety Controls",
+                    "description": "Even after a trade looks promising, it must pass strict risk controls. The system automatically calculates how much to trade (never too much), sets a hard daily loss limit of under 1.5%, and checks that the market isn't too volatile. All boxes must be ticked — or the trade is blocked.",
+                    "diagram": [
+                        "TRADE SIZING",
+                        "LOSS LIMIT",
+                        "VOLATILITY CHECK",
+                        "SAFETY CLEARED"
+                    ]
+                },
+                {
+                    "range": "STEP 10–11",
+                    "title": "Trade Placed & Recorded",
+                    "description": "Only after all checks pass does the system place the trade — through a secure, encrypted connection to a regulated broker. The entire decision trail is saved: what data triggered it, the AI's confidence score, how much was traded, and when. Everything is on record.",
+                    "diagram": [
+                        "SECURE BROKER",
+                        "TRADE PLACED",
+                        "FULL RECORD",
+                        "320ms TOTAL",
+                        "TIMESTAMPED"
+                    ]
+                }
+            ]
+        },
+        "infrastructure_evidence": {
+            "id": "evidence",
+            "eyebrow": "03 — Built on Solid Foundations",
+            "heading": "Reliable technology, transparent by design.",
+            "body": "Every part of the Ortho'M8 system is monitored around the clock, protected by automatic circuit breakers that stop activity if something looks wrong, and fully auditable — so you always know what's happening with your capital.",
+            "badges": {
+                "capital": "$142.8M Currently Under Management"
+            },
+            "spec_list": [
+                {
+                    "key": "Broker Connection",
+                    "value": "Encrypted via IBKR"
+                },
+                {
+                    "key": "Time to Execute a Trade",
+                    "value": "~320 milliseconds"
+                },
+                {
+                    "key": "Minimum AI Confidence Required",
+                    "value": "72.4%"
+                },
+                {
+                    "key": "Maximum Daily Loss Allowed",
+                    "value": "Less than 1.5%"
+                },
+                {
+                    "key": "Total Automated Checkpoints",
+                    "value": "11 Steps"
+                },
+                {
+                    "key": "Trade Records",
+                    "value": "Permanent & Tamper-proof"
+                }
+            ]
+        },
+        "cta_compliance": {
+            "id": "audit",
+            "label": "Limited Spots Available",
+            "heading": "Ready to put your capital to work smarter?",
+            "body": "We don't take on every client. Before getting started, we conduct a free business consultation to make sure Ortho'M8 is the right fit for your goals. Spots are limited — take the first step today.",
+            "actions": [
+                {
+                    "label": "BOOK A FREE CONSULTATION",
+                    "link": "/audit/"
+                },
+                {
+                    "label": "Talk to Our Team",
+                    "link": "/contact/"
+                }
+            ]
+        },
+        "footer": {
+            "id": "about",
+            "brand_desc": "Ortho'M8 is an AI-powered trading system built for serious investors. Fully automated, risk-controlled, and transparent — so your money works harder while you stay informed.",
+            "columns": [
+                {
+                    "title": "Platform",
+                    "links": [
+                        "How It Works",
+                        "Performance",
+                        "Results",
+                        "Safety & Risk"
+                    ]
+                },
+                {
+                    "title": "Get Started",
+                    "links": [
+                        "Book a Consultation",
+                        "Client Portal",
+                        "Onboarding Guide",
+                        "API Access"
+                    ]
+                },
+                {
+                    "title": "Company",
+                    "links": [
+                        "About Us",
+                        "Technology Overview",
+                        "Legal & Disclaimers",
+                        "Contact"
+                    ]
+                }
+            ],
+            "disclaimer": "Trading involves risk and past performance does not guarantee future results. This platform is intended for informational purposes only and does not constitute financial advice. Please consult a qualified financial advisor before investing."
+        }
+    }
+}
