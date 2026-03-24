@@ -1,7 +1,7 @@
 {
     "project": "Wilbak Engineering",
     "brand": "ORTHOM8PRO (Ortho'M8)",
-    "vibe": "AI-Powered Trading, Built for Serious Investors",
+    "vibe": "Algorithmic Capital Management & Business Security Engine",
     "content": {
         "header": {
             "logo_text": "Ortho'M8",
@@ -28,261 +28,257 @@
                     "target": "#evidence"
                 },
                 {
-                    "label": "About",
-                    "target": "#about"
+                    "label": "Our Team",
+                    "target": "/Orthom8pro/our-team/"
                 }
             ]
         },
         "hero": {
-            "eyebrow": "Smarter Trading, Powered by AI",
-            "heading": "Your money, managed by intelligent systems — not emotion.",
-            "body": "Ortho'M8 is an AI trading system that reads the market, checks the risk, and only places trades when the conditions are right. No guesswork. No panic selling. Just data-driven decisions, around the clock.",
+            "eyebrow": "Algorithmic Capital Management — 99.99% Uptime",
+            "heading": "Your business capital, secured by deep machine learning.",
+            "body": "Ortho'M8 is an Algorithmic Capital Management system that reads the market, checks the risk, and only executes when conditions are right. No guesswork. No panic selling or buying. Just data-driven decisions at 95% node precision, around the clock.",
             "primary_cta": {
-                "label": "GET A FREE CONSULTATION",
+                "label": "INITIATE BUSINESS AUDIT",
                 "link": "/audit/"
             },
             "secondary_cta": {
-                "label": "See How It Works →",
+                "label": "View Protocol Strategy →",
                 "link": "#engine"
             },
             "ribbon_stats": [
                 {
-                    "label": "Total Capital Managed",
-                    "value": "$142.8M"
+                    "label": "System Precision Rate",
+                    "value": "95.0%"
                 },
                 {
-                    "label": "Automated Checkpoints",
+                    "label": "Automated Risk Gates",
                     "value": "11"
                 }
             ]
         },
         "system_status": {
-            "title": "Live System Activity",
+            "title": "Protocol Activity",
             "active_protocol": "ACTIVE",
             "nodes": [
                 {
                     "id": "01",
-                    "label": "Collecting Live Market Data"
+                    "label": "Neural Market Ingestion"
                 },
                 {
                     "id": "02",
-                    "label": "Reading Buy & Sell Order Flow"
+                    "label": "Sentiment & Order Flow Analysis"
                 },
                 {
                     "id": "03",
-                    "label": "Checking for Unusual Price Moves"
+                    "label": "Reinforcement Learning Gate"
                 },
                 {
                     "id": "04",
-                    "label": "AI Reads Market Sentiment"
+                    "label": "Deep Machine Learning Scan"
                 },
                 {
                     "id": "05",
-                    "label": "CONFIDENCE ABOVE THRESHOLD",
+                    "label": "PRECISION THRESHOLD REACHED",
                     "highlight": true
                 },
                 {
                     "id": "06",
-                    "label": "Calculating Trade Size"
+                    "label": "Capital Allocation Calculation"
                 },
                 {
                     "id": "07",
-                    "label": "Setting Loss Limits"
+                    "label": "Hard Risk Parameters Set"
                 },
                 {
                     "id": "08",
-                    "label": "Verifying Market Stability"
+                    "label": "Verification of Non-Riskable Capital"
                 },
                 {
                     "id": "09",
-                    "label": "RISK CHECK PASSED",
+                    "label": "SECURITY CHECK PASSED",
                     "success": true
                 },
                 {
                     "id": "10",
-                    "label": "Sending Secure Trade Order"
+                    "label": "Secure Execution Instruction"
                 },
                 {
                     "id": "11",
-                    "label": "Trade Executed",
+                    "label": "Position/Asset Secured",
                     "active": true
                 }
             ],
             "metrics": {
-                "latency": "320ms",
-                "confidence": "72.4%",
-                "max_drawdown": "<1.5%"
+                "uptime": "99.99%",
+                "precision": "95.0%",
+                "drawdown": "<1.5%"
             }
         },
         "stats_strip": {
             "id": "performance",
             "metrics": [
                 {
-                    "label": "Total Capital Managed",
-                    "value": "$142.8M"
+                    "label": "Operational Uptime",
+                    "value": "99.99%"
                 },
                 {
-                    "label": "Automated Safety Checks",
-                    "value": "11 steps"
+                    "label": "Node Precision",
+                    "value": "95.0%"
                 },
                 {
-                    "label": "Trade Execution Speed",
+                    "label": "Execution Latency",
                     "value": "320ms"
                 },
                 {
-                    "label": "Max Allowed Daily Loss",
+                    "label": "Max Risk Per Node",
                     "value": "<1.5%"
                 }
             ]
         },
         "architecture_intro": {
             "id": "engine",
-            "eyebrow": "01 — How It Works",
-            "heading": "From market data to a smart trade — in under a second.",
+            "eyebrow": "01 — The Engine",
+            "heading": "Beyond Trading: A Total Business Capital Management System.",
             "body": [
-                "Most trading platforms either rely on human emotion or basic automation. Ortho'M8 is different. It uses an 11-step AI pipeline that continuously watches the markets, filters out noise, and only acts when it has high confidence in an opportunity — all within strict safety boundaries.",
-                "Think of it like having a tireless, emotionless expert trader working for you 24/7 — one that never chases losses, never panics, and logs every single decision it makes."
+                "Ortho'M8 isn't just a trading engine; it's a comprehensive securities management protocol built for all kinds of businesses. It leverages deep machine learning and reinforcement learning at every gate to insure and secure non-riskable capital.",
+                "It reads market dynamics, monitors asset health, and only acts when the probability of success reaches our institutional thresholds. No emotion. Zero downtime. Infinite precision."
             ]
         },
         "signal_lifecycle": {
             "id": "how-it-works",
-            "eyebrow": "02 — The 11-Step Process",
-            "heading": "Every trade passes 11 safety checkpoints.",
+            "eyebrow": "02 — The Methodology",
+            "heading": "Reinforcement learning secured at every node.",
             "logic_nodes": [
                 {
-                    "range": "STEP 01–02",
-                    "title": "Gather Market Data",
-                    "description": "The system continuously pulls in live price data, buyer and seller activity, and major news events from multiple sources — all at once, in real time. If data is delayed even slightly, the system pauses and waits.",
+                    "range": "PHASE 01–02",
+                    "title": "Neural Ingestion",
+                    "description": "System architecture pulls from diverse data streams—global markets, supply chain indicators, and cross-sector securities. Data is normalized and time-stamped with 99.99% reliability.",
                     "diagram": [
-                        "LIVE PRICES",
-                        "BUY/SELL FLOW",
-                        "NORMALIZE",
-                        "NEWS EVENTS",
-                        "TIMESTAMP",
-                        "INGEST"
+                        "NEURAL INGEST",
+                        "DATA NORMAL",
+                        "SECURE LOG",
+                        "TIMESTAMP"
                     ]
                 },
                 {
-                    "range": "STEP 03–05",
-                    "title": "AI Confidence Check",
-                    "description": "Before any trade is considered, the AI cross-checks 14 different market signals and reads current sentiment across financial news. A trade is only considered if the AI is at least 72.4% confident. Anything below that is discarded automatically — it never reaches execution.",
+                    "range": "PHASE 03–05",
+                    "title": "Intelligence Gates",
+                    "description": "Deep machine learning and reinforcement learning algorithms analyze every data point. A capital allocation is only considered if precision reaches a 95% threshold, eliminating noise and securing the principal.",
                     "diagram": [
-                        "SIGNAL CHECK",
-                        "AI ANALYSIS",
-                        "72.4% MIN",
-                        "APPROVED",
-                        "NEXT STEP"
+                        "DML SCAN",
+                        "RL GATE",
+                        "95% PRECISION",
+                        "SECURE"
                     ]
                 },
                 {
-                    "range": "STEP 06–09",
-                    "title": "Risk & Safety Controls",
-                    "description": "Even after a trade looks promising, it must pass strict risk controls. The system automatically calculates how much to trade (never too much), sets a hard daily loss limit of under 1.5%, and checks that the market isn't too volatile. All boxes must be ticked — or the trade is blocked.",
+                    "range": "PHASE 06–09",
+                    "title": "Risk Hardening",
+                    "description": "Before execution, the system passes through hard risk gates. It automatically isolates 'non-riskable' capital, applies strict volatility caps, and ensures max exposure stays under 1.5% daily.",
                     "diagram": [
-                        "TRADE SIZING",
-                        "LOSS LIMIT",
-                        "VOLATILITY CHECK",
-                        "SAFETY CLEARED"
+                        "RISK GATE",
+                        "ISOLATE CAP",
+                        "VOL CAP",
+                        "PASSED"
                     ]
                 },
                 {
-                    "range": "STEP 10–11",
-                    "title": "Trade Placed & Recorded",
-                    "description": "Only after all checks pass does the system place the trade — through a secure, encrypted connection to a regulated broker. The entire decision trail is saved: what data triggered it, the AI's confidence score, how much was traded, and when. Everything is on record.",
+                    "range": "PHASE 10–11",
+                    "title": "Deterministic Execution",
+                    "description": "Positions are secured via encrypted institutional pathways. Every action generates a permanent, tamper-proof record of why, when, and how your capital was managed.",
                     "diagram": [
-                        "SECURE BROKER",
-                        "TRADE PLACED",
-                        "FULL RECORD",
-                        "320ms TOTAL",
-                        "TIMESTAMPED"
+                        "SECURE EXEC",
+                        "ASSET CLEAR",
+                        "LEDGER LOG",
+                        "DET-FAILSAFE"
                     ]
                 }
             ]
         },
         "infrastructure_evidence": {
             "id": "evidence",
-            "eyebrow": "03 — Built on Solid Foundations",
-            "heading": "Reliable technology, transparent by design.",
-            "body": "Every part of the Ortho'M8 system is monitored around the clock, protected by automatic circuit breakers that stop activity if something looks wrong, and fully auditable — so you always know what's happening with your capital.",
+            "eyebrow": "03 — Institutional Rigor",
+            "heading": "Engineered for Zero Failure.",
+            "body": "Ortho'M8 serves as a business capital and securities management system that eliminates human error. It is built for businesses that require absolute certainty in their capital management strategy.",
             "badges": {
-                "capital": "$142.8M Currently Under Management"
+                "security": "95.0% Node Precision Across All Phases"
             },
             "spec_list": [
                 {
-                    "key": "Broker Connection",
-                    "value": "Encrypted via IBKR"
+                    "key": "System Uptime",
+                    "value": "99.99% Reliability"
                 },
                 {
-                    "key": "Time to Execute a Trade",
-                    "value": "~320 milliseconds"
+                    "key": "Intelligence Model",
+                    "value": "Reinforcement Learning Gates"
                 },
                 {
-                    "key": "Minimum AI Confidence Required",
-                    "value": "72.4%"
+                    "key": "Minimum Precision Required",
+                    "value": "95.0% Match"
                 },
                 {
-                    "key": "Maximum Daily Loss Allowed",
-                    "value": "Less than 1.5%"
+                    "key": "Daily Risk Ceiling",
+                    "value": "Hard Cap < 1.5%"
                 },
                 {
-                    "key": "Total Automated Checkpoints",
-                    "value": "11 Steps"
+                    "key": "Architecture",
+                    "value": "11-Node AI Pipeline"
                 },
                 {
-                    "key": "Trade Records",
-                    "value": "Permanent & Tamper-proof"
+                    "key": "Management Scope",
+                    "value": "Capital & Securities (All Sectors)"
                 }
             ]
         },
         "cta_compliance": {
             "id": "audit",
-            "label": "Limited Spots Available",
-            "heading": "Ready to put your capital to work smarter?",
-            "body": "We don't take on every client. Before getting started, we conduct a free business consultation to make sure Ortho'M8 is the right fit for your goals. Spots are limited — take the first step today.",
+            "label": "Strategic Access Only",
+            "heading": "Secure your business capital with intelligent systems.",
+            "body": "We partner with businesses ready to transition to data-driven capital management. Our audit protocol ensures Ortho'M8 aligns with your institutional goals before onboarding begins.",
             "actions": [
                 {
-                    "label": "BOOK A FREE CONSULTATION",
+                    "label": "INITIALIZE AUDIT",
                     "link": "/audit/"
                 },
                 {
-                    "label": "Talk to Our Team",
+                    "label": "Consult Technical Lead",
                     "link": "/contact/"
                 }
             ]
         },
         "footer": {
             "id": "about",
-            "brand_desc": "Ortho'M8 is an AI-powered trading system built for serious investors. Fully automated, risk-controlled, and transparent — so your money works harder while you stay informed.",
+            "brand_desc": "Ortho'M8 is an Algorithmic Capital Management system built for business excellence. Fully automated, risk-hardened, and transparent — securing your capital through intelligent engineering.",
             "columns": [
                 {
-                    "title": "Platform",
+                    "title": "System",
                     "links": [
-                        "How It Works",
-                        "Performance",
-                        "Results",
-                        "Safety & Risk"
+                        "Methodology",
+                        "Precision Stats",
+                        "Risk Gates",
+                        "Safety Protocol"
                     ]
                 },
                 {
-                    "title": "Get Started",
+                    "title": "Solutions",
                     "links": [
-                        "Book a Consultation",
-                        "Client Portal",
-                        "Onboarding Guide",
+                        "Capital Audit",
+                        "Securities Management",
+                        "Deep Learning Overview",
                         "API Access"
                     ]
                 },
                 {
-                    "title": "Company",
+                    "title": "Organization",
                     "links": [
-                        "About Us",
-                        "Technology Overview",
-                        "Legal & Disclaimers",
+                        "Our Team",
+                        "Industrial Logic",
+                        "Compliance",
                         "Contact"
                     ]
                 }
             ],
-            "disclaimer": "Trading involves risk and past performance does not guarantee future results. This platform is intended for informational purposes only and does not constitute financial advice. Please consult a qualified financial advisor before investing."
+            "disclaimer": "Capital management involves risk. Ortho'M8 is a technical infrastructure system and does not provide financial guarantees. Past node precision does not guarantee future results. Consult with your legal and financial advisors."
         }
     }
 }
