@@ -7,51 +7,119 @@
     <title>Wilbak Engineering – Wilhelm Rybak | High-Performance Business Logic & Automation</title>
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Wilbak Engineering provides unbreakable business logic and industrial automation infrastructure. Led by Wilhelm Rybak.">
+    <meta name="description"
+        content="Wilbak Engineering provides unbreakable business logic and industrial automation infrastructure. Led by Wilhelm Rybak.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@100..800&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@100..800&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap"
+        rel="stylesheet">
 
     <style>
-        :root { --neon-blue: #0076FF; --deep-obsidian: #0A0C10; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fcfdfe; color: #0F172A; scroll-behavior: smooth; }
-        .mono { font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+        :root {
+            --neon-blue: #0076FF;
+            --deep-obsidian: #0A0C10;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fcfdfe;
+            color: #0F172A;
+            scroll-behavior: smooth;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+        }
+
         .lake-gradient {
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%),
                 url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover; background-position: center;
+            background-size: cover;
+            background-position: center;
         }
+
         .industrial-grid {
             background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
             background-size: 40px 40px;
         }
+
         .btn-premium {
-            display: inline-block; padding: 0.75rem 2rem; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.25em; font-size: 10px; transition: all 0.3s ease; border-radius: 0.125rem;
-            border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; text-align: center;
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            font-size: 10px;
+            transition: all 0.3s ease;
+            border-radius: 0.125rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            text-align: center;
         }
-        .btn-primary { background-color: #2563eb; color: #ffffff; }
-        .btn-secondary { border: 1px solid #334155; color: #ffffff; }
-        .footer-link { color: #94a3b8; transition: color 0.2s ease; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em; }
-        .footer-link:hover { color: #3b82f6; }
-        
+
+        .btn-primary {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+
+        .btn-secondary {
+            border: 1px solid #334155;
+            color: #ffffff;
+        }
+
+        .footer-link {
+            color: #94a3b8;
+            transition: color 0.2s ease;
+            cursor: pointer;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-link:hover {
+            color: #3b82f6;
+        }
+
         /* Page Loader */
         #page-loader {
-            position: fixed; inset: 0; background: #0A0C10; z-index: 9999;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: fixed;
+            inset: 0;
+            background: #0A0C10;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             transition: opacity 0.5s ease;
         }
-        #page-loader.fade-out { opacity: 0; pointer-events: none; }
-        .loader-spin {
-            width: 40px; height: 40px; border: 3px solid rgba(0, 118, 255, 0.1);
-            border-top: 3px solid #0076FF; border-radius: 50%; animation: spin 1s linear infinite;
+
+        #page-loader.fade-out {
+            opacity: 0;
+            pointer-events: none;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .loader-spin {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0, 118, 255, 0.1);
+            border-top: 3px solid #0076FF;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 
@@ -60,11 +128,13 @@
     <!-- Page Loader -->
     <div id="page-loader">
         <div class="loader-spin mb-4"></div>
-        <div class="mono text-[10px] text-blue-500 uppercase tracking-[0.4em] animate-pulse">Initializing Protocol...</div>
+        <div class="mono text-[10px] text-blue-500 uppercase tracking-[0.4em] animate-pulse">Initializing Protocol...
+        </div>
     </div>
 
     <!-- NAVIGATION -->
-    <nav class="flex justify-between items-center px-6 md:px-10 py-6 bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <nav
+        class="flex justify-between items-center px-6 md:px-10 py-6 bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <a href="/">
             <img src="logo.png" alt="WILBAK ENGINEERING" class="h-8 md:h-10">
         </a>
@@ -74,7 +144,7 @@
             <a href="/" class="text-blue-600 transition">Home</a>
             <a href="/projects/" class="text-slate-500 hover:text-blue-600 transition">Projects</a>
             <a href="/about/" class="text-slate-500 hover:text-blue-600 transition">About</a>
-            <a href="/Orthom8pro/" class="text-slate-500 hover:text-blue-600 transition">OrthoMate™</a>
+            <a href="/Orthom8pro/" class="text-slate-500 hover:text-blue-600 transition">Ortho'M8</a>
             <a href="/contact/" class="text-slate-500 hover:text-blue-600 transition">Contact</a>
             <a href="/insight/" class="text-slate-500 hover:text-blue-600 transition">News & Insights</a>
             <a href="/audit/" class="btn-premium bg-slate-900 text-white hover:bg-blue-700">Business Audit</a>
@@ -89,7 +159,8 @@
         </button>
 
         <!-- Mobile Menu Overlay -->
-        <div x-show="mobileMenu" x-cloak class="absolute top-full left-0 w-full bg-white border-b border-slate-200 md:hidden z-40 shadow-xl p-8 space-y-6 flex flex-col font-bold text-xs uppercase tracking-[0.2em]">
+        <div x-show="mobileMenu" x-cloak
+            class="absolute top-full left-0 w-full bg-white border-b border-slate-200 md:hidden z-40 shadow-xl p-8 space-y-6 flex flex-col font-bold text-xs uppercase tracking-[0.2em]">
             <a href="/" class="text-slate-900">Home</a>
             <a href="/projects/" class="text-slate-900">Projects</a>
             <a href="/about/" class="text-slate-900">About</a>
@@ -105,10 +176,13 @@
         <header class="lake-gradient text-white py-24 md:py-40 px-6 md:px-10 relative overflow-hidden">
             <div class="max-w-6xl mx-auto relative z-10">
                 <div class="max-w-3xl">
-                    <div class="mono text-blue-400 text-sm mb-4 tracking-widest uppercase">[ Operational Protocol: v3.1 ]</div>
-                    <h1 class="text-3xl sm:text-5xl md:text-8xl font-black leading-none mb-6 italic uppercase">ENGINEERING<br>BUSINESS DATA.</h1>
+                    <div class="mono text-blue-400 text-sm mb-4 tracking-widest uppercase">[ Operational Protocol: v3.1
+                        ]</div>
+                    <h1 class="text-3xl sm:text-5xl md:text-8xl font-black leading-none mb-6 italic uppercase">
+                        ENGINEERING<br>BUSINESS DATA.</h1>
                     <p class="text-xl text-slate-400 mb-10 max-w-xl leading-relaxed">
-                        We eliminate the "Chaos Tax" on your business. High-performance infrastructure engineered for zero failure.
+                        We eliminate the "Chaos Tax" on your business. High-performance infrastructure engineered for
+                        zero failure.
                     </p>
                     <div class="flex space-x-6">
                         <a href="/projects/" class="btn-premium btn-primary px-10 py-5 text-xs">Case Studies</a>
@@ -121,23 +195,28 @@
         <!-- Trust Vault -->
         <section class="relative z-20 px-10 -mt-12">
             <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-4">
-                <div class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-blue-500 text-center">
+                <div
+                    class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-blue-500 text-center">
                     <div class="text-white font-black text-sm uppercase mb-1 tracking-tighter">Northrop Grumman</div>
                     <div class="text-blue-400 mono text-[9px] uppercase tracking-widest">Defense Logic</div>
                 </div>
-                <div class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-slate-700 text-center">
+                <div
+                    class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-slate-700 text-center">
                     <div class="text-white font-black text-sm uppercase mb-1 tracking-tighter">Toyota</div>
                     <div class="text-slate-400 mono text-[9px] uppercase tracking-widest">Supply Rigor</div>
                 </div>
-                <div class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-blue-500 text-center">
+                <div
+                    class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-blue-500 text-center">
                     <div class="text-white font-black text-sm uppercase mb-1 tracking-tighter">ConocoPhillips</div>
                     <div class="text-blue-400 mono text-[9px] uppercase tracking-widest">Energy Flow</div>
                 </div>
-                <div class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-slate-700 text-center">
+                <div
+                    class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-slate-700 text-center">
                     <div class="text-white font-black text-sm uppercase mb-1 tracking-tighter">ASDA</div>
                     <div class="text-slate-400 mono text-[9px] uppercase tracking-widest">Retail Scale</div>
                 </div>
-                <div class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-blue-500 text-center">
+                <div
+                    class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-blue-500 text-center">
                     <div class="text-white font-black text-sm uppercase mb-1 tracking-tighter">GEICO</div>
                     <div class="text-blue-400 mono text-[9px] uppercase tracking-widest">Risk Guard</div>
                 </div>
@@ -149,16 +228,19 @@
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-16">
                     <h2 class="text-4xl font-extrabold uppercase italic mb-4">The Operational Gap</h2>
-                    <p class="text-slate-500 uppercase tracking-widest text-xs font-bold font-mono italic">Small Business Inefficiency is the Invisible Profit Killer</p>
+                    <p class="text-slate-500 uppercase tracking-widest text-xs font-bold font-mono italic">Small
+                        Business Inefficiency is the Invisible Profit Killer</p>
                 </div>
                 <div class="grid md:grid-cols-2 gap-12">
                     <div class="p-10 bg-red-50 border-l-4 border-red-500">
                         <h3 class="text-xl font-black uppercase mb-4 text-red-700 italic">The "Chaos Tax"</h3>
-                        <p class="text-slate-600 leading-relaxed">Manual processes and disconnected software systems eat 40% of your labor before a single sale is closed.</p>
+                        <p class="text-slate-600 leading-relaxed">Manual processes and disconnected software systems eat
+                            40% of your labor before a single sale is closed.</p>
                     </div>
                     <div class="p-10 bg-blue-50 border-l-4 border-blue-500">
                         <h3 class="text-xl font-black uppercase mb-4 text-blue-700 italic">The Wilbak Alignment</h3>
-                        <p class="text-slate-600 leading-relaxed">Our Integrated Business Management Engines eliminates 90% of manual overhead by engineering deterministic logic.</p>
+                        <p class="text-slate-600 leading-relaxed">Our Integrated Business Management Engines eliminates
+                            90% of manual overhead by engineering deterministic logic.</p>
                     </div>
                 </div>
             </div>
@@ -169,28 +251,35 @@
             <div class="max-w-6xl mx-auto">
                 <div class="mb-16">
                     <div class="text-blue-500 mono text-xs uppercase tracking-[0.5em] mb-4">[ Mission Feedback ]</div>
-                    <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter">Verified testimonies</h2>
+                    <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter">Verified testimonies
+                    </h2>
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="p-8 border border-slate-800 bg-slate-900/50 hover:border-blue-500 transition group">
-                        <p class="text-slate-400 text-sm leading-relaxed mb-8 italic">"The Wilbak transition saved us $120k in annual manual drafting costs alone. Their logic is unbreakable."</p>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-8 italic">"The Wilbak transition saved us
+                            $120k in annual manual drafting costs alone. Their logic is unbreakable."</p>
                         <div class="border-t border-slate-800 pt-6">
                             <h4 class="font-black uppercase italic text-sm">James McGough</h4>
-                            <p class="text-[9px] mono text-slate-500 uppercase tracking-widest mt-1 italic">CEO, Sterling Logistics</p>
+                            <p class="text-[9px] mono text-slate-500 uppercase tracking-widest mt-1 italic">CEO,
+                                Sterling Logistics</p>
                         </div>
                     </div>
                     <div class="p-8 border border-slate-800 bg-slate-900/50 hover:border-blue-500 transition group">
-                        <p class="text-slate-400 text-sm leading-relaxed mb-8 italic">"We eliminated the Chaos Tax in 90 days. Their Predictive AI kernels are simply unmatched."</p>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-8 italic">"We eliminated the Chaos Tax in 90
+                            days. Their Predictive AI kernels are simply unmatched."</p>
                         <div class="border-t border-slate-800 pt-6">
                             <h4 class="font-black uppercase italic text-sm">Rachel H. Ballack</h4>
-                            <p class="text-[9px] mono text-slate-500 uppercase tracking-widest mt-1 italic">Ops Manager, Vance Mfg</p>
+                            <p class="text-[9px] mono text-slate-500 uppercase tracking-widest mt-1 italic">Ops Manager,
+                                Vance Mfg</p>
                         </div>
                     </div>
                     <div class="p-8 border border-slate-800 bg-slate-900/50 hover:border-blue-500 transition group">
-                        <p class="text-slate-400 text-sm leading-relaxed mb-8 italic">"Rugged, reliable, and deterministic. Wilbak doesn't just build systems; they build absolute certainty."</p>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-8 italic">"Rugged, reliable, and
+                            deterministic. Wilbak doesn't just build systems; they build absolute certainty."</p>
                         <div class="border-t border-slate-800 pt-6">
                             <h4 class="font-black uppercase italic text-sm">Marcus Thorne</h4>
-                            <p class="text-[9px] mono text-slate-500 uppercase tracking-widest mt-1 italic">Founder, Thorne Supply</p>
+                            <p class="text-[9px] mono text-slate-500 uppercase tracking-widest mt-1 italic">Founder,
+                                Thorne Supply</p>
                         </div>
                     </div>
                 </div>
@@ -203,7 +292,8 @@
         <div class="max-w-7xl mx-auto mb-16 border-b border-white/5 pb-16 grid md:grid-cols-2 gap-10 text-left">
             <div>
                 <img src="logo.png" alt="WILBAK" class="h-10 mb-6 invert brightness-0">
-                <p class="text-slate-400 text-sm leading-relaxed max-w-sm">High-performance business logic for industries that demand zero failure. Engineering certainty since 2006.</p>
+                <p class="text-slate-400 text-sm leading-relaxed max-w-sm">High-performance business logic for
+                    industries that demand zero failure. Engineering certainty since 2006.</p>
             </div>
             <div class="grid grid-cols-2 gap-8">
                 <div>
@@ -250,4 +340,5 @@
         });
     </script>
 </body>
+
 </html>
