@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Ortho'M8 — The Team Behind the Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
+  <style>
+      [x-cloak] { display: none !important; }
+      .serif { font-family: 'Playfair Display', serif; }
+      .mono { font-family: 'IBM Plex Mono', monospace; }
+  </style>
+
+  <style>
+    /* ═══════════════════════════════════════════════════
+       DESIGN TOKENS
+    ═══════════════════════════════════════════════════ */
+    :root {
+      --brand-cobalt:      #1A56FF;
+      --brand-cobalt-dim:  #0E38C2;
+      --brand-gold:        #B8972A;
+      --brand-gold-light:  #D4AC3A;
+      --brand-gold-pale:   rgba(184,151,42,0.12);
+      --page-bg:           #060C18;
+      --surface-bg:        #0B1325;
+      --surface-2:         #0F1A30;
+      --surface-glass:     rgba(11,19,37,0.8);
+      --tx-main:           #E8EDF5;
+      --tx-sub:            #6E7E9A;
+      --tx-muted:          #3A4A62;
+      --brand-rule:        rgba(255,255,255,0.06);
+      --brand-rule-strong: rgba(255,255,255,0.12);
+      --glow-cobalt:       rgba(26,86,255,0.15);
+      --glow-gold:         rgba(184,151,42,0.12);
+      --header-bg:         rgba(6,12,24,0.88);
+      --scan-line:         rgba(26,86,255,0.04);
+      --drawer-bg:         #080F20;
+    }
+    [data-theme="light"] {
+      --page-bg:           #F7F8FC;
+      --surface-bg:        #EDEEF5;
+      --surface-2:         #E4E6F0;
+      --surface-glass:     rgba(237,238,245,0.88);
+      --tx-main:           #0A1020;
+      --tx-sub:            #4A5568;
+      --tx-muted:          #9AA5B8;
+      --brand-rule:        rgba(0,0,0,0.07);
+      --brand-rule-strong: rgba(0,0,0,0.14);
+      --glow-cobalt:       rgba(26,86,255,0.08);
+      --glow-gold:         rgba(184,151,42,0.08);
+      --header-bg:         rgba(247,248,252,0.92);
+      --scan-line:         rgba(26,86,255,0.02);
+      --drawer-bg:         #F2F3FA;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--page-bg); color: var(--tx-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px; line-height: 1.6;
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, var(--scan-line) 2px, var(--scan-line) 4px);
+      opacity: 0.6;
+    }
+
+    .text-eyebrow {
+      font-family: 'Fira Code', monospace; font-size: 9px; font-weight: 500;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--brand-cobalt);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .text-eyebrow::before {
+      content: ''; display: inline-block; width: 24px; height: 1px;
+      background: var(--brand-cobalt); opacity: 0.7;
+    }
+    .hero-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 600; line-height: 1.08; letter-spacing: -0.02em;
+    }
+    .hero-heading em  { font-style: italic; color: var(--brand-gold-light); }
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      font-weight: 600; line-height: 1.1; letter-spacing: -0.02em;
+    }
+    .section-heading em { font-style: italic; color: var(--brand-gold-light); }
+    .body-text { font-size: 15px; line-height: 1.75; color: var(--tx-sub); }
+    .layout-container { max-width: 1380px; margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 4rem); }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0.7rem 1.5rem; background: var(--brand-cobalt); color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+      border: none; cursor: pointer; transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--brand-cobalt-dim); transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0.7rem 1.5rem; background: transparent; color: var(--tx-main);
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+      border: 1px solid var(--brand-rule-strong); cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--brand-gold); color: var(--brand-gold-light); }
+
+    /* Header */
+    #site-header {
+      position: fixed; top: 0; left: 0; right: 0; height: 68px; z-index: 200;
+      background: var(--header-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--brand-rule-strong);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(1.25rem, 3vw, 2.5rem);
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-name { font-size: 11px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--tx-main); }
+    .header-nav { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+    .header-nav a {
+      font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--tx-sub); text-decoration: none; transition: color 0.2s;
+    }
+    .header-nav a:hover { color: var(--tx-main); }
+
+    /* Sections */
+    .hero-about { padding: clamp(4rem, 8vw, 10rem) 0 4rem; text-align: center; }
+    .founder-section { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; padding: 6rem 0; border-top: 1px solid var(--brand-rule-strong); align-items: center; }
+    .founder-img-wrap { position: relative; border: 1px solid var(--brand-rule-strong); padding: 1rem; background: var(--surface-bg); }
+    .founder-img-wrap img { width: 100%; height: auto; display: block; filter: saturate(0.85); transition: filter 0.4s; }
+    .founder-img-wrap:hover img { filter: saturate(1.1); }
+    .signature { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-style: italic; color: var(--brand-gold-light); margin-top: 1.5rem; }
+
+    .team-section { padding: 6rem 0; border-top: 1px solid var(--brand-rule-strong); }
+    .team-intro { margin-bottom: 4rem; max-width: 600px; }
+    .team-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: start; }
+    .team-photo-wrap { position: relative; border: 1px solid var(--brand-rule-strong); padding: 1rem; background: var(--surface-bg); }
+    .team-photo-wrap img { width: 100%; height: auto; display: block; filter: saturate(0.85); }
+    
+    .directors-list { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .director-card { border-left: 1px solid var(--brand-rule-strong); padding: 1rem 1.5rem; transition: border-color 0.3s; }
+    .director-card:hover { border-color: var(--brand-cobalt); }
+    .director-name { font-family: 'Fira Code', monospace; font-size: 12px; font-weight: 600; color: var(--tx-main); margin-bottom: 0.25rem; }
+    .director-title { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-gold-light); }
+
+    /* Footer */
+    #site-footer { background: var(--surface-bg); border-top: 1px solid var(--brand-rule-strong); padding: 4rem 0; }
+    .footer-bottom { border-top: 1px solid var(--brand-rule); padding-top: 2rem; margin-top: 3rem; text-align: center; }
+    .footer-bottom p { font-family: 'Fira Code', monospace; font-size: 10px; color: var(--tx-muted); }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .founder-section, .team-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .header-nav { display: none; }
+    }
+    @media (max-width: 480px) {
+      .directors-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="site-header">
+    <a href="/Orthom8pro/" class="logo-wrap">
+      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8">
+      <span class="logo-name">Ortho'M8</span>
+    </a>
+    <nav>
+      <ul class="header-nav">
+        <li><a href="https://wilbakengineering.com">Home</a></li>
+        <li><a href="/Orthom8pro/#performance">Performance</a></li>
+        <li><a href="/Orthom8pro/#engine">How It Works</a></li>
+        <li><a href="/Orthom8pro/about/">About</a></li>
+        <li><a href="/audit/" class="btn-primary" style="margin-left:1rem;">Book Consultation</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="layout-container">
+    
+    <!-- Hero -->
+    <section class="hero-about">
+      <span class="text-eyebrow" style="justify-content:center; margin-bottom:1.5rem;">Our Mission</span>
+      <h1 class="hero-heading">Engineered for <em>Trust</em>.<br>Driven by <strong>Intelligence.</strong></h1>
+      <p class="body-text" style="max-width:640px; margin: 1.5rem auto 0;">Ortho'M8 was founded on a simple principle: high-performance trading should be governed by logic, not emotion. We bridge the gap between technical complexity and transparent execution.</p>
+    </section>
+
+    <!-- Founder Section -->
+    <section class="founder-section">
+      <div class="founder-img-wrap">
+        <img src="https://res.cloudinary.com/dt6n4pnjb/image/upload/v1774340167/IMG_1201_n07tz1_raycbz.png" alt="Founder of Ortho'M8">
+        <div class="corner-dec tl" style="position:absolute; top:4px; left:4px; width:12px; height:12px; border-top:1px solid var(--brand-cobalt); border-left:1px solid var(--brand-cobalt);"></div>
+        <div class="corner-dec br" style="position:absolute; bottom:4px; right:4px; width:12px; height:12px; border-bottom:1px solid var(--brand-cobalt); border-right:1px solid var(--brand-cobalt);"></div>
+      </div>
+      <div class="founder-content">
+        <span class="text-eyebrow" style="margin-bottom:1rem;">The Founder</span>
+        <h2 class="section-heading" style="margin-bottom:1.5rem;">Visionary Leadership in<br><em>AI Infrastructure.</em></h2>
+        <p class="body-text" style="margin-bottom:1.25rem;">The engine behind Ortho'M8 was born from a decade of experience in industrial engineering and high-frequency systems. Our founder envisioned a platform where institutional-grade algorithms could be deployed with sovereign control and absolute transparency.</p>
+        <p class="body-text">"We didn't just build a trading bot. We built a decision-making engine that respects capital and prioritizes safety above all else. Ortho'M8 is the culmination of our belief that data, when properly gated, is the most powerful asset in the market."</p>
+        <div class="signature">The Founder's Vision</div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+      <div class="team-intro">
+        <span class="text-eyebrow" style="margin-bottom:1rem;">Experts Behind the Engine</span>
+        <h2 class="section-heading" style="margin-bottom:1.5rem;">A Multi-Disciplinary<br><em>Execution Team.</em></h2>
+        <p class="body-text">Our board of directors brings together global expertise in quantitative finance, cybersecurity, and capital management. Every line of code in the Ortho'M8 pipeline is reviewed by specialists who understand the weight of institutional responsibility.</p>
+      </div>
+      
+      <div class="team-grid">
+        <div class="team-photo-wrap">
+          <img src="https://res.cloudinary.com/dt6n4pnjb/image/upload/v1774340162/IMG_1194_nunvgj_egct2t.jpg" alt="Ortho'M8 Board of Directors">
+          <div class="corner-dec tr" style="position:absolute; top:4px; right:4px; width:12px; height:12px; border-top:1px solid var(--brand-cobalt); border-right:1px solid var(--brand-cobalt);"></div>
+          <div class="corner-dec bl" style="position:absolute; bottom:4px; left:4px; width:12px; height:12px; border-bottom:1px solid var(--brand-cobalt); border-left:1px solid var(--brand-cobalt);"></div>
+        </div>
+        <div class="directors-list">
+          <div class="director-card">
+            <div class="director-name">Marcus Thorne</div>
+            <div class="director-title">Director of Algorithmic Strategy</div>
+          </div>
+          <div class="director-card">
+            <div class="director-name">Sophia Chen</div>
+            <div class="director-title">Head of Data Engineering</div>
+          </div>
+          <div class="director-card">
+            <div class="director-name">David Miller</div>
+            <div class="director-title">Chief Risk Officer</div>
+          </div>
+          <div class="director-card">
+            <div class="director-name">Elena Rodriguez</div>
+            <div class="director-title">Director of Quantitative Research</div>
+          </div>
+          <div class="director-card" style="grid-column: 1 / -1; border-color:var(--brand-gold-pale); background:var(--surface-bg);">
+            <div class="body-text" style="font-size:12px; font-style:italic;">Our directors ensure that every checkpoint in the 11-step pipeline adheres to global compliance and risk standards.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="padding: 6rem 0; text-align: center; border-top: 1px solid var(--brand-rule-strong);">
+      <h2 class="section-heading" style="margin-bottom:1.5rem;">Join the <em>Future</em> of Capital.</h2>
+      <p class="body-text" style="max-width:500px; margin: 0 auto 2.5rem;">Schedule a private consultation with our team to explore how Ortho'M8 can protect and grow your capital anchor.</p>
+      <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+        <a href="/audit/" class="btn-gold">Book a Consultation</a>
+        <a href="/contact/" class="btn-ghost">Contact Our Office</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer id="site-footer">
+    <div class="layout-container">
+      <div style="display:grid; grid-template-columns: 1fr 2fr; gap: 4rem;">
+        <div>
+          <div class="footer-brand-name">Ortho'M8</div>
+          <p class="footer-brand-desc">Intelligent systems for the sovereign investor. Built on 11-node AI architecture.</p>
+        </div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <div class="footer-col-title">Platform</div>
+            <ul class="footer-links" style="list-style:none;">
+              <li><a href="/Orthom8pro/">The Engine</a></li>
+              <li><a href="/Orthom8pro/#performance">Performance</a></li>
+            </ul>
+          </div>
+          <div>
+            <div class="footer-col-title">Company</div>
+            <ul class="footer-links" style="list-style:none;">
+              <li><a href="/Orthom8pro/about/">About Us</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 ORTHOM8PRO — All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
