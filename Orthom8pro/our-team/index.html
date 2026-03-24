@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Team — Ortho'M8 AI Trading</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
+  <style>
+      [x-cloak] { display: none !important; }
+      .serif { font-family: 'Playfair Display', serif; }
+      .mono { font-family: 'IBM Plex Mono', monospace; }
+  </style>
+
+  <style>
+    /* ═══════════════════════════════════════════════════
+       DESIGN TOKENS (Shared with Main Page)
+    ═══════════════════════════════════════════════════ */
+    :root {
+      --brand-cobalt:      #1A56FF;
+      --brand-cobalt-dim:  #0E38C2;
+      --brand-gold:        #B8972A;
+      --brand-gold-light:  #D4AC3A;
+      --brand-gold-pale:   rgba(184,151,42,0.12);
+      --page-bg:           #060C18;
+      --surface-bg:        #0B1325;
+      --surface-2:         #0F1A30;
+      --surface-glass:     rgba(11,19,37,0.8);
+      --tx-main:           #E8EDF5;
+      --tx-sub:            #6E7E9A;
+      --tx-muted:          #3A4A62;
+      --brand-rule:        rgba(255,255,255,0.06);
+      --brand-rule-strong: rgba(255,255,255,0.12);
+      --glow-cobalt:       rgba(26,86,255,0.15);
+      --glow-gold:         rgba(184,151,42,0.12);
+      --header-bg:         rgba(6,12,24,0.88);
+      --scan-line:         rgba(26,86,255,0.04);
+      --drawer-bg:         #080F20;
+    }
+    [data-theme="light"] {
+      --page-bg:           #F7F8FC;
+      --surface-bg:        #EDEEF5;
+      --surface-2:         #E4E6F0;
+      --surface-glass:     rgba(237,238,245,0.88);
+      --tx-main:           #0A1020;
+      --tx-sub:            #4A5568;
+      --tx-muted:          #9AA5B8;
+      --brand-rule:        rgba(0,0,0,0.07);
+      --brand-rule-strong: rgba(0,0,0,0.14);
+      --glow-cobalt:       rgba(26,86,255,0.08);
+      --glow-gold:         rgba(184,151,42,0.08);
+      --header-bg:         rgba(247,248,252,0.92);
+      --scan-line:         rgba(26,86,255,0.02);
+      --drawer-bg:         #F2F3FA;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--page-bg); color: var(--tx-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px; line-height: 1.6;
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, var(--scan-line) 2px, var(--scan-line) 4px);
+      opacity: 0.6;
+    }
+    body.drawer-open { overflow: hidden; }
+
+    /* ═══════════════════════════════════════════════════
+       TYPOGRAPHY
+    ═══════════════════════════════════════════════════ */
+    .text-eyebrow {
+      font-family: 'Fira Code', monospace; font-size: 9px; font-weight: 500;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--brand-cobalt);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .text-eyebrow::before {
+      content: ''; display: inline-block; width: 24px; height: 1px;
+      background: var(--brand-cobalt); opacity: 0.7;
+    }
+    .hero-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 600; line-height: 1.08; letter-spacing: -0.02em;
+    }
+    .hero-heading em  { font-style: italic; color: var(--brand-gold-light); }
+    .hero-heading strong { font-weight: 700; }
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      font-weight: 600; line-height: 1.1; letter-spacing: -0.02em;
+    }
+    .section-heading em { font-style: italic; color: var(--brand-gold-light); }
+    .body-text { font-size: 15px; line-height: 1.75; color: var(--tx-sub); }
+
+    /* ═══════════════════════════════════════════════════
+       LAYOUT
+    ═══════════════════════════════════════════════════ */
+    .layout-container { max-width: 1380px; margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 4rem); }
+
+    /* ═══════════════════════════════════════════════════
+       BUTTONS
+    ═══════════════════════════════════════════════════ */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0.7rem 1.5rem; background: var(--brand-cobalt); color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+      border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .btn-primary:hover { background: var(--brand-cobalt-dim); box-shadow: 0 0 24px rgba(26,86,255,0.4); transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0.7rem 1.5rem; background: transparent; color: var(--tx-main);
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+      border: 1px solid var(--brand-rule-strong); cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--brand-gold); color: var(--brand-gold-light); background: var(--brand-gold-pale); }
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0.8rem 2rem; background: var(--brand-gold); color: #060C18;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none;
+      border: none; cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+    .btn-gold:hover { background: var(--brand-gold-light); box-shadow: 0 0 28px rgba(184,151,42,0.45); transform: translateY(-1px); }
+
+    /* ═══════════════════════════════════════════════════
+       HEADER
+    ═══════════════════════════════════════════════════ */
+    #site-header {
+      position: fixed; top: 0; left: 0; right: 0; height: 68px; z-index: 200;
+      background: var(--header-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--brand-rule-strong);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(1.25rem, 3vw, 2.5rem); transition: background 0.3s;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-name { font-size: 11px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--tx-main); }
+    .header-nav { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+    .header-nav a {
+      font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--tx-sub); text-decoration: none; transition: color 0.2s;
+    }
+    .header-nav a:hover { color: var(--tx-main); }
+
+    .header-controls { display: flex; align-items: center; gap: 0.75rem; }
+    .theme-btn {
+      width: 34px; height: 34px; border: 1px solid var(--brand-rule-strong); background: transparent; color: var(--tx-sub);
+      display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 13px;
+    }
+    .theme-btn:hover { border-color: var(--brand-gold); color: var(--brand-gold-light); }
+    .lang-select {
+       appearance: none; background: transparent; border: 1px solid var(--brand-rule-strong);
+       color: var(--tx-main); font-family: 'Fira Code', monospace; font-size: 10px;
+       padding: 0 1rem; height: 34px; cursor: pointer;
+    }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; width: 40px; height: 40px; border: 1px solid var(--brand-rule-strong); background: transparent; cursor: pointer; align-items: center; justify-content: center; }
+    .hamburger span { display: block; width: 20px; height: 1.5px; background: var(--tx-main); transition: 0.3s; }
+    .hamburger.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-header-right { display: none; align-items: center; gap: 0.5rem; }
+
+    /* ═══════════════════════════════════════════════════
+       DRAWER
+    ═══════════════════════════════════════════════════ */
+    #mobile-drawer { position: fixed; top: 0; right: 0; width: 300px; height: 100vh; background: var(--drawer-bg); z-index: 300; transform: translateX(100%); transition: 0.4s; display: flex; flex-direction: column; border-left: 1px solid var(--brand-rule-strong); }
+    #mobile-drawer.open { transform: translateX(0); }
+    #drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 290; opacity: 0; pointer-events: none; transition: 0.3s; }
+    #drawer-overlay.visible { opacity: 1; pointer-events: all; }
+    .drawer-header { height: 68px; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; border-bottom: 1px solid var(--brand-rule-strong); }
+    .drawer-nav { flex: 1; display: flex; flex-direction: column; padding: 1rem 0; }
+    .drawer-nav a { padding: 1rem 1.5rem; font-size: 11px; font-weight: 700; color: var(--tx-sub); text-decoration: none; border-bottom: 1px solid var(--brand-rule); }
+    
+    /* ═══════════════════════════════════════════════════
+       TEAM CONTENT SPECIFIC
+    ═══════════════════════════════════════════════════ */
+    .hero-team { padding: clamp(4rem, 8vw, 10rem) 0 4rem; text-align: center; }
+    .founder-section { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; padding: 6rem 0; border-top: 1px solid var(--brand-rule-strong); align-items: center; }
+    .founder-img-wrap { position: relative; border: 1px solid var(--brand-rule-strong); padding: 1rem; background: var(--surface-bg); }
+    .founder-img-wrap img { width: 100%; height: auto; display: block; filter: saturate(0.85); transition: 0.4s; }
+    .founder-img-wrap:hover img { filter: saturate(1.1); }
+    
+    .team-section { padding: 6rem 0; border-top: 1px solid var(--brand-rule-strong); }
+    .team-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: start; }
+    .team-photo-wrap { position: relative; border: 1px solid var(--brand-rule-strong); padding: 1rem; background: var(--surface-bg); }
+    .team-photo-wrap img { width: 100%; height: auto; display: block; filter: saturate(0.85); }
+    
+    .directors-list { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .director-card { 
+      display: flex; align-items: center; gap: 1.25rem;
+      border-left: 1px solid var(--brand-rule-strong); padding: 1rem 1.25rem; 
+      transition: border-color 0.3s, background 0.3s; 
+    }
+    .director-card:hover { border-color: var(--brand-cobalt); background: rgba(26,86,255,0.03); }
+    .director-portrait { 
+      width: 64px; height: 64px; flex-shrink: 0; 
+      background: var(--surface-bg); border: 1px solid var(--brand-rule-strong);
+      position: relative; overflow: hidden;
+    }
+    .director-portrait img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.8); }
+    .director-name { font-family: 'Fira Code', monospace; font-size: 13px; font-weight: 600; color: var(--tx-main); margin-bottom: 0.15rem; }
+    .director-title { font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-gold-light); }
+    .signature { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-style: italic; color: var(--brand-gold-light); line-height: 1.5; }
+
+    /* ═══════════════════════════════════════════════════
+       FOOTER (Shared)
+    ═══════════════════════════════════════════════════ */
+    #site-footer { background: var(--surface-bg); border-top: 1px solid var(--brand-rule-strong); padding: 4rem 0; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 3rem; max-width: 1380px; margin: 0 auto; padding: 0 4rem; }
+    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--tx-main); margin-bottom: 0.75rem; display: block; }
+    .footer-brand-desc { font-size: 13px; line-height: 1.7; color: var(--tx-sub); }
+    .footer-col-title { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--tx-main); margin-bottom: 1.25rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .footer-links a { font-size: 13px; color: var(--tx-sub); text-decoration: none; transition: 0.2s; }
+    .footer-links a:hover { color: var(--brand-cobalt); }
+    .footer-bottom { border-top: 1px solid var(--brand-rule); margin-top: 3rem; padding-top: 2rem; max-width: 1380px; margin: 3rem auto 0; text-align: center; }
+    .footer-bottom p { font-family: 'Fira Code', monospace; font-size: 10px; color: var(--tx-muted); }
+
+    /* ═══════════════════════════════════════════════════
+       WELCOME GATE (Shared)
+    ═══════════════════════════════════════════════════ */
+    #welcome-gate { position: fixed; inset: 0; z-index: 9999; background: var(--page-bg); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1.5rem; }
+    #welcome-gate.exiting { animation: gate-out 0.5s ease forwards; }
+    @keyframes gate-out { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
+    .gate-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; letter-spacing: 8px; text-transform: uppercase; color: var(--tx-main); }
+    .gate-bar-wrap { width: 200px; height: 1px; background: var(--brand-rule-strong); position: relative; overflow: hidden; }
+    .gate-bar { position: absolute; top: 0; left: 0; height: 100%; background: var(--brand-cobalt); width: 0; animation: gate-load 1s ease forwards; }
+    @keyframes gate-load { to { width: 100%; } }
+    .gate-status { font-family: 'Fira Code', monospace; font-size: 9px; color: var(--brand-cobalt); text-transform: uppercase; }
+
+    #app { opacity: 0; transition: 0.5s; }
+    #app.visible { opacity: 1; }
+
+    @media (max-width: 1024px) {
+      .header-nav, .header-controls { display: none; }
+      .hamburger, .mobile-header-right { display: flex; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .founder-section, .team-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .directors-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="welcome-gate">
+  <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-16 mb-6">
+  <div class="gate-logo">Ortho'M8</div>
+  <div class="gate-bar-wrap"><div class="gate-bar"></div></div>
+  <div class="gate-status">Initializing team access…</div>
+</div>
+
+<div id="app">
+  <div id="drawer-overlay"></div>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-drawer">
+    <div class="drawer-header">
+      <div class="logo-wrap">
+        <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8">
+        <span class="logo-name">Ortho'M8</span>
+      </div>
+      <button id="drawer-close" style="color:var(--tx-sub); font-size:20px;">✕</button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="https://wilbakengineering.com">Home</a>
+      <a href="/Orthom8pro/#performance">Performance</a>
+      <a href="/Orthom8pro/#engine">How It Works</a>
+      <a href="/Orthom8pro/our-team/">Our Team</a>
+      <a href="/audit/" class="btn-primary" style="margin: 1.5rem; text-align:center;">Book Consultation</a>
+    </nav>
+  </div>
+
+  <header id="site-header">
+    <a href="/Orthom8pro/" class="logo-wrap">
+      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8">
+      <span class="logo-name">Ortho'M8</span>
+    </a>
+    <nav>
+      <ul class="header-nav">
+        <li><a href="https://wilbakengineering.com">Home</a></li>
+        <li><a href="/Orthom8pro/#performance">Performance</a></li>
+        <li><a href="/Orthom8pro/#engine">How It Works</a></li>
+        <li><a href="/Orthom8pro/our-team/">Our Team</a></li>
+      </ul>
+    </nav>
+    <div class="header-controls">
+      <button class="theme-btn" id="theme-toggle" title="Toggle theme"><span id="theme-icon">☀</span></button>
+      <a href="/audit/" class="btn-primary">Book Consultation</a>
+    </div>
+    <div class="mobile-header-right">
+      <button class="theme-btn" id="mobile-theme-toggle" title="Toggle theme"><span id="mobile-theme-icon">☀</span></button>
+      <button class="hamburger" id="hamburger-btn">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="layout-container" style="padding-top: 68px;">
+    
+    <section class="hero-team">
+      <span class="text-eyebrow" style="justify-content:center; margin-bottom:1.5rem;">Our Mission</span>
+      <h1 class="hero-heading">Engineered for <em>Trust</em>.<br>Driven by <strong>Intelligence.</strong></h1>
+      <p class="body-text" style="max-width:640px; margin: 1.5rem auto 0;">Ortho'M8 was founded on a simple principle: high-performance trading should be governed by logic, not emotion. We bridge the gap between technical complexity and transparent execution.</p>
+    </section>
+
+    <!-- Board of Directors Section -->
+    <section class="founder-section">
+      <div class="founder-img-wrap">
+        <img src="https://res.cloudinary.com/dt6n4pnjb/image/upload/v1774340162/IMG_1194_nunvgj_egct2t.jpg" alt="Ortho'M8 Board of Directors">
+        <div class="corner-dec tl" style="position:absolute; top:4px; left:4px; width:12px; height:12px; border-top:1px solid var(--brand-cobalt); border-left:1px solid var(--brand-cobalt);"></div>
+        <div class="corner-dec br" style="position:absolute; bottom:4px; right:4px; width:12px; height:12px; border-bottom:1px solid var(--brand-cobalt); border-right:1px solid var(--brand-cobalt);"></div>
+      </div>
+      <div class="founder-content">
+        <span class="text-eyebrow" style="margin-bottom:1rem;">Board of Directors</span>
+        <h2 class="section-heading" style="margin-bottom:1.5rem;">Sovereign Oversight,<br><em>Strategic Governance.</em></h2>
+        <p class="body-text" style="margin-bottom:1.25rem;">Our board of directors brings together global expertise in quantitative finance, cybersecurity, and capital management. Every line of code in the Ortho'M8 pipeline is reviewed by specialists who understand the weight of institutional responsibility.</p>
+        <p class="body-text">"Transparency is not a feature; it is our foundation. Our directors ensure that every checkpoint in the 11-step pipeline adheres to global compliance and risk standards, protecting the sovereign anchor of every deployment."</p>
+      </div>
+    </section>
+
+    <!-- Founder Section -->
+    <section class="team-section">
+      <div class="team-intro" style="margin-bottom:4rem; max-width:600px;">
+        <span class="text-eyebrow" style="margin-bottom:1rem;">The Visionary</span>
+        <h2 class="section-heading" style="margin-bottom:1.5rem;">Founder's Note on<br><em>Precision & Trust.</em></h2>
+        <p class="body-text">The engine behind Ortho'M8 was born from a decade of experience in industrial engineering and high-speed infrastructure. Our goal was to create an emotionless execution relay for serious capital.</p>
+      </div>
+      
+      <div class="team-grid">
+        <div class="team-photo-wrap">
+          <img src="https://res.cloudinary.com/dt6n4pnjb/image/upload/v1774340167/IMG_1201_n07tz1_raycbz.png" alt="Founder of Ortho'M8">
+          <div class="corner-dec tr" style="position:absolute; top:4px; right:4px; width:12px; height:12px; border-top:1px solid var(--brand-cobalt); border-right:1px solid var(--brand-cobalt);"></div>
+          <div class="corner-dec bl" style="position:absolute; bottom:4px; left:4px; width:12px; height:12px; border-bottom:1px solid var(--brand-cobalt); border-left:1px solid var(--brand-cobalt);"></div>
+        </div>
+        <div class="directors-list">
+          <div class="director-card">
+            <div class="director-portrait"><img src="1.png" alt="Marcus Thorne"></div>
+            <div>
+              <div class="director-name">Marcus Thorne</div>
+              <div class="director-title">Director of Algorithmic Strategy</div>
+            </div>
+          </div>
+          <div class="director-card">
+            <div class="director-portrait"><img src="2.png" alt="Sophia Chen"></div>
+            <div>
+              <div class="director-name">Sophia Chen</div>
+              <div class="director-title">Head of Data Engineering</div>
+            </div>
+          </div>
+          <div class="director-card">
+            <div class="director-portrait"><img src="3.png" alt="David Miller"></div>
+            <div>
+              <div class="director-name">David Miller</div>
+              <div class="director-title">Chief Risk Officer</div>
+            </div>
+          </div>
+          <div class="director-card">
+            <div class="director-portrait"><img src="4.png" alt="Elena Rodriguez"></div>
+            <div>
+              <div class="director-name">Elena Rodriguez</div>
+              <div class="director-title">Director of Quantitative Research</div>
+            </div>
+          </div>
+          <div class="director-card" style="grid-column: 1 / -1; border-color:var(--brand-gold-pale); background:var(--surface-bg);">
+            <div class="signature">"Ortho'M8 is the culmination of our belief that data, when properly gated, is the most powerful asset in any market."</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer CTA -->
+    <section style="padding: 6rem 0; text-align: center; border-top: 1px solid var(--brand-rule-strong);">
+      <h2 class="section-heading" style="margin-bottom:1.5rem;">Join the <em>Future</em> of Capital.</h2>
+      <p class="body-text" style="max-width:500px; margin: 0 auto 2.5rem;">Schedule a private consultation with our team to explore how Ortho'M8 can protect and grow your capital anchor.</p>
+      <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+        <a href="/audit/" class="btn-gold">Book a Consultation</a>
+        <a href="/contact/" class="btn-ghost">Contact Our Office</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="site-footer">
+    <div class="footer-grid">
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8">
+          <span class="footer-brand-name" style="margin-bottom:0;">Ortho'M8</span>
+        </div>
+        <p class="footer-brand-desc">Ortho'M8 is an AI-powered trading system built for serious investors. Fully automated, risk-controlled, and transparent — so your money works harder while you stay informed.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <ul class="footer-links">
+          <li><a href="/Orthom8pro/#engine">How It Works</a></li>
+          <li><a href="/Orthom8pro/#performance">Performance</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Get Started</div>
+        <ul class="footer-links">
+          <li><a href="/audit/">Book a Consultation</a></li>
+          <li><a href="/contact/">Client Portal</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="/Orthom8pro/our-team/">Our Team</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 ORTHOM8PRO — All rights reserved.</p>
+      <p>Trading involves risk and past performance does not guarantee future results.</p>
+    </div>
+  </footer>
+</div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const gate = document.getElementById('welcome-gate');
+    const app  = document.getElementById('app');
+    
+    // Welcome Gate Logic
+    setTimeout(() => {
+      gate.classList.add('exiting');
+      app.classList.add('visible');
+      setTimeout(() => gate.style.display = 'none', 500);
+    }, 1200);
+
+    // Theme Toggle Logic
+    const html  = document.documentElement;
+    const themeToggle = document.getElementById('theme-toggle');
+    const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const mobileThemeIcon = document.getElementById('mobile-theme-icon');
+
+    const updateTheme = (isDark) => {
+      html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      const icon = isDark ? '☀' : '🌙';
+      if(themeIcon) themeIcon.textContent = icon;
+      if(mobileThemeIcon) mobileThemeIcon.textContent = icon;
+      localStorage.setItem('orthom8-theme', isDark ? 'dark' : 'light');
+    };
+
+    const currentTheme = localStorage.getItem('orthom8-theme') || 'dark';
+    updateTheme(currentTheme === 'dark');
+
+    themeToggle?.addEventListener('click', () => updateTheme(html.getAttribute('data-theme') === 'light'));
+    mobileThemeToggle?.addEventListener('click', () => updateTheme(html.getAttribute('data-theme') === 'light'));
+
+    // Mobile Drawer Logic
+    const hamburger = document.getElementById('hamburger-btn');
+    const drawer = document.getElementById('mobile-drawer');
+    const overlay = document.getElementById('drawer-overlay');
+    const closeBtn = document.getElementById('drawer-close');
+
+    const toggleDrawer = (open) => {
+      drawer.classList.toggle('open', open);
+      overlay.classList.toggle('visible', open);
+      hamburger.classList.toggle('active', open);
+      document.body.classList.toggle('drawer-open', open);
+    };
+
+    hamburger.addEventListener('click', () => toggleDrawer(!drawer.classList.contains('open')));
+    overlay.addEventListener('click', () => toggleDrawer(false));
+    closeBtn.addEventListener('click', () => toggleDrawer(false));
+    
+    // Close on link click
+    document.querySelectorAll('.drawer-nav a').forEach(a => {
+      a.addEventListener('click', () => toggleDrawer(false));
+    });
+  });
+</script>
+</body>
+</html>
