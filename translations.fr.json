@@ -1,0 +1,34 @@
+{
+  "index_data": {
+    "hero": {
+      "heading": "Ingénierie Déterministe pour Capiteaux Emergents.",
+      "subheading": "Wilbak Engineering Group construit des infrastructures infranchissables pour la gestion de capitaux et la sécurité industrielle. Nous ne cherchons pas la croissance; nous cherchons la souveraineté.",
+      "cta": "LANCER L'AUDIT DE CAPITAL"
+    },
+    "trust_vault": {
+      "heading": "La Voûte de Confiance.",
+      "description": "Notre infrastructure a été testée dans les conditions les plus extrêmes.",
+      "clients": ["Northrop Grumman", "Toyota", "Maersk", "Aker Solutions"]
+    },
+    "mission": {
+      "heading": "Zéro Tolérance à l'Erreur.",
+      "body": "Chez Wilbak, l'échec n'est pas une variable. Nous opérons à l'intersection du matériel industriel et de l'intelligence algorithmique. Nos systèmes sont conçus pour éliminer la 'Taxe sur le Chaos' de votre bilan."
+    }
+  },
+  "projects": {
+    "hero": {
+      "heading": "Nos Projets.",
+      "protocol": "[ Historique Opérationnel: 2016 — 2026 ]",
+      "description": "Un registre des systèmes d'infrastructure et de gestion construits sous pression à l'échelle mondiale."
+    },
+    "list": [
+      { "title": "BANQUE COMMERCIALE DE NORVÈGE", "description": "Centre de données haute disponibilité intégré directement au réseau d'un parc éolien." },
+      { "title": "RÉVISION ARCTIQUE", "description": "Révision complète du centre de données pendant les protocoles de confinement de 2020." }
+    ]
+  },
+  "contact": {
+    "hero": { "heading": "Connectons-nous.", "description": "Contactez-nous directement pour vos demandes techniques et support opérationnel." },
+    "methods": [ { "label": "Email", "value": "wilhelm@wilbakengineering.com" }, { "label": "Tél Direct", "value": "+1 214 493 9744" } ],
+    "location": { "city": "Houston, Texas (USA)", "status": "Toujours Actif" }
+  }
+}

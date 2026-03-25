@@ -1,0 +1,38 @@
+{
+  "page_meta": { "title": "项目 | Wilbak 工程" },
+  "hero": {
+    "heading": "我们的项目。",
+    "protocol": "[ 运营历史：2016 — 2026 ]",
+    "description": "全球压力下建造的基础设施和管理系统的记录。"
+  },
+  "projects": [
+    {
+      "year": "2023",
+      "location": "挪威 奥斯陆",
+      "tag": "可再生能源集成",
+      "title": "挪威商业银行",
+      "description": "直接集成到风电场电网的高可用性数据中心。"
+    },
+    {
+      "year": "2020",
+      "location": "阿拉斯加 安克雷奇",
+      "tag": "高风险案例",
+      "tag_type": "alert",
+      "title": "北极圈大修",
+      "description": "2020 年大流行隔离期间完成的完整数据中心大修。"
+    },
+    {
+      "year": "2022",
+      "location": "卡达尔 多哈",
+      "title": "多哈海事中心",
+      "description": "利用海水冷却的世界杯数据处理沿海微型设施。"
+    },
+    {
+      "year": "2018",
+      "location": "丰田总部",
+      "title": "丰田数据工厂",
+      "description": "管理制造装配连续性的超冗余电力系统。"
+    }
+  ],
+  "footer": { "copyright": "© 2026 Wilbak 工程集团 // 为不可摧毁的性能而建" }
+}

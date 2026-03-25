@@ -1,0 +1,64 @@
+{
+  "navigation": [
+    { "label": "Startseite", "url": "/" },
+    { "label": "Projekte", "url": "/projects/" },
+    { "label": "Unser Team", "url": "/Orthom8pro/our-team/" },
+    { "label": "Ortho'M8", "url": "/Orthom8pro/" },
+    { "label": "Kontakt", "url": "/contact/" },
+    { "label": "Nachrichten & Einblicke", "url": "/insight/" },
+    { "label": "Audit", "url": "/audit/", "type": "premium" }
+  ],
+  "hero": {
+    "protocol": "Betriebsprotokoll: v3.1",
+    "heading": "BUSINESS-DATEN-ENGINEERING.",
+    "subheading": "Wir eliminieren die „Chaos-Steuer“ in Ihrem Unternehmen. Hochleistungs-Infrastruktur für Null-Fehler-Toleranz.",
+    "cta": [
+      { "label": "Fallstudien", "url": "/projects/" },
+      { "label": "Funktionsweise", "url": "/Orthom8pro/" }
+    ]
+  },
+  "trust_vault": [
+    { "name": "Northrop Grumman", "label": "Verteidigungslogik" },
+    { "name": "Toyota", "label": "Lieferkette-Rigor" },
+    { "name": "ConocoPhillips", "label": "Energiefluss" },
+    { "name": "ASDA", "label": "Handelsskala" },
+    { "name": "GEICO", "label": "Risikoschutz" }
+  ],
+  "operational_gap": {
+    "heading": "Die operative Lücke",
+    "subheading": "Ineffizienz ist der unsichtbare Profitkiller",
+    "chaos_tax": {
+      "title": "Die „Chaos-Steuer“",
+      "description": "Manuelle Prozesse und isolierte Software-Systeme verschlingen 40% Ihrer Arbeitskraft, bevor ein einziger Verkauf abgeschlossen ist."
+    },
+    "wilbak_alignment": {
+      "title": "Das Wilbak-Alignment",
+      "description": "Unsere integrierten Business-Management-Engines eliminieren 90% des manuellen Overheads durch deterministisches Engineering."
+    }
+  },
+  "testimonies": {
+    "heading": "Verifizierte Erfahrungsberichte",
+    "subheading": "[ Missions-Feedback ]",
+    "items": [
+      {
+        "quote": "„Der Übergang zu Wilbak hat uns allein bei den manuellen Entwurfskosten $120.000 pro Jahr eingespart. Ihre Logik ist unbezwingbar.“",
+        "author": "James McGough",
+        "title": "CEO, Sterling Logistics"
+      },
+      {
+        "quote": "„Wir haben die Chaos-Steuer in 90 Tagen eliminiert. Ihre prädiktiven KI-Kerne sind einfach unübertroffen.“",
+        "author": "Rachel H. Ballack",
+        "title": "Ops Manager, Vance Mfg"
+      },
+      {
+        "quote": "„Robust, zuverlässig und deterministisch. Wilbak baut nicht nur Systeme; sie bauen absolute Gewissheit.“",
+        "author": "Marcus Thorne",
+        "title": "Gründer, Thorne Supply"
+      }
+    ]
+  },
+  "footer": {
+    "description": "Hochleistungs-Geschäftslogik für Branchen, die Null-Fehler fordern. Gewissheit durch Technik seit 2006.",
+    "copyright": "© 2026 Wilbak Engineering Group // Gebaut für unbezwingbare Leistung"
+  }
+}

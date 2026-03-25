@@ -1,0 +1,33 @@
+{
+  "page_meta": { "title": "我们的团队 — Ortho'M8 AI 交易", "theme": "dark" },
+  "hero": {
+    "eyebrow": "我们的使命",
+    "heading": "专为信任而打造。由智能驱动。",
+    "description": "Ortho'M8 成立基于一个简单的原则：高性能交易应由逻辑而非情感主导。我们填补了技术复杂性与透明执行之间的空白。"
+  },
+  "board_of_directors": {
+    "eyebrow": "董事会",
+    "heading": "主权监管，战略治理。",
+    "description": "我们的董事会汇聚了全球量化金融、网络安全和资本管理领域的专家。Ortho'M8 流程中的每一行代码都由深谙机构责任重要性的专家审阅。",
+    "quote": "透明度不是一项功能； 它是我们的基础。 我们的董事确保 11 步流程中的每个检查点都符合全球合规和风险标准。",
+    "image_url": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1774340162/IMG_1194_nunvgj_egct2t.jpg"
+  },
+  "founder_section": {
+    "eyebrow": "愿景家",
+    "heading": "创始人关于精准与信任的短述。",
+    "description": "Ortho'M8 背后的引擎诞生于十年工业工程和高速基础设施的经验。我们的目标是为严肃的资本创建一个无情感的执行中继。",
+    "image_url": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1774340167/IMG_1201_n07tz1_raycbz.png"
+  },
+  "team_members": [
+    { "name": "Marcus Thorne", "title": "算法策略总监", "image": "1.png" },
+    { "name": "Sophia Chen", "title": "数据工程主管", "image": "2.png" },
+    { "name": "David Miller", "title": "首席风险官", "image": "3.png" },
+    { "name": "Elena Rodriguez", "title": "量化研究总监", "image": "4.png" }
+  ],
+  "directors_quote": "Ortho'M8 是我们信念的结晶，即数据在经过正确过滤后，是任何市场中最强大的资产。",
+  "footer": {
+    "brand_desc": "Ortho'M8 是一个为业务卓越而设计的算法资本管理系统。全自动化、低风险、透明。",
+    "copyright": "© 2025 ORTHOM8PRO — 版权所有。",
+    "risk_disclaimer": "交易涉及风险，过往表现不保证未来结果。"
+  }
+}

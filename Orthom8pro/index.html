@@ -354,7 +354,9 @@
       content: ''; position: absolute; inset: -1px; border: 1px solid transparent;
       background: linear-gradient(135deg, rgba(26,86,255,0.4), transparent 40%, rgba(184,151,42,0.3)) border-box;
       -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: destination-out; mask-composite: exclude; pointer-events: none;
+      mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude; pointer-events: none;
     }
     .terminal-header {
       display: flex; align-items: center; justify-content: space-between;
@@ -623,13 +625,13 @@
     }
   </style>
 </head>
-<body>
+<body x-data="o8App" x-cloak>
 
 
 
 <!-- Welcome Gate -->
 <div id="welcome-gate">
-  <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-16 mb-6">
+  <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-16 mb-6">
   <div class="gate-logo" style="letter-spacing: 12px;">Ortho'M8</div>
   <div class="gate-bar-wrap"><div class="gate-bar"></div></div>
   <div class="gate-status">Initializing intelligent systems…</div>
@@ -650,8 +652,8 @@
 
   <div class="drawer-header">
     <a href="https://wilbakengineering.com/Orthom8pro/" class="logo-wrap">
-      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
-      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
+      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
+      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
       <span class="logo-name">Ortho'M8</span>
     </a>
     <button class="drawer-close" id="drawer-close" aria-label="Close menu">✕</button>
@@ -679,12 +681,12 @@
 
   <!-- Nav links -->
   <nav class="drawer-nav" aria-label="Mobile navigation">
-    <a href="https://wilbakengineering.com">Home <span class="nav-arrow">→</span></a>
-    <a href="#performance">Performance <span class="nav-arrow">→</span></a>
-    <a href="#engine">How It Works <span class="nav-arrow">→</span></a>
-    <a href="#how-it-works">Safety & Risk <span class="nav-arrow">→</span></a>
-    <a href="#evidence">Results <span class="nav-arrow">→</span></a>
-    <a href="/Orthom8pro/our-team/">Our Team <span class="nav-arrow">→</span></a>
+    <a href="https://wilbakengineering.com" x-text="t('header.navigation.0.label')">Home <span class="nav-arrow">→</span></a>
+    <a href="#performance" x-text="t('header.navigation.1.label')">Performance <span class="nav-arrow">→</span></a>
+    <a href="#engine" x-text="t('header.navigation.2.label')">How It Works <span class="nav-arrow">→</span></a>
+    <a href="#how-it-works" x-text="t('header.navigation.3.label')">Safety & Risk <span class="nav-arrow">→</span></a>
+    <a href="#evidence" x-text="t('header.navigation.4.label')">Results <span class="nav-arrow">→</span></a>
+    <a href="/Orthom8pro/our-team/" x-text="t('header.navigation.5.label')">Our Team <span class="nav-arrow">→</span></a>
   </nav>
 
   <!-- Theme + Language controls -->
@@ -693,7 +695,7 @@
       <span id="drawer-theme-icon">☀</span>
     </button>
     <div class="lang-wrap" style="flex:1;">
-      <select class="lang-select" id="drawer-lang-select" style="width:100%;">
+      <select class="lang-select" id="drawer-lang-select" style="width:100%;" @change="loadLang($event.target.value)">
         <option value="en">EN</option>
         <option value="es">ES</option>
         <option value="de">DE</option>
@@ -717,19 +719,19 @@
   <!-- HEADER -->
   <header id="site-header">
     <a href="https://wilbakengineering.com/Orthom8pro/" class="logo-wrap">
-      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
-      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
+      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
+      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
       <span class="logo-name">Ortho'M8</span>
     </a>
 
     <nav aria-label="Main navigation">
       <ul class="header-nav">
-        <li><a href="https://wilbakengineering.com">Home</a></li>
-        <li><a href="#performance">Performance</a></li>
-        <li><a href="#engine">How It Works</a></li>
-        <li><a href="#how-it-works">Safety & Risk</a></li>
-        <li><a href="#evidence">Results</a></li>
-        <li><a href="/Orthom8pro/our-team/">Our Team</a></li>
+        <li><a href="https://wilbakengineering.com" x-text="t('header.navigation.0.label')">Home</a></li>
+        <li><a href="#performance" x-text="t('header.navigation.1.label')">Performance</a></li>
+        <li><a href="#engine" x-text="t('header.navigation.2.label')">How It Works</a></li>
+        <li><a href="#how-it-works" x-text="t('header.navigation.3.label')">Safety & Risk</a></li>
+        <li><a href="#evidence" x-text="t('header.navigation.4.label')">Results</a></li>
+        <li><a href="/Orthom8pro/our-team/" x-text="t('header.navigation.5.label')">Our Team</a></li>
       </ul>
     </nav>
 
@@ -737,7 +739,7 @@
     <div class="header-controls">
       <button class="theme-btn" id="theme-toggle" title="Toggle theme"><span id="theme-icon">☀</span></button>
       <div class="lang-wrap">
-        <select class="lang-select" id="lang-select">
+        <select class="lang-select" id="lang-select" @change="loadLang($event.target.value)">
           <option value="en">EN</option>
           <option value="es">ES</option>
           <option value="de">DE</option>
@@ -761,25 +763,25 @@
   <section id="hero">
     <div class="hero-left">
       <div class="hero-left-content">
-        <span class="text-eyebrow anim-slide-r">Algorithmic Capital Management — 99.99% Uptime</span>
-        <h1 class="hero-heading anim-fade-up delay-1" style="margin-top:1.25rem; margin-bottom:1.5rem;">
+        <span class="text-eyebrow anim-slide-r" x-text="t('hero.eyebrow')">Algorithmic Capital Management — 99.99% Uptime</span>
+        <h1 class="hero-heading anim-fade-up delay-1" style="margin-top:1.25rem; margin-bottom:1.5rem;" x-html="t('hero.heading')">
           Your <em>business capital,</em><br>secured by <strong>deep machine learning.</strong>
         </h1>
-        <p class="hero-body anim-fade-up delay-2" style="max-width:440px; margin-bottom:2rem;">
+        <p class="hero-body anim-fade-up delay-2" style="max-width:440px; margin-bottom:2rem;" x-text="t('hero.body')">
           Ortho'M8 is an Algorithmic Capital Management system that reads the market, checks the risk, and only executes when conditions are right. No guesswork. No panic selling or buying. Just data-driven decisions at 95% node precision, around the clock.
         </p>
         <div class="hero-cta-row anim-fade-up delay-3" style="display:flex; gap:12px; flex-wrap:wrap;">
-          <a href="/audit/" class="btn-primary">INITIATE BUSINESS AUDIT</a>
-          <a href="#engine" class="btn-ghost">View Protocol Strategy →</a>
+          <a href="/audit/" class="btn-primary" x-text="t('hero.primary_cta.label')">INITIATE BUSINESS AUDIT</a>
+          <a href="#engine" class="btn-ghost" x-text="t('hero.secondary_cta.label')">View Protocol Strategy →</a>
         </div>
         <div class="stats-ribbon anim-fade-up delay-4">
           <div class="stat-cell">
-            <div class="stat-num">95.0%</div>
-            <div class="stat-label">System Precision Rate</div>
+            <div class="stat-num" x-text="t('hero.ribbon_stats.0.value')">95.0%</div>
+            <div class="stat-label" x-text="t('hero.ribbon_stats.0.label')">System Precision Rate</div>
           </div>
           <div class="stat-cell">
-            <div class="stat-num">11</div>
-            <div class="stat-label">Automated Risk Gates</div>
+            <div class="stat-num" x-text="t('hero.ribbon_stats.1.value')">11</div>
+            <div class="stat-label" x-text="t('hero.ribbon_stats.1.label')">Automated Risk Gates</div>
           </div>
         </div>
       </div>
@@ -794,34 +796,35 @@
         <video src="https://res.cloudinary.com/dgz88jxiy/video/upload/v1774330490/131766-751014982_medium_ouwdmc.mp4" 
                class="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none" 
                autoplay loop muted playsinline aria-hidden="true"></video>
-        <div class="terminal-header">
+        <div class="pipeline-header">
           <div class="terminal-dots">
             <div class="terminal-dot td-red"></div>
             <div class="terminal-dot td-amber"></div>
             <div class="terminal-dot td-green"></div>
           </div>
-          <div class="terminal-title">Protocol Activity</div>
-          <div class="terminal-status"><div class="status-dot"></div>ACTIVE</div>
+          <div class="terminal-title" x-text="t('system_status.title')">Protocol Activity</div>
+          <div class="terminal-status"><div class="status-dot"></div><span x-text="t('system_status.active_protocol')">ACTIVE</span></div>
         </div>
-        <div class="pipeline-nodes">
-          <div class="pnode" style="animation-delay:0.0s"><span class="pnode-num">01</span><span class="pnode-label">Neural Market Ingestion</span><div class="pnode-bar"></div><div class="pnode-indicator"></div></div>
-          <div class="pnode" style="animation-delay:0.3s"><span class="pnode-num">02</span><span class="pnode-label">Sentiment & Order Flow Analysis</span><div class="pnode-bar"></div><div class="pnode-indicator"></div></div>
-          <div class="pnode" style="animation-delay:0.6s"><span class="pnode-num">03</span><span class="pnode-label">Reinforcement Learning Gate</span><div class="pnode-bar"></div><div class="pnode-indicator"></div></div>
-          <div class="pnode" style="animation-delay:0.9s"><span class="pnode-num">04</span><span class="pnode-label">Deep Machine Learning Scan</span><div class="pnode-bar"></div><div class="pnode-indicator"></div></div>
-          <div class="pnode" style="animation-delay:1.2s; background:rgba(184,151,42,0.04);"><span class="pnode-num">05</span><span class="pnode-label highlight">PRECISION THRESHOLD REACHED</span><div class="pnode-bar" style="background:rgba(184,151,42,0.15);"></div><div class="pnode-indicator gold"></div></div>
-          <div class="pnode" style="animation-delay:1.5s"><span class="pnode-num">06</span><span class="pnode-label">Capital Allocation Calculation</span><div class="pnode-bar"></div><div class="pnode-indicator"></div></div>
-          <div class="pnode" style="animation-delay:1.8s"><span class="pnode-num">07</span><span class="pnode-label">Hard Risk Parameters Set</span><div class="pnode-bar"></div><div class="pnode-indicator"></div></div>
-          <div class="pnode" style="animation-delay:2.1s"><span class="pnode-num">08</span><span class="pnode-label">Verification of Non-Riskable Capital</span><div class="pnode-bar"></div><div class="pnode-indicator"></div></div>
-          <div class="pnode" style="animation-delay:2.4s; background:rgba(39,201,63,0.03);"><span class="pnode-num">09</span><span class="pnode-label success">SECURITY CHECK PASSED</span><div class="pnode-bar" style="background:rgba(39,201,63,0.12);"></div><div class="pnode-indicator green"></div></div>
-          <div class="pnode" style="animation-delay:2.7s"><span class="pnode-num">10</span><span class="pnode-label">Secure Execution Instruction</span><div class="pnode-bar"></div><div class="pnode-indicator"></div></div>
-          <div class="pnode" style="animation-delay:3.0s; border-bottom:2px solid rgba(184,151,42,0.3);"><span class="pnode-num" style="color:var(--brand-gold-light);">11</span><span class="pnode-label" style="color:rgba(232,237,245,0.9);">POSITION/ASSET SECURED</span><div class="pnode-bar"></div><div class="pnode-indicator gold"></div></div>
+        <div class="pipeline-nodes" x-show="data">
+          <template x-for="(node, index) in t('system_status.nodes')" :key="node.id">
+            <div class="pnode" 
+                 :style="`animation-delay: ${index * 0.3}s; ${node.active ? 'border-bottom:2px solid rgba(184,151,42,0.3);' : ''} ${node.highlight ? 'background:rgba(184,151,42,0.04);' : ''} ${node.success ? 'background:rgba(39,201,63,0.03);' : ''}`">
+              <span class="pnode-num" :style="node.active ? 'color:var(--brand-gold-light);' : ''" x-text="node.id"></span>
+              <span class="pnode-label" 
+                    :class="{ 'highlight': node.highlight, 'success': node.success }" 
+                    :style="node.active ? 'color:rgba(232,237,245,0.9);' : ''"
+                    x-text="node.label"></span>
+              <div class="pnode-bar" :style="node.highlight ? 'background:rgba(184,151,42,0.15);' : (node.success ? 'background:rgba(39,201,63,0.12);' : '')"></div>
+              <div class="pnode-indicator" :class="{ 'gold': node.highlight || node.active, 'green': node.success }"></div>
+            </div>
+          </template>
         </div>
-        <div class="pipeline-footer">
-          <div class="pf-metric"><div class="pf-val">99.99%</div><div class="pf-lbl">Uptime</div></div>
+        <div class="pipeline-footer" x-show="data">
+          <div class="pf-metric"><div class="pf-val" x-text="t('system_status.metrics.uptime')">99.99%</div><div class="pf-lbl">Uptime</div></div>
           <div class="pf-divider"></div>
-          <div class="pf-metric"><div class="pf-val">95.0%</div><div class="pf-lbl">Precision</div></div>
+          <div class="pf-metric"><div class="pf-val" x-text="t('system_status.metrics.precision')">95.0%</div><div class="pf-lbl">Precision</div></div>
           <div class="pf-divider"></div>
-          <div class="pf-metric"><div class="pf-val">&lt;1.5%</div><div class="pf-lbl">Drawdown</div></div>
+          <div class="pf-metric"><div class="pf-val" x-text="t('system_status.metrics.drawdown')">&lt;1.5%</div><div class="pf-lbl">Drawdown</div></div>
         </div>
       </div>
     </div>
@@ -849,10 +852,10 @@
   <section class="stats-section" id="performance">
     <div style="max-width:100%; overflow:hidden;">
       <div class="stats-grid">
-        <div class="stats-cell"><div class="stats-big-num">99<span>.99%</span></div><div class="stats-big-label">Operational Uptime</div></div>
-        <div class="stats-cell"><div class="stats-big-num">95<span>.0%</span></div><div class="stats-big-label">Node Precision</div></div>
-        <div class="stats-cell"><div class="stats-big-num">320<span>ms</span></div><div class="stats-big-label">Execution Latency</div></div>
-        <div class="stats-cell"><div class="stats-big-num">&lt;1.5<span>%</span></div><div class="stats-big-label">Max Risk Per Node</div></div>
+        <div class="stats-cell"><div class="stats-big-num" x-text="t('stats_strip.metrics.0.value')">99.99%</div><div class="stats-big-label" x-text="t('stats_strip.metrics.0.label')">Operational Uptime</div></div>
+        <div class="stats-cell"><div class="stats-big-num" x-text="t('stats_strip.metrics.1.value')">95.0%</div><div class="stats-big-label" x-text="t('stats_strip.metrics.1.label')">Node Precision</div></div>
+        <div class="stats-cell"><div class="stats-big-num" x-text="t('stats_strip.metrics.2.value')">320ms</div><div class="stats-big-label" x-text="t('stats_strip.metrics.2.label')">Execution Latency</div></div>
+        <div class="stats-cell"><div class="stats-big-num" x-text="t('stats_strip.metrics.3.value')"><1.5%</div><div class="stats-big-label" x-text="t('stats_strip.metrics.3.label')">Max Risk Per Node</div></div>
       </div>
     </div>
   </section>
@@ -862,104 +865,90 @@
     <div class="layout-container">
       <div class="intro-grid">
         <div>
-          <span class="text-eyebrow" style="margin-bottom:1.5rem; display:flex;">01 — The Engine</span>
-          <h2 class="section-heading">Beyond Trading: A Total<br><em>Business Capital</em><br>Management System.</h2>
+          <span class="text-eyebrow" style="margin-bottom:1.5rem; display:flex;" x-text="t('architecture_intro.eyebrow')">01 — The Engine</span>
+          <h2 class="section-heading" x-html="t('architecture_intro.heading')">Beyond Trading: A Total<br><em>Business Capital</em><br>Management System.</h2>
         </div>
         <div style="display:flex; flex-direction:column; justify-content:flex-end; gap:1.25rem;">
-          <p class="hero-body">Ortho'M8 isn't just a trading engine; it's a comprehensive securities management protocol built for all kinds of businesses. It leverages deep machine learning and reinforcement learning at every gate to insure and secure non-riskable capital.</p>
-          <p class="hero-body">It reads market dynamics, monitors asset health, and only acts when the probability of success reaches our institutional thresholds. No emotion. Zero downtime. Infinite precision.</p>
+          <p class="hero-body" x-text="t('architecture_intro.body.0')">Ortho'M8 isn't just a trading engine; it's a comprehensive securities management protocol built for all kinds of businesses. It leverages deep machine learning and reinforcement learning at every gate to insure and secure non-riskable capital.</p>
+          <p class="hero-body" x-text="t('architecture_intro.body.1')">It reads market dynamics, monitors asset health, and only acts when the probability of success reaches our institutional thresholds. No emotion. Zero downtime. Infinite precision.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FEATURE GRID -->
-  <section class="feature-section" id="how-it-works">
+  <section class="feature-section" id="how-it-works" x-show="data">
     <div class="layout-container" style="position:relative; z-index:1;">
-      <span class="text-eyebrow" style="margin-bottom:1.5rem; display:flex;">02 — Methodology</span>
-      <h2 class="section-heading" style="margin-bottom:3rem;">Reinforcement learning<br><em>secured at every node.</em></h2>
+      <span class="text-eyebrow" style="margin-bottom:1.5rem; display:flex;" x-text="t('signal_lifecycle.eyebrow')">02 — Methodology</span>
+      <h2 class="section-heading" style="margin-bottom:3rem;" x-html="t('signal_lifecycle.heading')">Reinforcement learning<br><em>secured at every node.</em></h2>
       <div class="feature-grid">
-        <div class="feature-cell">
-          <div class="feature-num">PHASE 01–02</div>
-          <h3>Neural Ingestion</h3>
-          <p>System architecture pulls from diverse data streams—global markets, supply chain indicators, and cross-sector securities. Data is normalized and time-stamped with 99.99% reliability.</p>
-          <div class="feature-diagram">
-            <div class="fd-row"><span class="fd-active">NEURAL INGEST</span><span class="fd-arrow">→</span><span class="fd-active">DATA NORMAL</span><span class="fd-arrow">→</span><span>SECURE LOG</span></div>
-            <div class="fd-row"><span>TIMESTAMP</span><span class="fd-arrow">→</span><span>TIMESTAMP</span><span class="fd-arrow">→</span><span class="fd-active">DET-LOG</span></div>
+        <template x-for="pnode in t('signal_lifecycle.logic_nodes')">
+          <div class="feature-cell">
+            <div class="feature-num" x-text="pnode.range">PHASE 01–02</div>
+            <h3 x-text="pnode.title">Neural Ingestion</h3>
+            <p x-text="pnode.description">System architecture pulls from diverse data streams—global markets, supply chain indicators, and cross-sector securities.</p>
+            <div class="feature-diagram">
+              <div class="fd-row">
+                <template x-for="(ditem, didx) in pnode.diagram.slice(0,3)">
+                  <div style="display:contents">
+                    <span :class="{ 'fd-active': didx % 2 === 0 }" x-text="ditem"></span>
+                    <span class="fd-arrow" x-show="didx < 2">→</span>
+                  </div>
+                </template>
+              </div>
+              <div class="fd-row" x-show="pnode.diagram.length > 3">
+                <template x-for="(ditem, didx) in pnode.diagram.slice(3,6)">
+                  <div style="display:contents">
+                    <span :class="{ 'fd-active': didx % 2 !== 0 }" x-text="ditem"></span>
+                    <span class="fd-arrow" x-show="didx < pnode.diagram.slice(3,6).length - 1">→</span>
+                  </div>
+                </template>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="feature-cell">
-          <div class="feature-num">PHASE 03–05</div>
-          <h3>Intelligence Gates</h3>
-          <p>Deep machine learning and reinforcement learning algorithms analyze every data point. A capital allocation is only considered if precision reaches a 95% threshold, eliminating noise and securing the principal.</p>
-          <div class="feature-diagram">
-            <div class="fd-row"><span>DML SCAN</span><span class="fd-arrow">→</span><span class="fd-active">RL GATE</span><span class="fd-arrow">→</span><span class="fd-active">95% MATCH</span></div>
-            <div class="fd-row"><span style="color:var(--brand-gold-light); border-color:rgba(184,151,42,0.3); background:rgba(184,151,42,0.06);">SECURE</span><span class="fd-arrow">→</span><span>NEXT STEP</span><span style="margin-left:auto; color:#FF5F57; font-size:8px;">DISCARDED</span></div>
-          </div>
-        </div>
-        <div class="feature-cell">
-          <div class="feature-num">PHASE 06–09</div>
-          <h3>Risk Hardening</h3>
-          <p>Before execution, the system passes through hard risk gates. It automatically isolates 'non-riskable' capital, applies strict volatility caps, and ensures max exposure stays under 1.5% daily.</p>
-          <div class="feature-diagram">
-            <div class="fd-row"><span>RISK GATE</span><span class="fd-arrow">→</span><span class="fd-active">ISOLATE CAP</span></div>
-            <div class="fd-row"><span>VOL CAP</span><span class="fd-arrow">→</span><span style="color:#27C93F; border-color:rgba(39,201,63,0.3); background:rgba(39,201,63,0.05);">PASSED</span></div>
-          </div>
-        </div>
-        <div class="feature-cell">
-          <div class="feature-num">PHASE 10–11</div>
-          <h3>Deterministic Execution</h3>
-          <p>Positions are secured via encrypted institutional pathways. Every action generates a permanent, tamper-proof record of why, when, and how your capital was managed.</p>
-          <div class="feature-diagram">
-            <div class="fd-row"><span class="fd-active">SECURE EXEC</span><span class="fd-arrow">→</span><span class="fd-active">ASSET CLEAR</span><span class="fd-arrow">→</span><span>LEDGER LOG</span></div>
-            <div class="fd-row"><span style="font-size:8px; color:var(--brand-gold-light);">DET-FAILSAFE</span><span class="fd-arrow">→</span><span style="font-size:8px;">TIMESTAMPED</span></div>
-          </div>
-        </div>
+        </template>
       </div>
     </div>
   </section>
 
   <!-- PHOTO SPLIT -->
-  <section class="photo-split" id="evidence">
+  <section class="photo-split" id="evidence" x-show="data">
     <div class="photo-split-img">
       <video src="https://res.cloudinary.com/dgz88jxiy/video/upload/v1774275215/5194152d6e6336320208e8d976e40aa9_ripmvb.mp4" 
              class="w-full h-full object-cover filter saturate-[0.7] contrast-[1.05]" 
              autoplay loop muted playsinline aria-hidden="true"></video>
       <div class="photo-overlay"></div>
-      <div class="photo-badge"><div class="pb-val">95.0%</div><div class="pb-lbl">Node Precision Across All Phases</div></div>
+      <div class="photo-badge"><div class="pb-val" x-text="t('infrastructure_evidence.badges.security').split(' ')[0]">95.0%</div><div class="pb-lbl" x-text="t('infrastructure_evidence.badges.security').split(' ').slice(1).join(' ')">Node Precision Across All Phases</div></div>
     </div>
     <div class="photo-split-content">
-      <span class="text-eyebrow" style="margin-bottom:1.5rem; display:flex;">03 — Built on Solid Foundations</span>
-      <h2 class="section-heading" style="margin-bottom:1rem;">Reliable technology,<br>transparent by<br><em>design.</em></h2>
-      <p class="hero-body" style="margin-top:0.5rem;">Every part of the Ortho'M8 system is monitored around the clock, protected by automatic circuit breakers that stop activity if something looks wrong, and fully auditable — so you always know what's happening with your capital.</p>
+      <span class="text-eyebrow" style="margin-bottom:1.5rem; display:flex;" x-text="t('infrastructure_evidence.eyebrow')">03 — Built on Solid Foundations</span>
+      <h2 class="section-heading" style="margin-bottom:1rem;" x-html="t('infrastructure_evidence.heading')">Reliable technology,<br>transparent by<br><em>design.</em></h2>
+      <p class="hero-body" style="margin-top:0.5rem;" x-text="t('infrastructure_evidence.body')">Every part of the Ortho'M8 system is monitored around the clock, protected by automatic circuit breakers that stop activity if something looks wrong, and fully auditable — so you always know what's happening with your capital.</p>
       <div class="spec-list">
-        <div class="spec-row"><span class="spec-key">System Uptime</span><span class="spec-val">99.99% Reliability</span></div>
-        <div class="spec-row"><span class="spec-key">Intelligence Model</span><span class="spec-val">Reinforcement Learning Gates</span></div>
-        <div class="spec-row"><span class="spec-key">Minimum Precision Required</span><span class="spec-val">95.0% Match</span></div>
-        <div class="spec-row"><span class="spec-key">Daily Risk Ceiling</span><span class="spec-val">Hard Cap &lt; 1.5%</span></div>
-        <div class="spec-row"><span class="spec-key">Architecture</span><span class="spec-val">11-Node AI Pipeline</span></div>
-        <div class="spec-row"><span class="spec-key">Management Scope</span><span class="spec-val">Capital &amp; Securities (All Sectors)</span></div>
+        <template x-for="spec in t('infrastructure_evidence.spec_list')">
+          <div class="spec-row"><span class="spec-key" x-text="spec.key">System Uptime</span><span class="spec-val" x-text="spec.value">99.99% Reliability</span></div>
+        </template>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="cta-block" id="audit">
+  <section class="cta-block" id="audit" x-show="data">
     <div class="cta-bg-grid"></div>
     <div class="cta-glow"></div>
     <div class="cta-inner">
-      <div class="cta-label">Strategic Access Only</div>
-      <h2 class="cta-heading">Secure your business capital<br><em>with intelligent systems.</em></h2>
-      <p class="cta-body">We partner with businesses ready to transition to data-driven capital management. Our audit protocol ensures Ortho'M8 aligns with your institutional goals before onboarding begins.</p>
+      <div class="cta-label" x-text="t('cta_compliance.label')">Strategic Access Only</div>
+      <h2 class="cta-heading" x-html="t('cta_compliance.heading')">Secure your business capital<br><em>with intelligent systems.</em></h2>
+      <p class="cta-body" x-text="t('cta_compliance.body')">We partner with businesses ready to transition to data-driven capital management. Our audit protocol ensures Ortho'M8 aligns with your institutional goals before onboarding begins.</p>
       <div class="cta-actions">
-        <a href="/audit/" class="btn-gold">INITIALIZE AUDIT</a>
-        <a href="/contact/" class="btn-ghost">Consult Technical Lead</a>
+        <a href="/audit/" class="btn-gold" x-text="t('cta_compliance.actions.0.label')">INITIALIZE AUDIT</a>
+        <a href="/contact/" class="btn-ghost" x-text="t('cta_compliance.actions.1.label')">Consult Technical Lead</a>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer id="site-footer">
+  <footer id="site-footer" x-show="data">
     <div class="footer-grid" id="our-team">
       <div>
       <div class="flex items-center gap-3 mb-6">
@@ -967,33 +956,22 @@
         <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
         <span class="footer-brand-name" style="margin-bottom:0;">Ortho'M8</span>
       </div>
-      <p class="footer-brand-desc">Ortho'M8 is an Algorithmic Capital Management system built for business excellence. Fully automated, risk-hardened, and transparent — securing your capital through intelligent engineering.</p>
+      <p class="footer-brand-desc" x-text="t('footer.brand_desc')">Ortho'M8 is an Algorithmic Capital Management system built for business excellence. Fully automated, risk-hardened, and transparent — securing your capital through intelligent engineering.</p>
       </div>
-      <div>
-        <div class="footer-col-title">Platform</div>
-        <ul class="footer-links">
-          <li><a href="#engine">How It Works</a></li><li><a href="#performance">Performance</a></li>
-          <li><a href="#evidence">Results</a></li><li><a href="#how-it-works">Safety &amp; Risk</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Get Started</div>
-        <ul class="footer-links">
-          <li><a href="/audit/" class="cursor-pointer">Book a Consultation</a></li><li><a href="/contact/">Client Portal</a></li>
-          <li><a href="#">Onboarding Guide</a></li><li><a href="#">API Access</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Company</div>
-        <ul class="footer-links">
-          <li><a href="/Orthom8pro/our-team/">Our Team</a></li><li><a href="#">Technology Overview</a></li>
-          <li><a href="#">Legal &amp; Disclaimers</a></li><li><a href="#">Contact</a></li>
-        </ul>
-      </div>
+      <template x-for="col in t('footer.columns')">
+        <div>
+          <div class="footer-col-title" x-text="col.title">Platform</div>
+          <ul class="footer-links">
+            <template x-for="link in col.links">
+              <li><a href="#" x-text="link">Methodology</a></li>
+            </template>
+          </ul>
+        </div>
+      </template>
     </div>
     <div class="footer-bottom">
       <p>© 2025 ORTHOM8PRO — All rights reserved.</p>
-      <p>Trading involves risk and past performance does not guarantee future results. This platform is intended for informational purposes only and does not constitute financial advice. Please consult a qualified financial advisor before investing.</p>
+      <p x-text="t('footer.disclaimer')">Trading involves risk and past performance does not guarantee future results. This platform is intended for informational purposes only and does not constitute financial advice. Please consult a qualified financial advisor before investing.</p>
     </div>
   </footer>
 
@@ -1001,6 +979,42 @@
 
 <script>
   window.addEventListener('DOMContentLoaded', () => {
+
+    /* ── Alpine.js Data ──────────────── */
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('o8App', () => ({
+        lang: localStorage.getItem('o8_locale') || 'en',
+        data: null,
+        loading: true,
+        async init() {
+          await this.loadLang(this.lang);
+          this.loading = false;
+        },
+        async loadLang(lang) {
+          try {
+            const file = lang === 'en' ? 'content.json' : `content.${lang}.json`;
+            const res = await fetch(`/Orthom8pro/${file}`);
+            this.data = await res.json();
+            this.lang = lang;
+            localStorage.setItem('o8_locale', lang);
+            // Sync all selects
+            document.querySelectorAll('.lang-select').forEach(sel => sel.value = lang);
+          } catch (err) {
+            console.error('Failed to load locale:', lang);
+          }
+        },
+        t(path) {
+          if (!this.data) return '';
+          const parts = path.split('.');
+          let current = this.data.content; // Everything is inside .content
+          for (const part of parts) {
+            if (current[part] === undefined) return '';
+            current = current[part];
+          }
+          return current;
+        }
+      }));
+    });
 
     /* ── Welcome Gate ─────────────────── */
     const gate = document.getElementById('welcome-gate');
@@ -1034,15 +1048,6 @@
       document.getElementById(id)?.addEventListener('click', toggleTheme);
     });
 
-    /* ── Language ─────────────────────── */
-    const savedLang = localStorage.getItem('o8_locale') || 'en';
-    ['lang-select','drawer-lang-select'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.value = savedLang;
-        el.addEventListener('change', e => localStorage.setItem('o8_locale', e.target.value));
-      }
-    });
 
     /* ── Mobile Drawer ────────────────── */
     const drawer    = document.getElementById('mobile-drawer');

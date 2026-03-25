@@ -1,0 +1,64 @@
+{
+  "navigation": [
+    { "label": "Accueil", "url": "/" },
+    { "label": "Projets", "url": "/projects/" },
+    { "label": "Notre Équipe", "url": "/Orthom8pro/our-team/" },
+    { "label": "Ortho'M8", "url": "/Orthom8pro/" },
+    { "label": "Contact", "url": "/contact/" },
+    { "label": "Actualités & Perspectives", "url": "/insight/" },
+    { "label": "Audit", "url": "/audit/", "type": "premium" }
+  ],
+  "hero": {
+    "protocol": "Protocole Opérationnel : v3.1",
+    "heading": "L'INGÉNIERIE DES DONNÉES COMMERCIALES.",
+    "subheading": "Nous éliminons la « taxe sur le chaos » de votre entreprise. Infrastructure haute performance conçue pour le zéro défaut.",
+    "cta": [
+      { "label": "Études de cas", "url": "/projects/" },
+      { "label": "Fonctionnement", "url": "/Orthom8pro/" }
+    ]
+  },
+  "trust_vault": [
+    { "name": "Northrop Grumman", "label": "Logique Défense" },
+    { "name": "Toyota", "label": "Rigueur Logistique" },
+    { "name": "ConocoPhillips", "label": "Flux Énergétique" },
+    { "name": "ASDA", "label": "Échelle de détail" },
+    { "name": "GEICO", "label": "Protection des risques" }
+  ],
+  "operational_gap": {
+    "heading": "L'écart opérationnel",
+    "subheading": "L'inefficacité est le tueur invisible des profits",
+    "chaos_tax": {
+      "title": "La « taxe sur le chaos »",
+      "description": "Les processus manuels et les logiciels déconnectés dévorent 40 % de votre main-d'œuvre avant même qu'une vente ne soit conclue."
+    },
+    "wilbak_alignment": {
+      "title": "L'alignement Wilbak",
+      "description": "Nos moteurs de gestion d'entreprise intégrée éliminent 90 % de la charge manuelle grâce à une ingénierie logique déterministe."
+    }
+  },
+  "testimonies": {
+    "heading": "Témoignages vérifiés",
+    "subheading": "[ Retours de mission ]",
+    "items": [
+      {
+        "quote": "« La transition Wilbak nous a épargné 120 000 $ de frais annuels de rédaction manuelle. Leur logique est incassable. »",
+        "author": "James McGough",
+        "title": "PDG, Sterling Logistics"
+      },
+      {
+        "quote": "« Nous avons éliminé la taxe sur le chaos en 90 jours. Leurs noyaux d'IA prédictive sont tout simplement inégalés. »",
+        "author": "Rachel H. Ballack",
+        "title": "Resp. Opérations, Vance Mfg"
+      },
+      {
+        "quote": "« Robuste, fiable et déterministe. Wilbak ne se contente pas de construire des systèmes ; ils construisent une certitude absolue. »",
+        "author": "Marcus Thorne",
+        "title": "Fondateur, Thorne Supply"
+      }
+    ]
+  },
+  "footer": {
+    "description": "Une ingénierie de données haute performance pour les industries exigeant le zéro défaut. La certitude par l'ingénierie depuis 2006.",
+    "copyright": "© 2026 Wilbak Engineering Group // Construit pour une performance incassable"
+  }
+}

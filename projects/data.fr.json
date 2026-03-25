@@ -1,0 +1,38 @@
+{
+  "page_meta": { "title": "Projets | Wilbak Engineering" },
+  "hero": {
+    "heading": "Nos Projets.",
+    "protocol": "[ Historique Opérationnel : 2016 — 2026 ]",
+    "description": "Un enregistrement des systèmes de gestion et d'infrastructure construits sous pression à l'échelle mondiale."
+  },
+  "projects": [
+    {
+      "year": "2023",
+      "location": "Oslo, Norvège",
+      "tag": "INTÉGRATION RENOUVELABLE",
+      "title": "BANQUE COMMERCIALE DE NORVÈGE",
+      "description": "Centre de données haute disponibilité intégré à la grille de parcs éoliens."
+    },
+    {
+      "year": "2020",
+      "location": "Anchorage, Alaska",
+      "tag": "HAUTS ENJEUX",
+      "tag_type": "alert",
+      "title": "RÉVISION ARCTIQUE",
+      "description": "Révision complète d'un centre de données pendant les protocoles de pandémie 2020."
+    },
+    {
+      "year": "2022",
+      "location": "Doha, Qatar",
+      "title": "CENTRE MARITIME DE DOHA",
+      "description": "Mini-installation côtière pour traiter des données de la Coupe du Monde avec refroidissement marin."
+    },
+    {
+      "year": "2018",
+      "location": "Siège de Toyota",
+      "title": "USINE DE DONNÉES TOYOTA",
+      "description": "Gestion de systèmes d'énergie redondants pour les lignes d'assemblage manufacturing."
+    }
+  ],
+  "footer": { "copyright": "© 2026 Wilbak Engineering Group // Construit pour une performance incassable" }
+}

@@ -1,0 +1,64 @@
+{
+  "navigation": [
+    { "label": "Inicio", "url": "/" },
+    { "label": "Proyectos", "url": "/projects/" },
+    { "label": "Nuestro Equipo", "url": "/Orthom8pro/our-team/" },
+    { "label": "Ortho'M8", "url": "/Orthom8pro/" },
+    { "label": "Contacto", "url": "/contact/" },
+    { "label": "Noticias e Información", "url": "/insight/" },
+    { "label": "Auditoría de Negocios", "url": "/audit/", "type": "premium" }
+  ],
+  "hero": {
+    "protocol": "Protocolo Operativo: v3.1",
+    "heading": "INGENIERÍA DE DATOS EMPRESARIALES.",
+    "subheading": "Eliminamos el \"Impuesto al Caos\" en su negocio. Infraestructura de alto rendimiento diseñada para el fallo cero.",
+    "cta": [
+      { "label": "Casos de Estudio", "url": "/projects/" },
+      { "label": "Cómo Funciona", "url": "/Orthom8pro/" }
+    ]
+  },
+  "trust_vault": [
+    { "name": "Northrop Grumman", "label": "Lógica de Defensa" },
+    { "name": "Toyota", "label": "Rigor de Suministro" },
+    { "name": "ConocoPhillips", "label": "Flujo de Energía" },
+    { "name": "ASDA", "label": "Escala Minorista" },
+    { "name": "GEICO", "label": "Protección de Riesgo" }
+  ],
+  "operational_gap": {
+    "heading": "La Brecha Operativa",
+    "subheading": "La ineficiencia es el asesino invisible de las ganancias",
+    "chaos_tax": {
+      "title": "El \"Impuesto al Caos\"",
+      "description": "Los procesos manuales y los sistemas desconectados consumen el 40% de su mano de obra antes de cerrar una sola venta."
+    },
+    "wilbak_alignment": {
+      "title": "La Alineación Wilbak",
+      "description": "Nuestros Motores de Gestión Empresarial Integral eliminan el 90% de la carga manual mediante ingeniería de lógica determinista."
+    }
+  },
+  "testimonies": {
+    "heading": "Testimonios verificados",
+    "subheading": "[ Comentarios de la Misión ]",
+    "items": [
+      {
+        "quote": "\"La transición a Wilbak nos ahorró $120k en costos anuales de redacción manual por sí sola. Su lógica es inquebrantable.\"",
+        "author": "James McGough",
+        "title": "CEO, Sterling Logistics"
+      },
+      {
+        "quote": "\"Eliminamos el Impuesto al Caos en 90 días. Sus núcleos de IA predictiva son simplemente inigualables.\"",
+        "author": "Rachel H. Ballack",
+        "title": "Gerente de Operaciones, Vance Mfg"
+      },
+      {
+        "quote": "\"Robusto, confiable y determinista. Wilbak no solo construye sistemas; construyen absoluta certeza.\"",
+        "author": "Marcus Thorne",
+        "title": "Fundador, Thorne Supply"
+      }
+    ]
+  },
+  "footer": {
+    "description": "Lógica empresarial de alto rendimiento para industrias que exigen fallo cero. Ingeniería de certeza desde 2006.",
+    "copyright": "© 2026 Wilbak Engineering Group // Construido para un Rendimiento Inquebrantable"
+  }
+}

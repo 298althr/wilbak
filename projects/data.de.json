@@ -1,0 +1,38 @@
+{
+  "page_meta": { "title": "Projekte | Wilbak Engineering" },
+  "hero": {
+    "heading": "Unsere Projekte.",
+    "protocol": "[ Betriebshistorie: 2016 — 2026 ]",
+    "description": "Eine Aufzeichnung von Infrastruktur- und Verwaltungssystemen, die weltweit unter hohem Druck errichtet wurden."
+  },
+  "projects": [
+    {
+      "year": "2023",
+      "location": "Oslo, Norwegen",
+      "tag": "ERNEUERBARE INTEGRATION",
+      "title": "NORWEGISCHE HANDELSBANK",
+      "description": "Hochverfügbares Rechenzentrum, das direkt in das Stromnetz eines Windparks integriert ist."
+    },
+    {
+      "year": "2020",
+      "location": "Anchorage, Alaska",
+      "tag": "HOCHRISIKO",
+      "tag_type": "alert",
+      "title": "ARKTISCHE ÜBERHOLUNG",
+      "description": "Vollständige Überholung des Rechenzentrums während der Pandemie-Isolationsprotokolle im Jahr 2020."
+    },
+    {
+      "year": "2022",
+      "location": "Doha, Katar",
+      "title": "MARITIMES ZENTRUM DOHA",
+      "description": "Küstennahe Minianlage für die World Cup Datenverarbeitung mit Meerwasserkühlung."
+    },
+    {
+      "year": "2018",
+      "location": "Toyota Hauptsitz",
+      "title": "TOYOTA DATENWERK",
+      "description": "Verwaltung von hyper-redundanten Energiesystemen für die Kontinuität der Fertigungslinie."
+    }
+  ],
+  "footer": { "copyright": "© 2026 Wilbak Engineering Group // Gebaut für unbezwingbare Leistung" }
+}

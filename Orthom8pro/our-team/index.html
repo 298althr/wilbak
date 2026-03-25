@@ -270,11 +270,11 @@
 </head>
 <body>
 
-<div id="welcome-gate">
-  <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-16 mb-6">
+<div id="welcome-gate" x-show="loading" x-transition:leave="transition ease-in duration-500">
+  <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-16 mb-6">
   <div class="gate-logo" style="letter-spacing: 12px;">OUR TEAM</div>
   <div class="gate-bar-wrap"><div class="gate-bar"></div></div>
-  <div class="gate-status">Initializing team access…</div>
+  <div class="gate-status">INITIALIZING TEAM ACCESS…</div>
 </div>
 
 <div id="app">
@@ -284,8 +284,8 @@
   <div id="mobile-drawer">
     <div class="drawer-header">
       <a href="https://wilbakengineering.com/Orthom8pro/" class="logo-wrap">
-        <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
-        <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
+        <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
+        <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
         <span class="logo-name">Ortho'M8</span>
       </a>
       <button id="drawer-close" style="color:var(--tx-sub); font-size:20px;">✕</button>
@@ -294,15 +294,24 @@
       <a href="https://wilbakengineering.com">Home</a>
       <a href="/Orthom8pro/#performance">Performance</a>
       <a href="/Orthom8pro/#engine">How It Works</a>
-      <a href="/Orthom8pro/our-team/">Our Team</a>
+      <a href="/Orthom8pro/our-team/" class="active">Our Team</a>
+      <div class="p-6">
+        <select class="lang-select w-full" @change="loadLang($event.target.value)">
+          <option value="en">English (EN)</option>
+          <option value="es">Español (ES)</option>
+          <option value="de">Deutsch (DE)</option>
+          <option value="fr">Français (FR)</option>
+          <option value="zh">中文 (ZH)</option>
+        </select>
+      </div>
       <a href="/audit/" class="btn-primary" style="margin: 1.5rem; text-align:center;">Book Consultation</a>
     </nav>
   </div>
 
   <header id="site-header">
     <a href="/Orthom8pro/" class="logo-wrap">
-      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
-      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
+      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
+      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
       <span class="logo-name">Ortho'M8</span>
     </a>
     <nav>
@@ -315,6 +324,15 @@
     </nav>
     <div class="header-controls">
       <button class="theme-btn" id="theme-toggle" title="Toggle theme"><span id="theme-icon">☀</span></button>
+      <div class="lang-wrap">
+        <select class="lang-select" id="lang-select" @change="loadLang($event.target.value)">
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+          <option value="de">DE</option>
+          <option value="fr">FR</option>
+          <option value="zh">ZH</option>
+        </select>
+      </div>
       <a href="/audit/" class="btn-primary">Book Consultation</a>
     </div>
     <div class="mobile-header-right">
@@ -327,72 +345,53 @@
 
   <main class="layout-container" style="padding-top: 68px;">
     
-    <section class="hero-team">
-      <span class="text-eyebrow" style="justify-content:center; margin-bottom:1.5rem;">Our Mission</span>
-      <h1 class="hero-heading">Engineered for <em>Trust</em>.<br>Driven by <strong>Intelligence.</strong></h1>
-      <p class="body-text" style="max-width:640px; margin: 1.5rem auto 0;">Ortho'M8 was founded on a simple principle: high-performance trading should be governed by logic, not emotion. We bridge the gap between technical complexity and transparent execution.</p>
+    <section class="hero-team" x-show="data">
+      <span class="text-eyebrow" style="justify-content:center; margin-bottom:1.5rem;" x-text="t('hero.eyebrow')">Our Mission</span>
+      <h1 class="hero-heading" x-html="t('hero.heading')">Engineered for <em>Trust</em>.<br>Driven by <strong>Intelligence.</strong></h1>
+      <p class="body-text" style="max-width:640px; margin: 1.5rem auto 0;" x-text="t('hero.description')">Ortho'M8 was founded on a simple principle: high-performance trading should be governed by logic, not emotion. We bridge the gap between technical complexity and transparent execution.</p>
     </section>
 
     <!-- Board of Directors Section -->
-    <section class="founder-section">
+    <section class="founder-section" x-show="data">
       <div class="founder-img-wrap">
-        <img src="https://res.cloudinary.com/dt6n4pnjb/image/upload/v1774340162/IMG_1194_nunvgj_egct2t.jpg" alt="Ortho'M8 Board of Directors">
+        <img :src="t('board_of_directors.image_url')" alt="Ortho'M8 Board of Directors">
         <div class="corner-dec tl" style="position:absolute; top:4px; left:4px; width:12px; height:12px; border-top:1px solid var(--brand-cobalt); border-left:1px solid var(--brand-cobalt);"></div>
         <div class="corner-dec br" style="position:absolute; bottom:4px; right:4px; width:12px; height:12px; border-bottom:1px solid var(--brand-cobalt); border-right:1px solid var(--brand-cobalt);"></div>
       </div>
       <div class="founder-content">
-        <span class="text-eyebrow" style="margin-bottom:1rem;">Board of Directors</span>
-        <h2 class="section-heading" style="margin-bottom:1.5rem;">Sovereign Oversight,<br><em>Strategic Governance.</em></h2>
-        <p class="body-text" style="margin-bottom:1.25rem;">Our board of directors brings together global expertise in quantitative finance, cybersecurity, and capital management. Every line of code in the Ortho'M8 pipeline is reviewed by specialists who understand the weight of institutional responsibility.</p>
-        <p class="body-text">"Transparency is not a feature; it is our foundation. Our directors ensure that every checkpoint in the 11-step pipeline adheres to global compliance and risk standards, protecting the sovereign anchor of every deployment."</p>
+        <span class="text-eyebrow" style="margin-bottom:1rem;" x-text="t('board_of_directors.eyebrow')">Board of Directors</span>
+        <h2 class="section-heading" style="margin-bottom:1.5rem;" x-text="t('board_of_directors.heading')">Sovereign Oversight,<br><em>Strategic Governance.</em></h2>
+        <p class="body-text" style="margin-bottom:1.25rem;" x-text="t('board_of_directors.description')">Our board of directors brings together global expertise in quantitative finance, cybersecurity, and capital management. Every line of code in the Ortho'M8 pipeline is reviewed by specialists who understand the weight of institutional responsibility.</p>
+        <p class="body-text" x-text="t('board_of_directors.quote')">"Transparency is not a feature; it is our foundation. Our directors ensure that every checkpoint in the 11-step pipeline adheres to global compliance and risk standards, protecting the sovereign anchor of every deployment."</p>
       </div>
     </section>
 
     <!-- Founder Section -->
     <section class="team-section">
       <div class="team-intro" style="margin-bottom:4rem; max-width:600px;">
-        <span class="text-eyebrow" style="margin-bottom:1rem;">The Visionary</span>
-        <h2 class="section-heading" style="margin-bottom:1.5rem;">Founder's Note on<br><em>Precision & Trust.</em></h2>
-        <p class="body-text">The engine behind Ortho'M8 was born from a decade of experience in industrial engineering and high-speed infrastructure. Our goal was to create an emotionless execution relay for serious capital.</p>
+        <span class="text-eyebrow" style="margin-bottom:1rem;" x-text="t('founder_section.eyebrow')">The Visionary</span>
+        <h2 class="section-heading" style="margin-bottom:1.5rem;" x-html="t('founder_section.heading')">Founder's Note on<br><em>Precision & Trust.</em></h2>
+        <p class="body-text" x-text="t('founder_section.description')">The engine behind Ortho'M8 was born from a decade of experience in industrial engineering and high-speed infrastructure. Our goal was to create an emotionless execution relay for serious capital.</p>
       </div>
       
       <div class="team-grid">
         <div class="team-photo-wrap">
-          <img src="https://res.cloudinary.com/dt6n4pnjb/image/upload/v1774340167/IMG_1201_n07tz1_raycbz.png" alt="Founder of Ortho'M8">
+          <img :src="t('founder_section.image_url')" alt="Founder of Ortho'M8">
           <div class="corner-dec tr" style="position:absolute; top:4px; right:4px; width:12px; height:12px; border-top:1px solid var(--brand-cobalt); border-right:1px solid var(--brand-cobalt);"></div>
           <div class="corner-dec bl" style="position:absolute; bottom:4px; left:4px; width:12px; height:12px; border-bottom:1px solid var(--brand-cobalt); border-left:1px solid var(--brand-cobalt);"></div>
         </div>
         <div class="directors-list">
-          <div class="director-card">
-            <div class="director-portrait"><img src="1.png" alt="Marcus Thorne"></div>
-            <div>
-              <div class="director-name">Marcus Thorne</div>
-              <div class="director-title">Director of Algorithmic Strategy</div>
+          <template x-for="member in t('team_members')">
+            <div class="director-card">
+              <div class="director-portrait"><img :src="member.image" :alt="member.name"></div>
+              <div>
+                <div class="director-name" x-text="member.name">Marcus Thorne</div>
+                <div class="director-title" x-text="member.title">Director of Algorithmic Strategy</div>
+              </div>
             </div>
-          </div>
-          <div class="director-card">
-            <div class="director-portrait"><img src="2.png" alt="Sophia Chen"></div>
-            <div>
-              <div class="director-name">Sophia Chen</div>
-              <div class="director-title">Head of Data Engineering</div>
-            </div>
-          </div>
-          <div class="director-card">
-            <div class="director-portrait"><img src="3.png" alt="David Miller"></div>
-            <div>
-              <div class="director-name">David Miller</div>
-              <div class="director-title">Chief Risk Officer</div>
-            </div>
-          </div>
-          <div class="director-card">
-            <div class="director-portrait"><img src="4.png" alt="Elena Rodriguez"></div>
-            <div>
-              <div class="director-name">Elena Rodriguez</div>
-              <div class="director-title">Director of Quantitative Research</div>
-            </div>
-          </div>
+          </template>
           <div class="director-card" style="grid-column: 1 / -1; border-color:var(--brand-gold-pale); background:var(--surface-bg);">
-            <div class="signature">"Ortho'M8 is the culmination of our belief that data, when properly gated, is the most powerful asset in any market."</div>
+            <div class="signature" x-text="t('directors_quote')">"Ortho'M8 is the culmination of our belief that data, when properly gated, is the most powerful asset in any market."</div>
           </div>
         </div>
       </div>
@@ -410,7 +409,7 @@
 
   </main>
 
-  <footer id="site-footer">
+  <footer id="site-footer" x-show="data">
     <div class="footer-grid">
       <div>
         <div class="flex items-center gap-3 mb-6">
@@ -418,50 +417,43 @@
           <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
           <span class="footer-brand-name" style="margin-bottom:0;">Ortho'M8</span>
         </div>
-        <p class="footer-brand-desc">Ortho'M8 is an Algorithmic Capital Management system built for business excellence. Fully automated, risk-hardened, and transparent — securing your capital through intelligent engineering.</p>
+        <p class="footer-brand-desc" x-text="t('footer.brand_desc')">Ortho'M8 is an Algorithmic Capital Management system built for business excellence. Fully automated, risk-hardened, and transparent — securing your capital through intelligent engineering.</p>
       </div>
       <div>
-        <div class="footer-col-title">Platform</div>
+        <div class="footer-col-title" x-text="t('footer.links.platform.0.label') ? 'Platform' : 'Platform'">Platform</div>
         <ul class="footer-links">
-          <li><a href="/Orthom8pro/#engine">How It Works</a></li>
-          <li><a href="/Orthom8pro/#performance">Performance</a></li>
+          <template x-for="link in t('footer.links.platform')">
+            <li><a :href="link.url" x-text="link.label">How It Works</a></li>
+          </template>
         </ul>
       </div>
       <div>
-        <div class="footer-col-title">Get Started</div>
+        <div class="footer-col-title" x-text="t('footer.links.get_started.0.label') ? 'Get Started' : 'Get Started'">Get Started</div>
         <ul class="footer-links">
-          <li><a href="/audit/">Book a Consultation</a></li>
-          <li><a href="/contact/">Client Portal</a></li>
+          <template x-for="link in t('footer.links.get_started')">
+            <li><a :href="link.url" x-text="link.label">Book a Consultation</a></li>
+          </template>
         </ul>
       </div>
       <div>
-        <div class="footer-col-title">Company</div>
+        <div class="footer-col-title" x-text="t('footer.links.company.0.label') ? 'Company' : 'Company'">Company</div>
         <ul class="footer-links">
-          <li><a href="/Orthom8pro/our-team/">Our Team</a></li>
-          <li><a href="/contact/">Contact</a></li>
+          <template x-for="link in t('footer.links.company')">
+            <li><a :href="link.url" x-text="link.label">Our Team</a></li>
+          </template>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 ORTHOM8PRO — All rights reserved.</p>
-      <p>Trading involves risk and past performance does not guarantee future results.</p>
+      <p x-text="t('footer.copyright')">© 2025 ORTHOM8PRO — All rights reserved.</p>
+      <p x-text="t('footer.risk_disclaimer')">Trading involves risk and past performance does not guarantee future results.</p>
     </div>
   </footer>
 </div>
 
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    const gate = document.getElementById('welcome-gate');
-    const app  = document.getElementById('app');
-    
-    // Welcome Gate Logic
-    setTimeout(() => {
-      gate.classList.add('exiting');
-      app.classList.add('visible');
-      setTimeout(() => gate.style.display = 'none', 500);
-    }, 1200);
-
-    // Theme Toggle Logic
+    // Theme logic
     const html  = document.documentElement;
     const themeToggle = document.getElementById('theme-toggle');
     const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
@@ -498,11 +490,46 @@
     hamburger.addEventListener('click', () => toggleDrawer(!drawer.classList.contains('open')));
     overlay.addEventListener('click', () => toggleDrawer(false));
     closeBtn.addEventListener('click', () => toggleDrawer(false));
-    
-    // Close on link click
-    document.querySelectorAll('.drawer-nav a').forEach(a => {
-      a.addEventListener('click', () => toggleDrawer(false));
-    });
+  });
+
+  // Alpine i18n Logic
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('teamApp', () => ({
+      lang: localStorage.getItem('o8_locale') || 'en',
+      data: null,
+      loading: true,
+
+      async init() {
+        await this.loadLang(this.lang);
+        setTimeout(() => { this.loading = false; }, 800);
+      },
+
+      async loadLang(lang) {
+        try {
+          const res = await fetch(`/Orthom8pro/our-team/data.${lang}.json`);
+          if (!res.ok) throw new Error("File not found");
+          this.data = await res.json();
+          this.lang = lang;
+          localStorage.setItem('o8_locale', lang);
+          document.querySelectorAll('.lang-select').forEach(sel => sel.value = lang);
+          if (this.data.page_meta?.title) document.title = this.data.page_meta.title;
+        } catch (err) {
+          console.error(`Failed to load team data for: ${lang}`, err);
+          if (lang !== 'en') this.loadLang('en');
+        }
+      },
+
+      t(path) {
+        if (!this.data) return '';
+        const parts = path.split('.');
+        let current = this.data;
+        for (const part of parts) {
+          if (current[part] === undefined) return '';
+          current = current[part];
+        }
+        return current;
+      }
+    }));
   });
 </script>
 </body>

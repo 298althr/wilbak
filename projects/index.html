@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects | Wilbak Engineering</title>
+    <title x-text="data?.page_meta?.title || 'Projects | Wilbak Engineering'">Projects | Wilbak Engineering</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
 
     <style>
+        [x-cloak] { display: none !important; }
         :root {
             --neon-blue: #0076FF;
             --deep-obsidian: #0A0C10;
@@ -29,38 +30,42 @@
             transition: all 0.4s ease; position: relative; overflow: hidden;
             background: white;
         }
-        .project-card:hover { border-left-color: #3b82f6; transform: translateY(-5px); box-shadow: 0 20px 25px rgba(0,0,0,0.05); }
-        .industrial-grid {
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 40px 40px;
-        }
-        .btn-premium { display: inline-block; padding: 0.75rem 2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.25em; font-size: 10px; transition: all 0.3s ease; border-radius: 0.125rem; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; text-align: center; }
+        .project-card:hover { transform: translateY(-5px); border-left-color: var(--neon-blue); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .industrial-grid { background-image: radial-gradient(#e2e8f0 1px, transparent 1px); background-size: 40px 40px; }
+        .btn-premium { padding: 12px 32px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s; }
         
-        #page-loader { position: fixed; inset: 0; background: #0A0C10; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease; }
-        #page-loader.fade-out { opacity: 0; pointer-events: none; }
-        .loader-spin { width: 40px; height: 40px; border: 3px solid rgba(0, 118, 255, 0.1); border-top: 3px solid #0076FF; border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .lang-select { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 4px; outline: none; cursor: pointer; }
+        .lang-select option { background: #0F172A; color: white; }
     </style>
 </head>
 
-<body x-data="{ mobileMenu: false }">
+<body x-data="projectsApp" class="industrial-grid">
 
-    <div id="page-loader">
-        <div class="loader-spin mb-4"></div>
-        <div class="mono text-[10px] text-blue-500 uppercase tracking-[0.4em] animate-pulse">Initializing Protocol...</div>
-    </div>
+    <nav class="flex justify-between items-center px-10 py-8 max-w-7xl mx-auto relative z-50">
+        <a href="/" class="flex items-center gap-3 group">
+            <div class="w-10 h-10 bg-slate-900 rounded-sm flex items-center justify-center p-2 group-hover:bg-blue-600 transition">
+                <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo">
+            </div>
+            <h1 class="font-black text-xl tracking-tighter uppercase italic text-slate-900">Wilbak <span class="text-blue-600">Engineering</span></h1>
+        </a>
 
-    <nav class="flex justify-between items-center px-6 md:px-10 py-6 bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
-        <a href="/" class="cursor-pointer"><img src="/logo.png" alt="WILBAK" class="h-8 md:h-10"></a>
-        <div class="hidden md:flex items-center space-x-10 font-bold text-xs uppercase tracking-[0.2em]">
+        <div class="hidden md:flex items-center gap-10 text-[10px] font-black uppercase tracking-[0.2em]">
             <a href="/" class="text-slate-500 hover:text-blue-600 transition">Home</a>
-            <a href="/projects/" class="text-blue-600 transition">Projects</a>
-            <a href="/about/" class="text-slate-500 hover:text-blue-600 transition">About</a>
+            <a href="/projects/" class="text-blue-600">Projects</a>
             <a href="/Orthom8pro/" class="text-slate-500 hover:text-blue-600 transition">OrthoMate™</a>
             <a href="/contact/" class="text-slate-500 hover:text-blue-600 transition">Contact</a>
-            <a href="/insight/" class="text-slate-500 hover:text-blue-600 transition">News & Insights</a>
+            
+            <select class="lang-select !text-slate-900 !border-slate-300" @change="loadLang($event.target.value)">
+                <option value="en">EN</option>
+                <option value="es">ES</option>
+                <option value="de">DE</option>
+                <option value="fr">FR</option>
+                <option value="zh">ZH</option>
+            </select>
+
             <a href="/audit/" class="btn-premium bg-slate-900 text-white hover:bg-blue-700">Business Audit</a>
         </div>
+        
         <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-slate-900">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path x-show="!mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
@@ -71,22 +76,29 @@
         <!-- Mobile Menu Overlay -->
         <div x-show="mobileMenu" x-cloak
             class="absolute top-full left-0 w-full bg-white border-b border-slate-200 md:hidden z-40 shadow-xl p-8 space-y-6 flex flex-col font-bold text-xs uppercase tracking-[0.2em]">
-            <a href="/" class="text-slate-900">Home</a>
-            <a href="/projects/" class="text-blue-600">Projects</a>
-            <a href="/about/" class="text-slate-900">About</a>
-            <a href="/Orthom8pro/" class="text-slate-900">OrthoMate™</a>
-            <a href="/contact/" class="text-slate-900">Contact</a>
-            <a href="/insight/" class="text-slate-900">News & Insights</a>
+            <a href="/" @click="mobileMenu = false">Home</a>
+            <a href="/projects/" class="text-blue-600" @click="mobileMenu = false">Projects</a>
+            <a href="/Orthom8pro/" @click="mobileMenu = false">OrthoMate™</a>
+            <a href="/contact/" @click="mobileMenu = false">Contact</a>
+            <div class="pt-4">
+                 <select class="lang-select !text-slate-900 !border-slate-300 w-full" @change="loadLang($event.target.value)">
+                    <option value="en">English (EN)</option>
+                    <option value="es">Español (ES)</option>
+                    <option value="de">Deutsch (DE)</option>
+                    <option value="fr">Français (FR)</option>
+                    <option value="zh">中文 (ZH)</option>
+                </select>
+            </div>
             <a href="/audit/" class="bg-slate-900 text-white px-6 py-4 text-center rounded-sm">Business Audit</a>
         </div>
     </nav>
 
-    <main class="min-h-screen bg-slate-50 industrial-grid">
+    <main class="min-h-screen industrial-grid" x-show="data">
         <header class="vault-gradient text-white py-32 px-10 relative overflow-hidden">
             <div class="max-w-6xl mx-auto relative z-10">
-                <h2 class="text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-none">Our <br><span class="text-blue-500">Projects.</span></h2>
-                <p class="text-blue-400 mono text-sm mt-8 tracking-widest uppercase font-bold">[ Operational History: 2016 — 2026 ]</p>
-                <p class="text-slate-400 mt-6 max-w-2xl text-lg leading-relaxed">
+                <h2 class="text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-none" x-html="data.hero.heading.replace('Projects.', '<span class=\'text-blue-500\'>Projects.</span>')">Our <br><span class="text-blue-500">Projects.</span></h2>
+                <p class="text-blue-400 mono text-sm mt-8 tracking-widest uppercase font-bold" x-text="data.hero.protocol">[ Operational History: 2016 — 2026 ]</p>
+                <p class="text-slate-400 mt-6 max-w-2xl text-lg leading-relaxed" x-text="data.hero.description">
                     A record of infrastructure and management systems built under pressure globally.
                 </p>
             </div>
@@ -94,62 +106,53 @@
 
         <section class="max-w-6xl mx-auto px-10 -mt-16 pb-32 relative z-20">
             <div class="grid md:grid-cols-2 gap-8">
-                <!-- Project 1 -->
-                <div class="project-card p-10 shadow-sm transition">
-                    <div class="flex justify-between items-start mb-6">
-                        <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2023 | Oslo, Norway</span>
-                        <span class="bg-slate-100 text-[10px] font-black px-3 py-1 uppercase tracking-tighter">RENEWABLE INTEGRATION</span>
+                <template x-for="proj in data.projects">
+                    <div class="project-card p-10 shadow-sm transition">
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest" x-text="proj.year + ' | ' + proj.location">2023 | Oslo, Norway</span>
+                            <template x-if="proj.tag">
+                                <span :class="proj.tag_type === 'alert' ? 'bg-red-50 text-red-600 italic' : 'bg-slate-100 text-slate-900'" class="text-[10px] font-black px-3 py-1 uppercase tracking-tighter" x-text="proj.tag">RENEWABLE INTEGRATION</span>
+                            </template>
+                        </div>
+                        <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4" x-text="proj.title">NORWAY COMMERCIAL BANK</h3>
+                        <p class="text-slate-600 mb-8 leading-relaxed" x-text="proj.description">High-availability data center integrated directly into a wind farm's power grid.</p>
                     </div>
-                    <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">NORWAY COMMERCIAL BANK</h3>
-                    <p class="text-slate-600 mb-8 leading-relaxed">High-availability data center integrated directly into a wind farm's power grid.</p>
-                </div>
-                <!-- Project 2 -->
-                <div class="project-card p-10 shadow-sm transition">
-                    <div class="flex justify-between items-start mb-6">
-                        <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2020 | Anchorage, Alaska</span>
-                        <span class="bg-red-50 text-red-600 text-[10px] font-black px-3 py-1 uppercase tracking-tighter italic">HIGH-STAKES</span>
-                    </div>
-                    <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">ARCTIC OVERHAUL</h3>
-                    <p class="text-slate-600 mb-8 leading-relaxed">Full data center overhaul during the 2020 pandemic isolation protocols.</p>
-                </div>
-                <!-- Project 3 -->
-                <div class="project-card p-10 shadow-sm transition">
-                    <div class="flex justify-between items-start mb-6">
-                        <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2022 | Doha, Qatar</span>
-                    </div>
-                    <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">DOHA MARITIME CENTER</h3>
-                    <p class="text-slate-600 mb-8 leading-relaxed">Coastal mini-facility for World Cup data processing with seawater cooling.</p>
-                </div>
-                <!-- Project 4 -->
-                <div class="project-card p-10 shadow-sm transition">
-                    <div class="flex justify-between items-start mb-6">
-                        <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2018 | Toyota HQ</span>
-                    </div>
-                    <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">TOYOTA DATA PLANT</h3>
-                    <p class="text-slate-600 mb-8 leading-relaxed">Managing hyper-redundant power systems for manufacturing assembly continuity.</p>
-                </div>
+                </template>
             </div>
         </section>
     </main>
 
-    <footer class="bg-slate-950 text-white pt-20 pb-10 px-10">
-        <div class="max-w-7xl mx-auto text-center text-[9px] font-bold text-slate-600 uppercase tracking-[0.4em]">
+    <footer class="bg-slate-950 text-white pt-20 pb-10 px-10" x-show="data">
+        <div class="max-w-7xl mx-auto text-center text-[9px] font-bold text-slate-600 uppercase tracking-[0.4em]" x-text="data.footer.copyright">
             © 2026 Wilbak Engineering Group // Built for Unbreakable Performance
         </div>
     </footer>
 
     <script>
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('page-loader');
-            setTimeout(() => { loader.classList.add('fade-out'); setTimeout(() => loader.style.display = 'none', 500); }, 500);
-        });
-        document.querySelectorAll('a').forEach(link => {
-            if (link.hostname === window.location.hostname && !link.hash) {
-                link.addEventListener('click', () => {
-                    const loader = document.getElementById('page-loader');
-                    loader.style.display = 'flex'; loader.classList.remove('fade-out');
-                });
-            }
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('projectsApp', () => ({
+                mobileMenu: false,
+                lang: localStorage.getItem('o8_locale') || 'en',
+                data: null,
+
+                async init() {
+                    await this.loadLang(this.lang);
+                },
+
+                async loadLang(lang) {
+                    try {
+                        const res = await fetch(`/projects/data.${lang}.json`);
+                        if (!res.ok) throw new Error("File not found");
+                        this.data = await res.json();
+                        this.lang = lang;
+                        localStorage.setItem('o8_locale', lang);
+                        document.querySelectorAll('.lang-select').forEach(sel => sel.value = lang);
+                    } catch (err) {
+                        console.error(`Failed to load project data for: ${lang}`, err);
+                        if (lang !== 'en') this.loadLang('en');
+                    }
+                }
+            }));
         });
     </script>
 </body>

@@ -1,0 +1,34 @@
+{
+  "index_data": {
+    "hero": {
+      "heading": "Ingeniería Determinista para Capitales Emergentes.",
+      "subheading": "Wilbak Engineering Group construye infraestructuras infranqueables para la gestión de capital y el despliegue de seguridad industrial. No buscamos crecimiento; buscamos soberanía.",
+      "cta": "INICIAR AUDITORÍA DE CAPITAL"
+    },
+    "trust_vault": {
+      "heading": "La Bóveda de Confianza.",
+      "description": "Nuestra infraestructura ha sido probada bajo las condiciones más extremas.",
+      "clients": ["Northrop Grumman", "Toyota", "Maersk", "Aker Solutions"]
+    },
+    "mission": {
+      "heading": "Cero Margen de Error.",
+      "body": "En Wilbak, el fallo no es una variable. Operamos en la intersección del hardware industrial y la inteligencia algorítmica. Nuestros sistemas están diseñados para eliminar el 'Impuesto al Caos' de su balance."
+    }
+  },
+  "projects": {
+    "hero": {
+      "heading": "Nuestros Proyectos.",
+      "protocol": "[ Historial Operativo: 2016 — 2026 ]",
+      "description": "Un registro de sistemas de infraestructura y gestión construidos bajo presión a nivel mundial."
+    },
+    "list": [
+      { "title": "BANCO COMERCIAL DE NORUEGA", "description": "Centro de datos de alta disponibilidad integrado directamente en la red eléctrica de un parque eólico." },
+      { "title": "REVISIÓN DEL ÁRTICO", "description": "Revisión completa del centro de datos durante los protocolos de aislamiento de la pandemia de 2020." }
+    ]
+  },
+  "contact": {
+    "hero": { "heading": "Conectemos.", "description": "Contáctenos directamente para consultas técnicas y soporte operativo." },
+    "methods": [ { "label": "Correo Electrónico", "value": "wilhelm@wilbakengineering.com" }, { "label": "Teléfono Directo", "value": "+1 214 493 9744" } ],
+    "location": { "city": "Houston, Texas (EE. UU.)", "status": "Siempre Activo" }
+  }
+}

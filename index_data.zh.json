@@ -1,0 +1,64 @@
+{
+  "navigation": [
+    { "label": "首页", "url": "/" },
+    { "label": "项目", "url": "/projects/" },
+    { "label": "我们的团队", "url": "/Orthom8pro/our-team/" },
+    { "label": "Ortho'M8", "url": "/Orthom8pro/" },
+    { "label": "联系", "url": "/contact/" },
+    { "label": "新闻与见解", "url": "/insight/" },
+    { "label": "审计", "url": "/audit/", "type": "premium" }
+  ],
+  "hero": {
+    "protocol": "运行协议: v3.1",
+    "heading": "商业数据工程。",
+    "subheading": "我们消除您业务中的“混乱税”。为零故障而设计的高性能基础设施。",
+    "cta": [
+      { "label": "案例研究", "url": "/projects/" },
+      { "label": "运作方式", "url": "/Orthom8pro/" }
+    ]
+  },
+  "trust_vault": [
+    { "name": "Northrop Grumman", "label": "国防逻辑" },
+    { "name": "Toyota", "label": "供应严谨性" },
+    { "name": "ConocoPhillips", "label": "能源流" },
+    { "name": "ASDA", "label": "零售规模" },
+    { "name": "GEICO", "label": "风险防护" }
+  ],
+  "operational_gap": {
+    "heading": "运营差距",
+    "subheading": "效率低下是无形的利润杀手",
+    "chaos_tax": {
+      "title": "“混乱税”",
+      "description": "在完成单笔销售之前，手动流程和不连贯的软件系统耗费了您 40% 的劳动力。"
+    },
+    "wilbak_alignment": {
+      "title": "Wilbak 协调",
+      "description": "集成业务管理引擎通过设计确定性逻辑消除 90% 的手动开销。"
+    }
+  },
+  "testimonies": {
+    "heading": "经核实的证词",
+    "subheading": "[ 任务反馈 ]",
+    "items": [
+      {
+        "quote": "“仅在年度手动起草成本方面，Wilbak 就为我们节省了 12 万美元。他们的逻辑是不可摧毁的。”",
+        "author": "James McGough",
+        "title": "Sterling 物流 首席执行官"
+      },
+      {
+        "quote": "“我们在 90 天内消除了混乱税。他们的预测性 AI 核心简直是无与伦比的。”",
+        "author": "Rachel H. Ballack",
+        "title": "Vance 制造 运营经理"
+      },
+      {
+        "quote": "“坚固、可靠且确定。Wilbak 不只是构建系统；他们构建的是绝对的确定性。”",
+        "author": "Marcus Thorne",
+        "title": "Thorne Supply 创始人"
+      }
+    ]
+  },
+  "footer": {
+    "description": "为要求零故障的行业提供高性能业务逻辑。自 2006 年起通过工程创造确定性。",
+    "copyright": "© 2026 Wilbak 工程集团 // 为不可摧毁的性能而建"
+  }
+}

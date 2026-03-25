@@ -1,0 +1,34 @@
+{
+  "index_data": {
+    "hero": {
+      "heading": "Deterministisches Engineering für aufstrebende Kapitalien.",
+      "subheading": "Die Wilbak Engineering Group baut unüberwindbare Infrastrukturen für die Kapitalverwaltung und den industriellen Sicherheitseinsatz. Wir streben nicht nach Wachstum; wir streben nach Souveränität.",
+      "cta": "KAPITALAUDIT STARTEN"
+    },
+    "trust_vault": {
+      "heading": "Der Vertrauens-Tresor.",
+      "description": "Unsere Infrastruktur wurde unter den extremsten Bedingungen getestet.",
+      "clients": ["Northrop Grumman", "Toyota", "Maersk", "Aker Solutions"]
+    },
+    "mission": {
+      "heading": "Null Fehlertoleranz.",
+      "body": "Bei Wilbak ist Versagen keine Variable. Wir operieren an der Schnittstelle von industrieller Hardware und algorithmischer Intelligenz. Unsere Systeme sind darauf ausgelegt, die 'Chaos-Steuer' aus Ihrer Bilanz zu eliminieren."
+    }
+  },
+  "projects": {
+    "hero": {
+      "heading": "Unsere Projekte.",
+      "protocol": "[ Operative Historie: 2016 — 2026 ]",
+      "description": "Eine Aufzeichnung von Infrastruktur- und Verwaltungssystemen, die weltweit unter Druck gebaut wurden."
+    },
+    "list": [
+      { "title": "NORWEGEN KOMMERZIELLE BANK", "description": "Hochverfügbares Rechenzentrum direkt in das Stromnetz eines Windparks integriert." },
+      { "title": "ARKTISCHE ÜBERHOLUNG", "description": "Vollständige Überholung des Rechenzentrums während der Pandemie-Isolationsprotokolle 2020." }
+    ]
+  },
+  "contact": {
+    "hero": { "heading": "Lassen Sie uns vernetzen.", "description": "Wenden Sie sich direkt an uns für technische Anfragen und operative Unterstützung." },
+    "methods": [ { "label": "E-Mail-Adresse", "value": "wilhelm@wilbakengineering.com" }, { "label": "Direktes Telefon", "value": "+1 214 493 9744" } ],
+    "location": { "city": "Houston, Texas (USA)", "status": "Immer Aktiv" }
+  }
+}

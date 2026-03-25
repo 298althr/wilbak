@@ -1,0 +1,72 @@
+{
+  "en": {
+    "page_meta": { "title": "Audit Protocol — Ortho'M8 AI Trading", "theme": "dark" },
+    "welcome_gate": { "heading": "Audit Protocol", "status": "Initializing audit protocol…" },
+    "hero": { "eyebrow": "Audit Protocol", "heading": "Initiate Your Institutional Audit." },
+    "form_steps": [
+      { "step": 1, "title": "01 — SELECT SECTOR TIER", "options": [ { "name": "Retail Tier", "description": "Supply & E-comm" }, { "name": "Service Tier", "description": "Managed Services" }, { "name": "Engineering Tier", "description": "Industrial Overhaul" }, { "name": "Asset Tier", "description": "Real Estate & Finance" } ] },
+      { "step": 2, "title": "02 — CALIBRATION NOTES", "placeholder": "DESCRIBE CURRENT OPERATIONAL FRICTION..." },
+      { "step": 3, "title": "03 — PRIMARY IDENTIFIER", "placeholders": ["FULL LEGAL NAME", "INSTITUTIONAL EMAIL"] },
+      { "step": 4, "title": "04 — SECURE LINK", "placeholder": "DIRECT PHONE NUMBER", "button": "INITIALIZE TRANSMISSION" }
+    ],
+    "photo_side": { "badge": { "id": "PROTO ID: OM8-AUD-V4", "value": "95.0% Node Precision." } },
+    "success": { "heading": "Transmission Complete.", "body": "Your institutional audit logic has been securely transmitted. A principal will contact you shortly.", "button": "Return to Base" },
+    "footer": { "brand_desc": "Ortho'M8 is an Algorithmic Capital Management system built for business excellence. Fully automated, risk-hardened, and transparent — securing your capital through intelligent engineering.", "disclaimer": "© 2025 ORTHOM8PRO — All rights reserved. Trading involves risk and past performance does not guarantee future results." }
+  },
+  "es": {
+    "page_meta": { "title": "Protocolo de Auditoría — Ortho'M8 AI Trading", "theme": "dark" },
+    "welcome_gate": { "heading": "Protocolo de Auditoría", "status": "Inicializando protocolo de auditoría…" },
+    "hero": { "eyebrow": "Protocolo de Auditoría", "heading": "Inicie su Auditoría Institucional." },
+    "form_steps": [
+      { "step": 1, "title": "01 — SELECCIONAR NIVEL DE SECTOR", "options": [ { "name": "Nivel Minorista", "description": "Suministro y E-comm" }, { "name": "Nivel de Servicio", "description": "Servicios Gestionados" }, { "name": "Nivel de Ingeniería", "description": "Revisión Industrial" }, { "name": "Nivel de Activos", "description": "Bienes Raíces y Finanzas" } ] },
+      { "step": 2, "title": "02 — NOTAS de CALIBRACIÓN", "placeholder": "DESCRIBIR LA FRICCIÓN OPERATIVA ACTUAL..." },
+      { "step": 3, "title": "03 — IDENTIFICADOR PRINCIPAL", "placeholders": ["NOMBRE LEGAL COMPLETO", "CORREO ELECTRÓNICO INSTITUCIONAL"] },
+      { "step": 4, "title": "04 — ENLACE SEGURO", "placeholder": "NÚMERO DE TELÉFONO DIRECTO", "button": "INICIALIZAR TRANSMISIÓN" }
+    ],
+    "photo_side": { "badge": { "id": "PROTO ID: OM8-AUD-V4", "value": "95.0% Precisión de Nodo." } },
+    "success": { "heading": "Transmisión Completa.", "body": "Su lógica de auditoría institucional ha sido transmitida de forma segura. Un responsable se pondrá en contacto con usted en breve.", "button": "Volver a la Base" },
+    "footer": { "brand_desc": "Ortho'M8 es un sistema de Gestión de Capital Algorítmico diseñado para la excelencia empresarial. Completamente automatizado, endurecido al riesgo y transparente.", "disclaimer": "© 2025 ORTHOM8PRO — Reservados todos los derechos. El trading implica riesgos." }
+  },
+  "de": {
+    "page_meta": { "title": "Audit-Protokoll — Ortho'M8 AI Trading", "theme": "dark" },
+    "welcome_gate": { "heading": "Audit-Protokoll", "status": "Audit-Protokoll wird initialisiert…" },
+    "hero": { "eyebrow": "Audit-Protokoll", "heading": "Starten Sie Ihr institutionelles Audit." },
+    "form_steps": [
+      { "step": 1, "title": "01 — SEKTOR-STUFE WÄHLEN", "options": [ { "name": "Retail-Stufe", "description": "Lieferkette & E-Comm" }, { "name": "Service-Stufe", "description": "Managed Services" }, { "name": "Engineering-Stufe", "description": "Industrielle Überholung" }, { "name": "Asset-Stufe", "description": "Immobilien & Finanzen" } ] },
+      { "step": 2, "title": "02 — KALIBRIERUNGSHINWEISE", "placeholder": "AKTUELLE BETRIEBLICHE REIBUNG BESCHREIBEN..." },
+      { "step": 3, "title": "03 — HAUPTIDENTIFIKATOR", "placeholders": ["VOLLSTÄNDIGER NAME", "INSTITUTIONELLE E-MAIL"] },
+      { "step": 4, "title": "04 — SICHERER LINK", "placeholder": "DIREKTE TELEFONNUMMER", "button": "ÜBERTRAGUNG INITIALISIEREN" }
+    ],
+    "photo_side": { "badge": { "id": "PROTO ID: OM8-AUD-V4", "value": "95.0% Knotenpräzision." } },
+    "success": { "heading": "Übertragung abgeschlossen.", "body": "Ihre institutionelle Audit-Logik wurde sicher übertragen. Ein Ansprechpartner wird sich in Kürze mit Ihnen in Verbindung setzen.", "button": "Zurück zur Basis" },
+    "footer": { "brand_desc": "Ortho'M8 ist ein algorithmisches Kapitalverwaltungssystem, das für geschäftliche Exzellenz entwickelt wurde. Vollautomatisch, risikogehärtet und transparent.", "disclaimer": "© 2025 ORTHOM8PRO — Alle Rechte vorbehalten. Trading birgt Risiken." }
+  },
+  "fr": {
+    "page_meta": { "title": "Protocole d'Audit — Ortho'M8 AI Trading", "theme": "dark" },
+    "welcome_gate": { "heading": "Protocole d'Audit", "status": "Initialisation du protocole d'audit…" },
+    "hero": { "eyebrow": "Protocole d'Audit", "heading": "Initialisez votre audit institutionnel." },
+    "form_steps": [
+      { "step": 1, "title": "01 — SÉLECTIONNER LE SECTEUR", "options": [ { "name": "Palier Détail", "description": "Chaîne d'approvisionnement" }, { "name": "Palier Service", "description": "Services gérés" }, { "name": "Palier Ingénierie", "description": "Révision industrielle" }, { "name": "Palier Actifs", "description": "Immobilier & Finance" } ] },
+      { "step": 2, "title": "02 — NOTES DE CALIBRAGE", "placeholder": "DÉCRIRE LA FRICTION OPÉRATIONNELLE ACTUELLE..." },
+      { "step": 3, "title": "03 — IDENTIFIANT PRINCIPAL", "placeholders": ["NOM LÉGAL COMPLET", "EMAIL INSTITUTIONNEL"] },
+      { "step": 4, "title": "04 — LIEN SÉCURISÉ", "placeholder": "NUMÉRO DE TÉLÉPHONE DIRECT", "button": "INITIALISER LA TRANSMISSION" }
+    ],
+    "photo_side": { "badge": { "id": "PROTO ID: OM8-AUD-V4", "value": "95.0% de Précision de Nœud." } },
+    "success": { "heading": "Transmission Terminée.", "body": "Votre logique d'audit institutionnel a été transmise en toute sécurité. Un responsable vous contactera sous peu.", "button": "Retour à la Base" },
+    "footer": { "brand_desc": "Ortho'M8 est un système de gestion de capital algorithmique conçu pour l'excellence opérationnelle.", "disclaimer": "© 2025 ORTHOM8PRO — Tous droits réservés. Le trading comporte des risques." }
+  },
+  "zh": {
+    "page_meta": { "title": "审计协议 — Ortho'M8 AI 交易", "theme": "dark" },
+    "welcome_gate": { "heading": "审计协议", "status": "正在初始化审计协议…" },
+    "hero": { "eyebrow": "审计协议", "heading": "启动您的机构审计。" },
+    "form_steps": [
+      { "step": 1, "title": "01 — 选择行业等级", "options": [ { "name": "零售等级", "description": "供应链与电子商务" }, { "name": "服务等级", "description": "托管服务" }, { "name": "工程等级", "description": "工业检修" }, { "name": "资产等级", "description": "房地产与金融" } ] },
+      { "step": 2, "title": "02 — 校准说明", "placeholder": "描述当前的运营阻碍..." },
+      { "step": 3, "title": "03 — 主要身份标识", "placeholders": ["法定全名", "机构电子邮箱"] },
+      { "step": 4, "title": "04 — 安全连接", "placeholder": "直接联系电话", "button": "启动传输" }
+    ],
+    "photo_side": { "badge": { "id": "协议 ID: OM8-AUD-V4", "value": "95.0% 节点精准度。" } },
+    "success": { "heading": "传输完成。", "body": "您的机构审计逻辑已通过加密通道成功。相关负责人将很快与您联系。", "button": "返回主页" },
+    "footer": { "brand_desc": "Ortho'M8 是一个为业务卓越而设计的算法资本管理系统。全自动化、低风险、透明。", "disclaimer": "© 2025 ORTHOM8PRO — 版权所有。交易涉及风险。" }
+  }
+}

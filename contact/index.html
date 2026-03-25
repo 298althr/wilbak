@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact | Wilbak Engineering</title>
+    <title x-text="data?.page_meta?.title || 'Contact | Wilbak Engineering'">Contact | Wilbak Engineering</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -14,111 +14,147 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
 
     <style>
-        :root { --neon-blue: #0076FF; }
+        [x-cloak] { display: none !important; }
+        :root {
+            --neon-blue: #0076FF;
+            --deep-obsidian: #0A0C10;
+        }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fcfdfe; color: #0F172A; }
         .mono { font-family: 'JetBrains Mono', monospace; font-weight: 700; }
-        .industrial-grid { background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 40px 40px; }
-        .btn-premium { display: inline-block; padding: 0.75rem 2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.25em; font-size: 10px; border-radius: 0.125rem; border: 1px solid rgba(0,0,0,0.1); cursor: pointer; text-align: center; }
-        .btn-primary { background-color: #2563eb; color: #ffffff; }
-        #page-loader { position: fixed; inset: 0; background: #0A0C10; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease; }
-        #page-loader.fade-out { opacity: 0; pointer-events: none; }
-        .loader-spin { width: 40px; height: 40px; border: 3px solid rgba(0, 118, 255, 0.1); border-top: 3px solid #0076FF; border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .vault-gradient {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.7) 100%), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover; background-position: center;
+        }
+        .industrial-grid { background-image: radial-gradient(#e2e8f0 1px, transparent 1px); background-size: 40px 40px; }
+        .btn-premium { padding: 12px 32px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s; }
+        
+        .lang-select { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 4px; outline: none; cursor: pointer; }
+        .lang-select option { background: #0F172A; color: white; }
+        
+        .contact-card { background: white; border: 1px solid #e2e8f0; border-left: 4px solid #334155; padding: 2.5rem; transition: all 0.4s ease; position: relative; overflow: hidden; }
+        .contact-card:hover { transform: translateY(-5px); border-left-color: var(--neon-blue); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
     </style>
 </head>
 
-<body x-data="{ mobileMenu: false }">
+<body x-data="contactApp" class="industrial-grid">
 
-    <div id="page-loader">
-        <div class="loader-spin mb-4"></div>
-        <div class="mono text-[10px] text-blue-500 uppercase tracking-[0.4em] animate-pulse">Initializing Protocol...</div>
-    </div>
+    <nav class="flex justify-between items-center px-10 py-8 max-w-7xl mx-auto relative z-50">
+        <a href="/" class="flex items-center gap-3 group">
+            <div class="w-10 h-10 bg-slate-900 rounded-sm flex items-center justify-center p-2 group-hover:bg-blue-600 transition">
+                <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo">
+            </div>
+            <h1 class="font-black text-xl tracking-tighter uppercase italic text-slate-900">Wilbak <span class="text-blue-600">Engineering</span></h1>
+        </a>
 
-    <nav class="flex justify-between items-center px-6 md:px-10 py-6 bg-white border-b border-slate-200 sticky top-0 z-50">
-        <a href="/"><img src="/logo.png" alt="WILBAK" class="h-8 md:h-10"></a>
-        <div class="hidden md:flex items-center space-x-10 font-bold text-xs uppercase tracking-[0.2em]">
+        <div class="hidden md:flex items-center gap-10 text-[10px] font-black uppercase tracking-[0.2em]">
             <a href="/" class="text-slate-500 hover:text-blue-600 transition">Home</a>
             <a href="/projects/" class="text-slate-500 hover:text-blue-600 transition">Projects</a>
-            <a href="/about/" class="text-slate-500 hover:text-blue-600 transition">About</a>
             <a href="/Orthom8pro/" class="text-slate-500 hover:text-blue-600 transition">OrthoMate™</a>
-            <a href="/contact/" class="text-blue-600 transition">Contact</a>
-            <a href="/insight/" class="text-slate-500 hover:text-blue-600 transition">News & Insights</a>
-            <a href="/audit/" class="btn-premium bg-slate-900 text-white">Business Audit</a>
+            <a href="/contact/" class="text-blue-600">Contact</a>
+            
+            <select class="lang-select !text-slate-900 !border-slate-300" @change="loadLang($event.target.value)">
+                <option value="en">EN</option>
+                <option value="es">ES</option>
+                <option value="de">DE</option>
+                <option value="fr">FR</option>
+                <option value="zh">ZH</option>
+            </select>
+
+            <a href="/audit/" class="btn-premium bg-slate-900 text-white hover:bg-blue-700">Business Audit</a>
         </div>
-        <!-- Mobile Toggle -->
+        
         <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-slate-900">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path x-show="!mobileMenu" d="M4 6h16M4 12h16m-7 6h7" stroke-width="2" stroke-linecap="round"></path>
-                <path x-show="mobileMenu" d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round"></path>
+                <path x-show="!mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                <path x-show="mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
         </button>
 
         <!-- Mobile Menu Overlay -->
         <div x-show="mobileMenu" x-cloak
             class="absolute top-full left-0 w-full bg-white border-b border-slate-200 md:hidden z-40 shadow-xl p-8 space-y-6 flex flex-col font-bold text-xs uppercase tracking-[0.2em]">
-            <a href="/" class="text-slate-900">Home</a>
-            <a href="/projects/" class="text-slate-900">Projects</a>
-            <a href="/about/" class="text-slate-900">About</a>
-            <a href="/Orthom8pro/" class="text-slate-900">OrthoMate™</a>
-            <a href="/contact/" class="text-blue-600">Contact</a>
-            <a href="/insight/" class="text-slate-900">News & Insights</a>
+            <a href="/" @click="mobileMenu = false">Home</a>
+            <a href="/projects/" @click="mobileMenu = false">Projects</a>
+            <a href="/Orthom8pro/" @click="mobileMenu = false">OrthoMate™</a>
+            <a href="/contact/" class="text-blue-600" @click="mobileMenu = false">Contact</a>
+            <div class="pt-4">
+                 <select class="lang-select !text-slate-900 !border-slate-300 w-full" @change="loadLang($event.target.value)">
+                    <option value="en">English (EN)</option>
+                    <option value="es">Español (ES)</option>
+                    <option value="de">Deutsch (DE)</option>
+                    <option value="fr">Français (FR)</option>
+                    <option value="zh">中文 (ZH)</option>
+                </select>
+            </div>
             <a href="/audit/" class="bg-slate-900 text-white px-6 py-4 text-center rounded-sm">Business Audit</a>
         </div>
     </nav>
 
-    <main class="min-h-screen pt-32 pb-40 px-6 max-w-6xl mx-auto industrial-grid">
-        <div class="mb-20 px-4 md:px-0">
-            <div class="mono text-blue-600 text-sm mb-4 tracking-[0.4em] uppercase font-bold text-center md:text-left">[ Contact Information ]</div>
-            <h2 class="text-6xl md:text-9xl font-black italic uppercase tracking-tighter leading-none mb-8 text-center md:text-left">Let's <span class="text-blue-600">Connect.</span></h2>
-            <p class="text-xl text-slate-500 max-w-2xl mx-auto md:mx-0 leading-relaxed text-center md:text-left">Ready to scale your business? Reach out to Wilhelm directly for technical inquiries and operational support.</p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-16 px-4 md:px-0">
-            <div class="space-y-12">
-                <div class="bg-slate-50 border p-10 hover:border-blue-500 transition group rounded-sm shadow-sm">
-                    <h4 class="font-bold uppercase text-[10px] mono text-slate-400 mb-6 tracking-widest italic">Email Address</h4>
-                    <a href="mailto:wilhelm@wilbakengineering.com" class="text-xl md:text-2xl font-black text-slate-900 hover:text-blue-600 transition break-words uppercase italic">wilhelm@wilbakengineering.com</a>
-                </div>
-                <div class="bg-slate-50 border p-10 hover:border-blue-500 transition group rounded-sm shadow-sm">
-                    <h4 class="font-bold uppercase text-[10px] mono text-slate-400 mb-6 tracking-widest italic">Direct Phone</h4>
-                    <a href="tel:+12144939744" class="text-xl md:text-2xl font-black text-slate-900 hover:text-blue-600 transition uppercase italic">+1 214 493 9744</a>
-                </div>
+    <main class="min-h-screen industrial-grid" x-show="data">
+        <header class="vault-gradient text-white py-32 px-10 relative overflow-hidden">
+            <div class="max-w-6xl mx-auto relative z-10">
+                <h2 class="text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-none" x-text="data.hero.heading">Let's Connect.</h2>
+                <p class="text-blue-400 mono text-sm mt-8 tracking-widest uppercase font-bold" x-text="data.hero.protocol">[ Contact Information ]</p>
+                <p class="text-slate-400 mt-6 max-w-2xl text-lg leading-relaxed" x-text="data.hero.description">
+                    Ready to scale your business? Reach out to Wilhelm directly for technical inquiries and operational support.
+                </p>
             </div>
+        </header>
 
-            <div class="bg-slate-900 p-12 text-white relative overflow-hidden rounded-sm shadow-2xl">
-                <div class="absolute inset-0 opacity-10 industrial-grid"></div>
-                <div class="relative z-10">
-                    <h3 class="text-3xl font-black uppercase italic mb-10 tracking-tighter italic">Houston, Texas (USA)</h3>
-                    <div class="space-y-8">
+        <section class="max-w-6xl mx-auto px-10 -mt-16 pb-32 relative z-20">
+            <div class="grid md:grid-cols-2 gap-8">
+                <template x-for="method in data.contact_methods">
+                    <div class="contact-card">
+                        <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest block mb-4" x-text="method.label">Email Address</span>
+                        <div class="text-2xl font-black text-slate-900 break-words" x-text="method.value">wilhelm@wilbakengineering.com</div>
+                    </div>
+                </template>
+
+                <div class="contact-card md:col-span-2 bg-slate-900 text-white border-left-4 border-blue-600">
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-10">
                         <div>
-                            <div class="text-blue-500 mono text-[10px] uppercase tracking-widest mb-2">[ Status ]</div>
-                            <div class="flex items-center space-x-2 font-black uppercase italic">
-                                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                                <span>Always Active</span>
-                            </div>
+                            <span class="mono text-[10px] text-blue-400 font-bold uppercase tracking-widest block mb-4" x-text="data.location.status.label">Status</span>
+                            <div class="text-3xl font-black mb-2" x-text="data.location.city">Houston, Texas (USA)</div>
+                            <div class="text-blue-500 font-bold uppercase tracking-widest text-xs" x-text="data.location.status.value">Always Active</div>
                         </div>
-                        <a href="/audit/" class="btn-premium btn-primary w-full py-5 block hover:bg-white hover:text-slate-900 transition">REQUEST FREE AUDIT</a>
+                        <a :href="data.location.cta.url" class="btn-premium bg-blue-600 text-white hover:bg-white hover:text-slate-900" x-text="data.location.cta.label">REQUEST FREE AUDIT</a>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
 
-    <footer class="bg-slate-950 text-white pt-20 pb-10 px-10 text-center text-[9px] font-bold text-slate-600 uppercase tracking-[0.4em]">
-        © 2026 Wilbak Engineering Group // Built for Unbreakable Performance
+    <footer class="bg-slate-950 text-white pt-20 pb-10 px-10" x-show="data">
+        <div class="max-w-7xl mx-auto text-center text-[9px] font-bold text-slate-600 uppercase tracking-[0.4em]" x-text="data.footer.copyright">
+            © 2026 Wilbak Engineering Group // Built for Unbreakable Performance
+        </div>
     </footer>
 
     <script>
-        window.addEventListener('load', () => {
-            setTimeout(() => { document.getElementById('page-loader').classList.add('fade-out'); }, 500);
-        });
-        document.querySelectorAll('a').forEach(link => {
-            if (link.hostname === window.location.hostname && !link.hash) {
-                link.addEventListener('click', () => {
-                    const loader = document.getElementById('page-loader');
-                    loader.style.display = 'flex'; loader.classList.remove('fade-out');
-                });
-            }
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('contactApp', () => ({
+                mobileMenu: false,
+                lang: localStorage.getItem('o8_locale') || 'en',
+                data: null,
+
+                async init() {
+                    await this.loadLang(this.lang);
+                },
+
+                async loadLang(lang) {
+                    try {
+                        const res = await fetch(`/contact/data.${lang}.json`);
+                        if (!res.ok) throw new Error("File not found");
+                        this.data = await res.json();
+                        this.lang = lang;
+                        localStorage.setItem('o8_locale', lang);
+                        document.querySelectorAll('.lang-select').forEach(sel => sel.value = lang);
+                    } catch (err) {
+                        console.error(`Failed to load contact data for: ${lang}`, err);
+                        if (lang !== 'en') this.loadLang('en');
+                    }
+                }
+            }));
         });
     </script>
 </body>

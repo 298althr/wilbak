@@ -1,0 +1,34 @@
+{
+  "index_data": {
+    "hero": {
+      "heading": "为新兴资本量身定制的确定性工程。",
+      "subheading": "Wilbak 工程集团为资本管理和工业安全部署构建坚不可摧的基础设施。我们不追求单纯的增长；我们追求主权。",
+      "cta": "启动资本审计"
+    },
+    "trust_vault": {
+      "heading": "信任保险库。",
+      "description": "我们的基础设施已在最极端条件下完成了压力测试。",
+      "clients": ["诺斯罗普·格鲁曼 (Northrop Grumman)", "丰田 (Toyota)", "马士基 (Maersk)", "阿克解决方案 (Aker Solutions)"]
+    },
+    "mission": {
+      "heading": "零误差容忍。",
+      "body": "在 Wilbak，失败不在我们的选项中。我们运作于工业硬件与算法智能的交汇点。我们的系统旨在消除您资产负债表中的“混乱税”。"
+    }
+  },
+  "projects": {
+    "hero": {
+      "heading": "我们的项目。",
+      "protocol": "[ 运营历史：2016 — 2026 ]",
+      "description": "一份在全球压力环境下构建的基础设施和管理系统记录。"
+    },
+    "list": [
+      { "title": "挪威商业银行", "description": "直接集成到风力发电厂电网的高可用性数据中心。" },
+      { "title": "北极圈大修", "description": "在 2020 年疫情隔离协议期间完成的数据中心完整大修。" }
+    ]
+  },
+  "contact": {
+    "hero": { "heading": "联系我们。", "description": "直接联系我们获取技术咨询和运营支持。" },
+    "methods": [ { "label": "电子邮件", "value": "wilhelm@wilbakengineering.com" }, { "label": "直接联系电话", "value": "+1 214 493 9744" } ],
+    "location": { "city": "德克萨斯州休斯顿（美国）", "status": "全天候活跃" }
+  }
+}

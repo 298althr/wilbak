@@ -1,0 +1,18 @@
+{
+  "page_meta": { "title": "Contact | Wilbak Engineering" },
+  "hero": {
+    "protocol": "[ Information de Contact ]",
+    "heading": "Contactons-nous.",
+    "description": "Prêt à faire passer votre entreprise au niveau supérieur ? Contactez Wilhelm directement pour toute question technique ou support opérationnel."
+  },
+  "contact_methods": [
+    { "label": "Adresse Email", "value": "wilhelm@wilbakengineering.com", "type": "email" },
+    { "label": "Téléphone Direct", "value": "+1 214 493 9744", "type": "phone" }
+  ],
+  "location": {
+    "city": "Houston, Texas (États-Unis)",
+    "status": { "label": "Statut", "value": "Toujours Actif" },
+    "cta": { "label": "DEMANDER UN AUDIT GRATUIT", "url": "/audit/" }
+  },
+  "footer": { "copyright": "© 2026 Wilbak Engineering Group // Construit pour une performance incassable" }
+}
