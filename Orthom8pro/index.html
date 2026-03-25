@@ -625,7 +625,7 @@
     }
   </style>
 </head>
-<body x-data="o8App" x-cloak>
+<body x-data="o8App">
 
 
 
@@ -978,113 +978,123 @@
 </div><!-- /app -->
 
 <script>
-  window.addEventListener('DOMContentLoaded', () => {
-
-    /* ── Alpine.js Data ──────────────── */
-    document.addEventListener('alpine:init', () => {
-      Alpine.data('o8App', () => ({
-        lang: localStorage.getItem('o8_locale') || 'en',
-        data: null,
-        loading: true,
-        async init() {
-          await this.loadLang(this.lang);
-          this.loading = false;
-        },
-        async loadLang(lang) {
-          try {
-            const file = lang === 'en' ? 'content.json' : `content.${lang}.json`;
-            const res = await fetch(`/Orthom8pro/${file}`);
-            this.data = await res.json();
-            this.lang = lang;
-            localStorage.setItem('o8_locale', lang);
-            // Sync all selects
-            document.querySelectorAll('.lang-select').forEach(sel => sel.value = lang);
-          } catch (err) {
-            console.error('Failed to load locale:', lang);
-          }
-        },
-        t(path) {
-          if (!this.data) return '';
-          const parts = path.split('.');
-          let current = this.data.content; // Everything is inside .content
-          for (const part of parts) {
-            if (current[part] === undefined) return '';
-            current = current[part];
-          }
-          return current;
+  /* ── Alpine.js Data ──────────────── */
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('o8App', () => ({
+      lang: localStorage.getItem('o8_locale') || 'en',
+      data: null,
+      loading: true,
+      async init() {
+        await this.loadLang(this.lang);
+        this.loading = false;
+      },
+      async loadLang(lang) {
+        try {
+          const file = lang === 'en' ? 'content.json' : `content.${lang}.json`;
+          const res = await fetch(`/Orthom8pro/${file}`);
+          if (!res.ok) throw new Error("File not found");
+          this.data = await res.json();
+          this.lang = lang;
+          localStorage.setItem('o8_locale', lang);
+          // Sync all selects
+          document.querySelectorAll('.lang-select').forEach(sel => sel.value = lang);
+        } catch (err) {
+          console.error('Failed to load locale:', lang);
+          if (lang !== 'en') this.loadLang('en');
         }
-      }));
-    });
+      },
+      t(path) {
+        if (!this.data) return '';
+        const parts = path.split('.');
+        let current = this.data.content;
+        for (const part of parts) {
+          if (!current || current[part] === undefined) return '';
+          current = current[part];
+        }
+        return current;
+      }
+    }));
+  });
 
-    /* ── Welcome Gate ─────────────────── */
+  /* ── Welcome Gate ─────────────────── */
+  setTimeout(() => {
     const gate = document.getElementById('welcome-gate');
     const app  = document.getElementById('app');
-    setTimeout(() => {
-      gate.classList.add('exiting');
-      setTimeout(() => { gate.style.display = 'none'; app.classList.add('visible'); }, 500);
-    }, 1800);
+    if (gate) gate.classList.add('exiting');
+    setTimeout(() => { 
+      if (gate) gate.style.display = 'none'; 
+      if (app) app.classList.add('visible'); 
+    }, 500);
+  }, 1800);
 
-    /* ── Theme ────────────────────────── */
-    const html = document.documentElement;
-    const savedTheme = localStorage.getItem('o8_theme') || 'dark';
-    html.setAttribute('data-theme', savedTheme);
+  /* ── Theme ────────────────────────── */
+  const html = document.documentElement;
+  const savedTheme = localStorage.getItem('o8_theme') || 'dark';
+  html.setAttribute('data-theme', savedTheme);
 
-    function syncIcons(t) {
-      const icon = t === 'dark' ? '☀' : '☪';
-      ['theme-icon','mobile-theme-icon','drawer-theme-icon'].forEach(id => {
-        const el = document.getElementById(id); if (el) el.textContent = icon;
-      });
-    }
-    syncIcons(savedTheme);
-
-    function toggleTheme() {
-      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('o8_theme', next);
-      syncIcons(next);
-    }
-
-    ['theme-toggle','mobile-theme-toggle','drawer-theme-toggle'].forEach(id => {
-      document.getElementById(id)?.addEventListener('click', toggleTheme);
+  function syncIcons(t) {
+    const icon = t === 'dark' ? '☀' : '☪';
+    ['theme-icon','mobile-theme-icon','drawer-theme-icon'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.textContent = icon;
     });
+  }
+  syncIcons(savedTheme);
 
+  function toggleTheme() {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('o8_theme', next);
+    syncIcons(next);
+  }
 
-    /* ── Mobile Drawer ────────────────── */
+  /* ── Mobile Drawer ────────────────── */
+  function openDrawer() {
     const drawer    = document.getElementById('mobile-drawer');
     const overlay   = document.getElementById('drawer-overlay');
     const hamburger = document.getElementById('hamburger-btn');
     const closeBtn  = document.getElementById('drawer-close');
+    drawer?.classList.add('open');
+    overlay?.classList.add('visible');
+    hamburger?.classList.add('active');
+    hamburger?.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('drawer-open');
+    setTimeout(() => closeBtn?.focus(), 50);
+  }
+  function closeDrawer() {
+    const drawer    = document.getElementById('mobile-drawer');
+    const overlay   = document.getElementById('drawer-overlay');
+    const hamburger = document.getElementById('hamburger-btn');
+    drawer?.classList.remove('open');
+    overlay?.classList.remove('visible');
+    hamburger?.classList.remove('active');
+    hamburger?.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('drawer-open');
+    hamburger?.focus();
+  }
 
-    function openDrawer() {
-      drawer.classList.add('open');
-      overlay.classList.add('visible');
-      hamburger.classList.add('active');
-      hamburger.setAttribute('aria-expanded', 'true');
-      document.body.classList.add('drawer-open');
-      // Trap focus to first focusable in drawer
-      setTimeout(() => closeBtn?.focus(), 50);
-    }
-    function closeDrawer() {
-      drawer.classList.remove('open');
-      overlay.classList.remove('visible');
-      hamburger.classList.remove('active');
-      hamburger.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('drawer-open');
-      hamburger?.focus();
-    }
+  // Initialize event listeners after DOM is ready
+  window.addEventListener('DOMContentLoaded', () => {
+    ['theme-toggle','mobile-theme-toggle','drawer-theme-toggle'].forEach(id => {
+      document.getElementById(id)?.addEventListener('click', toggleTheme);
+    });
+
+    const hamburger = document.getElementById('hamburger-btn');
+    const closeBtn  = document.getElementById('drawer-close');
+    const overlay   = document.getElementById('drawer-overlay');
+    const drawer    = document.getElementById('mobile-drawer');
 
     hamburger?.addEventListener('click', () =>
-      drawer.classList.contains('open') ? closeDrawer() : openDrawer()
+      drawer?.classList.contains('open') ? closeDrawer() : openDrawer()
     );
     closeBtn?.addEventListener('click', closeDrawer);
     overlay?.addEventListener('click', closeDrawer);
 
     // Close on nav link click
-    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+    document.querySelectorAll('#mobile-drawer a').forEach(a => a.addEventListener('click', closeDrawer));
 
     // Close on Escape
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+      if (e.key === 'Escape' && drawer?.classList.contains('open')) closeDrawer();
     });
 
     /* ── Scroll fade-in ───────────────── */
@@ -1104,7 +1114,6 @@
       el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
       obs.observe(el);
     });
-
   });
 </script>
     </div> <!-- /#app -->
