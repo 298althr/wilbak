@@ -271,7 +271,7 @@
 <body>
 
 <div id="welcome-gate" x-show="loading" x-transition:leave="transition ease-in duration-500">
-  <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-16 mb-6">
+  <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-16 mb-6">
   <div class="gate-logo" style="letter-spacing: 12px;">OUR TEAM</div>
   <div class="gate-bar-wrap"><div class="gate-bar"></div></div>
   <div class="gate-status">INITIALIZING TEAM ACCESS…</div>
@@ -284,8 +284,8 @@
   <div id="mobile-drawer">
     <div class="drawer-header">
       <a href="https://wilbakengineering.com/Orthom8pro/" class="logo-wrap">
-        <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
-        <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
+        <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
+        <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
         <span class="logo-name">Ortho'M8</span>
       </a>
       <button id="drawer-close" style="color:var(--tx-sub); font-size:20px;">✕</button>
@@ -310,8 +310,8 @@
 
   <header id="site-header">
     <a href="/Orthom8pro/" class="logo-wrap">
-      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
-      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
+      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
+      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
       <span class="logo-name">Ortho'M8</span>
     </a>
     <nav>
@@ -452,47 +452,55 @@
 </div>
 
 <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    // Theme logic
-    const html  = document.documentElement;
-    const themeToggle = document.getElementById('theme-toggle');
-    const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-    const mobileThemeIcon = document.getElementById('mobile-theme-icon');
+  /* ── Theme & Global Setup ─────────────────── */
+  (function() {
+    const html = document.documentElement;
+    const theme = localStorage.getItem('o8_theme') || 'dark';
+    html.setAttribute('data-theme', theme);
+  })();
 
-    const updateTheme = (isDark) => {
-      html.setAttribute('data-theme', isDark ? 'dark' : 'light');
-      const icon = isDark ? '☀' : '🌙';
-      if(themeIcon) themeIcon.textContent = icon;
-      if(mobileThemeIcon) mobileThemeIcon.textContent = icon;
-      localStorage.setItem('orthom8-theme', isDark ? 'dark' : 'light');
-    };
+  function syncUI() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    const icon = isDark ? '☀' : '🌙';
+    ['theme-icon', 'mobile-theme-icon'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.textContent = icon;
+    });
 
-    const currentTheme = localStorage.getItem('orthom8-theme') || 'dark';
-    updateTheme(currentTheme === 'dark');
-
-    themeToggle?.addEventListener('click', () => updateTheme(html.getAttribute('data-theme') === 'light'));
-    mobileThemeToggle?.addEventListener('click', () => updateTheme(html.getAttribute('data-theme') === 'light'));
-
-    // Mobile Drawer Logic
     const hamburger = document.getElementById('hamburger-btn');
     const drawer = document.getElementById('mobile-drawer');
     const overlay = document.getElementById('drawer-overlay');
     const closeBtn = document.getElementById('drawer-close');
 
     const toggleDrawer = (open) => {
-      drawer.classList.toggle('open', open);
-      overlay.classList.toggle('visible', open);
-      hamburger.classList.toggle('active', open);
+      drawer?.classList.toggle('open', open);
+      overlay?.classList.toggle('visible', open);
+      hamburger?.classList.toggle('active', open);
       document.body.classList.toggle('drawer-open', open);
     };
 
-    hamburger.addEventListener('click', () => toggleDrawer(!drawer.classList.contains('open')));
-    overlay.addEventListener('click', () => toggleDrawer(false));
-    closeBtn.addEventListener('click', () => toggleDrawer(false));
-  });
+    hamburger?.addEventListener('click', () => toggleDrawer(!drawer?.classList.contains('open')));
+    overlay?.addEventListener('click', () => toggleDrawer(false));
+    closeBtn?.addEventListener('click', () => toggleDrawer(false));
+    document.querySelectorAll('#mobile-drawer a').forEach(a => a.addEventListener('click', () => toggleDrawer(false)));
 
-  // Alpine i18n Logic
+    ['theme-toggle', 'mobile-theme-toggle'].forEach(id => {
+      document.getElementById(id)?.addEventListener('click', () => {
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('o8_theme', next);
+        syncUI();
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', syncUI);
+  } else {
+    syncUI();
+  }
+
+  /* ── Alpine i18n Data ──────────────────── */
   document.addEventListener('alpine:init', () => {
     Alpine.data('teamApp', () => ({
       lang: localStorage.getItem('o8_locale') || 'en',
@@ -500,13 +508,16 @@
       loading: true,
 
       async init() {
+        // Safe timeout to clear loader in all conditions
+        setTimeout(() => { if(this.loading) this.loading = false; }, 3000);
         await this.loadLang(this.lang);
-        setTimeout(() => { this.loading = false; }, 800);
+        this.loading = false;
       },
 
       async loadLang(lang) {
         try {
-          const res = await fetch(`/Orthom8pro/our-team/data.${lang}.json`);
+          // Use relative path to avoid host issues
+          const res = await fetch(`./data.${lang}.json`);
           if (!res.ok) throw new Error("File not found");
           this.data = await res.json();
           this.lang = lang;
@@ -524,7 +535,7 @@
         const parts = path.split('.');
         let current = this.data;
         for (const part of parts) {
-          if (current[part] === undefined) return '';
+          if (!current || current[part] === undefined) return '';
           current = current[part];
         }
         return current;
