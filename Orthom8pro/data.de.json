@@ -1,0 +1,140 @@
+{
+    "project": "Wilbak Engineering",
+    "brand": "ORTHOM8PRO (Ortho'M8)",
+    "vibe": "Algorithmisches Kapitalmanagement & Business Security Engine",
+    "content": {
+        "header": {
+            "logo_text": "Ortho'M8",
+            "navigation": [
+                { "label": "Home", "target": "/" },
+                { "label": "Ergebnisse", "target": "/Orthom8pro/results/" },
+                { "label": "Funktionsweise", "target": "/Orthom8pro/#engine" },
+                { "label": "Unser Team", "target": "/Orthom8pro/our-team/" },
+                { "label": "Audit", "target": "/audit/" }
+            ]
+        },
+        "hero": {
+            "eyebrow": "Algorithmisches Kapitalmanagement — 99,99% Uptime",
+            "heading": "Ihr Geschäftskapital, gesichert durch Deep Machine Learning.",
+            "body": "Ortho'M8 ist ein algorithmisches Kapitalmanagementsystem, das den Markt liest, das Risiko prüft und nur dann ausführt, wenn die Bedingungen stimmen. Kein Raten. Keine Panikverkäufe oder -käufe. Nur datengesteuerte Entscheidungen mit 95% Knotenpräzision, rund um die Uhr.",
+            "primary_cta": { "label": "BUSINESS-AUDIT STARTEN", "link": "/audit/" },
+            "secondary_cta": { "label": "Protokollstrategie anzeigen →", "link": "#engine" },
+            "ribbon_stats": [
+                { "label": "Systempräzisionsrate", "value": "95,0%" },
+                { "label": "Automatisierte Risikotore", "value": "11" }
+            ]
+        },
+        "system_status": {
+            "title": "Protokollaktivität",
+            "active_protocol": "AKTIV",
+            "nodes": [
+                { "id": "01", "label": "Neuronale Marktaufnahme" },
+                { "id": "02", "label": "Sentiment & Orderflow Analyse" },
+                { "id": "03", "label": "Reinforcement Learning Tor" },
+                { "id": "04", "label": "Deep Machine Learning Scan" },
+                { "id": "05", "label": "PRÄZISIONSSCHWELLE ERREICHT", "highlight": true},
+                { "id": "06", "label": "Kapitalallokationsberechnung" },
+                { "id": "07", "label": "Harte Risikoparameter gesetzt" },
+                { "id": "08", "label": "Verifizierung von nicht risikofähigem Kapital" },
+                { "id": "09", "label": "SICHERHEITSPRÜFUNG BESTANDEN", "success": true},
+                { "id": "10", "label": "Sichere Ausführungsanweisung" },
+                { "id": "11", "label": "Position/Asset gesichert", "active": true}
+            ],
+            "metrics": {
+                "uptime": "99,99%",
+                "precision": "95,0%",
+                "drawdown": "<1,5%"
+            }
+        },
+        "stats_strip": {
+            "metrics": [
+                { "label": "Betriebliche Uptime", "value": "99,99%" },
+                { "label": "Knotenpräzision", "value": "95,0%" },
+                { "label": "Ausführungslatenz", "value": "320ms" },
+                { "label": "Max. Risiko pro Knoten", "value": "<1,5%" }
+            ]
+        },
+        "architecture_intro": {
+            "eyebrow": "01 — Das Triebwerk",
+            "heading": "Jenseits des Tradings: Ein umfassendes Business Capital Management System.",
+            "body": [
+                "Ortho'M8 ist nicht nur eine Trading-Engine; es ist ein umfassendes Wertpapiermanagement-Protokoll, das für Unternehmen aller Art entwickelt wurde. Es nutzt Deep Machine Learning und Reinforcement Learning an jedem Tor, um nicht risikofähiges Kapital zu versichern und zu sichern.",
+                "Es liest die Marktdynamik, überwacht den Zustand der Vermögenswerte und handelt nur, wenn die Erfolgswahrscheinlichkeit unsere institutionellen Schwellenwerte erreicht. Keine Emotionen. Null Ausfallzeiten. Unendliche Präzision."
+            ]
+        },
+        "signal_lifecycle": {
+            "eyebrow": "02 — Die Methodik",
+            "heading": "Reinforcement Learning an jedem Knoten gesichert.",
+            "logic_nodes": [
+                { "range": "PHASE 01–02", "title": "Neuronale Aufnahme", "description": "Die Systemarchitektur greift auf diverse Datenströme zu — globale Märkte, Lieferkettenindikatoren und branchenübergreifende Wertpapiere. Die Daten werden normalisiert und mit 99,99% Zuverlässigkeit zeitgestempelt.", "diagram": ["NEURONALE AUFNAHME", "DATEN NORMAL", "SICHERER LOG", "ZEITSTEMPEL"] },
+                { "range": "PHASE 03–05", "title": "Intelligenztore", "description": "Deep-Machine-Learning- und Reinforcement-Learning-Algorithmen analysieren jeden Datenpunkt. Eine Kapitalallokation wird nur in Betracht gezogen, wenn die Präzision einen Schwellenwert von 95% erreicht, wodurch Rauschen eliminiert und das Kapital gesichert wird.", "diagram": ["DML SCAN", "RL GATE", "95% PRÄZISION", "SICHER"] },
+                { "range": "PHASE 06–09", "title": "Risikohärtung", "description": "Vor der Ausführung durchläuft das System harte Risikotore. Es isoliert automatisch 'nicht risikofähiges' Kapital, wendet strikte Volatilitätsbegrenzungen an und stellt sicher, dass das maximale Risiko unter 1,5% täglich bleibt.", "diagram": ["RISIKO GATE", "CAP ISOLIEREN", "VOL CAP", "BESTANDEN"] },
+                { "range": "PHASE 10–11", "title": "Deterministische Ausführung", "description": "Positionen werden über verschlüsselte institutionelle Wege gesichert. Jede Aktion erzeugt eine permanente, fälschungssichere Aufzeichnung darüber, warum, wann und wie Ihr Kapital verwaltet wurde.", "diagram": ["SICHERE EXEC", "ASSET CLEAR", "LEDGER LOG", "DET-FAILSAFE"] }
+            ]
+        },
+        "infrastructure_evidence": {
+            "eyebrow": "03 — Institutionelle Strenge",
+            "heading": "Konzipiert für Null Fehler.",
+            "body": "Ortho'M8 dient als Business Capital und Securities Management System, das menschliche Fehler eliminiert. Es wurde für Unternehmen entwickelt, die absolute Gewissheit in ihrer Kapitalmanagementstrategie benötigen.",
+            "badges": { "security": "95,0% Knotenpräzision über alle Phasen" },
+            "spec_list": [
+                { "key": "System-Uptime", "value": "99,99% Zuverlässigkeit" },
+                { "key": "Intelligenzmodell", "value": "Reinforcement Learning Tore" },
+                { "key": "Min. Präzision erforderlich", "value": "95,0% Match" },
+                { "key": "Tägliche Risikogrenze", "value": "Hard Cap < 1,5%" },
+                { "key": "Architektur", "value": "11-Knoten-KI-Pipeline" },
+                { "key": "Management-Umfang", "value": "Kapital & Wertpapiere (Alle Sektoren)" }
+            ]
+        },
+        "cta_compliance": {
+            "label": "Nur strategischer Zugang",
+            "heading": "Sichern Sie Ihr Geschäftskapital mit intelligenten Systemen.",
+            "body": "Wir arbeiten mit Unternehmen zusammen, die bereit sind, auf ein datengesteuertes Kapitalmanagement umzusteigen. Unser Audit-Protokoll stellt sicher, dass Ortho'M8 mit Ihren institutionellen Zielen übereinstimmt, bevor das Onboarding beginnt.",
+            "actions": [
+                { "label": "AUDIT INITIALISIEREN", "link": "/audit/" },
+                { "label": "Technischen Leiter konsultieren", "link": "/contact/" }
+            ]
+        },
+        "footer": {
+            "brand_desc": "Ortho'M8 ist ein algorithmisches Kapitalmanagementsystem für geschäftliche Exzellenz. Vollautomatisiert, risikogehärtet und transparent — Sicherung Ihres Kapitals durch intelligentes Engineering.",
+            "columns": [
+                {
+                    "title": "System",
+                    "links": [
+                        { "label": "Methodik", "target": "#engine" },
+                        { "label": "Präzisionsstatistiken", "target": "#performance" },
+                        { "label": "Risikotore", "target": "#how-it-works" },
+                        { "label": "Sicherheitsprotokoll", "target": "#evidence" }
+                    ]
+                },
+                {
+                    "title": "Lösungen",
+                    "links": [
+                        { "label": "Capital Audit", "target": "/audit/" },
+                        { "label": "Wertpapiermanagement", "target": "/Orthom8pro/" },
+                        { "label": "Deep Learning Übersicht", "target": "#engine" },
+                        { "label": "API-Zugang", "target": "/contact/" }
+                    ]
+                },
+                {
+                    "title": "Organisation",
+                    "links": [
+                        { "label": "Unser Team", "target": "/Orthom8pro/our-team/" },
+                        { "label": "Industrielle Logik", "target": "/about/" },
+                        { "label": "Kontakt", "target": "/contact/" }
+                    ]
+                },
+                {
+                    "title": "Rechtliches",
+                    "links": [
+                        { "label": "AGB", "target": "/legal/terms/" },
+                        { "label": "SLA", "target": "/legal/sla/" },
+                        { "label": "Datenschutz", "target": "/legal/privacy/" },
+                        { "label": "Compliance", "target": "/legal/privacy/" }
+                    ]
+                }
+            ],
+            "disclaimer": "Kapitalmanagement ist mit Risiken verbunden. Ortho'M8 ist ein technisches Infrastruktursystem und bietet keine Finanzgarantien. Die Knotenpräzision in der Vergangenheit ist keine Garantie für zukünftige Ergebnisse. Konsultieren Sie Ihre Rechts- und Finanzberater."
+        }
+    }
+}

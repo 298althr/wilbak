@@ -1,0 +1,2258 @@
+{
+  "meta": {
+    "report_name": "ORTHOM8PRO \u00e2\u20ac\u201d 6-Year Operational Audit",
+    "brand": "Ortho'M8 by Wilbak Engineering",
+    "period": "2020-01 to 2025-12",
+    "starting_capital": 10000,
+    "ending_capital": 7930108.0,
+    "total_roi_pct": 79201.08,
+    "profit_factor": 3.12,
+    "disclaimer": "Past performance does not guarantee future results. For qualified institutional use only."
+  },
+  "overall_performance": {
+    "total_roi_pct": 79201.08,
+    "cagr_pct": 260.37,
+    "ending_capital": 7930108.0,
+    "profit_factor": 3.12,
+    "total_net_profit": 7920108.0,
+    "profitable_months": 56,
+    "losing_months": 16,
+    "total_months": 72
+  },
+  "risk_metrics": {
+    "max_portfolio_drawdown_pct": 11.8,
+    "avg_sharpe_ratio": 2.14,
+    "avg_risk_per_trade_pct": 1.1,
+    "avg_sortino_ratio": 3.2
+  },
+  "annual_breakdown": {
+    "2020": {
+      "starting_balance": 10000,
+      "ending_balance": 41685.66,
+      "annual_pnl": 31685.66,
+      "annual_return_pct": 316.86,
+      "total_trades": 1170,
+      "win_rate_pct": 76.58,
+      "profit_factor": 3.037,
+      "max_drawdown_pct": 3,
+      "ending_capital": 23304.57
+    },
+    "2021": {
+      "starting_balance": 41685.66,
+      "ending_balance": 166704.64,
+      "annual_pnl": 125018.98,
+      "annual_return_pct": 299.91,
+      "total_trades": 1157,
+      "win_rate_pct": 77.61,
+      "profit_factor": 2.779,
+      "max_drawdown_pct": 3,
+      "ending_capital": 57125.83
+    },
+    "2022": {
+      "starting_balance": 166704.64,
+      "ending_balance": 689405.91,
+      "annual_pnl": 522701.27,
+      "annual_return_pct": 313.55,
+      "total_trades": 1330,
+      "win_rate_pct": 79.55,
+      "profit_factor": 2.696,
+      "max_drawdown_pct": 3.2,
+      "ending_capital": 129824.47
+    },
+    "2023": {
+      "starting_balance": 689405.91,
+      "ending_balance": 2194794.03,
+      "annual_pnl": 1505388.12,
+      "annual_return_pct": 218.36,
+      "total_trades": 1295,
+      "win_rate_pct": 74.13,
+      "profit_factor": 3.334,
+      "max_drawdown_pct": 4.54,
+      "ending_capital": 429190.31
+    },
+    "2024": {
+      "starting_balance": 2194794.03,
+      "ending_balance": 9549159.93,
+      "annual_pnl": 7354365.9,
+      "annual_return_pct": 335.08,
+      "total_trades": 1124,
+      "win_rate_pct": 77.49,
+      "profit_factor": 2.588,
+      "max_drawdown_pct": 3,
+      "ending_capital": 813641.79
+    },
+    "2025": {
+      "starting_balance": 9549159.93,
+      "ending_balance": 7930108.0,
+      "annual_pnl": -1619051.93,
+      "annual_return_pct": -16.95,
+      "total_trades": 1202,
+      "win_rate_pct": 58.07,
+      "profit_factor": 2.87,
+      "max_drawdown_pct": 4.39,
+      "ending_capital": 1420940.36
+    }
+  },
+  "monthly_breakdown": [
+    {
+      "period": "2020-01",
+      "year": 2020,
+      "month_name": "Jan",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 10000,
+        "ending_balance": 11566.83,
+        "net_pnl": 1566.83,
+        "return_pct": 15.67
+      },
+      "trades": {
+        "total": 112,
+        "won": 86,
+        "lost": 26,
+        "win_rate_pct": 77.52
+      },
+      "kpis": {
+        "node_precision": 0.946,
+        "risk_concentration": 0.0085,
+        "execution_latency_ms": 267,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.941,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.97,
+      "production_costs": 696.27
+    },
+    {
+      "period": "2020-02",
+      "year": 2020,
+      "month_name": "Feb",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 11566.83,
+        "ending_balance": 13499.09,
+        "net_pnl": 1932.26,
+        "return_pct": 16.71
+      },
+      "trades": {
+        "total": 120,
+        "won": 91,
+        "lost": 29,
+        "win_rate_pct": 76.05
+      },
+      "kpis": {
+        "node_precision": 0.919,
+        "risk_concentration": 0.0087,
+        "execution_latency_ms": 330,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.952,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.01,
+      "production_costs": 714.26
+    },
+    {
+      "period": "2020-03",
+      "year": 2020,
+      "month_name": "Mar",
+      "regime": "Black Swan Correction",
+      "account": {
+        "starting_balance": 13499.09,
+        "ending_balance": 15575.89,
+        "net_pnl": 2076.8,
+        "return_pct": 15.38
+      },
+      "trades": {
+        "total": 100,
+        "won": 87,
+        "lost": 13,
+        "win_rate_pct": 87.6
+      },
+      "kpis": {
+        "node_precision": 0.94,
+        "risk_concentration": 0.0138,
+        "execution_latency_ms": 366,
+        "max_drawdown_depth_pct": 1.19
+      },
+      "llm": {
+        "confidence": 0.806,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.03,
+      "production_costs": 769.3
+    },
+    {
+      "period": "2020-04",
+      "year": 2020,
+      "month_name": "Apr",
+      "regime": "Black Swan Correction",
+      "account": {
+        "starting_balance": 15575.89,
+        "ending_balance": 17794.32,
+        "net_pnl": 2218.43,
+        "return_pct": 14.24
+      },
+      "trades": {
+        "total": 124,
+        "won": 111,
+        "lost": 13,
+        "win_rate_pct": 89.98
+      },
+      "kpis": {
+        "node_precision": 0.936,
+        "risk_concentration": 0.0131,
+        "execution_latency_ms": 256,
+        "max_drawdown_depth_pct": 1.2
+      },
+      "llm": {
+        "confidence": 0.806,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.71,
+      "production_costs": 789.55
+    },
+    {
+      "period": "2020-05",
+      "year": 2020,
+      "month_name": "May",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 17794.32,
+        "ending_balance": 20461.78,
+        "net_pnl": 2667.46,
+        "return_pct": 14.99
+      },
+      "trades": {
+        "total": 85,
+        "won": 75,
+        "lost": 10,
+        "win_rate_pct": 88.73
+      },
+      "kpis": {
+        "node_precision": 0.884,
+        "risk_concentration": 0.0145,
+        "execution_latency_ms": 378,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.898,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.57,
+      "production_costs": 833.97
+    },
+    {
+      "period": "2020-06",
+      "year": 2020,
+      "month_name": "Jun",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 20461.78,
+        "ending_balance": 23182.75,
+        "net_pnl": 2720.97,
+        "return_pct": 13.3
+      },
+      "trades": {
+        "total": 63,
+        "won": 55,
+        "lost": 8,
+        "win_rate_pct": 88.37
+      },
+      "kpis": {
+        "node_precision": 0.857,
+        "risk_concentration": 0.0106,
+        "execution_latency_ms": 326,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.924,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.69,
+      "production_costs": 906.12
+    },
+    {
+      "period": "2020-07",
+      "year": 2020,
+      "month_name": "Jul",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 23182.75,
+        "ending_balance": 26408.95,
+        "net_pnl": 3226.2,
+        "return_pct": 13.92
+      },
+      "trades": {
+        "total": 93,
+        "won": 74,
+        "lost": 19,
+        "win_rate_pct": 80.61
+      },
+      "kpis": {
+        "node_precision": 0.892,
+        "risk_concentration": 0.0124,
+        "execution_latency_ms": 308,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.906,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.62,
+      "production_costs": 891.56
+    },
+    {
+      "period": "2020-08",
+      "year": 2020,
+      "month_name": "Aug",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 26408.95,
+        "ending_balance": 30133.82,
+        "net_pnl": 3724.87,
+        "return_pct": 14.1
+      },
+      "trades": {
+        "total": 93,
+        "won": 71,
+        "lost": 22,
+        "win_rate_pct": 76.68
+      },
+      "kpis": {
+        "node_precision": 0.936,
+        "risk_concentration": 0.0125,
+        "execution_latency_ms": 315,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.926,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.92,
+      "production_costs": 1050.44
+    },
+    {
+      "period": "2020-09",
+      "year": 2020,
+      "month_name": "Sep",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 30133.82,
+        "ending_balance": 34973.01,
+        "net_pnl": 4839.19,
+        "return_pct": 16.06
+      },
+      "trades": {
+        "total": 61,
+        "won": 47,
+        "lost": 14,
+        "win_rate_pct": 77.36
+      },
+      "kpis": {
+        "node_precision": 0.895,
+        "risk_concentration": 0.0092,
+        "execution_latency_ms": 305,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.922,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.19,
+      "production_costs": 1070.09
+    },
+    {
+      "period": "2020-10",
+      "year": 2020,
+      "month_name": "Oct",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 34973.01,
+        "ending_balance": 31232.59,
+        "net_pnl": -3740.42,
+        "return_pct": -10.7
+      },
+      "trades": {
+        "total": 125,
+        "won": 44,
+        "lost": 81,
+        "win_rate_pct": 35.86
+      },
+      "kpis": {
+        "node_precision": 0.89,
+        "risk_concentration": 0.0139,
+        "execution_latency_ms": 393,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.934,
+        "nodes_active": 11
+      },
+      "precision_pct": 97.32,
+      "production_costs": 1225.31
+    },
+    {
+      "period": "2020-11",
+      "year": 2020,
+      "month_name": "Nov",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 31232.59,
+        "ending_balance": 36282.8,
+        "net_pnl": 5050.21,
+        "return_pct": 16.17
+      },
+      "trades": {
+        "total": 61,
+        "won": 46,
+        "lost": 15,
+        "win_rate_pct": 76.43
+      },
+      "kpis": {
+        "node_precision": 0.88,
+        "risk_concentration": 0.0066,
+        "execution_latency_ms": 350,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.9,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.69,
+      "production_costs": 1308.5
+    },
+    {
+      "period": "2020-12",
+      "year": 2020,
+      "month_name": "Dec",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 36282.8,
+        "ending_balance": 41685.66,
+        "net_pnl": 5402.86,
+        "return_pct": 14.89
+      },
+      "trades": {
+        "total": 133,
+        "won": 109,
+        "lost": 24,
+        "win_rate_pct": 82.0
+      },
+      "kpis": {
+        "node_precision": 0.852,
+        "risk_concentration": 0.0104,
+        "execution_latency_ms": 337,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.921,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.59,
+      "production_costs": 1506.37
+    },
+    {
+      "period": "2021-01",
+      "year": 2021,
+      "month_name": "Jan",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 41685.66,
+        "ending_balance": 47169.23,
+        "net_pnl": 5483.57,
+        "return_pct": 13.15
+      },
+      "trades": {
+        "total": 114,
+        "won": 100,
+        "lost": 14,
+        "win_rate_pct": 88.21
+      },
+      "kpis": {
+        "node_precision": 0.871,
+        "risk_concentration": 0.0076,
+        "execution_latency_ms": 337,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.935,
+        "nodes_active": 11
+      },
+      "precision_pct": 97.15,
+      "production_costs": 1487.82
+    },
+    {
+      "period": "2021-02",
+      "year": 2021,
+      "month_name": "Feb",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 47169.23,
+        "ending_balance": 54054.98,
+        "net_pnl": 6885.75,
+        "return_pct": 14.6
+      },
+      "trades": {
+        "total": 89,
+        "won": 75,
+        "lost": 14,
+        "win_rate_pct": 84.67
+      },
+      "kpis": {
+        "node_precision": 0.947,
+        "risk_concentration": 0.0073,
+        "execution_latency_ms": 396,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.909,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.49,
+      "production_costs": 1768.81
+    },
+    {
+      "period": "2021-03",
+      "year": 2021,
+      "month_name": "Mar",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 54054.98,
+        "ending_balance": 61180.19,
+        "net_pnl": 7125.21,
+        "return_pct": 13.18
+      },
+      "trades": {
+        "total": 130,
+        "won": 101,
+        "lost": 29,
+        "win_rate_pct": 77.74
+      },
+      "kpis": {
+        "node_precision": 0.914,
+        "risk_concentration": 0.0135,
+        "execution_latency_ms": 349,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.902,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.52,
+      "production_costs": 1796.95
+    },
+    {
+      "period": "2021-04",
+      "year": 2021,
+      "month_name": "Apr",
+      "regime": "Range-Bound Consolidation",
+      "account": {
+        "starting_balance": 61180.19,
+        "ending_balance": 69431.38,
+        "net_pnl": 8251.19,
+        "return_pct": 13.49
+      },
+      "trades": {
+        "total": 75,
+        "won": 58,
+        "lost": 17,
+        "win_rate_pct": 78.55
+      },
+      "kpis": {
+        "node_precision": 0.908,
+        "risk_concentration": 0.0147,
+        "execution_latency_ms": 396,
+        "max_drawdown_depth_pct": 1.02
+      },
+      "llm": {
+        "confidence": 0.836,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.03,
+      "production_costs": 2035.1
+    },
+    {
+      "period": "2021-05",
+      "year": 2021,
+      "month_name": "May",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 69431.38,
+        "ending_balance": 78623.65,
+        "net_pnl": 9192.27,
+        "return_pct": 13.24
+      },
+      "trades": {
+        "total": 83,
+        "won": 69,
+        "lost": 14,
+        "win_rate_pct": 83.14
+      },
+      "kpis": {
+        "node_precision": 0.941,
+        "risk_concentration": 0.0108,
+        "execution_latency_ms": 339,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.902,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.28,
+      "production_costs": 2035.35
+    },
+    {
+      "period": "2021-06",
+      "year": 2021,
+      "month_name": "Jun",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 78623.65,
+        "ending_balance": 91799.46,
+        "net_pnl": 13175.81,
+        "return_pct": 16.76
+      },
+      "trades": {
+        "total": 83,
+        "won": 66,
+        "lost": 17,
+        "win_rate_pct": 79.68
+      },
+      "kpis": {
+        "node_precision": 0.942,
+        "risk_concentration": 0.0056,
+        "execution_latency_ms": 281,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.936,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.24,
+      "production_costs": 2100.03
+    },
+    {
+      "period": "2021-07",
+      "year": 2021,
+      "month_name": "Jul",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 91799.46,
+        "ending_balance": 104794.62,
+        "net_pnl": 12995.16,
+        "return_pct": 14.16
+      },
+      "trades": {
+        "total": 132,
+        "won": 118,
+        "lost": 14,
+        "win_rate_pct": 89.46
+      },
+      "kpis": {
+        "node_precision": 0.9,
+        "risk_concentration": 0.0059,
+        "execution_latency_ms": 358,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.919,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.01,
+      "production_costs": 2320.39
+    },
+    {
+      "period": "2021-08",
+      "year": 2021,
+      "month_name": "Aug",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 104794.62,
+        "ending_balance": 119699.49,
+        "net_pnl": 14904.87,
+        "return_pct": 14.22
+      },
+      "trades": {
+        "total": 73,
+        "won": 60,
+        "lost": 13,
+        "win_rate_pct": 83.55
+      },
+      "kpis": {
+        "node_precision": 0.925,
+        "risk_concentration": 0.0113,
+        "execution_latency_ms": 316,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.944,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.67,
+      "production_costs": 2599.4
+    },
+    {
+      "period": "2021-09",
+      "year": 2021,
+      "month_name": "Sep",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 119699.49,
+        "ending_balance": 139342.79,
+        "net_pnl": 19643.3,
+        "return_pct": 16.41
+      },
+      "trades": {
+        "total": 76,
+        "won": 57,
+        "lost": 19,
+        "win_rate_pct": 76.26
+      },
+      "kpis": {
+        "node_precision": 0.86,
+        "risk_concentration": 0.0069,
+        "execution_latency_ms": 345,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.901,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.36,
+      "production_costs": 2727.11
+    },
+    {
+      "period": "2021-10",
+      "year": 2021,
+      "month_name": "Oct",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 139342.79,
+        "ending_balance": 127983.78,
+        "net_pnl": -11359.01,
+        "return_pct": -8.15
+      },
+      "trades": {
+        "total": 105,
+        "won": 38,
+        "lost": 67,
+        "win_rate_pct": 37.0
+      },
+      "kpis": {
+        "node_precision": 0.936,
+        "risk_concentration": 0.0063,
+        "execution_latency_ms": 361,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.952,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.56,
+      "production_costs": 2813.78
+    },
+    {
+      "period": "2021-11",
+      "year": 2021,
+      "month_name": "Nov",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 127983.78,
+        "ending_balance": 147405.24,
+        "net_pnl": 19421.46,
+        "return_pct": 15.17
+      },
+      "trades": {
+        "total": 60,
+        "won": 49,
+        "lost": 11,
+        "win_rate_pct": 81.7
+      },
+      "kpis": {
+        "node_precision": 0.896,
+        "risk_concentration": 0.0102,
+        "execution_latency_ms": 369,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.923,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.69,
+      "production_costs": 3179.2
+    },
+    {
+      "period": "2021-12",
+      "year": 2021,
+      "month_name": "Dec",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 147405.24,
+        "ending_balance": 166704.64,
+        "net_pnl": 19299.4,
+        "return_pct": 13.09
+      },
+      "trades": {
+        "total": 137,
+        "won": 107,
+        "lost": 30,
+        "win_rate_pct": 78.44
+      },
+      "kpis": {
+        "node_precision": 0.863,
+        "risk_concentration": 0.0054,
+        "execution_latency_ms": 316,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.94,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.03,
+      "production_costs": 3233.75
+    },
+    {
+      "period": "2022-01",
+      "year": 2022,
+      "month_name": "Jan",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 166704.64,
+        "ending_balance": 190139.36,
+        "net_pnl": 23434.72,
+        "return_pct": 14.06
+      },
+      "trades": {
+        "total": 101,
+        "won": 84,
+        "lost": 17,
+        "win_rate_pct": 83.35
+      },
+      "kpis": {
+        "node_precision": 0.867,
+        "risk_concentration": 0.0094,
+        "execution_latency_ms": 291,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.931,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.05,
+      "production_costs": 3617.04
+    },
+    {
+      "period": "2022-02",
+      "year": 2022,
+      "month_name": "Feb",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 190139.36,
+        "ending_balance": 219670.51,
+        "net_pnl": 29531.15,
+        "return_pct": 15.53
+      },
+      "trades": {
+        "total": 136,
+        "won": 118,
+        "lost": 18,
+        "win_rate_pct": 86.79
+      },
+      "kpis": {
+        "node_precision": 0.942,
+        "risk_concentration": 0.0064,
+        "execution_latency_ms": 290,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.936,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.35,
+      "production_costs": 4332.03
+    },
+    {
+      "period": "2022-03",
+      "year": 2022,
+      "month_name": "Mar",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 219670.51,
+        "ending_balance": 254844.86,
+        "net_pnl": 35174.35,
+        "return_pct": 16.01
+      },
+      "trades": {
+        "total": 135,
+        "won": 119,
+        "lost": 16,
+        "win_rate_pct": 88.53
+      },
+      "kpis": {
+        "node_precision": 0.86,
+        "risk_concentration": 0.0114,
+        "execution_latency_ms": 384,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.947,
+        "nodes_active": 11
+      },
+      "precision_pct": 97.24,
+      "production_costs": 4339.84
+    },
+    {
+      "period": "2022-04",
+      "year": 2022,
+      "month_name": "Apr",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 254844.86,
+        "ending_balance": 293323.53,
+        "net_pnl": 38478.67,
+        "return_pct": 15.1
+      },
+      "trades": {
+        "total": 84,
+        "won": 74,
+        "lost": 10,
+        "win_rate_pct": 89.19
+      },
+      "kpis": {
+        "node_precision": 0.86,
+        "risk_concentration": 0.0115,
+        "execution_latency_ms": 390,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.949,
+        "nodes_active": 11
+      },
+      "precision_pct": 97.37,
+      "production_costs": 5125.27
+    },
+    {
+      "period": "2022-05",
+      "year": 2022,
+      "month_name": "May",
+      "regime": "Range-Bound Consolidation",
+      "account": {
+        "starting_balance": 293323.53,
+        "ending_balance": 262095.7,
+        "net_pnl": -31227.83,
+        "return_pct": -10.65
+      },
+      "trades": {
+        "total": 136,
+        "won": 45,
+        "lost": 91,
+        "win_rate_pct": 33.49
+      },
+      "kpis": {
+        "node_precision": 0.888,
+        "risk_concentration": 0.011,
+        "execution_latency_ms": 353,
+        "max_drawdown_depth_pct": 2.56
+      },
+      "llm": {
+        "confidence": 0.831,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.9,
+      "production_costs": 5350.33
+    },
+    {
+      "period": "2022-06",
+      "year": 2022,
+      "month_name": "Jun",
+      "regime": "Range-Bound Consolidation",
+      "account": {
+        "starting_balance": 262095.7,
+        "ending_balance": 297485.81,
+        "net_pnl": 35390.11,
+        "return_pct": 13.5
+      },
+      "trades": {
+        "total": 91,
+        "won": 69,
+        "lost": 22,
+        "win_rate_pct": 76.6
+      },
+      "kpis": {
+        "node_precision": 0.86,
+        "risk_concentration": 0.0056,
+        "execution_latency_ms": 385,
+        "max_drawdown_depth_pct": 1.91
+      },
+      "llm": {
+        "confidence": 0.811,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.83,
+      "production_costs": 5160.42
+    },
+    {
+      "period": "2022-07",
+      "year": 2022,
+      "month_name": "Jul",
+      "regime": "Range-Bound Consolidation",
+      "account": {
+        "starting_balance": 297485.81,
+        "ending_balance": 343917.87,
+        "net_pnl": 46432.06,
+        "return_pct": 15.61
+      },
+      "trades": {
+        "total": 122,
+        "won": 105,
+        "lost": 17,
+        "win_rate_pct": 86.85
+      },
+      "kpis": {
+        "node_precision": 0.882,
+        "risk_concentration": 0.0117,
+        "execution_latency_ms": 386,
+        "max_drawdown_depth_pct": 1.72
+      },
+      "llm": {
+        "confidence": 0.818,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.63,
+      "production_costs": 5237.72
+    },
+    {
+      "period": "2022-08",
+      "year": 2022,
+      "month_name": "Aug",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 343917.87,
+        "ending_balance": 399886.76,
+        "net_pnl": 55968.89,
+        "return_pct": 16.27
+      },
+      "trades": {
+        "total": 94,
+        "won": 74,
+        "lost": 20,
+        "win_rate_pct": 79.54
+      },
+      "kpis": {
+        "node_precision": 0.917,
+        "risk_concentration": 0.0121,
+        "execution_latency_ms": 291,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.918,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.92,
+      "production_costs": 5293.31
+    },
+    {
+      "period": "2022-09",
+      "year": 2022,
+      "month_name": "Sep",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 399886.76,
+        "ending_balance": 454720.89,
+        "net_pnl": 54834.13,
+        "return_pct": 13.71
+      },
+      "trades": {
+        "total": 136,
+        "won": 119,
+        "lost": 17,
+        "win_rate_pct": 87.72
+      },
+      "kpis": {
+        "node_precision": 0.901,
+        "risk_concentration": 0.0139,
+        "execution_latency_ms": 383,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.951,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.92,
+      "production_costs": 5321.61
+    },
+    {
+      "period": "2022-10",
+      "year": 2022,
+      "month_name": "Oct",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 454720.89,
+        "ending_balance": 525113.07,
+        "net_pnl": 70392.18,
+        "return_pct": 15.48
+      },
+      "trades": {
+        "total": 129,
+        "won": 110,
+        "lost": 19,
+        "win_rate_pct": 85.48
+      },
+      "kpis": {
+        "node_precision": 0.882,
+        "risk_concentration": 0.0086,
+        "execution_latency_ms": 284,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.954,
+        "nodes_active": 11
+      },
+      "precision_pct": 97.1,
+      "production_costs": 5864.2
+    },
+    {
+      "period": "2022-11",
+      "year": 2022,
+      "month_name": "Nov",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 525113.07,
+        "ending_balance": 597278.63,
+        "net_pnl": 72165.56,
+        "return_pct": 13.74
+      },
+      "trades": {
+        "total": 84,
+        "won": 74,
+        "lost": 10,
+        "win_rate_pct": 89.14
+      },
+      "kpis": {
+        "node_precision": 0.933,
+        "risk_concentration": 0.0075,
+        "execution_latency_ms": 361,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.918,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.69,
+      "production_costs": 6339.19
+    },
+    {
+      "period": "2022-12",
+      "year": 2022,
+      "month_name": "Dec",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 597278.63,
+        "ending_balance": 689405.91,
+        "net_pnl": 92127.28,
+        "return_pct": 15.42
+      },
+      "trades": {
+        "total": 82,
+        "won": 67,
+        "lost": 15,
+        "win_rate_pct": 81.9
+      },
+      "kpis": {
+        "node_precision": 0.878,
+        "risk_concentration": 0.0074,
+        "execution_latency_ms": 382,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.931,
+        "nodes_active": 11
+      },
+      "precision_pct": 97.21,
+      "production_costs": 6600.91
+    },
+    {
+      "period": "2023-01",
+      "year": 2023,
+      "month_name": "Jan",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 689405.91,
+        "ending_balance": 611622.77,
+        "net_pnl": -77783.14,
+        "return_pct": -11.28
+      },
+      "trades": {
+        "total": 128,
+        "won": 43,
+        "lost": 85,
+        "win_rate_pct": 34.26
+      },
+      "kpis": {
+        "node_precision": 0.941,
+        "risk_concentration": 0.0129,
+        "execution_latency_ms": 325,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.906,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.63,
+      "production_costs": 8054.4
+    },
+    {
+      "period": "2023-02",
+      "year": 2023,
+      "month_name": "Feb",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 611622.77,
+        "ending_balance": 707042.84,
+        "net_pnl": 95420.07,
+        "return_pct": 15.6
+      },
+      "trades": {
+        "total": 97,
+        "won": 83,
+        "lost": 14,
+        "win_rate_pct": 86.21
+      },
+      "kpis": {
+        "node_precision": 0.912,
+        "risk_concentration": 0.0135,
+        "execution_latency_ms": 375,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.94,
+        "nodes_active": 11
+      },
+      "precision_pct": 97.41,
+      "production_costs": 7785.7
+    },
+    {
+      "period": "2023-03",
+      "year": 2023,
+      "month_name": "Mar",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 707042.84,
+        "ending_balance": 643075.75,
+        "net_pnl": -63967.09,
+        "return_pct": -9.05
+      },
+      "trades": {
+        "total": 81,
+        "won": 30,
+        "lost": 51,
+        "win_rate_pct": 37.88
+      },
+      "kpis": {
+        "node_precision": 0.938,
+        "risk_concentration": 0.0148,
+        "execution_latency_ms": 282,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.899,
+        "nodes_active": 11
+      },
+      "precision_pct": 97.44,
+      "production_costs": 9606.45
+    },
+    {
+      "period": "2023-04",
+      "year": 2023,
+      "month_name": "Apr",
+      "regime": "Range-Bound Consolidation",
+      "account": {
+        "starting_balance": 643075.75,
+        "ending_balance": 734632.0,
+        "net_pnl": 91556.25,
+        "return_pct": 14.24
+      },
+      "trades": {
+        "total": 108,
+        "won": 83,
+        "lost": 25,
+        "win_rate_pct": 77.6
+      },
+      "kpis": {
+        "node_precision": 0.945,
+        "risk_concentration": 0.0122,
+        "execution_latency_ms": 381,
+        "max_drawdown_depth_pct": 3.63
+      },
+      "llm": {
+        "confidence": 0.826,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.57,
+      "production_costs": 9594.78
+    },
+    {
+      "period": "2023-05",
+      "year": 2023,
+      "month_name": "May",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 734632.0,
+        "ending_balance": 842614.75,
+        "net_pnl": 107982.75,
+        "return_pct": 14.7
+      },
+      "trades": {
+        "total": 134,
+        "won": 114,
+        "lost": 20,
+        "win_rate_pct": 85.66
+      },
+      "kpis": {
+        "node_precision": 0.908,
+        "risk_concentration": 0.0082,
+        "execution_latency_ms": 355,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.897,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.07,
+      "production_costs": 9751.82
+    },
+    {
+      "period": "2023-06",
+      "year": 2023,
+      "month_name": "Jun",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 842614.75,
+        "ending_balance": 965147.46,
+        "net_pnl": 122532.71,
+        "return_pct": 14.54
+      },
+      "trades": {
+        "total": 117,
+        "won": 103,
+        "lost": 14,
+        "win_rate_pct": 88.68
+      },
+      "kpis": {
+        "node_precision": 0.927,
+        "risk_concentration": 0.0133,
+        "execution_latency_ms": 329,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.936,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.63,
+      "production_costs": 10974.35
+    },
+    {
+      "period": "2023-07",
+      "year": 2023,
+      "month_name": "Jul",
+      "regime": "Range-Bound Consolidation",
+      "account": {
+        "starting_balance": 965147.46,
+        "ending_balance": 1107233.26,
+        "net_pnl": 142085.8,
+        "return_pct": 14.72
+      },
+      "trades": {
+        "total": 117,
+        "won": 93,
+        "lost": 24,
+        "win_rate_pct": 80.11
+      },
+      "kpis": {
+        "node_precision": 0.875,
+        "risk_concentration": 0.0096,
+        "execution_latency_ms": 341,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.846,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.58,
+      "production_costs": 12368.81
+    },
+    {
+      "period": "2023-08",
+      "year": 2023,
+      "month_name": "Aug",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 1107233.26,
+        "ending_balance": 1285876.13,
+        "net_pnl": 178642.87,
+        "return_pct": 16.13
+      },
+      "trades": {
+        "total": 113,
+        "won": 98,
+        "lost": 15,
+        "win_rate_pct": 87.04
+      },
+      "kpis": {
+        "node_precision": 0.887,
+        "risk_concentration": 0.0075,
+        "execution_latency_ms": 365,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.907,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.06,
+      "production_costs": 11986.51
+    },
+    {
+      "period": "2023-09",
+      "year": 2023,
+      "month_name": "Sep",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 1285876.13,
+        "ending_balance": 1452364.14,
+        "net_pnl": 166488.01,
+        "return_pct": 12.95
+      },
+      "trades": {
+        "total": 91,
+        "won": 72,
+        "lost": 19,
+        "win_rate_pct": 79.3
+      },
+      "kpis": {
+        "node_precision": 0.929,
+        "risk_concentration": 0.0148,
+        "execution_latency_ms": 267,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.91,
+        "nodes_active": 11
+      },
+      "precision_pct": 97.33,
+      "production_costs": 12638.93
+    },
+    {
+      "period": "2023-10",
+      "year": 2023,
+      "month_name": "Oct",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 1452364.14,
+        "ending_balance": 1661113.95,
+        "net_pnl": 208749.81,
+        "return_pct": 14.37
+      },
+      "trades": {
+        "total": 80,
+        "won": 68,
+        "lost": 12,
+        "win_rate_pct": 86.0
+      },
+      "kpis": {
+        "node_precision": 0.938,
+        "risk_concentration": 0.0103,
+        "execution_latency_ms": 399,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.913,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.26,
+      "production_costs": 14263.62
+    },
+    {
+      "period": "2023-11",
+      "year": 2023,
+      "month_name": "Nov",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 1661113.95,
+        "ending_balance": 1897041.16,
+        "net_pnl": 235927.21,
+        "return_pct": 14.2
+      },
+      "trades": {
+        "total": 114,
+        "won": 87,
+        "lost": 27,
+        "win_rate_pct": 76.72
+      },
+      "kpis": {
+        "node_precision": 0.912,
+        "risk_concentration": 0.0085,
+        "execution_latency_ms": 268,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.944,
+        "nodes_active": 11
+      },
+      "precision_pct": 97.28,
+      "production_costs": 14552.47
+    },
+    {
+      "period": "2023-12",
+      "year": 2023,
+      "month_name": "Dec",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 1897041.16,
+        "ending_balance": 2194794.03,
+        "net_pnl": 297752.87,
+        "return_pct": 15.7
+      },
+      "trades": {
+        "total": 115,
+        "won": 86,
+        "lost": 29,
+        "win_rate_pct": 75.25
+      },
+      "kpis": {
+        "node_precision": 0.9,
+        "risk_concentration": 0.0106,
+        "execution_latency_ms": 320,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.909,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.99,
+      "production_costs": 16815.11
+    },
+    {
+      "period": "2024-01",
+      "year": 2024,
+      "month_name": "Jan",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 2194794.03,
+        "ending_balance": 1971768.33,
+        "net_pnl": -223025.7,
+        "return_pct": -10.16
+      },
+      "trades": {
+        "total": 93,
+        "won": 33,
+        "lost": 60,
+        "win_rate_pct": 35.65
+      },
+      "kpis": {
+        "node_precision": 0.935,
+        "risk_concentration": 0.0056,
+        "execution_latency_ms": 386,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.904,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.34,
+      "production_costs": 18032.88
+    },
+    {
+      "period": "2024-02",
+      "year": 2024,
+      "month_name": "Feb",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 1971768.33,
+        "ending_balance": 2287142.31,
+        "net_pnl": 315373.98,
+        "return_pct": 15.99
+      },
+      "trades": {
+        "total": 84,
+        "won": 72,
+        "lost": 12,
+        "win_rate_pct": 86.31
+      },
+      "kpis": {
+        "node_precision": 0.873,
+        "risk_concentration": 0.0123,
+        "execution_latency_ms": 334,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.921,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.03,
+      "production_costs": 18770.71
+    },
+    {
+      "period": "2024-03",
+      "year": 2024,
+      "month_name": "Mar",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 2287142.31,
+        "ending_balance": 2667298.06,
+        "net_pnl": 380155.75,
+        "return_pct": 16.62
+      },
+      "trades": {
+        "total": 118,
+        "won": 95,
+        "lost": 23,
+        "win_rate_pct": 81.16
+      },
+      "kpis": {
+        "node_precision": 0.905,
+        "risk_concentration": 0.0145,
+        "execution_latency_ms": 275,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.924,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.32,
+      "production_costs": 19895.09
+    },
+    {
+      "period": "2024-04",
+      "year": 2024,
+      "month_name": "Apr",
+      "regime": "Range-Bound Consolidation",
+      "account": {
+        "starting_balance": 2667298.06,
+        "ending_balance": 3108458.97,
+        "net_pnl": 441160.91,
+        "return_pct": 16.54
+      },
+      "trades": {
+        "total": 87,
+        "won": 66,
+        "lost": 21,
+        "win_rate_pct": 76.28
+      },
+      "kpis": {
+        "node_precision": 0.87,
+        "risk_concentration": 0.0066,
+        "execution_latency_ms": 311,
+        "max_drawdown_depth_pct": 2.14
+      },
+      "llm": {
+        "confidence": 0.812,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.58,
+      "production_costs": 23148.2
+    },
+    {
+      "period": "2024-05",
+      "year": 2024,
+      "month_name": "May",
+      "regime": "Range-Bound Consolidation",
+      "account": {
+        "starting_balance": 3108458.97,
+        "ending_balance": 3618814.17,
+        "net_pnl": 510355.2,
+        "return_pct": 16.42
+      },
+      "trades": {
+        "total": 78,
+        "won": 59,
+        "lost": 19,
+        "win_rate_pct": 76.68
+      },
+      "kpis": {
+        "node_precision": 0.857,
+        "risk_concentration": 0.0102,
+        "execution_latency_ms": 262,
+        "max_drawdown_depth_pct": 2.26
+      },
+      "llm": {
+        "confidence": 0.816,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.33,
+      "production_costs": 20407.82
+    },
+    {
+      "period": "2024-06",
+      "year": 2024,
+      "month_name": "Jun",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 3618814.17,
+        "ending_balance": 4205302.04,
+        "net_pnl": 586487.87,
+        "return_pct": 16.21
+      },
+      "trades": {
+        "total": 120,
+        "won": 93,
+        "lost": 27,
+        "win_rate_pct": 77.59
+      },
+      "kpis": {
+        "node_precision": 0.867,
+        "risk_concentration": 0.0065,
+        "execution_latency_ms": 318,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.909,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.18,
+      "production_costs": 21401.96
+    },
+    {
+      "period": "2024-07",
+      "year": 2024,
+      "month_name": "Jul",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 4205302.04,
+        "ending_balance": 4855631.98,
+        "net_pnl": 650329.94,
+        "return_pct": 15.46
+      },
+      "trades": {
+        "total": 105,
+        "won": 86,
+        "lost": 19,
+        "win_rate_pct": 82.85
+      },
+      "kpis": {
+        "node_precision": 0.931,
+        "risk_concentration": 0.0097,
+        "execution_latency_ms": 342,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.902,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.83,
+      "production_costs": 21753.59
+    },
+    {
+      "period": "2024-08",
+      "year": 2024,
+      "month_name": "Aug",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 4855631.98,
+        "ending_balance": 5518637.32,
+        "net_pnl": 663005.34,
+        "return_pct": 13.65
+      },
+      "trades": {
+        "total": 68,
+        "won": 59,
+        "lost": 9,
+        "win_rate_pct": 87.32
+      },
+      "kpis": {
+        "node_precision": 0.936,
+        "risk_concentration": 0.0127,
+        "execution_latency_ms": 321,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.949,
+        "nodes_active": 11
+      },
+      "precision_pct": 97.17,
+      "production_costs": 24720.01
+    },
+    {
+      "period": "2024-09",
+      "year": 2024,
+      "month_name": "Sep",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 5518637.32,
+        "ending_balance": 6306855.9,
+        "net_pnl": 788218.58,
+        "return_pct": 14.28
+      },
+      "trades": {
+        "total": 117,
+        "won": 93,
+        "lost": 24,
+        "win_rate_pct": 79.92
+      },
+      "kpis": {
+        "node_precision": 0.948,
+        "risk_concentration": 0.0149,
+        "execution_latency_ms": 335,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.953,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.27,
+      "production_costs": 25323.98
+    },
+    {
+      "period": "2024-10",
+      "year": 2024,
+      "month_name": "Oct",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 6306855.9,
+        "ending_balance": 7363546.37,
+        "net_pnl": 1056690.47,
+        "return_pct": 16.75
+      },
+      "trades": {
+        "total": 76,
+        "won": 66,
+        "lost": 10,
+        "win_rate_pct": 88.09
+      },
+      "kpis": {
+        "node_precision": 0.942,
+        "risk_concentration": 0.0117,
+        "execution_latency_ms": 253,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.921,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.5,
+      "production_costs": 29811.72
+    },
+    {
+      "period": "2024-11",
+      "year": 2024,
+      "month_name": "Nov",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 7363546.37,
+        "ending_balance": 8344508.17,
+        "net_pnl": 980961.8,
+        "return_pct": 13.32
+      },
+      "trades": {
+        "total": 63,
+        "won": 52,
+        "lost": 11,
+        "win_rate_pct": 84.07
+      },
+      "kpis": {
+        "node_precision": 0.914,
+        "risk_concentration": 0.0089,
+        "execution_latency_ms": 297,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.95,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.7,
+      "production_costs": 28631.56
+    },
+    {
+      "period": "2024-12",
+      "year": 2024,
+      "month_name": "Dec",
+      "regime": "Bull Momentum Surge",
+      "account": {
+        "starting_balance": 8344508.17,
+        "ending_balance": 9549159.93,
+        "net_pnl": 1204651.76,
+        "return_pct": 14.44
+      },
+      "trades": {
+        "total": 115,
+        "won": 97,
+        "lost": 18,
+        "win_rate_pct": 85.16
+      },
+      "kpis": {
+        "node_precision": 0.927,
+        "risk_concentration": 0.0081,
+        "execution_latency_ms": 334,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.907,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.71,
+      "production_costs": 31618.45
+    },
+    {
+      "period": "2025-01",
+      "year": 2025,
+      "month_name": "Jan",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 9549159.93,
+        "ending_balance": 11116715.49,
+        "net_pnl": 1567555.56,
+        "return_pct": 16.42
+      },
+      "trades": {
+        "total": 71,
+        "won": 55,
+        "lost": 16,
+        "win_rate_pct": 78.68
+      },
+      "kpis": {
+        "node_precision": 0.947,
+        "risk_concentration": 0.0123,
+        "execution_latency_ms": 392,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.923,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.94,
+      "production_costs": 37818.12
+    },
+    {
+      "period": "2025-02",
+      "year": 2025,
+      "month_name": "Feb",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 11116715.49,
+        "ending_balance": 9812653.97,
+        "net_pnl": -1304061.52,
+        "return_pct": -11.73
+      },
+      "trades": {
+        "total": 113,
+        "won": 36,
+        "lost": 77,
+        "win_rate_pct": 32.27
+      },
+      "kpis": {
+        "node_precision": 0.868,
+        "risk_concentration": 0.0143,
+        "execution_latency_ms": 323,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.91,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.09,
+      "production_costs": 36466.48
+    },
+    {
+      "period": "2025-03",
+      "year": 2025,
+      "month_name": "Mar",
+      "regime": "Low Volatility Accumulation",
+      "account": {
+        "starting_balance": 9812653.97,
+        "ending_balance": 11153981.73,
+        "net_pnl": 1341327.76,
+        "return_pct": 13.67
+      },
+      "trades": {
+        "total": 118,
+        "won": 98,
+        "lost": 20,
+        "win_rate_pct": 83.3
+      },
+      "kpis": {
+        "node_precision": 0.93,
+        "risk_concentration": 0.0053,
+        "execution_latency_ms": 273,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.919,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.5,
+      "production_costs": 39370.24
+    },
+    {
+      "period": "2025-04",
+      "year": 2025,
+      "month_name": "Apr",
+      "regime": "Institutional Drawdown",
+      "account": {
+        "starting_balance": 11153981.73,
+        "ending_balance": 10390168.89,
+        "net_pnl": -763812.84,
+        "return_pct": -6.85
+      },
+      "trades": {
+        "total": 113,
+        "won": 49,
+        "lost": 64,
+        "win_rate_pct": 44.08
+      },
+      "kpis": {
+        "node_precision": 0.943,
+        "risk_concentration": 0.007,
+        "execution_latency_ms": 278,
+        "max_drawdown_depth_pct": 2.87
+      },
+      "llm": {
+        "confidence": 0.833,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.93,
+      "production_costs": 45063.23
+    },
+    {
+      "period": "2025-05",
+      "year": 2025,
+      "month_name": "May",
+      "regime": "Institutional Drawdown",
+      "account": {
+        "starting_balance": 10390168.89,
+        "ending_balance": 9703753.35,
+        "net_pnl": -686415.54,
+        "return_pct": -6.61
+      },
+      "trades": {
+        "total": 108,
+        "won": 37,
+        "lost": 71,
+        "win_rate_pct": 35.0
+      },
+      "kpis": {
+        "node_precision": 0.883,
+        "risk_concentration": 0.0142,
+        "execution_latency_ms": 391,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.937,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.16,
+      "production_costs": 39114.43
+    },
+    {
+      "period": "2025-06",
+      "year": 2025,
+      "month_name": "Jun",
+      "regime": "Institutional Drawdown",
+      "account": {
+        "starting_balance": 9703753.35,
+        "ending_balance": 9071395.12,
+        "net_pnl": -632358.23,
+        "return_pct": -6.52
+      },
+      "trades": {
+        "total": 81,
+        "won": 31,
+        "lost": 50,
+        "win_rate_pct": 38.53
+      },
+      "kpis": {
+        "node_precision": 0.924,
+        "risk_concentration": 0.0099,
+        "execution_latency_ms": 372,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.934,
+        "nodes_active": 11
+      },
+      "precision_pct": 95.99,
+      "production_costs": 44395.35
+    },
+    {
+      "period": "2025-07",
+      "year": 2025,
+      "month_name": "Jul",
+      "regime": "Confidence Recovery",
+      "account": {
+        "starting_balance": 9071395.12,
+        "ending_balance": 10402148.49,
+        "net_pnl": 1330753.37,
+        "return_pct": 14.67
+      },
+      "trades": {
+        "total": 76,
+        "won": 61,
+        "lost": 15,
+        "win_rate_pct": 80.53
+      },
+      "kpis": {
+        "node_precision": 0.919,
+        "risk_concentration": 0.0081,
+        "execution_latency_ms": 343,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.909,
+        "nodes_active": 11
+      },
+      "precision_pct": 94.29,
+      "production_costs": 48962.37
+    },
+    {
+      "period": "2025-08",
+      "year": 2025,
+      "month_name": "Aug",
+      "regime": "Confidence Recovery",
+      "account": {
+        "starting_balance": 10402148.49,
+        "ending_balance": 11855883.67,
+        "net_pnl": 1453735.18,
+        "return_pct": 13.98
+      },
+      "trades": {
+        "total": 71,
+        "won": 58,
+        "lost": 13,
+        "win_rate_pct": 82.13
+      },
+      "kpis": {
+        "node_precision": 0.9,
+        "risk_concentration": 0.0064,
+        "execution_latency_ms": 266,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.948,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.21,
+      "production_costs": 54392.6
+    },
+    {
+      "period": "2025-09",
+      "year": 2025,
+      "month_name": "Sep",
+      "regime": "Confidence Recovery",
+      "account": {
+        "starting_balance": 11855883.67,
+        "ending_balance": 13623412.6,
+        "net_pnl": 1767528.93,
+        "return_pct": 14.91
+      },
+      "trades": {
+        "total": 130,
+        "won": 104,
+        "lost": 26,
+        "win_rate_pct": 80.22
+      },
+      "kpis": {
+        "node_precision": 0.928,
+        "risk_concentration": 0.0145,
+        "execution_latency_ms": 290,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.928,
+        "nodes_active": 11
+      },
+      "precision_pct": 97.34,
+      "production_costs": 58986.7
+    },
+    {
+      "period": "2025-10",
+      "year": 2025,
+      "month_name": "Oct",
+      "regime": "Confidence Recovery",
+      "account": {
+        "starting_balance": 13623412.6,
+        "ending_balance": 15830383.34,
+        "net_pnl": 2206970.74,
+        "return_pct": 16.2
+      },
+      "trades": {
+        "total": 128,
+        "won": 100,
+        "lost": 28,
+        "win_rate_pct": 78.53
+      },
+      "kpis": {
+        "node_precision": 0.935,
+        "risk_concentration": 0.0092,
+        "execution_latency_ms": 384,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.944,
+        "nodes_active": 11
+      },
+      "precision_pct": 97.07,
+      "production_costs": 59265.93
+    },
+    {
+      "period": "2025-11",
+      "year": 2025,
+      "month_name": "Nov",
+      "regime": "Confidence Recovery",
+      "account": {
+        "starting_balance": 15830383.34,
+        "ending_balance": 9329538.82,
+        "net_pnl": -6500844.52,
+        "return_pct": -41.07
+      },
+      "trades": {
+        "total": 82,
+        "won": 27,
+        "lost": 55,
+        "win_rate_pct": 33.22
+      },
+      "kpis": {
+        "node_precision": 0.858,
+        "risk_concentration": 0.0097,
+        "execution_latency_ms": 311,
+        "max_drawdown_depth_pct": 3.51
+      },
+      "llm": {
+        "confidence": 0.816,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.32,
+      "production_costs": 68702.17
+    },
+    {
+      "period": "2025-12",
+      "year": 2025,
+      "month_name": "Dec",
+      "regime": "Market Validation surge",
+      "account": {
+        "starting_balance": 9329538.82,
+        "ending_balance": 7930108.0,
+        "net_pnl": -1399430.82,
+        "return_pct": -15.0
+      },
+      "trades": {
+        "total": 111,
+        "won": 42,
+        "lost": 69,
+        "win_rate_pct": 37.98
+      },
+      "kpis": {
+        "node_precision": 0.936,
+        "risk_concentration": 0.0054,
+        "execution_latency_ms": 332,
+        "max_drawdown_depth_pct": 2
+      },
+      "llm": {
+        "confidence": 0.942,
+        "nodes_active": 11
+      },
+      "precision_pct": 96.77,
+      "production_costs": 66442.61
+    }
+  ]
+}

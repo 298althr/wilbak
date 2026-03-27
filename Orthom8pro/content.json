@@ -7,35 +7,16 @@
             "logo_text": "Ortho'M8",
             "logo_url": "https://wilbakengineering.com/Orthom8pro/",
             "navigation": [
-                {
-                    "label": "Home",
-                    "target": "https://wilbakengineering.com"
-                },
-                {
-                    "label": "Performance",
-                    "target": "#performance"
-                },
-                {
-                    "label": "How It Works",
-                    "target": "#engine"
-                },
-                {
-                    "label": "Safety & Risk",
-                    "target": "#how-it-works"
-                },
-                {
-                    "label": "Results",
-                    "target": "#evidence"
-                },
-                {
-                    "label": "Our Team",
-                    "target": "/Orthom8pro/our-team/"
-                }
+                { "label": "Home", "target": "/" },
+                { "label": "Results", "target": "/Orthom8pro/Results/" },
+                { "label": "Methodology", "target": "/Orthom8pro/#engine" },
+                { "label": "Our Team", "target": "/Orthom8pro/our-team/" },
+                { "label": "Business Audit", "target": "/audit/" }
             ]
         },
         "hero": {
             "eyebrow": "Algorithmic Capital Management — 99.99% Uptime",
-            "heading": "Your business capital, secured by deep machine learning.",
+            "heading": "Your <em>business capital,</em><br>secured by <strong>deep machine learning.</strong>",
             "body": "Ortho'M8 is an Algorithmic Capital Management system that reads the market, checks the risk, and only executes when conditions are right. No guesswork. No panic selling or buying. Just data-driven decisions at 95% node precision, around the clock.",
             "primary_cta": {
                 "label": "INITIATE BUSINESS AUDIT",
@@ -138,7 +119,7 @@
         "architecture_intro": {
             "id": "engine",
             "eyebrow": "01 — The Engine",
-            "heading": "Beyond Trading: A Total Business Capital Management System.",
+            "heading": "Beyond Trading: A Total<br><em>Business Capital</em><br>Management System.",
             "body": [
                 "Ortho'M8 isn't just a trading engine; it's a comprehensive securities management protocol built for all kinds of businesses. It leverages deep machine learning and reinforcement learning at every gate to insure and secure non-riskable capital.",
                 "It reads market dynamics, monitors asset health, and only acts when the probability of success reaches our institutional thresholds. No emotion. Zero downtime. Infinite precision."
@@ -253,28 +234,36 @@
                 {
                     "title": "System",
                     "links": [
-                        "Methodology",
-                        "Precision Stats",
-                        "Risk Gates",
-                        "Safety Protocol"
+                        { "label": "Methodology", "target": "#engine" },
+                        { "label": "Precision Stats", "target": "#performance" },
+                        { "label": "Risk Gates", "target": "#how-it-works" },
+                        { "label": "Safety Protocol", "target": "#evidence" }
                     ]
                 },
                 {
                     "title": "Solutions",
                     "links": [
-                        "Capital Audit",
-                        "Securities Management",
-                        "Deep Learning Overview",
-                        "API Access"
+                        { "label": "Capital Audit", "target": "/audit/" },
+                        { "label": "Securities Management", "target": "/Orthom8pro/" },
+                        { "label": "Deep Learning Overview", "target": "#engine" },
+                        { "label": "API Access", "target": "/contact/" }
                     ]
                 },
                 {
                     "title": "Organization",
                     "links": [
-                        "Our Team",
-                        "Industrial Logic",
-                        "Compliance",
-                        "Contact"
+                        { "label": "Our Team", "target": "/Orthom8pro/our-team/" },
+                        { "label": "Industrial Logic", "target": "/about/" },
+                        { "label": "Contact", "target": "/contact/" }
+                    ]
+                },
+                {
+                    "title": "Legal",
+                    "links": [
+                        { "label": "Terms & Conditions", "target": "/legal/terms/" },
+                        { "label": "SLA", "target": "/legal/sla/" },
+                        { "label": "Privacy Policy", "target": "/legal/privacy/" },
+                        { "label": "Compliance", "target": "/legal/privacy/" }
                     ]
                 }
             ],

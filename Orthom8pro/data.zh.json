@@ -1,0 +1,140 @@
+{
+    "project": "Wilbak Engineering",
+    "brand": "ORTHOM8PRO (Ortho'M8)",
+    "vibe": "算法资本管理与业务安全引擎",
+    "content": {
+        "header": {
+            "logo_text": "Ortho'M8",
+            "navigation": [
+                { "label": "首页", "target": "/" },
+                { "label": "结果", "target": "/Orthom8pro/results/" },
+                { "label": "运作方式", "target": "/Orthom8pro/#engine" },
+                { "label": "我们的团队", "target": "/Orthom8pro/our-team/" },
+                { "label": "业务审计", "target": "/audit/" }
+            ]
+        },
+        "hero": {
+            "eyebrow": "算法资本管理 — 99.99% 运行时间",
+            "heading": "您的<em>业务资本，</em><br>由<strong>深度机器学习</strong>提供保障。",
+            "body": "Ortho'M8 是一个算法资本管理系统，它读取市场，检查风险，并且仅在条件合适时执行。无猜想。无恐慌性抛售或买入。全天候基于数据决策，节点精度达 95%。",
+            "primary_cta": { "label": "启动业务审计", "link": "/audit/" },
+            "secondary_cta": { "label": "查看协议策略 →", "link": "#engine" },
+            "ribbon_stats": [
+                { "label": "系统精度率", "value": "95.0%" },
+                { "label": "自动化风险门控", "value": "11" }
+            ]
+        },
+        "system_status": {
+            "title": "协议活动",
+            "active_protocol": "活跃",
+            "nodes": [
+                { "id": "01", "label": "神经市场摄取" },
+                { "id": "02", "label": "情感与订单流分析" },
+                { "id": "03", "label": "强化学习门控" },
+                { "id": "04", "label": "深度机器学习扫描" },
+                { "id": "05", "label": "精度阈值已达到", "highlight": true},
+                { "id": "06", "label": "资本分配计算" },
+                { "id": "07", "label": "硬盘风险参数设定" },
+                { "id": "08", "label": "非风险性资本验证" },
+                { "id": "09", "label": "安全检查通过", "success": true},
+                { "id": "10", "label": "安全执行指令" },
+                { "id": "11", "label": "职位/资产已保障", "active": true}
+            ],
+            "metrics": {
+                "uptime": "99.99%",
+                "precision": "95.0%",
+                "drawdown": "<1.5%"
+            }
+        },
+        "stats_strip": {
+            "metrics": [
+                { "label": "运营运行时间", "value": "99.99%" },
+                { "label": "节点精度", "value": "95.0%" },
+                { "label": "执行延迟", "value": "320ms" },
+                { "label": "每节点最大风险", "value": "<1.5%" }
+            ]
+        },
+        "architecture_intro": {
+            "eyebrow": "01 — 引擎",
+            "heading": "超越交易：<br>全方位<em>业务资本</em><br>管理系统。",
+            "body": [
+                "Ortho'M8 不仅仅是一个交易引擎；它是一个为各种业务构建的综合证券管理协议。它在每个门控利用深度机器学习和强化学习，以确保非风险性资本的安全。",
+                "它读取市场动态，监控资产健康，并仅在成功概率达到我们的机构阈值时采取行动。无情绪。零停机时间。无限精度。"
+            ]
+        },
+        "signal_lifecycle": {
+            "eyebrow": "02 — 方法论",
+            "heading": "强化学习保障每个节点。",
+            "logic_nodes": [
+                { "range": "第一、二阶段", "title": "神经摄取", "description": "系统架构从多样化的数据流（全球市场、供应链指标和跨行业证券）中提取数据。数据经过标准化并带有 99.99% 可靠性的时间戳。", "diagram": ["神经摄取", "数据标准", "安全日志", "时间戳"] },
+                { "range": "第三至五阶段", "title": "情报门控", "description": "深度机器学习和强化学习算法分析每一个数据点。仅当精度达到 95% 阈值时才会考虑资本分配，消除噪声并保障本金。", "diagram": ["DML 扫描", "RL 门控", "95% 精度", "保障"] },
+                { "range": "第六至九阶段", "title": "风险硬化", "description": "在执行之前，系统会通过硬风险门。它自动隔离“非风险性”资本，应用严格的波动性上限，并确保每日最大风险敞口保持在 1.5% 以下。", "diagram": ["风险门控", "隔离资本", "波动上限", "通过"] },
+                { "range": "第十、十一阶段", "title": "确定性执行", "description": "通过加密的机构路径保障职位安全。每一个动作都会生成一个永久、防篡改的记录，说明您的资本为什么、何时以及如何被管理。", "diagram": ["安全执行", "资产清算", "总账日志", "执行保障"] }
+            ]
+        },
+        "infrastructure_evidence": {
+            "eyebrow": "03 — 机构严谨性",
+            "heading": "为零故障而设计。",
+            "body": "Ortho'M8 是一个消除人为误差的业务资本与证券管理系统。它为那些要求资本管理策略绝对确定性的企业构建。",
+            "badges": { "security": "全阶段 95.0% 节点精度" },
+            "spec_list": [
+                { "key": "系统运行时间", "value": "99.99% 可靠性" },
+                { "key": "情报模型", "value": "强化学习门控" },
+                { "key": "要求的最低精度", "value": "95.0% 匹配" },
+                { "key": "每日风险上限", "value": "硬上限 < 1.5%" },
+                { "key": "架构", "value": "11 节点 AI 管道" },
+                { "key": "管理范围", "value": "资本与证券（所有行业）" }
+            ]
+        },
+        "cta_compliance": {
+            "label": "仅限战略访问",
+            "heading": "使用智能系统保障您的业务资本。",
+            "body": "我们与准备向数据驱动资本管理过度的企业合作。我们的审计协议确保 Ortho'M8 在入驻开始之前符合您的机构目标。",
+            "actions": [
+                { "label": "启动审计", "link": "/audit/" },
+                { "label": "咨询技术负责人", "link": "/contact/" }
+            ]
+        },
+        "footer": {
+            "brand_desc": "Ortho'M8 是为卓越业务构建的算法资本管理系统。全自动、风险硬化且透明 —— 通过智能工程保障您的资本安全。",
+            "columns": [
+                {
+                    "title": "系统",
+                    "links": [
+                        { "label": "方法论", "target": "#engine" },
+                        { "label": "精度统计", "target": "#performance" },
+                        { "label": "风险门控", "target": "#how-it-works" },
+                        { "label": "安全协议", "target": "#evidence" }
+                    ]
+                },
+                {
+                    "title": "解决方案",
+                    "links": [
+                        { "label": "资本审计", "target": "/audit/" },
+                        { "label": "证券管理", "target": "/Orthom8pro/" },
+                        { "label": "深度学习概述", "target": "#engine" },
+                        { "label": "API 访问", "target": "/contact/" }
+                    ]
+                },
+                {
+                    "title": "组织",
+                    "links": [
+                        { "label": "我们的团队", "target": "/Orthom8pro/our-team/" },
+                        { "label": "工业逻辑", "target": "/about/" },
+                        { "label": "联系方式", "target": "/contact/" }
+                    ]
+                },
+                {
+                    "title": "法律",
+                    "links": [
+                        { "label": "条款与条件", "target": "/legal/terms/" },
+                        { "label": "SLA", "target": "/legal/sla/" },
+                        { "label": "隐私政策", "target": "/legal/privacy/" },
+                        { "label": "合规性", "target": "/legal/privacy/" }
+                    ]
+                }
+            ],
+            "disclaimer": "资本管理涉及风险。Ortho'M8 是一个技术基础设施系统，不提供财务保证。过去的节点精度并不保证未来的结果。请咨询您的法律和财务顾问。"
+        }
+    }
+}

@@ -1,0 +1,37 @@
+{
+  "project": "Wilbak Engineering",
+  "brand": "Ortho'M8",
+  "page": "我们的团队",
+  "content": {
+    "welcome_gate": "初始化团队访问…",
+    "mission": {
+      "eyebrow": "我们的使命",
+      "heading": "为<em>信任</em>而生。<br>由<strong>智能</strong>驱动。",
+      "body": "Ortho'M8 建立在一个简单的原则之上：高性能交易应由逻辑而非情感主导。我们弥合了技术复杂性与透明执行之间的鸿沟。"
+    },
+    "board": {
+      "eyebrow": "董事会",
+      "heading": "主权监督，<br><em>战略治理。</em>",
+      "body_1": "我们的董事会汇聚了在量化金融、网络安全和资本管理方面的全球专业知识。Ortho'M8 管道中的每一行代码都由理解机构责任权重的专家审核。",
+      "body_2": "透明度不是一项功能；它是我们的基石。我们的董事确保 11 步管道中的每一个检查点都符合全球合规和风险标准，从而保障每一次部署的主权定位。"
+    },
+    "founder": {
+      "eyebrow": "愿景者",
+      "heading": "创始人关于精度与信任的注记。",
+      "body": "Ortho'M8 背后的引擎诞生于工业工程和高速基础设施领域的十年经验。我们的目标是为严肃资本创建一个无情绪的执行接力。"
+    },
+    "team": [
+      { "name": "Marcus Thorne", "title": "算法策略总监" },
+      { "name": "Sophia Chen", "title": "数据工程负责人" },
+      { "name": "David Miller", "title": "首席风险官" },
+      { "name": "Elena Rodriguez", "title": "量化研究总监" }
+    ],
+    "quote": "Ortho'M8 是我们信念的结晶，即数据在得到妥善把控时，是任何市场中最强大的资产。",
+    "cta": {
+      "heading": "加入资本的未来。",
+      "body": "预约与我们的团队进行私人咨询，探讨 Ortho'M8 如何保护并增长您的资本锚点。",
+      "primary": "预约咨询",
+      "secondary": "联系我们的办公室"
+    }
+  }
+}

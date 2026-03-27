@@ -12,6 +12,7 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/i18n-loader.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -141,13 +142,21 @@
 
         <!-- Desktop Nav -->
         <div class="hidden md:flex items-center space-x-10 font-bold text-xs uppercase tracking-[0.2em]">
-            <a href="/" class="text-blue-600 transition">Home</a>
-            <a href="/projects/" class="text-slate-500 hover:text-blue-600 transition">Projects</a>
-            <a href="/about/" class="text-slate-500 hover:text-blue-600 transition">About</a>
-            <a href="/Orthom8pro/" class="text-slate-500 hover:text-blue-600 transition">Ortho'M8</a>
-            <a href="/contact/" class="text-slate-500 hover:text-blue-600 transition">Contact</a>
-            <a href="/insight/" class="text-slate-500 hover:text-blue-600 transition">News & Insights</a>
-            <a href="/audit/" class="btn-premium bg-slate-900 text-white hover:bg-blue-700">Business Audit</a>
+            <a href="/" class="text-blue-600 transition" x-text="$store.i18n.t('content.header.nav.0')">Home</a>
+            <a href="/projects/" class="text-slate-500 hover:text-blue-600 transition" x-text="$store.i18n.t('content.header.nav.1')">Projects</a>
+            <a href="/about/" class="text-slate-500 hover:text-blue-600 transition" x-text="$store.i18n.t('content.header.nav.2')">About</a>
+            <a href="/Orthom8pro/" class="text-slate-500 hover:text-blue-600 transition" x-text="$store.i18n.t('content.header.nav.3')">Ortho'M8</a>
+            <a href="/contact/" class="text-slate-500 hover:text-blue-600 transition" x-text="$store.i18n.t('content.header.nav.4')">Contact</a>
+            <a href="/Orthom8pro/results/" class="text-slate-500 hover:text-blue-600 transition text-blue-500" x-text="$store.i18n.t('content.header.nav.5')">Performance</a>
+            <a href="/insight/" class="text-slate-500 hover:text-blue-600 transition" x-text="$store.i18n.t('content.header.nav.6')">News & Insights</a>
+            
+            <select class="bg-transparent border-none text-[10px] font-bold uppercase tracking-widest cursor-pointer outline-none" @change="$store.i18n.setLocale($event.target.value)">
+                <option value="en" :selected="$store.i18n.locale === 'en'">EN</option>
+                <option value="es" :selected="$store.i18n.locale === 'es'">ES</option>
+                <option value="zh" :selected="$store.i18n.locale === 'zh'">ZH</option>
+            </select>
+
+            <a href="/audit/" class="btn-premium bg-slate-900 text-white hover:bg-blue-700" x-text="$store.i18n.t('content.header.nav.7')">Business Audit</a>
         </div>
 
         <!-- Mobile Toggle -->
@@ -161,13 +170,24 @@
         <!-- Mobile Menu Overlay -->
         <div x-show="mobileMenu" x-cloak
             class="absolute top-full left-0 w-full bg-white border-b border-slate-200 md:hidden z-40 shadow-xl p-8 space-y-6 flex flex-col font-bold text-xs uppercase tracking-[0.2em]">
-            <a href="/" class="text-slate-900">Home</a>
-            <a href="/projects/" class="text-slate-900">Projects</a>
-            <a href="/about/" class="text-slate-900">About</a>
-            <a href="/Orthom8pro/" class="text-slate-900">OrthoMate™</a>
-            <a href="/contact/" class="text-slate-900">Contact</a>
-            <a href="/insight/" class="text-slate-900">News & Insights</a>
-            <a href="/audit/" class="bg-slate-900 text-white px-6 py-4 text-center rounded-sm">Business Audit</a>
+            <a href="/" class="text-slate-900" x-text="$store.i18n.t('content.header.nav.0')">Home</a>
+            <a href="/projects/" class="text-slate-900" x-text="$store.i18n.t('content.header.nav.1')">Projects</a>
+            <a href="/about/" class="text-slate-900" x-text="$store.i18n.t('content.header.nav.2')">About</a>
+            <a href="/Orthom8pro/" class="text-slate-900" x-text="$store.i18n.t('content.header.nav.3')">Ortho'M8</a>
+            <a href="/contact/" class="text-slate-900" x-text="$store.i18n.t('content.header.nav.4')">Contact</a>
+            <a href="/Orthom8pro/results/" class="text-slate-900" x-text="$store.i18n.t('content.header.nav.5')">Performance</a>
+            <a href="/insight/" class="text-slate-900" x-text="$store.i18n.t('content.header.nav.6')">News & Insights</a>
+            
+            <div class="flex items-center justify-between py-4 border-t border-slate-100">
+                <span class="text-[10px] text-slate-400">Language</span>
+                <select class="bg-transparent border-none text-[10px] font-bold uppercase tracking-widest cursor-pointer outline-none" @change="$store.i18n.setLocale($event.target.value)">
+                    <option value="en" :selected="$store.i18n.locale === 'en'">EN</option>
+                    <option value="es" :selected="$store.i18n.locale === 'es'">ES</option>
+                    <option value="zh" :selected="$store.i18n.locale === 'zh'">ZH</option>
+                </select>
+            </div>
+
+            <a href="/audit/" class="bg-slate-900 text-white px-6 py-4 text-center rounded-sm" x-text="$store.i18n.t('content.header.nav.7')">Business Audit</a>
         </div>
     </nav>
 
@@ -176,17 +196,16 @@
         <header class="lake-gradient text-white py-24 md:py-40 px-6 md:px-10 relative overflow-hidden">
             <div class="max-w-6xl mx-auto relative z-10">
                 <div class="max-w-3xl">
-                    <div class="mono text-blue-400 text-sm mb-4 tracking-widest uppercase">[ Operational Protocol: v3.1
-                        ]</div>
-                    <h1 class="text-3xl sm:text-5xl md:text-8xl font-black leading-none mb-6 italic uppercase">
+                    <div class="mono text-blue-400 text-sm mb-4 tracking-widest uppercase" x-text="$store.i18n.t('content.hero.protocol')">[ Operational Protocol: v3.1 ]</div>
+                    <h1 class="text-3xl sm:text-5xl md:text-8xl font-black leading-none mb-6 italic uppercase" x-html="$store.i18n.t('content.hero.heading')">
                         ENGINEERING<br>BUSINESS DATA.</h1>
-                    <p class="text-xl text-slate-400 mb-10 max-w-xl leading-relaxed">
+                    <p class="text-xl text-slate-400 mb-10 max-w-xl leading-relaxed" x-text="$store.i18n.t('content.hero.body')">
                         We eliminate the "Chaos Tax" on your business. High-performance infrastructure engineered for
                         zero failure.
                     </p>
                     <div class="flex space-x-6">
-                        <a href="/projects/" class="btn-premium btn-primary px-10 py-5 text-xs">Case Studies</a>
-                        <a href="/Orthom8pro/" class="btn-premium btn-secondary px-10 py-5 text-xs">How it Works</a>
+                        <a href="/projects/" class="btn-premium btn-primary px-10 py-5 text-xs" x-text="$store.i18n.t('content.hero.cta_primary')">Case Studies</a>
+                        <a href="/Orthom8pro/" class="btn-premium btn-secondary px-10 py-5 text-xs" x-text="$store.i18n.t('content.hero.cta_secondary')">How it Works</a>
                     </div>
                 </div>
             </div>
@@ -295,22 +314,17 @@
                 <p class="text-slate-400 text-sm leading-relaxed max-w-sm">High-performance business logic for
                     industries that demand zero failure. Engineering certainty since 2006.</p>
             </div>
-            <div class="grid grid-cols-2 gap-8">
-                <div>
-                    <h5 class="font-bold text-xs uppercase tracking-widest text-blue-500 mb-6">Explore</h5>
-                    <ul class="space-y-4 text-[10px] mono uppercase tracking-widest">
-                        <li><a href="/projects/" class="footer-link">Projects</a></li>
-                        <li><a href="/about/" class="footer-link">About</a></li>
-                        <li><a href="/insight/" class="footer-link">Insights</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="font-bold text-xs uppercase tracking-widest text-slate-500 mb-6">Contact</h5>
-                    <ul class="space-y-4 text-[10px] mono uppercase tracking-widest">
-                        <li><a href="/contact/" class="footer-link">Get in Touch</a></li>
-                        <li><a href="/audit/" class="footer-link text-blue-400">Request Audit</a></li>
-                    </ul>
-                </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <template x-for="col in $store.i18n.t('content.footer.columns')" :key="col.title">
+                    <div>
+                        <h5 class="font-bold text-xs uppercase tracking-widest mb-6" :class="col.title === 'Legal' ? 'text-slate-500' : 'text-blue-500'" x-text="col.title">Column</h5>
+                        <ul class="space-y-4 text-[10px] mono uppercase tracking-widest">
+                            <template x-for="link in col.links" :key="link.label">
+                                <li><a :href="link.target" class="footer-link" x-text="link.label">Link</a></li>
+                            </template>
+                        </ul>
+                    </div>
+                </template>
             </div>
         </div>
         <div class="text-[9px] font-bold text-slate-600 uppercase tracking-[0.4em]">

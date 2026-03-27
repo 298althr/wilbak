@@ -1,0 +1,37 @@
+{
+  "project": "Wilbak Engineering",
+  "brand": "Ortho'M8",
+  "page": "Nuestro Equipo",
+  "content": {
+    "welcome_gate": "Inicializando acceso al equipo…",
+    "mission": {
+      "eyebrow": "Nuestra Misión",
+      "heading": "Diseñado para la <em>Confianza</em>.<br>Impulsado por la <strong>Inteligencia.</strong>",
+      "body": "Ortho'M8 se fundó sobre un principio simple: el trading de alto rendimiento debe estar gobernado por la lógica, no por la emoción. Cerramos la brecha entre la complejidad técnica y la ejecución transparente."
+    },
+    "board": {
+      "eyebrow": "Junta Directiva",
+      "heading": "Supervisión Soberana,<br><em>Gobernanza Estratégica.</em>",
+      "body_1": "Nuestra junta directiva reúne experiencia global en finanzas cuantitativas, ciberseguridad y gestión de capital. Cada línea de código en la tubería de Ortho'M8 es revisada por especialistas que entienden el peso de la responsabilidad institucional.",
+      "body_2": "La transparencia no es una característica; es nuestra base. Nuestros directores aseguran que cada punto de control en la tubería de 11 pasos cumpla con los estándares globales de cumplimiento y riesgo, protegiendo el ancla soberana de cada despliegue."
+    },
+    "founder": {
+      "eyebrow": "El Visionario",
+      "heading": "Nota del Fundador sobre Precisión y Confianza.",
+      "body": "El motor detrás de Ortho'M8 nació de una década de experiencia en ingeniería industrial e infraestructura de alta velocidad. Nuestro objetivo era crear un relevo de ejecución sin emociones para el capital serio."
+    },
+    "team": [
+      { "name": "Marcus Thorne", "title": "Director de Estrategia Algorítmica" },
+      { "name": "Sophia Chen", "title": "Jefa de Ingeniería de Datos" },
+      { "name": "David Miller", "title": "Director de Riesgos" },
+      { "name": "Elena Rodriguez", "title": "Directora de Investigación Cuantitativa" }
+    ],
+    "quote": "Ortho'M8 es la culminación de nuestra creencia de que los datos, cuando están debidamente controlados, son el activo más poderoso en cualquier mercado.",
+    "cta": {
+      "heading": "Únase al Futuro del Capital.",
+      "body": "Programe una consulta privada con nuestro equipo para explorar cómo Ortho'M8 puede proteger y hacer crecer su ancla de capital.",
+      "primary": "Reservar una Consulta",
+      "secondary": "Contactar con Nuestra Oficina"
+    }
+  }
+}
