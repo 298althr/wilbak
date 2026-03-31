@@ -4,135 +4,159 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Service Level Agreement | Wilbak Engineering</title>
-  <!-- Google Fonts: Inter & Playfair Display -->
+  <meta name="description" content="Institutional Grade Uptime Commitments — Wilbak Engineering SLA.">
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <script src="/i18n-loader.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../wilbak-base.css">
   <style>
-    :root {
-      --page-bg: #FFFFFF;
-      --surface-bg: #F8FAFC;
-      --tx-main: #0F172A;
-      --tx-sub: #475569;
-      --brand-blue: #2563EB;
-      --brand-rule: #E2E8F0;
-    }
-    [data-theme="dark"] {
-      --page-bg: #0F172A;
-      --surface-bg: #1E293B;
-      --tx-main: #F1F5F9;
-      --tx-sub: #94A3B8;
-      --brand-blue: #3B82F6;
-      --brand-rule: #334155;
-    }
-    body { font-family: 'Inter', sans-serif; background: var(--page-bg); color: var(--tx-main); transition: 0.3s; }
-    .serif { font-family: 'Playfair Display', serif; }
-    .mono { font-family: 'Fira Code', monospace; }
-    
-    .legal-content h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 2rem; }
-    .legal-content h2 { font-size: 1.25rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-top: 3rem; margin-bottom: 1rem; border-bottom: 1px solid var(--brand-rule); padding-bottom: 0.5rem; }
-    .legal-content p { font-size: 1.1rem; line-height: 1.8; color: var(--tx-sub); margin-bottom: 1.5rem; }
-    .legal-content ul { list-style-type: none; padding-left: 0; margin-bottom: 2rem; }
-    .legal-content li { position: relative; padding-left: 2rem; margin-bottom: 1rem; color: var(--tx-sub); font-size: 1.1rem; }
-    .legal-content li::before { content: '→'; position: absolute; left: 0; color: var(--brand-blue); font-weight: bold; }
-    
-    .nav-link { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--tx-sub); transition: 0.2s; }
-    .nav-link:hover { color: var(--brand-blue); }
+    .legal-hero { padding-top: calc(var(--nav-h) + var(--s16)); padding-bottom: var(--s12); background: var(--white); border-bottom: 1px solid var(--gray-200); }
+    .legal-proto { font-family: var(--font-mono); font-size: var(--text-10); color: var(--brand-mid); letter-spacing: var(--ls-4); text-transform: uppercase; margin-bottom: var(--s4); }
+    .legal-heading { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: var(--lh-tight); color: var(--navy); letter-spacing: 0.01em; margin-bottom: var(--s3); }
+    .legal-subtitle { font-size: var(--text-18); font-weight: var(--thin); color: var(--gray-500); }
+    .legal-layout { display: grid; grid-template-columns: 220px 1fr; gap: var(--s12); align-items: start; }
+    .legal-toc { position: sticky; top: calc(var(--nav-h) + var(--s8)); }
+    .legal-toc-head { font-family: var(--font-mono); font-size: var(--text-10); color: var(--gray-400); letter-spacing: var(--ls-4); text-transform: uppercase; margin-bottom: var(--s4); }
+    .legal-toc-links { display: flex; flex-direction: column; gap: var(--s2); }
+    .legal-toc-links a { font-size: var(--text-13); font-weight: var(--thin); color: var(--gray-500); transition: color var(--t-fast) var(--ease-out); padding: var(--s1) 0; border-left: 2px solid transparent; padding-left: var(--s3); }
+    .legal-toc-links a:hover { color: var(--navy); border-left-color: var(--brand-mid); }
+    .legal-content { max-width: 720px; }
+    .legal-section { margin-bottom: var(--s12); padding-bottom: var(--s12); border-bottom: 1px solid var(--gray-100); }
+    .legal-section:last-child { border-bottom: none; }
+    .legal-section-title { font-family: var(--font-body); font-size: var(--text-22); font-weight: var(--bold); color: var(--navy); margin-bottom: var(--s5); }
+    .legal-section-body { font-size: var(--text-base); font-weight: var(--thin); color: var(--gray-600); line-height: var(--lh-loose); }
+    .legal-section-body strong { font-weight: var(--semi); color: var(--navy); }
+    .legal-list { list-style: none; display: flex; flex-direction: column; gap: var(--s4); margin-top: var(--s4); }
+    .legal-list li { display: flex; align-items: flex-start; gap: var(--s3); font-size: var(--text-base); font-weight: var(--thin); color: var(--gray-600); line-height: var(--lh-loose); }
+    .legal-list li::before { content: '—'; color: var(--brand-mid); font-family: var(--font-mono); flex-shrink: 0; margin-top: 2px; }
+    .legal-list li strong { font-weight: var(--semi); color: var(--navy); }
 
-    /* Footer styling similar to OrthoM8 but lighter */
-    #site-footer { border-top: 1px solid var(--brand-rule); background: var(--surface-bg); }
-    .footer-col-title { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem; }
-    .footer-link { font-size: 13px; color: var(--tx-sub); text-decoration: none; transition: 0.2s; }
-    .footer-link:hover { color: var(--brand-blue); }
+    /* SLA stat cards */
+    .sla-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4); margin-bottom: var(--s12); }
+    .sla-stat { background: var(--gray-50); border: 1px solid var(--gray-200); border-top: 3px solid var(--brand); border-radius: var(--r-lg); padding: var(--s6); text-align: center; }
+    .sla-stat-val { font-family: var(--font-display); font-size: clamp(1.75rem, 5vw, var(--text-36)); color: var(--navy); letter-spacing: 0.02em; display: block; margin-bottom: var(--s1); }
+    .sla-stat-label { font-family: var(--font-mono); font-size: var(--text-10); color: var(--gray-400); letter-spacing: var(--ls-3); text-transform: uppercase; }
+
+    @media (max-width: 768px) { .legal-layout { grid-template-columns: 1fr; } .legal-toc { display: none; } .sla-stats { grid-template-columns: 1fr; } }
   </style>
 </head>
-<body x-data="{ mobileMenu: false }">
-
-  <!-- HEADER -->
-  <header class="py-6 px-8 border-b border-slate-200 sticky top-0 bg-white/80 backdrop-blur-md z-50 flex items-center justify-between" style="border-color: var(--brand-rule); background: transparent;">
-    <a href="/" class="flex items-center gap-3">
-        <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8">
-        <span class="serif font-bold text-xl tracking-tight">Wilbak <span class="text-blue-600">Engineering.</span></span>
-    </a>
-    
-    <nav class="hidden md:flex items-center gap-10">
-      <a href="/" class="nav-link" x-text="$store.i18n.t('content.header.nav.0')">Home</a>
-      <a href="/projects/" class="nav-link" x-text="$store.i18n.t('content.header.nav.1')">Projects</a>
-      <a href="/about/" class="nav-link" x-text="$store.i18n.t('content.header.nav.2')">About</a>
-      <a href="/Orthom8pro/" class="nav-link" x-text="$store.i18n.t('content.header.nav.3')">Ortho'M8</a>
-    </nav>
-
-    <div class="flex items-center gap-4">
-      <select class="bg-transparent border-none text-[10px] font-bold uppercase tracking-widest cursor-pointer outline-none" @change="$store.i18n.setLocale($event.target.value)">
-          <option value="en" :selected="$store.i18n.locale === 'en'">EN</option>
-          <option value="es" :selected="$store.i18n.locale === 'es'">ES</option>
-          <option value="zh" :selected="$store.i18n.locale === 'zh'">ZH</option>
-      </select>
-      <a href="/audit/" class="hidden md:block bg-slate-900 text-white px-6 py-2 text-[10px] font-bold uppercase tracking-widest rounded-sm">Audit</a>
+<body>
+  <nav class="nav" id="navbar">
+    <div class="wrap">
+      <div class="nav-row">
+        <a href="../../index.html" class="nav-brand">
+          <span class="nav-brand-name">Wilbak Engineering</span>
+          <span class="nav-brand-sub">Est. 2006 · Houston, TX</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="../../about/index.html">About</a></li>
+          <li><a href="../../projects/index.html">Projects</a></li>
+          <li><a href="../../insight/index.html">Insights</a></li>
+          <li><a href="../../contact/index.html">Contact</a></li>
+        </ul>
+        <div class="nav-cta"><a href="../../audit/index.html" class="btn btn-primary">Request Audit</a></div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
     </div>
-  </header>
+  </nav>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="../../about/index.html">About</a>
+    <a href="../../projects/index.html">Projects</a>
+    <a href="../../insight/index.html">Insights</a>
+    <a href="../../contact/index.html">Contact</a>
+  </div>
 
-  <main class="max-w-4xl mx-auto py-24 px-8 legal-content animate-fade-in">
-    <div class="mono text-xs text-blue-600 tracking-[0.4em] mb-4 uppercase">SLA Protocol: 03</div>
-    <h1 class="serif" x-text="$store.i18n.t('content.legal.sla.heading') || 'Service Level Agreement'">Service Level Agreement</h1>
-    
-    <p class="italic text-lg mb-12">Institutional Grade Uptime Commitments</p>
-
-    <section>
-      <h2>Institutional Uptime</h2>
-      <p>Wilbak Engineering commits to a minimum of <strong>99.99% operational uptime</strong> for all Ortho'M8 intelligence nodes. Our failure-resistant architecture is distributed across geographically independent data anchors to ensure zero downtime execution.</p>
+  <main>
+    <section class="legal-hero">
+      <div class="wrap">
+        <p class="legal-proto">SLA Protocol: 03</p>
+        <h1 class="legal-heading">Service Level Agreement</h1>
+        <p class="legal-subtitle">Institutional Grade Uptime Commitments</p>
+      </div>
     </section>
 
-    <section>
-      <h2>Performance Thresholds</h2>
-      <ul>
-        <li><strong>Node Precision:</strong> 95% minimum confidence requirement per market instruction.</li>
-        <li><strong>Execution Latency:</strong> Sub-320ms instruction transmission from DML gate to exchange node.</li>
-        <li><strong>Risk Gate Speed:</strong> Hard-risk isolation parameters applied within 15ms of volatility detection.</li>
-      </ul>
-    </section>
+    <section class="section">
+      <div class="wrap">
 
-    <section>
-      <h2>Technical Support</h2>
-      <p>Strategic partners gain access to a dedicated principal engineer. Response times for critical infrastructure inquiries are guaranteed within 4 hours. General system inquiries are addressed within 12 hours.</p>
-    </section>
+        <!-- Key SLA stats -->
+        <div class="sla-stats reveal">
+          <div class="sla-stat">
+            <span class="sla-stat-val">99.99%</span>
+            <span class="sla-stat-label">Operational Uptime</span>
+          </div>
+          <div class="sla-stat">
+            <span class="sla-stat-val">320ms</span>
+            <span class="sla-stat-label">Max Execution Latency</span>
+          </div>
+          <div class="sla-stat">
+            <span class="sla-stat-val">4hr</span>
+            <span class="sla-stat-label">Critical Response SLA</span>
+          </div>
+        </div>
 
-    <section>
-      <h2>SLA Credits</h2>
-      <p>In the event that the 99.99% uptime threshold is not met within an institutional cycle, Wilbak Engineering will apply tiered service credits toward upcoming audit cycles as outlined in your Partner Manifesto.</p>
+        <div class="legal-layout">
+          <nav class="legal-toc">
+            <div class="legal-toc-head">Contents</div>
+            <div class="legal-toc-links">
+              <a href="#uptime">1. Institutional Uptime</a>
+              <a href="#thresholds">2. Performance Thresholds</a>
+              <a href="#support">3. Technical Support</a>
+              <a href="#credits">4. SLA Credits</a>
+            </div>
+          </nav>
+
+          <div class="legal-content">
+            <div class="legal-section" id="uptime">
+              <h2 class="legal-section-title">1. Institutional Uptime</h2>
+              <p class="legal-section-body">Wilbak Engineering commits to a minimum of <strong>99.99% operational uptime</strong> for all Ortho'm8 intelligence nodes. Our failure-resistant architecture is distributed across geographically independent data anchors to ensure zero downtime execution.</p>
+            </div>
+            <div class="legal-section" id="thresholds">
+              <h2 class="legal-section-title">2. Performance Thresholds</h2>
+              <ul class="legal-list">
+                <li><strong>Node Precision:</strong> 95% minimum confidence requirement per market instruction.</li>
+                <li><strong>Execution Latency:</strong> Sub-320ms instruction transmission from DML gate to exchange node.</li>
+                <li><strong>Risk Gate Speed:</strong> Hard-risk isolation parameters applied within 15ms of volatility detection.</li>
+              </ul>
+            </div>
+            <div class="legal-section" id="support">
+              <h2 class="legal-section-title">3. Technical Support</h2>
+              <p class="legal-section-body">Strategic partners gain access to a dedicated principal engineer. Response times for critical infrastructure inquiries are guaranteed within 4 hours. General system inquiries are addressed within 12 hours.</p>
+            </div>
+            <div class="legal-section" id="credits">
+              <h2 class="legal-section-title">4. SLA Credits</h2>
+              <p class="legal-section-body">In the event that 99.99% uptime threshold is not met within an institutional cycle, Wilbak Engineering will apply tiered service credits toward upcoming audit cycles as outlined in your Partner Manifesto.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer id="site-footer" class="py-20 px-8">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12">
-      <div>
-        <div class="flex items-center gap-3 mb-6">
-          <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8">
-          <span class="serif font-bold text-xl tracking-tight">Wilbak <span class="text-blue-600">Engineering.</span></span>
-        </div>
-        <p class="text-xs text-slate-500 leading-relaxed">High-performance business logic for industries that demand zero failure.</p>
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div><div class="footer-brand">Wilbak Engineering</div><p class="footer-desc">High-performance business logic for industries that demand zero failure.</p></div>
+        <div><div class="footer-col-head">Company</div><ul class="footer-links"><li><a href="../../about/index.html">About</a></li><li><a href="../../projects/index.html">Projects</a></li><li><a href="../../insight/index.html">Insights</a></li><li><a href="../../contact/index.html">Contact</a></li></ul></div>
+        <div><div class="footer-col-head">Legal</div><ul class="footer-links"><li><a href="../../legal/privacy/index.html">Privacy Policy</a></li><li><a href="../../legal/terms/index.html">Terms &amp; Conditions</a></li><li><a href="../../legal/sla/index.html">SLA</a></li></ul></div>
+        <div><div class="footer-col-head">Platform</div><ul class="footer-links"><li><a href="../../Orthom8pro/index.html">Ortho'm8</a></li></ul></div>
       </div>
-
-      <template x-for="col in $store.i18n.t('content.footer.columns')" :key="col.title">
-        <div>
-          <div class="footer-col-title" x-text="col.title">Column</div>
-          <ul class="space-y-3">
-            <template x-for="link in col.links" :key="link.label">
-              <li><a :href="link.target" class="footer-link" x-text="link.label">Link</a></li>
-            </template>
-          </ul>
-        </div>
-      </template>
-    </div>
-    <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-slate-200 text-[10px] mono uppercase tracking-[0.4em] text-slate-400 flex justify-between flex-wrap gap-4">
-      <span>© 2026 WILBAK ENGINEERING — EST. 2006</span>
-      <span>SYSTEM STATUS: OPERATIONAL</span>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Wilbak Engineering. All rights reserved.</span>
+        <span class="footer-attr">Ortho'm8 is a product of Brokard Williams.</span>
+      </div>
     </div>
   </footer>
 
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    hamburger.addEventListener('click', () => { const open = mobileNav.classList.toggle('open'); hamburger.classList.toggle('open', open); hamburger.setAttribute('aria-expanded', String(open)); });
+    document.addEventListener('click', (e) => { if (!navbar.contains(e.target) && !mobileNav.contains(e.target)) { mobileNav.classList.remove('open'); hamburger.classList.remove('open'); hamburger.setAttribute('aria-expanded', 'false'); } });
+    const ro = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+  </script>
 </body>
 </html>

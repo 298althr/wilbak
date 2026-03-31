@@ -1,0 +1,37 @@
+{
+  "content": {
+    "header": {
+      "eyebrow": "Our Track Record",
+      "title": "The Proof"
+    },
+    "tabs": {
+      "platform": "Our Performance",
+      "evidence": "Client Performance"
+    },
+    "stats": {
+      "total_roi":      "Total Return",
+      "cagr":           "Annual Growth Rate",
+      "ending_balance": "Current Balance",
+      "profit_factor":  "Profit Factor"
+    },
+    "loading": "Loading your data…",
+    "ledger": {
+      "title":         "Month-by-Month Breakdown",
+      "col_period":    "Month",
+      "col_regime":    "Market Condition",
+      "col_precision": "Accuracy",
+      "col_yield":     "Return",
+      "col_balance":   "Balance"
+    },
+    "modal": {
+      "title":           "Monthly Report",
+      "period_label":    "Period:",
+      "financial_label": "Financial Summary",
+      "net_pnl":         "Net Profit / Loss",
+      "ending_balance":  "Closing Balance",
+      "kpi_label":       "Performance Stats",
+      "precision":       "Accuracy Rate",
+      "latency":         "Execution Speed"
+    }
+  }
+}

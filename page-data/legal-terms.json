@@ -1,0 +1,215 @@
+{
+  "page": "legal-terms",
+  "translations": {
+    "en": {
+      "title": "Terms & Conditions | Wilbak Engineering",
+      "meta": {
+        "description": "By accessing Wilbak Engineering's proprietary systems, you agree to be bound by these institutional terms."
+      },
+      "protocol": "Legal Protocol: 01",
+      "heading": "Terms & Conditions",
+      "last_updated": "Last Updated: March 26, 2026",
+      "sections": [
+        {
+          "title": "1. Acceptance of Terms",
+          "content": "By accessing Wilbak Engineering's proprietary systems, including but not limited to Ortho'M8, you agree to be bound by these institutional terms. If you do not agree with any part of these protocols, you must terminate your access immediately."
+        },
+        {
+          "title": "2. Proprietary Algorithms",
+          "content": "All deep machine learning nodes, reinforcement learning gates, and execution logic within Wilbak ecosystem are exclusive intellectual property of Wilbak Engineering. Any attempt to reverse-engineer, mirror, or derive underlying logic of Ortho'M8 engine is strictly prohibited and subject to institutional litigation."
+        },
+        {
+          "title": "3. Capital Management Risks",
+          "content": "While Ortho'M8 operates with a 95% node precision threshold, institutional users acknowledge that market dynamics contain inherent entropy. Wilbak Engineering provides engineering certainty through technical infrastructure; however, past system performance is not a guarantee of future capital growth. Final execution responsibility remains with onboarding partner."
+        },
+        {
+          "title": "4. System Access & Security",
+          "content": "Partners are responsible for maintaining the integrity of their API keys and access nodes. Any breach of security within a partner's infrastructure that impacts the global Wilbak network must be reported within 320ms of detection."
+        },
+        {
+          "title": "5. Modification of Protocols",
+          "content": "Wilbak Engineering reserves the right to update system protocols to maintain 99.99% operational uptime. Continued use of the platform following these deployments constitutes acceptance of new parameters."
+        }
+      ],
+      "navigation": {
+        "home": "Home",
+        "projects": "Projects",
+        "about": "About",
+        "orthomate": "Ortho'M8"
+      },
+      "footer": {
+        "brand_description": "High-performance business logic for industries that demand zero failure.",
+        "copyright": "© 2026 WILBAK ENGINEERING — EST. 2006",
+        "system_status": "SYSTEM STATUS: OPERATIONAL"
+      }
+    },
+    "es": {
+      "title": "Términos y Condiciones | Wilbak Engineering",
+      "meta": {
+        "description": "Al acceder a los sistemas propietarios de Wilbak Engineering, usted acepta estar sujeto a estos términos institucionales."
+      },
+      "protocol": "Protocolo Legal: 01",
+      "heading": "Términos y Condiciones",
+      "last_updated": "Última Actualización: 26 de marzo de 2026",
+      "sections": [
+        {
+          "title": "1. Aceptación de Términos",
+          "content": "Al acceder a los sistemas propietarios de Wilbak Engineering, incluyendo pero no limitado a Ortho'M8, usted acepta estar sujeto a estos términos institucionales. Si no está de acuerdo con alguna parte de estos protocolos, debe terminar su acceso inmediatamente."
+        },
+        {
+          "title": "2. Algoritmos Propietarios",
+          "content": "Todos los nodos de aprendizaje profundo, puertas de aprendizaje por refuerzo y lógica de ejecución dentro del ecosistema Wilbak son propiedad intelectual exclusiva de Wilbak Engineering. Cualquier intento de ingeniería inversa, espejo o derivación de la lógica subyacente del motor Ortho'M8 está estrictamente prohibido y sujeto a litigios institucionales."
+        },
+        {
+          "title": "3. Riesgos de Gestión de Capital",
+          "content": "Aunque Ortho'M8 opera con un umbral de precisión de nodo del 95%, los usuarios institucionales reconocen que la dinámica del mercado contiene entropía inherente. Wilbak Engineering proporciona certeza de ingeniería a través de infraestructura técnica; sin embargo, el rendimiento pasado del sistema no es una garantía de crecimiento futuro del capital. La responsabilidad final de ejecución permanece con el socio de incorporación."
+        },
+        {
+          "title": "4. Acceso y Seguridad del Sistema",
+          "content": "Los socios son responsables de mantener la integridad de sus claves API y nodos de acceso. Cualquier brecha de seguridad dentro de la infraestructura de un socio que impacte la red global Wilbak debe ser reportada dentro de 320ms de detección."
+        },
+        {
+          "title": "5. Modificación de Protocolos",
+          "content": "Wilbak Engineering se reserva el derecho de actualizar los protocolos del sistema para mantener el 99.99% de tiempo de actividad operacional. El uso continuo de la plataforma siguiente a estos despliegues constituye aceptación de nuevos parámetros."
+        }
+      ],
+      "navigation": {
+        "home": "Inicio",
+        "projects": "Proyectos",
+        "about": "Acerca de",
+        "orthomate": "Ortho'M8"
+      },
+      "footer": {
+        "brand_description": "Lógica empresarial de alto rendimiento para industrias que exigen cero fallos.",
+        "copyright": "© 2026 WILBAK ENGINEERING — FUNDADA 2006",
+        "system_status": "ESTADO DEL SISTEMA: OPERATIVO"
+      }
+    },
+    "zh": {
+      "title": "条款与条件 | 维尔巴克工程",
+      "meta": {
+        "description": "访问维尔巴克工程的专有系统，即表示您同意受这些机构条款的约束。"
+      },
+      "protocol": "法律协议：01",
+      "heading": "条款与条件",
+      "last_updated": "最后更新：2026年3月26日",
+      "sections": [
+        {
+          "title": "1. 接受条款",
+          "content": "访问维尔巴克工程的专有系统，包括但不限于Ortho'M8，即表示您同意受这些机构条款的约束。如果您不同意这些协议的任何部分，您必须立即终止访问。"
+        },
+        {
+          "title": "专有算法",
+          "content": "维尔巴克生态系统内的所有深度机器学习节点、强化学习门和执行逻辑都是维尔巴克工程的专有知识产权。任何试图逆向工程、镜像或推导Ortho'M8引擎底层逻辑的行为都受到严格禁止，并将面临机构诉讼。"
+        },
+        {
+          "title": "3. 资本管理风险",
+          "content": "虽然Ortho'M8以95%的节点精度阈值运行，但机构用户承认市场动态包含固有的熵。维尔巴克工程通过技术基础设施提供工程确定性；但是，过去的系统性能并不保证未来的资本增长。最终执行责任仍由入驻合作伙伴承担。"
+        },
+        {
+          "title": "4. 系统访问与安全",
+          "content": "合作伙伴负责维护其API密钥和访问节点的完整性。合作伙伴基础设施内任何影响全球维尔巴克网络的安全漏洞都必须在检测后320毫秒内报告。"
+        },
+        {
+          "title": "5. 协议修改",
+          "content": "维尔巴克工程保留更新系统协议以维持99.99%运行正常运行时间的权利。在这些部署后继续使用平台即构成接受新参数。"
+        }
+      ],
+      "navigation": {
+        "home": "首页",
+        "projects": "项目",
+        "about": "关于",
+        "orthomate": "Ortho'M8"
+      },
+      "footer": {
+        "brand_description": "为要求零故障的行业提供高性能业务逻辑。",
+        "copyright": "© 2026 维尔巴克工程 — 成立于2006年",
+        "system_status": "系统状态：运行中"
+      }
+    },
+    "nl": {
+      "title": "Voorwaarden & Condities | Wilbak Engineering",
+      "meta": {
+        "description": "Door toegang te krijgen tot de propriëtaire systemen van Wilbak Engineering, gaat u akkoord met deze institutionele voorwaarden."
+      },
+      "protocol": "Legal Protocol: 01",
+      "heading": "Voorwaarden & Condities",
+      "last_updated": "Laatst Bijgewerkt: 26 maart 2026",
+      "sections": [
+        {
+          "title": "1. Aanvaarding van Voorwaarden",
+          "content": "Door toegang te krijgen tot de propriëtaire systemen van Wilbak Engineering, inclusief maar niet beperkt tot Ortho'M8, gaat u akkoord met deze institutionele voorwaarden. Als u niet akkoord gaat met enig deel van deze protocollen, moet u uw toegang onmiddellijk beëindigen."
+        },
+        {
+          "title": "2. Propriëtaire Algoritmes",
+          "content": "Alle deep machine learning nodes, reinforcement learning poorten en uitvoeringslogica binnen het Wilbak ecosysteem zijn exclusief intellectueel eigendom van Wilbak Engineering. Elke poging tot reverse-engineering, spiegelen of afleiden van de onderliggende logica van de Ortho'M8 motor is strikt verboden en onderhevig aan institutionele litigatie."
+        },
+        {
+          "title": "3. Kapitaalbeheer Risico's",
+          "content": "Hoewel Ortho'M8 opereert met een 95% node precisie drempel, erkennen institutionele gebruikers dat marktdynamiek inherente entropie bevat. Wilbak Engineering biedt engineering zekerheid door technische infrastructuur; echter, prestaties van het systeem in het verleden zijn geen garantie voor toekomstige kapitaalgroei. Uiteindelijke uitvoeringsverantwoordelijkheid blijft bij de onboarding partner."
+        },
+        {
+          "title": "4. Systeemtoegang & Veiligheid",
+          "content": "Partners zijn verantwoordelijk voor het handhaven van de integriteit van hun API sleutels en toegang nodes. Elke inbreuk op de veiligheid binnen de infrastructuur van een partner die invloed heeft op het globale Wilbak netwerk moet binnen 320ms na detectie worden gemeld."
+        },
+        {
+          "title": "5. Wijziging van Protocollen",
+          "content": "Wilbak Engineering behoudt zich het recht voor om systeemprotocollen bij te werken om 99.99% operationele uptime te behouden. Voortgebruik van het platform na deze implementaties impliceert aanvaarding van nieuwe parameters."
+        }
+      ],
+      "navigation": {
+        "home": "Home",
+        "projects": "Projecten",
+        "about": "Over Ons",
+        "orthomate": "Ortho'M8"
+      },
+      "footer": {
+        "brand_description": "High-performance bedrijfslogica voor industrieën die nul falen eisen.",
+        "copyright": "© 2026 WILBAK ENGINEERING — OPG. 2006",
+        "system_status": "SYSTEEMSTATUS: OPERATIONEEL"
+      }
+    },
+    "fr": {
+      "title": "Termes & Conditions | Wilbak Engineering",
+      "meta": {
+        "description": "En accédant aux systèmes propriétaires de Wilbak Engineering, vous acceptez d'être lié par ces termes institutionnels."
+      },
+      "protocol": "Protocole Legal: 01",
+      "heading": "Termes & Conditions",
+      "last_updated": "Dernière Mise à Jour: 26 mars 2026",
+      "sections": [
+        {
+          "title": "1. Acceptation des Termes",
+          "content": "En accédant aux systèmes propriétaires de Wilbak Engineering, y compris mais sans se limiter à Ortho'M8, vous acceptez d'être lié par ces termes institutionnels. Si vous n'êtes pas d'accord avec une partie de ces protocoles, vous devez immédiatement mettre fin à votre accès."
+        },
+        {
+          "title": "2. Algorithmes Propriétaires",
+          "content": "Tous les nœuds d'apprentissage profond, les portes d'apprentissage par renforcement et la logique d'exécution dans l'écosystème Wilbak sont une propriété intellectuelle exclusive de Wilbak Engineering. Toute tentative de rétro-ingénierie, de miroir ou de dériver la logique sous-jacente du moteur Ortho'M8 est strictement interdite et sujette à litige institutionnel."
+        },
+        {
+          "title": "3. Risques de Gestion de Capital",
+          "content": "Bien qu'Ortho'M8 fonctionne avec un seuil de précision de nœud de 95%, les utilisateurs institutionnels reconnaissent que la dynamique du marché contient une entropie inhérente. Wilbak Engineering fournit une certitude d'ingénierie grâce à l'infrastructure technique ; cependant, les performances passées du système ne garantissent pas la croissance future du capital. La responsabilité finale d'exécution reste avec le partenaire d'intégration."
+        },
+        {
+          "title": "4. Accès et Sécurité du Système",
+          "content": "Les partenaires sont responsables du maintien de l'intégrité de leurs clés API et nœuds d'accès. Toute violation de la sécurité au sein de l'infrastructure d'un partenaire qui impacte le réseau Wilbak mondial doit être signalée dans les 320ms après détection."
+        },
+        {
+          "title": "5. Modification des Protocoles",
+          "content": "Wilbak Engineering se réserve le droit de mettre à jour les protocoles système pour maintenir 99.99% de disponibilité opérationnelle. L'utilisation continue de la plateforme suite à ces déploiements constitue l'acceptation des nouveaux paramètres."
+        }
+      ],
+      "navigation": {
+        "home": "Accueil",
+        "projects": "Projets",
+        "about": "À Propos",
+        "orthomate": "Ortho'M8"
+      },
+      "footer": {
+        "brand_description": "Logique commerciale haute performance pour les industries qui exigent zéro échec.",
+        "copyright": "© 2026 WILBAK ENGINEERING — FOND. 2006",
+        "system_status": "STATUT DU SYSTÈME: OPÉRATIONNEL"
+      }
+    }
+  }
+}

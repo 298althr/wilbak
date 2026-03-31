@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It Works | Ortho'M8 — The Strategy Behind Your Financial Security</title>
+  <meta name="description" content="Discover how Ortho'M8 trades synthetic indices to automatically hedge your real-world assets — keeping your business protected from economic shocks, news events, and market chaos.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Design System & Page Template -->
+  <link rel="stylesheet" href="/Orthom8pro/shared-nav.css">
+  <link rel="stylesheet" href="/Orthom8pro/page-template.css">
+  <script src="/Orthom8pro/shared-nav.js"></script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/i18n-loader.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    .stat-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--tx-muted);
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .tab-panel-map  { border: 1px solid rgba(37,99,235,0.2);  background: rgba(37,99,235,0.02);  padding: 2rem; }
+    .tab-panel-logic { border: 1px solid rgba(202,138,4,0.2); background: rgba(202,138,4,0.02); padding: 2rem; }
+    @media (max-width: 1024px) {
+      .model-stats-grid { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body x-data="{ activeTab: 'map' }">
+
+<div id="app">
+  <div id="site-nav-root"></div>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="relative overflow-hidden anim-fade-in" style="padding: clamp(8rem, 15vw, 12rem) 0 5rem;">
+      <div class="absolute inset-0" style="background:radial-gradient(circle at 50% 0%, rgba(26,86,255,0.1) 0%, transparent 50%);"></div>
+      <div class="layout-container" style="position:relative; z-index:10;">
+
+        <div class="text-eyebrow mb-6 anim-slide-right"
+             x-text="$store.i18n.t('content.hero.eyebrow')">Technical Protocol v3.0</div>
+
+        <h1 class="hero-heading anim-slide-up delay-1" style="max-width:56rem; margin-bottom:2rem;">
+          Your business protected — <em style="color:#D4AC3A;">automatically</em> — no matter what the market does.
+        </h1>
+
+        <p class="hero-body anim-slide-up delay-2" style="max-width:42rem; margin-bottom:3rem;"
+           x-text="$store.i18n.t('content.hero.body')">
+          Ortho'M8 Pro is a mapping engine that understands structural volatility overlap between synthetic and real markets.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 anim-slide-up delay-3 model-stats-grid">
+          <div class="glass-panel p-6 md:p-8">
+            <div class="stat-label" x-text="$store.i18n.t('content.hero.stats.0.label')">Analogue Accuracy</div>
+            <div class="text-2xl md:text-3xl font-bold mono" x-text="$store.i18n.t('content.hero.stats.0.value')">98.4%</div>
+          </div>
+          <div class="glass-panel p-6 md:p-8">
+            <div class="stat-label" x-text="$store.i18n.t('content.hero.stats.1.label')">Domain Coverage</div>
+            <div class="text-2xl md:text-3xl font-bold mono" x-text="$store.i18n.t('content.hero.stats.1.value')">Global</div>
+          </div>
+          <div class="glass-panel p-6 md:p-8">
+            <div class="stat-label" x-text="$store.i18n.t('content.hero.stats.2.label')">Execution Speed</div>
+            <div class="text-2xl md:text-3xl font-bold mono" x-text="$store.i18n.t('content.hero.stats.2.value')">&lt;320ms</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REPORT / TABS -->
+    <section class="py-16 md:py-24" style="background:rgba(11,19,37,0.3); border-top:1px solid var(--brand-rule-strong); border-bottom:1px solid var(--brand-rule-strong);">
+      <div class="layout-container">
+        <div class="model-report-grid">
+
+          <div class="anim-slide-left">
+            <div style="position:sticky; top:6rem;">
+              <h2 class="serif text-3xl md:text-4xl font-bold mb-6"
+                  x-html="$store.i18n.t('content.report.title')">
+                Executive <br><span style="color:#D4AC3A;">Market Mapping</span>
+              </h2>
+              <p class="body-text mb-8 md:mb-10"
+                 x-text="$store.i18n.t('content.report.subtitle')">Select a protocol to view technical details.</p>
+              <div style="display:flex; flex-direction:column; gap:0.75rem;">
+                <button @click="activeTab = 'map'"
+                        :class="activeTab === 'map' ? 'active' : ''"
+                        class="tab-btn"
+                        x-text="$store.i18n.t('content.report.tabs.0.label')">Domain Identification</button>
+                <button @click="activeTab = 'logic'"
+                        :class="activeTab === 'logic' ? 'active' : ''"
+                        class="tab-btn"
+                        x-text="$store.i18n.t('content.report.tabs.1.label')">Node Correlation</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="anim-slide-right delay-1">
+
+            <!-- Tab 0: Domain Identification -->
+            <div x-show="activeTab === 'map'" class="tab-panel-map">
+              <h3 class="serif text-2xl mb-4 italic"
+                  x-text="$store.i18n.t('content.report.tabs.0.content.title')">Volatility Synchronization Engine</h3>
+              <p class="body-text mb-8"
+                 x-text="$store.i18n.t('content.report.tabs.0.content.description')"></p>
+
+              <div style="display:flex; flex-direction:column; gap:1rem; margin-bottom:2rem;">
+                <template x-for="(step, i) in ($store.i18n.t('content.report.tabs.0.content.steps') || [])" :key="i">
+                  <div style="display:grid; grid-template-columns:2.5rem 1fr; gap:1rem; align-items:start;">
+                    <div style="font-family:'Fira Code',monospace; font-size:10px; letter-spacing:2px; color:var(--brand-cobalt); padding-top:0.15rem;" x-text="step.n"></div>
+                    <div>
+                      <div style="font-weight:600; font-size:0.875rem; color:var(--tx-main); margin-bottom:0.25rem;" x-text="step.heading"></div>
+                      <div class="body-text" style="font-size:0.8rem;" x-text="step.detail"></div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+
+              <div style="display:flex; gap:1.5rem; flex-wrap:wrap; padding-top:1.5rem; border-top:1px solid rgba(37,99,235,0.2);">
+                <template x-for="(spec, i) in ($store.i18n.t('content.report.tabs.0.content.specs') || [])" :key="i">
+                  <div>
+                    <div style="font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--tx-muted); font-weight:700;" x-text="spec.label"></div>
+                    <div style="font-family:'Fira Code',monospace; font-size:1.25rem; font-weight:600; color:var(--brand-cobalt);" x-text="spec.value"></div>
+                  </div>
+                </template>
+              </div>
+            </div>
+
+            <!-- Tab 1: Node Correlation -->
+            <div x-show="activeTab === 'logic'" x-cloak class="tab-panel-logic">
+              <h3 class="serif text-2xl mb-4 italic"
+                  x-text="$store.i18n.t('content.report.tabs.1.content.title')">11-Gate Execution Protocol</h3>
+              <p class="body-text mb-8"
+                 x-text="$store.i18n.t('content.report.tabs.1.content.description')"></p>
+
+              <div style="display:flex; flex-direction:column; gap:1rem; margin-bottom:2rem;">
+                <template x-for="(step, i) in ($store.i18n.t('content.report.tabs.1.content.steps') || [])" :key="i">
+                  <div style="display:grid; grid-template-columns:3.5rem 1fr; gap:1rem; align-items:start;">
+                    <div style="font-family:'Fira Code',monospace; font-size:10px; letter-spacing:2px; color:var(--brand-gold-light); padding-top:0.15rem;" x-text="step.n"></div>
+                    <div>
+                      <div style="font-weight:600; font-size:0.875rem; color:var(--tx-main); margin-bottom:0.25rem;" x-text="step.heading"></div>
+                      <div class="body-text" style="font-size:0.8rem;" x-text="step.detail"></div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+
+              <div style="display:flex; gap:1.5rem; flex-wrap:wrap; padding-top:1.5rem; border-top:1px solid rgba(202,138,4,0.2);">
+                <template x-for="(spec, i) in ($store.i18n.t('content.report.tabs.1.content.specs') || [])" :key="i">
+                  <div>
+                    <div style="font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--tx-muted); font-weight:700;" x-text="spec.label"></div>
+                    <div style="font-family:'Fira Code',monospace; font-size:1.25rem; font-weight:600; color:var(--brand-gold-light);" x-text="spec.value"></div>
+                  </div>
+                </template>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-24 text-center anim-slide-up">
+      <div class="layout-container">
+        <h2 class="section-heading" style="margin-bottom:2rem;"
+            x-text="$store.i18n.t('content.cta.heading')">Ready to Scale Your Domain?</h2>
+        <p class="body-text" style="max-width:36rem; margin:0 auto 2.5rem;"
+           x-text="$store.i18n.t('content.cta.body')">
+          Whether in North America, Africa, or Euro-markets, our model adapts to local domain dynamics.
+        </p>
+        <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+          <a href="/Risk-Matrix/" class="btn-primary"
+             x-text="$store.i18n.t('content.cta.primary')">Manage Your Risk</a>
+          <a href="/Orthom8pro/contact/" class="btn-ghost"
+             x-text="$store.i18n.t('content.cta.secondary')">Contact Technical Team</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer-root"></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+Business_Name,Question_ID,Question,Parameter,Value,Notes
+Car_Dealership,1.1,Initial Capital & Starting Conditions,Starting_Capital_USD,,Initial investment amount
+Car_Dealership,1.2,Initial Capital & Starting Conditions,Business_Size,,Small/Medium/Large_Enterprise
+Car_Dealership,1.3,Initial Capital & Starting Conditions,Market_Position,,Startup/Established/Market_Leader
+Car_Dealership,2.1,Risk Profile,Risk_Tolerance,,Conservative(2-5%)/Moderate(5-10%)/Aggressive(10-20%)
+Car_Dealership,2.2,Risk Profile,Volatility_Level,,Low/Medium/High
+Car_Dealership,2.3,Risk Profile,Maximum_Drawdown,,Maximum acceptable loss percentage
+Car_Dealership,3.1,Hedging Strategy,Hedge_Instruments,,Options/Futures/Diversification/Insurance
+Car_Dealership,3.2,Hedging Strategy,Hedge_Ratio,,Percentage of exposure hedged
+Car_Dealership,3.3,Hedging Strategy,Hedge_Frequency,,Daily/Weekly/Monthly adjustments
+Car_Dealership,4.1,Business-Specific Factors,Revenue_Model,,Seasonal/Cyclical/Growth/Defensive
+Car_Dealership,4.2,Business-Specific Factors,Key_Drivers,,Main factors affecting performance
+Car_Dealership,4.3,Business-Specific Factors,Market_Sensitivity,,Sensitivity to economic conditions
+Car_Dealership,5.1,Target Performance,Annual_Return_Goal,,Realistic annual return target
+Car_Dealership,5.2,Target Performance,Growth_Phase,,Early_Growth/Maturity/Expansion
+Car_Dealership,5.3,Target Performance,Exit_Strategy,,Long-term_Hold/Periodic_Rebalancing
+
+Food_Company,1.1,Initial Capital & Starting Conditions,Starting_Capital_USD,,Initial investment amount
+Food_Company,1.2,Initial Capital & Starting Conditions,Business_Size,,Small/Medium/Large_Enterprise
+Food_Company,1.3,Initial Capital & Starting Conditions,Market_Position,,Startup/Established/Market_Leader
+Food_Company,2.1,Risk Profile,Risk_Tolerance,,Conservative(2-5%)/Moderate(5-10%)/Aggressive(10-20%)
+Food_Company,2.2,Risk Profile,Volatility_Level,,Low/Medium/High
+Food_Company,2.3,Risk Profile,Maximum_Drawdown,,Maximum acceptable loss percentage
+Food_Company,3.1,Hedging Strategy,Hedge_Instruments,,Options/Futures/Diversification/Insurance
+Food_Company,3.2,Hedging Strategy,Hedge_Ratio,,Percentage of exposure hedged
+Food_Company,3.3,Hedging Strategy,Hedge_Frequency,,Daily/Weekly/Monthly adjustments
+Food_Company,4.1,Business-Specific Factors,Revenue_Model,,Seasonal/Cyclical/Growth/Defensive
+Food_Company,4.2,Business-Specific Factors,Key_Drivers,,Main factors affecting performance
+Food_Company,4.3,Business-Specific Factors,Market_Sensitivity,,Sensitivity to economic conditions
+Food_Company,5.1,Target Performance,Annual_Return_Goal,,Realistic annual return target
+Food_Company,5.2,Target Performance,Growth_Phase,,Early_Growth/Maturity/Expansion
+Food_Company,5.3,Target Performance,Exit_Strategy,,Long-term_Hold/Periodic_Rebalancing
+
+Crypto_Whale,1.1,Initial Capital & Starting Conditions,Starting_Capital_USD,,Initial investment amount
+Crypto_Whale,1.2,Initial Capital & Starting Conditions,Business_Size,,Small/Medium/Large_Enterprise
+Crypto_Whale,1.3,Initial Capital & Starting Conditions,Market_Position,,Startup/Established/Market_Leader
+Crypto_Whale,2.1,Risk Profile,Risk_Tolerance,,Conservative(2-5%)/Moderate(5-10%)/Aggressive(10-20%)
+Crypto_Whale,2.2,Risk Profile,Volatility_Level,,Low/Medium/High
+Crypto_Whale,2.3,Risk Profile,Maximum_Drawdown,,Maximum acceptable loss percentage
+Crypto_Whale,3.1,Hedging Strategy,Hedge_Instruments,,Options/Futures/Diversification/Insurance
+Crypto_Whale,3.2,Hedging Strategy,Hedge_Ratio,,Percentage of exposure hedged
+Crypto_Whale,3.3,Hedging Strategy,Hedge_Frequency,,Daily/Weekly/Monthly adjustments
+Crypto_Whale,4.1,Business-Specific Factors,Revenue_Model,,Seasonal/Cyclical/Growth/Defensive
+Crypto_Whale,4.2,Business-Specific Factors,Key_Drivers,,Main factors affecting performance
+Crypto_Whale,4.3,Business-Specific Factors,Market_Sensitivity,,Sensitivity to economic conditions
+Crypto_Whale,5.1,Target Performance,Annual_Return_Goal,,Realistic annual return target
+Crypto_Whale,5.2,Target Performance,Growth_Phase,,Early_Growth/Maturity/Expansion
+Crypto_Whale,5.3,Target Performance,Exit_Strategy,,Long-term_Hold/Periodic_Rebalancing
+
+Electronics_Company,1.1,Initial Capital & Starting Conditions,Starting_Capital_USD,,Initial investment amount
+Electronics_Company,1.2,Initial Capital & Starting Conditions,Business_Size,,Small/Medium/Large_Enterprise
+Electronics_Company,1.3,Initial Capital & Starting Conditions,Market_Position,,Startup/Established/Market_Leader
+Electronics_Company,2.1,Risk Profile,Risk_Tolerance,,Conservative(2-5%)/Moderate(5-10%)/Aggressive(10-20%)
+Electronics_Company,2.2,Risk Profile,Volatility_Level,,Low/Medium/High
+Electronics_Company,2.3,Risk Profile,Maximum_Drawdown,,Maximum acceptable loss percentage
+Electronics_Company,3.1,Hedging Strategy,Hedge_Instruments,,Options/Futures/Diversification/Insurance
+Electronics_Company,3.2,Hedging Strategy,Hedge_Ratio,,Percentage of exposure hedged
+Electronics_Company,3.3,Hedging Strategy,Hedge_Frequency,,Daily/Weekly/Monthly adjustments
+Electronics_Company,4.1,Business-Specific Factors,Revenue_Model,,Seasonal/Cyclical/Growth/Defensive
+Electronics_Company,4.2,Business-Specific Factors,Key_Drivers,,Main factors affecting performance
+Electronics_Company,4.3,Business-Specific Factors,Market_Sensitivity,,Sensitivity to economic conditions
+Electronics_Company,5.1,Target Performance,Annual_Return_Goal,,Realistic annual return target
+Electronics_Company,5.2,Target Performance,Growth_Phase,,Early_Growth/Maturity/Expansion
+Electronics_Company,5.3,Target Performance,Exit_Strategy,,Long-term_Hold/Periodic_Rebalancing
+
+Insurance_Company,1.1,Initial Capital & Starting Conditions,Starting_Capital_USD,,Initial investment amount
+Insurance_Company,1.2,Initial Capital & Starting Conditions,Business_Size,,Small/Medium/Large_Enterprise
+Insurance_Company,1.3,Initial Capital & Starting Conditions,Market_Position,,Startup/Established/Market_Leader
+Insurance_Company,2.1,Risk Profile,Risk_Tolerance,,Conservative(2-5%)/Moderate(5-10%)/Aggressive(10-20%)
+Insurance_Company,2.2,Risk Profile,Volatility_Level,,Low/Medium/High
+Insurance_Company,2.3,Risk Profile,Maximum_Drawdown,,Maximum acceptable loss percentage
+Insurance_Company,3.1,Hedging Strategy,Hedge_Instruments,,Options/Futures/Diversification/Insurance
+Insurance_Company,3.2,Hedging Strategy,Hedge_Ratio,,Percentage of exposure hedged
+Insurance_Company,3.3,Hedging Strategy,Hedge_Frequency,,Daily/Weekly/Monthly adjustments
+Insurance_Company,4.1,Business-Specific Factors,Revenue_Model,,Seasonal/Cyclical/Growth/Defensive
+Insurance_Company,4.2,Business-Specific Factors,Key_Drivers,,Main factors affecting performance
+Insurance_Company,4.3,Business-Specific Factors,Market_Sensitivity,,Sensitivity to economic conditions
+Insurance_Company,5.1,Target Performance,Annual_Return_Goal,,Realistic annual return target
+Insurance_Company,5.2,Target Performance,Growth_Phase,,Early_Growth/Maturity/Expansion
+Insurance_Company,5.3,Target Performance,Exit_Strategy,,Long-term_Hold/Periodic_Rebalancing
+
+Jewelry_Company,1.1,Initial Capital & Starting Conditions,Starting_Capital_USD,,Initial investment amount
+Jewelry_Company,1.2,Initial Capital & Starting Conditions,Business_Size,,Small/Medium/Large_Enterprise
+Jewelry_Company,1.3,Initial Capital & Starting Conditions,Market_Position,,Startup/Established/Market_Leader
+Jewelry_Company,2.1,Risk Profile,Risk_Tolerance,,Conservative(2-5%)/Moderate(5-10%)/Aggressive(10-20%)
+Jewelry_Company,2.2,Risk Profile,Volatility_Level,,Low/Medium/High
+Jewelry_Company,2.3,Risk Profile,Maximum_Drawdown,,Maximum acceptable loss percentage
+Jewelry_Company,3.1,Hedging Strategy,Hedge_Instruments,,Options/Futures/Diversification/Insurance
+Jewelry_Company,3.2,Hedging Strategy,Hedge_Ratio,,Percentage of exposure hedged
+Jewelry_Company,3.3,Hedging Strategy,Hedge_Frequency,,Daily/Weekly/Monthly adjustments
+Jewelry_Company,4.1,Business-Specific Factors,Revenue_Model,,Seasonal/Cyclical/Growth/Defensive
+Jewelry_Company,4.2,Business-Specific Factors,Key_Drivers,,Main factors affecting performance
+Jewelry_Company,4.3,Business-Specific Factors,Market_Sensitivity,,Sensitivity to economic conditions
+Jewelry_Company,5.1,Target Performance,Annual_Return_Goal,,Realistic annual return target
+Jewelry_Company,5.2,Target Performance,Growth_Phase,,Early_Growth/Maturity/Expansion
+Jewelry_Company,5.3,Target Performance,Exit_Strategy,,Long-term_Hold/Periodic_Rebalancing
+
+Power_Company,1.1,Initial Capital & Starting Conditions,Starting_Capital_USD,,Initial investment amount
+Power_Company,1.2,Initial Capital & Starting Conditions,Business_Size,,Small/Medium/Large_Enterprise
+Power_Company,1.3,Initial Capital & Starting Conditions,Market_Position,,Startup/Established/Market_Leader
+Power_Company,2.1,Risk Profile,Risk_Tolerance,,Conservative(2-5%)/Moderate(5-10%)/Aggressive(10-20%)
+Power_Company,2.2,Risk Profile,Volatility_Level,,Low/Medium/High
+Power_Company,2.3,Risk Profile,Maximum_Drawdown,,Maximum acceptable loss percentage
+Power_Company,3.1,Hedging Strategy,Hedge_Instruments,,Options/Futures/Diversification/Insurance
+Power_Company,3.2,Hedging Strategy,Hedge_Ratio,,Percentage of exposure hedged
+Power_Company,3.3,Hedging Strategy,Hedge_Frequency,,Daily/Weekly/Monthly adjustments
+Power_Company,3.4,Business-Specific Factors,Revenue_Model,,Seasonal/Cyclical/Growth/Defensive
+Power_Company,4.2,Business-Specific Factors,Key_Drivers,,Main factors affecting performance
+Power_Company,4.3,Business-Specific Factors,Market_Sensitivity,,Sensitivity to economic conditions
+Power_Company,5.1,Target Performance,Annual_Return_Goal,,Realistic annual return target
+Power_Company,5.2,Target Performance,Growth_Phase,,Early_Growth/Maturity/Expansion
+Power_Company,5.3,Target Performance,Exit_Strategy,,Long-term_Hold/Periodic_Rebalancing
+
+Logistics_Company,1.1,Initial Capital & Starting Conditions,Starting_Capital_USD,,Initial investment amount
+Logistics_Company,1.2,Initial Capital & Starting Conditions,Business_Size,,Small/Medium/Large_Enterprise
+Logistics_Company,1.3,Initial Capital & Starting Conditions,Market_Position,,Startup/Established/Market_Leader
+Logistics_Company,2.1,Risk Profile,Risk_Tolerance,,Conservative(2-5%)/Moderate(5-10%)/Aggressive(10-20%)
+Logistics_Company,2.2,Risk Profile,Volatility_Level,,Low/Medium/High
+Logistics_Company,2.3,Risk Profile,Maximum_Drawdown,,Maximum acceptable loss percentage
+Logistics_Company,3.1,Hedging Strategy,Hedge_Instruments,,Options/Futures/Diversification/Insurance
+Logistics_Company,3.2,Hedging Strategy,Hedge_Ratio,,Percentage of exposure hedged
+Logistics_Company,3.3,Hedging Strategy,Hedge_Frequency,,Daily/Weekly/Monthly adjustments
+Logistics_Company,4.1,Business-Specific Factors,Revenue_Model,,Seasonal/Cyclical/Growth/Defensive
+Logistics_Company,4.2,Business-Specific Factors,Key_Drivers,,Main factors affecting performance
+Logistics_Company,4.3,Business-Specific Factors,Market_Sensitivity,,Sensitivity to economic conditions
+Logistics_Company,5.1,Target Performance,Annual_Return_Goal,,Realistic annual return target
+Logistics_Company,5.2,Target Performance,Growth_Phase,,Early_Growth/Maturity/Expansion
+Logistics_Company,5.3,Target Performance,Exit_Strategy,,Long-term_Hold/Periodic_Rebalancing
+
+Storage_Warehousing,1.1,Initial Capital & Starting Conditions,Starting_Capital_USD,,Initial investment amount
+Storage_Warehousing,1.2,Initial Capital & Starting Conditions,Business_Size,,Small/Medium/Large_Enterprise
+Storage_Warehousing,1.3,Initial Capital & Starting Conditions,Market_Position,,Startup/Established/Market_Leader
+Storage_Warehousing,2.1,Risk Profile,Risk_Tolerance,,Conservative(2-5%)/Moderate(5-10%)/Aggressive(10-20%)
+Storage_Warehousing,2.2,Risk Profile,Volatility_Level,,Low/Medium/High
+Storage_Warehousing,2.3,Risk Profile,Maximum_Drawdown,,Maximum acceptable loss percentage
+Storage_Warehousing,3.1,Hedging Strategy,Hedge_Instruments,,Options/Futures/Diversification/Insurance
+Storage_Warehousing,3.2,Hedging Strategy,Hedge_Ratio,,Percentage of exposure hedged
+Storage_Warehousing,3.3,Hedging Strategy,Hedge_Frequency,,Daily/Weekly/Monthly adjustments
+Storage_Warehousing,4.1,Business-Specific Factors,Revenue_Model,,Seasonal/Cyclical/Growth/Defensive
+Storage_Warehousing,4.2,Business-Specific Factors,Key_Drivers,,Main factors affecting performance
+Storage_Warehousing,4.3,Business-Specific Factors,Market_Sensitivity,,Sensitivity to economic conditions
+Storage_Warehousing,5.1,Target Performance,Annual_Return_Goal,,Realistic annual return target
+Storage_Warehousing,5.2,Target Performance,Growth_Phase,,Early_Growth/Maturity/Expansion
+Storage_Warehousing,5.3,Target Performance,Exit_Strategy,,Long-term_Hold/Periodic_Rebalancing
+
+Freelance_Services,1.1,Initial Capital & Starting Conditions,Starting_Capital_USD,,Initial investment amount
+Freelance_Services,1.2,Initial Capital & Starting Conditions,Business_Size,,Small/Medium/Large_Enterprise
+Freelance_Services,1.3,Initial Capital & Starting Conditions,Market_Position,,Startup/Established/Market_Leader
+Freelance_Services,2.1,Risk Profile,Risk_Tolerance,,Conservative(2-5%)/Moderate(5-10%)/Aggressive(10-20%)
+Freelance_Services,2.2,Risk Profile,Volatility_Level,,Low/Medium/High
+Freelance_Services,2.3,Risk Profile,Maximum_Drawdown,,Maximum acceptable loss percentage
+Freelance_Services,3.1,Hedging Strategy,Hedge_Instruments,,Options/Futures/Diversification/Insurance
+Freelance_Services,3.2,Hedging Strategy,Hedge_Ratio,,Percentage of exposure hedged
+Freelance_Services,3.3,Hedging Strategy,Hedge_Frequency,,Daily/Weekly/Monthly adjustments
+Freelance_Services,4.1,Business-Specific Factors,Revenue_Model,,Seasonal/Cyclical/Growth/Defensive
+Freelance_Services,4.2,Business-Specific Factors,Key_Drivers,,Main factors affecting performance
+Freelance_Services,4.3,Business-Specific Factors,Market_Sensitivity,,Sensitivity to economic conditions
+Freelance_Services,5.1,Target Performance,Annual_Return_Goal,,Realistic annual return target
+Freelance_Services,5.2,Target Performance,Growth_Phase,,Early_Growth/Maturity/Expansion
+Freelance_Services,5.3,Target Performance,Exit_Strategy,,Long-term_Hold/Periodic_Rebalancing

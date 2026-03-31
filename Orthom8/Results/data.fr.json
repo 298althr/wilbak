@@ -1,0 +1,37 @@
+{
+  "content": {
+    "header": {
+      "eyebrow": "Protocole de Vérification des Investisseurs",
+      "title": "Performance"
+    },
+    "tabs": {
+      "platform": "Intelligence Système",
+      "evidence": "Preuve Institutionnelle"
+    },
+    "stats": {
+      "total_roi":      "ROI Net Total",
+      "cagr":           "TCAC",
+      "ending_balance": "Solde Final",
+      "profit_factor":  "Facteur de Profit"
+    },
+    "loading": "Chargement des données historiques…",
+    "ledger": {
+      "title":         "Grand Livre Opérationnel",
+      "col_period":    "Bloc de Période",
+      "col_regime":    "Régime",
+      "col_precision": "Précision",
+      "col_yield":     "Rendement",
+      "col_balance":   "Solde"
+    },
+    "modal": {
+      "title":           "Bloc d'Audit Institutionnel",
+      "period_label":    "Période du Grand Livre:",
+      "financial_label": "Noyau Financier",
+      "net_pnl":         "P&L Net",
+      "ending_balance":  "Solde Final",
+      "kpi_label":       "KPI Système",
+      "precision":       "Précision de Nœud",
+      "latency":         "Latence"
+    }
+  }
+}

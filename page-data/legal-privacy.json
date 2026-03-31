@@ -1,0 +1,215 @@
+{
+  "page": "legal-privacy",
+  "translations": {
+    "en": {
+      "title": "Privacy Policy | Wilbak Engineering",
+      "meta": {
+        "description": "Wilbak Engineering is committed to absolute security of your institutional and personal data."
+      },
+      "protocol": "Privacy Protocol: 02",
+      "heading": "Privacy Policy",
+      "last_updated": "Last Updated: March 26, 2026",
+      "sections": [
+        {
+          "title": "1. Overview",
+          "content": "Wilbak Engineering is committed to absolute security of your institutional and personal data. This protocol outlines how our deep machine learning nodes process data and how we safeguard your information."
+        },
+        {
+          "title": "2. Data Ingestion",
+          "content": "Our algorithms ingest market data, order flow information, and partner asset metrics. This data is normalized and processed within encrypted, non-custodial environments. We do not store original raw data longer than necessary for node execution (typically 320ms)."
+        },
+        {
+          "title": "3. Third-Party Sharing",
+          "content": "Wilbak Engineering does not sell, trade, or otherwise transfer your identifiable information to outside parties. Your data is your capital anchor; we only interact with it to secure its growth within the Ortho'M8 ecosystem."
+        },
+        {
+          "title": "4. Security Architecture",
+          "content": "We implement a variety of security measures including SSL encryption, multi-factor node verification, and regular penetration testing by independent security leads. Our uptime of 99.99% is matched by our zero-access data policy."
+        },
+        {
+          "title": "5. Partner Consent",
+          "content": "By onboarding via our audit protocol, you consent to our data processing methodology. Any changes to this policy will be communicated directly through institutional Client Portal."
+        }
+      ],
+      "navigation": {
+        "home": "Home",
+        "projects": "Projects",
+        "about": "About",
+        "orthomate": "Ortho'M8"
+      },
+      "footer": {
+        "brand_description": "High-performance business logic for industries that demand zero failure.",
+        "copyright": "© 2026 WILBAK ENGINEERING — EST. 2006",
+        "system_status": "SYSTEM STATUS: OPERATIONAL"
+      }
+    },
+    "es": {
+      "title": "Política de Privacidad | Wilbak Engineering",
+      "meta": {
+        "description": "Wilbak Engineering está comprometida con la seguridad absoluta de sus datos institucionales y personales."
+      },
+      "protocol": "Protocolo de Privacidad: 02",
+      "heading": "Política de Privacidad",
+      "last_updated": "Última Actualización: 26 de marzo de 2026",
+      "sections": [
+        {
+          "title": "1. Descripción General",
+          "content": "Wilbak Engineering está comprometida con la seguridad absoluta de sus datos institucionales y personales. Este protocolo describe cómo nuestros nodos de aprendizaje profundo procesan datos y cómo protegemos su información."
+        },
+        {
+          "title": "2. Ingestión de Datos",
+          "content": "Nuestros algoritmos ingieren datos de mercado, información de flujo de órdenes y métricas de activos de socios. Estos datos se normalizan y procesan dentro de entornos cifrados y no custodiales. No almacenamos datos brutos originales más tiempo del necesario para la ejecución del nodo (típicamente 320ms)."
+        },
+        {
+          "title": "3. Compartir con Terceros",
+          "content": "Wilbak Engineering no vende, negocia ni transfiere su información identificable a partes externas. Sus datos son su ancla de capital; solo interactuamos con ellos para asegurar su crecimiento dentro del ecosistema Ortho'M8."
+        },
+        {
+          "title": "4. Arquitectura de Seguridad",
+          "content": "Implementamos una variedad de medidas de seguridad incluyendo encriptación SSL, verificación de nodos multifactor y pruebas de penetración regulares por líderes de seguridad independientes. Nuestro tiempo de actividad del 99.99% se iguala con nuestra política de datos de acceso cero."
+        },
+        {
+          "title": "5. Consentimiento del Socio",
+          "content": "Al integrarse a través de nuestro protocolo de auditoría, usted consiente nuestra metodología de procesamiento de datos. Cualquier cambio a esta política se comunicará directamente a través del Portal de Clientes Institucional."
+        }
+      ],
+      "navigation": {
+        "home": "Inicio",
+        "projects": "Proyectos",
+        "about": "Acerca de",
+        "orthomate": "Ortho'M8"
+      },
+      "footer": {
+        "brand_description": "Lógica empresarial de alto rendimiento para industrias que exigen cero fallos.",
+        "copyright": "© 2026 WILBAK ENGINEERING — FUNDADA 2006",
+        "system_status": "ESTADO DEL SISTEMA: OPERATIVO"
+      }
+    },
+    "zh": {
+      "title": "隐私政策 | 维尔巴克工程",
+      "meta": {
+        "description": "维尔巴克工程致力于您的机构和个人数据的绝对安全。"
+      },
+      "protocol": "隐私协议：02",
+      "heading": "隐私政策",
+      "last_updated": "最后更新：2026年3月26日",
+      "sections": [
+        {
+          "title": "1. 概述",
+          "content": "维尔巴克工程致力于您的机构和个人数据的绝对安全。本协议概述了我们的深度机器学习节点如何处理数据以及我们如何保护您的信息。"
+        },
+        {
+          "title": "2. 数据摄取",
+          "content": "我们的算法摄取市场数据、订单流信息和合作伙伴资产指标。这些数据在加密的非托管环境中进行标准化和处理。我们不会存储超过节点执行所需时间的原始数据（通常为320毫秒）。"
+        },
+        {
+          "title": "3. 第三方共享",
+          "content": "维尔巴克工程不会出售、交易或以其他方式将您的可识别信息转移给外部方。您的数据是您的资本锚点；我们只与其交互以确保其在Ortho'M8生态系统内的增长。"
+        },
+        {
+          "title": "4. 安全架构",
+          "content": "我们实施了多种安全措施，包括SSL加密、多因素节点验证和独立安全负责人的定期渗透测试。我们99.99%的正常运行时间与我们的零访问数据政策相匹配。"
+        },
+        {
+          "title": "5. 合作伙伴同意",
+          "content": "通过我们的审计协议加入，您同意我们的数据处理方法。对本政策的任何更改都将通过机构客户门户直接传达。"
+        }
+      ],
+      "navigation": {
+        "home": "首页",
+        "projects": "项目",
+        "about": "关于",
+        "orthomate": "Ortho'M8"
+      },
+      "footer": {
+        "brand_description": "为要求零故障的行业提供高性能业务逻辑。",
+        "copyright": "© 2026 维尔巴克工程 — 成立于2006年",
+        "system_status": "系统状态：运行中"
+      }
+    },
+    "nl": {
+      "title": "Privacybeleid | Wilbak Engineering",
+      "meta": {
+        "description": "Wilbak Engineering is toegewijd aan absolute beveiliging van uw institutionele en persoonlijke gegevens."
+      },
+      "protocol": "Privacy Protocol: 02",
+      "heading": "Privacybeleid",
+      "last_updated": "Laatst Bijgewerkt: 26 maart 2026",
+      "sections": [
+        {
+          "title": "1. Overzicht",
+          "content": "Wilbak Engineering is toegewijd aan absolute beveiliging van uw institutionele en persoonlijke gegevens. Dit protocol beschrijft hoe onze deep machine learning nodes data verwerken en hoe we uw informatie beschermen."
+        },
+        {
+          "title": "2. Data Inname",
+          "content": "Onze algoritmes nemen marktdata, orderflow informatie en partner activa metrieken op. Deze data wordt genormaliseerd en verwerkt binnen versleutelde, non-custodial omgevingen. We slaan originele ruwe data niet langer op dan noodzakelijk voor node uitvoering (typisch 320ms)."
+        },
+        {
+          "title": "3. Derde Partij Delen",
+          "content": "Wilbak Engineering verkoopt, verhandelt of transferreert uw identificeerbare informatie niet naar externe partijen. Uw data is uw kapitaalanker; we interacteren er alleen mee om de groei binnen het Ortho'M8 ecosysteem te verzekeren."
+        },
+        {
+          "title": "4. Beveiligingsarchitectuur",
+          "content": "We implementeren diverse beveiligingsmaatregelen inclusief SSL versleuteling, multi-factor node verificatie en regelmatige penetratietests door onafhankelijke security leads. Onze uptime van 99.99% wordt geëvenaard door ons zero-access data beleid."
+        },
+        {
+          "title": "5. Partner Toestemming",
+          "content": "Door onboarding via ons audit protocol, stemt u in met onze data verwerkingsmethodologie. Eventuele wijzigingen aan dit beleid worden direct gecommuniceerd via institutionele Client Portal."
+        }
+      ],
+      "navigation": {
+        "home": "Home",
+        "projects": "Projecten",
+        "about": "Over Ons",
+        "orthomate": "Ortho'M8"
+      },
+      "footer": {
+        "brand_description": "High-performance bedrijfslogica voor industrieën die nul falen eisen.",
+        "copyright": "© 2026 WILBAK ENGINEERING — OPG. 2006",
+        "system_status": "SYSTEEMSTATUS: OPERATIONEEL"
+      }
+    },
+    "fr": {
+      "title": "Politique de Confidentialité | Wilbak Engineering",
+      "meta": {
+        "description": "Wilbak Engineering s'engage à la sécurité absolue de vos données institutionnelles et personnelles."
+      },
+      "protocol": "Protocole de Confidentialité: 02",
+      "heading": "Politique de Confidentialité",
+      "last_updated": "Dernière Mise à Jour: 26 mars 2026",
+      "sections": [
+        {
+          "title": "1. Aperçu",
+          "content": "Wilbak Engineering s'engage à la sécurité absolue de vos données institutionnelles et personnelles. Ce protocole décrit comment nos nœuds d'apprentissage profond traitent les données et comment nous protégeons vos informations."
+        },
+        {
+          "title": "2. Ingestion de Données",
+          "content": "Nos algorithmes ingèrent les données de marché, les informations de flux d'ordres et les métriques d'actifs des partenaires. Ces données sont normalisées et traitées dans des environnements chiffrés non dépositaires. Nous ne stockons pas les données brutes originales plus longtemps que nécessaire pour l'exécution du nœud (typiquement 320ms)."
+        },
+        {
+          "title": "3. Partage avec des Tiers",
+          "content": "Wilbak Engineering ne vend, ne négocie ni ne transfère vos informations identifiables à des parties externes. Vos données sont votre ancre de capital ; nous interagissons uniquement avec elles pour assurer leur croissance dans l'écosystème Ortho'M8."
+        },
+        {
+          "title": "4. Architecture de Sécurité",
+          "content": "Nous mettons en œuvre diverses mesures de sécurité incluant le chiffrement SSL, la vérification multi-facteur des nœuds et des tests de pénétration réguliers par des responsables de sécurité indépendants. Notre disponibilité de 99.99% est assortie de notre politique de données à accès zéro."
+        },
+        {
+          "title": "5. Consentement du Partenaire",
+          "content": "En s'intégrant via notre protocole d'audit, vous consentez à notre méthodologie de traitement des données. Tout changement à cette politique sera communiqué directement via le Portail Client Institutionnel."
+        }
+      ],
+      "navigation": {
+        "home": "Accueil",
+        "projects": "Projets",
+        "about": "À Propos",
+        "orthomate": "Ortho'M8"
+      },
+      "footer": {
+        "brand_description": "Logique commerciale haute performance pour les industries qui exigent zéro échec.",
+        "copyright": "© 2026 WILBAK ENGINEERING — FOND. 2006",
+        "system_status": "STATUT DU SYSTÈME: OPÉRATIONNEL"
+      }
+    }
+  }
+}

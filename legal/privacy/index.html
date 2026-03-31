@@ -4,133 +4,135 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy | Wilbak Engineering</title>
-  <!-- Google Fonts: Inter & Playfair Display -->
+  <meta name="description" content="Wilbak Engineering is committed to absolute security of your institutional and personal data.">
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <script src="/i18n-loader.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../wilbak-base.css">
   <style>
-    :root {
-      --page-bg: #FFFFFF;
-      --surface-bg: #F8FAFC;
-      --tx-main: #0F172A;
-      --tx-sub: #475569;
-      --brand-blue: #2563EB;
-      --brand-rule: #E2E8F0;
-    }
-    [data-theme="dark"] {
-      --page-bg: #0F172A;
-      --surface-bg: #1E293B;
-      --tx-main: #F1F5F9;
-      --tx-sub: #94A3B8;
-      --brand-blue: #3B82F6;
-      --brand-rule: #334155;
-    }
-    body { font-family: 'Inter', sans-serif; background: var(--page-bg); color: var(--tx-main); transition: 0.3s; }
-    .serif { font-family: 'Playfair Display', serif; }
-    .mono { font-family: 'Fira Code', monospace; }
-    
-    .legal-content h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 2rem; }
-    .legal-content h2 { font-size: 1.25rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-top: 3rem; margin-bottom: 1rem; border-bottom: 1px solid var(--brand-rule); padding-bottom: 0.5rem; }
-    .legal-content p { font-size: 1.1rem; line-height: 1.8; color: var(--tx-sub); margin-bottom: 1.5rem; }
-    
-    .nav-link { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--tx-sub); transition: 0.2s; }
-    .nav-link:hover { color: var(--brand-blue); }
+    .legal-hero { padding-top: calc(var(--nav-h) + var(--s16)); padding-bottom: var(--s12); background: var(--white); border-bottom: 1px solid var(--gray-200); }
+    .legal-proto { font-family: var(--font-mono); font-size: var(--text-10); color: var(--brand-mid); letter-spacing: var(--ls-4); text-transform: uppercase; margin-bottom: var(--s4); }
+    .legal-heading { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: var(--lh-tight); color: var(--navy); letter-spacing: 0.01em; margin-bottom: var(--s3); }
+    .legal-updated { font-family: var(--font-mono); font-size: var(--text-10); color: var(--gray-400); letter-spacing: var(--ls-2); }
 
-    /* Footer styling similar to OrthoM8 but lighter */
-    #site-footer { border-top: 1px solid var(--brand-rule); background: var(--surface-bg); }
-    .footer-col-title { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem; }
-    .footer-link { font-size: 13px; color: var(--tx-sub); text-decoration: none; transition: 0.2s; }
-    .footer-link:hover { color: var(--brand-blue); }
+    .legal-layout { display: grid; grid-template-columns: 220px 1fr; gap: var(--s12); align-items: start; }
+    .legal-toc { position: sticky; top: calc(var(--nav-h) + var(--s8)); }
+    .legal-toc-head { font-family: var(--font-mono); font-size: var(--text-10); color: var(--gray-400); letter-spacing: var(--ls-4); text-transform: uppercase; margin-bottom: var(--s4); }
+    .legal-toc-links { display: flex; flex-direction: column; gap: var(--s2); }
+    .legal-toc-links a { font-size: var(--text-13); font-weight: var(--thin); color: var(--gray-500); transition: color var(--t-fast) var(--ease-out); padding: var(--s1) 0; border-left: 2px solid transparent; padding-left: var(--s3); }
+    .legal-toc-links a:hover { color: var(--navy); border-left-color: var(--brand-mid); }
+
+    .legal-content { max-width: 720px; }
+    .legal-section { margin-bottom: var(--s12); padding-bottom: var(--s12); border-bottom: 1px solid var(--gray-100); }
+    .legal-section:last-child { border-bottom: none; }
+    .legal-section-title { font-family: var(--font-body); font-size: var(--text-22); font-weight: var(--bold); color: var(--navy); margin-bottom: var(--s5); }
+    .legal-section-body { font-size: var(--text-base); font-weight: var(--thin); color: var(--gray-600); line-height: var(--lh-loose); }
+    .legal-section-body strong { font-weight: var(--semi); color: var(--navy); }
+
+    @media (max-width: 768px) { .legal-layout { grid-template-columns: 1fr; } .legal-toc { display: none; } }
   </style>
 </head>
-<body x-data="{ mobileMenu: false }">
-
-  <!-- HEADER -->
-  <header class="py-6 px-8 border-b border-slate-200 sticky top-0 bg-white/80 backdrop-blur-md z-50 flex items-center justify-between" style="border-color: var(--brand-rule); background: transparent;">
-    <a href="/" class="flex items-center gap-3">
-        <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8">
-        <span class="serif font-bold text-xl tracking-tight">Wilbak <span class="text-blue-600">Engineering.</span></span>
-    </a>
-    
-    <nav class="hidden md:flex items-center gap-10">
-      <a href="/" class="nav-link" x-text="$store.i18n.t('content.header.nav.0')">Home</a>
-      <a href="/projects/" class="nav-link" x-text="$store.i18n.t('content.header.nav.1')">Projects</a>
-      <a href="/about/" class="nav-link" x-text="$store.i18n.t('content.header.nav.2')">About</a>
-      <a href="/Orthom8pro/" class="nav-link" x-text="$store.i18n.t('content.header.nav.3')">Ortho'M8</a>
-    </nav>
-
-    <div class="flex items-center gap-4">
-      <select class="bg-transparent border-none text-[10px] font-bold uppercase tracking-widest cursor-pointer outline-none" @change="$store.i18n.setLocale($event.target.value)">
-          <option value="en" :selected="$store.i18n.locale === 'en'">EN</option>
-          <option value="es" :selected="$store.i18n.locale === 'es'">ES</option>
-          <option value="zh" :selected="$store.i18n.locale === 'zh'">ZH</option>
-      </select>
-      <a href="/audit/" class="hidden md:block bg-slate-900 text-white px-6 py-2 text-[10px] font-bold uppercase tracking-widest rounded-sm">Audit</a>
+<body>
+  <nav class="nav" id="navbar">
+    <div class="wrap">
+      <div class="nav-row">
+        <a href="../../index.html" class="nav-brand">
+          <span class="nav-brand-name">Wilbak Engineering</span>
+          <span class="nav-brand-sub">Est. 2006 · Houston, TX</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="../../about/index.html">About</a></li>
+          <li><a href="../../projects/index.html">Projects</a></li>
+          <li><a href="../../insight/index.html">Insights</a></li>
+          <li><a href="../../contact/index.html">Contact</a></li>
+        </ul>
+        <div class="nav-cta"><a href="../../audit/index.html" class="btn btn-primary">Request Audit</a></div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
     </div>
-  </header>
+  </nav>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="../../about/index.html">About</a>
+    <a href="../../projects/index.html">Projects</a>
+    <a href="../../insight/index.html">Insights</a>
+    <a href="../../contact/index.html">Contact</a>
+  </div>
 
-  <main class="max-w-4xl mx-auto py-24 px-8 legal-content animate-fade-in">
-    <div class="mono text-xs text-blue-600 tracking-[0.4em] mb-4 uppercase">Privacy Protocol: 02</div>
-    <h1 class="serif" x-text="$store.i18n.t('content.legal.privacy.heading') || 'Privacy Policy'">Privacy Policy</h1>
-    
-    <p class="italic text-lg mb-12">Last Updated: March 26, 2026</p>
-
-    <section>
-      <h2>1. Overview</h2>
-      <p>Wilbak Engineering is committed to the absolute security of your institutional and personal data. This protocol outlines how our deep machine learning nodes process data and how we safeguard your information.</p>
+  <main>
+    <section class="legal-hero">
+      <div class="wrap">
+        <p class="legal-proto">Privacy Protocol: 02</p>
+        <h1 class="legal-heading">Privacy Policy</h1>
+        <p class="legal-updated">Last Updated: March 26, 2026</p>
+      </div>
     </section>
 
-    <section>
-      <h2>2. Data Ingestion</h2>
-      <p>Our algorithms ingest market data, order flow information, and partner asset metrics. This data is normalized and processed within encrypted, non-custodial environments. We do not store original raw data longer than necessary for node execution (typically 320ms).</p>
-    </section>
+    <section class="section">
+      <div class="wrap">
+        <div class="legal-layout">
 
-    <section>
-      <h2>3. Third-Party Sharing</h2>
-      <p>Wilbak Engineering does not sell, trade, or otherwise transfer your identifiable information to outside parties. Your data is your capital anchor; we only interact with it to secure its growth within the Ortho'M8 ecosystem.</p>
-    </section>
+          <nav class="legal-toc">
+            <div class="legal-toc-head">Contents</div>
+            <div class="legal-toc-links">
+              <a href="#overview">1. Overview</a>
+              <a href="#ingestion">2. Data Ingestion</a>
+              <a href="#sharing">3. Third-Party Sharing</a>
+              <a href="#security">4. Security Architecture</a>
+              <a href="#consent">5. Partner Consent</a>
+            </div>
+          </nav>
 
-    <section>
-      <h2>4. Security Architecture</h2>
-      <p>We implement a variety of security measures including SSL encryption, multi-factor node verification, and regular penetration testing by independent security leads. Our uptime of 99.99% is matched by our zero-access data policy.</p>
-    </section>
+          <div class="legal-content">
+            <div class="legal-section" id="overview">
+              <h2 class="legal-section-title">1. Overview</h2>
+              <p class="legal-section-body">Wilbak Engineering is committed to absolute security of your institutional and personal data. This protocol outlines how our deep machine learning nodes process data and how we safeguard your information.</p>
+            </div>
+            <div class="legal-section" id="ingestion">
+              <h2 class="legal-section-title">2. Data Ingestion</h2>
+              <p class="legal-section-body">Our algorithms ingest market data, order flow information, and partner asset metrics. This data is normalized and processed within encrypted, non-custodial environments. We do not store original raw data longer than necessary for node execution (typically 320ms).</p>
+            </div>
+            <div class="legal-section" id="sharing">
+              <h2 class="legal-section-title">3. Third-Party Sharing</h2>
+              <p class="legal-section-body">Wilbak Engineering does not sell, trade, or otherwise transfer your identifiable information to outside parties. Your data is your capital anchor; we only interact with it to secure its growth within the Ortho'm8 ecosystem.</p>
+            </div>
+            <div class="legal-section" id="security">
+              <h2 class="legal-section-title">4. Security Architecture</h2>
+              <p class="legal-section-body">We implement a variety of security measures including SSL encryption, multi-factor node verification, and regular penetration testing by independent security leads. Our uptime of 99.99% is matched by our zero-access data policy.</p>
+            </div>
+            <div class="legal-section" id="consent">
+              <h2 class="legal-section-title">5. Partner Consent</h2>
+              <p class="legal-section-body">By onboarding via our audit protocol, you consent to our data processing methodology. Any changes to this policy will be communicated directly through institutional Client Portal.</p>
+            </div>
+          </div>
 
-    <section>
-      <h2>5. Partner Consent</h2>
-      <p>By onboarding via our audit protocol, you consent to our data processing methodology. Any changes to this policy will be communicated directly through the institutional Client Portal.</p>
+        </div>
+      </div>
     </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer id="site-footer" class="py-20 px-8">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12">
-      <div>
-        <div class="flex items-center gap-3 mb-6">
-          <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8">
-          <span class="serif font-bold text-xl tracking-tight">Wilbak <span class="text-blue-600">Engineering.</span></span>
-        </div>
-        <p class="text-xs text-slate-500 leading-relaxed">High-performance business logic for industries that demand zero failure.</p>
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div><div class="footer-brand">Wilbak Engineering</div><p class="footer-desc">High-performance business logic for industries that demand zero failure.</p></div>
+        <div><div class="footer-col-head">Company</div><ul class="footer-links"><li><a href="../../about/index.html">About</a></li><li><a href="../../projects/index.html">Projects</a></li><li><a href="../../insight/index.html">Insights</a></li><li><a href="../../contact/index.html">Contact</a></li></ul></div>
+        <div><div class="footer-col-head">Legal</div><ul class="footer-links"><li><a href="../../legal/privacy/index.html">Privacy Policy</a></li><li><a href="../../legal/terms/index.html">Terms &amp; Conditions</a></li><li><a href="../../legal/sla/index.html">SLA</a></li></ul></div>
+        <div><div class="footer-col-head">Platform</div><ul class="footer-links"><li><a href="../../Orthom8pro/index.html">Ortho'm8</a></li></ul></div>
       </div>
-
-      <template x-for="col in $store.i18n.t('content.footer.columns')" :key="col.title">
-        <div>
-          <div class="footer-col-title" x-text="col.title">Column</div>
-          <ul class="space-y-3">
-            <template x-for="link in col.links" :key="link.label">
-              <li><a :href="link.target" class="footer-link" x-text="link.label">Link</a></li>
-            </template>
-          </ul>
-        </div>
-      </template>
-    </div>
-    <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-slate-200 text-[10px] mono uppercase tracking-[0.4em] text-slate-400 flex justify-between flex-wrap gap-4">
-      <span>© 2026 WILBAK ENGINEERING — EST. 2006</span>
-      <span>SYSTEM STATUS: OPERATIONAL</span>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Wilbak Engineering. All rights reserved.</span>
+        <span class="footer-attr">Ortho'm8 is a product of Brokard Williams.</span>
+      </div>
     </div>
   </footer>
 
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    hamburger.addEventListener('click', () => { const open = mobileNav.classList.toggle('open'); hamburger.classList.toggle('open', open); hamburger.setAttribute('aria-expanded', String(open)); });
+    document.addEventListener('click', (e) => { if (!navbar.contains(e.target) && !mobileNav.contains(e.target)) { mobileNav.classList.remove('open'); hamburger.classList.remove('open'); hamburger.setAttribute('aria-expanded', 'false'); } });
+  </script>
 </body>
 </html>

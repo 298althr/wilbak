@@ -1,210 +1,304 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | Wilbak Engineering</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Wilbak Engineering</title>
+  <meta name="description" content="Wilbak Engineering marks two decades of structural and data engineering. We don't just solve problems; we outbuild them.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../wilbak-base.css">
+  <style>
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding-top: calc(var(--nav-h) + var(--s20));
+      padding-bottom: var(--s20);
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg, transparent, transparent 60px,
+        rgba(27,58,122,0.015) 60px, rgba(27,58,122,0.015) 61px
+      );
+      pointer-events: none;
+    }
+    .page-hero-inner { position: relative; z-index: 1; }
+    .page-hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      color: var(--brand-mid);
+      letter-spacing: var(--ls-4);
+      text-transform: uppercase;
+      margin-bottom: var(--s5);
+    }
+    .page-hero-heading {
+      font-family: var(--font-display);
+      font-size: var(--text-hero);
+      line-height: var(--lh-tight);
+      color: var(--navy);
+      letter-spacing: 0.01em;
+      margin-bottom: var(--s6);
+    }
+    .page-hero-heading span { color: var(--brand-mid); }
+    .page-hero-body {
+      font-size: var(--text-18);
+      font-weight: var(--thin);
+      color: var(--gray-500);
+      line-height: var(--lh-loose);
+      max-width: 560px;
+    }
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    /* ── OVERVIEW ── */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s16);
+      align-items: start;
+    }
+    .overview-img {
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+      aspect-ratio: 4 / 5;
+      background: var(--gray-100);
+    }
+    .overview-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .overview-para {
+      font-size: var(--text-base);
+      font-weight: var(--thin);
+      color: var(--gray-600);
+      line-height: var(--lh-loose);
+      margin-bottom: var(--s6);
+    }
+    .overview-para strong { font-weight: var(--semi); color: var(--navy); }
 
-    <style>
-        :root {
-            --neon-blue: #0076FF;
-            --deep-obsidian: #0A0C10;
-        }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fcfdfe; color: #0F172A; }
-        .mono { font-family: 'JetBrains Mono', monospace; font-weight: 700; }
-        .serif { font-family: 'Lora', serif; }
-        .lake-gradient {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%),
-                url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover; background-position: center;
-        }
-        .btn-premium {
-            display: inline-block; padding: 0.75rem 2rem; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.25em; font-size: 10px; transition: all 0.3s ease; border-radius: 0.125rem;
-            border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; text-align: center;
-        }
-        .btn-primary { background-color: #2563eb; color: #ffffff; }
-        .industrial-grid {
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 40px 40px;
-        }
-        .footer-link { color: #94a3b8; transition: color 0.2s ease; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em; }
-        .footer-link:hover { color: #3b82f6; }
-        
-        #page-loader {
-            position: fixed; inset: 0; background: #0A0C10; z-index: 9999;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.5s ease;
-        }
-        #page-loader.fade-out { opacity: 0; pointer-events: none; }
-        .loader-spin {
-            width: 40px; height: 40px; border: 3px solid rgba(0, 118, 255, 0.1);
-            border-top: 3px solid #0076FF; border-radius: 50%; animation: spin 1s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-    </style>
+    /* ── SPECIALTIES ── */
+    .spec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s5);
+      margin-top: var(--s12);
+    }
+    .spec-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-top: 3px solid var(--brand);
+      border-radius: var(--r-lg);
+      padding: var(--s8);
+      box-shadow: var(--sh-xs);
+      transition: box-shadow var(--t-base) var(--ease-out), transform var(--t-base) var(--ease-out);
+    }
+    .spec-card:hover { box-shadow: var(--sh-md); transform: translateY(-2px); }
+    .spec-card:nth-child(2) { border-top-color: var(--gold); }
+    .spec-title {
+      font-family: var(--font-body);
+      font-size: var(--text-22);
+      font-weight: var(--bold);
+      color: var(--navy);
+      margin-bottom: var(--s3);
+    }
+    .spec-desc {
+      font-size: var(--text-base);
+      font-weight: var(--thin);
+      color: var(--gray-500);
+      line-height: var(--lh-loose);
+      margin-bottom: var(--s5);
+    }
+    .spec-status {
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      color: var(--brand-mid);
+      letter-spacing: var(--ls-3);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: var(--s2);
+    }
+    .spec-status::before {
+      content: '';
+      display: block;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--color-success);
+      flex-shrink: 0;
+    }
+
+    .overview-grid { gap: clamp(2rem, 5vw, var(--s16)); }
+    .spec-card { padding: clamp(1.5rem, 4vw, var(--s8)); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .overview-grid { grid-template-columns: 1fr; }
+      .overview-img { aspect-ratio: 16 / 9; }
+      .spec-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
+<body>
 
-<body x-data="{ mobileMenu: false }">
-
-    <!-- Page Loader -->
-    <div id="page-loader">
-        <div class="loader-spin mb-4"></div>
-        <div class="mono text-[10px] text-blue-500 uppercase tracking-[0.4em] animate-pulse">Initializing Protocol...</div>
-    </div>
-
-    <nav class="flex justify-between items-center px-6 md:px-10 py-6 bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
-        <a href="/" class="cursor-pointer">
-            <img src="/logo.png" alt="WILBAK ENGINEERING" class="h-8 md:h-10">
+  <!-- NAV -->
+  <nav class="nav" id="navbar">
+    <div class="wrap">
+      <div class="nav-row">
+        <a href="../index.html" class="nav-brand">
+          <span class="nav-brand-name">Wilbak Engineering</span>
+          <span class="nav-brand-sub">Est. 2006 · Houston, TX</span>
         </a>
-
-        <!-- Desktop Nav -->
-        <div class="hidden md:flex items-center space-x-10 font-bold text-xs uppercase tracking-[0.2em]">
-            <a href="/" class="text-slate-500 hover:text-blue-600 transition">Home</a>
-            <a href="/projects/" class="text-slate-500 hover:text-blue-600 transition">Projects</a>
-            <a href="/about/" class="text-blue-600 transition">About</a>
-            <a href="/Orthom8pro/" class="text-slate-500 hover:text-blue-600 transition">OrthoMate™</a>
-            <a href="/contact/" class="text-slate-500 hover:text-blue-600 transition">Contact</a>
-            <a href="/insight/" class="text-slate-500 hover:text-blue-600 transition">News & Insights</a>
-            <a href="/audit/" class="btn-premium bg-slate-900 text-white hover:bg-blue-700">Business Audit</a>
+        <ul class="nav-links">
+          <li><a href="../about/index.html" class="active">About</a></li>
+          <li><a href="../projects/index.html">Projects</a></li>
+          <li><a href="../insight/index.html">Insights</a></li>
+          <li><a href="../contact/index.html">Contact</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a href="../audit/index.html" class="btn btn-primary">Request Audit</a>
         </div>
-
-        <!-- Mobile Toggle -->
-        <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-slate-900">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path x-show="!mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                <path x-show="mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
         </button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="../about/index.html">About</a>
+    <a href="../projects/index.html">Projects</a>
+    <a href="../insight/index.html">Insights</a>
+    <a href="../contact/index.html">Contact</a>
+  </div>
 
-        <!-- Mobile Menu -->
-        <div x-show="mobileMenu" x-cloak class="absolute top-full left-0 w-full bg-white border-b border-slate-200 md:hidden z-40 shadow-xl p-8 space-y-6 flex flex-col font-bold text-xs uppercase tracking-[0.2em]">
-            <a href="/" class="text-slate-900">Home</a>
-            <a href="/projects/" class="text-slate-900">Projects</a>
-            <a href="/about/" class="text-blue-600">About</a>
-            <a href="/Orthom8pro/" class="text-slate-900">OrthoMate™</a>
-            <a href="/contact/" class="text-slate-900">Contact</a>
-            <a href="/insight/" class="text-slate-900">News & Insights</a>
-            <a href="/audit/" class="bg-slate-900 text-white px-6 py-4 text-center rounded-sm">Business Audit</a>
+  <main>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="wrap page-hero-inner">
+        <p class="page-hero-eyebrow">Established 2006</p>
+        <h1 class="page-hero-heading">20 Years of<br><span>Data Dominance.</span></h1>
+        <p class="page-hero-body">Wilbak Engineering marks two decades of structural and data engineering. We don't just solve problems; we outbuild them.</p>
+      </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section class="section">
+      <div class="wrap">
+        <div class="overview-grid">
+
+          <!-- REPLACE src with Wilhelm portrait URL -->
+          <div class="overview-img reveal">
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600"
+              alt="Wilhelm Rybak — Founder, Wilbak Engineering"
+              loading="lazy"
+            >
+          </div>
+
+          <div class="reveal d1">
+            <p class="eyebrow">The Professional Overview</p>
+            <h2 class="h2">Wilhelm Rybak</h2>
+            <p class="overview-para">I am Wilhelm Rybak, a Data and Structural Engineer. I've spent two decades in the trenches of industrial infrastructure, moving between Doha's heat and Alaska's cold.</p>
+            <p class="overview-para">My philosophy: <strong>Nature is the ultimate engineer.</strong> If you want a data grid to last, you leverage the environment. This obsession is why I demand rugged reliability from everything I build for businesses and individuals.</p>
+            <p class="overview-para">My 'retirement plan' is a data center cooled by the lake outside my window. That's the level of obsession I bring to your project.</p>
+            <a href="../audit/index.html" class="btn btn-primary" style="margin-top: var(--s4);">Request Audit</a>
+          </div>
+
         </div>
-    </nav>
+      </div>
+    </section>
 
-    <main>
-        <section class="lake-gradient text-white py-32 px-10 relative overflow-hidden">
-            <div class="max-w-6xl mx-auto">
-                <div class="inline-block bg-blue-600 text-[10px] font-black px-4 py-1 mb-6 uppercase tracking-[0.3em]">ESTABLISHED 2006</div>
-                <h2 class="text-5xl md:text-8xl font-black italic tracking-tighter leading-none mb-8">
-                    20 YEARS OF <br> <span class="text-blue-400 font-light underline decoration-1 underline-offset-8">DATA DOMINANCE.</span>
-                </h2>
-                <p class="text-xl text-slate-300 max-w-2xl leading-relaxed">
-                    Wilbak Engineering marks two decades of structural and data engineering. We don't just solve problems; we outbuild them.
-                </p>
-            </div>
-        </section>
-
-        <section class="py-24 px-10 bg-white">
-            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
-                <div>
-                    <h3 class="text-4xl font-black uppercase italic mb-8">The Professional Overview</h3>
-                    <div class="space-y-6 text-slate-600 leading-relaxed">
-                        <p>I am Wilhelm Rybak, a Data and Structural Engineer. I’ve spent two decades in the trenches of industrial infrastructure, moving between Doha's heat and Alaska's cold.</p>
-                        <p>My philosophy: **Nature is the ultimate engineer.** If you want a data grid to last, you leverage the environment. This obsession is why I demand rugged reliability from everything I build for businesses and Individuals.</p>
-                        <p class="font-bold text-slate-900 italic border-l-4 border-blue-600 pl-6">
-                            "My 'retirement plan' is a data center cooled by the lake outside my window. That's the level of obsession I bring to your project."
-                        </p>
-                    </div>
-                </div>
-                <div class="space-y-12">
-                    <div class="relative group">
-                        <img src="https://res.cloudinary.com/dt6n4pnjb/image/upload/v1771986355/02_edy5z7.png" alt="Wilhelm Rybak" class="w-full grayscale transition shadow-2xl rounded-sm">
-                        <div class="absolute -bottom-4 -left-4 bg-slate-900 text-white p-4 shadow-2xl skew-x-[-10deg] animate-fade-in">
-                            <div class="skew-x-[10deg]">
-                                <h4 class="text-lg font-black uppercase italic">Wilhelm Rybak</h4>
-                                <p class="text-[9px] mono text-blue-400 uppercase tracking-widest font-bold">Founder / Principal</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-24 px-10 bg-slate-50 border-t border-slate-200">
-            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
-                <div class="bg-white border p-12 hover:border-blue-500 transition shadow-sm">
-                    <h4 class="text-2xl font-black uppercase italic mb-6">Field & Structural</h4>
-                    <p class="text-slate-500 text-sm leading-relaxed mb-8">The boots-on-the-ground. Specialists in physical and safety gears, overhauling nodes under extreme conditions globally.</p>
-                    <div class="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
-                        <span>Deployment Ready: Houston, TX</span>
-                    </div>
-                </div>
-                <div class="bg-white border p-12 hover:border-blue-500 transition shadow-sm">
-                    <h4 class="text-2xl font-black uppercase italic mb-6">Data & AI Hub</h4>
-                    <p class="text-slate-500 text-sm leading-relaxed mb-8">The logic behind OrthoMate™. Elite architects managing predictive AI training for Business Finance Management.</p>
-                    <div class="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-                        <span>Processing Protocol: v4.2</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-slate-950 text-white pt-20 pb-10 px-10">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-16 border-b border-slate-900 pb-16">
-            <div>
-                <img src="/logo.png" alt="WILBAK" class="h-10 mb-6 invert brightness-0">
-                <p class="text-slate-400 text-sm leading-relaxed">Operational logic for businesses that value performance over hype.</p>
-            </div>
-            <div>
-                <h5 class="font-bold text-xs uppercase tracking-[0.3em] text-blue-500 mb-8">Navigation</h5>
-                <ul class="space-y-4">
-                    <li><a href="/" class="footer-link">Home</a></li>
-                    <li><a href="/projects/" class="footer-link">Projects</a></li>
-                    <li><a href="/about/" class="footer-link">About</a></li>
-                    <li><a href="/Orthom8pro/" class="footer-link">OrthoMate™</a></li>
-                </ul>
-            </div>
-            <div>
-                <h5 class="font-bold text-xs uppercase tracking-[0.3em] text-slate-500 mb-8">System Status</h5>
-                <div class="bg-slate-900 p-6 rounded-sm border border-slate-800 text-[10px] mono">
-                    <div class="flex justify-between mb-2"><span>Status:</span><span class="text-green-500 font-black">Active</span></div>
-                    <div class="flex justify-between"><span>Location:</span><span class="text-slate-300 uppercase">Texas, USA</span></div>
-                </div>
-            </div>
+    <!-- SPECIALTIES -->
+    <section class="section section-alt">
+      <div class="wrap">
+        <div class="reveal">
+          <p class="eyebrow">Core Capabilities</p>
+          <h2 class="h2">Our Specialties</h2>
+          <p class="lead">Two divisions. One mission: zero failure.</p>
         </div>
-        <div class="pt-10 text-center text-[9px] font-bold text-slate-600 uppercase tracking-[0.4em]">
-            © 2026 Wilbak Engineering Group // Built for Unbreakable Performance
+
+        <div class="spec-grid">
+          <div class="spec-card reveal d1">
+            <h3 class="spec-title">Field &amp; Structural</h3>
+            <p class="spec-desc">The boots-on-the-ground. Specialists in physical and safety gears, overhauling nodes under extreme conditions globally.</p>
+            <span class="spec-status">Deployment Ready: Houston, TX</span>
+          </div>
+          <div class="spec-card reveal d2">
+            <h3 class="spec-title">Data &amp; AI Hub</h3>
+            <p class="spec-desc">The logic behind OrthoMate™. Elite architects managing predictive AI training for Business Finance Management.</p>
+            <span class="spec-status">Processing Protocol: v4.2</span>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script>
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('page-loader');
-            setTimeout(() => {
-                loader.classList.add('fade-out');
-                setTimeout(() => loader.style.display = 'none', 500);
-            }, 800);
-        });
+  </main>
 
-        // Intercept link clicks for loader
-        document.querySelectorAll('a').forEach(link => {
-            if (link.hostname === window.location.hostname && !link.hash) {
-                link.addEventListener('click', (e) => {
-                    const loader = document.getElementById('page-loader');
-                    loader.style.display = 'flex';
-                    loader.classList.remove('fade-out');
-                });
-            }
-        });
-    </script>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">Wilbak Engineering</div>
+          <p class="footer-desc">Operational logic for businesses that value performance over hype.</p>
+        </div>
+        <div>
+          <div class="footer-col-head">Company</div>
+          <ul class="footer-links">
+            <li><a href="../about/index.html">About</a></li>
+            <li><a href="../projects/index.html">Projects</a></li>
+            <li><a href="../insight/index.html">Insights</a></li>
+            <li><a href="../contact/index.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-head">Legal</div>
+          <ul class="footer-links">
+            <li><a href="../legal/privacy/index.html">Privacy Policy</a></li>
+            <li><a href="../legal/terms/index.html">Terms &amp; Conditions</a></li>
+            <li><a href="../legal/sla/index.html">SLA</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-head">Platform</div>
+          <ul class="footer-links">
+            <li><a href="../Orthom8pro/index.html">Ortho'm8</a></li>
+            <li><a href="../Orthom8pro/Results/index.html">Performance</a></li>
+            <li><a href="../Orthom8pro/our-team/index.html">Our Team</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Wilbak Engineering. All rights reserved.</span>
+        <span class="footer-attr">Ortho'm8 is a product of Brokard Williams.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    hamburger.addEventListener('click', () => {
+      const open = mobileNav.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', (e) => {
+      if (!navbar.contains(e.target) && !mobileNav.contains(e.target)) {
+        mobileNav.classList.remove('open'); hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+    });
+    const ro = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+  </script>
 </body>
 </html>

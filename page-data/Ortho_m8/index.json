@@ -1,0 +1,457 @@
+{
+  "page": "orthom8-index",
+  "translations": {
+    "en": {
+      "title": "Ortho'M8 — Algorithmic Capital Management & Business Security Engine",
+      "meta": {
+        "description": "Ortho'M8 is an Algorithmic Capital Management system built for business excellence. Fully automated, risk-hardened, and transparent."
+      },
+      "hero": {
+        "eyebrow": "Institutional Grade Intelligence — v3.4.0",
+        "heading": "Secure your <em class='serif italic text-[#D4AC3A]'>Business Legacy</em> through <strong>Deep Intelligence.</strong>",
+        "body": "Ortho'M8 is the first Algorithmic Capital Management engine that treats risk as a variable, not a gamble. Secure non-riskable capital with 99.9% precision.",
+        "primary_cta": "INITIATE PRIVATE AUDIT",
+        "secondary_cta": "Explore the Model Matrix →",
+        "stats": [
+          {
+            "value": "$142.8M",
+            "label": "Capital Deployed"
+          },
+          {
+            "value": "95.0%",
+            "label": "Precision Floor"
+          }
+        ]
+      },
+      "security_engine": {
+        "title": "SECURITY_ENGINE_LIVE",
+        "status": "SECURE",
+        "nodes": [
+          {
+            "num": "01",
+            "label": "Neutral Flow Ingestion"
+          },
+          {
+            "num": "02",
+            "label": "Order Block Identification"
+          },
+          {
+            "num": "03",
+            "label": "Institutional Liquidity Check"
+          },
+          {
+            "num": "04",
+            "label": "Liquidity Pool Mapping"
+          },
+          {
+            "num": "05",
+            "label": "STRATEGIC TRIGGER VALIDATED",
+            "highlight": true
+          },
+          {
+            "num": "06",
+            "label": "Capital Drawdown Check"
+          },
+          {
+            "num": "07",
+            "label": "Risk-Off Threshold Pulse"
+          },
+          {
+            "num": "08",
+            "label": "PROTOCOL EXECUTION SECURED",
+            "success": true
+          }
+        ],
+        "metrics": [
+          {
+            "value": "320ms",
+            "label": "Latency"
+          },
+          {
+            "value": "ENABLED",
+            "label": "AI Safeguard"
+          },
+          {
+            "value": "99.9%",
+            "label": "Reliability"
+          }
+        ]
+      },
+      "performance": {
+        "eyebrow": "The Performance Metric",
+        "heading": "A legacy of <em>unwavering</em> precision and <br><strong>mathematical proof.</strong>",
+        "cards": [
+          {
+            "category": "DOMAIN ANALYSIS",
+            "title": "Capital Security Matrix",
+            "description": "Our system analyzes over 40 million data points daily to ensure that every capital anchor is protected by 11 independent risk gates."
+          },
+          {
+            "category": "RISK CONTROLS",
+            "title": "Non-Leaking Logic",
+            "description": "Hard-coded stop parameters ensure that human emotion never enters the execution pipe. If the data is 0.01% off, we stay out."
+          },
+          {
+            "category": "GLOBAL REACH",
+            "title": "Domain Correlation",
+            "description": "Mapping synthetic volatility to real-world commodity proxies gives us a strategic edge that traditional systems simply cannot see."
+          }
+        ]
+      },
+      "results": {
+        "eyebrow": "Real-Time Evidence",
+        "heading": "The <em>Proof</em> is in the <br><strong>Execution Layer.</strong>",
+        "body": "We provide full transparency into our performance. No hidden fees, no opaque strategies. Just results documented and verified by third-party auditors.",
+        "cta": "View Full Verification Report"
+      },
+      "proof_ribbon": {
+        "text": "Secured by OrthoG8 Protocol",
+        "verification": "95.0% Node precision verified"
+      },
+      "final_cta": {
+        "heading": "Secure your <em>Business Legacy</em> with <br><strong>Ortho'M8 Intelligence.</strong>",
+        "primary": "INITIATE MY AUDIT",
+        "secondary": "Consult with our Experts"
+      }
+    },
+    "es": {
+      "title": "Ortho'M8 — Sistema de Gestión de Capital Algorítmico y Motor de Seguridad Empresarial",
+      "meta": {
+        "description": "Ortho'M8 es un sistema de Gestión de Capital Algorítmico construido para la excelencia empresarial. Totalmente automatizado, endurecido contra riesgos y transparente."
+      },
+      "hero": {
+        "eyebrow": "Inteligencia de Grado Institucional — v3.4.0",
+        "heading": "Asegure su <em class='serif italic text-[#D4AC3A]'>Legado Empresarial</em> a través de <strong>Inteligencia Profunda.</strong>",
+        "body": "Ortho'M8 es el primer motor de Gestión de Capital Algorítmico que trata el riesgo como una variable, no como una apuesta. Asegure capital no arriesgado con 99.9% de precisión.",
+        "primary_cta": "INICIAR AUDITORÍA PRIVADA",
+        "secondary_cta": "Explorar la Matriz del Modelo →",
+        "stats": [
+          {
+            "value": "$142.8M",
+            "label": "Capital Desplegado"
+          },
+          {
+            "value": "95.0%",
+            "label": "Suelo de Precisión"
+          }
+        ]
+      },
+      "security_engine": {
+        "title": "MOTOR_SEGURIDAD_ACTIVO",
+        "status": "SEGURO",
+        "nodes": [
+          {
+            "num": "01",
+            "label": "Ingestión de Flujo Neutral"
+          },
+          {
+            "num": "02",
+            "label": "Identificación de Bloque de Órdenes"
+          },
+          {
+            "num": "03",
+            "label": "Verificación de Liquidez Institucional"
+          },
+          {
+            "num": "04",
+            "label": "Mapeo de Pool de Liquidez"
+          },
+          {
+            "num": "05",
+            "label": "DISPARADOR ESTRATÉGICO VALIDADO",
+            "highlight": true
+          },
+          {
+            "num": "06",
+            "label": "Verificación de Retirada de Capital"
+          },
+          {
+            "num": "07",
+            "label": "Pulso de Umbral de Reducción de Riesgo"
+          },
+          {
+            "num": "08",
+            "label": "EJECUCIÓN DE PROTOCOLO ASEGURADA",
+            "success": true
+          }
+        ],
+        "metrics": [
+          {
+            "value": "320ms",
+            "label": "Latencia"
+          },
+          {
+            "value": "ACTIVADO",
+            "label": "Salvaguarda IA"
+          },
+          {
+            "value": "99.9%",
+            "label": "Fiabilidad"
+          }
+        ]
+      },
+      "performance": {
+        "eyebrow": "La Métrica de Rendimiento",
+        "heading": "Un legado de precisión <em>inquebrantable</em> y <strong>prueba matemática.</strong>",
+        "cards": [
+          {
+            "category": "ANÁLISIS DE DOMINIO",
+            "title": "Matriz de Seguridad de Capital",
+            "description": "Nuestro sistema analiza más de 40 millones de puntos de datos diariamente para asegurar que cada ancla de capital esté protegida por 11 puertas de riesgo independientes."
+          },
+          {
+            "category": "CONTROLES DE RIESGO",
+            "title": "Lógica No Fugitiva",
+            "description": "Los parámetros de parada codificados aseguran que la emoción humana nunca entre en la tubería de ejecución. Si los datos están 0.01% fuera, nos mantenemos fuera."
+          },
+          {
+            "category": "ALCANCE GLOBAL",
+            "title": "Correlación de Dominio",
+            "description": "Mapear la volatilidad sintética a productos básicos del mundo real nos da una ventaja estratégica que los sistemas tradicionales simplemente no pueden ver."
+          }
+        ]
+      },
+      "results": {
+        "eyebrow": "Evidencia en Tiempo Real",
+        "heading": "La <em>Prueba</em> está en la <br><strong>Capa de Ejecución.</strong>",
+        "body": "Proporcionamos total transparencia en nuestro rendimiento. Sin tarifas ocultas, sin estrategias opacas. Solo resultados documentados y verificados por auditores de terceros.",
+        "cta": "Ver Informe de Verificación Completo"
+      },
+      "proof_ribbon": {
+        "text": "Asegurado por el Protocolo OrthoG8",
+        "verification": "95.0% Precisión de nodo verificada"
+      },
+      "final_cta": {
+        "heading": "Asegure su <em>Legado Empresarial</em> con <br><strong>Inteligencia Ortho'M8.</strong>",
+        "primary": "INICIAR MI AUDITORÍA",
+        "secondary": "Consultar con Nuestros Expertos"
+      }
+    },
+    "nl": {
+      "title": "Ortho'M8 — Algoritmisch Kapitaalbeheer & Bedrijfsveiligheid Motor",
+      "meta": {
+        "description": "Ortho'M8 is een Algoritmisch Kapitaalbeheer systeem gebouwd voor zakelijke excellentie. Volledig geautomatiseerd, risico-bestendig en transparant."
+      },
+      "hero": {
+        "eyebrow": "Institutionele Kwaliteit Intelligentie — v3.4.0",
+        "heading": "Beveilig uw <em class='serif italic text-[#D4AC3A]'>Bedrijfslegacy</em> door <strong>Diepe Intelligentie.</strong>",
+        "body": "Ortho'M8 is de eerste Algoritmisch Kapitaalbeheer motor die risico behandelt als een variabele, niet als een gok. Beveilig niet-risicovol kapitaal met 99.9% precisie.",
+        "primary_cta": "INITIËER PRIVÉ AUDIT",
+        "secondary_cta": "Verken de Model Matrix →",
+        "stats": [
+          {
+            "value": "$142.8M",
+            "label": "Kapitaal Uitgezet"
+          },
+          {
+            "value": "95.0%",
+            "label": "Precisie Vloer"
+          }
+        ]
+      },
+      "security_engine": {
+        "title": "VEILIGHEID_MOTOR_ACTIEF",
+        "status": "VEILIG",
+        "nodes": [
+          {
+            "num": "01",
+            "label": "Neutrale Stroom Inname"
+          },
+          {
+            "num": "02",
+            "label": "Order Blok Identificatie"
+          },
+          {
+            "num": "03",
+            "label": "Institutionele Liquiditeit Controle"
+          },
+          {
+            "num": "04",
+            "label": "Liquiditeit Pool Mapping"
+          },
+          {
+            "num": "05",
+            "label": "STRATEGISCHE TRIGGER GEVALIDEERD",
+            "highlight": true
+          },
+          {
+            "num": "06",
+            "label": "Kapitaal Terugtrekking Controle"
+          },
+          {
+            "num": "07",
+            "label": "Risico-Af Drempel Puls"
+          },
+          {
+            "num": "08",
+            "label": "PROTOCOL UITVOERING BEVEILIGD",
+            "success": true
+          }
+        ],
+        "metrics": [
+          {
+            "value": "320ms",
+            "label": "Latentie"
+          },
+          {
+            "value": "INGESCHAKELD",
+            "label": "IA Bescherming"
+          },
+          {
+            "value": "99.9%",
+            "label": "Betrouwbaarheid"
+          }
+        ]
+      },
+      "performance": {
+        "eyebrow": "De Prestatie Metric",
+        "heading": "Een erfenis van <em>onwrikbare</em> precisie en <strong>wiskundig bewijs.</strong>",
+        "cards": [
+          {
+            "category": "DOMAINE ANALYSE",
+            "title": "Kapitaal Veiligheid Matrix",
+            "description": "Ons systeem analyseert dagelijks meer dan 40 miljoen datapunten om ervoor te zorgen dat elke kapitaalanker wordt beschermd door 11 onafhankelijke risicopoorten."
+          },
+          {
+            "category": "RISICO CONTROLES",
+            "title": "Niet-Lekkende Logica",
+            "description": "Gecodeerde stopparameters zorgen ervoor dat menselijke emotie nooit de uitvoeringspijp binnengaat. Als de data 0.01% afwijkt, blijven we buiten."
+          },
+          {
+            "category": "GLOBAAL BEREIK",
+            "title": "Domein Correlatie",
+            "description": "Het mappen van synthetische volatiliteit naar reële wereld grondstof proxies geeft ons een strategisch voordeel dat traditionele systemen simpelweg niet kunnen zien."
+          }
+        ]
+      },
+      "results": {
+        "eyebrow": "Real-Time Bewijs",
+        "heading": "Het <em>Bewijs</em> zit in de <br><strong>Uitvoeringslaag.</strong>",
+        "body": "Wij bieden volledige transparantie in onze prestaties. Geen verborgen kosten, geen ondoorzichtige strategieën. Alleen resultaten gedocumenteerd en geverifieerd door derden auditors.",
+        "cta": "Bekijk Volledig Verificatie Rapport"
+      },
+      "proof_ribbon": {
+        "text": "Beveiligd door OrthoG8 Protocol",
+        "verification": "95.0% Node precisie geverifieerd"
+      },
+      "final_cta": {
+        "heading": "Beveilig uw <em>Bedrijfslegacy</em> met <br><strong>Ortho'M8 Intelligentie.</strong>",
+        "primary": "INITIËER MIJN AUDIT",
+        "secondary": "Consulteer Onze Experts"
+      }
+    },
+    "fr": {
+      "title": "Ortho'M8 — Système de Gestion de Capital Algorithmique & Moteur de Sécurité Commerciale",
+      "meta": {
+        "description": "Ortho'M8 est un système de Gestion de Capital Algorithmique construit pour l'excellence commerciale. Entièrement automatisé, durci contre les risques et transparent."
+      },
+      "hero": {
+        "eyebrow": "Intelligence de Niveau Institutionnel — v3.4.0",
+        "heading": "Sécurisez votre <em class='serif italic text-[#D4AC3A]'>Héritage Commerical</em> grâce à <strong>l'Intelligence Profonde.</strong>",
+        "body": "Ortho'M8 est le premier moteur de Gestion de Capital Algorithmique qui traite le risque comme une variable, pas un pari. Sécurisez le capital non risquable avec 99.9% de précision.",
+        "primary_cta": "INITIER AUDIT PRIVÉ",
+        "secondary_cta": "Explorer la Matrice du Modèle →",
+        "stats": [
+          {
+            "value": "$142.8M",
+            "label": "Capital Déployé"
+          },
+          {
+            "value": "95.0%",
+            "label": "Plancher de Précision"
+          }
+        ]
+      },
+      "security_engine": {
+        "title": "MOTEUR_SÉCURITÉ_ACTIF",
+        "status": "SÉCURISÉ",
+        "nodes": [
+          {
+            "num": "01",
+            "label": "Ingestion de Flux Neutre"
+          },
+          {
+            "num": "02",
+            "label": "Identification de Bloc d'Ordres"
+          },
+          {
+            "num": "03",
+            "label": "Vérification de Liquidité Institutionnelle"
+          },
+          {
+            "num": "04",
+            "label": "Mapping de Pool de Liquidité"
+          },
+          {
+            "num": "05",
+            "label": "DÉCLENCHEUR STRATÉGIQUE VALIDÉ",
+            "highlight": true
+          },
+          {
+            "num": "06",
+            "label": "Vérification de Retrait de Capital"
+          },
+          {
+            "num": "07",
+            "label": "Pulsation de Seuil de Réduction de Risque"
+          },
+          {
+            "num": "08",
+            "label": "EXÉCUTION DE PROTOCOLE SÉCURISÉE",
+            "success": true
+          }
+        ],
+        "metrics": [
+          {
+            "value": "320ms",
+            "label": "Latence"
+          },
+          {
+            "value": "ACTIVÉ",
+            "label": "Protection IA"
+          },
+          {
+            "value": "99.9%",
+            "label": "Fiabilité"
+          }
+        ]
+      },
+      "performance": {
+        "eyebrow": "La Métrique de Performance",
+        "heading": "Un héritage de précision <em>inébranlable</em> et de <strong>preuve mathématique.</strong>",
+        "cards": [
+          {
+            "category": "ANALYSE DE DOMAINE",
+            "title": "Matrice de Sécurité du Capital",
+            "description": "Notre système analyse plus de 40 millions de points de données quotidiennement pour assurer que chaque ancre de capital est protégée par 11 portes de risque indépendantes."
+          },
+          {
+            "category": "CONTRÔLES DE RISQUE",
+            "title": "Logique Non Fuyante",
+            "description": "Les paramètres d'arrêt codés en dur assurent que l'émotion humaine n'entre jamais dans le pipeline d'exécution. Si les données sont à 0.01% près, nous restons en dehors."
+          },
+          {
+            "category": "PORTE MONDIALE",
+            "title": "Corrélation de Domaine",
+            "description": "Mapper la volatilité synthétique aux proxies de matières premières du monde réel nous donne un avantage stratégique que les systèmes traditionnels ne peuvent tout simplement pas voir."
+          }
+        ]
+      },
+      "results": {
+        "eyebrow": "Preuve en Temps Réel",
+        "heading": "La <em>Preuve</em> est dans la <br><strong>Couche d'Exécution.</strong>",
+        "body": "Nous fournissons une transparence totale dans nos performances. Pas de frais cachés, pas de stratégies opaques. Juste des résultats documentés et vérifiés par des auditeurs tiers.",
+        "cta": "Voir le Rapport de Vérification Complet"
+      },
+      "proof_ribbon": {
+        "text": "Sécurisé par le Protocole OrthoG8",
+        "verification": "95.0% Précision de nœud vérifiée"
+      },
+      "final_cta": {
+        "heading": "Sécurisez votre <em>Héritage Commercial</em> avec <br><strong>l'Intelligence Ortho'M8.</strong>",
+        "primary": "INITIER MON AUDIT",
+        "secondary": "Consulter Nos Experts"
+      }
+    }
+  }
+}

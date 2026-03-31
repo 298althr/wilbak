@@ -82,3 +82,30 @@ model Vote {
 
   @@unique([nodeId, sessionId])
 }
+
+model OrthoM8Lead {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Onboarding form answers
+  sector        String?          // e.g. "energy", "agri", "import"
+  concerns      Json?            // String[] — multi-select risk concerns
+  capitalRange  String?          // e.g. "1m-5m"
+
+  // Contact details
+  name          String
+  email         String
+  company       String?
+  phone         String?
+  callTime      String?
+  message       String?  @db.Text
+
+  // Internal
+  source        String   @default("orthom8-onboarding")
+  status        String   @default("NEW") // NEW, CONTACTED, QUALIFIED, ARCHIVED
+
+  @@index([email])
+  @@index([status])
+  @@index([createdAt])
+}

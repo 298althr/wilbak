@@ -1,156 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects | Wilbak Engineering</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | Wilbak Engineering</title>
+  <meta name="description" content="A record of infrastructure and management systems built under pressure globally.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../wilbak-base.css">
+  <style>
+    .page-hero {
+      padding-top: calc(var(--nav-h) + var(--s20));
+      padding-bottom: var(--s20);
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(-45deg, transparent, transparent 60px, rgba(27,58,122,0.015) 60px, rgba(27,58,122,0.015) 61px);
+      pointer-events: none;
+    }
+    .page-hero-inner { position: relative; z-index: 1; }
+    .page-hero-eyebrow { font-family: var(--font-mono); font-size: var(--text-10); color: var(--brand-mid); letter-spacing: var(--ls-4); text-transform: uppercase; margin-bottom: var(--s5); }
+    .page-hero-heading { font-family: var(--font-display); font-size: var(--text-hero); line-height: var(--lh-tight); color: var(--navy); letter-spacing: 0.01em; margin-bottom: var(--s6); }
+    .page-hero-heading span { color: var(--brand-mid); }
+    .page-hero-body { font-size: var(--text-18); font-weight: var(--thin); color: var(--gray-500); line-height: var(--lh-loose); max-width: 560px; }
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    /* Projects grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--s6);
+      margin-top: var(--s12);
+    }
+    .project-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      box-shadow: var(--sh-xs);
+      transition: box-shadow var(--t-base) var(--ease-out), transform var(--t-base) var(--ease-out);
+    }
+    .project-card:hover { box-shadow: var(--sh-md); transform: translateY(-3px); }
+    .project-img {
+      aspect-ratio: 16 / 9;
+      background: var(--gray-100);
+      overflow: hidden;
+    }
+    .project-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .project-body { padding: var(--s8); }
+    .project-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--s4);
+      margin-bottom: var(--s4);
+    }
+    .project-year {
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      color: var(--brand-mid);
+      letter-spacing: var(--ls-3);
+      text-transform: uppercase;
+    }
+    .project-location {
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      color: var(--gray-400);
+      letter-spacing: var(--ls-2);
+    }
+    .project-category {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      color: var(--white);
+      background: var(--brand);
+      padding: 2px var(--s3);
+      border-radius: var(--r-sm);
+      letter-spacing: var(--ls-2);
+      text-transform: uppercase;
+    }
+    .project-title {
+      font-family: var(--font-body);
+      font-size: var(--text-22);
+      font-weight: var(--bold);
+      color: var(--navy);
+      letter-spacing: var(--ls-tight);
+      margin-bottom: var(--s3);
+    }
+    .project-desc {
+      font-size: var(--text-base);
+      font-weight: var(--thin);
+      color: var(--gray-500);
+      line-height: var(--lh-loose);
+    }
 
-    <style>
-        :root {
-            --neon-blue: #0076FF;
-            --deep-obsidian: #0A0C10;
-        }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fcfdfe; color: #0F172A; }
-        .mono { font-family: 'JetBrains Mono', monospace; font-weight: 700; }
-        .vault-gradient {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.7) 100%), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover; background-position: center;
-        }
-        .project-card {
-            border: 1px solid #e2e8f0; border-left: 4px solid #334155;
-            transition: all 0.4s ease; position: relative; overflow: hidden;
-            background: white;
-        }
-        .project-card:hover { border-left-color: #3b82f6; transform: translateY(-5px); box-shadow: 0 20px 25px rgba(0,0,0,0.05); }
-        .industrial-grid {
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 40px 40px;
-        }
-        .btn-premium { display: inline-block; padding: 0.75rem 2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.25em; font-size: 10px; transition: all 0.3s ease; border-radius: 0.125rem; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; text-align: center; }
-        
-        #page-loader { position: fixed; inset: 0; background: #0A0C10; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease; }
-        #page-loader.fade-out { opacity: 0; pointer-events: none; }
-        .loader-spin { width: 40px; height: 40px; border: 3px solid rgba(0, 118, 255, 0.1); border-top: 3px solid #0076FF; border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-    </style>
+    .project-body { padding: clamp(1.25rem, 4vw, var(--s8)); }
+    .project-meta { flex-wrap: wrap; gap: clamp(0.5rem, 2vw, var(--s4)); }
+
+    @media (max-width: 768px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-title { font-size: var(--text-18); }
+    }
+  </style>
 </head>
+<body>
 
-<body x-data="{ mobileMenu: false }">
-
-    <div id="page-loader">
-        <div class="loader-spin mb-4"></div>
-        <div class="mono text-[10px] text-blue-500 uppercase tracking-[0.4em] animate-pulse">Initializing Protocol...</div>
-    </div>
-
-    <nav class="flex justify-between items-center px-6 md:px-10 py-6 bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
-        <a href="/" class="cursor-pointer"><img src="/logo.png" alt="WILBAK" class="h-8 md:h-10"></a>
-        <div class="hidden md:flex items-center space-x-10 font-bold text-xs uppercase tracking-[0.2em]">
-            <a href="/" class="text-slate-500 hover:text-blue-600 transition">Home</a>
-            <a href="/projects/" class="text-blue-600 transition">Projects</a>
-            <a href="/about/" class="text-slate-500 hover:text-blue-600 transition">About</a>
-            <a href="/Orthom8pro/" class="text-slate-500 hover:text-blue-600 transition">OrthoMate™</a>
-            <a href="/contact/" class="text-slate-500 hover:text-blue-600 transition">Contact</a>
-            <a href="/insight/" class="text-slate-500 hover:text-blue-600 transition">News & Insights</a>
-            <a href="/audit/" class="btn-premium bg-slate-900 text-white hover:bg-blue-700">Business Audit</a>
-        </div>
-        <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-slate-900">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path x-show="!mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                <path x-show="mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
+  <nav class="nav" id="navbar">
+    <div class="wrap">
+      <div class="nav-row">
+        <a href="../index.html" class="nav-brand">
+          <span class="nav-brand-name">Wilbak Engineering</span>
+          <span class="nav-brand-sub">Est. 2006 · Houston, TX</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="../about/index.html">About</a></li>
+          <li><a href="../projects/index.html" class="active">Projects</a></li>
+          <li><a href="../insight/index.html">Insights</a></li>
+          <li><a href="../contact/index.html">Contact</a></li>
+        </ul>
+        <div class="nav-cta"><a href="../audit/index.html" class="btn btn-primary">Request Audit</a></div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
         </button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="../about/index.html">About</a>
+    <a href="../projects/index.html">Projects</a>
+    <a href="../insight/index.html">Insights</a>
+    <a href="../contact/index.html">Contact</a>
+  </div>
 
-        <!-- Mobile Menu Overlay -->
-        <div x-show="mobileMenu" x-cloak
-            class="absolute top-full left-0 w-full bg-white border-b border-slate-200 md:hidden z-40 shadow-xl p-8 space-y-6 flex flex-col font-bold text-xs uppercase tracking-[0.2em]">
-            <a href="/" class="text-slate-900">Home</a>
-            <a href="/projects/" class="text-blue-600">Projects</a>
-            <a href="/about/" class="text-slate-900">About</a>
-            <a href="/Orthom8pro/" class="text-slate-900">OrthoMate™</a>
-            <a href="/contact/" class="text-slate-900">Contact</a>
-            <a href="/insight/" class="text-slate-900">News & Insights</a>
-            <a href="/audit/" class="bg-slate-900 text-white px-6 py-4 text-center rounded-sm">Business Audit</a>
+  <main>
+    <section class="page-hero">
+      <div class="wrap page-hero-inner">
+        <p class="page-hero-eyebrow">[ Operational History: 2016 — 2026 ]</p>
+        <h1 class="page-hero-heading">Our <span>Projects.</span></h1>
+        <p class="page-hero-body">A record of infrastructure and management systems built under pressure globally.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="reveal">
+          <p class="eyebrow">Global Portfolio</p>
+          <h2 class="h2">Case Studies</h2>
+          <p class="lead">Four landmark projects across three continents.</p>
         </div>
-    </nav>
 
-    <main class="min-h-screen bg-slate-50 industrial-grid">
-        <header class="vault-gradient text-white py-32 px-10 relative overflow-hidden">
-            <div class="max-w-6xl mx-auto relative z-10">
-                <h2 class="text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-none">Our <br><span class="text-blue-500">Projects.</span></h2>
-                <p class="text-blue-400 mono text-sm mt-8 tracking-widest uppercase font-bold">[ Operational History: 2016 — 2026 ]</p>
-                <p class="text-slate-400 mt-6 max-w-2xl text-lg leading-relaxed">
-                    A record of infrastructure and management systems built under pressure globally.
-                </p>
+        <div class="projects-grid">
+
+          <div class="project-card reveal d1">
+            <div class="project-img">
+              <img src="https://images.unsplash.com/photo-1508791191529-0a4a5ac685de?auto=format&fit=crop&q=80&w=800" alt="Norway Commercial Bank" loading="lazy">
             </div>
-        </header>
-
-        <section class="max-w-6xl mx-auto px-10 -mt-16 pb-32 relative z-20">
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Project 1 -->
-                <div class="project-card p-10 shadow-sm transition">
-                    <div class="flex justify-between items-start mb-6">
-                        <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2023 | Oslo, Norway</span>
-                        <span class="bg-slate-100 text-[10px] font-black px-3 py-1 uppercase tracking-tighter">RENEWABLE INTEGRATION</span>
-                    </div>
-                    <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">NORWAY COMMERCIAL BANK</h3>
-                    <p class="text-slate-600 mb-8 leading-relaxed">High-availability data center integrated directly into a wind farm's power grid.</p>
-                </div>
-                <!-- Project 2 -->
-                <div class="project-card p-10 shadow-sm transition">
-                    <div class="flex justify-between items-start mb-6">
-                        <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2020 | Anchorage, Alaska</span>
-                        <span class="bg-red-50 text-red-600 text-[10px] font-black px-3 py-1 uppercase tracking-tighter italic">HIGH-STAKES</span>
-                    </div>
-                    <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">ARCTIC OVERHAUL</h3>
-                    <p class="text-slate-600 mb-8 leading-relaxed">Full data center overhaul during the 2020 pandemic isolation protocols.</p>
-                </div>
-                <!-- Project 3 -->
-                <div class="project-card p-10 shadow-sm transition">
-                    <div class="flex justify-between items-start mb-6">
-                        <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2022 | Doha, Qatar</span>
-                    </div>
-                    <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">DOHA MARITIME CENTER</h3>
-                    <p class="text-slate-600 mb-8 leading-relaxed">Coastal mini-facility for World Cup data processing with seawater cooling.</p>
-                </div>
-                <!-- Project 4 -->
-                <div class="project-card p-10 shadow-sm transition">
-                    <div class="flex justify-between items-start mb-6">
-                        <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest">2018 | Toyota HQ</span>
-                    </div>
-                    <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4">TOYOTA DATA PLANT</h3>
-                    <p class="text-slate-600 mb-8 leading-relaxed">Managing hyper-redundant power systems for manufacturing assembly continuity.</p>
-                </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-year">2023</span>
+                <span class="project-location">Oslo, Norway</span>
+                <span class="project-category">Renewable Integration</span>
+              </div>
+              <h3 class="project-title">Norway Commercial Bank</h3>
+              <p class="project-desc">High-availability data center integrated directly into a wind farm's power grid.</p>
             </div>
-        </section>
-    </main>
+          </div>
 
-    <footer class="bg-slate-950 text-white pt-20 pb-10 px-10">
-        <div class="max-w-7xl mx-auto text-center text-[9px] font-bold text-slate-600 uppercase tracking-[0.4em]">
-            © 2026 Wilbak Engineering Group // Built for Unbreakable Performance
+          <div class="project-card reveal d2">
+            <div class="project-img">
+              <img src="https://images.unsplash.com/photo-1542641728-6ca359b085f4?auto=format&fit=crop&q=80&w=800" alt="Arctic Overhaul" loading="lazy">
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-year">2020</span>
+                <span class="project-location">Anchorage, Alaska</span>
+                <span class="project-category">High-Stakes</span>
+              </div>
+              <h3 class="project-title">Arctic Overhaul</h3>
+              <p class="project-desc">Full data center overhaul during 2020 pandemic isolation protocols.</p>
+            </div>
+          </div>
+
+          <div class="project-card reveal d1">
+            <div class="project-img">
+              <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&q=80&w=800" alt="Doha Maritime Center" loading="lazy">
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-year">2022</span>
+                <span class="project-location">Doha, Qatar</span>
+              </div>
+              <h3 class="project-title">Doha Maritime Center</h3>
+              <p class="project-desc">Coastal mini-facility for World Cup data processing with seawater cooling.</p>
+            </div>
+          </div>
+
+          <div class="project-card reveal d2">
+            <div class="project-img">
+              <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800" alt="Toyota Data Plant" loading="lazy">
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-year">2018</span>
+                <span class="project-location">Toyota HQ</span>
+              </div>
+              <h3 class="project-title">Toyota Data Plant</h3>
+              <p class="project-desc">Managing hyper-redundant power systems for manufacturing assembly continuity.</p>
+            </div>
+          </div>
+
         </div>
-    </footer>
+      </div>
+    </section>
+  </main>
 
-    <script>
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('page-loader');
-            setTimeout(() => { loader.classList.add('fade-out'); setTimeout(() => loader.style.display = 'none', 500); }, 500);
-        });
-        document.querySelectorAll('a').forEach(link => {
-            if (link.hostname === window.location.hostname && !link.hash) {
-                link.addEventListener('click', () => {
-                    const loader = document.getElementById('page-loader');
-                    loader.style.display = 'flex'; loader.classList.remove('fade-out');
-                });
-            }
-        });
-    </script>
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">Wilbak Engineering</div>
+          <p class="footer-desc">High-performance business logic for industries that demand zero failure. Engineering certainty since 2006.</p>
+        </div>
+        <div>
+          <div class="footer-col-head">Company</div>
+          <ul class="footer-links">
+            <li><a href="../about/index.html">About</a></li>
+            <li><a href="../projects/index.html">Projects</a></li>
+            <li><a href="../insight/index.html">Insights</a></li>
+            <li><a href="../contact/index.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-head">Legal</div>
+          <ul class="footer-links">
+            <li><a href="../legal/privacy/index.html">Privacy Policy</a></li>
+            <li><a href="../legal/terms/index.html">Terms &amp; Conditions</a></li>
+            <li><a href="../legal/sla/index.html">SLA</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-head">Platform</div>
+          <ul class="footer-links">
+            <li><a href="../Orthom8pro/index.html">Ortho'm8</a></li>
+            <li><a href="../Orthom8pro/Results/index.html">Performance</a></li>
+            <li><a href="../Orthom8pro/our-team/index.html">Our Team</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Wilbak Engineering. All rights reserved.</span>
+        <span class="footer-attr">Ortho'm8 is a product of Brokard Williams.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    hamburger.addEventListener('click', () => {
+      const open = mobileNav.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', (e) => {
+      if (!navbar.contains(e.target) && !mobileNav.contains(e.target)) {
+        mobileNav.classList.remove('open'); hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+    });
+    const ro = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+  </script>
 </body>
 </html>

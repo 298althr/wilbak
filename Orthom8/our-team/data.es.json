@@ -1,0 +1,27 @@
+{
+  "content": {
+    "mission": {
+      "eyebrow": "Nuestra Misión",
+      "heading": "Diseñado para la <em>Confianza</em>.<br>Impulsado por la <strong>Inteligencia.</strong>",
+      "body": "Ortho'M8 se fundó sobre un principio simple: el trading de alto rendimiento debe estar gobernado por la lógica, no por la emoción. Cerramos la brecha entre la complejidad técnica y la ejecución transparente."
+    },
+    "leadership": {
+      "eyebrow": "Arquitectura de Liderazgo",
+      "heading": "La <em>Visión</em> detrás de la <br><strong>Ejecución.</strong>",
+      "body": "Nuestro equipo de liderazgo combina décadas de experiencia en finanzas cuantitativas, ciberseguridad y modelado de redes neuronales. Creemos en construir sistemas que puedan resistir cualquier condición de mercado.",
+      "team_members": [
+        { "name": "Thomas Ziegler",   "title": "Director de Estrategia Algorítmica"   },
+        { "name": "Wilhelm Rybak",    "title": "Jefe de Ingeniería de Datos"           },
+        { "name": "Brokard Williams", "title": "Ingeniero de Estrategia y Modelos"     },
+        { "name": "Ava Koners",       "title": "Directora de Investigación Cuantitativa" }
+      ],
+      "quote": "Ortho'M8 es la culminación de nuestra creencia de que los datos, cuando están debidamente controlados, son el activo más poderoso en cualquier mercado."
+    },
+    "cta": {
+      "heading": "Únase al <em>Futuro</em> del Capital.",
+      "body": "Programe una consulta privada con nuestro equipo para explorar cómo Ortho'M8 puede proteger y hacer crecer su ancla de capital.",
+      "primary": "Reservar una Consulta",
+      "secondary": "Contactar con Nuestra Oficina"
+    }
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "page": "orthom8-our-team",
+  "translations": {
+    "en": {
+      "title": "Our Team | Ortho'M8 — The Engineering DNA",
+      "meta": {
+        "description": "Meet the engineering DNA behind Ortho'M8's algorithmic capital management system."
+      },
+      "mission": {
+        "eyebrow": "Our Mission",
+        "heading": "Engineered for <em>Trust</em>.<br>Driven by <strong>Intelligence.</strong>",
+        "body": "Ortho'M8 was founded on a principle: high-performance trading governed by logic, not emotion."
+      },
+      "leadership": {
+        "eyebrow": "Leadership Architecture",
+        "heading": "The <em>Vision</em> behind the <br><strong>Execution.</strong>",
+        "body": "Our leadership team combines decades of experience in quantitative finance, cyber-security, and neural network modelling. We believe in building systems that can withstand any market condition.",
+        "team_members": [
+          {
+            "name": "Thomas Ziegler",
+            "title": "Director of Algorithmic Strategy"
+          },
+          {
+            "name": "Wilhelm Rybak",
+            "title": "Head of Data Engineering"
+          },
+          {
+            "name": "Brokard Williams",
+            "title": "Strategy & Model Engineer"
+          },
+          {
+            "name": "Ava Koners",
+            "title": "Director of Quantitative Research"
+          }
+        ],
+        "quote": "\"Ortho'M8 is the culmination of our belief that data, when properly gated, is the most powerful asset in any market.\""
+      },
+      "cta": {
+        "heading": "Join the <em>Future</em> of Capital.",
+        "body": "Schedule a private consultation with our team to explore how Ortho'M8 can protect and grow your capital anchor.",
+        "primary": "Book a Consultation",
+        "secondary": "Contact Our Office"
+      }
+    },
+    "es": {
+      "title": "Nuestro Equipo | Ortho'M8 — El ADN de Ingeniería",
+      "meta": {
+        "description": "Conozca el ADN de ingeniería detrás del sistema de gestión de capital algorítmico de Ortho'M8."
+      },
+      "mission": {
+        "eyebrow": "Nuestra Misión",
+        "heading": "Ingenierado para <em>Confianza</em>.<br>Impulsado por <strong>Inteligencia.</strong>",
+        "body": "Ortho'M8 fue fundado en un principio: trading de alto rendimiento gobernado por lógica, no por emoción."
+      },
+      "leadership": {
+        "eyebrow": "Arquitectura de Liderazgo",
+        "heading": "La <em>Visión</em> detrás de la <br><strong>Ejecución.</strong>",
+        "body": "Nuestro equipo de liderazgo combina décadas de experiencia en finanzas cuantitativas, ciberseguridad y modelado de redes neuronales. Creemos en construir sistemas que puedan resistir cualquier condición de mercado.",
+        "team_members": [
+          {
+            "name": "Thomas Ziegler",
+            "title": "Director de Estrategia Algorítmica"
+          },
+          {
+            "name": "Wilhelm Rybak",
+            "title": "Jefe de Ingeniería de Datos"
+          },
+          {
+            "name": "Brokard Williams",
+            "title": "Ingeniero de Estrategia y Modelo"
+          },
+          {
+            "name": "Ava Koners",
+            "title": "Directora de Investigación Cuantitativa"
+          }
+        ],
+        "quote": "\"Ortho'M8 es la culminación de nuestra creencia de que los datos, cuando están debidamente controlados, son el activo más poderoso en cualquier mercado.\""
+      },
+      "cta": {
+        "heading": "Únase al <em>Futuro</em> del Capital.",
+        "body": "Programe una consulta privada con nuestro equipo para explorar cómo Ortho'M8 puede proteger y hacer crecer su ancla de capital.",
+        "primary": "Reservar Consulta",
+        "secondary": "Contactar Nuestra Oficina"
+      }
+    },
+    "nl": {
+      "title": "Ons Team | Ortho'M8 — De Engineering DNA",
+      "meta": {
+        "description": "Ontmoet de engineering DNA achter Ortho'M8's algoritmisch kapitaalbeheer systeem."
+      },
+      "mission": {
+        "eyebrow": "Onze Missie",
+        "heading": "Gebouwd voor <em>Vertrouwen</em>.<br>Aangedreven door <strong>Intelligentie.</strong>",
+        "body": "Ortho'M8 werd opgericht op een principe: high-performance trading bestuurd door logica, niet door emotie."
+      },
+      "leadership": {
+        "eyebrow": "Leiderschapsarchitectuur",
+        "heading": "De <em>Visie</em> achter de <br><strong>Uitvoering.</strong>",
+        "body": "Ons leiderschapsteam combineert decennia van ervaring in kwantitatieve financiën, cyberbeveiliging en neurale netwerk modellering. We geloven in het bouwen van systemen die elke marktconditie kunnen weerstaan.",
+        "team_members": [
+          {
+            "name": "Thomas Ziegler",
+            "title": "Directeur Algoritmische Strategie"
+          },
+          {
+            "name": "Wilhelm Rybak",
+            "title": "Hoofd Data Engineering"
+          },
+          {
+            "name": "Brokard Williams",
+            "title": "Strategie & Model Engineer"
+          },
+          {
+            "name": "Ava Koners",
+            "title": "Directeur Kwantitatief Onderzoek"
+          }
+        ],
+        "quote": "\"Ortho'M8 is de culminatie van ons geloof dat data, wanneer correct afgeschermd, het meest krachtige actief is in elke markt.\""
+      },
+      "cta": {
+        "heading": "Sluit u aan bij de <em>Toekomst</em> van Kapitaal.",
+        "body": "Plan een privé consultatie met ons team om te verkennen hoe Ortho'M8 uw kapitaalanker kan beschermen en laten groeien.",
+        "primary": "Boek Consultatie",
+        "secondary": "Contact Onze Kantoor"
+      }
+    },
+    "fr": {
+      "title": "Notre Équipe | Ortho'M8 — L'ADN Ingénierie",
+      "meta": {
+        "description": "Découvrez l'ADN d'ingénierie derrière le système de gestion de capital algorithmique d'Ortho'M8."
+      },
+      "mission": {
+        "eyebrow": "Notre Mission",
+        "heading": "Conçu pour la <em>Confiance</em>.<br>Animé par l'<strong>Intelligence.</strong>",
+        "body": "Ortho'M8 a été fondé sur un principe : le trading haute performance gouverné par la logique, pas par l'émotion."
+      },
+      "leadership": {
+        "eyebrow": "Architecture de Leadership",
+        "heading": "La <em>Vision</em> derrière l'<strong>Exécution.</strong>",
+        "body": "Notre équipe de leadership combine des décennies d'expérience en finance quantitative, cybersécurité et modélisation de réseaux neuronaux. Nous croyons en la construction de systèmes qui peuvent résister à toutes les conditions de marché.",
+        "team_members": [
+          {
+            "name": "Thomas Ziegler",
+            "title": "Directeur de la Stratégie Algorithmique"
+          },
+          {
+            "name": "Wilhelm Rybak",
+            "title": "Chef de l'Ingénierie des Données"
+          },
+          {
+            "name": "Brokard Williams",
+            "title": "Ingénieur Stratégie et Modèle"
+          },
+          {
+            "name": "Ava Koners",
+            "title": "Directrice de la Recherche Quantitative"
+          }
+        ],
+        "quote": "\"Ortho'M8 est l'aboutissement de notre conviction que les données, lorsqu'elles sont correctement filtrées, sont l'actif le plus puissant dans n'importe quel marché.\""
+      },
+      "cta": {
+        "heading": "Rejoignez l'<em>Avenir</em> du Capital.",
+        "body": "Planifiez une consultation privée avec notre équipe pour explorer comment Ortho'M8 peut protéger et faire croître votre ancre de capital.",
+        "primary": "Réserver Consultation",
+        "secondary": "Contacter Notre Bureau"
+      }
+    }
+  }
+}

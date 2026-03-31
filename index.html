@@ -1,358 +1,1614 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wilbak Engineering – Wilhelm Rybak | High-Performance Business Logic & Automation</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wilbak Engineering – Wilhelm Rybak | High-Performance Business Logic & Automation</title>
+  <meta name="description" content="Wilbak Engineering provides unbreakable business logic and industrial automation infrastructure. Led by Wilhelm Rybak.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
-    <!-- SEO Meta Tags -->
-    <meta name="description"
-        content="Wilbak Engineering provides unbreakable business logic and industrial automation infrastructure. Led by Wilhelm Rybak.">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/i18n-loader.js"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>
+    /* ─────────────────────────────────────────────
+       TOKENS
+    ───────────────────────────────────────────── */
+    :root {
+      /* Light mode surfaces */
+      --white:        #FFFFFF;
+      --gray-50:      #F8F9FB;
+      --gray-100:     #F1F3F7;
+      --gray-200:     #E4E8EF;
+      --gray-300:     #CBD3DF;
+      --gray-400:     #9AA5B8;
+      --gray-500:     #64748B;
+      --gray-600:     #475569;
+      --gray-800:     #1E293B;
+      --gray-900:     #0F172A;
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@100..800&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap"
-        rel="stylesheet">
+      /* Brand — from design system */
+      --navy:         #0A1628;   /* Deepest brand navy — text, headings */
+      --brand:        #1B3A7A;   /* Primary brand blue */
+      --brand-mid:    #2451A8;   /* Interactive blue */
+      --brand-light:  #3D6FD4;   /* Hover / highlight */
+      --brand-tint:   rgba(27,58,122,0.06);
 
-    <style>
-        :root {
-            --neon-blue: #0076FF;
-            --deep-obsidian: #0A0C10;
-        }
+      /* Gold — used once, sparingly */
+      --gold:         #C9A84C;
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #fcfdfe;
-            color: #0F172A;
-            scroll-behavior: smooth;
-        }
+      /* Ortho'm8 only */
+      --om8-bg:       #060D1A;
+      --om8-surface:  #0A1628;
+      --om8-cyan:     #00D4FF;
+      --om8-cyan-dim: #00A8CC;
+      --om8-grid:     rgba(0,212,255,0.05);
 
-        .mono {
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
-        }
+      /* Typography */
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body:    'Outfit', sans-serif;
+      --font-mono:    'JetBrains Mono', monospace;
 
-        .lake-gradient {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%),
-                url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-        }
+      /* Scale */
+      --text-10:   0.625rem;
+      --text-11:   0.6875rem;
+      --text-13:   0.8125rem;
+      --text-base: 1rem;
+      --text-18:   1.125rem;
+      --text-22:   1.375rem;
+      --text-28:   1.75rem;
+      --text-36:   2.25rem;
+      --text-48:   3rem;
+      --text-hero: clamp(3.75rem, 8.5vw, 7rem);
 
-        .industrial-grid {
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 40px 40px;
-        }
+      /* Weights */
+      --thin:   300;
+      --reg:    400;
+      --med:    500;
+      --semi:   600;
+      --bold:   700;
 
-        .btn-premium {
-            display: inline-block;
-            padding: 0.75rem 2rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            font-size: 10px;
-            transition: all 0.3s ease;
-            border-radius: 0.125rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            text-align: center;
-        }
+      /* Leading */
+      --lh-tight:  1.1;
+      --lh-snug:   1.3;
+      --lh-base:   1.6;
+      --lh-loose:  1.85;
 
-        .btn-primary {
-            background-color: #2563eb;
-            color: #ffffff;
-        }
+      /* Tracking */
+      --ls-tight:  -0.025em;
+      --ls-0:       0;
+      --ls-1:       0.03em;
+      --ls-2:       0.07em;
+      --ls-3:       0.14em;
+      --ls-4:       0.22em;
 
-        .btn-secondary {
-            border: 1px solid #334155;
-            color: #ffffff;
-        }
+      /* Space */
+      --s1:  0.25rem;
+      --s2:  0.5rem;
+      --s3:  0.75rem;
+      --s4:  1rem;
+      --s5:  1.25rem;
+      --s6:  1.5rem;
+      --s8:  2rem;
+      --s10: 2.5rem;
+      --s12: 3rem;
+      --s16: 4rem;
+      --s20: 5rem;
+      --s24: 6rem;
 
-        .footer-link {
-            color: #94a3b8;
-            transition: color 0.2s ease;
-            cursor: pointer;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-        }
+      /* Layout */
+      --max-w:    1200px;
+      --sec-pad:  clamp(5rem, 9vw, 8rem);
+      --nav-h:    68px;
 
-        .footer-link:hover {
-            color: #3b82f6;
-        }
+      /* Radius */
+      --r-xs: 2px;
+      --r-sm: 4px;
+      --r-md: 8px;
+      --r-lg: 12px;
+      --r-xl: 20px;
+      --r-full: 9999px;
 
-        /* Page Loader */
-        #page-loader {
-            position: fixed;
-            inset: 0;
-            background: #0A0C10;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.5s ease;
-        }
+      /* Shadows — light mode */
+      --sh-xs: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
+      --sh-sm: 0 2px 8px rgba(15,23,42,0.08), 0 1px 3px rgba(15,23,42,0.05);
+      --sh-md: 0 4px 20px rgba(15,23,42,0.10), 0 2px 6px rgba(15,23,42,0.06);
+      --sh-lg: 0 8px 40px rgba(15,23,42,0.12), 0 4px 12px rgba(15,23,42,0.07);
 
-        #page-loader.fade-out {
-            opacity: 0;
-            pointer-events: none;
-        }
+      /* Z */
+      --z-base:  1;
+      --z-up:    10;
+      --z-nav:   9999;
 
-        .loader-spin {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(0, 118, 255, 0.1);
-            border-top: 3px solid #0076FF;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
+      /* Motion */
+      --t-fast:   140ms;
+      --t-base:   260ms;
+      --t-slow:   480ms;
+      --ease-out: cubic-bezier(0.0, 0, 0.2, 1);
+      --ease-io:  cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
+    /* ─────────────────────────────────────────────
+       RESET
+    ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--white);
+      color: var(--navy);
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      font-weight: var(--reg);
+      line-height: var(--lh-base);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+
+    /* ─────────────────────────────────────────────
+       KEYFRAMES
+    ───────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes tickerMove {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @keyframes lineDown {
+      0%, 100% { transform: translateX(-50%) scaleY(1); opacity: 0.4; }
+      50%       { transform: translateX(-50%) scaleY(1.3); opacity: 1; }
+    }
+    @keyframes om8Flicker {
+      0%, 88%, 92%, 96%, 100% { opacity: 1; }
+      90%  { opacity: 0.55; }
+      94%  { opacity: 0.75; }
+    }
+
+    /* ─────────────────────────────────────────────
+       SCROLL REVEAL
+    ───────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity var(--t-slow) var(--ease-out),
+                  transform var(--t-slow) var(--ease-out);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 60ms; }
+    .d2 { transition-delay: 120ms; }
+    .d3 { transition-delay: 180ms; }
+
+    /* ─────────────────────────────────────────────
+       LAYOUT
+    ───────────────────────────────────────────── */
+    .wrap {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--s8);
+    }
+
+    /* ─────────────────────────────────────────────
+       NAVIGATION
+    ───────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--gray-200);
+      z-index: var(--z-nav);
+      transition: border-color var(--t-base) var(--ease-out),
+                  box-shadow var(--t-base) var(--ease-out);
+    }
+    .nav.scrolled {
+      border-bottom-color: var(--gray-300);
+      box-shadow: var(--sh-sm);
+    }
+    .nav-row {
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      flex-shrink: 0;
+    }
+    .nav-brand-name {
+      font-family: var(--font-body);
+      font-size: var(--text-13);
+      font-weight: var(--bold);
+      color: var(--navy);
+      letter-spacing: var(--ls-3);
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .nav-brand-sub {
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      color: var(--gray-400);
+      letter-spacing: var(--ls-3);
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: var(--s8);
+    }
+    .nav-links a {
+      font-size: var(--text-11);
+      font-weight: var(--med);
+      color: var(--gray-500);
+      letter-spacing: var(--ls-3);
+      text-transform: uppercase;
+      transition: color var(--t-fast) var(--ease-out);
+    }
+    .nav-links a:hover { color: var(--navy); }
+    .nav-cta { flex-shrink: 0; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--s2);
+    }
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: var(--navy);
+      transition: all var(--t-base) var(--ease-io);
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+    /* Mobile nav */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; right: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      z-index: calc(var(--z-nav) - 1);
+      padding: var(--s6) var(--s8) var(--s8);
+      flex-direction: column;
+      gap: 0;
+      box-shadow: var(--sh-md);
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: var(--text-13);
+      font-weight: var(--med);
+      color: var(--gray-600);
+      letter-spacing: var(--ls-3);
+      text-transform: uppercase;
+      padding: var(--s4) 0;
+      border-bottom: 1px solid var(--gray-100);
+      transition: color var(--t-fast) var(--ease-out);
+    }
+    .mobile-nav a:last-of-type { border-bottom: none; }
+    .mobile-nav a:hover { color: var(--navy); }
+    .mobile-nav .btn-primary { margin-top: var(--s5); justify-content: center; }
+
+    /* ─────────────────────────────────────────────
+       BUTTONS
+    ───────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s2);
+      font-family: var(--font-body);
+      font-size: var(--text-11);
+      font-weight: var(--semi);
+      letter-spacing: var(--ls-3);
+      text-transform: uppercase;
+      border-radius: var(--r-xs);
+      cursor: pointer;
+      transition: all var(--t-base) var(--ease-out);
+      white-space: nowrap;
+    }
+    .btn-primary {
+      padding: 0.7rem 1.6rem;
+      background: var(--brand);
+      color: var(--white);
+      border: 1px solid var(--brand);
+    }
+    .btn-primary:hover {
+      background: var(--brand-mid);
+      border-color: var(--brand-mid);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(27,58,122,0.25);
+    }
+    .btn-outline {
+      padding: 0.7rem 1.6rem;
+      background: transparent;
+      color: var(--navy);
+      border: 1px solid var(--gray-300);
+    }
+    .btn-outline:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+      transform: translateY(-1px);
+    }
+    /* Ortho'm8 only */
+    .btn-om8 {
+      padding: 0.7rem 1.6rem;
+      background: transparent;
+      color: var(--om8-cyan);
+      border: 1px solid rgba(0,212,255,0.35);
+      font-family: var(--font-mono);
+      font-size: var(--text-11);
+      letter-spacing: var(--ls-3);
+    }
+    .btn-om8:hover {
+      background: rgba(0,212,255,0.06);
+      border-color: var(--om8-cyan);
+    }
+
+    /* ─────────────────────────────────────────────
+       IMAGE PLACEHOLDERS
+    ───────────────────────────────────────────── */
+    .img-block {
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+    }
+    .img-block img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Hero image panel */
+    .hero-img-panel {
+      position: relative;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--gray-100);
+      box-shadow: var(--sh-lg);
+    }
+    .hero-img-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-img-badge {
+      position: absolute;
+      bottom: var(--s4);
+      left: var(--s4);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-md);
+      padding: var(--s3) var(--s4);
+      display: flex;
+      align-items: center;
+      gap: var(--s3);
+    }
+    .hero-img-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-success);
+      flex-shrink: 0;
+    }
+    .hero-img-badge-text {
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      color: var(--navy);
+      letter-spacing: var(--ls-3);
+      text-transform: uppercase;
+    }
+    /* Gap section image */
+    .gap-img {
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+      aspect-ratio: 16/9;
+      margin-top: var(--s12);
+    }
+    .gap-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Testimonial avatar */
+    .testi-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--gray-200);
+      flex-shrink: 0;
+      border: 2px solid var(--gray-200);
+    }
+    .testi-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: var(--s3);
+    }
+
+    /* ─────────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--white);
+      overflow: hidden;
+      padding-top: var(--nav-h);
+    }
+    /* Subtle background texture — diagonal rule lines */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 60px,
+        rgba(27,58,122,0.018) 60px,
+        rgba(27,58,122,0.018) 61px
+      );
+      pointer-events: none;
+    }
+    /* Right-side accent block */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 38%;
+      height: 100%;
+      background: var(--gray-50);
+      border-left: 1px solid var(--gray-200);
+      pointer-events: none;
+    }
+    /* Video background */
+    .hero-video-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.04;
+    }
+    .hero-video-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.6);
+    }
+    .hero-body {
+      position: relative;
+      z-index: var(--z-up);
+      width: 100%;
+    }
+    .hero-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: var(--s16) var(--s8) var(--s20);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s16);
+      align-items: center;
+    }
+    .hero-left {
+      position: relative;
+      z-index: 1;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s3);
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      color: var(--brand-mid);
+      letter-spacing: var(--ls-4);
+      text-transform: uppercase;
+      margin-bottom: var(--s6);
+      animation: fadeUp var(--t-slow) var(--ease-out) 0.05s both;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 1px;
+      background: var(--brand-mid);
+      flex-shrink: 0;
+    }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: var(--text-hero);
+      line-height: var(--lh-tight);
+      color: var(--navy);
+      letter-spacing: 0.01em;
+      margin-bottom: var(--s6);
+      animation: fadeUp var(--t-slow) var(--ease-out) 0.15s both;
+    }
+    .hero-desc {
+      font-size: var(--text-18);
+      font-weight: var(--thin);
+      color: var(--gray-500);
+      line-height: var(--lh-loose);
+      max-width: 420px;
+      margin-bottom: var(--s10);
+      animation: fadeUp var(--t-slow) var(--ease-out) 0.28s both;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s3);
+      animation: fadeUp var(--t-slow) var(--ease-out) 0.4s both;
+    }
+    /* Right panel — stat block */
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s5);
+      animation: fadeIn var(--t-slow) var(--ease-out) 0.5s both;
+      position: relative;
+    }
+    .hero-stat-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-md);
+      padding: var(--s6) var(--s8);
+      box-shadow: var(--sh-xs);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--s5);
+    }
+    .hero-stat-card:first-child {
+      border-left: 3px solid var(--brand);
+    }
+    .hero-stat-card:nth-child(2) {
+      border-left: 3px solid var(--gold);
+    }
+    .hero-stat-card:nth-child(3) {
+      border-left: 3px solid var(--gray-300);
+    }
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: var(--text-48);
+      line-height: 1;
+      color: var(--navy);
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+    .hero-stat-info {}
+    .hero-stat-label {
+      font-size: var(--text-13);
+      font-weight: var(--semi);
+      color: var(--navy);
+      margin-bottom: var(--s1);
+    }
+    .hero-stat-sub {
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      color: var(--gray-400);
+      letter-spacing: var(--ls-3);
+      text-transform: uppercase;
+    }
+    /* Scroll cue */
+    .scroll-cue {
+      position: absolute;
+      bottom: var(--s8);
+      left: var(--s8);
+      z-index: var(--z-up);
+      display: flex;
+      align-items: center;
+      gap: var(--s3);
+      animation: fadeIn 1s var(--ease-out) 1s both;
+    }
+    .scroll-cue-line {
+      width: 32px;
+      height: 1px;
+      background: var(--gray-300);
+    }
+    .scroll-cue-text {
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      color: var(--gray-400);
+      letter-spacing: var(--ls-4);
+      text-transform: uppercase;
+    }
+
+    /* ─────────────────────────────────────────────
+       TRUST STRIP — retained scrolling ticker
+    ───────────────────────────────────────────── */
+    .trust-strip {
+      background: var(--gray-50);
+      border-top: 1px solid var(--gray-200);
+      border-bottom: 1px solid var(--gray-200);
+      padding: var(--s8) 0;
+      overflow: hidden;
+    }
+    .trust-label {
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      color: var(--gray-400);
+      letter-spacing: var(--ls-4);
+      text-transform: uppercase;
+      margin-bottom: var(--s6);
+    }
+    .ticker-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+    .ticker-wrap::before,
+    .ticker-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 80px;
+      z-index: var(--z-up);
+    }
+    .ticker-wrap::before {
+      left: 0;
+      background: linear-gradient(to right, var(--gray-50), transparent);
+    }
+    .ticker-wrap::after {
+      right: 0;
+      background: linear-gradient(to left, var(--gray-50), transparent);
+    }
+    .ticker-track {
+      display: flex;
+      gap: var(--s3);
+      width: max-content;
+      animation: tickerMove 32s linear infinite;
+    }
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s3);
+      padding: var(--s2) var(--s5);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-full);
+      background: var(--white);
+      white-space: nowrap;
+      flex-shrink: 0;
+      box-shadow: var(--sh-xs);
+      transition: border-color var(--t-base) var(--ease-out);
+    }
+    .ticker-item:hover { border-color: var(--gray-300); }
+    .ticker-name {
+      font-family: var(--font-body);
+      font-size: var(--text-13);
+      font-weight: var(--semi);
+      color: var(--gray-800);
+    }
+    .ticker-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--gray-300);
+      flex-shrink: 0;
+    }
+    .ticker-spec {
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      color: var(--gray-400);
+      letter-spacing: var(--ls-3);
+      text-transform: uppercase;
+    }
+
+    /* ─────────────────────────────────────────────
+       SECTION SHARED
+    ───────────────────────────────────────────── */
+    .section {
+      padding: var(--sec-pad) 0;
+    }
+    .section-alt {
+      background: var(--gray-50);
+      border-top: 1px solid var(--gray-200);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .section-dark {
+      background: var(--om8-bg);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s3);
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      font-weight: var(--med);
+      color: var(--brand-mid);
+      letter-spacing: var(--ls-4);
+      text-transform: uppercase;
+      margin-bottom: var(--s4);
+    }
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 1px;
+      background: var(--brand-mid);
+      flex-shrink: 0;
+    }
+    .eyebrow-light {
+      color: var(--om8-cyan);
+    }
+    .eyebrow-light::before {
+      background: var(--om8-cyan);
+    }
+    .h2 {
+      font-family: var(--font-body);
+      font-size: var(--text-48);
+      font-weight: var(--bold);
+      color: var(--navy);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      margin-bottom: var(--s4);
+    }
+    .h2-light {
+      color: #F1F5F9;
+    }
+    .lead {
+      font-size: var(--text-18);
+      font-weight: var(--thin);
+      color: var(--gray-500);
+      line-height: var(--lh-loose);
+      max-width: 520px;
+    }
+    .lead-light {
+      color: #94A3B8;
+    }
+    .rule {
+      height: 1px;
+      background: var(--gray-200);
+      margin: var(--s16) 0;
+    }
+
+    /* ─────────────────────────────────────────────
+       OPERATIONAL GAP
+    ───────────────────────────────────────────── */
+    .gap-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s5);
+      margin-top: var(--s12);
+    }
+    .gap-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-lg);
+      padding: var(--s10) var(--s8);
+      box-shadow: var(--sh-xs);
+      transition: box-shadow var(--t-base) var(--ease-out),
+                  transform var(--t-base) var(--ease-out);
+    }
+    .gap-card:hover {
+      box-shadow: var(--sh-md);
+      transform: translateY(-2px);
+    }
+    .gap-card-problem { border-top: 3px solid #EF4444; }
+    .gap-card-solution { border-top: 3px solid var(--brand); }
+    .gap-tag {
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      letter-spacing: var(--ls-4);
+      text-transform: uppercase;
+      margin-bottom: var(--s5);
+      display: flex;
+      align-items: center;
+      gap: var(--s2);
+    }
+    .gap-tag-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .gap-card-problem .gap-tag { color: #EF4444; }
+    .gap-card-problem .gap-tag-dot { background: #EF4444; }
+    .gap-card-solution .gap-tag { color: var(--brand-mid); }
+    .gap-card-solution .gap-tag-dot { background: var(--brand-mid); }
+    .gap-title {
+      font-family: var(--font-body);
+      font-size: var(--text-28);
+      font-weight: var(--bold);
+      color: var(--navy);
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-snug);
+      margin-bottom: var(--s4);
+    }
+    .gap-body {
+      font-size: var(--text-base);
+      font-weight: var(--thin);
+      color: var(--gray-500);
+      line-height: var(--lh-loose);
+    }
+
+    /* ─────────────────────────────────────────────
+       TESTIMONIALS
+    ───────────────────────────────────────────── */
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--s5);
+      margin-top: var(--s12);
+    }
+    .testi-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-lg);
+      padding: var(--s8);
+      box-shadow: var(--sh-xs);
+      transition: box-shadow var(--t-base) var(--ease-out),
+                  transform var(--t-base) var(--ease-out);
+    }
+    .testi-card:hover {
+      box-shadow: var(--sh-md);
+      transform: translateY(-2px);
+    }
+    .testi-quote {
+      font-size: var(--text-base);
+      font-weight: var(--thin);
+      color: var(--gray-600);
+      line-height: var(--lh-loose);
+      font-style: italic;
+      margin-bottom: var(--s8);
+    }
+    .testi-rule {
+      height: 1px;
+      background: var(--gray-100);
+      margin-bottom: var(--s5);
+    }
+    .testi-name {
+      font-size: var(--text-13);
+      font-weight: var(--semi);
+      color: var(--navy);
+      letter-spacing: var(--ls-1);
+      margin-bottom: var(--s1);
+    }
+    .testi-role {
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      color: var(--gray-400);
+      letter-spacing: var(--ls-3);
+      text-transform: uppercase;
+    }
+
+    /* ─────────────────────────────────────────────
+       ORTHO'M8 — dark section
+    ───────────────────────────────────────────── */
+    .om8-section {
+      position: relative;
+      padding: var(--sec-pad) 0;
+      background: var(--om8-bg);
+      overflow: hidden;
+    }
+    .om8-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--om8-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--om8-grid) 1px, transparent 1px);
+      background-size: 52px 52px;
+      pointer-events: none;
+    }
+    .om8-section::after {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -5%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0,212,255,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    /* VIDEO BACKGROUND */
+    .om8-video-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .om8-video-bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.06;
+    }
+    .om8-video-overlay {
+      position: absolute;
+      inset: 0;
+      background: var(--om8-bg);
+      opacity: 0.88;
+    }
+    .om8-inner {
+      position: relative;
+      z-index: var(--z-up);
+    }
+    .om8-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s16);
+      align-items: start;
+    }
+    .om8-headline {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 7vw, 6rem);
+      line-height: var(--lh-tight);
+      letter-spacing: 0.03em;
+      color: #F1F5F9;
+      margin-bottom: var(--s4);
+    }
+    .om8-sub {
+      font-size: var(--text-18);
+      font-weight: var(--thin);
+      color: var(--om8-cyan);
+      letter-spacing: var(--ls-1);
+      margin-bottom: var(--s5);
+    }
+    .om8-desc {
+      font-size: var(--text-base);
+      font-weight: var(--thin);
+      color: #64748B;
+      line-height: var(--lh-loose);
+      margin-bottom: var(--s10);
+    }
+    .om8-cta-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--s4);
+    }
+    .om8-note {
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      color: #334155;
+      letter-spacing: var(--ls-2);
+      line-height: var(--lh-loose);
+    }
+    /* Right: metrics */
+    .om8-metrics {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s4);
+    }
+    .om8-metric {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-left: 2px solid var(--om8-cyan);
+      border-radius: var(--r-md);
+      padding: var(--s6) var(--s8);
+      display: flex;
+      align-items: center;
+      gap: var(--s6);
+    }
+    .om8-metric-val {
+      font-family: var(--font-mono);
+      font-size: var(--text-36);
+      color: var(--om8-cyan);
+      letter-spacing: var(--ls-1);
+      flex-shrink: 0;
+      animation: om8Flicker 12s infinite;
+    }
+    .om8-metric-label {
+      font-size: var(--text-13);
+      font-weight: var(--semi);
+      color: #CBD5E1;
+      margin-bottom: var(--s1);
+    }
+    .om8-metric-sub {
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      color: #475569;
+      letter-spacing: var(--ls-3);
+      text-transform: uppercase;
+    }
+
+    /* ─────────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────────── */
+    .footer {
+      background: var(--gray-50);
+      border-top: 1px solid var(--gray-200);
+      padding: var(--s20) 0 0;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2.5fr 1fr 1fr 1fr;
+      gap: var(--s12);
+      padding-bottom: var(--s16);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .footer-brand {
+      font-family: var(--font-body);
+      font-size: var(--text-13);
+      font-weight: var(--bold);
+      color: var(--navy);
+      letter-spacing: var(--ls-3);
+      text-transform: uppercase;
+      margin-bottom: var(--s4);
+    }
+    .footer-desc {
+      font-size: var(--text-13);
+      font-weight: var(--thin);
+      color: var(--gray-500);
+      line-height: var(--lh-loose);
+      max-width: 260px;
+    }
+    .footer-col-head {
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      font-weight: var(--med);
+      color: var(--gray-400);
+      letter-spacing: var(--ls-4);
+      text-transform: uppercase;
+      margin-bottom: var(--s5);
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s3);
+    }
+    .footer-links a {
+      font-size: var(--text-13);
+      font-weight: var(--thin);
+      color: var(--gray-500);
+      transition: color var(--t-fast) var(--ease-out);
+    }
+    .footer-links a:hover { color: var(--navy); }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--s5) 0;
+      flex-wrap: wrap;
+      gap: var(--s4);
+    }
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      color: var(--gray-400);
+      letter-spacing: var(--ls-2);
+    }
+    .footer-attr {
+      font-family: var(--font-mono);
+      font-size: var(--text-10);
+      color: var(--om8-cyan);
+      letter-spacing: var(--ls-2);
+      opacity: 0.6;
+    }
+
+    /* ─────────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero::after { display: none; }
+      .om8-layout { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-headline { font-size: clamp(3rem, 12vw, 5rem); }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+
+      .gap-grid { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .footer-desc { margin: 0 auto; }
+      .footer-links { align-items: center; }
+      .footer-bottom { flex-direction: column; align-items: center; }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .testi-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s10); }
+    }
+
+    @media (max-width: 375px) {
+      .wrap { padding: 0 var(--s5); }
+      .hero-headline { font-size: 3rem; }
+      .h2 { font-size: var(--text-36); }
+    }
+  </style>
 </head>
 
-<body x-data="{ mobileMenu: false }">
+<body>
 
-    <!-- Page Loader -->
-    <div id="page-loader">
-        <div class="loader-spin mb-4"></div>
-        <div class="mono text-[10px] text-blue-500 uppercase tracking-[0.4em] animate-pulse">Initializing Protocol...
-        </div>
-    </div>
+  <!-- ═══════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════ -->
+  <nav class="nav" id="navbar">
+    <div class="wrap">
+      <div class="nav-row">
 
-    <!-- NAVIGATION -->
-    <nav
-        class="flex justify-between items-center px-6 md:px-10 py-6 bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
-        <a href="/">
-            <img src="logo.png" alt="WILBAK ENGINEERING" class="h-8 md:h-10">
+        <a href="/" class="nav-brand">
+          <span class="nav-brand-name">Wilbak Engineering</span>
+          <span class="nav-brand-sub">Est. 2006 · Houston, TX</span>
         </a>
 
-        <!-- Desktop Nav -->
-        <div class="hidden md:flex items-center space-x-10 font-bold text-xs uppercase tracking-[0.2em]">
-            <a href="/" class="text-blue-600 transition" x-text="$store.i18n.t('content.header.nav.0')">Home</a>
-            <a href="/projects/" class="text-slate-500 hover:text-blue-600 transition" x-text="$store.i18n.t('content.header.nav.1')">Projects</a>
-            <a href="/about/" class="text-slate-500 hover:text-blue-600 transition" x-text="$store.i18n.t('content.header.nav.2')">About</a>
-            <a href="/Orthom8pro/" class="text-slate-500 hover:text-blue-600 transition" x-text="$store.i18n.t('content.header.nav.3')">Ortho'M8</a>
-            <a href="/contact/" class="text-slate-500 hover:text-blue-600 transition" x-text="$store.i18n.t('content.header.nav.4')">Contact</a>
-            <a href="/Orthom8pro/results/" class="text-slate-500 hover:text-blue-600 transition text-blue-500" x-text="$store.i18n.t('content.header.nav.5')">Performance</a>
-            <a href="/insight/" class="text-slate-500 hover:text-blue-600 transition" x-text="$store.i18n.t('content.header.nav.6')">News & Insights</a>
-            
-            <select class="bg-transparent border-none text-[10px] font-bold uppercase tracking-widest cursor-pointer outline-none" @change="$store.i18n.setLocale($event.target.value)">
-                <option value="en" :selected="$store.i18n.locale === 'en'">EN</option>
-                <option value="es" :selected="$store.i18n.locale === 'es'">ES</option>
-                <option value="zh" :selected="$store.i18n.locale === 'zh'">ZH</option>
-            </select>
+        <ul class="nav-links">
+          <li><a href="about/index.html">About</a></li>
+          <li><a href="projects/index.html">Projects</a></li>
+          <li><a href="insight/index.html">Insights</a></li>
+          <li><a href="contact/index.html">Contact</a></li>
+        </ul>
 
-            <a href="/audit/" class="btn-premium bg-slate-900 text-white hover:bg-blue-700" x-text="$store.i18n.t('content.header.nav.7')">Business Audit</a>
+        <div class="nav-cta">
+          <a href="audit/index.html" class="btn btn-primary">Request Audit</a>
         </div>
 
-        <!-- Mobile Toggle -->
-        <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-slate-900">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path x-show="!mobileMenu" d="M4 6h16M4 12h16m-7 6h7" stroke-width="2" stroke-linecap="round"></path>
-                <path x-show="mobileMenu" d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round"></path>
-            </svg>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
         </button>
+      </div>
+    </div>
+  </nav>
 
-        <!-- Mobile Menu Overlay -->
-        <div x-show="mobileMenu" x-cloak
-            class="absolute top-full left-0 w-full bg-white border-b border-slate-200 md:hidden z-40 shadow-xl p-8 space-y-6 flex flex-col font-bold text-xs uppercase tracking-[0.2em]">
-            <a href="/" class="text-slate-900" x-text="$store.i18n.t('content.header.nav.0')">Home</a>
-            <a href="/projects/" class="text-slate-900" x-text="$store.i18n.t('content.header.nav.1')">Projects</a>
-            <a href="/about/" class="text-slate-900" x-text="$store.i18n.t('content.header.nav.2')">About</a>
-            <a href="/Orthom8pro/" class="text-slate-900" x-text="$store.i18n.t('content.header.nav.3')">Ortho'M8</a>
-            <a href="/contact/" class="text-slate-900" x-text="$store.i18n.t('content.header.nav.4')">Contact</a>
-            <a href="/Orthom8pro/results/" class="text-slate-900" x-text="$store.i18n.t('content.header.nav.5')">Performance</a>
-            <a href="/insight/" class="text-slate-900" x-text="$store.i18n.t('content.header.nav.6')">News & Insights</a>
-            
-            <div class="flex items-center justify-between py-4 border-t border-slate-100">
-                <span class="text-[10px] text-slate-400">Language</span>
-                <select class="bg-transparent border-none text-[10px] font-bold uppercase tracking-widest cursor-pointer outline-none" @change="$store.i18n.setLocale($event.target.value)">
-                    <option value="en" :selected="$store.i18n.locale === 'en'">EN</option>
-                    <option value="es" :selected="$store.i18n.locale === 'es'">ES</option>
-                    <option value="zh" :selected="$store.i18n.locale === 'zh'">ZH</option>
-                </select>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="about/index.html">About</a>
+    <a href="projects/index.html">Projects</a>
+    <a href="insight/index.html">Insights</a>
+    <a href="contact/index.html">Contact</a>
+  </div>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════
+         HERO
+    ═══════════════════════════════════════════ -->
+    <section class="hero" id="hero">
+
+      <!-- VIDEO BACKGROUND -->
+      <!-- REPLACE_WITH_YOUR_VIDEO.mp4 -->
+      <div class="hero-video-wrap">
+        <video autoplay muted loop playsinline class="hero-video">
+          <source src="REPLACE_WITH_YOUR_VIDEO.mp4" type="video/mp4">
+        </video>
+        <div class="hero-video-overlay"></div>
+      </div>
+
+      <div class="hero-body">
+        <div class="hero-inner">
+
+          <!-- Left: copy -->
+          <div class="hero-left">
+            <p class="hero-tag">[ Operational Protocol: v3.1 ]</p>
+            <h1 class="hero-headline">Engineering<br>Business Data.</h1>
+            <p class="hero-desc">We eliminate the "Chaos Tax" on your business. High-performance infrastructure engineered for zero failure.</p>
+            <div class="hero-actions">
+              <a href="audit/index.html" class="btn btn-primary">Request Audit</a>
+              <a href="Orthom8pro/index.html" class="btn btn-outline">View Ortho'm8</a>
+            </div>
+          </div>
+
+          <!-- Right: hero image + stat cards -->
+          <div class="hero-right">
+
+            <!-- REPLACE src with your hero image URL -->
+            <div class="hero-img-panel">
+              <img
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=800"
+                alt="Wilbak Engineering — field operations"
+                loading="eager"
+              >
+              <div class="hero-img-badge">
+                <span class="hero-img-badge-dot"></span>
+                <span class="hero-img-badge-text">Active · Houston, TX</span>
+              </div>
             </div>
 
-            <a href="/audit/" class="bg-slate-900 text-white px-6 py-4 text-center rounded-sm" x-text="$store.i18n.t('content.header.nav.7')">Business Audit</a>
+            <div class="hero-stat-card">
+              <span class="hero-stat-num">20</span>
+              <div class="hero-stat-info">
+                <div class="hero-stat-label">Years of Operation</div>
+                <div class="hero-stat-sub">Est. 2006 · Houston, TX</div>
+              </div>
+            </div>
+            <div class="hero-stat-card">
+              <span class="hero-stat-num">90%</span>
+              <div class="hero-stat-info">
+                <div class="hero-stat-label">Manual Overhead Eliminated</div>
+                <div class="hero-stat-sub">Via deterministic logic engines</div>
+              </div>
+            </div>
+            <div class="hero-stat-card">
+              <span class="hero-stat-num">$0</span>
+              <div class="hero-stat-info">
+                <div class="hero-stat-label">Chaos Tax After Alignment</div>
+                <div class="hero-stat-sub">Integrated business management</div>
+              </div>
+            </div>
+          </div>
+
         </div>
-    </nav>
+      </div>
 
-    <main>
-        <!-- Hero Section -->
-        <header class="lake-gradient text-white py-24 md:py-40 px-6 md:px-10 relative overflow-hidden">
-            <div class="max-w-6xl mx-auto relative z-10">
-                <div class="max-w-3xl">
-                    <div class="mono text-blue-400 text-sm mb-4 tracking-widest uppercase" x-text="$store.i18n.t('content.hero.protocol')">[ Operational Protocol: v3.1 ]</div>
-                    <h1 class="text-3xl sm:text-5xl md:text-8xl font-black leading-none mb-6 italic uppercase" x-html="$store.i18n.t('content.hero.heading')">
-                        ENGINEERING<br>BUSINESS DATA.</h1>
-                    <p class="text-xl text-slate-400 mb-10 max-w-xl leading-relaxed" x-text="$store.i18n.t('content.hero.body')">
-                        We eliminate the "Chaos Tax" on your business. High-performance infrastructure engineered for
-                        zero failure.
-                    </p>
-                    <div class="flex space-x-6">
-                        <a href="/projects/" class="btn-premium btn-primary px-10 py-5 text-xs" x-text="$store.i18n.t('content.hero.cta_primary')">Case Studies</a>
-                        <a href="/Orthom8pro/" class="btn-premium btn-secondary px-10 py-5 text-xs" x-text="$store.i18n.t('content.hero.cta_secondary')">How it Works</a>
-                    </div>
-                </div>
-            </div>
-        </header>
+      <div class="scroll-cue">
+        <div class="scroll-cue-line"></div>
+        <span class="scroll-cue-text">Scroll</span>
+      </div>
 
-        <!-- Trust Vault -->
-        <section class="relative z-20 px-6 md:px-10 -mt-12">
-            <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
-                <div
-                    class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-blue-500 text-center">
-                    <div class="text-white font-black text-sm uppercase mb-1 tracking-tighter">Northrop Grumman</div>
-                    <div class="text-blue-400 mono text-[9px] uppercase tracking-widest">Defense Logic</div>
-                </div>
-                <div
-                    class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-slate-700 text-center">
-                    <div class="text-white font-black text-sm uppercase mb-1 tracking-tighter">Toyota</div>
-                    <div class="text-slate-400 mono text-[9px] uppercase tracking-widest">Supply Rigor</div>
-                </div>
-                <div
-                    class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-blue-500 text-center">
-                    <div class="text-white font-black text-sm uppercase mb-1 tracking-tighter">ConocoPhillips</div>
-                    <div class="text-blue-400 mono text-[9px] uppercase tracking-widest">Energy Flow</div>
-                </div>
-                <div
-                    class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-slate-700 text-center">
-                    <div class="text-white font-black text-sm uppercase mb-1 tracking-tighter">ASDA</div>
-                    <div class="text-slate-400 mono text-[9px] uppercase tracking-widest">Retail Scale</div>
-                </div>
-                <div
-                    class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 border-blue-500 text-center">
-                    <div class="text-white font-black text-sm uppercase mb-1 tracking-tighter">GEICO</div>
-                    <div class="text-blue-400 mono text-[9px] uppercase tracking-widest">Risk Guard</div>
-                </div>
-            </div>
-        </section>
+    </section>
 
-        <!-- Operational Gap -->
-        <section class="py-24 px-10 bg-white industrial-grid pt-32">
-            <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-extrabold uppercase italic mb-4">The Operational Gap</h2>
-                    <p class="text-slate-500 uppercase tracking-widest text-xs font-bold font-mono italic">Small
-                        Business Inefficiency is the Invisible Profit Killer</p>
-                </div>
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div class="p-10 bg-red-50 border-l-4 border-red-500">
-                        <h3 class="text-xl font-black uppercase mb-4 text-red-700 italic">The "Chaos Tax"</h3>
-                        <p class="text-slate-600 leading-relaxed">Manual processes and disconnected software systems eat
-                            40% of your labor before a single sale is closed.</p>
-                    </div>
-                    <div class="p-10 bg-blue-50 border-l-4 border-blue-500">
-                        <h3 class="text-xl font-black uppercase mb-4 text-blue-700 italic">The Wilbak Alignment</h3>
-                        <p class="text-slate-600 leading-relaxed">Our Integrated Business Management Engines eliminates
-                            90% of manual overhead by engineering deterministic logic.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonies -->
-        <section class="py-24 px-10 bg-slate-900 text-white relative">
-            <div class="max-w-6xl mx-auto">
-                <div class="mb-16">
-                    <div class="text-blue-500 mono text-xs uppercase tracking-[0.5em] mb-4">[ Mission Feedback ]</div>
-                    <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter">Verified testimonies
-                    </h2>
-                </div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="p-8 border border-slate-800 bg-slate-900/50 hover:border-blue-500 transition group">
-                        <p class="text-slate-400 text-sm leading-relaxed mb-8 italic">"The Wilbak transition saved us
-                            $120k in annual manual drafting costs alone. Their logic is unbreakable."</p>
-                        <div class="border-t border-slate-800 pt-6">
-                            <h4 class="font-black uppercase italic text-sm">James McGough</h4>
-                            <p class="text-[9px] mono text-slate-500 uppercase tracking-widest mt-1 italic">CEO,
-                                Sterling Logistics</p>
-                        </div>
-                    </div>
-                    <div class="p-8 border border-slate-800 bg-slate-900/50 hover:border-blue-500 transition group">
-                        <p class="text-slate-400 text-sm leading-relaxed mb-8 italic">"We eliminated the Chaos Tax in 90
-                            days. Their Predictive AI kernels are simply unmatched."</p>
-                        <div class="border-t border-slate-800 pt-6">
-                            <h4 class="font-black uppercase italic text-sm">Rachel H. Ballack</h4>
-                            <p class="text-[9px] mono text-slate-500 uppercase tracking-widest mt-1 italic">Ops Manager,
-                                Vance Mfg</p>
-                        </div>
-                    </div>
-                    <div class="p-8 border border-slate-800 bg-slate-900/50 hover:border-blue-500 transition group">
-                        <p class="text-slate-400 text-sm leading-relaxed mb-8 italic">"Rugged, reliable, and
-                            deterministic. Wilbak doesn't just build systems; they build absolute certainty."</p>
-                        <div class="border-t border-slate-800 pt-6">
-                            <h4 class="font-black uppercase italic text-sm">Marcus Thorne</h4>
-                            <p class="text-[9px] mono text-slate-500 uppercase tracking-widest mt-1 italic">Founder,
-                                Thorne Supply</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-slate-950 text-white pt-24 pb-12 px-10 text-center">
-        <div class="max-w-7xl mx-auto mb-16 border-b border-white/5 pb-16 grid md:grid-cols-2 gap-10 text-left">
-            <div>
-                <img src="logo.png" alt="WILBAK" class="h-10 mb-6 invert brightness-0">
-                <p class="text-slate-400 text-sm leading-relaxed max-w-sm">High-performance business logic for
-                    industries that demand zero failure. Engineering certainty since 2006.</p>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                <template x-for="col in $store.i18n.t('content.footer.columns')" :key="col.title">
-                    <div>
-                        <h5 class="font-bold text-xs uppercase tracking-widest mb-6" :class="col.title === 'Legal' ? 'text-slate-500' : 'text-blue-500'" x-text="col.title">Column</h5>
-                        <ul class="space-y-4 text-[10px] mono uppercase tracking-widest">
-                            <template x-for="link in col.links" :key="link.label">
-                                <li><a :href="link.target" class="footer-link" x-text="link.label">Link</a></li>
-                            </template>
-                        </ul>
-                    </div>
-                </template>
-            </div>
+    <!-- ═══════════════════════════════════════════
+         TRUST STRIP — scrolling ticker retained
+    ═══════════════════════════════════════════ -->
+    <section class="trust-strip">
+      <p class="trust-label">Trusted by teams at</p>
+      <div class="ticker-wrap">
+        <div class="ticker-track" id="ticker">
+          <!-- Set 1 -->
+          <div class="ticker-item">
+            <span class="ticker-name">Northrop Grumman</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-spec">Defense Logic</span>
+          </div>
+          <div class="ticker-item">
+            <span class="ticker-name">Toyota</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-spec">Supply Rigor</span>
+          </div>
+          <div class="ticker-item">
+            <span class="ticker-name">ConocoPhillips</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-spec">Energy Flow</span>
+          </div>
+          <div class="ticker-item">
+            <span class="ticker-name">ASDA</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-spec">Retail Scale</span>
+          </div>
+          <div class="ticker-item">
+            <span class="ticker-name">GEICO</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-spec">Risk Guard</span>
+          </div>
+          <!-- Set 2 — duplicate for seamless loop -->
+          <div class="ticker-item">
+            <span class="ticker-name">Northrop Grumman</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-spec">Defense Logic</span>
+          </div>
+          <div class="ticker-item">
+            <span class="ticker-name">Toyota</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-spec">Supply Rigor</span>
+          </div>
+          <div class="ticker-item">
+            <span class="ticker-name">ConocoPhillips</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-spec">Energy Flow</span>
+          </div>
+          <div class="ticker-item">
+            <span class="ticker-name">ASDA</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-spec">Retail Scale</span>
+          </div>
+          <div class="ticker-item">
+            <span class="ticker-name">GEICO</span>
+            <span class="ticker-dot"></span>
+            <span class="ticker-spec">Risk Guard</span>
+          </div>
         </div>
-        <div class="text-[9px] font-bold text-slate-600 uppercase tracking-[0.4em]">
-            © 2026 Wilbak Engineering Group // Built for Unbreakable Performance
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         OPERATIONAL GAP
+    ═══════════════════════════════════════════ -->
+    <section class="section">
+      <div class="wrap">
+
+        <div class="reveal">
+          <p class="eyebrow">Operational Intelligence</p>
+          <h2 class="h2">The Operational Gap</h2>
+          <p class="lead">Small business inefficiency is the invisible profit killer. Here's what we fix.</p>
         </div>
-    </footer>
 
-    <script>
-        // Loader logic
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('page-loader');
-            setTimeout(() => {
-                loader.classList.add('fade-out');
-                setTimeout(() => loader.style.display = 'none', 500);
-            }, 800);
-        });
+        <!-- REPLACE src with your operational gap / process image URL -->
+        <div class="gap-img reveal">
+          <img
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200"
+            alt="Wilbak Engineering — operational process"
+            loading="lazy"
+          >
+        </div>
 
-        // Intercept link clicks to show loader
-        document.querySelectorAll('a').forEach(link => {
-            if (link.hostname === window.location.hostname && !link.hash) {
-                link.addEventListener('click', (e) => {
-                    const loader = document.getElementById('page-loader');
-                    loader.style.display = 'flex';
-                    loader.classList.remove('fade-out');
-                });
-            }
-        });
-    </script>
+        <div class="gap-grid">
+
+          <div class="gap-card gap-card-problem reveal d1">
+            <div class="gap-tag">
+              <span class="gap-tag-dot"></span>
+              The Problem
+            </div>
+            <h3 class="gap-title">The "Chaos Tax"</h3>
+            <p class="gap-body">Manual processes and disconnected software systems eat 40% of your labor before a single sale is closed.</p>
+          </div>
+
+          <div class="gap-card gap-card-solution reveal d2">
+            <div class="gap-tag">
+              <span class="gap-tag-dot"></span>
+              The Solution
+            </div>
+            <h3 class="gap-title">The Wilbak Alignment</h3>
+            <p class="gap-body">Our Integrated Business Management Engines eliminates 90% of manual overhead by engineering deterministic logic.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         TESTIMONIALS
+    ═══════════════════════════════════════════ -->
+    <section class="section section-alt">
+      <div class="wrap">
+
+        <div class="reveal">
+          <p class="eyebrow">[ Mission Feedback ]</p>
+          <h2 class="h2">Verified Testimonies</h2>
+        </div>
+
+        <div class="testi-grid">
+
+          <div class="testi-card reveal d1">
+            <p class="testi-quote">"The Wilbak transition saved us $120k in annual manual drafting costs alone. Their logic is unbreakable."</p>
+            <div class="testi-rule"></div>
+            <!-- REPLACE src with avatar photo URL -->
+            <div class="testi-author">
+              <div class="testi-avatar">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100" alt="James McGough">
+              </div>
+              <div>
+                <div class="testi-name">James McGough</div>
+                <div class="testi-role">CEO, Sterling Logistics</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testi-card reveal d2">
+            <p class="testi-quote">"We eliminated the Chaos Tax in 90 days. Their Predictive AI kernels are simply unmatched."</p>
+            <div class="testi-rule"></div>
+            <!-- REPLACE src with avatar photo URL -->
+            <div class="testi-author">
+              <div class="testi-avatar">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=100" alt="Rachel H. Ballack">
+              </div>
+              <div>
+                <div class="testi-name">Rachel H. Ballack</div>
+                <div class="testi-role">Ops Manager, Vance Mfg</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testi-card reveal d3">
+            <p class="testi-quote">"Rugged, reliable, and deterministic. Wilbak doesn't just build systems; they build absolute certainty."</p>
+            <div class="testi-rule"></div>
+            <!-- REPLACE src with avatar photo URL -->
+            <div class="testi-author">
+              <div class="testi-avatar">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100" alt="Marcus Thorne">
+              </div>
+              <div>
+                <div class="testi-name">Marcus Thorne</div>
+                <div class="testi-role">Founder, Thorne Supply</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         ORTHO'M8 FEATURE BLOCK — dark
+    ═══════════════════════════════════════════ -->
+    <section class="om8-section">
+
+      <!-- VIDEO BACKGROUND -->
+      <!-- REPLACE_WITH_YOUR_ORTHOM8_VIDEO.mp4 -->
+      <div class="om8-video-bg">
+        <video autoplay muted loop playsinline>
+          <source src="REPLACE_WITH_YOUR_ORTHOM8_VIDEO.mp4" type="video/mp4">
+        </video>
+        <div class="om8-video-overlay"></div>
+      </div>
+
+      <div class="wrap om8-inner">
+        <div class="om8-layout">
+
+          <!-- Left: copy -->
+          <div class="reveal">
+            <p class="eyebrow eyebrow-light">Featured Product</p>
+            <h2 class="om8-headline">ORTHO'M8</h2>
+            <p class="om8-sub">An institutional-grade strategy engine</p>
+            <p class="om8-desc">Ortho'm8 is an algorithmic capital management platform built for institutional-grade precision. A product of Brokard Williams, published in partnership with Wilbak Engineering.</p>
+            <div class="om8-cta-row">
+              <a href="Orthom8pro/index.html" class="btn btn-om8">Explore Ortho'm8 →</a>
+              <p class="om8-note">
+                Ortho'm8 is an independent product of Brokard Williams.<br>
+                Wilbak Engineering is a publishing partner.
+              </p>
+            </div>
+          </div>
+
+          <!-- Right: metrics -->
+          <div class="om8-metrics reveal d1">
+            <div class="om8-metric">
+              <span class="om8-metric-val">$142.8M</span>
+              <div class="om8-metric-info">
+                <div class="om8-metric-label">Capital Under Management</div>
+                <div class="om8-metric-sub">Institutional grade</div>
+              </div>
+            </div>
+            <div class="om8-metric">
+              <span class="om8-metric-val">95.0%</span>
+              <div class="om8-metric-info">
+                <div class="om8-metric-label">Node Precision</div>
+                <div class="om8-metric-sub">Per market instruction</div>
+              </div>
+            </div>
+            <div class="om8-metric">
+              <span class="om8-metric-val">99.99%</span>
+              <div class="om8-metric-info">
+                <div class="om8-metric-label">Operational Uptime</div>
+                <div class="om8-metric-sub">Distributed architecture</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="wrap">
+
+      <div class="footer-grid">
+
+        <div>
+          <div class="footer-brand">Wilbak Engineering</div>
+          <p class="footer-desc">High-performance business logic for industries that demand zero failure. Engineering certainty since 2006.</p>
+        </div>
+
+        <div>
+          <div class="footer-col-head">Company</div>
+          <ul class="footer-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects/index.html">Projects</a></li>
+            <li><a href="insight/index.html">Insights</a></li>
+            <li><a href="contact/index.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-head">Legal</div>
+          <ul class="footer-links">
+            <li><a href="legal/privacy/index.html">Privacy Policy</a></li>
+            <li><a href="legal/terms/index.html">Terms &amp; Conditions</a></li>
+            <li><a href="legal/sla/index.html">SLA</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-head">Platform</div>
+          <ul class="footer-links">
+            <li><a href="Orthom8pro/index.html">Ortho'm8</a></li>
+            <li><a href="Orthom8pro/Results/index.html">Performance</a></li>
+            <li><a href="Orthom8pro/our-team/index.html">Our Team</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Wilbak Engineering. All rights reserved.</span>
+        <span class="footer-attr">Ortho'm8 is a product of Brokard Williams.</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════════ -->
+  <script>
+    // 1. Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // 2. Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    hamburger.addEventListener('click', () => {
+      const open = mobileNav.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+    });
+    mobileNav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobileNav.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('click', (e) => {
+      if (!navbar.contains(e.target) && !mobileNav.contains(e.target)) {
+        mobileNav.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // 3. Scroll reveal
+    const ro = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+    // 4. Smooth scroll anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+
+    // 5. Ticker pause on hover
+    const ticker = document.getElementById('ticker');
+    if (ticker) {
+      ticker.addEventListener('mouseenter', () => ticker.style.animationPlayState = 'paused');
+      ticker.addEventListener('mouseleave', () => ticker.style.animationPlayState = 'running');
+    }
+  </script>
+
 </body>
-
 </html>

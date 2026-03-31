@@ -1,115 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News & Insights | Wilbak Engineering</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News & Insights | Wilbak Engineering</title>
+  <meta name="description" content="Transforming global markets into precise operational protocols.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../wilbak-base.css">
+  <style>
+    .page-hero { 
+      padding-top: calc(var(--nav-h) + clamp(3rem, 10vw, 5rem)); 
+      padding-bottom: clamp(3rem, 10vw, 5rem); 
+      background: var(--white); 
+      border-bottom: 1px solid var(--gray-200); 
+      position: relative; 
+      overflow: hidden; 
+    }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-45deg, transparent, transparent 60px, rgba(27,58,122,0.015) 60px, rgba(27,58,122,0.015) 61px); pointer-events: none; }
+    .page-hero-inner { position: relative; z-index: 1; }
+    .page-hero-eyebrow { font-family: var(--font-mono); font-size: var(--text-10); color: var(--brand-mid); letter-spacing: var(--ls-4); text-transform: uppercase; margin-bottom: var(--s5); }
+    .page-hero-heading { font-family: var(--font-display); font-size: clamp(2.5rem, 8vw, var(--text-hero)); line-height: var(--lh-tight); color: var(--navy); letter-spacing: 0.01em; margin-bottom: var(--s6); }
+    .page-hero-body { font-size: clamp(1rem, 2vw, var(--text-18)); font-weight: var(--thin); color: var(--gray-500); line-height: var(--lh-loose); max-width: 560px; }
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    /* Articles grid */
+    .articles-grid { 
+      display: grid; 
+      grid-template-columns: repeat(3, 1fr); 
+      gap: clamp(1rem, 3vw, var(--s6)); 
+      margin-top: clamp(2rem, 6vw, var(--s12)); 
+    }
+    .article-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--sh-xs); transition: box-shadow var(--t-base) var(--ease-out), transform var(--t-base) var(--ease-out); display: flex; flex-direction: column; }
+    .article-card:hover { box-shadow: var(--sh-md); transform: translateY(-3px); }
+    .article-img { aspect-ratio: 16 / 9; background: var(--gray-100); overflow: hidden; }
+    .article-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .article-body { padding: clamp(1.25rem, 3vw, var(--s6)); flex: 1; display: flex; flex-direction: column; }
+    .article-meta { display: flex; align-items: center; gap: var(--s3); margin-bottom: var(--s4); }
+    .article-tag { font-family: var(--font-mono); font-size: var(--text-10); color: var(--white); background: var(--brand); padding: 2px var(--s3); border-radius: var(--r-sm); letter-spacing: var(--ls-2); text-transform: uppercase; }
+    .article-date { font-family: var(--font-mono); font-size: var(--text-10); color: var(--gray-400); letter-spacing: var(--ls-2); }
+    .article-title { font-size: clamp(1.125rem, 3vw, var(--text-18)); font-weight: var(--bold); color: var(--navy); line-height: var(--lh-snug); margin-bottom: var(--s3); letter-spacing: var(--ls-tight); }
+    .article-excerpt { font-size: var(--text-base); font-weight: var(--thin); color: var(--gray-500); line-height: var(--lh-loose); flex: 1; margin-bottom: var(--s5); }
+    .article-read { font-family: var(--font-mono); font-size: var(--text-10); color: var(--brand-mid); letter-spacing: var(--ls-3); text-transform: uppercase; display: flex; align-items: center; gap: var(--s2); transition: gap var(--t-fast) var(--ease-out); }
+    .article-card:hover .article-read { gap: var(--s3); }
 
-    <style>
-        :root { --neon-blue: #0076FF; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fcfdfe; color: #0F172A; }
-        .mono { font-family: 'JetBrains Mono', monospace; font-weight: 700; }
-        .industrial-grid { background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 40px 40px; }
-        .btn-premium { display: inline-block; padding: 0.75rem 2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.25em; font-size: 10px; border-radius: 0.125rem; border: 1px solid rgba(0,0,0,0.1); cursor: pointer; text-align: center; }
-        
-        #page-loader { position: fixed; inset: 0; background: #0A0C10; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease; }
-        #page-loader.fade-out { opacity: 0; pointer-events: none; }
-        .loader-spin { width: 40px; height: 40px; border: 3px solid rgba(0, 118, 255, 0.1); border-top: 3px solid #0076FF; border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-    </style>
+    /* Featured article — spans 2 cols */
+    .article-card.featured { grid-column: span 2; flex-direction: row; }
+    .article-card.featured .article-img { aspect-ratio: auto; flex: 1; min-height: 240px; }
+    .article-card.featured .article-body { flex: 1; }
+    .article-card.featured .article-title { font-size: clamp(1.5rem, 4vw, var(--text-28)); }
+
+    @media (max-width: 1024px) { 
+      .articles-grid { grid-template-columns: repeat(2, 1fr); } 
+      .article-card.featured { grid-column: span 2; flex-direction: column; } 
+      .article-card.featured .article-img { aspect-ratio: 16/9; flex: none; min-height: auto; } 
+    }
+    @media (max-width: 768px) { 
+      .articles-grid { grid-template-columns: 1fr; gap: 1.5rem; } 
+      .article-card.featured { grid-column: span 1; } 
+    }
+  </style>
 </head>
-
-<body x-data="intelApp">
-
-    <div id="page-loader">
-        <div class="loader-spin mb-4"></div>
-        <div class="mono text-[10px] text-blue-500 uppercase tracking-[0.4em] animate-pulse">Initializing Protocol...</div>
+<body>
+  <nav class="nav" id="navbar">
+    <div class="wrap">
+      <div class="nav-row">
+        <a href="../index.html" class="nav-brand">
+          <span class="nav-brand-name">Wilbak Engineering</span>
+          <span class="nav-brand-sub">Est. 2006 · Houston, TX</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="../about/index.html">About</a></li>
+          <li><a href="../projects/index.html">Projects</a></li>
+          <li><a href="../insight/index.html" class="active">Insights</a></li>
+          <li><a href="../contact/index.html">Contact</a></li>
+        </ul>
+        <div class="nav-cta"><a href="../audit/index.html" class="btn btn-primary">Request Audit</a></div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
     </div>
+  </nav>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="../about/index.html">About</a>
+    <a href="../projects/index.html">Projects</a>
+    <a href="../insight/index.html">Insights</a>
+    <a href="../contact/index.html">Contact</a>
+  </div>
 
-    <nav class="flex justify-between items-center px-6 md:px-10 py-6 bg-white border-b border-slate-200 sticky top-0 z-50">
-        <a href="/"><img src="/logo.png" alt="WILBAK" class="h-8 md:h-10"></a>
-        <div class="hidden md:flex items-center space-x-10 font-bold text-xs uppercase tracking-[0.2em]">
-            <a href="/" class="text-slate-500 hover:text-blue-600 transition">Home</a>
-            <a href="/projects/" class="text-slate-500 hover:text-blue-600 transition">Projects</a>
-            <a href="/about/" class="text-slate-500 hover:text-blue-600 transition">About</a>
-            <a href="/Orthom8pro/" class="text-slate-500 hover:text-blue-600 transition">OrthoMate™</a>
-            <a href="/contact/" class="text-slate-500 hover:text-blue-600 transition">Contact</a>
-            <a href="/insight/" class="text-blue-600 transition">News & Insights</a>
-            <a href="/audit/" class="btn-premium bg-slate-900 text-white">Business Audit</a>
-        </div>
-        <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-slate-900">☰</button>
-    </nav>
+  <main>
+    <section class="page-hero">
+      <div class="wrap page-hero-inner">
+        <p class="page-hero-eyebrow">Intelligence Ledger</p>
+        <h1 class="page-hero-heading">Business Insights</h1>
+        <p class="page-hero-body">Transforming global markets into precise operational protocols.</p>
+      </div>
+    </section>
 
-    <main class="min-h-screen pt-32 pb-40 px-6 max-w-7xl mx-auto">
-        <header class="mb-24 text-center">
-            <h2 class="text-6xl md:text-9xl font-black italic uppercase tracking-tighter leading-none mb-8">BUSINESS INSIGHTS</h2>
-            <div class="h-1 w-24 bg-blue-600 mx-auto mb-10"></div>
-            <p class="text-xl text-slate-500 max-w-2xl mx-auto font-bold tracking-tight">Transforming global markets into precise operational protocols.</p>
-        </header>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <template x-for="node in intelNodes" :key="node.id">
-                <div class="group relative bg-white border border-slate-200 p-8 hover:border-blue-600 transition rounded-sm shadow-sm hover:shadow-2xl">
-                    <div class="flex justify-between items-center mb-6 text-[9px] mono text-slate-400 font-black">
-                        <span class="px-2 py-1 bg-blue-50 text-blue-600 rounded-full font-black italic uppercase" x-text="node.sector"></span>
-                        <span x-text="new Date(node.createdAt).toLocaleDateString()"></span>
-                    </div>
-                    <h3 class="text-xl md:text-2xl font-black uppercase italic tracking-tighter leading-tight mb-4" x-text="node.title"></h3>
-                    <p class="text-xs text-slate-500 font-bold leading-relaxed line-clamp-4 mb-8" x-text="node.insight"></p>
-                    <a :href="`/insight/${node.id}`" class="block w-full py-4 border-2 border-slate-900 text-slate-900 font-black uppercase italic text-xs text-center hover:bg-slate-900 hover:text-white transition">READ FULL ARTICLE</a>
-                </div>
-            </template>
+    <section class="section">
+      <div class="wrap">
+        <div class="reveal">
+          <p class="eyebrow">Intel Nodes</p>
+          <h2 class="h2">Latest Articles</h2>
         </div>
 
-        <div x-show="loadingIntel" class="py-40 text-center">
-            <div class="loader-spin mx-auto mb-10"></div>
-            <p class="mono text-slate-400 text-[10px] uppercase tracking-[0.4em]">SYNCING INTELLIGENCE LEDGER...</p>
+        <!-- Loading state -->
+        <div id="articles-loading" style="text-align:center; padding:4rem 0; color:var(--gray-400);">
+          <p style="font-family:var(--font-mono); font-size:var(--text-10); letter-spacing:var(--ls-4); text-transform:uppercase;">Loading intelligence nodes…</p>
         </div>
-    </main>
 
-    <footer class="bg-slate-950 text-white pt-20 pb-10 px-10 text-center text-[9px] font-bold text-slate-600 uppercase tracking-[0.4em]">
-        © 2026 Wilbak Engineering Group // Built for Unbreakable Performance
-    </footer>
+        <!-- Error state -->
+        <div id="articles-error" style="display:none; text-align:center; padding:4rem 0; color:var(--gray-400);">
+          <p>Could not load articles. Please try again later.</p>
+        </div>
 
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('intelApp', () => ({
-                intelNodes: [],
-                loadingIntel: false,
-                mobileMenu: false,
-                async init() {
-                    this.loadingIntel = true;
-                    try {
-                        const response = await fetch('/api/intelligence');
-                        this.intelNodes = await response.json();
-                    } catch (e) {
-                        console.error('Fetch failed');
-                    } finally {
-                        this.loadingIntel = false;
-                    }
-                }
-            }));
-        });
+        <!-- Dynamic grid — populated by JS -->
+        <div class="articles-grid" id="articles-grid" style="display:none;"></div>
+      </div>
+    </section>
+  </main>
 
-        window.addEventListener('load', () => {
-            setTimeout(() => { document.getElementById('page-loader').classList.add('fade-out'); }, 500);
-        });
-        document.querySelectorAll('a').forEach(link => {
-            if (link.hostname === window.location.hostname && !link.hash) {
-                link.addEventListener('click', () => {
-                    const loader = document.getElementById('page-loader');
-                    loader.style.display = 'flex'; loader.classList.remove('fade-out');
-                });
-            }
-        });
-    </script>
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div><div class="footer-brand">Wilbak Engineering</div><p class="footer-desc">High-performance business logic for industries that demand zero failure. Engineering certainty since 2006.</p></div>
+        <div><div class="footer-col-head">Company</div><ul class="footer-links"><li><a href="../about/index.html">About</a></li><li><a href="../projects/index.html">Projects</a></li><li><a href="../insight/index.html">Insights</a></li><li><a href="../contact/index.html">Contact</a></li></ul></div>
+        <div><div class="footer-col-head">Legal</div><ul class="footer-links"><li><a href="../legal/privacy/index.html">Privacy Policy</a></li><li><a href="../legal/terms/index.html">Terms &amp; Conditions</a></li><li><a href="../legal/sla/index.html">SLA</a></li></ul></div>
+        <div><div class="footer-col-head">Platform</div><ul class="footer-links"><li><a href="../Orthom8pro/index.html">Ortho'm8</a></li><li><a href="../Orthom8pro/Results/index.html">Performance</a></li><li><a href="../Orthom8pro/our-team/index.html">Our Team</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Wilbak Engineering. All rights reserved.</span>
+        <span class="footer-attr">Ortho'm8 is a product of Brokard Williams.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar   = document.getElementById('navbar');
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+    hamburger.addEventListener('click', () => { const open = mobileNav.classList.toggle('open'); hamburger.classList.toggle('open', open); hamburger.setAttribute('aria-expanded', String(open)); });
+    document.addEventListener('click', (e) => { if (!navbar.contains(e.target) && !mobileNav.contains(e.target)) { mobileNav.classList.remove('open'); hamburger.classList.remove('open'); hamburger.setAttribute('aria-expanded', 'false'); } });
+
+    const FALLBACK_IMGS = [
+      'https://images.unsplash.com/photo-1551288049-bbbda5e66ef2?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop'
+    ];
+
+    function formatDate(iso) {
+      try {
+        return new Date(iso).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+      } catch { return ''; }
+    }
+
+    function excerpt(text, max = 160) {
+      if (!text) return '';
+      return text.length > max ? text.slice(0, max).trimEnd() + '…' : text;
+    }
+
+    function getImage(node, idx) {
+      const imgs = Array.isArray(node.images) ? node.images : [];
+      return imgs[0] || FALLBACK_IMGS[idx % FALLBACK_IMGS.length];
+    }
+
+    function buildCard(node, idx, featured) {
+      const img   = getImage(node, idx);
+      const date  = formatDate(node.createdAt);
+      const blurb = excerpt(node.insight);
+      const url   = `/insight/${node.id}`;
+      const delay = ['d1','d2','d3'][idx % 3];
+
+      if (featured) {
+        return `
+          <a href="${url}" class="article-card featured reveal ${delay}" style="text-decoration:none; color:inherit;">
+            <div class="article-img">
+              <img src="${img}" alt="${node.title}" loading="lazy">
+            </div>
+            <div class="article-body">
+              <div class="article-meta">
+                <span class="article-tag">Featured</span>
+                <span class="article-date">${date}</span>
+              </div>
+              <h3 class="article-title">${node.title}</h3>
+              <p class="article-excerpt">${blurb}</p>
+              <span class="article-read">Read Full Article →</span>
+            </div>
+          </a>`;
+      }
+
+      return `
+        <a href="${url}" class="article-card reveal ${delay}" style="text-decoration:none; color:inherit;">
+          <div class="article-img">
+            <img src="${img}" alt="${node.title}" loading="lazy">
+          </div>
+          <div class="article-body">
+            <div class="article-meta">
+              <span class="article-tag">${node.sector}</span>
+              <span class="article-date">${date}</span>
+            </div>
+            <h3 class="article-title">${node.title}</h3>
+            <p class="article-excerpt">${blurb}</p>
+            <span class="article-read">Read Full Article →</span>
+          </div>
+        </a>`;
+    }
+
+    async function loadArticles() {
+      const loading = document.getElementById('articles-loading');
+      const errorEl = document.getElementById('articles-error');
+      const grid    = document.getElementById('articles-grid');
+
+      try {
+        const res   = await fetch('/api/intelligence');
+        if (!res.ok) throw new Error('API ' + res.status);
+        const nodes = await res.json();
+
+        const real = nodes.filter(n => n.id && !n.id.startsWith('placeholder'));
+
+        if (real.length === 0) {
+          loading.innerHTML = '<p style="font-family:var(--font-mono);font-size:var(--text-10);letter-spacing:var(--ls-4);text-transform:uppercase;color:var(--gray-400);">No articles published yet. Check back soon.</p>';
+          return;
+        }
+
+        grid.innerHTML = real.map((n, i) => buildCard(n, i, i === 0)).join('');
+        loading.style.display = 'none';
+        grid.style.display    = '';
+
+        const ro = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        grid.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+      } catch (err) {
+        console.error('Failed to load articles:', err);
+        loading.style.display = 'none';
+        errorEl.style.display = '';
+      }
+    }
+
+    const ro = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+    loadArticles();
+  </script>
 </body>
 </html>

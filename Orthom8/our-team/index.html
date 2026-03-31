@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Team | Ortho'M8 — The People Behind Your Protection</title>
+  <meta name="description" content="Meet the team that built Ortho'M8 — real people with decades of experience, committed to protecting your business capital no matter what the world throws at you.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Design System & Page Template -->
+  <link rel="stylesheet" href="/Orthom8pro/shared-nav.css">
+  <link rel="stylesheet" href="/Orthom8pro/page-template.css">
+  <script src="/Orthom8pro/shared-nav.js"></script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/i18n-loader.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<div id="app" x-data>
+  <div id="site-nav-root"></div>
+
+  <main class="layout-container">
+
+    <!-- MISSION HERO -->
+    <section class="hero-team anim-slide-up" style="padding: clamp(8rem, 15vw, 12rem) 0 clamp(4rem, 8vw, 6rem);">
+      <span class="text-eyebrow" style="justify-content:center; margin-bottom:1.5rem;"
+            x-text="$store.i18n.t('content.mission.eyebrow')">Our Mission</span>
+      <h1 class="hero-heading"
+          x-html="$store.i18n.t('content.mission.heading')">
+        Engineered for <em>Trust</em>.<br>Driven by <strong>Intelligence.</strong>
+      </h1>
+      <p class="body-text" style="max-width:640px; margin:1.5rem auto 0;"
+         x-text="$store.i18n.t('content.mission.body')">
+        Ortho'M8 was founded on a principle: high-performance trading governed by logic, not emotion.
+      </p>
+    </section>
+
+    <!-- FOUNDER STORY -->
+    <section style="padding: clamp(4rem, 8vw, 6rem) 0; border-top: 1px solid var(--brand-rule-strong);">
+      <div class="split-section" style="gap: clamp(2rem, 6vw, 5rem);">
+
+        <!-- Content -->
+        <div class="anim-slide-left">
+          <span class="text-eyebrow" style="margin-bottom:1.5rem;"
+                x-text="$store.i18n.t('content.founder.eyebrow')">The Founder</span>
+
+          <h2 class="section-heading" style="margin-bottom:1.75rem;"
+              x-html="$store.i18n.t('content.founder.heading')">
+            One person. One strategy. <em>Proven</em> on the world stage.
+          </h2>
+
+          <p class="body-text" style="margin-bottom:2rem; font-size: clamp(15px, 2vw, 17px); line-height:1.85;"
+             x-text="$store.i18n.t('content.founder.body')">
+            Before Ortho'M8 became a platform, it was a personal test. Our founder took the core hedge strategy and applied it — live — against one of the most volatile commodities-linked assets in the market: ConocoPhillips. Operating alone, with real capital and no safety net, the results were independently verified and exceeded every benchmark.
+          </p>
+
+          <!-- ConocoPhillips proof badge -->
+          <div style="display:inline-flex; align-items:center; gap:1.25rem; border:1px solid var(--brand-rule-strong); padding:1rem 1.5rem; margin-bottom:2rem; background:rgba(26,86,255,0.04);">
+            <div>
+              <div class="mono" style="font-size:9px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:3px; margin-bottom:0.25rem;"
+                   x-text="$store.i18n.t('content.founder.proof_label')">Live Proof of Concept</div>
+              <div style="font-size:1rem; font-weight:700; color:var(--tx-main);"
+                   x-text="$store.i18n.t('content.founder.proof_company')">ConocoPhillips</div>
+            </div>
+            <div style="width:1px; height:2.5rem; background:var(--brand-rule-strong);"></div>
+            <div>
+              <div class="mono" style="font-size:9px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:3px; margin-bottom:0.25rem;">Outcome</div>
+              <div style="font-size:1rem; font-weight:700; color:#6EE7B7;"
+                   x-text="$store.i18n.t('content.founder.proof_outcome')">Excellent — Verified</div>
+            </div>
+          </div>
+
+          <div>
+            <a href="/Orthom8pro/Results/" class="btn-gold" style="padding: 0.9rem clamp(1.5rem, 4vw, 2.5rem);"
+               x-text="$store.i18n.t('content.founder.cta')">See the Full Results →</a>
+          </div>
+        </div>
+
+        <!-- Photo -->
+        <div class="anim-slide-right" style="position:relative; flex-shrink:0;">
+          <div class="corner-dec tl" style="top:-6px; left:-6px;"></div>
+          <div class="corner-dec br" style="bottom:-6px; right:-6px;"></div>
+          <img src="https://res.cloudinary.com/dt6n4pnjb/image/upload/v1774340162/IMG_1194_nunvgj_egct2t.jpg"
+               alt="Ortho'M8 Founder"
+               style="width:100%; max-width:480px; display:block; border:1px solid var(--brand-rule-strong);">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LEADERSHIP -->
+    <section class="founder-section" style="padding: clamp(4rem, 8vw, 6rem) 0;">
+      <div class="founder-img-wrap anim-slide-left">
+        <img src="https://res.cloudinary.com/dt6n4pnjb/image/upload/v1774340167/IMG_1201_n07tz1_raycbz.png"
+             class="founder-img" alt="Founder of Ortho'M8">
+        <div class="corner-dec tr" style="top:4px; right:4px;"></div>
+        <div class="corner-dec bl" style="bottom:4px; left:4px;"></div>
+      </div>
+
+      <div class="anim-slide-right">
+        <span class="text-eyebrow" style="margin-bottom:1.5rem;"
+              x-text="$store.i18n.t('content.leadership.eyebrow')">Leadership Architecture</span>
+        <h2 class="section-heading" style="margin-bottom:2rem;"
+            x-html="$store.i18n.t('content.leadership.heading')">
+          The <em>Vision</em> behind the <br><strong>Execution.</strong>
+        </h2>
+        <p class="body-text" style="margin-bottom:2rem;"
+           x-text="$store.i18n.t('content.leadership.body')">
+          Our leadership team combines decades of experience in quantitative finance, cyber-security, and neural network modelling. We believe in building systems that can withstand any market condition.
+        </p>
+
+        <div class="directors-list">
+          <div class="director-card anim-slide-up delay-1">
+            <div class="director-portrait">
+              <img src="/Orthom8pro/our-team/1.png" alt="Thomas Ziegler">
+            </div>
+            <div>
+              <div class="director-name" x-text="$store.i18n.t('content.leadership.team_members.0.name')">Thomas Ziegler</div>
+              <div class="director-title" x-text="$store.i18n.t('content.leadership.team_members.0.title')">Director of Algorithmic Strategy</div>
+            </div>
+          </div>
+          <div class="director-card anim-slide-up delay-2">
+            <div class="director-portrait">
+              <img src="/Orthom8pro/our-team/2.png" alt="Wilhelm Rybak">
+            </div>
+            <div>
+              <div class="director-name" x-text="$store.i18n.t('content.leadership.team_members.1.name')">Wilhelm Rybak</div>
+              <div class="director-title" x-text="$store.i18n.t('content.leadership.team_members.1.title')">Head of Data Engineering</div>
+            </div>
+          </div>
+          <div class="director-card anim-slide-up delay-3">
+            <div class="director-portrait">
+              <img src="/Orthom8pro/our-team/3.png" alt="Brokard Williams">
+            </div>
+            <div>
+              <div class="director-name" x-text="$store.i18n.t('content.leadership.team_members.2.name')">Brokard Williams</div>
+              <div class="director-title" x-text="$store.i18n.t('content.leadership.team_members.2.title')">Strategy & Model Engineer</div>
+            </div>
+          </div>
+          <div class="director-card anim-slide-up delay-4">
+            <div class="director-portrait">
+              <img src="/Orthom8pro/our-team/4.png" alt="Ava Koners">
+            </div>
+            <div>
+              <div class="director-name" x-text="$store.i18n.t('content.leadership.team_members.3.name')">Ava Koners</div>
+              <div class="director-title" x-text="$store.i18n.t('content.leadership.team_members.3.title')">Director of Quantitative Research</div>
+            </div>
+          </div>
+          <div class="director-card anim-slide-up delay-5" style="grid-column:1/-1; border-color:var(--brand-gold-pale);">
+            <div class="signature" x-text="$store.i18n.t('content.leadership.quote')">
+              "Ortho'M8 is the culmination of our belief that data, when properly gated, is the most powerful asset in any market."
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="anim-slide-up" style="padding: clamp(4rem, 10vw, 8rem) 0; text-align:center; border-top:1px solid var(--brand-rule-strong);">
+      <h2 class="section-heading" style="margin-bottom:1.5rem;"
+          x-html="$store.i18n.t('content.cta.heading')">
+        Join the <em>Future</em> of Capital.
+      </h2>
+      <p class="body-text" style="max-width:500px; margin:0 auto 2.5rem;"
+         x-text="$store.i18n.t('content.cta.body')">
+        Schedule a private consultation with our team to explore how Ortho'M8 can protect and grow your capital anchor.
+      </p>
+      <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+        <a href="/Orthom8pro/onboarding/" class="btn-gold" style="padding: 0.8rem clamp(1.5rem, 4vw, 2.5rem);"
+           x-text="$store.i18n.t('content.cta.primary')">Book a Consultation</a>
+        <a href="/Orthom8pro/contact/" class="btn-ghost" style="padding: 0.8rem clamp(1.25rem, 3vw, 2rem);"
+           x-text="$store.i18n.t('content.cta.secondary')">Contact Our Office</a>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer-root"></div>
+</div>
+
+</body>
+</html>

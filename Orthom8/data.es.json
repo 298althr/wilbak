@@ -1,0 +1,54 @@
+{
+  "content": {
+    "hero": {
+      "eyebrow": "Inteligencia de Grado Institucional — v3.4.0",
+      "body": "Ortho'M8 es el primer motor de Gestión de Capital Algorítmico que trata el riesgo como una variable, no como una apuesta. Asegure capital no riesgoso con una precisión del 99.9%.",
+      "primary_cta": "INICIAR AUDITORÍA PRIVADA",
+      "secondary_cta": "Explorar la Matriz del Modelo →",
+      "stats": [
+        { "label": "Capital Desplegado" },
+        { "label": "Precisión Mínima" }
+      ]
+    },
+    "security_engine": {
+      "title": "MOTOR_SEGURIDAD_ACTIVO",
+      "status": "SEGURO",
+      "nodes": [
+        { "label": "Ingestión de Flujo Neutro" },
+        { "label": "Identificación de Bloques de Órdenes" },
+        { "label": "Verificación de Liquidez Institucional" },
+        { "label": "Mapeo de Reservas de Liquidez" },
+        { "label": "DISPARADOR ESTRATÉGICO VALIDADO" },
+        { "label": "Verificación de Reducción de Capital" },
+        { "label": "Pulso de Umbral de Riesgo" },
+        { "label": "EJECUCIÓN DEL PROTOCOLO ASEGURADA" }
+      ],
+      "metrics": [
+        { "label": "Latencia",        "value": "320ms"    },
+        { "label": "Salvaguarda IA",  "value": "ACTIVADA"  },
+        { "label": "Fiabilidad",      "value": "99.9%"    }
+      ]
+    },
+    "performance": {
+      "eyebrow": "La Métrica de Rendimiento",
+      "cards": [
+        { "category": "ANÁLISIS DE DOMINIO",  "title": "Matriz de Seguridad de Capital",  "description": "Nuestro sistema analiza más de 40 millones de puntos de datos diariamente para garantizar que cada ancla de capital esté protegida por 11 puertas de riesgo independientes." },
+        { "category": "CONTROLES DE RIESGO", "title": "Lógica Sin Fugas",                 "description": "Los parámetros de parada programados garantizan que la emoción humana nunca entre en la tubería de ejecución. Si los datos están un 0.01% desviados, nos mantenemos fuera." },
+        { "category": "ALCANCE GLOBAL",      "title": "Correlación de Dominios",          "description": "Mapear la volatilidad sintética con proxies de materias primas del mundo real nos da una ventaja estratégica que los sistemas tradicionales simplemente no pueden ver." }
+      ]
+    },
+    "results": {
+      "eyebrow": "Evidencia en Tiempo Real",
+      "body": "Proporcionamos total transparencia en nuestro rendimiento. Sin honorarios ocultos, sin estrategias opacas. Solo resultados documentados y verificados por auditores externos.",
+      "cta": "Ver Informe de Verificación Completo"
+    },
+    "proof_ribbon": {
+      "text": "Asegurado por el Protocolo OrthoG8",
+      "verification": "95.0% de precisión de nodo verificada"
+    },
+    "final_cta": {
+      "primary": "INICIAR MI AUDITORÍA",
+      "secondary": "Consultar con Nuestros Expertos"
+    }
+  }
+}

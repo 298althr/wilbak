@@ -1,0 +1,73 @@
+period,regime,precision_pct,production_costs,yield_pct,balance
+2020-01,Bull Momentum Surge,94.97,15678.34,4.12,19566.83
+2020-02,Low Volatility Accumulation,95.01,16123.89,5.16,20589.09
+2020-03,Gig Economy Shift,94.03,16789.45,2.83,21175.89
+2020-04,Gig Economy Shift,96.71,17234.78,3.69,21994.32
+2020-05,Bull Momentum Surge,95.57,17689.34,3.44,22661.78
+2020-06,Low Volatility Accumulation,95.69,18123.67,1.75,22988.75
+2020-07,Bull Momentum Surge,94.62,17890.56,3.37,23608.95
+2020-08,Bull Momentum Surge,96.92,21234.78,3.55,24333.82
+2020-09,Bull Momentum Surge,96.19,21890.45,5.51,25473.01
+2020-10,Bull Momentum Surge,97.32,25678.90,-6.73,23732.59
+2020-11,Low Volatility Accumulation,96.69,26234.78,5.62,25082.80
+2020-12,Bull Momentum Surge,95.59,29890.34,4.34,26068.66
+2021-01,Low Volatility Accumulation,97.15,29456.89,2.60,26669.23
+2021-02,Bull Momentum Surge,95.49,36789.45,4.05,27654.98
+2021-03,Bull Momentum Surge,95.52,37456.89,2.63,27918.19
+2021-04,Range-Bound Consolidation,94.03,42345.67,2.94,28343.38
+2021-05,Bull Momentum Surge,95.28,42378.90,2.69,28863.65
+2021-06,Bull Momentum Surge,96.24,43456.78,6.21,30599.46
+2021-07,Bull Momentum Surge,95.01,49890.34,3.61,31594.62
+2021-08,Low Volatility Accumulation,94.67,54901.23,3.67,32699.49
+2021-09,Low Volatility Accumulation,94.36,58901.56,5.86,34442.79
+2021-10,Low Volatility Accumulation,96.56,61234.78,-4.70,32783.78
+2021-11,Low Volatility Accumulation,94.69,69890.45,4.32,34040.24
+2021-12,Bull Momentum Surge,94.03,71234.67,2.24,34770.64
+2022-01,Bull Momentum Surge,96.05,78901.23,3.21,35839.36
+2022-02,Bull Momentum Surge,96.35,100345.67,4.68,37467.51
+2022-03,Bull Momentum Surge,97.24,100890.34,5.16,39144.86
+2022-04,Bull Momentum Surge,97.37,125678.90,4.25,40623.53
+2022-05,Range-Bound Consolidation,96.90,132345.67,-5.80,38295.70
+2022-06,Range-Bound Consolidation,94.83,127891.23,1.65,38848.81
+2022-07,Range-Bound Consolidation,94.63,129890.45,3.76,40191.87
+2022-08,Bull Momentum Surge,95.92,131234.78,4.42,41788.76
+2022-09,Low Volatility Accumulation,95.92,132456.89,1.86,42520.89
+2022-10,Low Volatility Accumulation,97.10,148901.34,3.63,43913.07
+2022-11,Low Volatility Accumulation,95.69,163456.78,1.89,44678.63
+2022-12,Bull Momentum Surge,97.21,170345.67,3.57,46140.59
+2023-01,Low Volatility Accumulation,95.63,214567.89,-7.13,42862.77
+2023-02,Bull Momentum Surge,97.41,205678.90,2.75,43904.28
+2023-03,Bull Momentum Surge,97.44,258901.56,-6.90,40875.75
+2023-04,Range-Bound Consolidation,96.57,258345.67,3.49,42132.00
+2023-05,Bull Momentum Surge,95.07,261234.89,3.95,43614.75
+2023-06,Bull Momentum Surge,96.63,292345.67,3.79,45074.46
+2023-07,Range-Bound Consolidation,94.58,334567.89,3.97,46533.26
+2023-08,Bull Momentum Surge,94.06,322345.78,5.38,48876.13
+2023-09,Bull Momentum Surge,97.33,342345.67,2.20,49764.14
+2023-10,Bull Momentum Surge,94.26,392345.78,3.62,51411.39
+2023-11,Low Volatility Accumulation,97.28,401234.89,3.45,53141.16
+2023-12,Bull Momentum Surge,96.99,469012.45,4.95,55579.40
+2024-01,Low Volatility Accumulation,95.63,507891.23,-0.41,55376.83
+2024-02,Bull Momentum Surge,95.03,528901.56,6.48,58771.42
+2024-03,Low Volatility Accumulation,96.32,538901.34,7.11,62729.80
+2024-04,Range-Bound Consolidation,94.58,636789.45,7.03,66945.89
+2024-05,Range-Bound Consolidation,95.33,562345.67,6.91,71388.14
+2024-06,Low Volatility Accumulation,96.18,588901.56,6.70,75830.20
+2024-07,Low Volatility Accumulation,96.83,598901.34,5.95,80163.19
+2024-08,Low Volatility Accumulation,97.17,681234.78,4.14,83163.73
+2024-09,Bull Momentum Surge,95.27,698901.56,4.77,86985.59
+2024-10,Low Volatility Accumulation,96.50,827891.34,7.24,93135.46
+2024-11,Bull Momentum Surge,96.70,795678.90,3.81,96545.08
+2024-12,Bull Momentum Surge,94.71,881234.67,4.93,101215.99
+2025-01,Low Volatility Accumulation,94.94,1058901.56,6.91,108071.54
+2025-02,Low Volatility Accumulation,95.09,1021234.78,-0.24,107826.53
+2025-03,Low Volatility Accumulation,94.50,1103456.89,4.16,112239.81
+2025-04,AI Automation Impact,95.93,1268901.45,-4.60,107101.68
+2025-05,AI Automation Impact,95.16,1091234.78,-4.36,102470.37
+2025-06,AI Automation Impact,95.99,1246789.45,-4.27,98013.95
+2025-07,Remote Work Growth,94.29,1368901.56,4.87,102721.48
+2025-08,Remote Work Growth,96.21,1525678.90,4.18,106858.83
+2025-09,Remote Work Growth,97.34,1658901.34,5.11,112134.12
+2025-10,Remote Work Growth,97.07,1664567.89,6.40,119238.33
+2025-11,Remote Work Growth,96.32,1936789.12,-39.67,71895.38
+2025-12,Digital Freelance Surge,96.77,1878901.45,-12.40,62901.08

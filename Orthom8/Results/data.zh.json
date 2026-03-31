@@ -1,0 +1,37 @@
+{
+  "content": {
+    "header": {
+      "eyebrow": "投资者验证协议",
+      "title": "业绩表现"
+    },
+    "tabs": {
+      "platform": "系统智能",
+      "evidence": "机构证明"
+    },
+    "stats": {
+      "total_roi":      "总净ROI",
+      "cagr":           "复合年增长率",
+      "ending_balance": "期末余额",
+      "profit_factor":  "盈利因子"
+    },
+    "loading": "正在加载历史数据…",
+    "ledger": {
+      "title":         "运营账本",
+      "col_period":    "期间块",
+      "col_regime":    "制度",
+      "col_precision": "精度",
+      "col_yield":     "收益率",
+      "col_balance":   "余额"
+    },
+    "modal": {
+      "title":           "机构审计块",
+      "period_label":    "账本期间：",
+      "financial_label": "财务核心",
+      "net_pnl":         "净盈亏",
+      "ending_balance":  "期末余额",
+      "kpi_label":       "系统KPI",
+      "precision":       "节点精度",
+      "latency":         "延迟"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "content": {
+    "header": {
+      "eyebrow": "Investoren-Verifizierungsprotokoll",
+      "title": "Performance"
+    },
+    "tabs": {
+      "platform": "System-Intelligenz",
+      "evidence": "Institutioneller Nachweis"
+    },
+    "stats": {
+      "total_roi":      "Gesamt-Netto-ROI",
+      "cagr":           "CAGR",
+      "ending_balance": "Endguthaben",
+      "profit_factor":  "Gewinnfaktor"
+    },
+    "loading": "Historische Daten werden geladen…",
+    "ledger": {
+      "title":         "Operatives Hauptbuch",
+      "col_period":    "Periodenblock",
+      "col_regime":    "Regime",
+      "col_precision": "Präzision",
+      "col_yield":     "Rendite",
+      "col_balance":   "Guthaben"
+    },
+    "modal": {
+      "title":           "Institutioneller Audit-Block",
+      "period_label":    "Hauptbuch-Periode:",
+      "financial_label": "Finanzkern",
+      "net_pnl":         "Netto-GuV",
+      "ending_balance":  "Endguthaben",
+      "kpi_label":       "System-KPI",
+      "precision":       "Knotenpräzision",
+      "latency":         "Latenz"
+    }
+  }
+}

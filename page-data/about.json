@@ -1,0 +1,245 @@
+{
+  "page": "about",
+  "translations": {
+    "en": {
+      "title": "About | Wilbak Engineering",
+      "meta": {
+        "description": "Wilbak Engineering marks two decades of structural and data engineering. We don't just solve problems; we outbuild them."
+      },
+      "hero": {
+        "eyebrow": "ESTABLISHED 2006",
+        "heading": "20 YEARS OF <br> <span class='text-blue-400 font-light underline decoration-1 underline-offset-8'>DATA DOMINANCE.</span>",
+        "body": "Wilbak Engineering marks two decades of structural and data engineering. We don't just solve problems; we outbuild them."
+      },
+      "overview": {
+        "heading": "The Professional Overview",
+        "content": [
+          "I am Wilhelm Rybak, a Data and Structural Engineer. I've spent two decades in the trenches of industrial infrastructure, moving between Doha's heat and Alaska's cold.",
+          "My philosophy: <strong>Nature is the ultimate engineer.</strong> If you want a data grid to last, you leverage the environment. This obsession is why I demand rugged reliability from everything I build for businesses and Individuals.",
+          "My 'retirement plan' is a data center cooled by the lake outside my window. That's the level of obsession I bring to your project."
+        ]
+      },
+      "specialties": {
+        "field_structural": {
+          "title": "Field & Structural",
+          "description": "The boots-on-the-ground. Specialists in physical and safety gears, overhauling nodes under extreme conditions globally.",
+          "status": "Deployment Ready: Houston, TX"
+        },
+        "data_ai": {
+          "title": "Data & AI Hub",
+          "description": "The logic behind OrthoMate™. Elite architects managing predictive AI training for Business Finance Management.",
+          "status": "Processing Protocol: v4.2"
+        }
+      },
+      "navigation": {
+        "home": "Home",
+        "projects": "Projects",
+        "about": "About",
+        "orthomate": "OrthoMate™",
+        "contact": "Contact",
+        "insights": "News & Insights",
+        "audit": "Business Audit"
+      },
+      "footer": {
+        "brand_description": "Operational logic for businesses that value performance over hype.",
+        "navigation": "Navigation",
+        "system_status": "System Status",
+        "status_active": "Active",
+        "location": "Texas, USA",
+        "copyright": "© 2026 Wilbak Engineering Group // Built for Unbreakable Performance"
+      }
+    },
+    "es": {
+      "title": "Acerca de | Wilbak Engineering",
+      "meta": {
+        "description": "Wilbak Engineering marca dos décadas de ingeniería estructural y de datos. No solo resolvemos problemas; los superamos."
+      },
+      "hero": {
+        "eyebrow": "ESTABLECIDO 2006",
+        "heading": "20 AÑOS DE <br> <span class='text-blue-400 font-light underline decoration-1 underline-offset-8'>DOMINIO DE DATOS.</span>",
+        "body": "Wilbak Engineering marca dos décadas de ingeniería estructural y de datos. No solo resolvemos problemas; los superamos."
+      },
+      "overview": {
+        "heading": "La Visión Profesional",
+        "content": [
+          "Soy Wilhelm Rybak, un Ingeniero de Datos y Estructural. He pasado dos décadas en las trincheras de la infraestructura industrial, moviéndome entre el calor de Doha y el frío de Alaska.",
+          "Mi filosofía: <strong>La naturaleza es la ingeniera definitiva.</strong> Si quieres que una cuadrícula de datos dure, aprovechas el entorno. Esta obsesión es por la que exijo fiabilidad robusta de todo lo que construyo para empresas e individuos.",
+          "Mi 'plan de jubilación' es un centro de datos enfriado por el lago fuera de mi ventana. Ese es el nivel de obsesión que traigo a tu proyecto."
+        ]
+      },
+      "specialties": {
+        "field_structural": {
+          "title": "Campo y Estructural",
+          "description": "Los expertos en el terreno. Especialistas en engranajes físicos y de seguridad, revisando nodos bajo condiciones extremas globalmente.",
+          "status": "Listo para Despliegue: Houston, TX"
+        },
+        "data_ai": {
+          "title": "Centro de Datos y IA",
+          "description": "La lógica detrás de OrthoMate™. Arquitectos de élite gestionando entrenamiento de IA predictiva para Gestión Financiera de Negocios.",
+          "status": "Protocolo de Procesamiento: v4.2"
+        }
+      },
+      "navigation": {
+        "home": "Inicio",
+        "projects": "Proyectos",
+        "about": "Acerca de",
+        "orthomate": "OrthoMate™",
+        "contact": "Contacto",
+        "insights": "Noticias y Perspectivas",
+        "audit": "Auditoría Empresarial"
+      },
+      "footer": {
+        "brand_description": "Lógica operativa para empresas que valoran el rendimiento sobre el hype.",
+        "navigation": "Navegación",
+        "system_status": "Estado del Sistema",
+        "status_active": "Activo",
+        "location": "Texas, USA",
+        "copyright": "© 2026 Wilbak Engineering Group // Construido para Rendimiento Inquebrantable"
+      }
+    },
+    "zh": {
+      "title": "关于 | 维尔巴克工程",
+      "meta": {
+        "description": "维尔巴克工程标志着二十年的结构和数据工程。我们不仅解决问题；我们超越问题。"
+      },
+      "hero": {
+        "eyebrow": "成立于2006年",
+        "heading": "20年的<br><span class='text-blue-400 font-light underline decoration-1 underline-offset-8'>数据主导地位。</span>",
+        "body": "维尔巴克工程标志着二十年的结构和数据工程。我们不仅解决问题；我们超越问题。"
+      },
+      "overview": {
+        "heading": "专业概述",
+        "content": [
+          "我是Wilhelm Rybak，一名数据和结构工程师。我在工业基础设施的前线度过了二十年，在多哈的炎热和阿拉斯加的寒冷之间穿梭。",
+          "我的理念：<strong>自然是最终的工程师。</strong>如果你想让数据网格持久，就要利用环境。这种执着就是为什么我为企业和个人构建的一切都要求坚固的可靠性。",
+          "我的'退休计划'是一个由窗外湖泊冷却的数据中心。这就是我带给您项目的执着程度。"
+        ]
+      },
+      "specialties": {
+        "field_structural": {
+          "title": "现场与结构",
+          "description": "实地专家。专门从事物理和安全装备，在全球极端条件下大修节点。",
+          "status": "部署就绪：德克萨斯州休斯顿"
+        },
+        "data_ai": {
+          "title": "数据与人工智能中心",
+          "description": "OrthoMate™背后的逻辑。管理业务财务管理预测AI训练的精英架构师。",
+          "status": "处理协议：v4.2"
+        }
+      },
+      "navigation": {
+        "home": "首页",
+        "projects": "项目",
+        "about": "关于",
+        "orthomate": "OrthoMate™",
+        "contact": "联系",
+        "insights": "新闻与观点",
+        "audit": "业务审计"
+      },
+      "footer": {
+        "brand_description": "为重视性能而非炒作的企业提供运营逻辑。",
+        "navigation": "导航",
+        "system_status": "系统状态",
+        "status_active": "活跃",
+        "location": "德克萨斯州，美国",
+        "copyright": "© 2026 维尔巴克工程集团 // 为不可破坏的性能而构建"
+      }
+    },
+    "nl": {
+      "title": "Over Ons | Wilbak Engineering",
+      "meta": {
+        "description": "Wilbak Engineering markeert twee decennia van structurele en data-engineering. We lossen niet alleen problemen op; we overtreffen ze."
+      },
+      "hero": {
+        "eyebrow": "OPGERICHT 2006",
+        "heading": "20 JAAR <br> <span class='text-blue-400 font-light underline decoration-1 underline-offset-8'>DATA DOMINANTIE.</span>",
+        "body": "Wilbak Engineering markeert twee decennia van structurele en data-engineering. We lossen niet alleen problemen op; we overtreffen ze."
+      },
+      "overview": {
+        "heading": "Het Professionele Overzicht",
+        "content": [
+          "Ik ben Wilhelm Rybak, een Data- en Structureel Ingenieur. Ik heb twee decennia doorgebracht in de loopgraven van industriële infrastructuur, bewegend tussen de hitte van Doha en de kou van Alaska.",
+          "Mijn filosofie: <strong>Natuur is de ultieme ingenieur.</strong> Als je wilt dat een dataruweel lang meegaat, benut je de omgeving. Deze obsessie is waarom ik robuuste betrouwbaarheid eis van alles wat ik bouw voor bedrijven en individuen.",
+          "Mijn 'pensioenplan' is een datacenter gekoeld door het meer buiten mijn raam. Dat is het niveau van obsessie dat ik aan uw project breng."
+        ]
+      },
+      "specialties": {
+        "field_structural": {
+          "title": "Veld & Structureel",
+          "description": "De experts ter plaatse. Specialisten in fysieke en veiligheidsuitrusting, het overnemen van knooppunten onder extreme omstandigheden wereldwijd.",
+          "status": "Implementatie Klaar: Houston, TX"
+        },
+        "data_ai": {
+          "title": "Data & AI Hub",
+          "description": "De logica achter OrthoMate™. Elite architecten die voorspellende AI-training beheren voor Bedrijfsfinancieel Beheer.",
+          "status": "Verwerkingsprotocol: v4.2"
+        }
+      },
+      "navigation": {
+        "home": "Home",
+        "projects": "Projecten",
+        "about": "Over Ons",
+        "orthomate": "OrthoMate™",
+        "contact": "Contact",
+        "insights": "Nieuws & Inzichten",
+        "audit": "Bedrijfsaudit"
+      },
+      "footer": {
+        "brand_description": "Operationele logica voor bedrijven die prestaties boven hype waarderen.",
+        "navigation": "Navigatie",
+        "system_status": "Systeemstatus",
+        "status_active": "Actief",
+        "location": "Texas, USA",
+        "copyright": "© 2026 Wilbak Engineering Group // Gebouwd voor Onbreekbare Prestaties"
+      }
+    },
+    "fr": {
+      "title": "À Propos | Wilbak Engineering",
+      "meta": {
+        "description": "Wilbak Engineering marque deux décennies d'ingénierie structurelle et de données. Nous ne résolvons pas seulement les problèmes ; nous les dépassons."
+      },
+      "hero": {
+        "eyebrow": "FONDÉ EN 2006",
+        "heading": "20 ANS DE <br> <span class='text-blue-400 font-light underline decoration-1 underline-offset-8'>DOMINATION DES DONNÉES.</span>",
+        "body": "Wilbak Engineering marque deux décennies d'ingénierie structurelle et de données. Nous ne résolvons pas seulement les problèmes ; nous les dépassons."
+      },
+      "overview": {
+        "heading": "L'Aperçu Professionnel",
+        "content": [
+          "Je suis Wilhelm Rybak, un Ingénieur de Données et Structurel. J'ai passé deux décennies dans les tranchées de l'infrastructure industrielle, me déplaçant entre la chaleur de Doha et le froid de l'Alaska.",
+          "Ma philosophie : <strong>La nature est l'ingénieur ultime.</strong> Si vous voulez qu'une grille de données dure, vous exploitez l'environnement. Cette obsession est la raison pour laquelle j'exige une fiabilité robuste de tout ce que je construis pour les entreprises et les particuliers.",
+          "Mon 'plan de retraite' est un centre de données refroidi par le lac à l'extérieur de ma fenêtre. C'est le niveau d'obsession que j'apporte à votre projet."
+        ]
+      },
+      "specialties": {
+        "field_structural": {
+          "title": "Terrain & Structurel",
+          "description": "Les experts sur le terrain. Spécialistes en équipements physiques et de sécurité, révisant les nœuds dans des conditions extrêmes mondialement.",
+          "status": "Prêt au Déploiement : Houston, TX"
+        },
+        "data_ai": {
+          "title": "Hub Data & IA",
+          "description": "La logique derrière OrthoMate™. Architectes d'élite gérant la formation d'IA prédictive pour la Gestion Financière d'Entreprise.",
+          "status": "Protocole de Traitement : v4.2"
+        }
+      },
+      "navigation": {
+        "home": "Accueil",
+        "projects": "Projets",
+        "about": "À Propos",
+        "orthomate": "OrthoMate™",
+        "contact": "Contact",
+        "insights": "Actualités & Aperçus",
+        "audit": "Audit d'Entreprise"
+      },
+      "footer": {
+        "brand_description": "Logique opérationnelle pour les entreprises qui valorisent la performance plutôt que le battage médiatique.",
+        "navigation": "Navigation",
+        "system_status": "État du Système",
+        "status_active": "Actif",
+        "location": "Texas, USA",
+        "copyright": "© 2026 Wilbak Engineering Group // Construit pour des Performances Incassables"
+      }
+    }
+  }
+}

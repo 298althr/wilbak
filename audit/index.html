@@ -1,509 +1,329 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Audit Protocol — Ortho'M8 AI Trading</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audit Protocol | Wilbak Engineering</title>
+  <meta name="description" content="Initialize Your Institutional Audit with Wilbak Engineering.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="/i18n-loader.js"></script>
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../wilbak-base.css">
   <style>
-      [x-cloak] { display: none !important; }
-      .serif { font-family: 'Playfair Display', serif; }
-      .mono { font-family: 'IBM Plex Mono', monospace; }
+    .page-hero { padding-top: calc(var(--nav-h) + var(--s20)); padding-bottom: var(--s16); background: var(--white); border-bottom: 1px solid var(--gray-200); position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-45deg, transparent, transparent 60px, rgba(27,58,122,0.015) 60px, rgba(27,58,122,0.015) 61px); pointer-events: none; }
+    .page-hero-inner { position: relative; z-index: 1; }
+    .page-hero-eyebrow { font-family: var(--font-mono); font-size: var(--text-10); color: var(--brand-mid); letter-spacing: var(--ls-4); text-transform: uppercase; margin-bottom: var(--s5); }
+    .page-hero-heading { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 5.5rem); line-height: var(--lh-tight); color: var(--navy); letter-spacing: 0.01em; margin-bottom: var(--s4); }
+    .page-hero-heading em { font-style: normal; color: var(--brand-mid); }
 
-      /* LOGO ADAPTIVE SWAP */
-      .logo-dark-theme { display: block; }
-      .logo-light-theme { display: none; }
-      [data-theme="light"] .logo-dark-theme { display: none; }
-      [data-theme="light"] .logo-light-theme { display: block; }
-  </style>
+    /* Audit form layout */
+    .audit-layout { display: grid; grid-template-columns: 1fr 340px; gap: clamp(2rem, 5vw, var(--s10)); align-items: start; }
 
-  <style>
-    /* ═══════════════════════════════════════════════════
-       DESIGN TOKENS (Ortho'M8 Core)
-    ═══════════════════════════════════════════════════ */
-    :root {
-      --brand-cobalt:      #1A56FF;
-      --brand-cobalt-dim:  #0E38C2;
-      --brand-gold:        #B8972A;
-      --brand-gold-light:  #D4AC3A;
-      --brand-gold-pale:   rgba(184,151,42,0.12);
-      --page-bg:           #060C18;
-      --surface-bg:        #0B1325;
-      --surface-2:         #0F1A30;
-      --surface-glass:     rgba(11,19,37,0.8);
-      --tx-main:           #E8EDF5;
-      --tx-sub:            #6E7E9A;
-      --tx-muted:          #3A4A62;
-      --brand-rule:        rgba(255,255,255,0.06);
-      --brand-rule-strong: rgba(255,255,255,0.12);
-      --glow-cobalt:       rgba(26,86,255,0.15);
-      --glow-gold:         rgba(184,151,42,0.12);
-      --header-bg:         rgba(6,12,24,0.88);
-      --scan-line:         rgba(26,86,255,0.04);
-      --drawer-bg:         #080F20;
+    /* Step form */
+    .audit-form { 
+      background: var(--white); 
+      border: 1px solid var(--gray-200); 
+      border-radius: var(--r-lg); 
+      padding: clamp(1.5rem, 5vw, var(--s10)); 
+      box-shadow: var(--sh-sm); 
     }
-    [data-theme="light"] {
-      --page-bg:           #F7F8FC;
-      --surface-bg:        #EDEEF5;
-      --surface-2:         #E4E6F0;
-      --surface-glass:     rgba(237,238,245,0.88);
-      --tx-main:           #0A1020;
-      --tx-sub:            #4A5568;
-      --tx-muted:          #9AA5B8;
-      --brand-rule:        rgba(0,0,0,0.07);
-      --brand-rule-strong: rgba(0,0,0,0.14);
-      --glow-cobalt:       rgba(26,86,255,0.08);
-      --glow-gold:         rgba(184,151,42,0.08);
-      --header-bg:         rgba(247,248,252,0.92);
-      --scan-line:         rgba(26,86,255,0.02);
-      --drawer-bg:         #F2F3FA;
-    }
+    .step { display: none; }
+    .step.active { display: block; }
+    .step-label { font-family: var(--font-mono); font-size: var(--text-10); color: var(--brand-mid); letter-spacing: var(--ls-4); text-transform: uppercase; margin-bottom: var(--s6); display: flex; align-items: center; gap: var(--s3); }
+    .step-label::before { content: ''; display: block; width: 18px; height: 1px; background: var(--brand-mid); }
 
-    /* ═══════════════════════════════════════════════════
-       RESET & BASE
-    ═══════════════════════════════════════════════════ */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--page-bg); color: var(--tx-main);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 15px; line-height: 1.6;
-      overflow-x: hidden;
-      transition: background 0.3s, color 0.3s;
-    }
-    body::before {
-      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background: repeating-linear-gradient(0deg, transparent, transparent 2px, var(--scan-line) 2px, var(--scan-line) 4px);
-      opacity: 0.6;
-    }
-    body.drawer-open { overflow: hidden; }
+    /* Step 1 — sector tiles */
+    .sector-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.75rem, 2vw, var(--s3)); }
+    .sector-tile { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--r-md); padding: clamp(1rem, 3vw, var(--s5)) clamp(1rem, 3vw, var(--s6)); cursor: pointer; transition: all var(--t-base) var(--ease-out); text-align: left; }
+    .sector-tile:hover { border-color: var(--brand-mid); background: var(--brand-tint); }
+    .sector-tile.selected { border-color: var(--brand); background: var(--brand-tint); box-shadow: 0 0 0 2px rgba(27,58,122,0.15); }
+    .sector-tile-name { font-size: clamp(0.9rem, 2vw, var(--text-base)); font-weight: var(--semi); color: var(--navy); margin-bottom: var(--s1); }
+    .sector-tile-sub { font-family: var(--font-mono); font-size: 9px; color: var(--gray-400); letter-spacing: var(--ls-2); text-transform: uppercase; }
 
-    /* ═══════════════════════════════════════════════════
-       TYPOGRAPHY
-    ═══════════════════════════════════════════════════ */
-    .text-eyebrow {
-      font-family: 'Fira Code', monospace; font-size: 9px; font-weight: 500;
-      letter-spacing: 4px; text-transform: uppercase; color: var(--brand-cobalt);
-      display: flex; align-items: center; gap: 10px;
-    }
-    .text-eyebrow::before {
-      content: ''; display: inline-block; width: 24px; height: 1px;
-      background: var(--brand-cobalt); opacity: 0.7;
-    }
-    .section-heading {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 600; line-height: 1.1; letter-spacing: -0.02em;
-    }
-    .section-heading em { font-style: italic; color: var(--brand-gold-light); }
-    .body-text { font-size: 15px; line-height: 1.75; color: var(--tx-sub); }
+    /* Step 2-4 — inputs */
+    .form-group { margin-bottom: var(--s5); }
+    .form-label { font-family: var(--font-mono); font-size: var(--text-10); color: var(--gray-500); letter-spacing: var(--ls-3); text-transform: uppercase; display: block; margin-bottom: var(--s2); }
+    .form-input, .form-textarea { width: 100%; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--r-md); padding: var(--s4) var(--s5); font-family: var(--font-body); font-size: var(--text-base); color: var(--navy); transition: border-color var(--t-fast) var(--ease-out), box-shadow var(--t-fast) var(--ease-out); outline: none; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--brand-mid); box-shadow: 0 0 0 3px rgba(36,81,168,0.1); }
+    .form-textarea { resize: vertical; min-height: 120px; line-height: var(--lh-base); }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--gray-400); font-size: var(--text-13); letter-spacing: var(--ls-2); text-transform: uppercase; }
 
-    /* ═══════════════════════════════════════════════════
-       HEADER
-    ═══════════════════════════════════════════════════ */
-    #site-header {
-      position: fixed; top: 0; left: 0; right: 0; height: 68px; z-index: 200;
-      background: var(--header-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--brand-rule-strong);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 clamp(1.25rem, 3vw, 2.5rem); transition: background 0.3s;
+    /* Step nav buttons */
+    .step-nav { display: flex; gap: var(--s3); margin-top: var(--s8); }
+    @media (max-width: 480px) {
+      .step-nav { flex-direction: column-reverse; }
+      .step-nav button { width: 100%; justify-content: center; }
     }
-    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .logo-name { font-size: 11px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--tx-main); }
-    .header-nav { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
-    .header-nav a {
-      font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--tx-sub); text-decoration: none; transition: color 0.2s;
-    }
-    .header-nav a:hover { color: var(--tx-main); }
+    .btn-back { background: transparent; border: 1px solid var(--gray-200); color: var(--gray-500); padding: 0.7rem 1.4rem; border-radius: var(--r-xs); font-family: var(--font-body); font-size: var(--text-11); font-weight: var(--semi); letter-spacing: var(--ls-3); text-transform: uppercase; cursor: pointer; transition: all var(--t-base) var(--ease-out); display: inline-flex; align-items: center; gap: 8px; }
+    .btn-back:hover { border-color: var(--gray-400); color: var(--navy); }
 
-    .header-controls { display: flex; align-items: center; gap: 0.75rem; }
-    .theme-btn {
-      width: 34px; height: 34px; border: 1px solid var(--brand-rule-strong); background: transparent; color: var(--tx-sub);
-      display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 13px;
-    }
-    .theme-btn:hover { border-color: var(--brand-gold); color: var(--brand-gold-light); }
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 0.7rem 1.5rem; background: var(--brand-cobalt); color: #fff;
-      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700;
-      letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
-    }
+    /* Progress bar */
+    .progress-bar { height: 3px; background: var(--gray-100); border-radius: var(--r-full); margin-bottom: var(--s8); overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--brand); border-radius: var(--r-full); transition: width var(--t-slow) var(--ease-out); }
 
-    .hamburger { display: none; flex-direction: column; gap: 5px; width: 40px; height: 40px; border: 1px solid var(--brand-rule-strong); background: transparent; cursor: pointer; align-items: center; justify-content: center; }
-    .hamburger span { display: block; width: 20px; height: 1.5px; background: var(--tx-main); transition: 0.3s; }
-    .hamburger.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    /* Success state */
+    .audit-success { display: none; text-align: center; padding: clamp(2rem, 10vw, var(--s16)) var(--s4); }
+    .audit-success.visible { display: block; }
+    .success-icon { font-size: 3rem; margin-bottom: var(--s6); }
+    .success-heading { font-family: var(--font-display); font-size: clamp(2rem, 8vw, var(--text-48)); color: var(--navy); letter-spacing: 0.02em; margin-bottom: var(--s4); }
+    .success-heading em { font-style: normal; color: var(--brand-mid); }
+    .success-body { font-size: var(--text-base); font-weight: var(--thin); color: var(--gray-500); line-height: var(--lh-loose); margin-bottom: var(--s8); }
 
-    /* ═══════════════════════════════════════════════════
-       MOBILE DRAWER
-    ═══════════════════════════════════════════════════ */
-    #mobile-drawer {
-      position: fixed; top: 0; right: 0;
-      width: min(320px, 88vw); height: 100dvh;
-      z-index: 300; background: var(--drawer-bg);
-      border-left: 1px solid var(--brand-rule-strong);
-      display: flex; flex-direction: column;
-      transform: translateX(100%);
-      transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    #mobile-drawer.open { transform: translateX(0); }
-    #drawer-overlay {
-      position: fixed; inset: 0; z-index: 290;
-      background: rgba(6,12,24,0.65); backdrop-filter: blur(4px);
-      opacity: 0; pointer-events: none; transition: 0.3s;
-    }
-    #drawer-overlay.visible { opacity: 1; pointer-events: all; }
-    .drawer-header { height: 68px; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; border-bottom: 1px solid var(--brand-rule-strong); }
-    .drawer-nav { flex: 1; display: flex; flex-direction: column; padding: 1rem 0; }
-    .drawer-nav a { padding: 1rem 1.5rem; font-size: 11px; font-weight: 700; color: var(--tx-sub); text-decoration: none; border-bottom: 1px solid var(--brand-rule); }
+    /* Sidebar */
+    .audit-sidebar { display: flex; flex-direction: column; gap: var(--s5); }
+    .sidebar-card { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--r-lg); padding: var(--s6); }
+    .sidebar-proto { font-family: var(--font-mono); font-size: var(--text-10); color: var(--brand-mid); letter-spacing: var(--ls-3); text-transform: uppercase; margin-bottom: var(--s3); }
+    .sidebar-stat { font-family: var(--font-display); font-size: var(--text-36); color: var(--navy); letter-spacing: 0.02em; margin-bottom: var(--s1); }
+    .sidebar-stat-label { font-family: var(--font-mono); font-size: var(--text-10); color: var(--gray-400); letter-spacing: var(--ls-3); text-transform: uppercase; }
+    .sidebar-steps { list-style: none; display: flex; flex-direction: column; gap: var(--s3); }
+    .sidebar-step { display: flex; align-items: center; gap: var(--s3); font-size: var(--text-13); color: var(--gray-500); }
+    .sidebar-step-num { width: 22px; height: 22px; border-radius: 50%; background: var(--gray-200); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: var(--text-10); color: var(--gray-500); flex-shrink: 0; transition: all var(--t-base) var(--ease-out); }
+    .sidebar-step.active .sidebar-step-num { background: var(--brand); color: var(--white); }
+    .sidebar-step.done .sidebar-step-num { background: #00E676; color: var(--white); }
 
-    /* ═══════════════════════════════════════════════════
-       50/50 SPLIT LAYOUT
-    ═══════════════════════════════════════════════════ */
-    #audit-split { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 68px); margin-top: 68px; }
-    .audit-form-side {
-      padding: clamp(3rem, 6vw, 8rem) clamp(1.5rem, 4vw, 5rem);
-      border-right: 1px solid var(--brand-rule-strong);
-      display: flex; flex-direction: column; justify-content: center;
-      position: relative; overflow-y: auto;
+    @media (max-width: 900px) { 
+      .audit-layout { grid-template-columns: 1fr; } 
+      .audit-sidebar { display: none; } 
     }
-    .audit-img-side {
-      position: sticky; top: 68px; height: calc(100vh - 68px);
-      overflow: hidden; background: var(--surface-bg);
-    }
-    .audit-img-side video, .audit-img-side img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.8) contrast(1.1); }
-    .img-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26,86,255,0.15), transparent); z-index: 2; pointer-events: none; }
-
-    /* ═══════════════════════════════════════════════════
-       FORM STYLING
-    ═══════════════════════════════════════════════════ */
-    .input-ortho {
-      width: 100%; background: var(--surface-bg); border: 1px solid var(--brand-rule-strong);
-      padding: 1.25rem; font-family: 'Fira Code', monospace; font-size: 13px; color: var(--tx-main);
-      transition: 0.3s; outline: none; margin-bottom: 1.5rem;
-    }
-    .input-ortho:focus { border-color: var(--brand-cobalt); background: rgba(26,86,255,0.03); }
-    .sector-btn {
-      width: 100%; text-align: left; padding: 1.5rem; border: 1px solid var(--brand-rule-strong);
-      background: var(--surface-bg); transition: 0.3s; margin-bottom: 1rem; cursor: pointer;
-    }
-    .sector-btn:hover { border-color: var(--brand-cobalt); background: rgba(26,86,255,0.03); }
-    .btn-gold {
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      padding: 1rem 2rem; background: var(--brand-gold); color: #060C18;
-      font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; border: none; width: 100%;
-    }
-    .btn-gold:hover { background: var(--brand-gold-light); box-shadow: 0 0 24px rgba(184,151,42,0.3); }
-
-    /* ═══════════════════════════════════════════════════
-       FOOTER
-    ═══════════════════════════════════════════════════ */
-    #site-footer { background: var(--surface-bg); border-top: 1px solid var(--brand-rule-strong); padding: 4rem 0; }
-    .footer-grid { display: grid; grid-template-columns: 1.5fr repeat(4, 1fr); gap: 3rem; max-width: 1380px; margin: 0 auto; padding: 0 4rem; }
-    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--tx-main); margin-bottom: 0.75rem; display: block; }
-    .footer-brand-desc { font-size: 13px; line-height: 1.7; color: var(--tx-sub); }
-    .footer-col-title { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--tx-main); margin-bottom: 1.25rem; }
-    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
-    .footer-links a { font-size: 13px; color: var(--tx-sub); text-decoration: none; transition: 0.2s; }
-    .footer-links a:hover { color: var(--brand-cobalt); }
-    .footer-bottom { border-top: 1px solid var(--brand-rule); margin-top: 3rem; padding-top: 2rem; max-width: 1380px; margin: 3rem auto 0; text-align: center; }
-    .footer-bottom p { font-family: 'Fira Code', monospace; font-size: 10px; color: var(--tx-muted); line-height: 1.8; }
-
-    /* ═══════════════════════════════════════════════════
-       WELCOME GATE
-    ═══════════════════════════════════════════════════ */
-    #welcome-gate { position: fixed; inset: 0; z-index: 9999; background: var(--page-bg); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1.5rem; }
-    #welcome-gate.exiting { animation: gate-out 0.5s ease forwards; }
-    @keyframes gate-out { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
-    .gate-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; letter-spacing: 12px; text-transform: uppercase; color: var(--tx-main); }
-    .gate-bar-wrap { width: 200px; height: 1px; background: var(--brand-rule-strong); position: relative; overflow: hidden; }
-    .gate-bar { position: absolute; top: 0; left: 0; height: 100%; background: var(--brand-cobalt); animation: gate-load 1s ease forwards; }
-    @keyframes gate-load { to { width: 100%; } }
-    .gate-status { font-family: 'Fira Code', monospace; font-size: 9px; color: var(--brand-cobalt); text-transform: uppercase; letter-spacing: 3px; }
-
-    #app { opacity: 0; transition: 0.5s; }
-    #app.visible { opacity: 1; }
-
-    @media (max-width: 1024px) {
-      .header-nav, .header-controls { display: none; }
-      .hamburger { display: flex; }
-      #audit-split { grid-template-columns: 1fr; }
-      .audit-img-side {
-        position: relative; top: 0; min-height: 280px; height: auto;
-        border-bottom: 1px solid var(--brand-rule-strong);
-      }
-      .audit-form-side { padding: 3rem 1.5rem; border-right: none; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 768px) {
-      .footer-grid { grid-template-columns: 1fr; }
+    @media (max-width: 768px) { 
+      .sector-grid { grid-template-columns: 1fr; } 
     }
   </style>
 </head>
-<body x-data="auditApp">
-
-<div id="welcome-gate">
-  <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-16 mb-6">
-  <div class="gate-logo" style="letter-spacing: 12px;">Audit Protocol</div>
-  <div class="gate-bar-wrap"><div class="gate-bar"></div></div>
-  <div class="gate-status">Initializing audit protocol…</div>
-</div>
-
-<div id="app">
-  <div id="drawer-overlay"></div>
-
-  <!-- Mobile Drawer -->
-  <div id="mobile-drawer">
-    <div class="drawer-header">
-      <a href="/Orthom8pro/" class="logo-wrap">
-        <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
-        <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
-        <span class="logo-name">Ortho'M8</span>
-      </a>
-      <button id="drawer-close" style="color:var(--tx-sub); font-size:20px; background:none; border:none; cursor:pointer;">✕</button>
-    </div>
-    <nav class="drawer-nav">
-      <a href="/">Home</a>
-      <a href="/Orthom8pro/results/">Performance Report</a>
-      <a href="/Orthom8pro/#engine">Methodology</a>
-      <a href="/Orthom8pro/our-team/">Our Team</a>
-      <a href="/audit/" class="btn-primary" style="margin: 1.5rem; text-align:center; color:white;">Request Audit</a>
-    </nav>
-
-    <!-- Theme + Language controls -->
-    <div class="drawer-controls" style="padding: 0 1.5rem; border-top: 1px solid var(--brand-rule); margin-top: auto; padding-bottom: 2rem;">
-      <button class="theme-btn" id="drawer-theme-toggle" title="Toggle theme" style="margin-bottom: 1rem;">
-        <span id="drawer-theme-icon">☀</span>
-      </button>
-      <div class="lang-wrap">
-        <select class="lang-select" id="drawer-lang-select" style="width:100%; appearance: none; background: transparent; border: 1px solid var(--brand-rule-strong); color: var(--tx-main); font-family: 'Fira Code', monospace; font-size: 10px; padding: 0 1rem; height: 34px; cursor: pointer;" @change="$store.i18n.setLocale($event.target.value)">
-          <option value="en" :selected="$store.i18n.locale === 'en'">EN</option>
-          <option value="es" :selected="$store.i18n.locale === 'es'">ES</option>
-          <option value="de" :selected="$store.i18n.locale === 'de'">DE</option>
-          <option value="fr" :selected="$store.i18n.locale === 'fr'">FR</option>
-          <option value="zh" :selected="$store.i18n.locale === 'zh'">ZH</option>
-        </select>
+<body>
+  <nav class="nav" id="navbar">
+    <div class="wrap">
+      <div class="nav-row">
+        <a href="../index.html" class="nav-brand">
+          <span class="nav-brand-name">Wilbak Engineering</span>
+          <span class="nav-brand-sub">Est. 2006 · Houston, TX</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="../about/index.html">About</a></li>
+          <li><a href="../projects/index.html">Projects</a></li>
+          <li><a href="../insight/index.html">Insights</a></li>
+          <li><a href="../contact/index.html">Contact</a></li>
+        </ul>
+        <div class="nav-cta"><a href="../audit/index.html" class="btn btn-primary">Request Audit</a></div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </div>
+  </nav>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="../about/index.html">About</a>
+    <a href="../projects/index.html">Projects</a>
+    <a href="../insight/index.html">Insights</a>
+    <a href="../contact/index.html">Contact</a>
   </div>
 
-  <header id="site-header">
-    <a href="/Orthom8pro/" class="logo-wrap">
-      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
-      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
-      <span class="logo-name">Ortho'M8</span>
-    </a>
-    <nav>
-      <ul class="header-nav">
-        <li><a href="/">Home</a></li>
-        <li><a href="/Orthom8pro/#performance">Performance</a></li>
-        <li><a href="/Orthom8pro/#engine">How It Works</a></li>
-        <li><a href="/Orthom8pro/#evidence">Results</a></li>
-        <li><a href="/Orthom8pro/our-team/">Our Team</a></li>
-      </ul>
-    </nav>
-    <div class="header-controls">
-      <button class="theme-btn" id="theme-toggle" title="Toggle theme"><span id="theme-icon">☀</span></button>
-      <select class="lang-select" id="lang-select" style="appearance: none; background: transparent; border: 1px solid var(--brand-rule-strong); color: var(--tx-main); font-family: 'Fira Code', monospace; font-size: 10px; padding: 0 1rem; height: 34px; cursor: pointer;"
-              @change="$store.i18n.setLocale($event.target.value)">
-        <option value="en" :selected="$store.i18n.locale === 'en'">EN</option>
-        <option value="es" :selected="$store.i18n.locale === 'es'">ES</option>
-        <option value="zh" :selected="$store.i18n.locale === 'zh'">ZH</option>
-      </select>
-      <a href="/audit/" class="btn-primary">BOOK CONSULTATION</a>
-    </div>
-    <button class="hamburger" id="hamburger-btn">
-      <span></span><span></span><span></span>
-    </button>
-  </header>
+  <main>
+    <section class="page-hero">
+      <div class="wrap page-hero-inner">
+        <p class="page-hero-eyebrow">Audit Protocol</p>
+        <h1 class="page-hero-heading">Initialize Your<br><em>Institutional Audit.</em></h1>
+      </div>
+    </section>
 
-  <main id="audit-split">
-    <!-- FORM SIDE -->
-    <div class="audit-form-side">
-      <div x-show="!success" x-transition:enter="transition ease-out duration-700">
-        <span class="text-eyebrow" style="margin-bottom:1.5rem;" x-text="$store.i18n.t('content.hero.eyebrow')">Audit Protocol</span>
-        <h1 class="section-heading" style="margin-bottom:3rem;" x-html="$store.i18n.t('content.hero.heading')">Initialize Your<br><em>Institutional Audit.</em></h1>
+    <section class="section">
+      <div class="wrap">
+        <div class="audit-layout">
 
-        <!-- Step 1: Sector -->
-        <div x-show="step === 1" x-transition>
-          <p class="mono text-[9px] uppercase tracking-[3px] text-muted mb-6" x-text="$store.i18n.t('content.steps.step_1.label')">01 — SELECT SECTOR TIER</p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <template x-for="sector in [['Retail Tier','Supply & E-comm'],['Service Tier','Managed Services'],['Engineering Tier','Industrial Overhaul'],['Asset Tier','Real Estate & Finance']]">
-              <button @click="industry = sector[0]; step = 2" class="sector-btn">
-                <span class="serif text-xl font-bold italic block mb-1" x-text="$store.i18n.locale === 'en' ? sector[0] : $store.i18n.t('content.steps.step_1.options.' + $store.i18n.content.content.steps.step_1.options.findIndex(o => o[0] === sector[0]) + '.0')"></span>
-                <span class="mono text-[9px] text-tx-sub uppercase" x-text="$store.i18n.locale === 'en' ? sector[1] : $store.i18n.t('content.steps.step_1.options.' + $store.i18n.content.content.steps.step_1.options.findIndex(o => o[0] === sector[0]) + '.1')"></span>
-              </button>
-            </template>
+          <!-- FORM -->
+          <div class="audit-form reveal" id="audit-form">
+            <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:25%"></div></div>
+
+            <!-- Step 1 -->
+            <div class="step active" id="step-1">
+              <div class="step-label">01 — Select Sector Tier</div>
+              <div class="sector-grid">
+                <button class="sector-tile" data-value="retail" onclick="selectSector(this)">
+                  <div class="sector-tile-name">Retail Tier</div>
+                  <div class="sector-tile-sub">Supply &amp; E-comm</div>
+                </button>
+                <button class="sector-tile" data-value="service" onclick="selectSector(this)">
+                  <div class="sector-tile-name">Service Tier</div>
+                  <div class="sector-tile-sub">Managed Services</div>
+                </button>
+                <button class="sector-tile" data-value="engineering" onclick="selectSector(this)">
+                  <div class="sector-tile-name">Engineering Tier</div>
+                  <div class="sector-tile-sub">Industrial Overhaul</div>
+                </button>
+                <button class="sector-tile" data-value="asset" onclick="selectSector(this)">
+                  <div class="sector-tile-name">Asset Tier</div>
+                  <div class="sector-tile-sub">Real Estate &amp; Finance</div>
+                </button>
+              </div>
+              <div class="step-nav">
+                <button class="btn btn-primary" onclick="nextStep(2)" id="step1-next" disabled>Continue →</button>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step" id="step-2">
+              <div class="step-label">02 — Calibration Notes</div>
+              <div class="form-group">
+                <label class="form-label">Describe Current Operational Friction</label>
+                <textarea class="form-textarea" id="notes" placeholder="Describe current operational friction..."></textarea>
+              </div>
+              <div class="step-nav">
+                <button class="btn-back" onclick="nextStep(1)">Back</button>
+                <button class="btn btn-primary" onclick="nextStep(3)">Confirm Mapping →</button>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step" id="step-3">
+              <div class="step-label">03 — Principal Identifier</div>
+              <div class="form-group">
+                <label class="form-label">Full Legal Name</label>
+                <input type="text" class="form-input" id="name" placeholder="Full Legal Name">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Institutional Email</label>
+                <input type="email" class="form-input" id="email" placeholder="Institutional Email">
+              </div>
+              <div class="step-nav">
+                <button class="btn-back" onclick="nextStep(2)">Back</button>
+                <button class="btn btn-primary" onclick="nextStep(4)">Authenticate →</button>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step" id="step-4">
+              <div class="step-label">04 — Secure Link</div>
+              <div class="form-group">
+                <label class="form-label">Direct Phone Number</label>
+                <input type="tel" class="form-input" id="phone" placeholder="Direct Phone Number">
+              </div>
+              <div class="step-nav">
+                <button class="btn-back" onclick="nextStep(3)">Back</button>
+                <button class="btn btn-primary" onclick="submitAudit()">Initialize Transmission →</button>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <!-- Step 2: Details -->
-        <div x-show="step === 2" x-transition x-cloak>
-          <p class="mono text-[9px] uppercase tracking-[3px] text-muted mb-6">02 — CALIBRATION NOTES</p>
-          <textarea x-model="businessDetail" rows="4" class="input-ortho" placeholder="DESCRIBE CURRENT OPERATIONAL FRICTION..."></textarea>
-          <div style="display:flex; justify-content:space-between; gap:1rem;">
-            <button @click="step = 1" style="color:var(--tx-muted); font-size:10px; font-weight:700; letter-spacing:2px; background:none; border:none; cursor:pointer;">BACK</button>
-            <button @click="step = 3" :disabled="businessDetail.length < 5" class="btn-gold" style="width:auto;">CONFIRM MAPPING</button>
+          <!-- SUCCESS -->
+          <div class="audit-success" id="audit-success">
+            <div class="success-icon">✓</div>
+            <h2 class="success-heading">Transmission <em>Complete.</em></h2>
+            <p class="success-body">Your institutional audit logic has been securely transmitted. A principal will contact you shortly.</p>
+            <a href="../index.html" class="btn btn-primary">Return to Base</a>
           </div>
-        </div>
 
-        <!-- Step 3: Identity -->
-        <div x-show="step === 3" x-transition x-cloak>
-          <p class="mono text-[9px] uppercase tracking-[3px] text-muted mb-6">03 — PRINCIPAL IDENTIFIER</p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-            <input x-model="leadName" type="text" placeholder="FULL LEGAL NAME" class="input-ortho">
-            <input x-model="leadEmail" type="email" placeholder="INSTITUTIONAL EMAIL" class="input-ortho">
+          <!-- SIDEBAR -->
+          <div class="audit-sidebar reveal d1">
+            <div class="sidebar-card">
+              <div class="sidebar-proto">PROTO ID: WE-AUD-V4</div>
+              <div class="sidebar-stat">95.0%</div>
+              <div class="sidebar-stat-label">Node Precision</div>
+            </div>
+            <div class="sidebar-card">
+              <div class="sidebar-proto">Audit Steps</div>
+              <ul class="sidebar-steps" id="sidebar-steps">
+                <li class="sidebar-step active" data-step="1"><span class="sidebar-step-num">1</span> Select Sector</li>
+                <li class="sidebar-step" data-step="2"><span class="sidebar-step-num">2</span> Calibration Notes</li>
+                <li class="sidebar-step" data-step="3"><span class="sidebar-step-num">3</span> Principal ID</li>
+                <li class="sidebar-step" data-step="4"><span class="sidebar-step-num">4</span> Secure Link</li>
+              </ul>
+            </div>
           </div>
-          <div style="display:flex; justify-content:space-between; gap:1rem;">
-            <button @click="step = 2" style="color:var(--tx-muted); font-size:10px; font-weight:700; letter-spacing:2px; background:none; border:none; cursor:pointer;">BACK</button>
-            <button @click="step = 4" :disabled="!leadName || !leadEmail" class="btn-gold" style="width:auto;">AUTHENTICATE</button>
-          </div>
-        </div>
 
-        <!-- Step 4: Finalize -->
-        <div x-show="step === 4" x-transition x-cloak>
-          <p class="mono text-[9px] uppercase tracking-[3px] text-muted mb-6">04 — SECURE LINK</p>
-          <input x-model="leadPhone" type="tel" placeholder="DIRECT PHONE NUMBER" class="input-ortho">
-          <button @click="submitAudit" :disabled="!leadPhone" class="btn-gold">INITIALIZE TRANSMISSION</button>
-          <button @click="step = 3" style="display:block; margin: 1.5rem auto 0; color:var(--tx-muted); font-size:10px; font-weight:700; letter-spacing:2px; background:none; border:none; cursor:pointer;">BACK</button>
         </div>
       </div>
-
-      <!-- Success Side -->
-      <div x-show="success" x-transition x-cloak style="text-align:center;">
-        <div style="width:80px; height:80px; border-radius:50%; border:2px solid #27C93F; margin: 0 auto 2rem; display:flex; align-items:center; justify-content:center;">
-          <svg style="width:40px; height:40px; color:#27C93F;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-        </div>
-        <h2 class="section-heading" style="margin-bottom:1.5rem;" x-html="$store.i18n.t('content.success.heading')">Transmission <em>Complete.</em></h2>
-        <p class="body-text" style="margin-bottom:2.5rem;" x-text="$store.i18n.t('content.success.body')">Your institutional audit logic has been securely transmitted. A principal will contact you shortly.</p>
-        <a href="/Orthom8pro/" class="btn-gold" x-text="$store.i18n.t('content.success.cta')">Return to Base</a>
-      </div>
-    </div>
-
-    <!-- VIDEO SIDE (FIXED) -->
-    <div class="audit-img-side">
-       <video src="https://res.cloudinary.com/dgz88jxiy/video/upload/v1774275213/efb22533077888224530dec240bb54bc_clwgsj.mp4" 
-              autoplay loop muted playsinline class="w-full h-full object-cover"></video>
-       <div class="img-overlay"></div>
-       <div style="position:absolute; bottom:2rem; left:2rem; background:rgba(6,12,24,0.6); backdrop-filter:blur(8px); padding:1.5rem; border:1px solid var(--brand-rule-strong); z-index:5;">
-         <div class="mono text-[10px] text-blue-500 tracking-widest mb-1">PROTO ID: OM8-AUD-V4</div>
-         <div class="serif text-xl italic font-bold text-white">95.0% Node Precision.</div>
-       </div>
-    </div>
+    </section>
   </main>
 
-  <footer id="site-footer">
-    <div class="footer-grid">
-      <div>
-        <div class="flex items-center gap-3 mb-6">
-          <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
-          <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
-          <span class="footer-brand-name" style="margin-bottom:0;">Ortho'M8</span>
-        </div>
-        <p class="footer-brand-desc">Ortho'M8 is an Algorithmic Capital Management system built for business excellence. Fully automated, risk-hardened, and transparent — securing your capital through intelligent engineering.</p>
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div><div class="footer-brand">Wilbak Engineering</div><p class="footer-desc">High-performance business logic for industries that demand zero failure. Engineering certainty since 2006.</p></div>
+        <div><div class="footer-col-head">Company</div><ul class="footer-links"><li><a href="../about/index.html">About</a></li><li><a href="../projects/index.html">Projects</a></li><li><a href="../insight/index.html">Insights</a></li><li><a href="../contact/index.html">Contact</a></li></ul></div>
+        <div><div class="footer-col-head">Legal</div><ul class="footer-links"><li><a href="../legal/privacy/index.html">Privacy Policy</a></li><li><a href="../legal/terms/index.html">Terms &amp; Conditions</a></li><li><a href="../legal/sla/index.html">SLA</a></li></ul></div>
+        <div><div class="footer-col-head">Platform</div><ul class="footer-links"><li><a href="../Orthom8pro/index.html">Ortho'm8</a></li><li><a href="../Orthom8pro/Results/index.html">Performance</a></li><li><a href="../Orthom8pro/our-team/index.html">Our Team</a></li></ul></div>
       </div>
-      <template x-for="col in $store.i18n.t('content.footer.columns')" :key="col.title">
-        <div>
-          <div class="footer-col-title" x-text="col.title">Column</div>
-          <ul class="footer-links">
-            <template x-for="link in col.links" :key="link.label">
-              <li><a :href="link.target" x-text="link.label">Link</a></li>
-            </template>
-          </ul>
-        </div>
-      </template>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 ORTHOM8PRO — All rights reserved.</p>
-      <p style="margin-top:0.5rem; opacity:0.5; max-width:800px; margin-left:auto; margin-right:auto;">Trading involves risk and past performance does not guarantee future results. This platform is intended for informational purposes only and does not constitute financial advice.</p>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Wilbak Engineering. All rights reserved.</span>
+        <span class="footer-attr">Ortho'm8 is a product of Brokard Williams.</span>
+      </div>
     </div>
   </footer>
-</div>
 
-<script>
-  document.addEventListener('alpine:init', () => {
-    Alpine.data('auditApp', () => ({
-      step: 1,
-      industry: '',
-      businessDetail: '',
-      leadName: '',
-      leadEmail: '',
-      leadPhone: '',
-      success: false,
-      async submitAudit() {
-        this.success = true; // Simulating success for better UX
-      }
-    }));
-  });
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    hamburger.addEventListener('click', () => { const open = mobileNav.classList.toggle('open'); hamburger.classList.toggle('open', open); hamburger.setAttribute('aria-expanded', String(open)); });
+    document.addEventListener('click', (e) => { if (!navbar.contains(e.target) && !mobileNav.contains(e.target)) { mobileNav.classList.remove('open'); hamburger.classList.remove('open'); hamburger.setAttribute('aria-expanded', 'false'); } });
+    const ro = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const gate = document.getElementById('welcome-gate');
-    const app  = document.getElementById('app');
-    
-    // Safety timeout
-    const safetyTimeout = setTimeout(hideGate, 3000);
+    let currentStep = 1;
+    const progressMap = { 1: '25%', 2: '50%', 3: '75%', 4: '100%' };
 
-    function hideGate() {
-      clearTimeout(safetyTimeout);
-      gate.classList.add('exiting');
-      app.classList.add('visible');
-      setTimeout(() => { gate.style.display = 'none'; }, 500);
+    function selectSector(el) {
+      document.querySelectorAll('.sector-tile').forEach(t => t.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('step1-next').disabled = false;
     }
 
-    // Hide gate once content is ready
-    window.addEventListener('alpine:init', () => {
-      const i18n = window.Alpine.store('i18n');
-      if (i18n) {
-        const check = setInterval(() => {
-          if (i18n.loaded) {
-            clearInterval(check);
-            hideGate();
-          }
-        }, 100);
+    function nextStep(n) {
+      document.getElementById('step-' + currentStep).classList.remove('active');
+      currentStep = n;
+      document.getElementById('step-' + currentStep).classList.add('active');
+      document.getElementById('progress-fill').style.width = progressMap[n];
+      document.querySelectorAll('.sidebar-step').forEach(s => {
+        const sn = parseInt(s.dataset.step);
+        s.classList.remove('active', 'done');
+        if (sn === n) s.classList.add('active');
+        if (sn < n) s.classList.add('done');
+      });
+    }
+
+    async function submitAudit() {
+      const btn = document.querySelector('#step-4 .btn.btn-primary');
+      const industry       = document.querySelector('.sector-tile.selected')?.dataset.value || '';
+      const businessDetail = (document.getElementById('notes').value  || '').trim();
+      const auditName      = (document.getElementById('name').value   || '').trim();
+      const auditEmail     = (document.getElementById('email').value  || '').trim();
+      const auditPhone     = (document.getElementById('phone').value  || '').trim();
+
+      if (!auditName || !auditEmail || !auditPhone) {
+        alert('Please complete your name, email, and phone before submitting.');
+        return;
       }
-    });
 
-    // Theme Toggle
-    const html  = document.documentElement;
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
+      btn.disabled    = true;
+      btn.textContent = 'Transmitting…';
 
-    const updateTheme = (isDark) => {
-      html.setAttribute('data-theme', isDark ? 'dark' : 'light');
-      themeIcon.textContent = isDark ? '☀' : '🌙';
-      localStorage.setItem('o8_theme', isDark ? 'dark' : 'light');
-    };
+      try {
+        const res = await fetch('/api/audit', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            industry,
+            businessDetail,
+            auditName,
+            auditEmail,
+            auditPhone,
+            hours:    0,
+            workflow: ''
+          })
+        });
 
-    const currentTheme = localStorage.getItem('o8_theme') || 'dark';
-    updateTheme(currentTheme === 'dark');
-    themeToggle?.addEventListener('click', () => updateTheme(html.getAttribute('data-theme') === 'light'));
+        if (!res.ok) throw new Error('Server responded ' + res.status);
 
-    // Mobile Menu
-    const hamburger = document.getElementById('hamburger-btn');
-    const drawer = document.getElementById('mobile-drawer');
-    const overlay = document.getElementById('drawer-overlay');
-    const closeBtn = document.getElementById('drawer-close');
-
-    const toggleDrawer = (open) => {
-      drawer.classList.toggle('open', open);
-      overlay.classList.toggle('visible', open);
-      hamburger.classList.toggle('active', open);
-      document.body.classList.toggle('drawer-open', open);
-    };
-
-    hamburger.addEventListener('click', () => toggleDrawer(!drawer.classList.contains('open')));
-    overlay.addEventListener('click', () => toggleDrawer(false));
-    closeBtn.addEventListener('click', () => toggleDrawer(false));
-  });
-</script>
+        document.getElementById('audit-form').style.display = 'none';
+        document.getElementById('audit-success').classList.add('visible');
+      } catch (err) {
+        console.error('Audit submission error:', err);
+        btn.disabled    = false;
+        btn.textContent = 'Initialize Transmission →';
+        alert('Transmission failed. Please check your connection and try again.');
+      }
+    }
+  </script>
 </body>
 </html>
