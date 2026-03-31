@@ -2,6 +2,7 @@
   "content": {
     "hero": {
       "eyebrow": "Institutionelle Intelligenz — v3.4.0",
+      "heading": "Während die Welt bebt, bleibt Ihr Unternehmen <em class=\"serif italic\" style=\"color:#D4AC3A;\">standhaft.</em>",
       "body": "Ortho'M8 ist die erste algorithmische Kapitalmanagement-Engine, die Risiko als Variable behandelt. Sichern Sie nicht-risikofähiges Kapital mit 99,9% Präzision.",
       "primary_cta": "PRIVATES AUDIT STARTEN",
       "secondary_cta": "Modell-Matrix erkunden →",
@@ -31,6 +32,7 @@
     },
     "performance": {
       "eyebrow": "Die Leistungskennzahl",
+      "heading": "Drei Gründe, warum <em>nichts</em> Ihr <br><strong>Kapital berühren kann.</strong>",
       "cards": [
         { "category": "DOMÄNENANALYSE",   "title": "Kapitalsicherheitsmatrix",    "description": "Unser System analysiert täglich über 40 Millionen Datenpunkte, um sicherzustellen, dass jeder Kapitalanker durch 11 unabhängige Risikotore geschützt ist." },
         { "category": "RISIKOKONTROLLEN", "title": "Leckfreie Logik",              "description": "Fest codierte Stop-Parameter stellen sicher, dass menschliche Emotionen niemals in die Ausführungspipeline gelangen. Wenn die Daten um 0,01% abweichen, bleiben wir draußen." },
@@ -39,6 +41,7 @@
     },
     "results": {
       "eyebrow": "Echtzeitbelege",
+      "heading": "Die Zahlen sind öffentlich. <br><em>Die Ergebnisse</em> sind <strong>real.</strong>",
       "body": "Wir bieten vollständige Transparenz über unsere Performance. Keine versteckten Gebühren, keine undurchsichtigen Strategien. Nur dokumentierte, von Drittprüfern verifizierte Ergebnisse.",
       "cta": "Vollständigen Prüfbericht ansehen"
     },
@@ -47,6 +50,7 @@
       "verification": "95,0% Knotenpräzision verifiziert"
     },
     "final_cta": {
+      "heading": "Hören Sie auf zu hoffen, dass der Markt gnädig ist. <br><em>Wissen Sie jetzt,</em> dass Sie <strong>geschützt sind.</strong>",
       "primary": "MEIN AUDIT STARTEN",
       "secondary": "Mit unseren Experten beraten"
     }

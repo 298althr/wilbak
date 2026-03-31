@@ -2,6 +2,7 @@
   "content": {
     "hero": {
       "eyebrow": "Intelligence de Niveau Institutionnel — v3.4.0",
+      "heading": "Pendant que le monde tremble, votre entreprise <em class=\"serif italic\" style=\"color:#D4AC3A;\">reste debout.</em>",
       "body": "Ortho'M8 est le premier moteur de Gestion de Capital Algorithmique qui traite le risque comme une variable. Sécurisez un capital non risquable avec une précision de 99,9%.",
       "primary_cta": "LANCER MON AUDIT PRIVÉ",
       "secondary_cta": "Explorer la Matrice du Modèle →",
@@ -31,6 +32,7 @@
     },
     "performance": {
       "eyebrow": "La Métrique de Performance",
+      "heading": "Trois raisons pour lesquelles <em>rien</em> ne peut toucher <br><strong>votre capital.</strong>",
       "cards": [
         { "category": "ANALYSE DE DOMAINE",   "title": "Matrice de Sécurité Capital",  "description": "Notre système analyse plus de 40 millions de points de données par jour pour garantir que chaque ancre de capital est protégée par 11 portes de risque indépendantes." },
         { "category": "CONTRÔLES DES RISQUES","title": "Logique Sans Fuite",           "description": "Des paramètres d'arrêt codés en dur garantissent que l'émotion humaine n'entre jamais dans la pipeline d'exécution. Si les données dévient de 0,01%, nous restons hors marché." },
@@ -39,6 +41,7 @@
     },
     "results": {
       "eyebrow": "Preuves en Temps Réel",
+      "heading": "Les chiffres sont publics. <br><em>Les résultats</em> sont <strong>réels.</strong>",
       "body": "Nous offrons une transparence totale sur nos performances. Aucuns frais cachés, aucune stratégie opaque. Juste des résultats documentés et vérifiés par des auditeurs tiers.",
       "cta": "Voir le Rapport de Vérification Complet"
     },
@@ -47,6 +50,7 @@
       "verification": "Précision de node de 95,0% vérifiée"
     },
     "final_cta": {
+      "heading": "Cessez d'espérer que le marché vous soit favorable. <br><em>Sachez maintenant</em> que vous êtes <strong>protégé.</strong>",
       "primary": "LANCER MON AUDIT",
       "secondary": "Consulter Nos Experts"
     }

@@ -2,6 +2,7 @@
   "content": {
     "hero": {
       "eyebrow": "Your money is protected — no matter what the world does next",
+      "heading": "While the world shakes, your business <em class=\"serif italic\" style=\"color:#D4AC3A;\">stays standing.</em>",
       "body": "Oil markets in chaos. Trade wars reshaping economies. Whatever happens out there — Ortho'M8 keeps your business capital protected, automatically, around the clock.",
       "primary_cta": "Request a Free Audit",
       "secondary_cta": "See How It Works →",
@@ -31,6 +32,7 @@
     },
     "performance": {
       "eyebrow": "Why It Works",
+      "heading": "Three reasons why <em>nothing</em> can touch <br><strong>your capital.</strong>",
       "cards": [
         {
           "category": "IMMUNE TO THE NEWS",
@@ -51,6 +53,7 @@
     },
     "results": {
       "eyebrow": "Don't Take Our Word For It",
+      "heading": "The numbers are public. <br><em>The results</em> are <strong>real.</strong>",
       "body": "Every trade we have ever made is documented and independently verifiable. No smoke. No mirrors. Just a transparent track record you can review before you make any decision.",
       "cta": "View Our Track Record"
     },
@@ -59,6 +62,7 @@
       "verification": "95.0% accuracy — independently verified"
     },
     "final_cta": {
+      "heading": "Stop hoping the market is kind to you. <br><em>Start knowing</em> you're <strong>protected.</strong>",
       "primary": "Book My Free Audit",
       "secondary": "Talk to Our Team"
     }

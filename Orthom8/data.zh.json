@@ -2,6 +2,7 @@
   "content": {
     "hero": {
       "eyebrow": "机构级智能 — v3.4.0",
+      "heading": "当世界动荡时，您的企业<em class=\"serif italic\" style=\"color:#D4AC3A;\">依然屹立。</em>",
       "body": "Ortho'M8 是第一个将风险视为变量的算法资本管理引擎。以99.9%的精度保障非风险性资本。",
       "primary_cta": "启动私人审计",
       "secondary_cta": "探索模型矩阵 →",
@@ -31,6 +32,7 @@
     },
     "performance": {
       "eyebrow": "性能指标",
+      "heading": "三个理由，为何<em>没有什么</em>能够撼动<br><strong>您的资本。</strong>",
       "cards": [
         { "category": "域分析",   "title": "资本安全矩阵",   "description": "我们的系统每天分析超过4000万个数据点，确保每个资本锚点都受到11个独立风险门的保护。" },
         { "category": "风险控制", "title": "无泄漏逻辑",     "description": "硬编码的止损参数确保人类情绪永远不会进入执行管道。如果数据偏差0.01%，我们保持观望。" },
@@ -39,6 +41,7 @@
     },
     "results": {
       "eyebrow": "实时证据",
+      "heading": "数据公开透明。<br><em>结果</em><strong>真实可信。</strong>",
       "body": "我们提供完全透明的业绩表现。无隐藏费用，无不透明策略。只有经第三方审计师记录和验证的结果。",
       "cta": "查看完整验证报告"
     },
@@ -47,6 +50,7 @@
       "verification": "95.0%节点精度已验证"
     },
     "final_cta": {
+      "heading": "不要再希望市场对您友好。<br><em>现在就知道</em>您已<strong>受到保护。</strong>",
       "primary": "启动我的审计",
       "secondary": "咨询我们的专家"
     }

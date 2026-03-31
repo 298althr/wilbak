@@ -60,7 +60,8 @@
         <div class="hero-left-content">
           <span class="text-eyebrow anim-slide-right" x-text="$store.i18n.t('content.hero.eyebrow')">Institutional Grade Intelligence — v3.4.0</span>
 
-          <h1 class="hero-heading hero-heading-xl anim-slide-up delay-1" style="margin-top: clamp(1rem, 4vw, 2rem); margin-bottom: clamp(1.5rem, 4vw, 3rem);">
+          <h1 class="hero-heading hero-heading-xl anim-slide-up delay-1" style="margin-top: clamp(1rem, 4vw, 2rem); margin-bottom: clamp(1.5rem, 4vw, 3rem);"
+              x-html="$store.i18n.t('content.hero.heading') || 'While the world shakes, your business <em class=&quot;serif italic&quot; style=&quot;color:#D4AC3A;&quot;>stays standing.</em>'">
             While the world shakes, your business <em class="serif italic" style="color:#D4AC3A;">stays standing.</em>
           </h1>
 
@@ -157,7 +158,8 @@
         <div class="anim-slide-up" style="text-align:center; margin-bottom: clamp(3rem, 8vw, 6rem);">
           <span class="text-eyebrow" style="justify-content:center; margin-bottom:2rem;"
                 x-text="$store.i18n.t('content.performance.eyebrow')">The Performance Metric</span>
-          <h2 class="section-heading" style="margin:0 auto; max-width:900px;">
+          <h2 class="section-heading" style="margin:0 auto; max-width:900px;"
+              x-html="$store.i18n.t('content.performance.heading') || 'Three reasons why <em>nothing</em> can touch <br><strong>your capital.</strong>'">
             Three reasons why <em>nothing</em> can touch <br><strong>your capital.</strong>
           </h2>
         </div>
@@ -189,7 +191,8 @@
           <div class="anim-slide-left">
             <span class="text-eyebrow" style="margin-bottom:2rem;"
                   x-text="$store.i18n.t('content.results.eyebrow')">Real-Time Evidence</span>
-            <h2 class="section-heading" style="margin-bottom: clamp(1.5rem, 4vw, 2.5rem);">
+            <h2 class="section-heading" style="margin-bottom: clamp(1.5rem, 4vw, 2.5rem);"
+                x-html="$store.i18n.t('content.results.heading') || 'The numbers are public. <br><em>The results</em> are <strong>real.</strong>'">
               The numbers are public. <br><em>The results</em> are <strong>real.</strong>
             </h2>
             <p class="body-text" style="margin-bottom: clamp(2rem, 5vw, 3.5rem); font-size: clamp(16px, 2vw, 18px);"
@@ -227,7 +230,8 @@
     <section class="py-24 md:py-56 text-center" style="position:relative; overflow:hidden;">
       <div class="absolute inset-0" style="background:radial-gradient(circle at 50% 150%, rgba(26,86,255,0.15) 0%, transparent 50%);"></div>
       <div class="layout-container anim-slide-up" style="position:relative; z-index:10;">
-        <h2 class="section-heading" style="margin-bottom: clamp(2rem, 5vw, 3rem);">
+        <h2 class="section-heading" style="margin-bottom: clamp(2rem, 5vw, 3rem);"
+            x-html="$store.i18n.t('content.final_cta.heading') || 'Stop hoping the market is kind to you. <br><em>Start knowing</em> you\'re <strong>protected.</strong>'">
           Stop hoping the market is kind to you. <br><em>Start knowing</em> you're <strong>protected.</strong>
         </h2>
         <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
