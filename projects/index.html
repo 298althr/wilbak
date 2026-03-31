@@ -63,7 +63,7 @@
                 <option value="zh">ZH</option>
             </select>
 
-            <a href="/audit/" class="btn-premium bg-slate-900 text-white hover:bg-blue-700">Business Audit</a>
+            <a href="/audit/" class="btn-premium bg-slate-900 text-white hover:bg-blue-700">Free Audit</a>
         </div>
         
         <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-slate-900">
@@ -89,14 +89,14 @@
                     <option value="zh">中文 (ZH)</option>
                 </select>
             </div>
-            <a href="/audit/" class="bg-slate-900 text-white px-6 py-4 text-center rounded-sm">Business Audit</a>
+            <a href="/audit/" class="bg-slate-900 text-white px-6 py-4 text-center rounded-sm">Free Audit</a>
         </div>
     </nav>
 
     <main class="min-h-screen industrial-grid" x-show="data">
         <header class="vault-gradient text-white py-32 px-10 relative overflow-hidden">
             <div class="max-w-6xl mx-auto relative z-10">
-                <h2 class="text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-none" x-html="data.hero.heading.replace('Projects.', '<span class=\'text-blue-500\'>Projects.</span>')">Our <br><span class="text-blue-500">Projects.</span></h2>
+                <h2 class="text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-none" x-html="data.hero.heading.replace('Results.', '<span class=\'text-blue-500\'>Results.</span>')">Our <br><span class="text-blue-500">Projects.</span></h2>
                 <p class="text-blue-400 mono text-sm mt-8 tracking-widest uppercase font-bold" x-text="data.hero.protocol">[ Operational History: 2016 — 2026 ]</p>
                 <p class="text-slate-400 mt-6 max-w-2xl text-lg leading-relaxed" x-text="data.hero.description">
                     A record of infrastructure and management systems built under pressure globally.
