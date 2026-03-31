@@ -73,7 +73,7 @@ app.use(cors({
 app.use(express.json({ limit: '2mb' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/Orthom8pro', express.static(path.join(__dirname, 'Orthom8')));
+app.use('/Orthom8', express.static(path.join(__dirname, 'Orthom8')));
 app.use('/audit', express.static(path.join(__dirname, 'audit')));
 app.use(express.static(__dirname)); // Fallback for other things like i18n-loader.js if they are in root.
 

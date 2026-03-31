@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/Orthom8pro/shared-nav.css">
-  <script src="/Orthom8pro/shared-nav.js"></script>
+  <link rel="stylesheet" href="/Orthom8/shared-nav.css">
+  <script src="/Orthom8/shared-nav.js"></script>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -374,7 +374,7 @@
       
       init() {
           // Parse the CSV directly from the network request
-          fetch('/Orthom8pro/Results/BUSINESS_CONTEXT_UPDATED_1.csv')
+          fetch('/Orthom8/Results/BUSINESS_CONTEXT_UPDATED_1.csv')
             .then(res => {
                 if (!res.ok) throw new Error("Could not fetch CSV");
                 return res.text();

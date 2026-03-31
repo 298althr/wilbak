@@ -34,7 +34,7 @@
 <div id="drawer-overlay"></div>
 <div id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
   <div class="drawer-header">
-    <a href="/Orthom8pro/" class="logo-wrap">
+    <a href="/Orthom8/" class="logo-wrap">
       <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Logo" class="h-8 logo-dark-theme">
       <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Logo" class="h-8 logo-light-theme">
       <span class="logo-name">Ortho'M8</span>
@@ -48,11 +48,11 @@
     <div class="ds-cell" style="border-top:1px solid var(--brand-rule-strong); border-left:1px solid var(--brand-rule-strong);"><div class="ds-num">&lt;1.5%</div><div class="ds-lbl">Max Loss</div></div>
   </div>
   <nav class="drawer-nav" aria-label="Mobile navigation">
-    ${drawerLink('/Orthom8pro/', 'Home')}
-    ${drawerLink('/Orthom8pro/the-model/', 'The Model')}
-    ${drawerLink('/Orthom8pro/Results/', 'Results')}
-    ${drawerLink('/Orthom8pro/our-team/', 'Our Team')}
-    ${drawerLink('/Orthom8pro/contact/', 'Contact')}
+    ${drawerLink('/Orthom8/', 'Home')}
+    ${drawerLink('/Orthom8/the-model/', 'The Model')}
+    ${drawerLink('/Orthom8/Results/', 'Results')}
+    ${drawerLink('/Orthom8/our-team/', 'Our Team')}
+    ${drawerLink('/Orthom8/contact/', 'Contact')}
   </nav>
   <div class="drawer-controls">
     <button class="theme-btn" id="drawer-theme-toggle" title="Toggle theme"><span id="drawer-theme-icon">☀</span></button>
@@ -64,24 +64,24 @@
     </div>
   </div>
   <div class="drawer-footer">
-    <a href="/Orthom8pro/onboarding/" class="btn-primary" style="justify-content:center; width:100%;">GET STARTED</a>
-    <a href="/Orthom8pro/contact/" class="btn-ghost" style="justify-content:center; width:100%; margin-top:0.5rem;">Talk to Our Team</a>
+    <a href="/Orthom8/onboarding/" class="btn-primary" style="justify-content:center; width:100%;">GET STARTED</a>
+    <a href="/Orthom8/contact/" class="btn-ghost" style="justify-content:center; width:100%; margin-top:0.5rem;">Talk to Our Team</a>
   </div>
 </div>
 
 <header id="site-header">
-  <a href="/Orthom8pro/" class="logo-wrap">
+  <a href="/Orthom8/" class="logo-wrap">
     <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Logo" class="h-8 logo-dark-theme">
     <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Logo" class="h-8 logo-light-theme">
     <span class="logo-name">Ortho'M8</span>
   </a>
   <nav aria-label="Main navigation">
     <ul class="header-nav">
-      ${navLink('/Orthom8pro/', 'Home')}
-      ${navLink('/Orthom8pro/the-model/', 'The Model')}
-      ${navLink('/Orthom8pro/Results/', 'Results')}
-      ${navLink('/Orthom8pro/our-team/', 'Our Team')}
-      ${navLink('/Orthom8pro/contact/', 'Contact')}
+      ${navLink('/Orthom8/', 'Home')}
+      ${navLink('/Orthom8/the-model/', 'The Model')}
+      ${navLink('/Orthom8/Results/', 'Results')}
+      ${navLink('/Orthom8/our-team/', 'Our Team')}
+      ${navLink('/Orthom8/contact/', 'Contact')}
     </ul>
   </nav>
   <div class="header-controls">
@@ -92,7 +92,7 @@
         <option value="de">DE</option><option value="fr">FR</option><option value="zh">ZH</option>
       </select>
     </div>
-    <a href="/Orthom8pro/onboarding/" class="btn-primary">GET STARTED</a>
+    <a href="/Orthom8/onboarding/" class="btn-primary">GET STARTED</a>
   </div>
   <div class="mobile-header-right">
     <button class="theme-btn" id="mobile-theme-toggle" title="Toggle theme"><span id="mobile-theme-icon">☀</span></button>
@@ -114,11 +114,11 @@
     <div>
       <div class="footer-col-title">Navigation</div>
       <ul class="footer-links">
-        <li><a href="/Orthom8pro/">Home</a></li>
-        <li><a href="/Orthom8pro/the-model/">The Model</a></li>
-        <li><a href="/Orthom8pro/Results/">Results</a></li>
-        <li><a href="/Orthom8pro/our-team/">Our Team</a></li>
-        <li><a href="/Orthom8pro/contact/">Contact Us</a></li>
+        <li><a href="/Orthom8/">Home</a></li>
+        <li><a href="/Orthom8/the-model/">The Model</a></li>
+        <li><a href="/Orthom8/Results/">Results</a></li>
+        <li><a href="/Orthom8/our-team/">Our Team</a></li>
+        <li><a href="/Orthom8/contact/">Contact Us</a></li>
       </ul>
     </div>
     <div>
@@ -132,8 +132,8 @@
     <div>
       <div class="footer-col-title">Connect</div>
       <ul class="footer-links">
-        <li><a href="/Orthom8pro/contact/">Technical Support</a></li>
-        <li><a href="/Orthom8pro/onboarding/">Get Started</a></li>
+        <li><a href="/Orthom8/contact/">Technical Support</a></li>
+        <li><a href="/Orthom8/onboarding/">Get Started</a></li>
       </ul>
     </div>
   </div>

@@ -11,9 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Design System & Page Template -->
-  <link rel="stylesheet" href="/Orthom8pro/shared-nav.css">
-  <link rel="stylesheet" href="/Orthom8pro/page-template.css">
-  <script src="/Orthom8pro/shared-nav.js"></script>
+  <link rel="stylesheet" href="/Orthom8/shared-nav.css">
+  <link rel="stylesheet" href="/Orthom8/page-template.css">
+  <script src="/Orthom8/shared-nav.js"></script>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -204,7 +204,7 @@
       selectedMonth: { period: '', account: {}, trades: {}, kpis: {}, llm: {} },
 
       async init() {
-        const p = await this.loadCSVData('/Orthom8pro/Results/orthom8_performance.csv', 'Platform Intelligence');
+        const p = await this.loadCSVData('/Orthom8/Results/orthom8_performance.csv', 'Platform Intelligence');
         if (p) {
           this.platformData = p;
           this.data = p;
@@ -312,7 +312,7 @@
           this.data = this.platformData;
         } else {
           if (!this.evidenceData) {
-            this.evidenceData = await this.loadCSVData('/Orthom8pro/Results/ConocoPhillips/conocophillips_performance.csv', 'Institutional Proof');
+            this.evidenceData = await this.loadCSVData('/Orthom8/Results/ConocoPhillips/conocophillips_performance.csv', 'Institutional Proof');
           }
           this.data = this.evidenceData || this.platformData;
         }
