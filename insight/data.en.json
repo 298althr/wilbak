@@ -1,16 +1,16 @@
 {
   "page_meta": {
-    "title": "News & Insights | Wilbak Engineering"
+    "title": "Insights | Wilbak Engineering"
   },
   "hero": {
-    "heading": "BUSINESS INSIGHTS",
-    "description": "Transforming global markets into precise operational protocols."
+    "heading": "STOP GUESSING. START KNOWING.",
+    "description": "Real breakdowns of operational failures, business data patterns, and the decisions that cost companies the most. No fluff — just the information you need to run a tighter operation."
   },
   "protocol": {
-    "sync_status": "SYNCING INTELLIGENCE LEDGER...",
-    "cta": "READ FULL ARTICLE"
+    "sync_status": "Loading latest insights...",
+    "cta": "READ THE BREAKDOWN"
   },
   "footer": {
-    "copyright": "© 2026 Wilbak Engineering Group // Built for Unbreakable Performance"
+    "copyright": "© 2026 Wilbak Engineering Group // Built to Last"
   }
 }

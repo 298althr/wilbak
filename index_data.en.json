@@ -6,59 +6,59 @@
     { "label": "Ortho'M8", "url": "/Orthom8pro/" },
     { "label": "Contact", "url": "/contact/" },
     { "label": "News & Insights", "url": "/insight/" },
-    { "label": "Business Audit", "url": "/audit/", "type": "premium" }
+    { "label": "Free Audit", "url": "/audit/", "type": "premium" }
   ],
   "hero": {
-    "protocol": "Operational Protocol: v3.1",
-    "heading": "ENGINEERING BUSINESS DATA.",
-    "subheading": "We eliminate the \"Chaos Tax\" on your business. High-performance infrastructure engineered for zero failure.",
+    "protocol": "Your business has a problem you can't see yet.",
+    "heading": "YOUR OPERATIONS<br>ARE BLEEDING MONEY.",
+    "subheading": "Right now, your business is losing time, revenue, and margin to systems that were never built to work together. Wilbak finds every gap — and closes it for good.",
     "cta": [
-      { "label": "Case Studies", "url": "/projects/" },
-      { "label": "How it Works", "url": "/Orthom8pro/" }
+      { "label": "See Real Results", "url": "/projects/" },
+      { "label": "Get a Free Audit", "url": "/audit/" }
     ]
   },
   "trust_vault": [
-    { "name": "Northrop Grumman", "label": "Defense Logic" },
-    { "name": "Toyota", "label": "Supply Rigor" },
-    { "name": "ConocoPhillips", "label": "Energy Flow" },
-    { "name": "ASDA", "label": "Retail Scale" },
-    { "name": "GEICO", "label": "Risk Guard" }
+    { "name": "Northrop Grumman", "label": "Zero-Error Operations" },
+    { "name": "Toyota", "label": "End-to-End Efficiency" },
+    { "name": "ConocoPhillips", "label": "Full Operational Clarity" },
+    { "name": "ASDA", "label": "Scalable at Any Size" },
+    { "name": "GEICO", "label": "Risk-Free Infrastructure" }
   ],
   "operational_gap": {
-    "heading": "The Operational Gap",
-    "subheading": "Small Business Inefficiency is the Invisible Profit Killer",
+    "heading": "Where Is Your Money Going?",
+    "subheading": "The chaos you've learned to live with is costing you more than you realize",
     "chaos_tax": {
-      "title": "The \"Chaos Tax\"",
-      "description": "Manual processes and disconnected software systems eat 40% of your labor before a single sale is closed."
+      "title": "The Hidden Cost of Disorder",
+      "description": "Your team spends nearly half their time on tasks that should happen automatically. Manual entries, broken workflows, decisions made on bad data — each one is a direct transfer from your revenue to nowhere. Most businesses don't see it until it's already cost them six figures."
     },
     "wilbak_alignment": {
-      "title": "The Wilbak Alignment",
-      "description": "Our Integrated Business Management Engines eliminates 90% of manual overhead by engineering deterministic logic."
+      "title": "What Happens When We Step In",
+      "description": "We map exactly where time and money are escaping your business, then build the systems that stop it. Not a patch. Not a workaround. A permanent fix, engineered to grow with you. Most clients see measurable results within 90 days."
     }
   },
   "testimonies": {
-    "heading": "Verified testimonies",
-    "subheading": "[ Mission Feedback ]",
+    "heading": "What Happens When the Chaos Stops",
+    "subheading": "Real clients. Real results.",
     "items": [
       {
-        "quote": "\"The Wilbak transition saved us $120k in annual manual drafting costs alone. Their logic is unbreakable.\"",
+        "quote": "I didn't realize how much money we were hemorrhaging until Wilbak showed me the breakdown. $120k saved in year one — and my team actually enjoys their work now.",
         "author": "James McGough",
         "title": "CEO, Sterling Logistics"
       },
       {
-        "quote": "\"We eliminated the Chaos Tax in 90 days. Their Predictive AI kernels are simply unmatched.\"",
+        "quote": "In 90 days, the firefighting stopped. No more guesswork, no more chaos. I could finally see my entire operation clearly and make real decisions.",
         "author": "Rachel H. Ballack",
-        "title": "Ops Manager, Vance Mfg"
+        "title": "Operations Manager, Vance Mfg"
       },
       {
-        "quote": "\"Rugged, reliable, and deterministic. Wilbak doesn't just build systems; they build absolute certainty.\"",
+        "quote": "I was running my business on bad data for years and didn't know it. Wilbak fixed that. Now I know exactly what's happening in real time. That visibility alone changed everything.",
         "author": "Marcus Thorne",
         "title": "Founder, Thorne Supply"
       }
     ]
   },
   "footer": {
-    "description": "High-performance business logic for industries that demand zero failure. Engineering certainty since 2006.",
-    "copyright": "© 2026 Wilbak Engineering Group // Built for Unbreakable Performance"
+    "description": "We build the systems that keep your business running — cleanly, reliably, and profitably. When disorder costs you money, we stop it.",
+    "copyright": "© 2026 Wilbak Engineering Group // Built to Last"
   }
 }

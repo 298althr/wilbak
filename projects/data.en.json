@@ -1,42 +1,42 @@
 {
   "page_meta": {
-    "title": "Projects | Wilbak Engineering"
+    "title": "Real Results | Wilbak Engineering"
   },
   "hero": {
-    "heading": "Our Projects.",
-    "protocol": "[ Operational History: 2016 — 2026 ]",
-    "description": "A record of infrastructure and management systems built under pressure globally."
+    "heading": "Real Work. Real Results.",
+    "protocol": "[ Proof of Work: 2016 — 2026 ]",
+    "description": "Every engagement below was a business in disorder. Here's what happened when we got involved."
   },
   "projects": [
     {
       "year": "2023",
       "location": "Oslo, Norway",
-      "tag": "RENEWABLE INTEGRATION",
+      "tag": "CLEAN ENERGY",
       "title": "NORWAY COMMERCIAL BANK",
-      "description": "High-availability data center integrated directly into a wind farm's power grid."
+      "description": "A major bank's data infrastructure was failing under load. We rebuilt it around a wind farm's power grid — high-availability, zero compromise, carbon-neutral."
     },
     {
       "year": "2020",
       "location": "Anchorage, Alaska",
-      "tag": "HIGH-STAKES",
+      "tag": "CRISIS RESPONSE",
       "tag_type": "alert",
       "title": "ARCTIC OVERHAUL",
-      "description": "Full data center overhaul during the 2020 pandemic isolation protocols."
+      "description": "A full data center collapse mid-pandemic, with no on-site access possible. We ran a complete remote overhaul under the 2020 isolation protocols. Everything back online in 72 hours."
     },
     {
       "year": "2022",
       "location": "Doha, Qatar",
       "title": "DOHA MARITIME CENTER",
-      "description": "Coastal mini-facility for World Cup data processing with seawater cooling."
+      "description": "Built a coastal data facility for World Cup traffic from scratch — engineered for extreme heat with seawater cooling. Delivered on schedule, under the most demanding conditions."
     },
     {
       "year": "2018",
       "location": "Toyota HQ",
       "title": "TOYOTA DATA PLANT",
-      "description": "Managing hyper-redundant power systems for manufacturing assembly continuity."
+      "description": "Toyota's assembly line was at risk every time the power systems hiccupped. We redesigned the redundancy architecture so manufacturing continuity was never in question again."
     }
   ],
   "footer": {
-    "copyright": "© 2026 Wilbak Engineering Group // Built for Unbreakable Performance"
+    "copyright": "© 2026 Wilbak Engineering Group // Built to Last"
   }
 }
