@@ -8,124 +8,119 @@
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../wilbak-base.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    .legal-hero { padding-top: calc(var(--nav-h) + var(--s16)); padding-bottom: var(--s12); background: var(--white); border-bottom: 1px solid var(--gray-200); }
-    .legal-proto { font-family: var(--font-mono); font-size: var(--text-10); color: var(--brand-mid); letter-spacing: var(--ls-4); text-transform: uppercase; margin-bottom: var(--s4); }
-    .legal-heading { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: var(--lh-tight); color: var(--navy); letter-spacing: 0.01em; margin-bottom: var(--s3); }
-    .legal-subtitle { font-size: var(--text-18); font-weight: var(--thin); color: var(--gray-500); }
-    .legal-layout { display: grid; grid-template-columns: 220px 1fr; gap: var(--s12); align-items: start; }
-    .legal-toc { position: sticky; top: calc(var(--nav-h) + var(--s8)); }
-    .legal-toc-head { font-family: var(--font-mono); font-size: var(--text-10); color: var(--gray-400); letter-spacing: var(--ls-4); text-transform: uppercase; margin-bottom: var(--s4); }
-    .legal-toc-links { display: flex; flex-direction: column; gap: var(--s2); }
-    .legal-toc-links a { font-size: var(--text-13); font-weight: var(--thin); color: var(--gray-500); transition: color var(--t-fast) var(--ease-out); padding: var(--s1) 0; border-left: 2px solid transparent; padding-left: var(--s3); }
-    .legal-toc-links a:hover { color: var(--navy); border-left-color: var(--brand-mid); }
-    .legal-content { max-width: 720px; }
-    .legal-section { margin-bottom: var(--s12); padding-bottom: var(--s12); border-bottom: 1px solid var(--gray-100); }
+    :root { --navy: #0F1C3F; --navy-hover: #1a2f60; --blue: #2563EB; }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: #fff; color: #0F172A; -webkit-font-smoothing: antialiased; }
+    .mono { font-family: 'DM Mono', monospace; }
+    .btn-navy { display: inline-flex; align-items: center; justify-content: center; background: var(--navy); color: #fff; padding: 0.6rem 1.4rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 5px; transition: background 0.2s; white-space: nowrap; text-decoration: none; }
+    .btn-navy:hover { background: var(--navy-hover); }
+    .nav-link { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #64748B; transition: color 0.15s; text-decoration: none; }
+    .nav-link:hover { color: var(--navy); }
+    .eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); }
+    .footer-link { font-size: 0.8rem; font-weight: 400; color: #94A3B8; transition: color 0.15s; text-decoration: none; }
+    .footer-link:hover { color: #fff; }
+    .mobile-menu { display: none; }
+    .mobile-menu.open { display: block; }
+    .toc-link { display: block; font-size: 0.8rem; color: #64748B; padding: 0.35rem 0 0.35rem 0.75rem; border-left: 2px solid transparent; text-decoration: none; transition: color 0.15s, border-color 0.15s; }
+    .toc-link:hover { color: var(--navy); border-left-color: var(--blue); }
+    .legal-section { margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid #F1F5F9; }
     .legal-section:last-child { border-bottom: none; }
-    .legal-section-title { font-family: var(--font-body); font-size: var(--text-22); font-weight: var(--bold); color: var(--navy); margin-bottom: var(--s5); }
-    .legal-section-body { font-size: var(--text-base); font-weight: var(--thin); color: var(--gray-600); line-height: var(--lh-loose); }
-    .legal-section-body strong { font-weight: var(--semi); color: var(--navy); }
-    .legal-list { list-style: none; display: flex; flex-direction: column; gap: var(--s4); margin-top: var(--s4); }
-    .legal-list li { display: flex; align-items: flex-start; gap: var(--s3); font-size: var(--text-base); font-weight: var(--thin); color: var(--gray-600); line-height: var(--lh-loose); }
-    .legal-list li::before { content: '—'; color: var(--brand-mid); font-family: var(--font-mono); flex-shrink: 0; margin-top: 2px; }
-    .legal-list li strong { font-weight: var(--semi); color: var(--navy); }
-
-    /* SLA stat cards */
-    .sla-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4); margin-bottom: var(--s12); }
-    .sla-stat { background: var(--gray-50); border: 1px solid var(--gray-200); border-top: 3px solid var(--brand); border-radius: var(--r-lg); padding: var(--s6); text-align: center; }
-    .sla-stat-val { font-family: var(--font-display); font-size: clamp(1.75rem, 5vw, var(--text-36)); color: var(--navy); letter-spacing: 0.02em; display: block; margin-bottom: var(--s1); }
-    .sla-stat-label { font-family: var(--font-mono); font-size: var(--text-10); color: var(--gray-400); letter-spacing: var(--ls-3); text-transform: uppercase; }
-
-    @media (max-width: 768px) { .legal-layout { grid-template-columns: 1fr; } .legal-toc { display: none; } .sla-stats { grid-template-columns: 1fr; } }
+    .legal-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+    .legal-list li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.875rem; color: #64748B; line-height: 1.7; }
+    .legal-list li::before { content: '—'; color: var(--blue); font-family: 'DM Mono', monospace; flex-shrink: 0; margin-top: 2px; }
   </style>
 </head>
 <body>
-  <nav class="nav" id="navbar">
-    <div class="wrap">
-      <div class="nav-row">
-        <a href="../../index.html" class="nav-brand">
-          <span class="nav-brand-name">Wilbak Engineering</span>
-          <span class="nav-brand-sub">Est. 2006 · Houston, TX</span>
-        </a>
-        <ul class="nav-links">
-          <li><a href="../../about/index.html">About</a></li>
-          <li><a href="../../projects/index.html">Projects</a></li>
-          <li><a href="../../insight/index.html">Insights</a></li>
-          <li><a href="../../contact/index.html">Contact</a></li>
-        </ul>
-        <div class="nav-cta"><a href="../../audit/index.html" class="btn btn-primary">Request Audit</a></div>
-        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+
+  <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100" id="site-nav">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 h-[60px] flex items-center justify-between gap-8">
+      <a href="/" class="shrink-0"><img src="../../logo.png" alt="Wilbak Engineering" class="h-7"></a>
+      <div class="hidden md:flex items-center gap-7">
+        <a href="/about/" class="nav-link">About</a>
+        <a href="/contact/" class="nav-link">Contact</a>
+        <a href="/projects/" class="nav-link">Projects</a>
+        <a href="/insight/" class="nav-link">News &amp; Insights</a>
       </div>
+      <div class="hidden md:flex items-center gap-4 shrink-0">
+        <div class="w-px h-4 bg-slate-200"></div>
+        <a href="/audit/" class="btn-navy">Free Diagnostic</a>
+      </div>
+      <button id="mobile-toggle" class="md:hidden p-2 text-slate-500 rounded hover:bg-slate-50">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" style="display:none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="mobile-drawer" class="mobile-menu md:hidden bg-white border-t border-slate-100 px-6 py-6">
+      <div class="flex flex-col gap-5">
+        <a href="/about/" class="nav-link text-slate-800 text-sm">About</a>
+        <a href="/contact/" class="nav-link text-slate-800 text-sm">Contact</a>
+        <a href="/projects/" class="nav-link text-slate-800 text-sm">Projects</a>
+        <a href="/insight/" class="nav-link text-slate-800 text-sm">News &amp; Insights</a>
+      </div>
+      <div class="mt-6 pt-6 border-t border-slate-100"><a href="/audit/" class="btn-navy w-full">Free Diagnostic</a></div>
     </div>
   </nav>
-  <div class="mobile-nav" id="mobile-nav">
-    <a href="../../about/index.html">About</a>
-    <a href="../../projects/index.html">Projects</a>
-    <a href="../../insight/index.html">Insights</a>
-    <a href="../../contact/index.html">Contact</a>
-  </div>
 
   <main>
-    <section class="legal-hero">
-      <div class="wrap">
-        <p class="legal-proto">SLA Protocol: 03</p>
-        <h1 class="legal-heading">Service Level Agreement</h1>
-        <p class="legal-subtitle">Institutional Grade Uptime Commitments</p>
+    <section class="bg-white px-6 md:px-10 pt-20 pb-12 md:pt-24 border-b border-slate-100">
+      <div class="max-w-7xl mx-auto">
+        <div class="eyebrow mb-4">SLA Protocol: 03</div>
+        <h1 class="text-3xl md:text-[2.8rem] font-bold tracking-tight leading-tight text-slate-900 mb-2">Service Level Agreement</h1>
+        <p class="text-base text-slate-500 mt-2">Institutional Grade Uptime Commitments</p>
       </div>
     </section>
 
-    <section class="section">
-      <div class="wrap">
+    <section class="px-6 md:px-10 py-16 md:py-24">
+      <div class="max-w-7xl mx-auto">
 
-        <!-- Key SLA stats -->
-        <div class="sla-stats reveal">
-          <div class="sla-stat">
-            <span class="sla-stat-val">99.99%</span>
-            <span class="sla-stat-label">Operational Uptime</span>
+        <!-- SLA stat cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-16">
+          <div class="p-6 bg-slate-50 border border-slate-200 border-t-2 border-t-blue-600 rounded-lg text-center">
+            <span class="block text-3xl md:text-4xl font-bold text-[#0F1C3F] tracking-tight mb-1">99.99%</span>
+            <span class="mono text-[9px] uppercase tracking-widest text-slate-400">Operational Uptime</span>
           </div>
-          <div class="sla-stat">
-            <span class="sla-stat-val">320ms</span>
-            <span class="sla-stat-label">Max Execution Latency</span>
+          <div class="p-6 bg-slate-50 border border-slate-200 border-t-2 border-t-blue-600 rounded-lg text-center">
+            <span class="block text-3xl md:text-4xl font-bold text-[#0F1C3F] tracking-tight mb-1">320ms</span>
+            <span class="mono text-[9px] uppercase tracking-widest text-slate-400">Max Execution Latency</span>
           </div>
-          <div class="sla-stat">
-            <span class="sla-stat-val">4hr</span>
-            <span class="sla-stat-label">Critical Response SLA</span>
+          <div class="p-6 bg-slate-50 border border-slate-200 border-t-2 border-t-blue-600 rounded-lg text-center">
+            <span class="block text-3xl md:text-4xl font-bold text-[#0F1C3F] tracking-tight mb-1">4hr</span>
+            <span class="mono text-[9px] uppercase tracking-widest text-slate-400">Critical Response SLA</span>
           </div>
         </div>
 
-        <div class="legal-layout">
-          <nav class="legal-toc">
-            <div class="legal-toc-head">Contents</div>
-            <div class="legal-toc-links">
-              <a href="#uptime">1. Institutional Uptime</a>
-              <a href="#thresholds">2. Performance Thresholds</a>
-              <a href="#support">3. Technical Support</a>
-              <a href="#credits">4. SLA Credits</a>
+        <div class="grid md:grid-cols-[220px_1fr] gap-12 items-start">
+          <nav class="hidden md:block sticky top-[76px]">
+            <div class="mono text-[9px] uppercase tracking-[0.2em] text-slate-400 mb-4">Contents</div>
+            <div class="flex flex-col gap-1">
+              <a href="#uptime" class="toc-link">1. Institutional Uptime</a>
+              <a href="#thresholds" class="toc-link">2. Performance Thresholds</a>
+              <a href="#support" class="toc-link">3. Technical Support</a>
+              <a href="#credits" class="toc-link">4. SLA Credits</a>
             </div>
           </nav>
-
-          <div class="legal-content">
+          <div class="max-w-2xl">
             <div class="legal-section" id="uptime">
-              <h2 class="legal-section-title">1. Institutional Uptime</h2>
-              <p class="legal-section-body">Wilbak Engineering commits to a minimum of <strong>99.99% operational uptime</strong> for all Ortho'm8 intelligence nodes. Our failure-resistant architecture is distributed across geographically independent data anchors to ensure zero downtime execution.</p>
+              <h2 class="text-lg font-bold text-slate-900 mb-4">1. Institutional Uptime</h2>
+              <p class="text-sm text-slate-500 leading-relaxed">Wilbak Engineering commits to a minimum of <strong class="font-semibold text-slate-700">99.99% operational uptime</strong> for all Ortho'M8 intelligence nodes. Our failure-resistant architecture is distributed across geographically independent data anchors to ensure zero downtime execution.</p>
             </div>
             <div class="legal-section" id="thresholds">
-              <h2 class="legal-section-title">2. Performance Thresholds</h2>
+              <h2 class="text-lg font-bold text-slate-900 mb-4">2. Performance Thresholds</h2>
               <ul class="legal-list">
-                <li><strong>Node Precision:</strong> 95% minimum confidence requirement per market instruction.</li>
-                <li><strong>Execution Latency:</strong> Sub-320ms instruction transmission from DML gate to exchange node.</li>
-                <li><strong>Risk Gate Speed:</strong> Hard-risk isolation parameters applied within 15ms of volatility detection.</li>
+                <li><span><strong class="font-semibold text-slate-700">Node Precision:</strong> 95% minimum confidence requirement per market instruction.</span></li>
+                <li><span><strong class="font-semibold text-slate-700">Execution Latency:</strong> Sub-320ms instruction transmission from DML gate to exchange node.</span></li>
+                <li><span><strong class="font-semibold text-slate-700">Risk Gate Speed:</strong> Hard-risk isolation parameters applied within 15ms of volatility detection.</span></li>
               </ul>
             </div>
             <div class="legal-section" id="support">
-              <h2 class="legal-section-title">3. Technical Support</h2>
-              <p class="legal-section-body">Strategic partners gain access to a dedicated principal engineer. Response times for critical infrastructure inquiries are guaranteed within 4 hours. General system inquiries are addressed within 12 hours.</p>
+              <h2 class="text-lg font-bold text-slate-900 mb-4">3. Technical Support</h2>
+              <p class="text-sm text-slate-500 leading-relaxed">Strategic partners gain access to a dedicated principal engineer. Response times for critical infrastructure inquiries are guaranteed within 4 hours. General system inquiries are addressed within 12 hours.</p>
             </div>
             <div class="legal-section" id="credits">
-              <h2 class="legal-section-title">4. SLA Credits</h2>
-              <p class="legal-section-body">In the event that 99.99% uptime threshold is not met within an institutional cycle, Wilbak Engineering will apply tiered service credits toward upcoming audit cycles as outlined in your Partner Manifesto.</p>
+              <h2 class="text-lg font-bold text-slate-900 mb-4">4. SLA Credits</h2>
+              <p class="text-sm text-slate-500 leading-relaxed">In the event that the 99.99% uptime threshold is not met within an institutional cycle, Wilbak Engineering will apply tiered service credits toward upcoming audit cycles as outlined in your Partner Manifesto.</p>
             </div>
           </div>
         </div>
@@ -133,30 +128,48 @@
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="wrap">
-      <div class="footer-grid">
-        <div><div class="footer-brand">Wilbak Engineering</div><p class="footer-desc">High-performance business logic for industries that demand zero failure.</p></div>
-        <div><div class="footer-col-head">Company</div><ul class="footer-links"><li><a href="../../about/index.html">About</a></li><li><a href="../../projects/index.html">Projects</a></li><li><a href="../../insight/index.html">Insights</a></li><li><a href="../../contact/index.html">Contact</a></li></ul></div>
-        <div><div class="footer-col-head">Legal</div><ul class="footer-links"><li><a href="../../legal/privacy/index.html">Privacy Policy</a></li><li><a href="../../legal/terms/index.html">Terms &amp; Conditions</a></li><li><a href="../../legal/sla/index.html">SLA</a></li></ul></div>
-        <div><div class="footer-col-head">Platform</div><ul class="footer-links"><li><a href="../../Orthom8pro/index.html">Ortho'm8</a></li></ul></div>
+  <footer class="bg-[#0F1C3F] text-white pt-16 pb-10 px-6 md:px-10">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-12 pb-12 border-b border-white/10">
+        <div>
+          <img src="../../logo.png" alt="Wilbak Engineering" class="h-7 mb-5 brightness-0 invert">
+          <p class="text-slate-400 text-sm leading-relaxed max-w-xs">Precision operational infrastructure for businesses that require structural performance improvement.</p>
+        </div>
+        <div>
+          <h5 class="mono text-[10px] uppercase tracking-[0.18em] text-slate-500 mb-5">Explore</h5>
+          <ul class="space-y-3">
+            <li><a href="/about/" class="footer-link">About</a></li>
+            <li><a href="/projects/" class="footer-link">Projects</a></li>
+            <li><a href="/insight/" class="footer-link">News &amp; Insights</a></li>
+            <li><a href="/Orthom8pro/" class="footer-link">Ortho'M8 Platform</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="mono text-[10px] uppercase tracking-[0.18em] text-slate-500 mb-5">Legal</h5>
+          <ul class="space-y-3">
+            <li><a href="/legal/privacy/" class="footer-link">Privacy Policy</a></li>
+            <li><a href="/legal/terms/" class="footer-link">Terms &amp; Conditions</a></li>
+            <li><a href="/legal/sla/" class="footer-link text-blue-400 hover:text-blue-300">Service Level Agreement</a></li>
+          </ul>
+        </div>
       </div>
-      <div class="footer-bottom">
-        <span class="footer-copy">© 2026 Wilbak Engineering. All rights reserved.</span>
-        <span class="footer-attr">Ortho'm8 is a product of Brokard Williams.</span>
+      <div class="pt-8 flex flex-wrap items-center justify-between gap-4">
+        <div class="mono text-[10px] text-slate-600 uppercase tracking-[0.25em]">&copy; 2026 Wilbak Engineering Group // Built to Endure</div>
+        <div class="mono text-[10px] text-slate-700 uppercase tracking-[0.2em]">Houston, Texas · North America · EMEA</div>
       </div>
     </div>
   </footer>
 
   <script>
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
-    const hamburger = document.getElementById('hamburger');
-    const mobileNav = document.getElementById('mobile-nav');
-    hamburger.addEventListener('click', () => { const open = mobileNav.classList.toggle('open'); hamburger.classList.toggle('open', open); hamburger.setAttribute('aria-expanded', String(open)); });
-    document.addEventListener('click', (e) => { if (!navbar.contains(e.target) && !mobileNav.contains(e.target)) { mobileNav.classList.remove('open'); hamburger.classList.remove('open'); hamburger.setAttribute('aria-expanded', 'false'); } });
-    const ro = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+    const toggle = document.getElementById('mobile-toggle');
+    const drawer = document.getElementById('mobile-drawer');
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+    toggle.addEventListener('click', () => {
+      const isOpen = drawer.classList.toggle('open');
+      iconOpen.style.display = isOpen ? 'none' : '';
+      iconClose.style.display = isOpen ? '' : 'none';
+    });
   </script>
 </body>
 </html>

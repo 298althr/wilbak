@@ -5,83 +5,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title x-text="data?.page_meta?.title || 'Projects | Wilbak Engineering'">Projects | Wilbak Engineering</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400;1,9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
         [x-cloak] { display: none !important; }
-        :root {
-            --neon-blue: #0076FF;
-            --deep-obsidian: #0A0C10;
-        }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fcfdfe; color: #0F172A; }
-        .mono { font-family: 'JetBrains Mono', monospace; font-weight: 700; }
-        .vault-gradient {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.7) 100%), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover; background-position: center;
-        }
-        .project-card {
-            border: 1px solid #e2e8f0; border-left: 4px solid #334155;
-            transition: all 0.4s ease; position: relative; overflow: hidden;
-            background: white;
-        }
-        .project-card:hover { transform: translateY(-5px); border-left-color: var(--neon-blue); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .industrial-grid { background-image: radial-gradient(#e2e8f0 1px, transparent 1px); background-size: 40px 40px; }
-        .btn-premium { padding: 12px 32px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s; }
-        
-        .lang-select { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 4px; outline: none; cursor: pointer; }
-        .lang-select option { background: #0F172A; color: white; }
+        :root { --navy: #0F1C3F; --navy-hover: #1a2f60; --blue: #2563EB; }
+        *, *::before, *::after { box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; background: #fff; color: #0F172A; -webkit-font-smoothing: antialiased; }
+        .mono { font-family: 'DM Mono', monospace; }
+        .btn-navy { display: inline-flex; align-items: center; justify-content: center; background: var(--navy); color: #fff; padding: 0.6rem 1.4rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 5px; transition: background 0.2s; white-space: nowrap; cursor: pointer; }
+        .btn-navy:hover { background: var(--navy-hover); }
+        .nav-link { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #64748B; transition: color 0.15s; }
+        .nav-link:hover { color: var(--navy); }
+        .nav-link.active { color: var(--navy); }
+        .lang-select { background: transparent; border: 1.5px solid #E2E8F0; color: #64748B; font-size: 0.65rem; font-weight: 600; padding: 5px 8px; border-radius: 4px; outline: none; cursor: pointer; font-family: 'DM Mono', monospace; }
+        .eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); }
+        .footer-link { font-size: 0.8rem; font-weight: 400; color: #94A3B8; transition: color 0.15s; }
+        .footer-link:hover { color: #fff; }
+        .project-card { padding: 2rem; border: 1.5px solid #E2E8F0; border-radius: 8px; background: #fff; transition: border-color 0.2s, box-shadow 0.2s; }
+        .project-card:hover { border-color: #94A3B8; box-shadow: 0 6px 24px rgba(15,28,63,0.07); }
     </style>
 </head>
 
-<body x-data="projectsApp" class="industrial-grid">
+<body x-data="projectsApp">
 
-    <nav class="flex justify-between items-center px-10 py-8 max-w-7xl mx-auto relative z-50">
-        <a href="/" class="flex items-center gap-3 group">
-            <div class="w-10 h-10 bg-slate-900 rounded-sm flex items-center justify-center p-2 group-hover:bg-blue-600 transition">
-                <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo">
+    <!-- ━━━━ NAV ━━━━ -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-6 md:px-10 h-[60px] flex items-center justify-between gap-8">
+            <a href="/" class="shrink-0"><img src="/logo.png" alt="Wilbak Engineering" class="h-7"></a>
+            <div class="hidden md:flex items-center gap-7">
+                <a href="/about/" class="nav-link">About</a>
+                <a href="/contact/" class="nav-link">Contact</a>
+                <a href="/projects/" class="nav-link active">Projects</a>
+                <a href="/insight/" class="nav-link">News &amp; Insights</a>
             </div>
-            <h1 class="font-black text-xl tracking-tighter uppercase italic text-slate-900">Wilbak <span class="text-blue-600">Engineering</span></h1>
-        </a>
-
-        <div class="hidden md:flex items-center gap-10 text-[10px] font-black uppercase tracking-[0.2em]">
-            <a href="/" class="text-slate-500 hover:text-blue-600 transition">Home</a>
-            <a href="/projects/" class="text-blue-600">Projects</a>
-            <a href="/Orthom8pro/" class="text-slate-500 hover:text-blue-600 transition">OrthoMate™</a>
-            <a href="/contact/" class="text-slate-500 hover:text-blue-600 transition">Contact</a>
-            
-            <select class="lang-select !text-slate-900 !border-slate-300" @change="loadLang($event.target.value)">
-                <option value="en">EN</option>
-                <option value="es">ES</option>
-                <option value="de">DE</option>
-                <option value="fr">FR</option>
-                <option value="zh">ZH</option>
-            </select>
-
-            <a href="/audit/" class="btn-premium bg-slate-900 text-white hover:bg-blue-700">Free Audit</a>
+            <div class="hidden md:flex items-center gap-4 shrink-0">
+                <div class="w-px h-4 bg-slate-200"></div>
+                <select class="lang-select" @change="loadLang($event.target.value)">
+                    <option value="en">EN</option>
+                    <option value="es">ES</option>
+                    <option value="de">DE</option>
+                    <option value="fr">FR</option>
+                    <option value="zh">ZH</option>
+                </select>
+                <a href="/audit/" class="btn-navy">Free Diagnostic</a>
+            </div>
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-slate-500 rounded hover:bg-slate-50">
+                <svg x-show="!mobileMenu" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <svg x-show="mobileMenu" x-cloak xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
         </div>
-        
-        <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-slate-900">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path x-show="!mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                <path x-show="mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-        </button>
-
-        <!-- Mobile Menu Overlay -->
-        <div x-show="mobileMenu" x-cloak
-            class="absolute top-full left-0 w-full bg-white border-b border-slate-200 md:hidden z-40 shadow-xl p-8 space-y-6 flex flex-col font-bold text-xs uppercase tracking-[0.2em]">
-            <a href="/" @click="mobileMenu = false">Home</a>
-            <a href="/projects/" class="text-blue-600" @click="mobileMenu = false">Projects</a>
-            <a href="/Orthom8pro/" @click="mobileMenu = false">OrthoMate™</a>
-            <a href="/contact/" @click="mobileMenu = false">Contact</a>
-            <div class="pt-4">
-                 <select class="lang-select !text-slate-900 !border-slate-300 w-full" @change="loadLang($event.target.value)">
+        <div x-show="mobileMenu" x-cloak class="md:hidden bg-white border-t border-slate-100 px-6 py-6">
+            <div class="flex flex-col gap-5">
+                <a href="/about/" class="nav-link text-slate-800 text-sm" @click="mobileMenu = false">About</a>
+                <a href="/contact/" class="nav-link text-slate-800 text-sm" @click="mobileMenu = false">Contact</a>
+                <a href="/projects/" class="nav-link text-sm font-bold" style="color:var(--navy)" @click="mobileMenu = false">Projects</a>
+                <a href="/insight/" class="nav-link text-slate-800 text-sm" @click="mobileMenu = false">News &amp; Insights</a>
+            </div>
+            <div class="mt-6 pt-6 border-t border-slate-100 flex flex-col gap-3">
+                <a href="/audit/" class="btn-navy w-full">Free Diagnostic</a>
+                <select class="lang-select w-full py-2" @change="loadLang($event.target.value)">
                     <option value="en">English (EN)</option>
                     <option value="es">Español (ES)</option>
                     <option value="de">Deutsch (DE)</option>
@@ -89,42 +79,89 @@
                     <option value="zh">中文 (ZH)</option>
                 </select>
             </div>
-            <a href="/audit/" class="bg-slate-900 text-white px-6 py-4 text-center rounded-sm">Free Audit</a>
         </div>
     </nav>
 
-    <main class="min-h-screen industrial-grid" x-show="data">
-        <header class="vault-gradient text-white py-32 px-10 relative overflow-hidden">
-            <div class="max-w-6xl mx-auto relative z-10">
-                <h2 class="text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-none" x-html="data.hero.heading.replace('Results.', '<span class=\'text-blue-500\'>Results.</span>')">Our <br><span class="text-blue-500">Projects.</span></h2>
-                <p class="text-blue-400 mono text-sm mt-8 tracking-widest uppercase font-bold" x-text="data.hero.protocol">[ Operational History: 2016 — 2026 ]</p>
-                <p class="text-slate-400 mt-6 max-w-2xl text-lg leading-relaxed" x-text="data.hero.description">
-                    A record of infrastructure and management systems built under pressure globally.
-                </p>
-            </div>
-        </header>
+    <!-- ━━━━ MAIN ━━━━ -->
+    <main x-show="data" x-cloak>
 
-        <section class="max-w-6xl mx-auto px-10 -mt-16 pb-32 relative z-20">
-            <div class="grid md:grid-cols-2 gap-8">
-                <template x-for="proj in data.projects">
-                    <div class="project-card p-10 shadow-sm transition">
-                        <div class="flex justify-between items-start mb-6">
-                            <span class="mono text-[10px] text-blue-600 font-bold uppercase tracking-widest" x-text="proj.year + ' | ' + proj.location">2023 | Oslo, Norway</span>
-                            <template x-if="proj.tag">
-                                <span :class="proj.tag_type === 'alert' ? 'bg-red-50 text-red-600 italic' : 'bg-slate-100 text-slate-900'" class="text-[10px] font-black px-3 py-1 uppercase tracking-tighter" x-text="proj.tag">RENEWABLE INTEGRATION</span>
-                            </template>
-                        </div>
-                        <h3 class="text-3xl font-black text-slate-900 uppercase italic mb-4" x-text="proj.title">NORWAY COMMERCIAL BANK</h3>
-                        <p class="text-slate-600 mb-8 leading-relaxed" x-text="proj.description">High-availability data center integrated directly into a wind farm's power grid.</p>
-                    </div>
-                </template>
+        <!-- Hero -->
+        <section class="bg-white px-6 md:px-10 pt-20 pb-16 md:pt-24 md:pb-20">
+            <div class="max-w-7xl mx-auto">
+                <div class="max-w-3xl">
+                    <div class="eyebrow mb-5" x-text="data.hero.protocol"></div>
+                    <h1 class="text-4xl md:text-[3.5rem] font-bold tracking-tight leading-[1.05] text-slate-900 mb-6"
+                        x-text="data.hero.heading"></h1>
+                    <p class="text-lg text-slate-500 leading-relaxed max-w-xl"
+                       x-text="data.hero.description"></p>
+                </div>
             </div>
         </section>
+
+        <div class="px-6 md:px-10">
+            <div class="max-w-7xl mx-auto flex gap-1">
+                <div class="h-px w-16 bg-blue-600"></div>
+                <div class="h-px flex-1 bg-slate-100"></div>
+            </div>
+        </div>
+
+        <!-- Projects Grid -->
+        <section class="bg-white px-6 md:px-10 py-16 md:py-24">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-5">
+                    <template x-for="proj in data.projects" :key="proj.title">
+                        <div class="project-card">
+                            <div class="flex items-start justify-between mb-6 gap-4">
+                                <div class="eyebrow" x-text="proj.year + ' · ' + proj.location"></div>
+                                <template x-if="proj.tag">
+                                    <span class="mono text-[9px] uppercase tracking-widest px-2 py-1 rounded shrink-0"
+                                          :class="proj.tag_type === 'alert' ? 'bg-amber-50 text-amber-700' : 'bg-slate-100 text-slate-600'"
+                                          x-text="proj.tag"></span>
+                                </template>
+                            </div>
+                            <h3 class="text-base font-bold text-slate-900 tracking-tight mb-4"
+                                x-text="proj.title"></h3>
+                            <p class="text-sm text-slate-500 leading-relaxed"
+                               x-text="proj.description"></p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <footer class="bg-slate-950 text-white pt-20 pb-10 px-10" x-show="data">
-        <div class="max-w-7xl mx-auto text-center text-[9px] font-bold text-slate-600 uppercase tracking-[0.4em]" x-text="data.footer.copyright">
-            © 2026 Wilbak Engineering Group // Built for Unbreakable Performance
+    <!-- ━━━━ FOOTER ━━━━ -->
+    <footer class="bg-[#0F1C3F] text-white pt-16 pb-10 px-6 md:px-10" x-show="data" x-cloak>
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-12 pb-12 border-b border-white/10">
+                <div>
+                    <img src="/logo.png" alt="Wilbak Engineering" class="h-7 mb-5 brightness-0 invert">
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-xs">Precision operational infrastructure for businesses that require structural performance improvement.</p>
+                </div>
+                <div>
+                    <h5 class="mono text-[10px] uppercase tracking-[0.18em] text-slate-500 mb-5">Explore</h5>
+                    <ul class="space-y-3">
+                        <li><a href="/about/" class="footer-link">About</a></li>
+                        <li><a href="/projects/" class="footer-link text-blue-400 hover:text-blue-300">Projects</a></li>
+                        <li><a href="/insight/" class="footer-link">News &amp; Insights</a></li>
+                        <li><a href="/Orthom8pro/" class="footer-link">Ortho'M8 Platform</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="mono text-[10px] uppercase tracking-[0.18em] text-slate-500 mb-5">Engage</h5>
+                    <ul class="space-y-3">
+                        <li><a href="/contact/" class="footer-link">Contact Wilhelm</a></li>
+                        <li><a href="/audit/" class="footer-link">Request Diagnostic</a></li>
+                        <li><a href="/legal/" class="footer-link">Legal</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 flex flex-wrap items-center justify-between gap-4">
+                <div class="mono text-[10px] text-slate-600 uppercase tracking-[0.25em]"
+                     x-text="data.footer.copyright"></div>
+                <div class="mono text-[10px] text-slate-700 uppercase tracking-[0.2em]">Houston, Texas · North America · EMEA</div>
+            </div>
         </div>
     </footer>
 
@@ -134,19 +171,15 @@
                 mobileMenu: false,
                 lang: localStorage.getItem('o8_locale') || 'en',
                 data: null,
-
-                async init() {
-                    await this.loadLang(this.lang);
-                },
-
+                async init() { await this.loadLang(this.lang); },
                 async loadLang(lang) {
                     try {
                         const res = await fetch(`/projects/data.${lang}.json`);
-                        if (!res.ok) throw new Error("File not found");
+                        if (!res.ok) throw new Error('Not found');
                         this.data = await res.json();
                         this.lang = lang;
                         localStorage.setItem('o8_locale', lang);
-                        document.querySelectorAll('.lang-select').forEach(sel => sel.value = lang);
+                        document.querySelectorAll('.lang-select').forEach(s => s.value = lang);
                     } catch (err) {
                         console.error(`Failed to load project data for: ${lang}`, err);
                         if (lang !== 'en') this.loadLang('en');

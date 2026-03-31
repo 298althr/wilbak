@@ -1,301 +1,94 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Audit Protocol — Ortho'M8 AI Trading</title>
+  <title>Operational Diagnostic — Wilbak Engineering</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  
-  <style>
-      [x-cloak] { display: none !important; }
-      .serif { font-family: 'Playfair Display', serif; }
-      .mono { font-family: 'IBM Plex Mono', monospace; }
-
-      /* LOGO ADAPTIVE SWAP */
-      .logo-dark-theme { display: block; }
-      .logo-light-theme { display: none; }
-      [data-theme="light"] .logo-dark-theme { display: none; }
-      [data-theme="light"] .logo-light-theme { display: block; }
-  </style>
 
   <style>
-    /* ═══════════════════════════════════════════════════
-       DESIGN TOKENS (Ortho'M8 Core)
-    ═══════════════════════════════════════════════════ */
-    :root {
-      --brand-cobalt:      #1A56FF;
-      --brand-cobalt-dim:  #0E38C2;
-      --brand-gold:        #B8972A;
-      --brand-gold-light:  #D4AC3A;
-      --brand-gold-pale:   rgba(184,151,42,0.12);
-      --page-bg:           #060C18;
-      --surface-bg:        #0B1325;
-      --surface-2:         #0F1A30;
-      --surface-glass:     rgba(11,19,37,0.8);
-      --tx-main:           #E8EDF5;
-      --tx-sub:            #6E7E9A;
-      --tx-muted:          #3A4A62;
-      --brand-rule:        rgba(255,255,255,0.06);
-      --brand-rule-strong: rgba(255,255,255,0.12);
-      --glow-cobalt:       rgba(26,86,255,0.15);
-      --glow-gold:         rgba(184,151,42,0.12);
-      --header-bg:         rgba(6,12,24,0.88);
-      --scan-line:         rgba(26,86,255,0.04);
-      --drawer-bg:         #080F20;
-    }
-    [data-theme="light"] {
-      --page-bg:           #F7F8FC;
-      --surface-bg:        #EDEEF5;
-      --surface-2:         #E4E6F0;
-      --surface-glass:     rgba(237,238,245,0.88);
-      --tx-main:           #0A1020;
-      --tx-sub:            #4A5568;
-      --tx-muted:          #9AA5B8;
-      --brand-rule:        rgba(0,0,0,0.07);
-      --brand-rule-strong: rgba(0,0,0,0.14);
-      --glow-cobalt:       rgba(26,86,255,0.08);
-      --glow-gold:         rgba(184,151,42,0.08);
-      --header-bg:         rgba(247,248,252,0.92);
-      --scan-line:         rgba(26,86,255,0.02);
-      --drawer-bg:         #F2F3FA;
-    }
-
-    /* ═══════════════════════════════════════════════════
-       RESET & BASE
-    ═══════════════════════════════════════════════════ */
+    [x-cloak] { display: none !important; }
+    :root { --navy: #0F1C3F; --navy-hover: #1a2f60; --blue: #2563EB; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body {
-      background: var(--page-bg); color: var(--tx-main);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 15px; line-height: 1.6;
-      overflow-x: hidden;
-      transition: background 0.3s, color 0.3s;
-    }
-    body::before {
-      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background: repeating-linear-gradient(0deg, transparent, transparent 2px, var(--scan-line) 2px, var(--scan-line) 4px);
-      opacity: 0.6;
-    }
-    body.drawer-open { overflow: hidden; }
+    body { font-family: 'DM Sans', sans-serif; background: #fff; color: #0F172A; font-size: 15px; line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 
-    /* ═══════════════════════════════════════════════════
-       TYPOGRAPHY
-    ═══════════════════════════════════════════════════ */
-    .text-eyebrow {
-      font-family: 'Fira Code', monospace; font-size: 9px; font-weight: 500;
-      letter-spacing: 4px; text-transform: uppercase; color: var(--brand-cobalt);
-      display: flex; align-items: center; gap: 10px;
-    }
-    .text-eyebrow::before {
-      content: ''; display: inline-block; width: 24px; height: 1px;
-      background: var(--brand-cobalt); opacity: 0.7;
-    }
-    .section-heading {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 600; line-height: 1.1; letter-spacing: -0.02em;
-    }
-    .section-heading em { font-style: italic; color: var(--brand-gold-light); }
-    .body-text { font-size: 15px; line-height: 1.75; color: var(--tx-sub); }
+    .mono { font-family: 'DM Mono', monospace; }
+    .btn-navy { display: inline-flex; align-items: center; justify-content: center; background: var(--navy); color: #fff; padding: 0.6rem 1.4rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 5px; transition: background 0.2s; white-space: nowrap; text-decoration: none; cursor: pointer; border: none; }
+    .btn-navy:hover { background: var(--navy-hover); }
+    .nav-link { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #64748B; transition: color 0.15s; text-decoration: none; }
+    .nav-link:hover { color: var(--navy); }
+    .eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); }
+    .footer-link { font-size: 0.8rem; font-weight: 400; color: #94A3B8; transition: color 0.15s; text-decoration: none; }
+    .footer-link:hover { color: #fff; }
+    .lang-select { background: transparent; border: 1.5px solid #E2E8F0; color: #64748B; font-size: 0.65rem; font-weight: 600; padding: 5px 8px; border-radius: 4px; outline: none; cursor: pointer; font-family: 'DM Mono', monospace; }
+    .mobile-menu-drawer { display: none; }
+    .mobile-menu-drawer.open { display: block; }
 
-    /* ═══════════════════════════════════════════════════
-       HEADER
-    ═══════════════════════════════════════════════════ */
-    #site-header {
-      position: fixed; top: 0; left: 0; right: 0; height: 68px; z-index: 200;
-      background: var(--header-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--brand-rule-strong);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 clamp(1.25rem, 3vw, 2.5rem); transition: background 0.3s;
-    }
-    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .logo-name { font-size: 11px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--tx-main); }
-    .header-nav { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
-    .header-nav a {
-      font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--tx-sub); text-decoration: none; transition: color 0.2s;
-    }
-    .header-nav a:hover { color: var(--tx-main); }
-
-    .header-controls { display: flex; align-items: center; gap: 0.75rem; }
-    .theme-btn {
-      width: 34px; height: 34px; border: 1px solid var(--brand-rule-strong); background: transparent; color: var(--tx-sub);
-      display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 13px;
-    }
-    .theme-btn:hover { border-color: var(--brand-gold); color: var(--brand-gold-light); }
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 0.7rem 1.5rem; background: var(--brand-cobalt); color: #fff;
-      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700;
-      letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
-    }
-
-    .hamburger { display: none; flex-direction: column; gap: 5px; width: 40px; height: 40px; border: 1px solid var(--brand-rule-strong); background: transparent; cursor: pointer; align-items: center; justify-content: center; }
-    .hamburger span { display: block; width: 20px; height: 1.5px; background: var(--tx-main); transition: 0.3s; }
-    .hamburger.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-    /* ═══════════════════════════════════════════════════
-       MOBILE DRAWER
-    ═══════════════════════════════════════════════════ */
-    #mobile-drawer {
-      position: fixed; top: 0; right: 0;
-      width: min(320px, 88vw); height: 100dvh;
-      z-index: 300; background: var(--drawer-bg);
-      border-left: 1px solid var(--brand-rule-strong);
-      display: flex; flex-direction: column;
-      transform: translateX(100%);
-      transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    #mobile-drawer.open { transform: translateX(0); }
-    #drawer-overlay {
-      position: fixed; inset: 0; z-index: 290;
-      background: rgba(6,12,24,0.65); backdrop-filter: blur(4px);
-      opacity: 0; pointer-events: none; transition: 0.3s;
-    }
-    #drawer-overlay.visible { opacity: 1; pointer-events: all; }
-    .drawer-header { height: 68px; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; border-bottom: 1px solid var(--brand-rule-strong); }
-    .drawer-nav { flex: 1; display: flex; flex-direction: column; padding: 1rem 0; }
-    .drawer-nav a { padding: 1rem 1.5rem; font-size: 11px; font-weight: 700; color: var(--tx-sub); text-decoration: none; border-bottom: 1px solid var(--brand-rule); }
-
-    /* ═══════════════════════════════════════════════════
-       50/50 SPLIT LAYOUT
-    ═══════════════════════════════════════════════════ */
-    #audit-split { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 68px); margin-top: 68px; }
-    .audit-form-side {
-      padding: clamp(3rem, 6vw, 8rem) clamp(1.5rem, 4vw, 5rem);
-      border-right: 1px solid var(--brand-rule-strong);
-      display: flex; flex-direction: column; justify-content: center;
-      position: relative; overflow-y: auto;
-    }
-    .audit-img-side {
-      position: sticky; top: 68px; height: calc(100vh - 68px);
-      overflow: hidden; background: var(--surface-bg);
-    }
-    .audit-img-side video, .audit-img-side img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.8) contrast(1.1); }
-    .img-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26,86,255,0.15), transparent); z-index: 2; pointer-events: none; }
-
-    /* ═══════════════════════════════════════════════════
-       FORM STYLING
-    ═══════════════════════════════════════════════════ */
-    .input-ortho {
-      width: 100%; background: var(--surface-bg); border: 1px solid var(--brand-rule-strong);
-      padding: 1.25rem; font-family: 'Fira Code', monospace; font-size: 13px; color: var(--tx-main);
-      transition: 0.3s; outline: none; margin-bottom: 1.5rem;
-    }
-    .input-ortho:focus { border-color: var(--brand-cobalt); background: rgba(26,86,255,0.03); }
-    .sector-btn {
-      width: 100%; text-align: left; padding: 1.5rem; border: 1px solid var(--brand-rule-strong);
-      background: var(--surface-bg); transition: 0.3s; margin-bottom: 1rem; cursor: pointer;
-    }
-    .sector-btn:hover { border-color: var(--brand-cobalt); background: rgba(26,86,255,0.03); }
-    .btn-gold {
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      padding: 1rem 2rem; background: var(--brand-gold); color: #060C18;
-      font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; border: none; width: 100%;
-    }
-    .btn-gold:hover { background: var(--brand-gold-light); box-shadow: 0 0 24px rgba(184,151,42,0.3); }
-
-    /* ═══════════════════════════════════════════════════
-       FOOTER
-    ═══════════════════════════════════════════════════ */
-    #site-footer { background: var(--surface-bg); border-top: 1px solid var(--brand-rule-strong); padding: 4rem 0; }
-    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 3rem; max-width: 1380px; margin: 0 auto; padding: 0 4rem; }
-    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--tx-main); margin-bottom: 0.75rem; display: block; }
-    .footer-brand-desc { font-size: 13px; line-height: 1.7; color: var(--tx-sub); }
-    .footer-col-title { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--tx-main); margin-bottom: 1.25rem; }
-    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
-    .footer-links a { font-size: 13px; color: var(--tx-sub); text-decoration: none; transition: 0.2s; }
-    .footer-links a:hover { color: var(--brand-cobalt); }
-    .footer-bottom { border-top: 1px solid var(--brand-rule); margin-top: 3rem; padding-top: 2rem; max-width: 1380px; margin: 3rem auto 0; text-align: center; }
-    .footer-bottom p { font-family: 'Fira Code', monospace; font-size: 10px; color: var(--tx-muted); line-height: 1.8; }
-
-    /* ═══════════════════════════════════════════════════
-       WELCOME GATE
-    ═══════════════════════════════════════════════════ */
-    #welcome-gate { position: fixed; inset: 0; z-index: 9999; background: var(--page-bg); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1.5rem; }
-    #welcome-gate.exiting { animation: gate-out 0.5s ease forwards; }
-    @keyframes gate-out { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
-    .gate-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; letter-spacing: 12px; text-transform: uppercase; color: var(--tx-main); }
-    .gate-bar-wrap { width: 200px; height: 1px; background: var(--brand-rule-strong); position: relative; overflow: hidden; }
-    .gate-bar { position: absolute; top: 0; left: 0; height: 100%; background: var(--brand-cobalt); animation: gate-load 1s ease forwards; }
+    /* Welcome Gate */
+    #welcome-gate { position: fixed; inset: 0; z-index: 9999; background: #fff; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1.5rem; }
+    #welcome-gate.exiting { animation: gate-out 0.4s ease forwards; }
+    @keyframes gate-out { to { opacity: 0; visibility: hidden; } }
+    .gate-bar-wrap { width: 56px; height: 2px; background: #E2E8F0; border-radius: 2px; overflow: hidden; }
+    .gate-bar { position: absolute; top: 0; left: 0; height: 100%; background: var(--navy); animation: gate-load 1s ease forwards; }
     @keyframes gate-load { to { width: 100%; } }
-    .gate-status { font-family: 'Fira Code', monospace; font-size: 9px; color: var(--brand-cobalt); text-transform: uppercase; letter-spacing: 3px; }
-
-    #app { opacity: 0; transition: 0.5s; }
+    #app { opacity: 0; transition: opacity 0.5s; }
     #app.visible { opacity: 1; }
 
+    /* Split Layout */
+    #audit-split { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 60px); margin-top: 60px; }
+    .audit-form-side { padding: clamp(3rem, 6vw, 7rem) clamp(1.5rem, 4vw, 5rem); border-right: 1px solid #E2E8F0; display: flex; flex-direction: column; justify-content: center; overflow-y: auto; }
+    .audit-img-side { position: sticky; top: 60px; height: calc(100vh - 60px); overflow: hidden; background: #0F172A; }
+    .audit-img-side video { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.7) brightness(0.8); }
+    .img-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(15,28,63,0.3), transparent); z-index: 2; pointer-events: none; }
+
+    /* Form Elements */
+    .input-wilbak { width: 100%; background: #F8FAFC; border: 1.5px solid #E2E8F0; padding: 1rem 1.1rem; font-family: 'DM Sans', sans-serif; font-size: 14px; color: #0F172A; transition: border-color 0.2s, background 0.2s; outline: none; border-radius: 6px; margin-bottom: 1.25rem; }
+    .input-wilbak:focus { border-color: var(--blue); background: #fff; }
+    .input-wilbak::placeholder { color: #94A3B8; }
+    .sector-btn { width: 100%; text-align: left; padding: 1.25rem 1.5rem; border: 1.5px solid #E2E8F0; background: #fff; transition: border-color 0.2s, background 0.2s; margin-bottom: 0.75rem; cursor: pointer; border-radius: 6px; }
+    .sector-btn:hover { border-color: var(--navy); background: #F8FAFC; }
+    .btn-submit { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0.85rem 2rem; background: var(--navy); color: #fff; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; border: none; border-radius: 6px; transition: background 0.2s; width: 100%; }
+    .btn-submit:hover:not(:disabled) { background: var(--navy-hover); }
+    .btn-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-back { color: #94A3B8; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; background: none; border: none; cursor: pointer; transition: color 0.15s; padding: 0; }
+    .btn-back:hover { color: var(--navy); }
+
     @media (max-width: 1024px) {
-      .header-nav, .header-controls { display: none; }
-      .hamburger { display: flex; }
       #audit-split { grid-template-columns: 1fr; }
-      .audit-img-side {
-        position: relative; top: 0; min-height: 280px; height: auto;
-        border-bottom: 1px solid var(--brand-rule-strong);
-      }
+      .audit-img-side { position: relative; top: 0; min-height: 240px; height: auto; }
       .audit-form-side { padding: 3rem 1.5rem; border-right: none; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 768px) {
-      .footer-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body x-data="auditApp">
 
+<!-- Welcome Gate -->
 <div id="welcome-gate">
-  <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-16 mb-6">
-  <div class="gate-logo" style="letter-spacing: 12px;" x-text="t('welcome_gate.heading')">Audit Protocol</div>
-  <div class="gate-bar-wrap"><div class="gate-bar"></div></div>
-  <div class="gate-status" x-text="t('welcome_gate.status')">Initializing audit protocol…</div>
+  <img src="/logo.png" alt="Wilbak Engineering" class="h-8 mb-2">
+  <div class="gate-bar-wrap relative"><div class="gate-bar"></div></div>
+  <div class="mono text-[9px] text-slate-400 uppercase tracking-[0.25em]" x-text="t('welcome_gate.status') || 'Initializing…'"></div>
 </div>
 
 <div id="app">
-  <div id="drawer-overlay"></div>
 
-  <!-- Mobile Drawer -->
-  <div id="mobile-drawer">
-    <div class="drawer-header">
-      <div class="logo-wrap">
-      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
-      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
-        <span class="logo-name">Ortho'M8</span>
+  <!-- ━━━━ NAV ━━━━ -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100" style="height:60px;">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 h-full flex items-center justify-between gap-8">
+      <a href="/" class="shrink-0"><img src="/logo.png" alt="Wilbak Engineering" class="h-7"></a>
+      <div class="hidden md:flex items-center gap-7">
+        <a href="/about/" class="nav-link">About</a>
+        <a href="/contact/" class="nav-link">Contact</a>
+        <a href="/projects/" class="nav-link">Projects</a>
+        <a href="/insight/" class="nav-link">News &amp; Insights</a>
       </div>
-      <button id="drawer-close" style="color:var(--tx-sub); font-size:20px; background:none; border:none; cursor:pointer;">✕</button>
-    </div>
-    <nav class="drawer-nav">
-      <a href="https://wilbakengineering.com" x-text="t('footer.columns.0.links.0') || 'Home'">Home</a>
-      <a href="/Orthom8pro/#performance" x-text="t('footer.columns.0.links.1') || 'Performance'">Performance</a>
-      <a href="/Orthom8pro/#engine" x-text="t('footer.columns.0.links.2') || 'How It Works'">How It Works</a>
-      <a href="/Orthom8pro/our-team/" x-text="t('footer.columns.2.links.0') || 'Our Team'">Our Team</a>
-      <a href="/audit/" class="btn-primary" style="margin: 1.5rem; text-align:center; color:white;">Book Consultation</a>
-    </nav>
-  </div>
-
-  <header id="site-header">
-    <a href="https://wilbakengineering.com/Orthom8pro/" class="flex items-center gap-2">
-      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
-      <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
-      <span class="text-white font-bold tracking-tighter text-xl">Ortho'M8</span>
-    </a>
-    <nav>
-      <ul class="header-nav">
-        <li><a href="https://wilbakengineering.com">Home</a></li>
-        <li><a href="/Orthom8pro/#performance">Performance</a></li>
-        <li><a href="/Orthom8pro/#engine">How It Works</a></li>
-        <li><a href="/Orthom8pro/our-team/">Our Team</a></li>
-      </ul>
-    </nav>
-    <div class="header-controls">
-      <button class="theme-btn" id="theme-toggle" title="Toggle theme"><span id="theme-icon">☀</span></button>
-      <div class="lang-wrap">
+      <div class="hidden md:flex items-center gap-4 shrink-0">
+        <div class="w-px h-4 bg-slate-200"></div>
         <select class="lang-select" id="lang-select" @change="loadLang($event.target.value)">
           <option value="en">EN</option>
           <option value="es">ES</option>
@@ -303,29 +96,53 @@
           <option value="fr">FR</option>
           <option value="zh">ZH</option>
         </select>
+        <a href="/audit/" class="btn-navy">Free Diagnostic</a>
       </div>
-      <a href="/audit/" class="btn-primary">BOOK CONSULTATION</a>
+      <button id="mobile-toggle" class="md:hidden p-2 text-slate-500 rounded hover:bg-slate-50">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" style="display:none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
     </div>
-    <button class="hamburger" id="hamburger-btn">
-      <span></span><span></span><span></span>
-    </button>
-  </header>
+    <div id="mobile-drawer" class="mobile-menu-drawer md:hidden bg-white border-t border-slate-100 px-6 py-6">
+      <div class="flex flex-col gap-5">
+        <a href="/about/" class="nav-link text-slate-800 text-sm">About</a>
+        <a href="/contact/" class="nav-link text-slate-800 text-sm">Contact</a>
+        <a href="/projects/" class="nav-link text-slate-800 text-sm">Projects</a>
+        <a href="/insight/" class="nav-link text-slate-800 text-sm">News &amp; Insights</a>
+      </div>
+      <div class="mt-6 pt-6 border-t border-slate-100 flex flex-col gap-3">
+        <a href="/audit/" class="btn-navy w-full">Free Diagnostic</a>
+        <select class="lang-select w-full py-2" @change="loadLang($event.target.value)">
+          <option value="en">English (EN)</option>
+          <option value="es">Español (ES)</option>
+          <option value="de">Deutsch (DE)</option>
+          <option value="fr">Français (FR)</option>
+          <option value="zh">中文 (ZH)</option>
+        </select>
+      </div>
+    </div>
+  </nav>
 
+  <!-- ━━━━ MAIN SPLIT ━━━━ -->
   <main id="audit-split">
+
     <!-- FORM SIDE -->
     <div class="audit-form-side">
-      <div x-show="!success" x-transition:enter="transition ease-out duration-700">
-        <span class="text-eyebrow" style="margin-bottom:1.5rem;" x-text="t('hero.eyebrow')">Audit Protocol</span>
-        <h1 class="section-heading" style="margin-bottom:3rem;" x-html="t('hero.heading')">Initialize Your<br><em>Institutional Audit.</em></h1>
+
+      <!-- Form Steps -->
+      <div x-show="!success" x-transition:enter="transition ease-out duration-500">
+        <div class="eyebrow mb-5" x-text="t('hero.eyebrow')"></div>
+        <h1 class="text-3xl md:text-[2.6rem] font-bold tracking-tight leading-[1.08] text-slate-900 mb-10"
+            x-html="t('hero.heading')"></h1>
 
         <!-- Step 1: Sector -->
         <div x-show="step === 1" x-transition>
-          <p class="mono text-[9px] uppercase tracking-[3px] text-muted mb-6" x-text="t('form_steps.0.title')">01 — SELECT SECTOR TIER</p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <p class="mono text-[9px] uppercase tracking-[3px] text-slate-400 mb-5" x-text="t('form_steps.0.title')"></p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <template x-for="sector in t('form_steps.0.options')">
               <button @click="industry = sector.name; step = 2" class="sector-btn">
-                <span class="serif text-xl font-bold italic block mb-1" x-text="sector.name"></span>
-                <span class="mono text-[9px] text-tx-sub uppercase" x-text="sector.description"></span>
+                <span class="text-sm font-bold text-slate-900 block mb-1" x-text="sector.name"></span>
+                <span class="mono text-[9px] text-slate-400 uppercase tracking-wide" x-text="sector.description"></span>
               </button>
             </template>
           </div>
@@ -333,99 +150,95 @@
 
         <!-- Step 2: Details -->
         <div x-show="step === 2" x-transition x-cloak>
-          <p class="mono text-[9px] uppercase tracking-[3px] text-muted mb-6" x-text="t('form_steps.1.title')">02 — CALIBRATION NOTES</p>
-          <textarea x-model="businessDetail" rows="4" class="input-ortho" :placeholder="t('form_steps.1.placeholder')"></textarea>
-          <div style="display:flex; justify-content:space-between; gap:1rem;">
-            <button @click="step = 1" style="color:var(--tx-muted); font-size:10px; font-weight:700; letter-spacing:2px; background:none; border:none; cursor:pointer;">BACK</button>
-            <button @click="step = 3" :disabled="businessDetail.length < 5" class="btn-gold" style="width:auto;">CONFIRM MAPPING</button>
+          <p class="mono text-[9px] uppercase tracking-[3px] text-slate-400 mb-5" x-text="t('form_steps.1.title')"></p>
+          <textarea x-model="businessDetail" rows="5" class="input-wilbak" :placeholder="t('form_steps.1.placeholder')"></textarea>
+          <div class="flex justify-between gap-4 mt-2">
+            <button @click="step = 1" class="btn-back">← Back</button>
+            <button @click="step = 3" :disabled="businessDetail.length < 5" class="btn-submit" style="width:auto; padding:0.75rem 2rem;">Continue →</button>
           </div>
         </div>
 
         <!-- Step 3: Identity -->
         <div x-show="step === 3" x-transition x-cloak>
-          <p class="mono text-[9px] uppercase tracking-[3px] text-muted mb-6" x-text="t('form_steps.2.title')">03 — PRINCIPAL IDENTIFIER</p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-            <input x-model="leadName" type="text" :placeholder="t('form_steps.2.placeholders.0')" class="input-ortho">
-            <input x-model="leadEmail" type="email" :placeholder="t('form_steps.2.placeholders.1')" class="input-ortho">
+          <p class="mono text-[9px] uppercase tracking-[3px] text-slate-400 mb-5" x-text="t('form_steps.2.title')"></p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <input x-model="leadName" type="text" :placeholder="t('form_steps.2.placeholders.0')" class="input-wilbak">
+            <input x-model="leadEmail" type="email" :placeholder="t('form_steps.2.placeholders.1')" class="input-wilbak">
           </div>
-          <div style="display:flex; justify-content:space-between; gap:1rem;">
-            <button @click="step = 2" style="color:var(--tx-muted); font-size:10px; font-weight:700; letter-spacing:2px; background:none; border:none; cursor:pointer;">BACK</button>
-            <button @click="step = 4" :disabled="!leadName || !leadEmail" class="btn-gold" style="width:auto;">AUTHENTICATE</button>
+          <div class="flex justify-between gap-4 mt-2">
+            <button @click="step = 2" class="btn-back">← Back</button>
+            <button @click="step = 4" :disabled="!leadName || !leadEmail" class="btn-submit" style="width:auto; padding:0.75rem 2rem;">Continue →</button>
           </div>
         </div>
 
         <!-- Step 4: Finalize -->
         <div x-show="step === 4" x-transition x-cloak>
-          <p class="mono text-[9px] uppercase tracking-[3px] text-muted mb-6" x-text="t('form_steps.3.title')">04 — SECURE LINK</p>
-          <input x-model="leadPhone" type="tel" :placeholder="t('form_steps.3.placeholder')" class="input-ortho mb-4">
-          <div style="display:flex; justify-content:space-between; gap:1rem;">
-            <button @click="step = 3" style="color:var(--tx-muted); font-size:10px; font-weight:700; letter-spacing:2px; background:none; border:none; cursor:pointer;">BACK</button>
-            <button @click="submitAudit" :disabled="!leadPhone" class="btn-gold" style="width:auto;" x-text="t('form_steps.3.button')">INITIALIZE TRANSMISSION</button>
+          <p class="mono text-[9px] uppercase tracking-[3px] text-slate-400 mb-5" x-text="t('form_steps.3.title')"></p>
+          <input x-model="leadPhone" type="tel" :placeholder="t('form_steps.3.placeholder')" class="input-wilbak">
+          <div class="flex justify-between gap-4 mt-2">
+            <button @click="step = 3" class="btn-back">← Back</button>
+            <button @click="submitAudit" :disabled="!leadPhone" class="btn-submit" style="width:auto; padding:0.75rem 2rem;" x-text="t('form_steps.3.button') || 'Submit'"></button>
           </div>
         </div>
       </div>
 
-      <!-- Success Side -->
-      <div x-show="success" x-transition x-cloak style="text-align:center;">
-        <div style="width:80px; height:80px; border-radius:50%; border:2px solid #27C93F; margin: 0 auto 2rem; display:flex; align-items:center; justify-content:center;">
-          <svg style="width:40px; height:40px; color:#27C93F;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+      <!-- Success State -->
+      <div x-show="success" x-transition x-cloak class="text-center py-8">
+        <div class="w-16 h-16 rounded-full border-2 border-emerald-500 mx-auto mb-6 flex items-center justify-center">
+          <svg class="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
-        <h2 class="section-heading" style="margin-bottom:1.5rem;" x-text="t('success.heading') || 'Transmission Complete.'">Transmission <em>Complete.</em></h2>
-        <p class="body-text" style="margin-bottom:2.5rem;" x-text="t('success.body') || 'Your institutional audit logic has been securely transmitted. A principal will contact you shortly.'">Your institutional audit logic has been securely transmitted. A principal will contact you shortly.</p>
-        <a href="/Orthom8pro/" class="btn-gold" x-text="t('success.button') || 'Return to Base'">Return to Base</a>
+        <h2 class="text-2xl font-bold text-slate-900 mb-4" x-text="t('success.heading') || 'Diagnostic Submitted.'"></h2>
+        <p class="text-slate-500 text-sm leading-relaxed max-w-sm mx-auto mb-8" x-text="t('success.body') || 'Your submission has been received. Wilhelm will respond within one business day.'"></p>
+        <a href="/" class="btn-navy mx-auto" x-text="t('success.button') || 'Return Home'"></a>
       </div>
     </div>
 
-    <!-- VIDEO SIDE (FIXED) -->
+    <!-- VIDEO SIDE -->
     <div class="audit-img-side">
-       <video src="https://res.cloudinary.com/dgz88jxiy/video/upload/v1774275213/efb22533077888224530dec240bb54bc_clwgsj.mp4" 
-              autoplay loop muted playsinline class="w-full h-full object-cover"></video>
-       <div class="img-overlay"></div>
-       <div style="position:absolute; bottom:2rem; left:2rem; background:rgba(6,12,24,0.6); backdrop-filter:blur(8px); padding:1.5rem; border:1px solid var(--brand-rule-strong); z-index:5;">
-         <div class="mono text-[10px] text-blue-500 tracking-widest mb-1">PROTO ID: OM8-AUD-V4</div>
-         <div class="serif text-xl italic font-bold text-white">95.0% Node Precision.</div>
-       </div>
+      <video src="https://res.cloudinary.com/dgz88jxiy/video/upload/v1774275213/efb22533077888224530dec240bb54bc_clwgsj.mp4"
+             autoplay loop muted playsinline></video>
+      <div class="img-overlay"></div>
+      <div style="position:absolute; bottom:2rem; left:2rem; background:rgba(15,28,63,0.75); backdrop-filter:blur(8px); padding:1.25rem 1.5rem; border:1px solid rgba(255,255,255,0.1); border-radius:6px; z-index:5;">
+        <div class="mono text-[9px] text-blue-400 tracking-widest mb-1" x-text="t('photo_side.badge.id') || 'DIAGNOSTIC SYSTEM: ACTIVE'"></div>
+        <div class="text-white font-semibold text-sm" x-text="t('photo_side.badge.value') || 'Complimentary. No Commitment.'"></div>
+      </div>
     </div>
   </main>
 
-  <footer id="site-footer" x-show="data">
-    <div class="footer-grid">
-      <div>
-        <div class="flex items-center gap-3 mb-6">
-          <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Wilbak Logo" class="h-8 logo-dark-theme">
-          <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Wilbak Logo" class="h-8 logo-light-theme">
-          <span class="footer-brand-name" style="margin-bottom:0;">Ortho'M8</span>
+  <!-- ━━━━ FOOTER ━━━━ -->
+  <footer class="bg-[#0F1C3F] text-white pt-16 pb-10 px-6 md:px-10" x-show="data">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-12 pb-12 border-b border-white/10">
+        <div>
+          <img src="/logo.png" alt="Wilbak Engineering" class="h-7 mb-5 brightness-0 invert">
+          <p class="text-slate-400 text-sm leading-relaxed max-w-xs">Precision operational infrastructure for businesses that require structural performance improvement.</p>
         </div>
-        <p class="footer-brand-desc" x-text="t('footer.brand_desc')">Ortho'M8 is an Algorithmic Capital Management system built for business excellence. Fully automated, risk-hardened, and transparent — securing your capital through intelligent engineering.</p>
+        <div>
+          <h5 class="mono text-[10px] uppercase tracking-[0.18em] text-slate-500 mb-5">Explore</h5>
+          <ul class="space-y-3">
+            <li><a href="/about/" class="footer-link">About</a></li>
+            <li><a href="/projects/" class="footer-link">Projects</a></li>
+            <li><a href="/insight/" class="footer-link">News &amp; Insights</a></li>
+            <li><a href="/Orthom8pro/" class="footer-link">Ortho'M8 Platform</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="mono text-[10px] uppercase tracking-[0.18em] text-slate-500 mb-5">Engage</h5>
+          <ul class="space-y-3">
+            <li><a href="/contact/" class="footer-link">Contact Wilhelm</a></li>
+            <li><a href="/audit/" class="footer-link text-blue-400 hover:text-blue-300">Request Diagnostic</a></li>
+            <li><a href="/legal/" class="footer-link">Legal</a></li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <div class="footer-col-title">Platform</div>
-        <ul class="footer-links">
-          <li><a href="/Orthom8pro/#engine">How It Works</a></li>
-          <li><a href="/Orthom8pro/#performance">Performance</a></li>
-        </ul>
+      <div class="pt-8 flex flex-wrap items-center justify-between gap-4">
+        <div class="mono text-[10px] text-slate-600 uppercase tracking-[0.25em]">&copy; 2026 Wilbak Engineering Group // Built to Endure</div>
+        <div class="mono text-[10px] text-slate-700 uppercase tracking-[0.2em]">Houston, Texas · North America · EMEA</div>
       </div>
-      <div>
-        <div class="footer-col-title">Identity</div>
-        <ul class="footer-links">
-          <li><a href="/Orthom8pro/our-team/">Our Team</a></li>
-          <li><a href="/contact/">Contact Office</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Legal</div>
-        <ul class="footer-links">
-          <li><a href="#">Compliance</a></li>
-          <li><a href="#">Privacy Protocol</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 ORTHOM8PRO — All rights reserved.</p>
-      <p style="margin-top:0.5rem; opacity:0.5; max-width:800px; margin-left:auto; margin-right:auto;" x-text="t('footer.disclaimer')">Trading involves risk and past performance does not guarantee future results. This platform is intended for informational purposes only and does not constitute financial advice.</p>
     </div>
   </footer>
-</div>
+
+</div><!-- #app -->
 
 <script>
   document.addEventListener('alpine:init', () => {
@@ -474,45 +287,21 @@
   window.addEventListener('DOMContentLoaded', () => {
     const gate = document.getElementById('welcome-gate');
     const app  = document.getElementById('app');
-    
-    // Welcome Gate
     setTimeout(() => {
       gate.classList.add('exiting');
       app.classList.add('visible');
-      setTimeout(() => gate.style.display = 'none', 500);
-    }, 1500);
+      setTimeout(() => gate.style.display = 'none', 400);
+    }, 1200);
 
-    // Theme Toggle
-    const html  = document.documentElement;
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-
-    const updateTheme = (isDark) => {
-      html.setAttribute('data-theme', isDark ? 'dark' : 'light');
-      themeIcon.textContent = isDark ? '☀' : '🌙';
-      localStorage.setItem('o8_theme', isDark ? 'dark' : 'light');
-    };
-
-    const currentTheme = localStorage.getItem('o8_theme') || 'dark';
-    updateTheme(currentTheme === 'dark');
-    themeToggle?.addEventListener('click', () => updateTheme(html.getAttribute('data-theme') === 'light'));
-
-    // Mobile Menu
-    const hamburger = document.getElementById('hamburger-btn');
+    const toggle = document.getElementById('mobile-toggle');
     const drawer = document.getElementById('mobile-drawer');
-    const overlay = document.getElementById('drawer-overlay');
-    const closeBtn = document.getElementById('drawer-close');
-
-    const toggleDrawer = (open) => {
-      drawer.classList.toggle('open', open);
-      overlay.classList.toggle('visible', open);
-      hamburger.classList.toggle('active', open);
-      document.body.classList.toggle('drawer-open', open);
-    };
-
-    hamburger.addEventListener('click', () => toggleDrawer(!drawer.classList.contains('open')));
-    overlay.addEventListener('click', () => toggleDrawer(false));
-    closeBtn.addEventListener('click', () => toggleDrawer(false));
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+    toggle.addEventListener('click', () => {
+      const isOpen = drawer.classList.toggle('open');
+      iconOpen.style.display = isOpen ? 'none' : '';
+      iconClose.style.display = isOpen ? '' : 'none';
+    });
   });
 </script>
 </body>
