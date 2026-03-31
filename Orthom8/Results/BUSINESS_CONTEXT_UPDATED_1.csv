@@ -9,7 +9,7 @@ Car_Dealership,Hedge_Instruments,Insurance/Diversification,Options/Futures/Diver
 Car_Dealership,Hedge_Ratio,35%,Percentage of exposure hedged
 Car_Dealership,Hedge_Frequency,Monthly,Daily/Weekly/Monthly adjustments
 Car_Dealership,Revenue_Model,Cyclical,Seasonal/Cyclical/Growth/Defensive
-Car_Dealership,Key_Drivers,"Tokunbo import volume, FX rate (NGN/USD), consumer credit access, fuel prices, port clearance costs",Main factors affecting performance
+Car_Dealership,Key_Drivers,"salvage import volume, FX rate (EUR/USD), consumer credit access, fuel prices, port clearance costs",Main factors affecting performance
 Car_Dealership,Market_Sensitivity,"High — tied to FX volatility, purchasing power, and import tariff policy",Sensitivity to economic conditions
 Car_Dealership,Annual_Return_Goal,197.00%,Realistic annual return target
 Car_Dealership,Growth_Phase,Early_Growth,Early_Growth/Maturity/Expansion
@@ -75,7 +75,7 @@ Electronics_Company,Hedge_Instruments,Diversification/Futures,Options/Futures/Di
 Electronics_Company,Hedge_Ratio,30%,Percentage of exposure hedged
 Electronics_Company,Hedge_Frequency,Monthly,Daily/Weekly/Monthly adjustments
 Electronics_Company,Revenue_Model,Cyclical,Seasonal/Cyclical/Growth/Defensive
-Electronics_Company,Key_Drivers,"USD/NGN FX rate, import duties on electronics, consumer disposable income, brand availability, warranty logistics",Main factors affecting performance
+Electronics_Company,Key_Drivers,"USD/EUR FX rate, import duties on electronics, consumer disposable income, brand availability, warranty logistics",Main factors affecting performance
 Electronics_Company,Market_Sensitivity,High — discretionary electronics purchases drop sharply during economic downturns and FX spikes,Sensitivity to economic conditions
 Electronics_Company,Annual_Return_Goal,201.54%,Realistic annual return target
 Electronics_Company,Growth_Phase,Maturity,Early_Growth/Maturity/Expansion
@@ -207,7 +207,7 @@ Freelance_Services,Hedge_Instruments,Diversification/Insurance,Options/Futures/D
 Freelance_Services,Hedge_Ratio,20%,Percentage of exposure hedged
 Freelance_Services,Hedge_Frequency,Monthly,Daily/Weekly/Monthly adjustments
 Freelance_Services,Revenue_Model,Growth,Seasonal/Cyclical/Growth/Defensive
-Freelance_Services,Key_Drivers,"Client acquisition rate, project pipeline depth, skills premium (AI/software/design), platform fees (Upwork/Toptal), FX conversion (USD earnings to NGN)",Main factors affecting performance
+Freelance_Services,Key_Drivers,"Client acquisition rate, project pipeline depth, skills premium (AI/software/design), platform fees (Upwork/Toptal), FX conversion (USD earnings to EUR)",Main factors affecting performance
 Freelance_Services,Market_Sensitivity,Medium — global freelance demand is growing but project budgets compress during tech sector downturns,Sensitivity to economic conditions
 Freelance_Services,Annual_Return_Goal,219.56%,Realistic annual return target
 Freelance_Services,Growth_Phase,Early_Growth,Early_Growth/Maturity/Expansion

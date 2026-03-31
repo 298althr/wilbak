@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title x-text="data?.page_meta?.title || 'Wilbak Engineering – Wilhelm Rybak | High-Performance Business Logic'">Wilbak Engineering</title>
+    <title x-text="data?.page_meta?.title || 'Wilbak Engineering — Operational Infrastructure'">Wilbak Engineering</title>
 
-    <meta name="description" content="Wilbak Engineering finds exactly where your business is losing money and builds the systems to stop it. Led by Wilhelm Rybak.">
+    <meta name="description" content="Wilbak Engineering delivers precision operational infrastructure for businesses that require structural performance improvement. Led by Wilhelm Rybak.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,69 +14,187 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400;1,9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
         [x-cloak] { display: none !important; }
-        :root { --neon-blue: #0076FF; --deep-obsidian: #0A0C10; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fcfdfe; color: #0F172A; scroll-behavior: smooth; }
-        .mono { font-family: 'JetBrains Mono', monospace; font-weight: 700; }
-        .lake-gradient {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%),
-                url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover; background-position: center;
+
+        :root {
+            --navy: #0F1C3F;
+            --navy-hover: #1a2f60;
+            --blue: #2563EB;
+            --blue-light: #3B82F6;
         }
-        .industrial-grid { background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 40px 40px; }
-        .btn-premium { display: inline-block; padding: 0.75rem 2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.25em; font-size: 10px; transition: all 0.3s ease; border-radius: 0.125rem; border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; text-align: center; }
-        .btn-primary { background-color: #2563eb; color: #ffffff; }
-        .btn-secondary { border: 1px solid #334155; color: #ffffff; }
-        .footer-link { color: #94a3b8; transition: color 0.2s ease; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em; }
-        .footer-link:hover { color: #3b82f6; }
-        
-        #page-loader { position: fixed; inset: 0; background: #0A0C10; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease; }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: #ffffff;
+            color: #0F172A;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .mono { font-family: 'DM Mono', monospace; }
+
+        /* ── Page Loader ── */
+        #page-loader {
+            position: fixed; inset: 0; background: #ffffff;
+            z-index: 9999; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            transition: opacity 0.4s ease;
+        }
         #page-loader.fade-out { opacity: 0; pointer-events: none; }
-        .loader-spin { width: 40px; height: 40px; border: 3px solid rgba(0, 118, 255, 0.1); border-top: 3px solid #0076FF; border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        
-        .lang-select { background: transparent; border: 1px solid rgba(0,0,0,0.1); color: #64748B; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 4px; outline: none; cursor: pointer; }
+        .loader-bar {
+            width: 56px; height: 2px; background: #E2E8F0;
+            border-radius: 2px; overflow: hidden;
+        }
+        .loader-bar::after {
+            content: ''; display: block;
+            width: 40%; height: 100%; background: var(--navy);
+            animation: loadslide 0.9s ease-in-out infinite alternate;
+        }
+        @keyframes loadslide {
+            from { transform: translateX(0); }
+            to { transform: translateX(150%); }
+        }
+
+        /* ── Buttons ── */
+        .btn-navy {
+            display: inline-flex; align-items: center; justify-content: center;
+            background: var(--navy); color: #ffffff;
+            padding: 0.6rem 1.4rem; font-size: 0.72rem; font-weight: 600;
+            letter-spacing: 0.06em; text-transform: uppercase;
+            border-radius: 5px; transition: background 0.2s ease;
+            white-space: nowrap; border: none; cursor: pointer;
+        }
+        .btn-navy:hover { background: var(--navy-hover); }
+
+        .btn-outline {
+            display: inline-flex; align-items: center; justify-content: center;
+            background: transparent; color: #475569;
+            border: 1.5px solid #CBD5E1;
+            padding: 0.6rem 1.4rem; font-size: 0.72rem; font-weight: 600;
+            letter-spacing: 0.06em; text-transform: uppercase;
+            border-radius: 5px; transition: all 0.2s ease;
+            white-space: nowrap; cursor: pointer;
+        }
+        .btn-outline:hover { border-color: var(--navy); color: var(--navy); }
+
+        /* ── Nav ── */
+        .nav-link {
+            font-size: 0.72rem; font-weight: 600;
+            letter-spacing: 0.05em; text-transform: uppercase;
+            color: #64748B; transition: color 0.15s ease;
+        }
+        .nav-link:hover { color: var(--navy); }
+        .nav-link.active { color: var(--navy); }
+
+        .lang-select {
+            background: transparent; border: 1.5px solid #E2E8F0;
+            color: #64748B; font-size: 0.65rem; font-weight: 600;
+            padding: 5px 8px; border-radius: 4px; outline: none;
+            cursor: pointer; font-family: 'DM Mono', monospace;
+            transition: border-color 0.15s ease;
+        }
+        .lang-select:focus { border-color: var(--blue); }
+
+        /* ── Labels ── */
+        .eyebrow {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem; font-weight: 500;
+            letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--blue);
+        }
+
+        /* ── Cards ── */
+        .analysis-card {
+            padding: 2rem 2rem 2.25rem; border: 1.5px solid #E2E8F0;
+            border-radius: 8px; transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .analysis-card:hover { border-color: #94A3B8; box-shadow: 0 4px 20px rgba(15,28,63,0.06); }
+        .analysis-card.accent { border-color: #BFDBFE; background: #F0F7FF; }
+        .analysis-card.accent:hover { border-color: #93C5FD; }
+
+        .testimonial-card {
+            background: #ffffff; padding: 2rem;
+            border: 1.5px solid #E2E8F0; border-radius: 8px;
+            display: flex; flex-direction: column;
+            transition: box-shadow 0.2s ease;
+        }
+        .testimonial-card:hover { box-shadow: 0 6px 24px rgba(15,28,63,0.08); }
+
+        /* ── Footer ── */
+        .footer-link {
+            font-size: 0.8rem; font-weight: 400;
+            color: #94A3B8; transition: color 0.15s ease;
+        }
+        .footer-link:hover { color: #ffffff; }
     </style>
 </head>
 
-<body x-data="homeApp" class="industrial-grid">
+<body x-data="homeApp">
 
-    <div id="page-loader" x-show="loading" x-transition:leave="transition ease-in duration-500">
-        <div class="loader-spin mb-4"></div>
-        <div class="mono text-[10px] text-blue-500 uppercase tracking-[0.4em] animate-pulse">Loading...</div>
+    <!-- Page Loader -->
+    <div id="page-loader" x-show="loading" x-transition:leave="transition ease-in duration-400">
+        <div class="loader-bar mb-3"></div>
+        <div class="mono text-[10px] text-slate-400 uppercase tracking-[0.25em] mt-3">Loading</div>
     </div>
 
-    <!-- NAVIGATION -->
-    <nav class="flex justify-between items-center px-6 md:px-10 py-6 bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm" x-show="data">
-        <a href="/"><img src="logo.png" alt="WILBAK ENGINEERING" class="h-8 md:h-10"></a>
+    <!-- ━━━━━━━━━━━━━━━━ NAV ━━━━━━━━━━━━━━━━ -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100" x-show="data" x-cloak>
+        <div class="max-w-7xl mx-auto px-6 md:px-10 h-[60px] flex items-center justify-between gap-8">
 
-        <!-- Desktop Nav -->
-        <div class="hidden md:flex items-center space-x-10 font-bold text-xs uppercase tracking-[0.2em]">
-            <template x-for="item in data.navigation">
-                <a :href="item.url" :class="item.type === 'premium' ? 'btn-premium bg-slate-900 text-white hover:bg-blue-700' : (window.location.pathname === item.url ? 'text-blue-600' : 'text-slate-500 hover:text-blue-600 group')" x-text="item.label"></a>
-            </template>
-            <select class="lang-select" @change="loadLang($event.target.value)">
-                <option value="en">EN</option>
-                <option value="es">ES</option>
-                <option value="de">DE</option>
-                <option value="fr">FR</option>
-                <option value="zh">ZH</option>
-            </select>
+            <!-- Logo -->
+            <a href="/" class="shrink-0">
+                <img src="logo.png" alt="Wilbak Engineering" class="h-7">
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center gap-7">
+                <a href="/about/" class="nav-link">About</a>
+                <a href="/contact/" class="nav-link">Contact</a>
+                <a href="/projects/" class="nav-link">Projects</a>
+                <a href="/insight/" class="nav-link">News &amp; Insights</a>
+            </div>
+
+            <!-- Desktop Right -->
+            <div class="hidden md:flex items-center gap-4 shrink-0">
+                <div class="w-px h-4 bg-slate-200"></div>
+                <select class="lang-select" @change="loadLang($event.target.value)">
+                    <option value="en">EN</option>
+                    <option value="es">ES</option>
+                    <option value="de">DE</option>
+                    <option value="fr">FR</option>
+                    <option value="zh">ZH</option>
+                </select>
+                <a href="/audit/" class="btn-navy">Free Diagnostic</a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-slate-500 rounded hover:bg-slate-50 transition" :aria-expanded="mobileMenu">
+                <svg x-show="!mobileMenu" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+                <svg x-show="mobileMenu" x-cloak xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
         </div>
 
-        <!-- Mobile Toggle -->
-        <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-slate-900">☰</button>
-
-        <!-- Mobile Menu Overlay -->
-        <div x-show="mobileMenu" x-cloak class="absolute top-full left-0 w-full bg-white border-b border-slate-200 md:hidden z-40 shadow-xl p-8 space-y-6 flex flex-col font-bold text-xs uppercase tracking-[0.2em]">
-            <template x-for="item in data.navigation">
-                <a :href="item.url" :class="item.type === 'premium' ? 'bg-slate-900 text-white px-6 py-4 text-center rounded-sm' : 'text-slate-900'" x-text="item.label" @click="mobileMenu = false"></a>
-            </template>
-            <div class="pt-4 border-t">
-                 <select class="lang-select w-full" @change="loadLang($event.target.value)">
+        <!-- Mobile Drawer -->
+        <div x-show="mobileMenu" x-cloak class="md:hidden bg-white border-t border-slate-100 px-6 py-6">
+            <div class="flex flex-col gap-5">
+                <a href="/about/" class="nav-link text-slate-800 text-sm" @click="mobileMenu = false">About</a>
+                <a href="/contact/" class="nav-link text-slate-800 text-sm" @click="mobileMenu = false">Contact</a>
+                <a href="/projects/" class="nav-link text-slate-800 text-sm" @click="mobileMenu = false">Projects</a>
+                <a href="/insight/" class="nav-link text-slate-800 text-sm" @click="mobileMenu = false">News &amp; Insights</a>
+            </div>
+            <div class="mt-6 pt-6 border-t border-slate-100 flex flex-col gap-3">
+                <a href="/audit/" class="btn-navy w-full" @click="mobileMenu = false">Free Diagnostic</a>
+                <select class="lang-select w-full py-2" @change="loadLang($event.target.value)">
                     <option value="en">English (EN)</option>
                     <option value="es">Español (ES)</option>
                     <option value="de">Deutsch (DE)</option>
@@ -87,101 +205,154 @@
         </div>
     </nav>
 
-    <main x-show="data">
-        <!-- Hero Section -->
-        <header class="lake-gradient text-white py-24 md:py-40 px-6 md:px-10 relative overflow-hidden">
-            <div class="max-w-6xl mx-auto relative z-10">
-                <div class="max-w-3xl">
-                    <div class="mono text-blue-400 text-sm mb-4 tracking-widest uppercase" x-text="data.hero.protocol">[ Operational Protocol: v3.1 ]</div>
-                    <h1 class="text-3xl sm:text-5xl md:text-8xl font-black leading-none mb-6 italic uppercase" x-html="data.hero.heading.replace('DATOS.', 'DATOS.<br>').replace('DATA.', 'DATA.<br>')">ENGINEERING<br>BUSINESS DATA.</h1>
-                    <p class="text-xl text-slate-400 mb-10 max-w-xl leading-relaxed" x-text="data.hero.subheading">We eliminate the "Chaos Tax" on your business.</p>
-                    <div class="flex space-x-6">
-                        <template x-for="btn in data.hero.cta">
-                            <a :href="btn.url" class="btn-premium px-10 py-5 text-xs" :class="btn.url === '/projects/' ? 'btn-primary' : 'btn-secondary'" x-text="btn.label"></a>
+    <!-- ━━━━━━━━━━━━━━━━ MAIN ━━━━━━━━━━━━━━━━ -->
+    <main x-show="data" x-cloak>
+
+        <!-- ── HERO ── -->
+        <section class="bg-white px-6 md:px-10 pt-20 pb-24 md:pt-28 md:pb-32">
+            <div class="max-w-7xl mx-auto">
+                <div class="max-w-4xl">
+                    <div class="eyebrow mb-6" x-text="data.hero.protocol"></div>
+                    <h1 class="text-[2.6rem] sm:text-6xl md:text-[5.5rem] font-bold leading-[1.02] tracking-[-0.02em] text-slate-900 mb-8"
+                        x-html="data.hero.heading"></h1>
+                    <p class="text-lg md:text-xl text-slate-500 leading-relaxed font-normal max-w-2xl mb-10"
+                       x-text="data.hero.subheading"></p>
+                    <div class="flex flex-wrap gap-3">
+                        <template x-for="btn in data.hero.cta" :key="btn.url">
+                            <a :href="btn.url"
+                               :class="btn.url.includes('audit') ? 'btn-navy px-7 py-3 text-sm' : 'btn-outline px-7 py-3 text-sm'"
+                               x-text="btn.label"></a>
                         </template>
                     </div>
                 </div>
-            </div>
-        </header>
 
-        <!-- Trust Vault -->
-        <section class="relative z-20 px-6 md:px-10 -mt-12">
-            <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
-                <template x-for="(item, index) in data.trust_vault">
-                    <div :class="index % 2 === 0 ? 'border-blue-500' : 'border-slate-700'" class="bg-slate-900/80 backdrop-blur-md p-6 rounded shadow-2xl border-t-2 text-center">
-                        <div class="text-white font-black text-sm uppercase mb-1 tracking-tighter" x-text="item.name"></div>
-                        <div :class="index % 2 === 0 ? 'text-blue-400' : 'text-slate-400'" class="mono text-[9px] uppercase tracking-widest" x-text="item.label"></div>
-                    </div>
-                </template>
+                <!-- Decorative rule -->
+                <div class="mt-20 flex gap-1">
+                    <div class="h-px w-16 bg-[var(--blue)]"></div>
+                    <div class="h-px flex-1 bg-slate-100"></div>
+                </div>
             </div>
         </section>
 
-        <!-- Operational Gap -->
-        <section class="py-24 px-10 bg-white industrial-grid pt-32">
-            <div class="max-w-6xl mx-auto text-center mb-16">
-                <h2 class="text-4xl font-extrabold uppercase italic mb-4" x-text="data.operational_gap.heading">The Operational Gap</h2>
-                <p class="text-slate-500 uppercase tracking-widest text-xs font-bold font-mono italic" x-text="data.operational_gap.subheading">Small Business Inefficiency is the Invisible Profit Killer</p>
-                <div class="grid md:grid-cols-2 gap-12 text-left mt-16">
-                    <div class="p-10 bg-red-50 border-l-4 border-red-500">
-                        <h3 class="text-xl font-black uppercase mb-4 text-red-700 italic" x-text="data.operational_gap.chaos_tax.title">The "Chaos Tax"</h3>
-                        <p class="text-slate-600 leading-relaxed" x-text="data.operational_gap.chaos_tax.description"></p>
+        <!-- ── TRUST STRIP ── -->
+        <section class="bg-slate-50 border-y border-slate-200 py-8 px-6 md:px-10">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-wrap items-center gap-x-8 gap-y-5 justify-start">
+                    <span class="eyebrow text-slate-400 shrink-0">Trusted by</span>
+                    <div class="w-px h-4 bg-slate-300 shrink-0 hidden sm:block"></div>
+                    <template x-for="(item, i) in data.trust_vault" :key="i">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-semibold uppercase tracking-widest text-slate-500 hover:text-slate-800 transition cursor-default"
+                                  x-text="item.name"></span>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── OPERATIONAL ANALYSIS ── -->
+        <section class="bg-white py-24 md:py-32 px-6 md:px-10">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-14 max-w-2xl">
+                    <div class="eyebrow mb-4">Analysis</div>
+                    <h2 class="text-3xl md:text-[2.6rem] font-bold tracking-tight leading-tight text-slate-900 mb-5"
+                        x-text="data.operational_gap.heading"></h2>
+                    <p class="text-base text-slate-500 leading-relaxed"
+                       x-text="data.operational_gap.subheading"></p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-5">
+                    <div class="analysis-card">
+                        <div class="w-6 h-px bg-slate-300 mb-6"></div>
+                        <h3 class="text-sm font-semibold text-slate-900 mb-4 tracking-tight"
+                            x-text="data.operational_gap.chaos_tax.title"></h3>
+                        <p class="text-sm text-slate-500 leading-relaxed"
+                           x-text="data.operational_gap.chaos_tax.description"></p>
                     </div>
-                    <div class="p-10 bg-blue-50 border-l-4 border-blue-500">
-                        <h3 class="text-xl font-black uppercase mb-4 text-blue-700 italic" x-text="data.operational_gap.wilbak_alignment.title">The Wilbak Alignment</h3>
-                        <p class="text-slate-600 leading-relaxed" x-text="data.operational_gap.wilbak_alignment.description"></p>
+                    <div class="analysis-card accent">
+                        <div class="w-6 h-px bg-blue-300 mb-6"></div>
+                        <h3 class="text-sm font-semibold text-slate-900 mb-4 tracking-tight"
+                            x-text="data.operational_gap.wilbak_alignment.title"></h3>
+                        <p class="text-sm text-slate-500 leading-relaxed"
+                           x-text="data.operational_gap.wilbak_alignment.description"></p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Testimonies -->
-        <section class="py-24 px-10 bg-slate-900 text-white relative">
-            <div class="max-w-6xl mx-auto">
-                <div class="mb-16">
-                    <div class="text-blue-500 mono text-xs uppercase tracking-[0.5em] mb-4" x-text="data.testimonies.subheading">[ Mission Feedback ]</div>
-                    <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tighter" x-text="data.testimonies.heading">Verified testimonies</h2>
+        <!-- ── CLIENT OUTCOMES ── -->
+        <section class="bg-slate-50 border-y border-slate-200 py-24 md:py-32 px-6 md:px-10">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-end justify-between mb-14 gap-6 flex-wrap">
+                    <div>
+                        <div class="eyebrow mb-4" x-text="data.testimonies.subheading"></div>
+                        <h2 class="text-3xl md:text-[2.6rem] font-bold tracking-tight text-slate-900"
+                            x-text="data.testimonies.heading"></h2>
+                    </div>
+                    <a href="/projects/" class="btn-outline shrink-0">View Engagements</a>
                 </div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <template x-for="item in data.testimonies.items">
-                        <div class="p-8 border border-slate-800 bg-slate-900/50 hover:border-blue-500 transition group">
-                            <p class="text-slate-400 text-sm leading-relaxed mb-8 italic" x-text="item.quote"></p>
-                            <div class="border-t border-slate-800 pt-6">
-                                <h4 class="font-black uppercase italic text-sm" x-text="item.author"></h4>
-                                <p class="text-[9px] mono text-slate-500 uppercase tracking-widest mt-1 italic" x-text="item.title"></p>
+
+                <div class="grid md:grid-cols-3 gap-5">
+                    <template x-for="item in data.testimonies.items" :key="item.author">
+                        <div class="testimonial-card">
+                            <div class="text-4xl text-slate-200 font-serif leading-none select-none mb-3">&ldquo;</div>
+                            <p class="text-slate-600 text-sm leading-relaxed flex-1 mb-7"
+                               x-text="item.quote"></p>
+                            <div class="border-t border-slate-100 pt-5">
+                                <div class="font-semibold text-slate-900 text-sm" x-text="item.author"></div>
+                                <div class="mono text-[10px] text-slate-400 uppercase tracking-widest mt-1"
+                                     x-text="item.title"></div>
                             </div>
                         </div>
                     </template>
                 </div>
             </div>
         </section>
+
     </main>
 
-    <!-- FOOTER -->
-    <footer class="bg-slate-950 text-white pt-24 pb-12 px-10 text-center" x-show="data">
-        <div class="max-w-7xl mx-auto mb-16 border-b border-white/5 pb-16 grid md:grid-cols-2 gap-10 text-left">
-            <div>
-                <img src="logo.png" alt="WILBAK" class="h-10 mb-6 invert brightness-0">
-                <p class="text-slate-400 text-sm leading-relaxed max-w-sm" x-text="data.footer.description"></p>
-            </div>
-            <div class="grid grid-cols-2 gap-8 text-[10px] mono uppercase tracking-widest">
+    <!-- ━━━━━━━━━━━━━━━━ FOOTER ━━━━━━━━━━━━━━━━ -->
+    <footer class="bg-[#0F1C3F] text-white pt-20 pb-10 px-6 md:px-10" x-show="data" x-cloak>
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-12 pb-16 border-b border-white/10">
+
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <img src="logo.png" alt="Wilbak Engineering" class="h-8 mb-6 brightness-0 invert">
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-xs"
+                       x-text="data.footer.description"></p>
+                </div>
+
+                <!-- Explore -->
                 <div>
-                    <h5 class="font-bold text-xs uppercase tracking-widest text-blue-500 mb-6 font-sans">Explore</h5>
-                    <ul class="space-y-4">
-                        <template x-for="item in data.navigation.filter(i => i.url !== '/' && !i.type)">
-                            <li><a :href="item.url" class="footer-link" x-text="item.label"></a></li>
-                        </template>
+                    <h5 class="mono text-[10px] uppercase tracking-[0.18em] text-slate-500 mb-6">Explore</h5>
+                    <ul class="space-y-3">
+                        <li><a href="/about/" class="footer-link">About</a></li>
+                        <li><a href="/projects/" class="footer-link">Projects</a></li>
+                        <li><a href="/insight/" class="footer-link">News &amp; Insights</a></li>
+                        <li><a href="/Orthom8pro/" class="footer-link">Ortho'M8 Platform</a></li>
                     </ul>
                 </div>
+
+                <!-- Engage -->
                 <div>
-                    <h5 class="font-bold text-xs uppercase tracking-widest text-slate-500 mb-6 font-sans">Contact</h5>
-                    <ul class="space-y-4">
-                        <li><a href="/contact/" class="footer-link">Get in Touch</a></li>
-                        <li><a href="/audit/" class="footer-link text-blue-400">Request Audit</a></li>
+                    <h5 class="mono text-[10px] uppercase tracking-[0.18em] text-slate-500 mb-6">Engage</h5>
+                    <ul class="space-y-3">
+                        <li><a href="/contact/" class="footer-link">Contact Wilhelm</a></li>
+                        <li><a href="/audit/" class="footer-link text-blue-400 hover:text-blue-300">Request Diagnostic</a></li>
+                        <li><a href="/legal/" class="footer-link">Legal</a></li>
                     </ul>
+                </div>
+
+            </div>
+            <div class="pt-10 flex flex-wrap items-center justify-between gap-4">
+                <div class="mono text-[10px] text-slate-600 uppercase tracking-[0.25em]"
+                     x-text="data.footer.copyright"></div>
+                <div class="mono text-[10px] text-slate-700 uppercase tracking-[0.2em]">
+                    Houston, Texas &nbsp;·&nbsp; North America &nbsp;·&nbsp; EMEA
                 </div>
             </div>
         </div>
-        <div class="text-[9px] font-bold text-slate-600 uppercase tracking-[0.4em]" x-text="data.footer.copyright"></div>
     </footer>
 
     <script>
@@ -194,17 +365,17 @@
 
                 async init() {
                     await this.loadLang(this.lang);
-                    setTimeout(() => { this.loading = false; }, 800);
+                    setTimeout(() => { this.loading = false; }, 600);
                 },
 
                 async loadLang(lang) {
                     try {
                         const res = await fetch(`/index_data.${lang}.json`);
-                        if (!res.ok) throw new Error("File not found");
+                        if (!res.ok) throw new Error('File not found');
                         this.data = await res.json();
                         this.lang = lang;
                         localStorage.setItem('o8_locale', lang);
-                        document.querySelectorAll('.lang-select').forEach(sel => sel.value = lang);
+                        document.querySelectorAll('.lang-select').forEach(s => s.value = lang);
                     } catch (err) {
                         console.error(`Failed to load index data for: ${lang}`, err);
                         if (lang !== 'en') this.loadLang('en');
@@ -213,5 +384,6 @@
             }));
         });
     </script>
+
 </body>
 </html>
