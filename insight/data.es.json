@@ -1,12 +1,12 @@
 {
-  "page_meta": { "title": "Noticias e Información | Wilbak Engineering" },
+  "page_meta": { "title": "Inteligencia Estratégica | Wilbak Engineering" },
   "hero": {
-    "heading": "PERSPECTIVAS EMPRESARIALES",
-    "description": "Transformando los mercados globales en protocolos operativos precisos."
+    "heading": "INTELIGENCIA ESTRATÉGICA.",
+    "description": "Análisis en profundidad de tendencias operativas, riesgos empresariales estructurales y las decisiones estratégicas que determinan el rendimiento a largo plazo. Inteligencia seleccionada para responsables de decisiones."
   },
   "protocol": {
-    "sync_status": "SINCRONIZANDO LIBRO DE INTELIGENCIA...",
-    "cta": "LEER ARTÍCULO COMPLETO"
+    "sync_status": "Recuperando última inteligencia...",
+    "cta": "VER ANÁLISIS COMPLETO"
   },
-  "footer": { "copyright": "© 2026 Wilbak Engineering Group // Construido para un Rendimiento Inquebrantable" }
+  "footer": { "copyright": "© 2026 Wilbak Engineering Group // Construido para Durar" }
 }

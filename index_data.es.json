@@ -6,59 +6,59 @@
     { "label": "Ortho'M8", "url": "/Orthom8pro/" },
     { "label": "Contacto", "url": "/contact/" },
     { "label": "Noticias e Información", "url": "/insight/" },
-    { "label": "Auditoría de Negocios", "url": "/audit/", "type": "premium" }
+    { "label": "Diagnóstico Gratuito", "url": "/audit/", "type": "premium" }
   ],
   "hero": {
-    "protocol": "Protocolo Operativo: v3.1",
-    "heading": "INGENIERÍA DE DATOS EMPRESARIALES.",
-    "subheading": "Eliminamos el \"Impuesto al Caos\" en su negocio. Infraestructura de alto rendimiento diseñada para el fallo cero.",
+    "protocol": "Excelencia operativa. Diseñada por ingeniería.",
+    "heading": "LÓGICA EMPRESARIAL<br>CONSTRUIDA PARA RENDIR.",
+    "subheading": "La mayoría de las organizaciones opera muy por debajo de su potencial estructural. Wilbak identifica dónde se limita el rendimiento y diseña los sistemas que lo restauran, de forma permanente.",
     "cta": [
-      { "label": "Casos de Estudio", "url": "/projects/" },
-      { "label": "Cómo Funciona", "url": "/Orthom8pro/" }
+      { "label": "Ver Compromisos", "url": "/projects/" },
+      { "label": "Solicitar Diagnóstico", "url": "/audit/" }
     ]
   },
   "trust_vault": [
-    { "name": "Northrop Grumman", "label": "Lógica de Defensa" },
-    { "name": "Toyota", "label": "Rigor de Suministro" },
-    { "name": "ConocoPhillips", "label": "Flujo de Energía" },
-    { "name": "ASDA", "label": "Escala Minorista" },
-    { "name": "GEICO", "label": "Protección de Riesgo" }
+    { "name": "Northrop Grumman", "label": "Operaciones Sin Fallo" },
+    { "name": "Toyota", "label": "Eficiencia Integral" },
+    { "name": "ConocoPhillips", "label": "Claridad Operativa" },
+    { "name": "ASDA", "label": "Infraestructura Escalable" },
+    { "name": "GEICO", "label": "Sistemas Resistentes al Riesgo" }
   ],
   "operational_gap": {
-    "heading": "La Brecha Operativa",
-    "subheading": "La ineficiencia es el asesino invisible de las ganancias",
+    "heading": "El Costo de la Fragmentación Operativa",
+    "subheading": "Los sistemas desconectados y los procesos manuales erosionan el margen en silencio, a escala",
     "chaos_tax": {
-      "title": "El \"Impuesto al Caos\"",
-      "description": "Los procesos manuales y los sistemas desconectados consumen el 40% de su mano de obra antes de cerrar una sola venta."
+      "title": "Fuga Estructural de Rendimiento",
+      "description": "Los flujos de trabajo fragmentados, la introducción manual de datos y las decisiones tomadas sin información fiable generan una sobrecarga significativa en la mayoría de las operaciones. No son ineficiencias aisladas — son restricciones sistémicas que se acumulan con el tiempo y suprimen el rendimiento organizacional."
     },
     "wilbak_alignment": {
-      "title": "La Alineación Wilbak",
-      "description": "Nuestros Motores de Gestión Empresarial Integral eliminan el 90% de la carga manual mediante ingeniería de lógica determinista."
+      "title": "El Modelo Operativo Wilbak",
+      "description": "Realizamos un diagnóstico estructurado de su arquitectura operativa, identificamos las restricciones de mayor impacto y diseñamos sistemas específicos para eliminarlas. El resultado es una mejora permanente en el rendimiento, la precisión y la calidad de las decisiones — no una solución temporal, sino una actualización estructural."
     }
   },
   "testimonies": {
-    "heading": "Testimonios verificados",
-    "subheading": "[ Comentarios de la Misión ]",
+    "heading": "Resultados de Clientes",
+    "subheading": "Referencias de casos seleccionados.",
     "items": [
       {
-        "quote": "\"La transición a Wilbak nos ahorró $120k en costos anuales de redacción manual por sí sola. Su lógica es inquebrantable.\"",
+        "quote": "El diagnóstico de Wilbak reveló más de $120.000 en gastos generales operativos que no habíamos cuantificado anteriormente. Durante el primer año, esas ineficiencias fueron eliminadas — y la productividad de nuestro equipo mejoró sustancialmente.",
         "author": "James McGough",
         "title": "CEO, Sterling Logistics"
       },
       {
-        "quote": "\"Eliminamos el Impuesto al Caos en 90 días. Sus núcleos de IA predictiva son simplemente inigualables.\"",
+        "quote": "A los 90 días de la implementación, nuestra carga de trabajo reactiva disminuyó significativamente. Pasamos de la toma de decisiones ad hoc a la supervisión operativa estructurada — un cambio medible en la gestión del negocio.",
         "author": "Rachel H. Ballack",
         "title": "Gerente de Operaciones, Vance Mfg"
       },
       {
-        "quote": "\"Robusto, confiable y determinista. Wilbak no solo construye sistemas; construyen absoluta certeza.\"",
+        "quote": "Antes de este compromiso, nuestras decisiones se tomaban con datos incompletos y con retraso. Wilbak reemplazó esa infraestructura con inteligencia en tiempo real. La mejora en la calidad de las decisiones ha sido inmediata y medible.",
         "author": "Marcus Thorne",
         "title": "Fundador, Thorne Supply"
       }
     ]
   },
   "footer": {
-    "description": "Lógica empresarial de alto rendimiento para industrias que exigen fallo cero. Ingeniería de certeza desde 2006.",
-    "copyright": "© 2026 Wilbak Engineering Group // Construido para un Rendimiento Inquebrantable"
+    "description": "Diseñamos infraestructura operativa que funciona con precisión, escala de forma fiable y rinde bajo presión. Para organizaciones que requieren una mejora de rendimiento estructural.",
+    "copyright": "© 2026 Wilbak Engineering Group // Construido para Durar"
   }
 }

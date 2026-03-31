@@ -1,18 +1,18 @@
 {
-  "page_meta": { "title": "Contacto | Wilbak Engineering" },
+  "page_meta": { "title": "Contacto | Wilbak Engineering | Iniciar Compromiso" },
   "hero": {
-    "protocol": "[ Información de Contacto ]",
-    "heading": "Conectemos.",
-    "description": "¿Listo para escalar su negocio? Póngase en contacto con Wilhelm directamente para consultas técnicas y soporte operativo."
+    "protocol": "[ Compromisos actualmente abiertos ]",
+    "heading": "Inicie Su Compromiso.",
+    "description": "Contacte directamente con Wilhelm para una consulta estructurada sobre sus desafíos operativos. Sin intermediarios, sin colas — una conversación directa con el ingeniero principal."
   },
   "contact_methods": [
-    { "label": "Correo Electrónico", "value": "wilhelm@wilbakengineering.com", "type": "email" },
-    { "label": "Teléfono Directo", "value": "+1 214 493 9744", "type": "phone" }
+    { "label": "Correo Electrónico Directo", "value": "wilhelm@wilbakengineering.com", "type": "email" },
+    { "label": "Línea Directa", "value": "+1 214 493 9744", "type": "phone" }
   ],
   "location": {
     "city": "Houston, Texas (EE. UU.)",
-    "status": { "label": "Estado", "value": "Siempre Activo" },
-    "cta": { "label": "SOLICITAR AUDITORÍA GRATUITA", "url": "/audit/" }
+    "status": { "label": "Estado Actual", "value": "Aceptando Nuevos Compromisos" },
+    "cta": { "label": "SOLICITAR DIAGNÓSTICO GRATUITO", "url": "/audit/" }
   },
-  "footer": { "copyright": "© 2026 Wilbak Engineering Group // Construido para un Rendimiento Inquebrantable" }
+  "footer": { "copyright": "© 2026 Wilbak Engineering Group // Construido para Durar" }
 }

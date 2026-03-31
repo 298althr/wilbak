@@ -1,12 +1,12 @@
 {
-  "page_meta": { "title": "Nachrichten & Einblicke | Wilbak Engineering" },
+  "page_meta": { "title": "Strategische Intelligenz | Wilbak Engineering" },
   "hero": {
-    "heading": "GESCHÄFTS-EINBLICKE",
-    "description": "Globale Märkte in präzise operative Protokolle transformieren."
+    "heading": "STRATEGISCHE INTELLIGENZ.",
+    "description": "Eingehende Analyse von Betriebstrends, strukturellen Geschäftsrisiken und strategischen Entscheidungen, die langfristige Performance bestimmen. Kuratierte Informationen für Entscheidungsträger."
   },
   "protocol": {
-    "sync_status": "INTELLIGENZ-REGISTER WIRD SYNCHRONISIERT...",
-    "cta": "VOLLSTÄNDIGEN ARTIKEL LESEN"
+    "sync_status": "Neueste Informationen werden abgerufen...",
+    "cta": "VOLLSTÄNDIGE ANALYSE ANZEIGEN"
   },
-  "footer": { "copyright": "© 2026 Wilbak Engineering Group // Gebaut für unbezwingbare Leistung" }
+  "footer": { "copyright": "© 2026 Wilbak Engineering Group // Gebaut um zu Bestehen" }
 }

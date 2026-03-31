@@ -6,59 +6,59 @@
     { "label": "Ortho'M8", "url": "/Orthom8pro/" },
     { "label": "联系", "url": "/contact/" },
     { "label": "新闻与见解", "url": "/insight/" },
-    { "label": "审计", "url": "/audit/", "type": "premium" }
+    { "label": "免费诊断", "url": "/audit/", "type": "premium" }
   ],
   "hero": {
-    "protocol": "运行协议: v3.1",
-    "heading": "商业数据工程。",
-    "subheading": "我们消除您业务中的“混乱税”。为零故障而设计的高性能基础设施。",
+    "protocol": "卓越运营。工程化设计。",
+    "heading": "商业逻辑，<br>为卓越绩效而建。",
+    "subheading": "大多数组织的运营远低于其结构性潜力。Wilbak 精准识别绩效受限之处，并工程化构建能够永久恢复其效能的系统。",
     "cta": [
-      { "label": "案例研究", "url": "/projects/" },
-      { "label": "运作方式", "url": "/Orthom8pro/" }
+      { "label": "查看合作项目", "url": "/projects/" },
+      { "label": "申请诊断", "url": "/audit/" }
     ]
   },
   "trust_vault": [
-    { "name": "Northrop Grumman", "label": "国防逻辑" },
-    { "name": "Toyota", "label": "供应严谨性" },
-    { "name": "ConocoPhillips", "label": "能源流" },
-    { "name": "ASDA", "label": "零售规模" },
-    { "name": "GEICO", "label": "风险防护" }
+    { "name": "Northrop Grumman", "label": "零故障运营" },
+    { "name": "Toyota", "label": "端到端效率" },
+    { "name": "ConocoPhillips", "label": "运营透明度" },
+    { "name": "ASDA", "label": "可扩展基础设施" },
+    { "name": "GEICO", "label": "风险加固系统" }
   ],
   "operational_gap": {
-    "heading": "运营差距",
-    "subheading": "效率低下是无形的利润杀手",
+    "heading": "运营碎片化的代价",
+    "subheading": "系统割裂与手工流程以无声方式、大规模地侵蚀利润",
     "chaos_tax": {
-      "title": "“混乱税”",
-      "description": "在完成单笔销售之前，手动流程和不连贯的软件系统耗费了您 40% 的劳动力。"
+      "title": "结构性绩效流失",
+      "description": "碎片化的工作流程、手动数据录入以及基于不可靠信息所做出的决策，在大多数业务运营中产生了大量管理开销。这些并非孤立的低效问题——它们是随时间累积并持续压制组织整体绩效的系统性制约。"
     },
     "wilbak_alignment": {
-      "title": "Wilbak 协调",
-      "description": "集成业务管理引擎通过设计确定性逻辑消除 90% 的手动开销。"
+      "title": "Wilbak 运营模型",
+      "description": "我们对您的运营架构进行结构化诊断，识别影响最大的制约因素，并工程化构建针对性系统以消除它们。最终成果是吞吐量、精准度与决策质量的永久性提升——不是临时补丁，而是结构性升级。"
     }
   },
   "testimonies": {
-    "heading": "经核实的证词",
-    "subheading": "[ 任务反馈 ]",
+    "heading": "客户成果",
+    "subheading": "精选案例参考。",
     "items": [
       {
-        "quote": "“仅在年度手动起草成本方面，Wilbak 就为我们节省了 12 万美元。他们的逻辑是不可摧毁的。”",
+        "quote": "Wilbak 的诊断揭示了逾 12 万美元此前未经量化的运营管理开销。在第一年内，这些低效问题得到了彻底消除——团队产出也大幅提升。",
         "author": "James McGough",
         "title": "Sterling 物流 首席执行官"
       },
       {
-        "quote": "“我们在 90 天内消除了混乱税。他们的预测性 AI 核心简直是无与伦比的。”",
+        "quote": "部署后 90 天内，我们的被动工作量显著降低。我们从临时性决策转变为结构化运营监督——这是业务管理方式上的一次可量化转变。",
         "author": "Rachel H. Ballack",
         "title": "Vance 制造 运营经理"
       },
       {
-        "quote": "“坚固、可靠且确定。Wilbak 不只是构建系统；他们构建的是绝对的确定性。”",
+        "quote": "此次合作之前，我们的决策依赖不完整且存在延迟的数据。Wilbak 以实时信息取代了这一基础设施。决策质量的提升是即时且显著的。",
         "author": "Marcus Thorne",
         "title": "Thorne Supply 创始人"
       }
     ]
   },
   "footer": {
-    "description": "为要求零故障的行业提供高性能业务逻辑。自 2006 年起通过工程创造确定性。",
-    "copyright": "© 2026 Wilbak 工程集团 // 为不可摧毁的性能而建"
+    "description": "我们构建运行精准、可靠扩展、承压表现卓越的运营基础设施。专为需要结构性绩效提升的组织而建。",
+    "copyright": "\u00a9 2026 Wilbak \u5de5\u7a0b\u96c6\u56e2 // \u4e3a\u957f\u8fdc\u800c\u5efa"
   }
 }

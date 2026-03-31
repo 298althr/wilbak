@@ -1,9 +1,9 @@
 {
-  "page_meta": { "title": "Projets | Wilbak Engineering" },
+  "page_meta": { "title": "Missions Opérationnelles | Wilbak Engineering" },
   "hero": {
-    "heading": "Nos Projets.",
-    "protocol": "[ Historique Opérationnel : 2016 — 2026 ]",
-    "description": "Un enregistrement des systèmes de gestion et d'infrastructure construits sous pression à l'échelle mondiale."
+    "heading": "Missions Sélectionnées.",
+    "protocol": "[ Historique de Projets : 2016 — 2026 ]",
+    "description": "Un enregistrement de déploiements d'infrastructure et de systèmes opérationnels livrés sur les marchés mondiaux dans des conditions exigeantes."
   },
   "projects": [
     {
@@ -11,28 +11,28 @@
       "location": "Oslo, Norvège",
       "tag": "INTÉGRATION RENOUVELABLE",
       "title": "BANQUE COMMERCIALE DE NORVÈGE",
-      "description": "Centre de données haute disponibilité intégré à la grille de parcs éoliens."
+      "description": "Infrastructure de données critique reconstruite dans un cadre d'énergie renouvelable. Architecture haute disponibilité intégrée au réseau d'un parc éolien — empreinte opérationnelle neutre en carbone, sans compromis sur la disponibilité."
     },
     {
       "year": "2020",
       "location": "Anchorage, Alaska",
-      "tag": "HAUTS ENJEUX",
+      "tag": "DÉPLOIEMENT À DISTANCE",
       "tag_type": "alert",
       "title": "RÉVISION ARCTIQUE",
-      "description": "Révision complète d'un centre de données pendant les protocoles de pandémie 2020."
+      "description": "Restauration complète d'un centre de données exécutée à distance sous les protocoles d'isolement pandémique de 2020. Récupération intégrale de l'infrastructure accomplie dans les 72 heures suivant l'engagement, sans personnel sur site."
     },
     {
       "year": "2022",
       "location": "Doha, Qatar",
       "title": "CENTRE MARITIME DE DOHA",
-      "description": "Mini-installation côtière pour traiter des données de la Coupe du Monde avec refroidissement marin."
+      "description": "Installation côtière de données conçue pour le traitement en charge maximale sous conditions thermiques extrêmes. Système de refroidissement à eau de mer intégré. Livrée dans les délais selon des spécifications opérationnelles strictes."
     },
     {
       "year": "2018",
       "location": "Siège de Toyota",
       "title": "USINE DE DONNÉES TOYOTA",
-      "description": "Gestion de systèmes d'énergie redondants pour les lignes d'assemblage manufacturing."
+      "description": "Architecture d'alimentation hyper-redondante conçue pour une continuité de fabrication ininterrompue. Opérations de chaîne de montage protégées contre les variations du système d'alimentation à toutes les étapes de production."
     }
   ],
-  "footer": { "copyright": "© 2026 Wilbak Engineering Group // Construit pour une performance incassable" }
+  "footer": { "copyright": "© 2026 Wilbak Engineering Group // Construit pour Durer" }
 }

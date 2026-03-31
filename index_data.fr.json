@@ -6,59 +6,59 @@
     { "label": "Ortho'M8", "url": "/Orthom8pro/" },
     { "label": "Contact", "url": "/contact/" },
     { "label": "Actualités & Perspectives", "url": "/insight/" },
-    { "label": "Audit", "url": "/audit/", "type": "premium" }
+    { "label": "Diagnostic Gratuit", "url": "/audit/", "type": "premium" }
   ],
   "hero": {
-    "protocol": "Protocole Opérationnel : v3.1",
-    "heading": "L'INGÉNIERIE DES DONNÉES COMMERCIALES.",
-    "subheading": "Nous éliminons la « taxe sur le chaos » de votre entreprise. Infrastructure haute performance conçue pour le zéro défaut.",
+    "protocol": "Excellence opérationnelle. Conçue par ingénierie.",
+    "heading": "LOGIQUE MÉTIER<br>CONÇUE POUR PERFORMER.",
+    "subheading": "La plupart des organisations fonctionnent bien en dessous de leur potentiel structurel. Wilbak identifie où la performance est contrainte et conçoit les systèmes qui la restaurent — de façon permanente.",
     "cta": [
-      { "label": "Études de cas", "url": "/projects/" },
-      { "label": "Fonctionnement", "url": "/Orthom8pro/" }
+      { "label": "Voir les Missions", "url": "/projects/" },
+      { "label": "Demander un Diagnostic", "url": "/audit/" }
     ]
   },
   "trust_vault": [
-    { "name": "Northrop Grumman", "label": "Logique Défense" },
-    { "name": "Toyota", "label": "Rigueur Logistique" },
-    { "name": "ConocoPhillips", "label": "Flux Énergétique" },
-    { "name": "ASDA", "label": "Échelle de détail" },
-    { "name": "GEICO", "label": "Protection des risques" }
+    { "name": "Northrop Grumman", "label": "Opérations Sans Défaut" },
+    { "name": "Toyota", "label": "Efficacité Intégrale" },
+    { "name": "ConocoPhillips", "label": "Clarté Opérationnelle" },
+    { "name": "ASDA", "label": "Infrastructure Évolutive" },
+    { "name": "GEICO", "label": "Systèmes Résilients" }
   ],
   "operational_gap": {
-    "heading": "L'écart opérationnel",
-    "subheading": "L'inefficacité est le tueur invisible des profits",
+    "heading": "Le Coût de la Fragmentation Opérationnelle",
+    "subheading": "Les systèmes déconnectés et les processus manuels érodent la marge silencieusement, à grande échelle",
     "chaos_tax": {
-      "title": "La « taxe sur le chaos »",
-      "description": "Les processus manuels et les logiciels déconnectés dévorent 40 % de votre main-d'œuvre avant même qu'une vente ne soit conclue."
+      "title": "Fuite Structurelle de Performance",
+      "description": "Les flux de travail fragmentés, la saisie manuelle de données et les décisions prises sans renseignements fiables représentent une surcharge significative dans la plupart des opérations. Ce ne sont pas des inefficacités isolées — ce sont des contraintes systémiques qui s'accumulent et réduisent les performances organisationnelles."
     },
     "wilbak_alignment": {
-      "title": "L'alignement Wilbak",
-      "description": "Nos moteurs de gestion d'entreprise intégrée éliminent 90 % de la charge manuelle grâce à une ingénierie logique déterministe."
+      "title": "Le Modèle Opérationnel Wilbak",
+      "description": "Nous réalisons un diagnostic structuré de votre architecture opérationnelle, identifions les contraintes à fort impact et concevons des systèmes sur mesure pour les éliminer. Le résultat est une amélioration permanente du débit, de la précision et de la qualité décisionnelle — une mise à niveau structurelle durable."
     }
   },
   "testimonies": {
-    "heading": "Témoignages vérifiés",
-    "subheading": "[ Retours de mission ]",
+    "heading": "Résultats Clients",
+    "subheading": "Références de cas sélectionnés.",
     "items": [
       {
-        "quote": "« La transition Wilbak nous a épargné 120 000 $ de frais annuels de rédaction manuelle. Leur logique est incassable. »",
+        "quote": "Le diagnostic Wilbak a révélé plus de 120 000 $ de charges opérationnelles que nous n'avions pas préalablement quantifiées. Au cours de la première année, ces inefficacités ont été éliminées — et la productivité de notre équipe s'est améliorée substantiellement.",
         "author": "James McGough",
         "title": "PDG, Sterling Logistics"
       },
       {
-        "quote": "« Nous avons éliminé la taxe sur le chaos en 90 jours. Leurs noyaux d'IA prédictive sont tout simplement inégalés. »",
+        "quote": "Dans les 90 jours suivant le déploiement, notre charge de travail réactive a diminué significativement. Nous sommes passés d'une prise de décision ad hoc à une supervision opérationnelle structurée — un changement mesurable dans la gestion de l'entreprise.",
         "author": "Rachel H. Ballack",
         "title": "Resp. Opérations, Vance Mfg"
       },
       {
-        "quote": "« Robuste, fiable et déterministe. Wilbak ne se contente pas de construire des systèmes ; ils construisent une certitude absolue. »",
+        "quote": "Avant cet engagement, nos décisions reposaient sur des données incomplètes et retardées. Wilbak a remplacé cette infrastructure par une intelligence en temps réel. L'amélioration de la qualité décisionnelle a été immédiate et mesurable.",
         "author": "Marcus Thorne",
         "title": "Fondateur, Thorne Supply"
       }
     ]
   },
   "footer": {
-    "description": "Une ingénierie de données haute performance pour les industries exigeant le zéro défaut. La certitude par l'ingénierie depuis 2006.",
-    "copyright": "© 2026 Wilbak Engineering Group // Construit pour une performance incassable"
+    "description": "Nous concevons une infrastructure opérationnelle qui fonctionne avec précision, s'adapte de manière fiable et performe sous pression. Pour les organisations qui nécessitent une amélioration structurelle de leurs performances.",
+    "copyright": "© 2026 Wilbak Engineering Group // Construit pour Durer"
   }
 }

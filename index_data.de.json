@@ -6,59 +6,59 @@
     { "label": "Ortho'M8", "url": "/Orthom8pro/" },
     { "label": "Kontakt", "url": "/contact/" },
     { "label": "Nachrichten & Einblicke", "url": "/insight/" },
-    { "label": "Audit", "url": "/audit/", "type": "premium" }
+    { "label": "Kostenlose Diagnose", "url": "/audit/", "type": "premium" }
   ],
   "hero": {
-    "protocol": "Betriebsprotokoll: v3.1",
-    "heading": "BUSINESS-DATEN-ENGINEERING.",
-    "subheading": "Wir eliminieren die „Chaos-Steuer“ in Ihrem Unternehmen. Hochleistungs-Infrastruktur für Null-Fehler-Toleranz.",
+    "protocol": "Operative Exzellenz. Technisch konzipiert.",
+    "heading": "GESCHÄFTSLOGIK,<br>DIE LEISTUNG BRINGT.",
+    "subheading": "Die meisten Organisationen arbeiten weit unter ihrem strukturellen Potenzial. Wilbak identifiziert, wo die Leistung eingeschränkt wird, und entwickelt die Systeme, die sie dauerhaft wiederherstellen.",
     "cta": [
-      { "label": "Fallstudien", "url": "/projects/" },
-      { "label": "Funktionsweise", "url": "/Orthom8pro/" }
+      { "label": "Engagements ansehen", "url": "/projects/" },
+      { "label": "Diagnose anfordern", "url": "/audit/" }
     ]
   },
   "trust_vault": [
-    { "name": "Northrop Grumman", "label": "Verteidigungslogik" },
-    { "name": "Toyota", "label": "Lieferkette-Rigor" },
-    { "name": "ConocoPhillips", "label": "Energiefluss" },
-    { "name": "ASDA", "label": "Handelsskala" },
-    { "name": "GEICO", "label": "Risikoschutz" }
+    { "name": "Northrop Grumman", "label": "Fehlerfreier Betrieb" },
+    { "name": "Toyota", "label": "End-to-End-Effizienz" },
+    { "name": "ConocoPhillips", "label": "Operative Klarheit" },
+    { "name": "ASDA", "label": "Skalierbare Infrastruktur" },
+    { "name": "GEICO", "label": "Risikogehärtete Systeme" }
   ],
   "operational_gap": {
-    "heading": "Die operative Lücke",
-    "subheading": "Ineffizienz ist der unsichtbare Profitkiller",
+    "heading": "Die Kosten operativer Fragmentierung",
+    "subheading": "Unverbundene Systeme und manuelle Prozesse erodieren die Marge still, in großem Maßstab",
     "chaos_tax": {
-      "title": "Die „Chaos-Steuer“",
-      "description": "Manuelle Prozesse und isolierte Software-Systeme verschlingen 40% Ihrer Arbeitskraft, bevor ein einziger Verkauf abgeschlossen ist."
+      "title": "Struktureller Leistungsverlust",
+      "description": "Fragmentierte Arbeitsabläufe, manuelle Dateneingabe und Entscheidungen ohne zuverlässige Informationen verursachen erheblichen Overhead. Dies sind keine isolierten Ineffizienzen — es sind systemische Einschränkungen, die sich im Laufe der Zeit aufschichten und die Gesamtleistung der Organisation beeinträchtigen."
     },
     "wilbak_alignment": {
-      "title": "Das Wilbak-Alignment",
-      "description": "Unsere integrierten Business-Management-Engines eliminieren 90% des manuellen Overheads durch deterministisches Engineering."
+      "title": "Das Wilbak-Betriebsmodell",
+      "description": "Wir führen eine strukturierte Diagnose Ihrer operativen Architektur durch, identifizieren die wirkungsstärksten Einschränkungen und entwickeln zweckgebaute Systeme zu ihrer Beseitigung. Das Ergebnis ist eine dauerhafte Verbesserung von Durchsatz, Präzision und Entscheidungsqualität — kein Workaround, sondern ein strukturelles Upgrade."
     }
   },
   "testimonies": {
-    "heading": "Verifizierte Erfahrungsberichte",
-    "subheading": "[ Missions-Feedback ]",
+    "heading": "Kundenergebnisse",
+    "subheading": "Ausgewählte Fallreferenzen.",
     "items": [
       {
-        "quote": "„Der Übergang zu Wilbak hat uns allein bei den manuellen Entwurfskosten $120.000 pro Jahr eingespart. Ihre Logik ist unbezwingbar.“",
+        "quote": "Die Wilbak-Diagnose hat über 120.000 $ an operativen Gemeinkosten aufgedeckt, die wir zuvor nicht quantifiziert hatten. Im ersten Jahr wurden diese Ineffizienzen beseitigt — und die Leistung unseres Teams verbesserte sich erheblich.",
         "author": "James McGough",
         "title": "CEO, Sterling Logistics"
       },
       {
-        "quote": "„Wir haben die Chaos-Steuer in 90 Tagen eliminiert. Ihre prädiktiven KI-Kerne sind einfach unübertroffen.“",
+        "quote": "Innerhalb von 90 Tagen nach dem Einsatz sank unsere reaktive Arbeitslast deutlich. Wir wechselten von ad-hoc-Entscheidungsfindung zu strukturierter operativer Aufsicht — eine messbare Verschiebung im Unternehmensmanagement.",
         "author": "Rachel H. Ballack",
         "title": "Ops Manager, Vance Mfg"
       },
       {
-        "quote": "„Robust, zuverlässig und deterministisch. Wilbak baut nicht nur Systeme; sie bauen absolute Gewissheit.“",
+        "quote": "Vor diesem Engagement wurden unsere Entscheidungen auf der Grundlage unvollständiger und verzögerter Daten getroffen. Wilbak ersetzte diese Infrastruktur durch Echtzeit-Informationen. Die Verbesserung der Entscheidungsqualität war sofort spürbar.",
         "author": "Marcus Thorne",
         "title": "Gründer, Thorne Supply"
       }
     ]
   },
   "footer": {
-    "description": "Hochleistungs-Geschäftslogik für Branchen, die Null-Fehler fordern. Gewissheit durch Technik seit 2006.",
-    "copyright": "© 2026 Wilbak Engineering Group // Gebaut für unbezwingbare Leistung"
+    "description": "Wir entwickeln operative Infrastruktur, die präzise läuft, zuverlässig skaliert und unter Druck performt. Für Organisationen, die eine strukturelle Leistungsverbesserung benötigen.",
+    "copyright": "\u00a9 2026 Wilbak Engineering Group // Gebaut um zu Bestehen"
   }
 }

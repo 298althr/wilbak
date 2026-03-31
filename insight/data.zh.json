@@ -1,12 +1,12 @@
 {
-  "page_meta": { "title": "新闻与见解 | Wilbak 工程" },
+  "page_meta": { "title": "战略情报 | Wilbak 工程" },
   "hero": {
-    "heading": "业务洞察",
-    "description": "将全球市场转化为精确的运营协议。"
+    "heading": "战略情报。",
+    "description": "深度分析运营趋势、结构性业务风险及决定长期绩效的战略决策。为决策者精选的专业洞察。"
   },
   "protocol": {
-    "sync_status": "正在同步情报分类账...",
-    "cta": "阅读全文"
+    "sync_status": "正在获取最新情报...",
+    "cta": "查看完整分析"
   },
-  "footer": { "copyright": "© 2026 Wilbak 工程集团 // 为不可摧毁的性能而建" }
+  "footer": { "copyright": "© 2026 Wilbak 工程集团 // 为长远而建" }
 }

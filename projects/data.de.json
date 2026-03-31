@@ -1,9 +1,9 @@
 {
-  "page_meta": { "title": "Projekte | Wilbak Engineering" },
+  "page_meta": { "title": "Operative Engagements | Wilbak Engineering" },
   "hero": {
-    "heading": "Unsere Projekte.",
-    "protocol": "[ Betriebshistorie: 2016 — 2026 ]",
-    "description": "Eine Aufzeichnung von Infrastruktur- und Verwaltungssystemen, die weltweit unter hohem Druck errichtet wurden."
+    "heading": "Ausgewählte Engagements.",
+    "protocol": "[ Projekthistorie: 2016 — 2026 ]",
+    "description": "Eine Aufzeichnung von Infrastrukturimplementierungen und operativen Systemen, die unter anspruchsvollen Bedingungen auf globalen Märkten geliefert wurden."
   },
   "projects": [
     {
@@ -11,28 +11,28 @@
       "location": "Oslo, Norwegen",
       "tag": "ERNEUERBARE INTEGRATION",
       "title": "NORWEGISCHE HANDELSBANK",
-      "description": "Hochverfügbares Rechenzentrum, das direkt in das Stromnetz eines Windparks integriert ist."
+      "description": "Kritische Dateninfrastruktur in einem Rahmen erneuerbarer Energien neu aufgebaut. Hochverfügbare Architektur direkt in das Stromnetz eines Windparks integriert — CO2-neutraler Betrieb, kein Kompromiss bei der Verfügbarkeit."
     },
     {
       "year": "2020",
       "location": "Anchorage, Alaska",
-      "tag": "HOCHRISIKO",
+      "tag": "FERNDEPLOYMENT",
       "tag_type": "alert",
       "title": "ARKTISCHE ÜBERHOLUNG",
-      "description": "Vollständige Überholung des Rechenzentrums während der Pandemie-Isolationsprotokolle im Jahr 2020."
+      "description": "Vollständige Rechenzentrumwiederherstellung unter den Pandemie-Isolationsprotokollen von 2020 remote durchgeführt. Vollständige Infrastrukturwiederherstellung innerhalb von 72 Stunden nach Beginn des Engagements, ohne Personal vor Ort."
     },
     {
       "year": "2022",
       "location": "Doha, Katar",
       "title": "MARITIMES ZENTRUM DOHA",
-      "description": "Küstennahe Minianlage für die World Cup Datenverarbeitung mit Meerwasserkühlung."
+      "description": "Zweckgebaute Küstendatenanlage für die Spitzenlastverarbeitung unter extremen Temperaturbedingungen konzipiert. Meerwasserkühlsystem integriert. Termingerecht gemäß strengen Betriebsspezifikationen geliefert."
     },
     {
       "year": "2018",
       "location": "Toyota Hauptsitz",
       "title": "TOYOTA DATENWERK",
-      "description": "Verwaltung von hyper-redundanten Energiesystemen für die Kontinuität der Fertigungslinie."
+      "description": "Hyper-redundante Energiearchitektur für ununterbrochene Fertigungskontinuität entwickelt. Montagebandoperationen gegen Stromsystemvarianz in allen Produktionsstufen gesichert."
     }
   ],
-  "footer": { "copyright": "© 2026 Wilbak Engineering Group // Gebaut für unbezwingbare Leistung" }
+  "footer": { "copyright": "© 2026 Wilbak Engineering Group // Gebaut um zu Bestehen" }
 }

@@ -14,59 +14,59 @@
     "footer": { "brand_desc": "Wilbak Engineering delivers precision operational infrastructure for businesses that require structural performance improvement. Trusted by operations teams across North America, Europe, and the Middle East.", "disclaimer": "© 2026 Wilbak Engineering Group — All rights reserved. Diagnostic consultations are complimentary with no obligation." }
   },
   "es": {
-    "page_meta": { "title": "Protocolo de Auditoría — Ortho'M8 AI Trading", "theme": "dark" },
-    "welcome_gate": { "heading": "Protocolo de Auditoría", "status": "Inicializando protocolo de auditoría…" },
-    "hero": { "eyebrow": "Protocolo de Auditoría", "heading": "Inicie su Auditoría Institucional." },
+    "page_meta": { "title": "Diagnóstico Operativo | Wilbak Engineering", "theme": "dark" },
+    "welcome_gate": { "heading": "Diagnóstico Operativo", "status": "Inicializando sistema de diagnóstico..." },
+    "hero": { "eyebrow": "Diagnóstico Operativo Gratuito", "heading": "Solicite Su<br><em>Diagnóstico Operativo.</em>" },
     "form_steps": [
-      { "step": 1, "title": "01 — SELECCIONAR NIVEL DE SECTOR", "options": [ { "name": "Nivel Minorista", "description": "Suministro y E-comm" }, { "name": "Nivel de Servicio", "description": "Servicios Gestionados" }, { "name": "Nivel de Ingeniería", "description": "Revisión Industrial" }, { "name": "Nivel de Activos", "description": "Bienes Raíces y Finanzas" } ] },
-      { "step": 2, "title": "02 — NOTAS de CALIBRACIÓN", "placeholder": "DESCRIBIR LA FRICCIÓN OPERATIVA ACTUAL..." },
-      { "step": 3, "title": "03 — IDENTIFICADOR PRINCIPAL", "placeholders": ["NOMBRE LEGAL COMPLETO", "CORREO ELECTRÓNICO INSTITUCIONAL"] },
-      { "step": 4, "title": "04 — ENLACE SEGURO", "placeholder": "NÚMERO DE TELÉFONO DIRECTO", "button": "INICIALIZAR TRANSMISIÓN" }
+      { "step": 1, "title": "01 — SELECCIONAR SU SECTOR", "options": [ { "name": "Comercio y E-Commerce", "description": "Inventario, logística, cadena de suministro" }, { "name": "Servicios Profesionales", "description": "Agencias, consultoras, servicios gestionados" }, { "name": "Ingeniería e Industrial", "description": "Manufactura, construcción, operaciones" }, { "name": "Finanzas e Inmobiliario", "description": "Gestión de activos, propiedad, capital" } ] },
+      { "step": 2, "title": "02 — DESCRIBA SU PRINCIPAL DESAFÍO", "placeholder": "Describa las restricciones operativas o ineficiencias que afectan actualmente a su negocio..." },
+      { "step": 3, "title": "03 — DATOS DE CONTACTO PRINCIPAL", "placeholders": ["Nombre Completo", "Correo Electrónico Empresarial"] },
+      { "step": 4, "title": "04 — NÚMERO DE CONTACTO DIRECTO", "placeholder": "Número de Teléfono", "button": "ENVIAR SOLICITUD DE DIAGNÓSTICO" }
     ],
-    "photo_side": { "badge": { "id": "PROTO ID: OM8-AUD-V4", "value": "95.0% Precisión de Nodo." } },
-    "success": { "heading": "Transmisión Completa.", "body": "Su lógica de auditoría institucional ha sido transmitida de forma segura. Un responsable se pondrá en contacto con usted en breve.", "button": "Volver a la Base" },
-    "footer": { "brand_desc": "Ortho'M8 es un sistema de Gestión de Capital Algorítmico diseñado para la excelencia empresarial. Completamente automatizado, endurecido al riesgo y transparente.", "disclaimer": "© 2025 ORTHOM8PRO — Reservados todos los derechos. El trading implica riesgos." }
+    "photo_side": { "badge": { "id": "SISTEMA DE DIAGNÓSTICO: ACTIVO", "value": "Gratuito. Sin Compromiso." } },
+    "success": { "heading": "Solicitud Recibida.", "body": "Su solicitud de diagnóstico ha sido registrada. Un consultor principal se pondrá en contacto en el plazo de un día hábil para confirmar su compromiso.", "button": "Volver al Inicio" },
+    "footer": { "brand_desc": "Wilbak Engineering ofrece infraestructura operativa de precisión para empresas que requieren una mejora estructural del rendimiento. De confianza para equipos de operaciones en Norteamérica, Europa y Oriente Medio.", "disclaimer": "© 2026 Wilbak Engineering Group — Todos los derechos reservados. Las consultas de diagnóstico son gratuitas y sin compromiso." }
   },
   "de": {
-    "page_meta": { "title": "Audit-Protokoll — Ortho'M8 AI Trading", "theme": "dark" },
-    "welcome_gate": { "heading": "Audit-Protokoll", "status": "Audit-Protokoll wird initialisiert…" },
-    "hero": { "eyebrow": "Audit-Protokoll", "heading": "Starten Sie Ihr institutionelles Audit." },
+    "page_meta": { "title": "Operative Diagnose | Wilbak Engineering", "theme": "dark" },
+    "welcome_gate": { "heading": "Operative Diagnose", "status": "Diagnosesystem wird initialisiert..." },
+    "hero": { "eyebrow": "Kostenlose Operative Diagnose", "heading": "Beantragen Sie Ihre<br><em>Operative Diagnose.</em>" },
     "form_steps": [
-      { "step": 1, "title": "01 — SEKTOR-STUFE WÄHLEN", "options": [ { "name": "Retail-Stufe", "description": "Lieferkette & E-Comm" }, { "name": "Service-Stufe", "description": "Managed Services" }, { "name": "Engineering-Stufe", "description": "Industrielle Überholung" }, { "name": "Asset-Stufe", "description": "Immobilien & Finanzen" } ] },
-      { "step": 2, "title": "02 — KALIBRIERUNGSHINWEISE", "placeholder": "AKTUELLE BETRIEBLICHE REIBUNG BESCHREIBEN..." },
-      { "step": 3, "title": "03 — HAUPTIDENTIFIKATOR", "placeholders": ["VOLLSTÄNDIGER NAME", "INSTITUTIONELLE E-MAIL"] },
-      { "step": 4, "title": "04 — SICHERER LINK", "placeholder": "DIREKTE TELEFONNUMMER", "button": "ÜBERTRAGUNG INITIALISIEREN" }
+      { "step": 1, "title": "01 — SEKTOR AUSWÄHLEN", "options": [ { "name": "Handel & E-Commerce", "description": "Inventar, Logistik, Lieferkette" }, { "name": "Professional Services", "description": "Agenturen, Beratungen, Managed Services" }, { "name": "Engineering & Industrie", "description": "Fertigung, Bau, Betrieb" }, { "name": "Finanzen & Immobilien", "description": "Asset Management, Immobilien, Kapital" } ] },
+      { "step": 2, "title": "02 — HAUPTHERAUSFORDERUNG BESCHREIBEN", "placeholder": "Beschreiben Sie die operativen Einschränkungen oder Ineffizienzen, die Ihr Unternehmen derzeit beeinflussen..." },
+      { "step": 3, "title": "03 — PRIMÄRE KONTAKTDATEN", "placeholders": ["Vollständiger Name", "Geschäftliche E-Mail-Adresse"] },
+      { "step": 4, "title": "04 — DIREKTE KONTAKTNUMMER", "placeholder": "Telefonnummer", "button": "DIAGNOSEANFRAGE EINREICHEN" }
     ],
-    "photo_side": { "badge": { "id": "PROTO ID: OM8-AUD-V4", "value": "95.0% Knotenpräzision." } },
-    "success": { "heading": "Übertragung abgeschlossen.", "body": "Ihre institutionelle Audit-Logik wurde sicher übertragen. Ein Ansprechpartner wird sich in Kürze mit Ihnen in Verbindung setzen.", "button": "Zurück zur Basis" },
-    "footer": { "brand_desc": "Ortho'M8 ist ein algorithmisches Kapitalverwaltungssystem, das für geschäftliche Exzellenz entwickelt wurde. Vollautomatisch, risikogehärtet und transparent.", "disclaimer": "© 2025 ORTHOM8PRO — Alle Rechte vorbehalten. Trading birgt Risiken." }
+    "photo_side": { "badge": { "id": "DIAGNOSESYSTEM: AKTIV", "value": "Kostenlos. Keine Verpflichtung." } },
+    "success": { "heading": "Anfrage Erhalten.", "body": "Ihre Diagnoseanfrage wurde erfasst. Ein leitender Berater wird sich innerhalb eines Werktages mit Ihnen in Verbindung setzen, um Ihren Auftrag zu bestätigen.", "button": "Zur Startseite" },
+    "footer": { "brand_desc": "Wilbak Engineering liefert präzise operative Infrastruktur für Unternehmen, die eine strukturelle Leistungsverbesserung benötigen. Vertrauen von Betriebsteams in Nordamerika, Europa und dem Nahen Osten.", "disclaimer": "© 2026 Wilbak Engineering Group — Alle Rechte vorbehalten. Diagnoseberatungen sind kostenlos und unverbindlich." }
   },
   "fr": {
-    "page_meta": { "title": "Protocole d'Audit — Ortho'M8 AI Trading", "theme": "dark" },
-    "welcome_gate": { "heading": "Protocole d'Audit", "status": "Initialisation du protocole d'audit…" },
-    "hero": { "eyebrow": "Protocole d'Audit", "heading": "Initialisez votre audit institutionnel." },
+    "page_meta": { "title": "Diagnostic Opérationnel | Wilbak Engineering", "theme": "dark" },
+    "welcome_gate": { "heading": "Diagnostic Opérationnel", "status": "Initialisation du système de diagnostic..." },
+    "hero": { "eyebrow": "Diagnostic Opérationnel Gratuit", "heading": "Demandez Votre<br><em>Diagnostic Opérationnel.</em>" },
     "form_steps": [
-      { "step": 1, "title": "01 — SÉLECTIONNER LE SECTEUR", "options": [ { "name": "Palier Détail", "description": "Chaîne d'approvisionnement" }, { "name": "Palier Service", "description": "Services gérés" }, { "name": "Palier Ingénierie", "description": "Révision industrielle" }, { "name": "Palier Actifs", "description": "Immobilier & Finance" } ] },
-      { "step": 2, "title": "02 — NOTES DE CALIBRAGE", "placeholder": "DÉCRIRE LA FRICTION OPÉRATIONNELLE ACTUELLE..." },
-      { "step": 3, "title": "03 — IDENTIFIANT PRINCIPAL", "placeholders": ["NOM LÉGAL COMPLET", "EMAIL INSTITUTIONNEL"] },
-      { "step": 4, "title": "04 — LIEN SÉCURISÉ", "placeholder": "NUMÉRO DE TÉLÉPHONE DIRECT", "button": "INITIALISER LA TRANSMISSION" }
+      { "step": 1, "title": "01 — SÉLECTIONNEZ VOTRE SECTEUR", "options": [ { "name": "Commerce & E-Commerce", "description": "Inventaire, logistique, approvisionnement" }, { "name": "Services Professionnels", "description": "Agences, cabinets conseil, services gérés" }, { "name": "Ingénierie & Industrie", "description": "Fabrication, construction, opérations" }, { "name": "Finance & Immobilier", "description": "Gestion d'actifs, immobilier, capital" } ] },
+      { "step": 2, "title": "02 — DÉCRIVEZ VOTRE DÉFI PRINCIPAL", "placeholder": "Décrivez les contraintes opérationnelles ou les inefficacités affectant actuellement votre activité..." },
+      { "step": 3, "title": "03 — COORDONNÉES PRINCIPALES", "placeholders": ["Nom Complet", "Adresse Email Professionnelle"] },
+      { "step": 4, "title": "04 — NUMÉRO DE CONTACT DIRECT", "placeholder": "Numéro de Téléphone", "button": "SOUMETTRE LA DEMANDE DE DIAGNOSTIC" }
     ],
-    "photo_side": { "badge": { "id": "PROTO ID: OM8-AUD-V4", "value": "95.0% de Précision de Nœud." } },
-    "success": { "heading": "Transmission Terminée.", "body": "Votre logique d'audit institutionnel a été transmise en toute sécurité. Un responsable vous contactera sous peu.", "button": "Retour à la Base" },
-    "footer": { "brand_desc": "Ortho'M8 est un système de gestion de capital algorithmique conçu pour l'excellence opérationnelle.", "disclaimer": "© 2025 ORTHOM8PRO — Tous droits réservés. Le trading comporte des risques." }
+    "photo_side": { "badge": { "id": "SYSTÈME DE DIAGNOSTIC : ACTIF", "value": "Gratuit. Sans Engagement." } },
+    "success": { "heading": "Demande Reçue.", "body": "Votre demande de diagnostic a été enregistrée. Un consultant principal vous contactera dans un jour ouvrable pour confirmer votre mission.", "button": "Retour à l'Accueil" },
+    "footer": { "brand_desc": "Wilbak Engineering fournit une infrastructure opérationnelle de précision pour les entreprises nécessitant une amélioration structurelle de leurs performances. Approuvé par des équipes opérationnelles en Amérique du Nord, Europe et Moyen-Orient.", "disclaimer": "© 2026 Wilbak Engineering Group — Tous droits réservés. Les consultations de diagnostic sont gratuites sans engagement." }
   },
   "zh": {
-    "page_meta": { "title": "审计协议 — Ortho'M8 AI 交易", "theme": "dark" },
-    "welcome_gate": { "heading": "审计协议", "status": "正在初始化审计协议…" },
-    "hero": { "eyebrow": "审计协议", "heading": "启动您的机构审计。" },
+    "page_meta": { "title": "运营诊断 | Wilbak 工程", "theme": "dark" },
+    "welcome_gate": { "heading": "运营诊断", "status": "正在初始化诊断系统..." },
+    "hero": { "eyebrow": "免费运营诊断", "heading": "申请您的<br><em>运营诊断。</em>" },
     "form_steps": [
-      { "step": 1, "title": "01 — 选择行业等级", "options": [ { "name": "零售等级", "description": "供应链与电子商务" }, { "name": "服务等级", "description": "托管服务" }, { "name": "工程等级", "description": "工业检修" }, { "name": "资产等级", "description": "房地产与金融" } ] },
-      { "step": 2, "title": "02 — 校准说明", "placeholder": "描述当前的运营阻碍..." },
-      { "step": 3, "title": "03 — 主要身份标识", "placeholders": ["法定全名", "机构电子邮箱"] },
-      { "step": 4, "title": "04 — 安全连接", "placeholder": "直接联系电话", "button": "启动传输" }
+      { "step": 1, "title": "01 — 选择您的行业", "options": [ { "name": "零售与电子商务", "description": "库存、物流、供应链" }, { "name": "专业服务", "description": "机构、咨询公司、托管服务" }, { "name": "工程与工业", "description": "制造、建筑、运营" }, { "name": "金融与房地产", "description": "资产管理、不动产、资本" } ] },
+      { "step": 2, "title": "02 — 描述您的主要挑战", "placeholder": "请描述目前影响您业务的运营制约或低效问题..." },
+      { "step": 3, "title": "03 — 主要联系信息", "placeholders": ["姓名", "企业电子邮箱"] },
+      { "step": 4, "title": "04 — 直接联系电话", "placeholder": "电话号码", "button": "提交诊断申请" }
     ],
-    "photo_side": { "badge": { "id": "协议 ID: OM8-AUD-V4", "value": "95.0% 节点精准度。" } },
-    "success": { "heading": "传输完成。", "body": "您的机构审计逻辑已通过加密通道成功。相关负责人将很快与您联系。", "button": "返回主页" },
-    "footer": { "brand_desc": "Ortho'M8 是一个为业务卓越而设计的算法资本管理系统。全自动化、低风险、透明。", "disclaimer": "© 2025 ORTHOM8PRO — 版权所有。交易涉及风险。" }
+    "photo_side": { "badge": { "id": "诊断系统：运行中", "value": "免费。无需承诺。" } },
+    "success": { "heading": "申请已收到。", "body": "您的诊断申请已记录在案。首席顾问将在一个工作日内与您联系，以确认合作安排。", "button": "返回首页" },
+    "footer": { "brand_desc": "Wilbak 工程为需要结构性绩效提升的企业提供精准运营基础设施。获得北美、欧洲和中东运营团队的信赖。", "disclaimer": "© 2026 Wilbak 工程集团 — 版权所有。诊断咨询免费，无需承诺。" }
   }
 }

@@ -1,18 +1,18 @@
 {
-  "page_meta": { "title": "联系 | Wilbak 工程" },
+  "page_meta": { "title": "联系我们 | Wilbak 工程 | 开启合作" },
   "hero": {
-    "protocol": "[ 联系信息 ]",
-    "heading": "建立联系。",
-    "description": "准备好扩展您的业务了吗？如有技术咨询和运营支持需求，请直接联系 Wilhelm。"
+    "protocol": "[ 现正接受新合作项目 ]",
+    "heading": "开启您的合作。",
+    "description": "直接联系 Wilhelm，就您的运营挑战进行结构化咨询。无中间环节，无需等待——与首席工程师直接对话。"
   },
   "contact_methods": [
-    { "label": "电子邮箱", "value": "wilhelm@wilbakengineering.com", "type": "email" },
+    { "label": "直接邮箱", "value": "wilhelm@wilbakengineering.com", "type": "email" },
     { "label": "直拨电话", "value": "+1 214 493 9744", "type": "phone" }
   ],
   "location": {
     "city": "德克萨斯州 休斯顿 (美国)",
-    "status": { "label": "状态", "value": "始终在线" },
-    "cta": { "label": "申请免费审计", "url": "/audit/" }
+    "status": { "label": "当前状态", "value": "接受新合作项目" },
+    "cta": { "label": "申请免费诊断", "url": "/audit/" }
   },
-  "footer": { "copyright": "© 2026 Wilbak 工程集团 // 为不可摧毁的性能而建" }
+  "footer": { "copyright": "© 2026 Wilbak 工程集团 // 为长远而建" }
 }
