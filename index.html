@@ -152,17 +152,20 @@
                 <img src="logo.png" alt="Wilbak Engineering" class="h-7">
             </a>
 
-            <!-- Desktop Nav Links -->
-            <div class="hidden md:flex items-center gap-7">
-                <a href="/about/" class="nav-link">About</a>
-                <a href="/contact/" class="nav-link">Contact</a>
-                <a href="/projects/" class="nav-link">Projects</a>
-                <a href="/insight/" class="nav-link">News &amp; Insights</a>
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="/audit/" class="btn-navy py-1.5 px-4 text-[10px]">Free Audit</a>
+                <div class="w-px h-3 bg-slate-200"></div>
+                <div class="flex items-center gap-7">
+                    <a href="/about/" class="nav-link">About</a>
+                    <a href="/contact/" class="nav-link">Contact</a>
+                    <a href="/projects/" class="nav-link">Projects</a>
+                    <a href="/insight/" class="nav-link">News & Insights</a>
+                </div>
             </div>
 
-            <!-- Desktop Right -->
+            <!-- Desktop Right (Language) -->
             <div class="hidden md:flex items-center gap-4 shrink-0">
-                <div class="w-px h-4 bg-slate-200"></div>
                 <select class="lang-select" @change="loadLang($event.target.value)">
                     <option value="en">EN</option>
                     <option value="es">ES</option>
@@ -170,7 +173,6 @@
                     <option value="fr">FR</option>
                     <option value="zh">ZH</option>
                 </select>
-                <a href="/audit/" class="btn-navy">Free Diagnostic</a>
             </div>
 
             <!-- Mobile Toggle -->
@@ -187,13 +189,14 @@
         <!-- Mobile Drawer -->
         <div x-show="mobileMenu" x-cloak class="md:hidden bg-white border-t border-slate-100 px-6 py-6">
             <div class="flex flex-col gap-5">
+                <a href="/audit/" class="btn-navy w-full py-3" @click="mobileMenu = false">Free Audit</a>
+                <div class="h-px w-full bg-slate-100"></div>
                 <a href="/about/" class="nav-link text-slate-800 text-sm" @click="mobileMenu = false">About</a>
                 <a href="/contact/" class="nav-link text-slate-800 text-sm" @click="mobileMenu = false">Contact</a>
                 <a href="/projects/" class="nav-link text-slate-800 text-sm" @click="mobileMenu = false">Projects</a>
-                <a href="/insight/" class="nav-link text-slate-800 text-sm" @click="mobileMenu = false">News &amp; Insights</a>
+                <a href="/insight/" class="nav-link text-slate-800 text-sm" @click="mobileMenu = false">News & Insights</a>
             </div>
-            <div class="mt-6 pt-6 border-t border-slate-100 flex flex-col gap-3">
-                <a href="/audit/" class="btn-navy w-full" @click="mobileMenu = false">Free Diagnostic</a>
+            <div class="mt-6 pt-6 border-t border-slate-100">
                 <select class="lang-select w-full py-2" @change="loadLang($event.target.value)">
                     <option value="en">English (EN)</option>
                     <option value="es">Español (ES)</option>
@@ -213,7 +216,7 @@
             <div class="max-w-7xl mx-auto">
                 <div class="max-w-4xl">
                     <div class="eyebrow mb-6" x-text="data.hero.protocol"></div>
-                    <h1 class="text-[2.6rem] sm:text-6xl md:text-[5.5rem] font-bold leading-[1.02] tracking-[-0.02em] text-slate-900 mb-8"
+                    <h1 class="text-[2.6rem] sm:text-6xl md:text-[5rem] font-bold leading-[1.05] tracking-tight text-slate-900 mb-8"
                         x-html="data.hero.heading"></h1>
                     <p class="text-lg md:text-xl text-slate-500 leading-relaxed font-normal max-w-2xl mb-10"
                        x-text="data.hero.subheading"></p>
