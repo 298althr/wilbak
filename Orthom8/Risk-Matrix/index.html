@@ -820,7 +820,7 @@
 
       async init() {
         try {
-          const res = await fetch('/Risk-Matrix/institutional-risk-matrix.json');
+          const res = await fetch('/Orthom8pro/Risk-Matrix/institutional-risk-matrix.json');
           if (res.ok) this.data = await res.json();
         } catch (e) {
           console.error('Failed to load risk matrix:', e);
