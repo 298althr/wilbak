@@ -1,20 +1,20 @@
 {
   "page_meta": {
-    "title": "Contact Wilbak Engineering | Let's Fix Your Operations"
+    "title": "Contact Wilbak Engineering | Begin Your Engagement"
   },
   "hero": {
-    "protocol": "[ Every day you wait costs you more ]",
-    "heading": "Ready to Stop the Bleed?",
-    "description": "Talk to Wilhelm directly. No automated forms, no ticket queues — a real conversation about what's broken in your business and exactly how to fix it."
+    "protocol": "[ Engagements now open ]",
+    "heading": "Begin Your Engagement.",
+    "description": "Reach Wilhelm directly for a structured consultation on your operational challenges. No intermediaries, no queues — a direct conversation with the principal engineer."
   },
   "contact_methods": [
     {
-      "label": "Email Wilhelm",
+      "label": "Direct Email",
       "value": "wilhelm@wilbakengineering.com",
       "type": "email"
     },
     {
-      "label": "Call Direct",
+      "label": "Direct Line",
       "value": "+1 214 493 9744",
       "type": "phone"
     }
@@ -22,11 +22,11 @@
   "location": {
     "city": "Houston, Texas (USA)",
     "status": {
-      "label": "Availability",
-      "value": "Taking New Clients Now"
+      "label": "Current Status",
+      "value": "Accepting New Engagements"
     },
     "cta": {
-      "label": "BOOK YOUR FREE AUDIT",
+      "label": "REQUEST A FREE DIAGNOSTIC",
       "url": "/audit/"
     }
   },

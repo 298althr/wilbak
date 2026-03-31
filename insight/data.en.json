@@ -1,14 +1,14 @@
 {
   "page_meta": {
-    "title": "Insights | Wilbak Engineering"
+    "title": "Strategic Intelligence | Wilbak Engineering"
   },
   "hero": {
-    "heading": "STOP GUESSING. START KNOWING.",
-    "description": "Real breakdowns of operational failures, business data patterns, and the decisions that cost companies the most. No fluff — just the information you need to run a tighter operation."
+    "heading": "STRATEGIC INTELLIGENCE.",
+    "description": "In-depth analysis of operational trends, structural business risks, and the strategic decisions that determine long-term performance. Curated intelligence for decision-makers."
   },
   "protocol": {
-    "sync_status": "Loading latest insights...",
-    "cta": "READ THE BREAKDOWN"
+    "sync_status": "Retrieving latest intelligence...",
+    "cta": "VIEW FULL ANALYSIS"
   },
   "footer": {
     "copyright": "© 2026 Wilbak Engineering Group // Built to Last"

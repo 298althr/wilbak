@@ -1,39 +1,39 @@
 {
   "page_meta": {
-    "title": "Real Results | Wilbak Engineering"
+    "title": "Operational Engagements | Wilbak Engineering"
   },
   "hero": {
-    "heading": "Real Work. Real Results.",
-    "protocol": "[ Proof of Work: 2016 — 2026 ]",
-    "description": "Every engagement below was a business in disorder. Here's what happened when we got involved."
+    "heading": "Selected Engagements.",
+    "protocol": "[ Project History: 2016 — 2026 ]",
+    "description": "A record of infrastructure deployments and operational systems delivered across global markets under demanding conditions."
   },
   "projects": [
     {
       "year": "2023",
       "location": "Oslo, Norway",
-      "tag": "CLEAN ENERGY",
+      "tag": "RENEWABLE INTEGRATION",
       "title": "NORWAY COMMERCIAL BANK",
-      "description": "A major bank's data infrastructure was failing under load. We rebuilt it around a wind farm's power grid — high-availability, zero compromise, carbon-neutral."
+      "description": "Critical data infrastructure rebuilt within a renewable energy framework. High-availability architecture integrated directly into a wind farm power grid — carbon-neutral operational footprint, zero compromise on uptime."
     },
     {
       "year": "2020",
       "location": "Anchorage, Alaska",
-      "tag": "CRISIS RESPONSE",
+      "tag": "REMOTE DEPLOYMENT",
       "tag_type": "alert",
       "title": "ARCTIC OVERHAUL",
-      "description": "A full data center collapse mid-pandemic, with no on-site access possible. We ran a complete remote overhaul under the 2020 isolation protocols. Everything back online in 72 hours."
+      "description": "Full data centre restoration executed remotely under 2020 pandemic isolation protocols. Complete infrastructure recovery achieved within 72 hours of initial engagement, without on-site personnel."
     },
     {
       "year": "2022",
       "location": "Doha, Qatar",
       "title": "DOHA MARITIME CENTER",
-      "description": "Built a coastal data facility for World Cup traffic from scratch — engineered for extreme heat with seawater cooling. Delivered on schedule, under the most demanding conditions."
+      "description": "Purpose-built coastal data facility designed for peak-load event processing under extreme thermal conditions. Seawater cooling system integrated. Delivered on schedule to strict operational specifications."
     },
     {
       "year": "2018",
       "location": "Toyota HQ",
       "title": "TOYOTA DATA PLANT",
-      "description": "Toyota's assembly line was at risk every time the power systems hiccupped. We redesigned the redundancy architecture so manufacturing continuity was never in question again."
+      "description": "Hyper-redundant power architecture engineered for uninterrupted manufacturing continuity. Assembly line operations protected from power system variance across all production stages."
     }
   ],
   "footer": {

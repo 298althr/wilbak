@@ -1,17 +1,17 @@
 {
   "en": {
-    "page_meta": { "title": "Free Business Audit | Wilbak Engineering", "theme": "dark" },
-    "welcome_gate": { "heading": "Business Audit", "status": "Getting your audit ready..." },
-    "hero": { "eyebrow": "Free Business Audit — No Obligation", "heading": "Let's Find Out What's<br><em>Costing You.</em>" },
+    "page_meta": { "title": "Operational Diagnostic | Wilbak Engineering", "theme": "dark" },
+    "welcome_gate": { "heading": "Operational Diagnostic", "status": "Initializing diagnostic system..." },
+    "hero": { "eyebrow": "Complimentary Operational Diagnostic", "heading": "Request Your<br><em>Operational Diagnostic.</em>" },
     "form_steps": [
-      { "step": 1, "title": "01 — WHAT INDUSTRY ARE YOU IN?", "options": [ { "name": "Retail & E-Commerce", "description": "Inventory, fulfillment, supply chain" }, { "name": "Professional Services", "description": "Agencies, consultancies, managed services" }, { "name": "Engineering & Industrial", "description": "Manufacturing, construction, operations" }, { "name": "Finance & Real Estate", "description": "Asset management, property, capital" } ] },
-      { "step": 2, "title": "02 — WHAT'S COSTING YOU THE MOST?", "placeholder": "Tell us what's eating your time and money right now..." },
-      { "step": 3, "title": "03 — WHO SHOULD WE CONTACT?", "placeholders": ["Your Full Name", "Your Email Address"] },
-      { "step": 4, "title": "04 — BEST NUMBER TO REACH YOU", "placeholder": "Your Phone Number", "button": "SEND MY AUDIT REQUEST" }
+      { "step": 1, "title": "01 — SELECT YOUR SECTOR", "options": [ { "name": "Retail & E-Commerce", "description": "Inventory, fulfillment, supply chain" }, { "name": "Professional Services", "description": "Agencies, consultancies, managed services" }, { "name": "Engineering & Industrial", "description": "Manufacturing, construction, operations" }, { "name": "Finance & Real Estate", "description": "Asset management, property, capital" } ] },
+      { "step": 2, "title": "02 — DESCRIBE YOUR PRIMARY CHALLENGE", "placeholder": "Describe the operational constraints or inefficiencies currently affecting your business..." },
+      { "step": 3, "title": "03 — PRIMARY CONTACT DETAILS", "placeholders": ["Full Name", "Business Email Address"] },
+      { "step": 4, "title": "04 — DIRECT CONTACT NUMBER", "placeholder": "Phone Number", "button": "SUBMIT DIAGNOSTIC REQUEST" }
     ],
-    "photo_side": { "badge": { "id": "AUDIT SYSTEM: ACTIVE", "value": "Free. No Obligation." } },
-    "success": { "heading": "We Got Your Request.", "body": "We've received your audit request and will be in touch within one business day. Get ready — this is where things start to change.", "button": "Back to Home" },
-    "footer": { "brand_desc": "Wilbak Engineering finds exactly where your business is losing money and builds the systems to stop it. Trusted by operations teams across North America, Europe, and the Middle East.", "disclaimer": "© 2026 Wilbak Engineering Group — All rights reserved. Audit consultations are free with no obligation." }
+    "photo_side": { "badge": { "id": "DIAGNOSTIC SYSTEM: ACTIVE", "value": "Complimentary. No Commitment." } },
+    "success": { "heading": "Request Received.", "body": "Your diagnostic request has been logged. A principal consultant will be in contact within one business day to confirm your engagement.", "button": "Return to Home" },
+    "footer": { "brand_desc": "Wilbak Engineering delivers precision operational infrastructure for businesses that require structural performance improvement. Trusted by operations teams across North America, Europe, and the Middle East.", "disclaimer": "© 2026 Wilbak Engineering Group — All rights reserved. Diagnostic consultations are complimentary with no obligation." }
   },
   "es": {
     "page_meta": { "title": "Protocolo de Auditoría — Ortho'M8 AI Trading", "theme": "dark" },

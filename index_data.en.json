@@ -9,56 +9,56 @@
     { "label": "Free Audit", "url": "/audit/", "type": "premium" }
   ],
   "hero": {
-    "protocol": "Your business has a problem you can't see yet.",
-    "heading": "YOUR OPERATIONS<br>ARE BLEEDING MONEY.",
-    "subheading": "Right now, your business is losing time, revenue, and margin to systems that were never built to work together. Wilbak finds every gap — and closes it for good.",
+    "protocol": "Operational excellence. Engineered by design.",
+    "heading": "BUSINESS LOGIC<br>BUILT TO PERFORM.",
+    "subheading": "Most organisations operate well below their structural potential. Wilbak identifies where performance is constrained and engineers the systems that restore it — permanently.",
     "cta": [
-      { "label": "See Real Results", "url": "/projects/" },
-      { "label": "Get a Free Audit", "url": "/audit/" }
+      { "label": "View Engagements", "url": "/projects/" },
+      { "label": "Request a Diagnostic", "url": "/audit/" }
     ]
   },
   "trust_vault": [
-    { "name": "Northrop Grumman", "label": "Zero-Error Operations" },
+    { "name": "Northrop Grumman", "label": "Zero-Fault Operations" },
     { "name": "Toyota", "label": "End-to-End Efficiency" },
-    { "name": "ConocoPhillips", "label": "Full Operational Clarity" },
-    { "name": "ASDA", "label": "Scalable at Any Size" },
-    { "name": "GEICO", "label": "Risk-Free Infrastructure" }
+    { "name": "ConocoPhillips", "label": "Operational Clarity" },
+    { "name": "ASDA", "label": "Scalable Infrastructure" },
+    { "name": "GEICO", "label": "Risk-Hardened Systems" }
   ],
   "operational_gap": {
-    "heading": "Where Is Your Money Going?",
-    "subheading": "The chaos you've learned to live with is costing you more than you realize",
+    "heading": "The Cost of Operational Fragmentation",
+    "subheading": "Disconnected systems and manual processes erode margin silently, at scale",
     "chaos_tax": {
-      "title": "The Hidden Cost of Disorder",
-      "description": "Your team spends nearly half their time on tasks that should happen automatically. Manual entries, broken workflows, decisions made on bad data — each one is a direct transfer from your revenue to nowhere. Most businesses don't see it until it's already cost them six figures."
+      "title": "Structural Revenue Leakage",
+      "description": "Fragmented workflows, manual data entry, and decisions made without reliable intelligence account for significant overhead in most business operations. These are not isolated inefficiencies — they are systemic constraints that compound over time and suppress overall organisational performance."
     },
     "wilbak_alignment": {
-      "title": "What Happens When We Step In",
-      "description": "We map exactly where time and money are escaping your business, then build the systems that stop it. Not a patch. Not a workaround. A permanent fix, engineered to grow with you. Most clients see measurable results within 90 days."
+      "title": "The Wilbak Operational Model",
+      "description": "We conduct a structured diagnostic of your operational architecture, identify the highest-impact constraints, and engineer purpose-built systems to eliminate them. The result is a permanent improvement in throughput, accuracy, and decision quality — not a patch, but a structural upgrade."
     }
   },
   "testimonies": {
-    "heading": "What Happens When the Chaos Stops",
-    "subheading": "Real clients. Real results.",
+    "heading": "Client Outcomes",
+    "subheading": "Select case references.",
     "items": [
       {
-        "quote": "I didn't realize how much money we were hemorrhaging until Wilbak showed me the breakdown. $120k saved in year one — and my team actually enjoys their work now.",
+        "quote": "The Wilbak diagnostic uncovered over $120,000 in operational overhead we had not previously quantified. Within the first year, those inefficiencies were eliminated — and our team's output improved substantially.",
         "author": "James McGough",
         "title": "CEO, Sterling Logistics"
       },
       {
-        "quote": "In 90 days, the firefighting stopped. No more guesswork, no more chaos. I could finally see my entire operation clearly and make real decisions.",
+        "quote": "Within 90 days of deployment, our reactive workload decreased significantly. We transitioned from ad hoc decision-making to structured operational oversight — a measurable shift in how we manage the business.",
         "author": "Rachel H. Ballack",
         "title": "Operations Manager, Vance Mfg"
       },
       {
-        "quote": "I was running my business on bad data for years and didn't know it. Wilbak fixed that. Now I know exactly what's happening in real time. That visibility alone changed everything.",
+        "quote": "Prior to this engagement, our decisions were being made on incomplete and delayed data. Wilbak replaced that infrastructure with real-time intelligence. The improvement in decision quality has been immediate.",
         "author": "Marcus Thorne",
         "title": "Founder, Thorne Supply"
       }
     ]
   },
   "footer": {
-    "description": "We build the systems that keep your business running — cleanly, reliably, and profitably. When disorder costs you money, we stop it.",
+    "description": "We engineer operational infrastructure that runs cleanly, scales reliably, and performs under pressure. Built for organisations that require structural performance improvement.",
     "copyright": "© 2026 Wilbak Engineering Group // Built to Last"
   }
 }
