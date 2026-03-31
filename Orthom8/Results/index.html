@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Our Results | Ortho'M8 — A Transparent Track Record You Can Verify</title>
-  <meta name="description" content="Every trade Ortho'M8 has ever made is documented and publicly verifiable. No smoke. No mirrors. See exactly how we've performed, month by month.">
+  <title>Client Results | Ortho'M8 — A Verified Track Record Across 10 Sectors</title>
+  <meta name="description" content="Real performance data from clients across 10 industries who embedded OrthoM8's strategic configuration. Every number is documented and verifiable.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Design System & Page Template -->
   <link rel="stylesheet" href="/Orthom8/shared-nav.css">
   <link rel="stylesheet" href="/Orthom8/page-template.css">
   <script src="/Orthom8/shared-nav.js"></script>
@@ -22,311 +21,464 @@
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   <style>
-    #equityChart { max-height: 400px; }
-    @media (max-width: 1024px) {
-      #equityChart { max-height: 300px; }
+    /* ── Company Cards ── */
+    .company-card {
+      background: var(--surface-bg, rgba(15,23,42,0.8));
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 1.75rem 1.5rem;
+      cursor: pointer;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
     }
-    @media (max-width: 768px) {
-      .results-header-row { flex-direction: column; align-items: stretch !important; gap: 1.5rem; }
-      .tab-switcher { width: 100%; display: flex; }
-      .tab-switcher button { flex: 1; padding: 10px 0.5rem !important; font-size: 9px !important; }
-      #equityChart { max-height: 240px; }
+    .company-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--card-color, #1A56FF);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .company-card:hover::before { opacity: 0.04; }
+    .company-card:hover {
+      border-color: var(--card-color, #1A56FF);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+    .company-avatar {
+      width: 2.75rem;
+      height: 2.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.25rem;
+      color: white;
+      position: relative;
+      z-index: 1;
+    }
+    .card-text { position: relative; z-index: 1; }
+
+    /* ── Skeleton loader ── */
+    .skeleton {
+      background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.6s infinite;
+      border-radius: 2px;
+    }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    /* ── Modal ── */
+    .modal-stat-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 1.25rem;
+    }
+    .modal-table { width: 100%; border-collapse: collapse; }
+    .modal-table th {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--tx-muted);
+      padding: 0.7rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      white-space: nowrap;
+    }
+    .modal-table td {
+      font-size: 0.8rem;
+      padding: 0.55rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--tx-sub);
+    }
+    .modal-table tbody tr:hover td { background: rgba(255,255,255,0.025); }
+
+    /* ── Aggregate stat bar ── */
+    .agg-stat {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 1.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .company-grid { grid-template-columns: 1fr 1fr !important; }
+      .modal-stats-grid { grid-template-columns: 1fr 1fr !important; }
     }
   </style>
 </head>
 
-<body x-data="reportApp()" x-init="init()" :class="modalOpen ? 'overflow-hidden' : ''">
+<body x-data="resultsApp()" x-init="init()" :class="modalOpen ? 'overflow-hidden' : ''">
 
 <div id="app">
   <div id="site-nav-root"></div>
 
-  <!-- MODAL -->
-  <template x-if="modalOpen">
-    <div class="fixed inset-0 z-[10001] flex items-center justify-center p-6 backdrop-blur-sm bg-black/60">
-      <div @click.away="modalOpen = false" class="bg-[var(--surface-bg)] border border-white/10 w-full max-w-xl shadow-2xl relative overflow-hidden p-8 anim-slide-up">
-        <div class="absolute top-0 left-0 w-1 h-full bg-blue-600"></div>
-        <div class="flex justify-between items-start mb-8">
-          <div>
-            <div class="mono text-[10px] text-blue-500 uppercase tracking-[0.3em] mb-2"
-                 x-text="$store.i18n.t('content.modal.title')">Institutional Audit Block</div>
-            <h2 class="serif text-3xl italic" x-text="($store.i18n.t('content.modal.period_label') || 'Ledger Period:') + ' ' + selectedMonth.period">Period</h2>
+  <!-- ═══════════════════════════════════════════════════════════
+       MODAL
+  ═══════════════════════════════════════════════════════════ -->
+  <div x-show="modalOpen" x-cloak
+       class="fixed inset-0 z-[10001] flex items-end md:items-center justify-center p-0 md:p-6"
+       style="backdrop-filter:blur(6px); background:rgba(0,0,0,0.75);">
+
+    <div @click.away="closeModal()"
+         class="relative w-full md:max-w-3xl shadow-2xl anim-slide-up"
+         style="background:var(--surface-bg, #0B1325); border:1px solid rgba(255,255,255,0.1); max-height:92vh; overflow-y:auto; display:flex; flex-direction:column;">
+
+      <!-- Color accent bar -->
+      <div class="absolute top-0 left-0 w-1 h-full" :style="'background:' + (activeCompany?.color || '#1A56FF')"></div>
+
+      <!-- Header -->
+      <div class="flex justify-between items-start" style="padding:2rem 2rem 1.5rem 2.5rem; flex-shrink:0;">
+        <div>
+          <div class="mono" style="font-size:9px; letter-spacing:0.4em; text-transform:uppercase; margin-bottom:0.6rem;"
+               :style="'color:' + (activeCompany?.color || '#1A56FF')"
+               x-text="activeCompany?.sector + ' · ' + activeCompany?.country"></div>
+          <h2 class="serif" style="font-size:clamp(1.75rem,4vw,2.5rem); font-style:italic; margin-bottom:0.4rem;"
+              x-text="activeCompany?.name"></h2>
+          <div class="mono" style="font-size:9px; letter-spacing:0.25em; color:var(--tx-muted);">
+            OrthoM8 Protection Period &nbsp;·&nbsp; Jan 2020 – Dec 2025 &nbsp;·&nbsp; 60 Months
           </div>
-          <button @click="modalOpen = false" class="text-slate-500 hover:text-white transition text-xl">✕</button>
         </div>
-        <div class="grid grid-cols-2 gap-10">
-          <div class="space-y-6">
-            <div class="text-[10px] mono text-slate-500 uppercase tracking-widest mb-2"
-                 x-text="$store.i18n.t('content.modal.financial_label')">Financial Core</div>
-            <div>
-              <div class="text-[9px] text-slate-600 uppercase mb-1"
-                   x-text="$store.i18n.t('content.modal.net_pnl')">Net P&L</div>
-              <div class="text-xl font-bold font-mono" :class="selectedMonth.account?.net_pnl > 0 ? 'text-green-500' : 'text-red-500'" x-text="formatCurrency(selectedMonth.account?.net_pnl)">$0</div>
+        <button @click="closeModal()"
+                style="font-size:1.25rem; color:var(--tx-muted); padding:0.5rem; transition:color 0.2s; flex-shrink:0;"
+                onmouseover="this.style.color='white'" onmouseout="this.style.color=''">✕</button>
+      </div>
+
+      <!-- Summary stats -->
+      <div class="grid modal-stats-grid" style="grid-template-columns:repeat(4,1fr); gap:1px; padding:0 2.5rem 1.75rem; flex-shrink:0;">
+        <template x-if="modalSummary">
+          <div class="contents">
+            <div class="modal-stat-box">
+              <div class="mono" style="font-size:8px; text-transform:uppercase; letter-spacing:0.3em; color:var(--tx-muted); margin-bottom:0.4rem;">Starting Capital</div>
+              <div class="font-mono font-bold" style="font-size:1.1rem; color:var(--tx-main);" x-text="fmt$(modalSummary.start)"></div>
             </div>
-            <div>
-              <div class="text-[9px] text-slate-600 uppercase mb-1"
-                   x-text="$store.i18n.t('content.modal.ending_balance')">Ending Balance</div>
-              <div class="text-xl font-bold font-mono" x-text="formatCurrency(selectedMonth.account?.ending_balance)">$0</div>
+            <div class="modal-stat-box">
+              <div class="mono" style="font-size:8px; text-transform:uppercase; letter-spacing:0.3em; color:var(--tx-muted); margin-bottom:0.4rem;">Ending Capital</div>
+              <div class="font-mono font-bold" style="font-size:1.1rem; color:#22C55E;" x-text="fmt$(modalSummary.end)"></div>
+            </div>
+            <div class="modal-stat-box">
+              <div class="mono" style="font-size:8px; text-transform:uppercase; letter-spacing:0.3em; color:var(--tx-muted); margin-bottom:0.4rem;">Total Net Profit</div>
+              <div class="font-mono font-bold" style="font-size:1.1rem;"
+                   :class="modalSummary.netProfit > 0 ? 'text-green-400' : 'text-red-400'"
+                   x-text="fmt$(modalSummary.netProfit)"></div>
+            </div>
+            <div class="modal-stat-box" :style="'border-color:' + (activeCompany?.color || '#1A56FF') + '44'">
+              <div class="mono" style="font-size:8px; text-transform:uppercase; letter-spacing:0.3em; color:var(--tx-muted); margin-bottom:0.4rem;">Total ROI</div>
+              <div class="font-mono font-bold" style="font-size:1.4rem;"
+                   :style="'color:' + (activeCompany?.color || '#1A56FF')"
+                   x-text="fmtPct(modalSummary.roi)"></div>
             </div>
           </div>
-          <div class="space-y-6">
-            <div class="text-[10px] mono text-slate-500 uppercase tracking-widest mb-2"
-                 x-text="$store.i18n.t('content.modal.kpi_label')">System KPI</div>
-            <div>
-              <div class="text-[9px] text-slate-600 uppercase mb-1"
-                   x-text="$store.i18n.t('content.modal.precision')">Node Precision</div>
-              <div class="text-xl font-bold font-mono text-blue-400" x-text="formatPct(selectedMonth.precision_pct)">0%</div>
-            </div>
-            <div>
-              <div class="text-[9px] text-slate-600 uppercase mb-1"
-                   x-text="$store.i18n.t('content.modal.latency')">Latency</div>
-              <div class="text-xl font-bold font-mono" x-text="(selectedMonth.kpis?.execution_latency_ms || 0) + 'ms'">0ms</div>
-            </div>
-          </div>
+        </template>
+      </div>
+
+      <!-- Chart -->
+      <div style="padding:0 2.5rem 1.75rem; flex-shrink:0;">
+        <div style="position:relative; height:220px; background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.05); padding:1rem;">
+          <canvas id="modalChart"></canvas>
         </div>
       </div>
+
+      <!-- Ledger -->
+      <div style="padding:0 2.5rem 2.5rem;">
+        <div class="mono" style="font-size:9px; letter-spacing:0.4em; text-transform:uppercase; color:var(--tx-muted); margin-bottom:0.75rem;">Monthly Ledger</div>
+        <div style="border:1px solid rgba(255,255,255,0.07); overflow-x:auto; max-height:260px; overflow-y:auto;">
+          <table class="modal-table">
+            <thead style="position:sticky; top:0; z-index:2; background:var(--surface-bg, #0B1325);">
+              <tr>
+                <th>Period</th>
+                <th>Gross Return</th>
+                <th>Running Costs</th>
+                <th>Net Profit</th>
+                <th>Portfolio Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template x-for="row in (modalRows || [])" :key="row.date">
+                <tr>
+                  <td class="font-mono font-bold" style="color:var(--tx-main);" x-text="row.date"></td>
+                  <td class="font-mono"
+                      :class="row.ret >= 0 ? 'text-green-500' : 'text-red-400'"
+                      x-text="row.ret.toFixed(2) + '%'"></td>
+                  <td class="font-mono" style="color:var(--tx-muted);" x-text="fmt$(row.costs)"></td>
+                  <td class="font-mono"
+                      :class="row.profit >= 0 ? 'text-green-400' : 'text-red-400'"
+                      x-text="fmt$(row.profit)"></td>
+                  <td class="font-mono" style="color:var(--tx-main);" x-text="fmt$(row.value)"></td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
-  </template>
+  </div>
 
-  <main style="max-width:90rem; margin:0 auto; padding:8rem 2rem 4rem;">
+  <!-- ═══════════════════════════════════════════════════════════
+       MAIN
+  ═══════════════════════════════════════════════════════════ -->
+  <main style="max-width:90rem; margin:0 auto; padding:8rem 2rem 6rem;">
 
+    <!-- HERO with video -->
     <div style="margin-bottom:5rem; position:relative; overflow:hidden;">
       <video autoplay muted loop playsinline
              style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.15; z-index:0; pointer-events:none;">
         <source src="https://res.cloudinary.com/dgz88jxiy/video/upload/v1774275215/5194152d6e6336320208e8d976e40aa9_ripmvb.mp4" type="video/mp4">
       </video>
-      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, transparent 60%, var(--page-bg, #0D1117) 100%); z-index:1; pointer-events:none;"></div>
-      <div style="position:relative; z-index:2;">
-      <div class="flex items-center gap-4 mb-6 anim-slide-right">
-        <div style="height:1px; width:3rem; background:var(--brand-cobalt);"></div>
-        <div class="mono" style="color:var(--brand-cobalt); font-size:10px; letter-spacing:0.5em; text-transform:uppercase;"
-             x-text="$store.i18n.t('content.header.eyebrow')">Investor Verification Protocol</div>
-      </div>
+      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, transparent 55%, var(--page-bg, #0D1117) 100%); z-index:1; pointer-events:none;"></div>
 
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 results-header-row anim-slide-up">
-        <h1 class="serif" style="font-size:clamp(2.5rem,8vw,5rem); font-style:italic; letter-spacing:-0.03em;"
-            x-text="activeTab === 'evidence'
-              ? ($store.i18n.t('content.tabs.evidence') || 'Institutional Evidence')
-              : (data?.meta?.report_name || $store.i18n.t('content.header.title') || 'Performance')">Performance</h1>
+      <div style="position:relative; z-index:2; padding-bottom:4rem;">
 
-        <div class="flex tab-switcher" style="background:var(--surface-bg); border:1px solid var(--brand-rule); padding:4px;">
-          <button @click="switchTab('platform')"
-                  :class="activeTab === 'platform' ? 'bg-[var(--brand-cobalt)] text-white' : 'text-[var(--tx-sub)] hover:text-white'"
-                  class="px-6 py-2 text-[10px] font-bold uppercase tracking-widest transition-all"
-                  x-text="$store.i18n.t('content.tabs.platform')">System Intelligence</button>
-          <button @click="switchTab('evidence')"
-                  :class="activeTab === 'evidence' ? 'bg-[var(--brand-cobalt)] text-white' : 'text-[var(--tx-sub)] hover:text-white'"
-                  class="px-6 py-2 text-[10px] font-bold uppercase tracking-widest transition-all"
-                  x-text="$store.i18n.t('content.tabs.evidence')">Institutional Proof</button>
+        <!-- Eyebrow -->
+        <div class="flex items-center gap-4 mb-6 anim-slide-right">
+          <div style="height:1px; width:3rem; background:var(--brand-cobalt);"></div>
+          <div class="mono" style="color:var(--brand-cobalt); font-size:10px; letter-spacing:0.5em; text-transform:uppercase;">
+            Verified Client Performance &nbsp;·&nbsp; 2020 – 2025
+          </div>
         </div>
-      </div>
 
-      <!-- Statistics Cards -->
-      <div x-show="data" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 anim-slide-up delay-1">
-        <div class="stat-card">
-          <div class="mono" style="font-size:9px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.3em; margin-bottom:1rem;"
-               x-text="$store.i18n.t('content.stats.total_roi')">Total Net ROI</div>
-          <div class="text-3xl font-bold font-mono" style="color:var(--brand-cobalt);" x-text="formatPct(data?.overall_performance?.total_roi_pct)">0%</div>
-        </div>
-        <div class="stat-card">
-          <div class="mono" style="font-size:9px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.3em; margin-bottom:1rem;"
-               x-text="$store.i18n.t('content.stats.cagr')">CAGR</div>
-          <div class="text-3xl font-bold font-mono" style="color:var(--tx-main);" x-text="formatPct(data?.overall_performance?.cagr_pct)">0%</div>
-        </div>
-        <div class="stat-card">
-          <div class="mono" style="font-size:9px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.3em; margin-bottom:1rem;"
-               x-text="$store.i18n.t('content.stats.ending_balance')">Ending Balance</div>
-          <div class="text-3xl font-bold font-mono" style="color:var(--tx-main);" x-text="formatCurrency(data?.overall_performance?.ending_capital)">$0</div>
-        </div>
-        <div class="stat-card">
-          <div class="mono" style="font-size:9px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.3em; margin-bottom:1rem;"
-               x-text="$store.i18n.t('content.stats.profit_factor')">Profit Factor</div>
-          <div class="text-3xl font-bold font-mono" style="color:#D4AC3A;" x-text="data?.overall_performance?.profit_factor">0</div>
-        </div>
-      </div>
-      </div><!-- /z-index:2 content wrapper -->
-    </div>
+        <!-- Heading -->
+        <h1 class="serif anim-slide-up" style="font-size:clamp(2.4rem,7vw,4.75rem); font-style:italic; letter-spacing:-0.03em; max-width:52rem; line-height:1.1; margin-bottom:1.5rem;">
+          Ten sectors. Five years.<br>
+          Every client that embedded our strategy, <em style="color:#D4AC3A;">won.</em>
+        </h1>
 
-    <!-- Chart -->
-    <div class="mb-32 anim-fade-in delay-2">
-      <div style="height:400px; position:relative;">
-        <canvas id="equityChart"></canvas>
-        <div x-show="!data" class="absolute inset-0 flex items-center justify-center" style="background:rgba(11,19,37,0.5);">
-          <div class="mono" style="font-size:10px; color:var(--brand-cobalt);"
-               x-text="$store.i18n.t('content.loading') || 'Loading historical data…'">Loading historical data…</div>
+        <p class="anim-slide-up delay-1" style="font-size:clamp(0.95rem,2vw,1.1rem); color:var(--tx-sub); max-width:38rem; line-height:1.75; margin-bottom:3rem;">
+          These are not projections or back-tests. Below is documented, auditable performance from real clients across 10 industries who integrated OrthoM8's strategic configuration into their capital operations between January 2020 and December 2025.
+        </p>
+
+        <!-- Aggregate stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 anim-slide-up delay-2">
+          <div class="agg-stat">
+            <div class="mono" style="font-size:8px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.3em; margin-bottom:0.5rem;">Client Sectors</div>
+            <div class="font-mono font-bold text-3xl" style="color:var(--brand-cobalt);">10</div>
+          </div>
+          <div class="agg-stat">
+            <div class="mono" style="font-size:8px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.3em; margin-bottom:0.5rem;">Avg Total ROI</div>
+            <div class="font-mono font-bold text-3xl" style="color:#D4AC3A);" x-text="allLoaded ? fmtPct(avgROI) : '—'">—</div>
+          </div>
+          <div class="agg-stat">
+            <div class="mono" style="font-size:8px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.3em; margin-bottom:0.5rem;">Months Protected</div>
+            <div class="font-mono font-bold text-3xl" style="color:var(--tx-main);">60</div>
+          </div>
+          <div class="agg-stat">
+            <div class="mono" style="font-size:8px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.3em; margin-bottom:0.5rem;">Markets</div>
+            <div class="font-mono font-bold" style="font-size:1.4rem; color:var(--tx-main);">US · EU · QA</div>
+          </div>
         </div>
+
       </div>
     </div>
 
-    <!-- Ledger -->
-    <section class="anim-slide-up delay-3" style="margin-top:5rem; border-top:1px solid rgba(255,255,255,0.05); padding-top:5rem;">
-      <h3 class="serif text-3xl italic text-center" style="margin-bottom:3rem;"
-          x-text="$store.i18n.t('content.ledger.title')">Month-by-Month Breakdown</h3>
-      <div x-show="data" style="border:1px solid rgba(255,255,255,0.08); overflow-x:auto;">
-        <table class="results-table">
-          <thead style="background:rgba(0,0,0,0.2);">
-            <tr>
-              <th style="padding-left:2rem;" x-text="$store.i18n.t('content.ledger.col_period')">Period Block</th>
-              <th x-text="$store.i18n.t('content.ledger.col_regime')">Regime</th>
-              <th x-text="$store.i18n.t('content.ledger.col_precision')">Precision</th>
-              <th x-text="$store.i18n.t('content.ledger.col_yield')">Yield</th>
-              <th x-text="$store.i18n.t('content.ledger.col_balance')">Balance</th>
-            </tr>
-          </thead>
-          <tbody>
-            <template x-for="month in (data?.monthly_breakdown ? data.monthly_breakdown.slice().reverse() : [])" :key="month.period">
-              <tr @click="openModal(month)" style="cursor:pointer; transition:background 0.2s;"
-                  class="hover:bg-blue-600/[0.03]">
-                <td style="padding-left:2rem; font-weight:700; color:var(--brand-cobalt); text-transform:uppercase;" x-text="month.period"></td>
-                <td><span class="mono" style="font-size:9px; text-transform:uppercase; color:var(--tx-muted); font-style:italic;" x-text="month.regime"></span></td>
-                <td>
-                  <div class="flex items-center gap-3">
-                    <div style="flex:1; height:2px; background:rgba(255,255,255,0.08); border-radius:9999px; overflow:hidden;">
-                      <div style="height:100%; background:var(--brand-cobalt);" :style="'width:' + month.precision_pct + '%'"></div>
-                    </div>
-                    <span class="mono" style="font-size:10px; color:var(--brand-cobalt);" x-text="month.precision_pct.toFixed(1) + '%'"></span>
-                  </div>
-                </td>
-                <td :class="month.account.return_pct > 0 ? 'pos-val' : 'neg-val'" x-text="formatPct(month.account.return_pct)" style="font-weight:700;"></td>
-                <td style="color:var(--tx-sub);" x-text="formatCurrency(month.account.ending_balance)"></td>
-              </tr>
+    <!-- INSTRUCTION LINE -->
+    <div class="mono" style="font-size:9px; letter-spacing:0.5em; text-transform:uppercase; color:var(--tx-muted); margin-bottom:1.75rem;">
+      Select a client below to view their full performance report
+    </div>
+
+    <!-- ── COMPANY GRID ── -->
+    <div class="company-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 anim-slide-up">
+      <template x-for="c in companies" :key="c.id">
+        <div class="company-card"
+             :style="'--card-color:' + c.color"
+             @click="openModal(c)">
+
+          <!-- Country badge -->
+          <div class="mono absolute top-3 right-3" style="font-size:8px; color:var(--tx-muted); letter-spacing:0.2em;" x-text="c.countryCode"></div>
+
+          <!-- Avatar -->
+          <div class="company-avatar" :style="'background:' + c.color + '18; color:' + c.color" x-text="c.initials"></div>
+
+          <div class="card-text">
+            <!-- Name + sector -->
+            <div class="serif font-bold" style="font-size:0.95rem; color:var(--tx-main); margin-bottom:0.25rem; line-height:1.3;" x-text="c.name"></div>
+            <div class="mono" style="font-size:7.5px; letter-spacing:0.25em; text-transform:uppercase; color:var(--tx-muted); margin-bottom:1.25rem;" x-text="c.sector"></div>
+
+            <!-- Metric: ROI -->
+            <template x-if="summaries[c.id]">
+              <div>
+                <div class="mono" style="font-size:8px; letter-spacing:0.3em; text-transform:uppercase; color:var(--tx-muted); margin-bottom:0.25rem;">Total ROI</div>
+                <div class="font-mono font-bold" style="font-size:1.6rem; line-height:1;" :style="'color:' + c.color" x-text="fmtPct(summaries[c.id].roi)"></div>
+                <div class="mono mt-2" style="font-size:8px; color:var(--tx-muted);" x-text="fmt$(summaries[c.id].end) + ' final'"></div>
+              </div>
             </template>
-          </tbody>
-        </table>
-      </div>
-    </section>
+
+            <!-- Skeleton while loading -->
+            <template x-if="!summaries[c.id]">
+              <div>
+                <div class="skeleton" style="height:12px; width:60%; margin-bottom:8px;"></div>
+                <div class="skeleton" style="height:28px; width:75%; margin-bottom:8px;"></div>
+                <div class="skeleton" style="height:10px; width:55%;"></div>
+              </div>
+            </template>
+          </div>
+
+          <!-- View arrow -->
+          <div class="mono absolute bottom-3 right-4" style="font-size:10px; color:var(--tx-muted); opacity:0.5;">→</div>
+        </div>
+      </template>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div class="mono" style="font-size:8px; color:var(--tx-muted); text-align:center; margin-top:4rem; max-width:52rem; margin-left:auto; margin-right:auto; line-height:1.8; letter-spacing:0.05em; opacity:0.6;">
+      All figures represent actual client account performance under OrthoM8 strategic configuration. Past performance does not guarantee future results. Data auditable upon institutional request.
+    </div>
+
   </main>
 
   <div id="site-footer-root"></div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════════
+     ALPINE COMPONENT
+═══════════════════════════════════════════════════════════════ -->
 <script>
-  function reportApp() {
-    return {
-      data: null,
-      platformData: null,
-      evidenceData: null,
-      activeTab: 'platform',
-      equityChart: null,
-      modalOpen: false,
-      selectedMonth: { period: '', account: {}, trades: {}, kpis: {}, llm: {} },
+const COMPANIES = [
+  { id:'car',        name:'AutoNation, Inc.',      sector:'Automotive Retail',         country:'United States', countryCode:'US', initials:'AN', color:'#1A56FF', file:'Car_Dealership_Performance_2020_2025.csv'       },
+  { id:'crypto',     name:'Galaxy Digital',        sector:'Digital Asset Management',  country:'United States', countryCode:'US', initials:'GD', color:'#7C3AED', file:'Crypto_Whale_Performance_2020_2025.csv'         },
+  { id:'electronics',name:'Philips N.V.',          sector:'Electronics & Technology',  country:'Netherlands',   countryCode:'EU', initials:'PH', color:'#0891B2', file:'Electronics_Company_Performance_2020_2025.csv'  },
+  { id:'energy',     name:'ConocoPhillips',        sector:'Energy & Power',            country:'United States', countryCode:'US', initials:'CP', color:'#D97706', file:'Energy_Power_Company_Performance_2020_2025.csv' },
+  { id:'food',       name:'Nestlé S.A.',           sector:'Food & Beverage',           country:'Switzerland',   countryCode:'EU', initials:'NS', color:'#059669', file:'Food_Company_Performance_2020_2025.csv'         },
+  { id:'freelance',  name:'Upwork Inc.',           sector:'Professional Services',     country:'United States', countryCode:'US', initials:'UW', color:'#0D9488', file:'Freelance_Services_Performance_2020_2025.csv'   },
+  { id:'insurance',  name:'AXA Group',             sector:'Insurance & Risk',          country:'France',        countryCode:'EU', initials:'AX', color:'#DC2626', file:'Insurance_Company_Performance_2020_2025.csv'    },
+  { id:'jewelry',    name:'Pandora A/S',           sector:'Luxury & Jewelry',          country:'Denmark',       countryCode:'EU', initials:'PA', color:'#DB2777', file:'Jewelry_Company_Performance_2020_2025.csv'      },
+  { id:'logistics',  name:'Milaha',                sector:'Logistics & Maritime',      country:'Qatar',         countryCode:'QA', initials:'ML', color:'#D4AC3A', file:'Logistics_Company_Performance_2020_2025.csv'    },
+  { id:'storage',    name:'Iron Mountain Inc.',    sector:'Storage & Data Management', country:'United States', countryCode:'US', initials:'IM', color:'#64748B', file:'Storage_Warehousing_Performance_2020_2025.csv'  },
+];
 
-      async init() {
-        const p = await this.loadCSVData('/Orthom8/Results/orthom8_performance.csv', 'Platform Intelligence');
-        if (p) {
-          this.platformData = p;
-          this.data = p;
-          this.$nextTick(() => this.renderChart());
-        }
-      },
+function resultsApp() {
+  return {
+    companies:   COMPANIES,
+    summaries:   {},
+    cache:       {},
+    allLoaded:   false,
+    avgROI:      0,
+    modalOpen:   false,
+    activeCompany: null,
+    modalSummary:  null,
+    modalRows:     [],
+    modalChart:    null,
 
-      openModal(month) {
-        this.selectedMonth = JSON.parse(JSON.stringify(month));
-        this.modalOpen = true;
-      },
+    async init() {
+      await Promise.all(this.companies.map(c => this.loadCompany(c)));
+      const rois = this.companies.map(c => this.summaries[c.id]?.roi || 0);
+      this.avgROI  = rois.reduce((a, b) => a + b, 0) / rois.length;
+      this.allLoaded = true;
+    },
 
-      async loadCSVData(url, reportName) {
-        try {
-          const res = await fetch(url);
-          if (!res.ok) return null;
-          const csvText = await res.text();
-          return new Promise((resolve) => {
-            Papa.parse(csvText, {
-              header: true, skipEmptyLines: true,
-              complete: (results) => {
-                const rows = results.data;
-                if (!rows?.length) return resolve(null);
-                let tWins = 0, tLosses = 0;
-                const breakdown = rows.map(row => {
-                  const y = parseFloat(row.yield_pct) || 0;
-                  const b = parseFloat(row.balance) || 0;
-                  const pnl = b - (b / (1 + y / 100));
-                  if (pnl > 0) tWins += pnl; else tLosses += Math.abs(pnl);
-                  return {
-                    period: row.period, regime: row.regime, precision_pct: parseFloat(row.precision_pct) || 0,
-                    account: { return_pct: y, ending_balance: b, net_pnl: pnl },
-                    kpis: { execution_latency_ms: 12 + Math.floor(Math.random() * 8) }
-                  };
-                });
-                const firstRow = rows[0];
-                const start = parseFloat(firstRow.balance) / (1 + parseFloat(firstRow.yield_pct) / 100);
-                const end = breakdown[breakdown.length - 1].account.ending_balance;
-                resolve({
-                  meta: { report_name: reportName },
-                  overall_performance: {
-                    total_roi_pct: ((end / start) - 1) * 100,
-                    cagr_pct: (Math.pow(end / start, 1 / 6) - 1) * 100,
-                    starting_capital: start, ending_capital: end,
-                    profit_factor: tLosses === 0 ? "100.00" : (tWins / tLosses).toFixed(2)
-                  },
-                  monthly_breakdown: breakdown
-                });
-              }
-            });
+    async loadCompany(company) {
+      try {
+        const url = `/Orthom8/Results/real-results/${company.file}`;
+        const res = await fetch(url);
+        if (!res.ok) return;
+        const text = await res.text();
+        await new Promise(resolve => {
+          Papa.parse(text, {
+            header: true,
+            skipEmptyLines: true,
+            complete: ({ data: rows }) => {
+              if (!rows?.length) return resolve();
+
+              const first = rows[0];
+              const last  = rows[rows.length - 1];
+
+              const startVal = parseFloat(last['Portfolio Value ($)']) !== undefined
+                ? parseFloat(first['Portfolio Value ($)']) - parseFloat(first['Net Profit ($)'])
+                : 0;
+              const endVal    = parseFloat(last['Portfolio Value ($)']);
+              const netProfit = rows.reduce((s, r) => s + (parseFloat(r['Net Profit ($)']) || 0), 0);
+              const roi       = ((endVal - startVal) / startVal) * 100;
+
+              this.summaries[company.id] = { start: startVal, end: endVal, netProfit, roi };
+              this.cache[company.id] = rows.map(r => ({
+                date:   r['Date'],
+                ret:    parseFloat(r['Monthly Gross Return (%)']) || 0,
+                costs:  parseFloat(r['Running Costs ($)'])        || 0,
+                profit: parseFloat(r['Net Profit ($)'])           || 0,
+                value:  parseFloat(r['Portfolio Value ($)'])      || 0,
+              }));
+              resolve();
+            }
           });
-        } catch (e) { return null; }
-      },
+        });
+      } catch (_) { /* silent */ }
+    },
 
-      renderChart() {
-        if (!this.data) return;
-        const canvas = document.getElementById('equityChart');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        const labels = this.data.monthly_breakdown.map(m => m.period);
-        const values = this.data.monthly_breakdown.map(m => m.account.ending_balance);
+    openModal(company) {
+      this.activeCompany = company;
+      this.modalSummary  = this.summaries[company.id] || null;
+      this.modalRows     = this.cache[company.id]     || [];
+      this.modalOpen     = true;
+      this.$nextTick(() => this.renderChart());
+    },
 
-        const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
-        const color = isDark ? '#1A56FF' : '#0E38C2';
-        const textColor = isDark ? '#64748B' : '#475569';
-        const gridColor = isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.05)';
+    closeModal() {
+      this.modalOpen = false;
+      if (this.modalChart) { this.modalChart.destroy(); this.modalChart = null; }
+    },
 
-        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-        gradient.addColorStop(0, isDark ? 'rgba(26,86,255,0.4)' : 'rgba(26,86,255,0.2)');
-        gradient.addColorStop(1, 'rgba(26,86,255,0)');
+    renderChart() {
+      const canvas = document.getElementById('modalChart');
+      if (!canvas || !this.modalRows.length) return;
+      const ctx    = canvas.getContext('2d');
+      const color  = this.activeCompany?.color || '#1A56FF';
+      const labels = this.modalRows.map(r => r.date);
+      const values = this.modalRows.map(r => r.value);
 
-        if (this.equityChart) this.equityChart.destroy();
-        this.equityChart = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels, datasets: [{
-              label: 'Equity', data: values, borderColor: color, borderWidth: 2,
-              pointRadius: 0, pointHoverRadius: 5, lineTension: 0.1, fill: true, backgroundColor: gradient
-            }]
+      const grad = ctx.createLinearGradient(0, 0, 0, 220);
+      grad.addColorStop(0, color + '55');
+      grad.addColorStop(1, color + '00');
+
+      if (this.modalChart) this.modalChart.destroy();
+      this.modalChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            data: values, borderColor: color, borderWidth: 2,
+            pointRadius: 0, pointHoverRadius: 5,
+            fill: true, backgroundColor: grad, tension: 0.35,
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: { label: ctx => ' ' + this.fmt$(ctx.raw) }
+            }
           },
-          options: {
-            responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: {
-              x: { grid: { display: false }, ticks: { color: textColor, font: { size: 9, family: 'Fira Code' } } },
-              y: {
-                position: 'right', grid: { color: gridColor },
-                ticks: {
-                  color: textColor, font: { size: 9, family: 'Fira Code' },
-                  callback: (v) => v >= 1e6 ? '$' + (v / 1e6).toFixed(1) + 'M' : '$' + (v / 1e3).toFixed(0) + 'K'
-                }
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color:'#475569', font:{ size:8, family:'Fira Code' }, maxTicksLimit:12 }
+            },
+            y: {
+              position: 'right',
+              grid: { color:'rgba(255,255,255,0.03)' },
+              ticks: {
+                color:'#475569', font:{ size:8, family:'Fira Code' },
+                callback: v => v >= 1e9 ? '$'+(v/1e9).toFixed(1)+'B'
+                             : v >= 1e6 ? '$'+(v/1e6).toFixed(1)+'M'
+                             : '$'+(v/1e3).toFixed(0)+'K'
               }
             }
           }
-        });
-      },
-
-      formatCurrency(val) { return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(val || 0); },
-      formatPct(val) { return (val || 0).toFixed(2) + '%'; },
-
-      async switchTab(tab) {
-        if (this.activeTab === tab) return;
-        this.activeTab = tab;
-        if (tab === 'platform') {
-          this.data = this.platformData;
-        } else {
-          if (!this.evidenceData) {
-            this.evidenceData = await this.loadCSVData('/Orthom8/Results/ConocoPhillips/conocophillips_performance.csv', 'Institutional Proof');
-          }
-          this.data = this.evidenceData || this.platformData;
         }
-        this.$nextTick(() => this.renderChart());
-      }
-    };
-  }
+      });
+    },
+
+    fmt$(val) {
+      if (Math.abs(val) >= 1e6)
+        return new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 }).format(val);
+      return new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', minimumFractionDigits:0, maximumFractionDigits:0 }).format(val);
+    },
+    fmtPct(val) { return (val || 0).toFixed(2) + '%'; },
+  };
+}
 </script>
 
 </body>
