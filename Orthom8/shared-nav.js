@@ -6,31 +6,114 @@
 (function () {
   'use strict';
 
+  /* ─── Nav Translations ───────────────────────────── */
+  const NAV_T = {
+    en: {
+      home: 'Home', model: 'The Model', results: 'Results', team: 'Our Team', contact: 'Contact',
+      getStarted: 'GET STARTED', talkTeam: 'Talk to Our Team',
+      navTitle: 'Navigation', legal: 'Legal', connect: 'Connect',
+      contactUs: 'Contact Us', terms: 'Terms', privacy: 'Privacy', risk: 'Risk Disclosure',
+      techSupport: 'Technical Support',
+      footerDesc: "Ortho'M8 is an Algorithmic Capital Management system built for business excellence. Fully automated, risk-hardened, and transparent.",
+      footerCopy: '© 2025 ORTHOM8PRO — All rights reserved.',
+      footerDisclaimer: 'Past performance does not guarantee future results.',
+      drawerCapManaged: 'Capital Managed', drawerSpeed: 'Speed', drawerAI: 'AI Confidence', drawerLoss: 'Max Loss',
+    },
+    es: {
+      home: 'Inicio', model: 'El Modelo', results: 'Resultados', team: 'Nuestro Equipo', contact: 'Contacto',
+      getStarted: 'COMENZAR', talkTeam: 'Hablar con el Equipo',
+      navTitle: 'Navegación', legal: 'Legal', connect: 'Conectar',
+      contactUs: 'Contáctenos', terms: 'Términos', privacy: 'Privacidad', risk: 'Divulgación de Riesgos',
+      techSupport: 'Soporte Técnico',
+      footerDesc: "Ortho'M8 es un sistema de gestión algorítmica de capital para la excelencia empresarial. Totalmente automatizado, resistente al riesgo y transparente.",
+      footerCopy: '© 2025 ORTHOM8PRO — Todos los derechos reservados.',
+      footerDisclaimer: 'El rendimiento pasado no garantiza resultados futuros.',
+      drawerCapManaged: 'Capital Gestionado', drawerSpeed: 'Velocidad', drawerAI: 'Confianza IA', drawerLoss: 'Pérd. Máx.',
+    },
+    de: {
+      home: 'Startseite', model: 'Das Modell', results: 'Ergebnisse', team: 'Unser Team', contact: 'Kontakt',
+      getStarted: 'LOSLEGEN', talkTeam: 'Mit dem Team sprechen',
+      navTitle: 'Navigation', legal: 'Rechtliches', connect: 'Verbinden',
+      contactUs: 'Kontaktiere uns', terms: 'Bedingungen', privacy: 'Datenschutz', risk: 'Risikohinweis',
+      techSupport: 'Technischer Support',
+      footerDesc: "Ortho'M8 ist ein algorithmisches Kapitalverwaltungssystem für unternehmerische Spitzenleistungen. Vollautomatisch, risikogehärtet und transparent.",
+      footerCopy: '© 2025 ORTHOM8PRO — Alle Rechte vorbehalten.',
+      footerDisclaimer: 'Vergangene Leistungen garantieren keine zukünftigen Ergebnisse.',
+      drawerCapManaged: 'Verwaltetes Kapital', drawerSpeed: 'Geschwindigkeit', drawerAI: 'KI-Konfidenz', drawerLoss: 'Max. Verlust',
+    },
+    fr: {
+      home: 'Accueil', model: 'Le Modèle', results: 'Résultats', team: 'Notre Équipe', contact: 'Contact',
+      getStarted: 'COMMENCER', talkTeam: "Parler à notre équipe",
+      navTitle: 'Navigation', legal: 'Légal', connect: 'Connexion',
+      contactUs: 'Contactez-nous', terms: 'Conditions', privacy: 'Confidentialité', risk: 'Divulgation des risques',
+      techSupport: 'Support Technique',
+      footerDesc: "Ortho'M8 est un système de gestion algorithmique du capital conçu pour l'excellence des entreprises. Entièrement automatisé, résistant aux risques et transparent.",
+      footerCopy: '© 2025 ORTHOM8PRO — Tous droits réservés.',
+      footerDisclaimer: 'Les performances passées ne garantissent pas les résultats futurs.',
+      drawerCapManaged: 'Capital Géré', drawerSpeed: 'Vitesse', drawerAI: 'Confiance IA', drawerLoss: 'Perte Max.',
+    },
+    zh: {
+      home: '首页', model: '模型', results: '业绩', team: '我们的团队', contact: '联系我们',
+      getStarted: '开始使用', talkTeam: '联系团队',
+      navTitle: '导航', legal: '法律', connect: '联系',
+      contactUs: '联系我们', terms: '条款', privacy: '隐私', risk: '风险披露',
+      techSupport: '技术支持',
+      footerDesc: "Ortho'M8是一个专为卓越企业打造的算法资本管理系统，完全自动化、风险强化且透明。",
+      footerCopy: '© 2025 ORTHOM8PRO — 版权所有。',
+      footerDisclaimer: '过去的表现不能保证未来的结果。',
+      drawerCapManaged: '管理资本', drawerSpeed: '速度', drawerAI: 'AI置信度', drawerLoss: '最大亏损',
+    },
+  };
+
+  function t(lang, key) {
+    return (NAV_T[lang] || NAV_T.en)[key] || NAV_T.en[key] || key;
+  }
+
   /* ─── Active Page Detection ─────────────────────── */
   const path = window.location.pathname.toLowerCase();
   function isActive(href) {
     const h = href.toLowerCase();
-    // Normalize index routes
-    if (h === '/orthom8pro/' || h === '/orthom8pro/index.html') {
-      return path === '/orthom8pro/' || path === '/orthom8pro/index.html' || path === '/orthom8pro' || path === '/orthom8pro/';
-    }
+    // Exact match with normalized trailing slash — prevents /Orthom8/ matching all sub-pages
     const cleanPath = path.endsWith('/') ? path : path + '/';
-    const cleanHref = h.endsWith('/') ? h : h + '/';
-    return cleanPath.startsWith(cleanHref.replace(/\/$/, '')) || path === h.replace(/\/$/, '');
+    const cleanHref = h.endsWith('/')   ? h    : h + '/';
+    return cleanPath === cleanHref;
   }
 
-  function navLink(href, label) {
+  function navLink(href, labelKey, lang) {
     const active = isActive(href) ? ' class="active"' : '';
-    return `<li><a href="${href}"${active}>${label}</a></li>`;
+    return `<li><a href="${href}"${active} data-nav-key="${labelKey}">${t(lang, labelKey)}</a></li>`;
   }
 
-  function drawerLink(href, label) {
+  function drawerLink(href, labelKey, lang) {
     const active = isActive(href) ? ' style="color:var(--brand-gold-light);"' : '';
-    return `<a href="${href}"${active}>${label} <span class="nav-arrow">→</span></a>`;
+    return `<a href="${href}"${active} data-nav-key="${labelKey}">${t(lang, labelKey)} <span class="nav-arrow">→</span></a>`;
   }
 
-  /* ─── Shared Components ─────────────────────────── */
-  const HEADER_HTML = `
+  /* ─── Nav Translation Updater ───────────────────── */
+  function updateNavTranslations(lang) {
+    const tx = NAV_T[lang] || NAV_T.en;
+    // Update all elements with data-nav-key (preserving the → arrow in drawer links)
+    document.querySelectorAll('[data-nav-key]').forEach(el => {
+      const key = el.getAttribute('data-nav-key');
+      const arrow = el.querySelector('.nav-arrow');
+      if (arrow) {
+        // drawer link — update text node only, preserve arrow span
+        el.childNodes[0].textContent = tx[key] || NAV_T.en[key] || key;
+      } else {
+        el.textContent = tx[key] || NAV_T.en[key] || key;
+      }
+    });
+    // Update elements with data-nav-text (multi-word static strings)
+    document.querySelectorAll('[data-nav-text]').forEach(el => {
+      const key = el.getAttribute('data-nav-text');
+      el.textContent = tx[key] || NAV_T.en[key] || key;
+    });
+  }
+
+  /* ─── Build HTML Components ─────────────────────── */
+  function buildHeaderHTML(lang) {
+    const tx = NAV_T[lang] || NAV_T.en;
+    return `
 <div id="drawer-overlay"></div>
 <div id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
   <div class="drawer-header">
@@ -42,17 +125,17 @@
     <button class="drawer-close" id="drawer-close" aria-label="Close menu">✕</button>
   </div>
   <div class="drawer-stats">
-    <div class="ds-cell"><div class="ds-num">$142.8M</div><div class="ds-lbl">Capital Managed</div></div>
-    <div class="ds-cell" style="border-left:1px solid var(--brand-rule-strong);"><div class="ds-num">320ms</div><div class="ds-lbl">Speed</div></div>
-    <div class="ds-cell" style="border-top:1px solid var(--brand-rule-strong);"><div class="ds-num">72.4%</div><div class="ds-lbl">AI Confidence</div></div>
-    <div class="ds-cell" style="border-top:1px solid var(--brand-rule-strong); border-left:1px solid var(--brand-rule-strong);"><div class="ds-num">&lt;1.5%</div><div class="ds-lbl">Max Loss</div></div>
+    <div class="ds-cell"><div class="ds-num">$142.8M</div><div class="ds-lbl" data-nav-text="drawerCapManaged">${tx.drawerCapManaged}</div></div>
+    <div class="ds-cell" style="border-left:1px solid var(--brand-rule-strong);"><div class="ds-num">320ms</div><div class="ds-lbl" data-nav-text="drawerSpeed">${tx.drawerSpeed}</div></div>
+    <div class="ds-cell" style="border-top:1px solid var(--brand-rule-strong);"><div class="ds-num">72.4%</div><div class="ds-lbl" data-nav-text="drawerAI">${tx.drawerAI}</div></div>
+    <div class="ds-cell" style="border-top:1px solid var(--brand-rule-strong); border-left:1px solid var(--brand-rule-strong);"><div class="ds-num">&lt;1.5%</div><div class="ds-lbl" data-nav-text="drawerLoss">${tx.drawerLoss}</div></div>
   </div>
   <nav class="drawer-nav" aria-label="Mobile navigation">
-    ${drawerLink('/Orthom8/', 'Home')}
-    ${drawerLink('/Orthom8/the-model/', 'The Model')}
-    ${drawerLink('/Orthom8/Results/', 'Results')}
-    ${drawerLink('/Orthom8/our-team/', 'Our Team')}
-    ${drawerLink('/Orthom8/contact/', 'Contact')}
+    ${drawerLink('/Orthom8/', 'home', lang)}
+    ${drawerLink('/Orthom8/the-model/', 'model', lang)}
+    ${drawerLink('/Orthom8/Results/', 'results', lang)}
+    ${drawerLink('/Orthom8/our-team/', 'team', lang)}
+    ${drawerLink('/Orthom8/contact/', 'contact', lang)}
   </nav>
   <div class="drawer-controls">
     <button class="theme-btn" id="drawer-theme-toggle" title="Toggle theme"><span id="drawer-theme-icon">☀</span></button>
@@ -64,8 +147,8 @@
     </div>
   </div>
   <div class="drawer-footer">
-    <a href="/Orthom8/onboarding/" class="btn-primary" style="justify-content:center; width:100%;">GET STARTED</a>
-    <a href="/Orthom8/contact/" class="btn-ghost" style="justify-content:center; width:100%; margin-top:0.5rem;">Talk to Our Team</a>
+    <a href="/Orthom8/onboarding/" class="btn-primary" style="justify-content:center; width:100%;" data-nav-text="getStarted">${tx.getStarted}</a>
+    <a href="/Orthom8/contact/" class="btn-ghost" style="justify-content:center; width:100%; margin-top:0.5rem;" data-nav-text="talkTeam">${tx.talkTeam}</a>
   </div>
 </div>
 
@@ -77,11 +160,11 @@
   </a>
   <nav aria-label="Main navigation">
     <ul class="header-nav">
-      ${navLink('/Orthom8/', 'Home')}
-      ${navLink('/Orthom8/the-model/', 'The Model')}
-      ${navLink('/Orthom8/Results/', 'Results')}
-      ${navLink('/Orthom8/our-team/', 'Our Team')}
-      ${navLink('/Orthom8/contact/', 'Contact')}
+      ${navLink('/Orthom8/', 'home', lang)}
+      ${navLink('/Orthom8/the-model/', 'model', lang)}
+      ${navLink('/Orthom8/Results/', 'results', lang)}
+      ${navLink('/Orthom8/our-team/', 'team', lang)}
+      ${navLink('/Orthom8/contact/', 'contact', lang)}
     </ul>
   </nav>
   <div class="header-controls">
@@ -92,15 +175,18 @@
         <option value="de">DE</option><option value="fr">FR</option><option value="zh">ZH</option>
       </select>
     </div>
-    <a href="/Orthom8/onboarding/" class="btn-primary">GET STARTED</a>
+    <a href="/Orthom8/onboarding/" class="btn-primary" data-nav-text="getStarted">${tx.getStarted}</a>
   </div>
   <div class="mobile-header-right">
     <button class="theme-btn" id="mobile-theme-toggle" title="Toggle theme"><span id="mobile-theme-icon">☀</span></button>
     <button class="hamburger" id="hamburger-btn" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>`;
+  }
 
-  const FOOTER_HTML = `
+  function buildFooterHTML(lang) {
+    const tx = NAV_T[lang] || NAV_T.en;
+    return `
 <footer id="site-footer">
   <div class="footer-grid">
     <div>
@@ -109,39 +195,40 @@
         <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Logo" class="h-8 logo-light-theme">
         <span class="footer-brand-name" style="margin-bottom:0;">Ortho'M8</span>
       </div>
-      <p class="footer-brand-desc">Ortho'M8 is an Algorithmic Capital Management system built for business excellence. Fully automated, risk-hardened, and transparent.</p>
+      <p class="footer-brand-desc" data-nav-text="footerDesc">${tx.footerDesc}</p>
     </div>
     <div>
-      <div class="footer-col-title">Navigation</div>
+      <div class="footer-col-title" data-nav-text="navTitle">${tx.navTitle}</div>
       <ul class="footer-links">
-        <li><a href="/Orthom8/">Home</a></li>
-        <li><a href="/Orthom8/the-model/">The Model</a></li>
-        <li><a href="/Orthom8/Results/">Results</a></li>
-        <li><a href="/Orthom8/our-team/">Our Team</a></li>
-        <li><a href="/Orthom8/contact/">Contact Us</a></li>
+        <li><a href="/Orthom8/" data-nav-text="home">${tx.home}</a></li>
+        <li><a href="/Orthom8/the-model/" data-nav-text="model">${tx.model}</a></li>
+        <li><a href="/Orthom8/Results/" data-nav-text="results">${tx.results}</a></li>
+        <li><a href="/Orthom8/our-team/" data-nav-text="team">${tx.team}</a></li>
+        <li><a href="/Orthom8/contact/" data-nav-text="contactUs">${tx.contactUs}</a></li>
       </ul>
     </div>
     <div>
-      <div class="footer-col-title">Legal</div>
+      <div class="footer-col-title" data-nav-text="legal">${tx.legal}</div>
       <ul class="footer-links">
-        <li><a href="/legal/terms">Terms</a></li>
-        <li><a href="/legal/privacy">Privacy</a></li>
-        <li><a href="/legal/risk">Risk Disclosure</a></li>
+        <li><a href="/legal/terms" data-nav-text="terms">${tx.terms}</a></li>
+        <li><a href="/legal/privacy" data-nav-text="privacy">${tx.privacy}</a></li>
+        <li><a href="/legal/risk" data-nav-text="risk">${tx.risk}</a></li>
       </ul>
     </div>
     <div>
-      <div class="footer-col-title">Connect</div>
+      <div class="footer-col-title" data-nav-text="connect">${tx.connect}</div>
       <ul class="footer-links">
-        <li><a href="/Orthom8/contact/">Technical Support</a></li>
-        <li><a href="/Orthom8/onboarding/">Get Started</a></li>
+        <li><a href="/Orthom8/contact/" data-nav-text="techSupport">${tx.techSupport}</a></li>
+        <li><a href="/Orthom8/onboarding/" data-nav-text="getStarted">${tx.getStarted}</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2025 ORTHOM8PRO — All rights reserved.</p>
-    <p>Past performance does not guarantee future results.</p>
+    <p data-nav-text="footerCopy">${tx.footerCopy}</p>
+    <p data-nav-text="footerDisclaimer">${tx.footerDisclaimer}</p>
   </div>
 </footer>`;
+  }
 
   const GATE_HTML = `
 <div id="welcome-gate">
@@ -186,6 +273,8 @@
   /* ─── Execution ─────────────────────────────────── */
 
   function inject() {
+    const lang = localStorage.getItem('o8_locale') || 'en';
+
     // 1. CSS
     if (!document.getElementById('gate-styles')) {
       const s = document.createElement('style');
@@ -194,7 +283,7 @@
       document.head.appendChild(s);
     }
 
-    // 2. Gate (immediate as possible)
+    // 2. Gate
     if (!document.getElementById('welcome-gate') && document.body) {
       document.body.insertAdjacentHTML('afterbegin', GATE_HTML);
     }
@@ -202,59 +291,78 @@
     // 3. Header
     const navRoot = document.getElementById('site-nav-root');
     if (navRoot) {
-      navRoot.innerHTML = HEADER_HTML;
+      navRoot.innerHTML = buildHeaderHTML(lang);
     } else if (document.body) {
       const app = document.getElementById('app') || document.body;
-      app.insertAdjacentHTML('afterbegin', HEADER_HTML);
+      app.insertAdjacentHTML('afterbegin', buildHeaderHTML(lang));
     }
 
     // 4. Footer
     const footerRoot = document.getElementById('site-footer-root');
     if (footerRoot) {
-      footerRoot.innerHTML = FOOTER_HTML;
+      footerRoot.innerHTML = buildFooterHTML(lang);
     } else if (document.body) {
       const app = document.getElementById('app') || document.body;
-      app.insertAdjacentHTML('beforeend', FOOTER_HTML);
+      app.insertAdjacentHTML('beforeend', buildFooterHTML(lang));
     }
 
-    init();
+    init(lang);
   }
 
-  function init() {
+  function init(initialLang) {
     const html = document.documentElement;
 
     // Theme handling
     const savedTheme = localStorage.getItem('o8_theme') || 'dark';
     html.setAttribute('data-theme', savedTheme);
-    const sync = (t) => {
-      const icon = t === 'dark' ? '☀' : '☪';
+    const syncTheme = (theme) => {
+      const icon = theme === 'dark' ? '☀' : '☪';
       ['theme-icon','mobile-theme-icon','drawer-theme-icon'].forEach(id => {
         const el = document.getElementById(id); if (el) el.textContent = icon;
       });
     };
-    sync(savedTheme);
+    syncTheme(savedTheme);
 
     const toggle = () => {
       const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       html.setAttribute('data-theme', next);
       localStorage.setItem('o8_theme', next);
-      sync(next);
+      syncTheme(next);
     };
     ['theme-toggle','mobile-theme-toggle','drawer-theme-toggle'].forEach(id =>
       document.getElementById(id)?.addEventListener('click', toggle)
     );
 
-    // Language handling
-    const savedLang = localStorage.getItem('o8_locale') || 'en';
+    // Language handling — set initial select values
     ['lang-select','drawer-lang-select'].forEach(id => {
       const el = document.getElementById(id);
       if (el) {
-        el.value = savedLang;
+        el.value = initialLang;
         el.addEventListener('change', e => {
-          localStorage.setItem('o8_locale', e.target.value);
-          if (window.Alpine?.store?.('i18n')) window.Alpine.store('i18n').setLocale(e.target.value);
+          const lang = e.target.value;
+          // Sync both selects
+          ['lang-select','drawer-lang-select'].forEach(sid => {
+            const sel = document.getElementById(sid);
+            if (sel) sel.value = lang;
+          });
+          localStorage.setItem('o8_locale', lang);
+          // Update nav/footer DOM immediately
+          updateNavTranslations(lang);
+          // Update Alpine i18n store for page body content
+          if (window.Alpine?.store('i18n')) {
+            window.Alpine.store('i18n').setLocale(lang);
+          }
         });
       }
+    });
+
+    // Listen for locale-changed event (in case Alpine triggers it elsewhere)
+    window.addEventListener('locale-changed', e => {
+      updateNavTranslations(e.detail);
+      ['lang-select','drawer-lang-select'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = e.detail;
+      });
     });
 
     // Mobile Drawer
@@ -291,10 +399,8 @@
       }, 500);
     };
 
-    // Safety timeout
     setTimeout(hideGate, 3000);
 
-    // Watch for Alpine
     if (window.Alpine) {
       const checkI18n = () => {
         const i18n = window.Alpine.store('i18n');
@@ -312,12 +418,10 @@
           }, 100);
         } else hideGate();
       });
-      // Second fallback for window.onload
       window.addEventListener('load', hideGate);
     }
   }
 
-  // Safe run
   if (document.body) {
     inject();
   } else {
