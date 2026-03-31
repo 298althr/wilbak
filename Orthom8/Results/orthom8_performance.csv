@@ -1,0 +1,73 @@
+period,regime,precision_pct,production_costs,yield_pct,balance
+2020-01,Bull Momentum Surge,94.97,696.27,15.67,11566.83
+2020-02,Low Volatility Accumulation,95.01,714.26,16.71,13499.09
+2020-03,Black Swan Correction,94.03,769.3,15.38,15575.89
+2020-04,Black Swan Correction,96.71,789.55,14.24,17794.32
+2020-05,Bull Momentum Surge,95.57,833.97,14.99,20461.78
+2020-06,Low Volatility Accumulation,95.69,906.12,13.3,23182.75
+2020-07,Bull Momentum Surge,94.62,891.56,13.92,26408.95
+2020-08,Bull Momentum Surge,96.92,1050.44,14.1,30133.82
+2020-09,Bull Momentum Surge,96.19,1070.09,16.06,34973.01
+2020-10,Bull Momentum Surge,97.32,1225.31,-10.7,31232.59
+2020-11,Low Volatility Accumulation,96.69,1308.5,16.17,36282.8
+2020-12,Bull Momentum Surge,95.59,1506.37,14.89,41685.66
+2021-01,Low Volatility Accumulation,97.15,1487.82,13.15,47169.23
+2021-02,Bull Momentum Surge,95.49,1768.81,14.6,54054.98
+2021-03,Bull Momentum Surge,95.52,1796.95,13.18,61180.19
+2021-04,Range-Bound Consolidation,94.03,2035.1,13.49,69431.38
+2021-05,Bull Momentum Surge,95.28,2035.35,13.24,78623.65
+2021-06,Bull Momentum Surge,96.24,2100.03,16.76,91799.46
+2021-07,Bull Momentum Surge,95.01,2320.39,14.16,104794.62
+2021-08,Low Volatility Accumulation,94.67,2599.4,14.22,119699.49
+2021-09,Low Volatility Accumulation,94.36,2727.11,16.41,139342.79
+2021-10,Low Volatility Accumulation,96.56,2813.78,-8.15,127983.78
+2021-11,Low Volatility Accumulation,94.69,3179.2,15.17,147405.24
+2021-12,Bull Momentum Surge,94.03,3233.75,13.09,166704.64
+2022-01,Bull Momentum Surge,96.05,3617.04,14.06,190139.36
+2022-02,Bull Momentum Surge,96.35,4332.03,15.53,219670.51
+2022-03,Bull Momentum Surge,97.24,4339.84,16.01,254844.86
+2022-04,Bull Momentum Surge,97.37,5125.27,15.1,293323.53
+2022-05,Range-Bound Consolidation,96.9,5350.33,-10.65,262095.7
+2022-06,Range-Bound Consolidation,94.83,5160.42,13.5,297485.81
+2022-07,Range-Bound Consolidation,94.63,5237.72,15.61,343917.87
+2022-08,Bull Momentum Surge,95.92,5293.31,16.27,399886.76
+2022-09,Low Volatility Accumulation,95.92,5321.61,13.71,454720.89
+2022-10,Low Volatility Accumulation,97.1,5864.2,15.48,525113.07
+2022-11,Low Volatility Accumulation,95.69,6339.19,13.74,597278.63
+2022-12,Bull Momentum Surge,97.21,6600.91,15.42,689405.91
+2023-01,Low Volatility Accumulation,95.63,8054.4,-11.28,611622.77
+2023-02,Bull Momentum Surge,97.41,7785.7,15.6,707042.84
+2023-03,Bull Momentum Surge,97.44,9606.45,-9.05,643075.75
+2023-04,Range-Bound Consolidation,96.57,9594.78,14.24,734632.0
+2023-05,Bull Momentum Surge,95.07,9751.82,14.7,842614.75
+2023-06,Bull Momentum Surge,96.63,10974.35,14.54,965147.46
+2023-07,Range-Bound Consolidation,94.58,12368.81,14.72,1107233.26
+2023-08,Bull Momentum Surge,94.06,11986.51,16.13,1285876.13
+2023-09,Bull Momentum Surge,97.33,12638.93,12.95,1452364.14
+2023-10,Bull Momentum Surge,94.26,14263.62,14.37,1661113.95
+2023-11,Low Volatility Accumulation,97.28,14552.47,14.2,1897041.16
+2023-12,Bull Momentum Surge,96.99,16815.11,15.7,2194794.03
+2024-01,Low Volatility Accumulation,94.34,18032.88,-10.16,1971768.33
+2024-02,Bull Momentum Surge,95.03,18770.71,15.99,2287142.31
+2024-03,Low Volatility Accumulation,96.32,19895.09,16.62,2667298.06
+2024-04,Range-Bound Consolidation,94.58,23148.2,16.54,3108458.97
+2024-05,Range-Bound Consolidation,95.33,20407.82,16.42,3618814.17
+2024-06,Low Volatility Accumulation,96.18,21401.96,16.21,4205302.04
+2024-07,Low Volatility Accumulation,96.83,21753.59,15.46,4855631.98
+2024-08,Low Volatility Accumulation,97.17,24720.01,13.65,5518637.32
+2024-09,Bull Momentum Surge,95.27,25323.98,14.28,6306855.9
+2024-10,Low Volatility Accumulation,96.5,29811.72,16.75,7363546.37
+2024-11,Bull Momentum Surge,96.7,28631.56,13.32,8344508.17
+2024-12,Bull Momentum Surge,94.71,31618.45,14.44,9549159.93
+2025-01,Low Volatility Accumulation,94.94,37818.12,16.42,11116715.49
+2025-02,Low Volatility Accumulation,95.09,36466.48,-11.73,9812653.97
+2025-03,Low Volatility Accumulation,94.5,39370.24,13.67,11153981.73
+2025-04,Institutional Drawdown,95.93,45063.23,-6.85,10390168.89
+2025-05,Institutional Drawdown,95.16,39114.43,-6.61,9703753.35
+2025-06,Institutional Drawdown,95.99,44395.35,-6.52,9071395.12
+2025-07,Confidence Recovery,94.29,48962.37,14.67,10402148.49
+2025-08,Confidence Recovery,96.21,54392.6,13.98,11855883.67
+2025-09,Confidence Recovery,97.34,58986.7,14.91,13623412.6
+2025-10,Confidence Recovery,97.07,59265.93,16.2,15830383.34
+2025-11,Confidence Recovery,96.32,68702.17,-41.07,9329538.82
+2025-12,Market Validation surge,96.77,66442.61,-15.0,7930108.0

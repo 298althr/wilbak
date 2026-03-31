@@ -1,0 +1,51 @@
+{
+  "project": "Wilbak Engineering",
+  "brand": "维尔巴克工程",
+  "content": {
+    "header": {
+      "nav": [
+        "首页",
+        "项目",
+        "关于",
+        "Ortho'M8",
+        "联系",
+        "新闻与观点",
+        "业务审计"
+      ]
+    },
+    "hero": {
+      "protocol": "运行协议：v3.1",
+      "heading": "工程化业务数据。",
+      "body": "我们消除了您业务中的“混沌税”。为零故障而设计的高性能基础设施。",
+      "cta_primary": "案例研究",
+      "cta_secondary": "运作方式"
+    },
+    "footer": {
+      "columns": [
+        {
+          "title": "探索",
+          "links": [
+            { "label": "项目", "target": "/projects/" },
+            { "label": "关于", "target": "/about/" },
+            { "label": "观点", "target": "/insight/" }
+          ]
+        },
+        {
+          "title": "联系方式",
+          "links": [
+            { "label": "联系我们", "target": "/contact/" },
+            { "label": "申请审计", "target": "/audit/" }
+          ]
+        },
+        {
+          "title": "法律",
+          "links": [
+            { "label": "条款与条件", "target": "/legal/terms/" },
+            { "label": "SLA", "target": "/legal/sla/" },
+            { "label": "隐私协议", "target": "/legal/privacy/" }
+          ]
+        }
+      ]
+    }
+  }
+}

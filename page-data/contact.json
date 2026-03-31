@@ -1,0 +1,200 @@
+{
+  "page": "contact",
+  "translations": {
+    "en": {
+      "title": "Contact | Wilbak Engineering",
+      "meta": {
+        "description": "Ready to scale your business? Reach out to Wilhelm directly for technical inquiries and operational support."
+      },
+      "hero": {
+        "eyebrow": "[ Contact Information ]",
+        "heading": "Let's <span class='text-blue-600'>Connect.</span>",
+        "body": "Ready to scale your business? Reach out to Wilhelm directly for technical inquiries and operational support."
+      },
+      "contact_info": {
+        "email": {
+          "label": "Email Address",
+          "value": "wilhelm@wilbakengineering.com"
+        },
+        "phone": {
+          "label": "Direct Phone",
+          "value": "+1 214 493 9744"
+        }
+      },
+      "location": {
+        "heading": "Houston, Texas (USA)",
+        "status_label": "[ Status ]",
+        "status": "Always Active",
+        "cta": "REQUEST FREE AUDIT"
+      },
+      "navigation": {
+        "home": "Home",
+        "projects": "Projects",
+        "about": "About",
+        "orthomate": "OrthoMate™",
+        "contact": "Contact",
+        "insights": "News & Insights",
+        "audit": "Business Audit"
+      },
+      "footer": {
+        "copyright": "© 2026 Wilbak Engineering Group // Built for Unbreakable Performance"
+      }
+    },
+    "es": {
+      "title": "Contacto | Wilbak Engineering",
+      "meta": {
+        "description": "¿Listo para escalar su negocio? Contacte directamente a Wilhelm para consultas técnicas y soporte operativo."
+      },
+      "hero": {
+        "eyebrow": "[ Información de Contacto ]",
+        "heading": "Conectémonos.",
+        "body": "¿Listo para escalar su negocio? Contacte directamente a Wilhelm para consultas técnicas y soporte operativo."
+      },
+      "contact_info": {
+        "email": {
+          "label": "Dirección de Correo",
+          "value": "wilhelm@wilbakengineering.com"
+        },
+        "phone": {
+          "label": "Teléfono Directo",
+          "value": "+1 214 493 9744"
+        }
+      },
+      "location": {
+        "heading": "Houston, Texas (EE.UU.)",
+        "status_label": "[ Estado ]",
+        "status": "Siempre Activo",
+        "cta": "SOLICITAR AUDITORÍA GRATUITA"
+      },
+      "navigation": {
+        "home": "Inicio",
+        "projects": "Proyectos",
+        "about": "Acerca de",
+        "orthomate": "OrthoMate™",
+        "contact": "Contacto",
+        "insights": "Noticias y Perspectivas",
+        "audit": "Auditoría Empresarial"
+      },
+      "footer": {
+        "copyright": "© 2026 Wilbak Engineering Group // Construido para Rendimiento Inquebrantable"
+      }
+    },
+    "zh": {
+      "title": "联系 | 维尔巴克工程",
+      "meta": {
+        "description": "准备扩展您的业务？直接联系Wilhelm获取技术咨询和运营支持。"
+      },
+      "hero": {
+        "eyebrow":"[ 联系信息 ]",
+        "heading": "让我们<span class='text-blue-600'>联系。</span>",
+        "body": "准备扩展您的业务？直接联系Wilhelm获取技术咨询和运营支持。"
+      },
+      "contact_info": {
+        "email": {
+          "label": "电子邮件地址",
+          "value": "wilhelm@wilbakengineering.com"
+        },
+        "phone": {
+          "label": "直拨电话",
+          "value": "+1 214 493 9744"
+        }
+      },
+      "location": {
+        "heading": "德克萨斯州休斯顿（美国）",
+        "status_label":"[ 状态 ]",
+        "status": "始终活跃",
+        "cta": "请求免费审计"
+      },
+      "navigation": {
+        "home": "首页",
+        "projects": "项目",
+        "about": "关于",
+        "orthomate": "OrthoMate™",
+        "contact": "联系",
+        "insights": "新闻与观点",
+        "audit": "业务审计"
+      },
+      "footer": {
+        "copyright": "© 2026 维尔巴克工程集团 // 为不可破坏的性能而构建"
+      }
+    },
+    "nl": {
+      "title": "Contact | Wilbak Engineering",
+      "meta": {
+        "description": "Klaar om uw bedrijf te schalen? Neem direct contact op met Wilhelm voor technische vragen en operationele ondersteuning."
+      },
+      "hero": {
+        "eyebrow": "[ Contact Informatie ]",
+        "heading": "Laten we <span class='text-blue-600'>Verbinden.</span>",
+        "body": "Klaar om uw bedrijf te schalen? Neem direct contact op met Wilhelm voor technische vragen en operationele ondersteuning."
+      },
+      "contact_info": {
+        "email": {
+          "label": "E-mailadres",
+          "value": "wilhelm@wilbakengineering.com"
+        },
+        "phone": {
+          "label": "Direct Telefoon",
+          "value": "+1 214 493 9744"
+        }
+      },
+      "location": {
+        "heading": "Houston, Texas (USA)",
+        "status_label": "[ Status ]",
+        "status": "Altijd Actief",
+        "cta": "VERKRIJ GRATIS AUDIT"
+      },
+      "navigation": {
+        "home": "Home",
+        "projects": "Projecten",
+        "about": "Over Ons",
+        "orthomate": "OrthoMate™",
+        "contact": "Contact",
+        "insights": "Nieuws & Inzichten",
+        "audit": "Bedrijfsaudit"
+      },
+      "footer": {
+        "copyright": "© 2026 Wilbak Engineering Group // Gebouwd voor Onbreekbare Prestaties"
+      }
+    },
+    "fr": {
+      "title": "Contact | Wilbak Engineering",
+      "meta": {
+        "description": "Prêt à faire évoluer votre entreprise ? Contactez directement Wilhelm pour les demandes techniques et le support opérationnel."
+      },
+      "hero": {
+        "eyebrow": "[ Informations de Contact ]",
+        "heading": "Connectons-<span class='text-blue-600'>nous.</span>",
+        "body": "Prêt à faire évoluer votre entreprise ? Contactez directement Wilhelm pour les demandes techniques et le support opérationnel."
+      },
+      "contact_info": {
+        "email": {
+          "label": "Adresse E-mail",
+          "value": "wilhelm@wilbakengineering.com"
+        },
+        "phone": {
+          "label": "Téléphone Direct",
+          "value": "+1 214 493 9744"
+        }
+      },
+      "location": {
+        "heading": "Houston, Texas (USA)",
+        "status_label": "[ Statut ]",
+        "status": "Toujours Actif",
+        "cta": "DEMANDER AUDIT GRATUIT"
+      },
+      "navigation": {
+        "home": "Accueil",
+        "projects": "Projets",
+        "about": "À Propos",
+        "orthomate": "OrthoMate™",
+        "contact": "Contact",
+        "insights": "Actualités & Aperçus",
+        "audit": "Audit d'Entreprise"
+      },
+      "footer": {
+        "copyright": "© 2026 Wilbak Engineering Group // Construit pour des Performances Incassables"
+      }
+    }
+  }
+}

@@ -32,12 +32,51 @@ const PORT = process.env.PORT || 4000;
 
 // Health Check Protocol (Required by railway.toml)
 app.get('/health', (req, res) => res.status(200).json({ status: 'HEALTHY', timestamp: new Date() }));
-const upload = multer({ dest: 'uploads/' });
+const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+const upload = multer({
+    dest: 'uploads/',
+    limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB max
+    fileFilter: (req, file, cb) => {
+        if (ALLOWED_IMAGE_TYPES.includes(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(new Error(`Unsupported file type: ${file.mimetype}. Allowed: JPEG, PNG, WEBP, GIF`));
+        }
+    }
+});
 
-app.use(cors());
-app.use(express.json());
+const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS
+    ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim())
+    : [
+        'https://wilbak.up.railway.app',
+        'https://wilbak-production.up.railway.app',
+        'http://localhost:4000',
+        'http://127.0.0.1:4000'
+    ];
+app.use(cors({
+    origin: (origin, callback) => {
+        // Always allow no-origin requests (same-origin, curl, mobile)
+        if (!origin) return callback(null, true);
+        
+        // In non-production allow all origins (dev proxy, browser preview, localhost)
+        if (process.env.NODE_ENV !== 'production') return callback(null, true);
+        
+        // Production: check against whitelist or any railway.app subdomain
+        if (ALLOWED_ORIGINS.includes(origin) || origin.endsWith('.railway.app')) {
+            return callback(null, true);
+        }
+
+        callback(new Error(`CORS: origin ${origin} not permitted`));
+    },
+    credentials: true
+}));
+app.use(express.json({ limit: '2mb' }));
 app.use(cookieParser());
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/Orthom8pro', express.static(path.join(__dirname, 'Orthom8')));
+app.use('/Risk-Matrix', express.static(path.join(__dirname, 'Orthom8', 'Risk-Matrix')));
+app.use('/audit', express.static(path.join(__dirname, 'audit')));
+app.use(express.static(__dirname)); // Fallback for other things like i18n-loader.js if they are in root.
 
 // Session ID Middleware
 app.use((req, res, next) => {
@@ -79,7 +118,9 @@ const verifyTelegramAdmin = (req, res, next) => {
         const secretKey = crypto.createHmac('sha256', 'WebAppData').update(TELEGRAM_BOT_TOKEN).digest();
         const calculatedHash = crypto.createHmac('sha256', secretKey).update(dataCheckString).digest('hex');
 
-        if (calculatedHash !== hash) return res.status(401).json({ error: 'Signature Mismatch' });
+        if (!hash || hash.length !== calculatedHash.length ||
+            !crypto.timingSafeEqual(Buffer.from(calculatedHash), Buffer.from(hash))
+        ) return res.status(401).json({ error: 'Signature Mismatch' });
 
         const userParam = urlParams.get('user');
         if (!userParam) return res.status(401).json({ error: 'Identity Context Missing' });
@@ -97,6 +138,46 @@ const verifyTelegramAdmin = (req, res, next) => {
         return res.status(500).json({ error: 'Security Engine Failure' });
     }
 };
+
+// ---------------------------------------------------------------------------
+// Simple in-process rate limiter (no external dependency)
+// Usage: rateLimit({ windowMs, max }) returns an Express middleware
+// ---------------------------------------------------------------------------
+const rateLimit = ({ windowMs = 60000, max = 60, message = 'Too many requests' } = {}) => {
+    const hits = new Map(); // ip → { count, resetAt }
+    // Purge stale entries every window to prevent memory growth
+    setInterval(() => {
+        const now = Date.now();
+        for (const [ip, entry] of hits) {
+            if (entry.resetAt <= now) hits.delete(ip);
+        }
+    }, windowMs);
+    return (req, res, next) => {
+        const ip = req.ip || req.socket.remoteAddress || 'unknown';
+        const now = Date.now();
+        let entry = hits.get(ip);
+        if (!entry || entry.resetAt <= now) {
+            entry = { count: 0, resetAt: now + windowMs };
+            hits.set(ip, entry);
+        }
+        entry.count++;
+        res.setHeader('X-RateLimit-Limit', max);
+        res.setHeader('X-RateLimit-Remaining', Math.max(0, max - entry.count));
+        if (entry.count > max) {
+            return res.status(429).json({ error: message });
+        }
+        next();
+    };
+};
+
+// Escape HTML special characters to prevent XSS in server-rendered templates
+const escapeHtml = (str) =>
+    String(str == null ? '' : str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;');
 
 const safeJsonParse = (val) => {
     if (typeof val === 'object' && val !== null) return val;
@@ -132,7 +213,7 @@ const sendTelegramMessage = (message) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Content-Length': data.length
+                'Content-Length': Buffer.byteLength(data)
             }
         };
 
@@ -187,7 +268,8 @@ const sendTelegramDocument = (filename, content) => {
 // --- API ENDPOINTS ---
 
 // Audit Submission
-app.post('/api/audit', async (req, res) => {
+const auditLimiter = rateLimit({ windowMs: 60 * 60 * 1000, max: 10, message: 'Audit submission limit reached. Try again in 1 hour.' });
+app.post('/api/audit', auditLimiter, async (req, res) => {
     try {
         const data = req.body;
 
@@ -196,7 +278,7 @@ app.post('/api/audit', async (req, res) => {
             data: {
                 industry: data.industry,
                 businessDetail: data.businessDetail,
-                hours: parseInt(data.hours),
+                hours: parseInt(data.hours, 10) || 0,
                 workflow: data.workflow,
                 auditName: data.auditName,
                 auditEmail: data.auditEmail,
@@ -208,18 +290,18 @@ app.post('/api/audit', async (req, res) => {
         const message = `
 <b>🚨 NEW AUDIT PROTOCOL INITIATED</b>
 --------------------------------
-<b>User:</b> ${data.auditName}
-<b>Email:</b> ${data.auditEmail}
-<b>Phone:</b> ${data.auditPhone}
+<b>User:</b> ${escapeHtml(data.auditName)}
+<b>Email:</b> ${escapeHtml(data.auditEmail)}
+<b>Phone:</b> ${escapeHtml(data.auditPhone)}
 
-<b>Sector:</b> ${data.industry}
-<b>Manual Waste:</b> ${data.hours} hrs/week
-<b>Efficiency Loss:</b> ${(data.hours * 1.5).toFixed(0)}%
+<b>Sector:</b> ${escapeHtml(data.industry)}
+<b>Manual Waste:</b> ${escapeHtml(data.hours)} hrs/week
+<b>Efficiency Loss:</b> ${(parseFloat(data.hours) * 1.5 || 0).toFixed(0)}%
 
 <b>Business DNA:</b>
-<i>${data.businessDetail}</i>
+<i>${escapeHtml(data.businessDetail)}</i>
 --------------------------------
-[ ID: ${lead.id} | Protocol v3.1 ]
+[ ID: ${escapeHtml(lead.id)} | Protocol v3.1 ]
         `;
 
         await sendTelegramMessage(message);
@@ -230,11 +312,102 @@ app.post('/api/audit', async (req, res) => {
     }
 });
 
+// OrthoM8 Client Onboarding
+const onboardingLimiter = rateLimit({ windowMs: 60 * 60 * 1000, max: 5, message: 'Submission limit reached. Try again in 1 hour.' });
+app.post('/api/onboarding', onboardingLimiter, async (req, res) => {
+    try {
+        const { sector, concerns, capitalRange, name, email, company, phone, callTime, message, source } = req.body;
+
+        if (!name || !email) {
+            return res.status(400).json({ success: false, error: 'Name and email are required.' });
+        }
+
+        const lead = await prisma.orthoM8Lead.create({
+            data: {
+                sector: sector || null,
+                concerns: concerns || [],
+                capitalRange: capitalRange || null,
+                name,
+                email,
+                company: company || null,
+                phone: phone || null,
+                callTime: callTime || null,
+                message: message || null,
+                source: source || 'orthom8-onboarding',
+                status: 'NEW'
+            }
+        });
+
+        const concernList = Array.isArray(concerns) && concerns.length > 0
+            ? concerns.join(', ')
+            : 'Not specified';
+
+        const tgMessage = `
+<b>🛡️ NEW ORTHO'M8 CLIENT INQUIRY</b>
+--------------------------------
+<b>Name:</b> ${escapeHtml(name)}
+<b>Email:</b> ${escapeHtml(email)}
+<b>Company:</b> ${escapeHtml(company || '—')}
+<b>Phone:</b> ${escapeHtml(phone || '—')}
+<b>Call Time:</b> ${escapeHtml(callTime || 'Flexible')}
+
+<b>Sector:</b> ${escapeHtml(sector || '—')}
+<b>Concerns:</b> ${escapeHtml(concernList)}
+<b>Capital Range:</b> ${escapeHtml(capitalRange || '—')}
+
+<b>Message:</b>
+<i>${escapeHtml(message || '—')}</i>
+--------------------------------
+[ ID: ${lead.id} | Source: ${escapeHtml(source || 'orthom8-onboarding')} ]
+        `;
+
+        await sendTelegramMessage(tgMessage);
+        res.status(200).json({ success: true, leadId: lead.id });
+    } catch (error) {
+        console.error('OrthoM8 Onboarding Error:', error);
+        res.status(500).json({ success: false, error: 'Submission failed. Please try again.' });
+    }
+});
+
+// OrthoM8 Admin — List all onboarding leads
+app.get('/api/admin/orthom8-leads', verifyTelegramAdmin, async (req, res) => {
+    try {
+        const leads = await prisma.orthoM8Lead.findMany({
+            orderBy: { createdAt: 'desc' }
+        });
+        res.json(leads);
+    } catch (e) {
+        res.status(500).json({ error: 'Database access failure' });
+    }
+});
+
+// OrthoM8 Admin — Update lead status
+app.patch('/api/admin/orthom8-leads/:id/status', verifyTelegramAdmin, async (req, res) => {
+    try {
+        const { status } = req.body;
+        const allowed = ['NEW', 'CONTACTED', 'QUALIFIED', 'ARCHIVED'];
+        if (!allowed.includes(status)) {
+            return res.status(400).json({ error: 'Invalid status' });
+        }
+        const lead = await prisma.orthoM8Lead.update({
+            where: { id: req.params.id },
+            data: { status }
+        });
+        res.json({ success: true, lead });
+    } catch (e) {
+        res.status(500).json({ error: 'Update failed' });
+    }
+});
+
 // Admin Lead Management (Mini App)
 app.get('/api/admin/leads', verifyTelegramAdmin, async (req, res) => {
     try {
+        const page = Math.max(0, parseInt(req.query.page, 10) || 0);
+        const take = 200;
         const leads = await prisma.lead.findMany({
-            orderBy: { createdAt: 'desc' }
+            orderBy: { createdAt: 'desc' },
+            take,
+            skip: page * take
         });
         res.json(leads);
     } catch (e) {
@@ -437,17 +610,27 @@ ${templateStr}`;
 };
 
 
-// Start 6-hour Scheduler (21,600,000 ms)
-setInterval(() => triggerResearchProtocol().catch(e => console.error('[SCHEDULER] Failed:', e)), 21600000);
-// Trigger once on system boot to ensure data availability (Delayed 10s for stability)
-setTimeout(async () => {
-    try {
-        console.log('[STARTUP] Initializing autonomous intelligence scan...');
-        await triggerResearchProtocol("Iran Israel USA Business Impact Opportunities");
-    } catch (e) {
-        console.error('[STARTUP] Initial scan failed. System in stand-by.', e.message);
+// Mutex: prevent overlapping scheduler runs (each scan can take 30s+)
+let _researchRunning = false;
+const safeResearchRun = async (query) => {
+    if (_researchRunning) {
+        console.log('[SCHEDULER] Skipped — previous run still in progress.');
+        return;
     }
-}, 10000);
+    _researchRunning = true;
+    try {
+        await triggerResearchProtocol(query);
+    } catch (e) {
+        console.error('[SCHEDULER] Run failed:', e.message);
+    } finally {
+        _researchRunning = false;
+    }
+};
+
+// Start 6-hour Scheduler (21,600,000 ms)
+setInterval(() => safeResearchRun(), 21600000);
+// Trigger once on system boot to ensure data availability (Delayed 10s for stability)
+setTimeout(() => safeResearchRun("Iran Israel USA Business Impact Opportunities"), 10000);
 
 // Intelligence Hub Endpoints
 app.get('/api/intelligence', async (req, res) => {
@@ -493,8 +676,8 @@ app.get('/api/intelligence', async (req, res) => {
     }
 });
 
-// Diagnostic Manual Trigger (No Auth for internal debugging)
-app.get('/api/intelligence/retest', async (req, res) => {
+// Diagnostic Manual Trigger (Admin only — triggers paid external API calls)
+app.get('/api/intelligence/retest', verifyTelegramAdmin, async (req, res) => {
     try {
         console.log('[DIAGNOSTIC] Manual retest requested.');
         await triggerResearchProtocol("Finance AI Business");
@@ -506,10 +689,15 @@ app.get('/api/intelligence/retest', async (req, res) => {
 
 
 // Like/Dislike Endpoint (One vote per person per node)
-app.post('/api/intelligence/:id/vote', async (req, res) => {
+const voteLimiter = rateLimit({ windowMs: 60 * 1000, max: 30, message: 'Vote rate limit exceeded.' });
+app.post('/api/intelligence/:id/vote', voteLimiter, async (req, res) => {
     const { id } = req.params;
-    const { type } = req.body; // 'LIKE' or 'DISLIKE' (case insensitive handled below)
+    const { type } = req.body;
     const sessionId = req.sessionId;
+
+    if (!type || !['LIKE', 'DISLIKE'].includes(String(type).toUpperCase())) {
+        return res.status(400).json({ error: 'Invalid vote type. Must be LIKE or DISLIKE.' });
+    }
     const voteType = type.toUpperCase();
 
     try {
@@ -584,27 +772,34 @@ app.post('/api/admin/intelligence/trigger', verifyTelegramAdmin, async (req, res
 
 // Admin Image Upload to Cloudinary
 app.post('/api/admin/upload-image', verifyTelegramAdmin, upload.single('image'), async (req, res) => {
-    try {
-        if (!req.file) return res.status(400).json({ error: 'No image provided' });
+    if (!req.file) return res.status(400).json({ error: 'No image provided' });
 
+    try {
         const result = await cloudinary.uploader.upload(req.file.path, {
             folder: 'wilbak_intelligence',
             resource_type: 'auto'
         });
-
-        fs.unlinkSync(req.file.path); // Clean up temp file
         res.json({ success: true, url: result.secure_url });
     } catch (e) {
         console.error('Upload Error:', e);
         res.status(500).json({ error: 'Cloudinary transmission failed' });
+    } finally {
+        // Always clean up temp file — even when Cloudinary throws
+        fs.unlink(req.file.path, (err) => {
+            if (err) console.error('[UPLOAD] Temp file cleanup failed:', err.message);
+        });
     }
 });
 
 // Admin Intelligence Node List (Full Data)
 app.get('/api/admin/intelligence/list', verifyTelegramAdmin, async (req, res) => {
     try {
+        const page = Math.max(0, parseInt(req.query.page, 10) || 0);
+        const take = 200;
         const nodes = await prisma.intelligenceNode.findMany({
-            orderBy: { createdAt: 'desc' }
+            orderBy: { createdAt: 'desc' },
+            take,
+            skip: page * take
         });
         res.json(nodes);
     } catch (e) {
@@ -631,22 +826,22 @@ app.get('/insight/:id', async (req, res) => {
         });
 
         const replacements = {
-            '{{ID}}': node.id,
-            '{{TITLE}}': node.title,
-            '{{SECTOR}}': node.sector,
-            '{{INSIGHT}}': node.insight,
-            '{{MARKET_EVENT}}': node.marketEvent,
-            '{{LOGIC_ANALYSIS}}': node.logicAnalysis,
-            '{{CONVERSION_STEP}}': JSON.stringify(node.conversionStep || {}),
-            '{{LOGIC_FRAMEWORK}}': JSON.stringify(node.logicFramework || {}),
-            '{{IMAGES}}': JSON.stringify(node.images || []),
-            '{{STRATEGIC_CONCLUSION}}': node.strategicConclusion || '',
-            '{{DATE}}': node.createdAt.toDateString(),
-            '{{URL}}': `https://${req.get('host')}/insight/${node.id}`,
-            '{{LIKES}}': String(node.likes || 0),
-            '{{DISLIKES}}': String(node.dislikes || 0),
-            '{{NODE_ID}}': node.id,
-            '{{USER_VOTE}}': existingVote ? existingVote.type : 'null'
+            '{{ID}}':                   escapeHtml(node.id),
+            '{{TITLE}}':                escapeHtml(node.title),
+            '{{SECTOR}}':               escapeHtml(node.sector),
+            '{{INSIGHT}}':              escapeHtml(node.insight),
+            '{{MARKET_EVENT}}':         escapeHtml(node.marketEvent),
+            '{{LOGIC_ANALYSIS}}':       escapeHtml(node.logicAnalysis),
+            '{{CONVERSION_STEP}}':      JSON.stringify(node.conversionStep || {}),
+            '{{LOGIC_FRAMEWORK}}':      JSON.stringify(node.logicFramework || {}),
+            '{{IMAGES}}':               JSON.stringify(node.images || []),
+            '{{STRATEGIC_CONCLUSION}}': escapeHtml(node.strategicConclusion || ''),
+            '{{DATE}}':                 escapeHtml(node.createdAt.toDateString()),
+            '{{URL}}':                  escapeHtml(`https://${req.get('host')}/insight/${node.id}`),
+            '{{LIKES}}':                String(node.likes || 0),
+            '{{DISLIKES}}':             String(node.dislikes || 0),
+            '{{NODE_ID}}':              escapeHtml(node.id),
+            '{{USER_VOTE}}':            existingVote ? escapeHtml(existingVote.type) : 'null'
         };
 
         Object.keys(replacements).forEach(key => {
@@ -693,42 +888,26 @@ app.post('/api/admin/intelligence/create', verifyTelegramAdmin, async (req, res)
     }
 });
 
-// Admin Intelligence Node List (Full Data) - Use /export-json for full extraction
-app.get('/api/admin/intelligence/list-full', verifyTelegramAdmin, async (req, res) => {
-    try {
-        const nodes = await prisma.intelligenceNode.findMany({
-            orderBy: { createdAt: 'desc' }
-        });
-        res.json(nodes);
-    } catch (e) {
-        res.status(500).json({ error: 'Intelligence retrieval failure' });
-    }
-});
-
 // Admin Intelligence Import (JSON Bulk)
 app.post('/api/admin/intelligence/import', verifyTelegramAdmin, async (req, res) => {
     try {
         const { nodes } = req.body;
         if (!Array.isArray(nodes)) return res.status(400).json({ error: 'Invalid payload: Array expected' });
 
-        let createdCount = 0;
-        for (const item of nodes) {
+        const payload = nodes.map(item => {
             const nodeData = sanitizeNodeData(item);
-
-            await prisma.intelligenceNode.create({
-                data: {
-                    ...nodeData,
-                    likes: item.likes || 0,
-                    dislikes: item.dislikes || 0,
-                    logicFramework: safeJsonParse(nodeData.logicFramework),
-                    caseStudyEvidence: safeJsonParse(nodeData.caseStudyEvidence),
-                    conversionStep: safeJsonParse(nodeData.conversionStep),
-                    images: Array.isArray(nodeData.images) ? nodeData.images : []
-                }
-            });
-            createdCount++;
-        }
-        res.json({ success: true, count: createdCount });
+            return {
+                ...nodeData,
+                likes: item.likes || 0,
+                dislikes: item.dislikes || 0,
+                logicFramework: safeJsonParse(nodeData.logicFramework),
+                caseStudyEvidence: safeJsonParse(nodeData.caseStudyEvidence),
+                conversionStep: safeJsonParse(nodeData.conversionStep),
+                images: Array.isArray(nodeData.images) ? nodeData.images : []
+            };
+        });
+        const result = await prisma.intelligenceNode.createMany({ data: payload, skipDuplicates: true });
+        res.json({ success: true, count: result.count });
     } catch (e) {
         console.error('Bulk Import Error:', e);
         res.status(500).json({ error: 'Bulk intelligence injection failure: ' + e.message });
@@ -762,8 +941,8 @@ app.put('/api/admin/intelligence/:id', verifyTelegramAdmin, async (req, res) => 
         };
 
         if (createdAt) data.createdAt = new Date(createdAt);
-        if (likes !== undefined) data.likes = parseInt(likes);
-        if (dislikes !== undefined) data.dislikes = parseInt(dislikes);
+        if (likes !== undefined) data.likes = parseInt(likes, 10) || 0;
+        if (dislikes !== undefined) data.dislikes = parseInt(dislikes, 10) || 0;
 
         const node = await prisma.intelligenceNode.update({
             where: { id },
@@ -820,19 +999,16 @@ app.post('/api/admin/leads/import-json', verifyTelegramAdmin, async (req, res) =
         const { leads } = req.body;
         if (!Array.isArray(leads)) return res.status(400).json({ error: 'Invalid payload: Array expected' });
 
-        let createdCount = 0;
-        for (const item of leads) {
+        const payload = leads.map(item => {
             const { id, ...leadData } = item;
-            await prisma.lead.create({
-                data: {
-                    ...leadData,
-                    hours: parseInt(leadData.hours || 0),
-                    status: leadData.status || 'IMPORTED'
-                }
-            });
-            createdCount++;
-        }
-        res.json({ success: true, count: createdCount });
+            return {
+                ...leadData,
+                hours: parseInt(leadData.hours || 0, 10) || 0,
+                status: leadData.status || 'IMPORTED'
+            };
+        });
+        const result = await prisma.lead.createMany({ data: payload, skipDuplicates: true });
+        res.json({ success: true, count: result.count });
     } catch (e) {
         console.error('Lead Bulk Import Error:', e);
         res.status(500).json({ error: 'Lead bulk injection failure: ' + e.message });
@@ -849,35 +1025,44 @@ app.post('/api/admin/leads/import', verifyTelegramAdmin, upload.single('file'), 
         .on('data', (data) => results.push(data))
         .on('end', async () => {
             try {
-                for (const item of results) {
-                    await prisma.lead.create({
-                        data: {
-                            auditName: item.auditName,
-                            auditEmail: item.auditEmail,
-                            auditPhone: item.auditPhone,
-                            industry: item.industry,
-                            businessDetail: item.businessDetail,
-                            hours: parseInt(item.hours || 0),
-                            workflow: item.workflow,
-                            status: item.status || 'IMPORTED'
-                        }
-                    });
-                }
-                fs.unlinkSync(req.file.path);
-                res.json({ success: true, count: results.length });
+                const payload = results.map(item => ({
+                    auditName: item.auditName,
+                    auditEmail: item.auditEmail,
+                    auditPhone: item.auditPhone,
+                    industry: item.industry,
+                    businessDetail: item.businessDetail,
+                    hours: parseInt(item.hours || 0, 10) || 0,
+                    workflow: item.workflow,
+                    status: item.status || 'IMPORTED'
+                }));
+                const created = await prisma.lead.createMany({ data: payload, skipDuplicates: true });
+                res.json({ success: true, count: created.count });
             } catch (e) {
                 res.status(500).json({ error: 'Import processing failure' });
+            } finally {
+                // Always clean up uploaded CSV regardless of outcome
+                fs.unlink(req.file.path, (err) => {
+                    if (err) console.error('[CSV_IMPORT] Temp file cleanup failed:', err.message);
+                });
             }
         });
 });
 
-app.get('/health', (req, res) => {
-    res.json({ status: 'active', timestamp: new Date() });
-});
-
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Wilbak Engineering Server running on port ${PORT}`);
 });
+
+// Graceful shutdown — flush Prisma connections on Railway deploy / Ctrl+C
+const shutdown = async (signal) => {
+    console.log(`[SERVER] ${signal} received — shutting down gracefully...`);
+    server.close(async () => {
+        await prisma.$disconnect();
+        console.log('[SERVER] Prisma disconnected. Exiting.');
+        process.exit(0);
+    });
+};
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT',  () => shutdown('SIGINT'));
 
 
 module.exports = { app, triggerResearchProtocol, prisma };

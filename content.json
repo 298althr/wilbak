@@ -1,0 +1,57 @@
+{
+  "project": "Wilbak Engineering",
+  "brand": "WILBAK ENGINEERING",
+  "content": {
+    "header": {
+      "nav": [
+        "Home",
+        "Projects",
+        "About",
+        "Ortho'M8",
+        "Contact",
+        "Results",
+        "News & Insights",
+        "Business Audit"
+      ]
+    },
+    "legal": {
+      "terms": { "heading": "Terms & Conditions" },
+      "privacy": { "heading": "Privacy Policy" },
+      "sla": { "heading": "Service Level Agreement" }
+    },
+    "hero": {
+      "protocol": "Operational Protocol: v3.1",
+      "heading": "ENGINEERING BUSINESS DATA.",
+      "body": "We eliminate the \"Chaos Tax\" on your business. High-performance infrastructure engineered for zero failure.",
+      "cta_primary": "Case Studies",
+      "cta_secondary": "How it Works"
+    },
+    "footer": {
+      "columns": [
+        {
+          "title": "Explore",
+          "links": [
+            { "label": "Projects", "target": "/projects/" },
+            { "label": "About", "target": "/about/" },
+            { "label": "Insights", "target": "/insight/" }
+          ]
+        },
+        {
+          "title": "Contact",
+          "links": [
+            { "label": "Get in Touch", "target": "/contact/" },
+            { "label": "Request Audit", "target": "/audit/" }
+          ]
+        },
+        {
+          "title": "Legal",
+          "links": [
+            { "label": "Terms & Conditions", "target": "/legal/terms/" },
+            { "label": "SLA", "target": "/legal/sla/" },
+            { "label": "Privacy Protocol", "target": "/legal/privacy/" }
+          ]
+        }
+      ]
+    }
+  }
+}

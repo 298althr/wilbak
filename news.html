@@ -349,8 +349,24 @@
         }
 
         /* Responsive */
+        @media (max-width: 1024px) {
+            .main-body-grid { grid-template-columns: 1fr 1fr !important; }
+            .logic-framework-grid { grid-template-columns: 1fr !important; }
+            .logic-framework-grid > div { border-right: none !important; border-bottom: 1px solid #c5d0e8; }
+            .logic-framework-grid > div:last-child { border-bottom: none; }
+        }
+
         @media (max-width: 768px) {
             .stat-block .stat-num { font-size: 36px; }
+            .main-body-grid { grid-template-columns: 1fr !important; }
+            .main-body-grid > div { border-right: none !important; border-bottom: 1px solid #c5d0e8; }
+            .main-body-grid > div:last-child { border-bottom: none; }
+            .masthead-inner { padding: 20px !important; }
+            .masthead-title { font-size: 28px !important; }
+            .cta-band { grid-template-columns: 1fr !important; text-align: center; gap: 24px !important; }
+            .cta-band button { width: 100%; }
+            .gallery-secondary { grid-template-columns: 1fr !important; }
+            .page-container { margin: 16px auto !important; }
         }
     </style>
 </head>
@@ -365,23 +381,24 @@
                     <img src="/logo.png" alt="WILBAK" style="height: 28px;">
                 </a>
                 <div style="width: 1px; height: 18px; background: #e2e8f0;"></div>
-                <div>
+                <div class="hidden sm:block">
                     <div class="mono" style="font-size: 9px; color: var(--accent); font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;">{{SECTOR}}</div>
                     <div class="mono" style="font-size: 8px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;">{{DATE}}</div>
                 </div>
             </div>
-            <a href="/#insights" style="display: flex; align-items: center; gap: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#2563eb'" onmouseout="this.style.color='#4b5a7a'">
+            <a href="/insight/index.html" style="display: flex; align-items: center; gap: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#2563eb'" onmouseout="this.style.color='#4b5a7a'">
                 <i class="fi fi-sr-arrow-left" style="font-size: 11px;"></i>
-                Back to Logic Ledger
+                <span class="hidden xs:inline">Back to Logic Ledger</span>
+                <span class="xs:hidden">Back</span>
             </a>
         </div>
     </nav>
 
     <!-- Page Container -->
-    <div style="max-width: 1100px; margin: 32px auto; background: white; border: 1px solid #c5d0e8; box-shadow: 4px 4px 0 #b8c4df, 8px 8px 0 #a8b6d4;">
+    <div class="page-container" style="max-width: 1100px; margin: 32px auto; background: white; border: 1px solid #c5d0e8; box-shadow: 4px 4px 0 #b8c4df, 8px 8px 0 #a8b6d4;">
 
         <!-- MASTHEAD -->
-        <div style="border-bottom: 4px double var(--ink); padding: 28px 40px 20px;">
+        <div class="masthead-inner" style="border-bottom: 4px double var(--ink); padding: 28px 40px 20px;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
                 <div class="mono" style="font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); line-height: 1.8;">
                     Intelligence Division &nbsp;·&nbsp; {{DATE}}
@@ -393,13 +410,13 @@
 
             <div style="text-align: center; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 16px 0 10px; margin: 10px 0;">
                 <span class="mono" style="font-family: 'Playfair Display', serif; font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px;">The Wilbak Intelligence Report</span>
-                <h1 class="serif" style="font-size: clamp(26px, 4vw, 46px); font-weight: 900; line-height: 1.1; color: var(--ink); max-width: 820px; margin: 10px auto 0;">{{TITLE}}</h1>
+                <h1 class="serif masthead-title" style="font-size: clamp(26px, 4vw, 46px); font-weight: 900; line-height: 1.1; color: var(--ink); max-width: 820px; margin: 10px auto 0;">{{TITLE}}</h1>
                 <p style="font-size: 15px; font-weight: 400; line-height: 1.6; color: #2a3550; margin-top: 14px; max-width: 680px; margin-left: auto; margin-right: auto;">{{INSIGHT}}</p>
             </div>
 
             <!-- Vote + Share row -->
             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; flex-wrap: wrap; gap: 12px;">
-                <div style="display: flex; gap: 10px; align-items: center;">
+                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
                     <!-- LIKE button -->
                     <button
                         class="vote-btn"
@@ -442,7 +459,7 @@
                     <img :src="images[0]" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <template x-if="images.length > 1">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #c5d0e8;">
+                    <div class="gallery-secondary" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #c5d0e8;">
                         <template x-for="img in images.slice(1, 3)">
                             <div style="aspect-ratio: 16/7; overflow: hidden; background: white;">
                                 <img :src="img" style="width: 100%; height: 100%; object-fit: cover;">
@@ -454,7 +471,7 @@
         </template>
 
         <!-- MAIN BODY: 3-column at desktop -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid #c5d0e8;">
+        <div class="main-body-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid #c5d0e8;">
 
             <!-- Col 1: Market Event -->
             <div style="padding: 28px; border-right: 1px solid #c5d0e8;">
@@ -505,7 +522,7 @@
 
         <!-- LOGIC FRAMEWORK: full width 2-col split -->
         <template x-if="logicFramework && (logicFramework.problemStructure || logicFramework.transformationModel)">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid #c5d0e8;">
+            <div class="logic-framework-grid" style="display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid #c5d0e8;">
 
                 <!-- Problem Structure -->
                 <div style="padding: 28px; border-right: 1px solid #c5d0e8;" x-show="logicFramework.problemStructure">
@@ -570,7 +587,7 @@
         </div>
 
         <!-- CTA BAND -->
-        <div style="background: #2563eb; padding: 40px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 32px;">
+        <div class="cta-band" style="background: #2563eb; padding: 40px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 32px;">
             <div>
                 <div class="mono" style="font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 8px;">Wilbak Engineering</div>
                 <h3 class="serif" style="font-size: 28px; font-weight: 900; color: white; line-height: 1.1; margin: 0 0 10px;">Maximize Your Operational Output</h3>

@@ -1,0 +1,125 @@
+{
+  "page": "orthom8-contact",
+  "translations": {
+    "en": {
+      "title": "Contact — Ortho'M8 Tactical Response",
+      "meta": {
+        "description": "Get in direct contact with the Ortho'M8 team for technical inquiries, operational support, and institutional consultation."
+      },
+      "hero": {
+        "eyebrow": "Tactical Response Terminal",
+        "heading": "Direct <em>Technical</em> <br>Consultation.",
+        "contact_cards": [
+          {
+            "category": "Global Operations",
+            "title": "Institutional Support",
+            "contact": "support@orthom8.com",
+            "type": "email"
+          },
+          {
+            "category": "Technical Board",
+            "title": "Direct Line",
+            "contact": "+1 (800) O-R-T-H-O-M-8",
+            "type": "phone"
+          },
+          {
+            "category": "Global Liaison",
+            "title": "Office Locations",
+            "contact": "New York City — Johannesburg — London — Hong Kong",
+            "type": "locations"
+          }
+        ]
+      }
+    },
+    "es": {
+      "title": "Contacto — Respuesta Táctica Ortho'M8",
+      "meta": {
+        "description": "Póngase en contacto directo con el equipo Ortho'M8 para consultas técnicas, soporte operativo y consulta institucional."
+      },
+      "hero": {
+        "eyebrow": "Terminal de Respuesta Táctica",
+        "heading": "Consultación <em>Técnica</em> <br>Directa.",
+        "contact_cards": [
+          {
+            "category": "Operaciones Globales",
+            "title": "Soporte Institucional",
+            "contact": "support@orthom8.com",
+            "type": "email"
+          },
+          {
+            "category": "Junta Técnica",
+            "title": "Línea Directa",
+            "contact": "+1 (800) O-R-T-H-O-M-8",
+            "type": "phone"
+          },
+          {
+            "category": "Enlace Global",
+            "title": "Ubicaciones de Oficina",
+            "contact": "Nueva York — Johannesburgo — Londres — Hong Kong",
+            "type": "locations"
+          }
+        ]
+      }
+    },
+    "nl": {
+      "title": "Contact — Ortho'M8 Tactische Respons",
+      "meta": {
+        "description": "Neem direct contact op met het Ortho'M8 team voor technische vragen, operationele ondersteuning en institutionele consultatie."
+      },
+      "hero": {
+        "eyebrow": "Tactische Respons Terminal",
+        "heading": "Directe <em>Technische</em> <br>Consultatie.",
+        "contact_cards": [
+          {
+            "category": "Globale Operaties",
+            "title": "Institutionele Ondersteuning",
+            "contact": "support@orthom8.com",
+            "type": "email"
+          },
+          {
+            "category": "Technisch Bestuur",
+            "title": "Directe Lijn",
+            "contact": "+1 (800) O-R-T-H-O-M-8",
+            "type": "phone"
+          },
+          {
+            "category": "Globale Liaison",
+            "title": "Kantoor Locaties",
+            "contact": "New York — Johannesburg — Londen — Hong Kong",
+            "type": "locations"
+          }
+        ]
+      }
+    },
+    "fr": {
+      "title": "Contact — Réponse Tactique Ortho'M8",
+      "meta": {
+        "description": "Contactez directement l'équipe Ortho'M8 pour les demandes techniques, le support opérationnel et la consultation institutionnelle."
+      },
+      "hero": {
+        "eyebrow": "Terminal de Réponse Tactique",
+        "heading": "Consultation <em>Technique</em> <br>Directe.",
+        "contact_cards": [
+          {
+            "category": "Opérations Mondiales",
+            "title": "Support Institutionnel",
+            "contact": "support@orthom8.com",
+            "type": "email"
+          },
+          {
+            "category": "Conseil Technique",
+            "title": "Ligne Directe",
+            "contact": "+1 (800) O-R-T-H-O-M-8",
+            "type": "phone"
+          },
+          {
+            "category": "Liaison Mondiale",
+            "title": "Emplacements des Bureaux",
+            "contact": "New York — Johannesburg — Londres — Hong Kong",
+            "type": "locations"
+          }
+        ]
+      }
+    }
+  }
+}

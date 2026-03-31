@@ -1,0 +1,53 @@
+{
+  "project": "Wilbak Engineering",
+  "brand": "Ortho'M8",
+  "page": "审计协议",
+  "content": {
+    "welcome_gate": "正在初始化审计协议…",
+    "hero": {
+      "eyebrow": "审计协议",
+      "heading": "初始化您的机构审计。"
+    },
+    "steps": {
+      "step_1": {
+        "label": "01 — 选择行业级别",
+        "options": [
+          ["零售层级", "供应与电子商务"],
+          ["服务层级", "托管服务"],
+          ["工程层级", "工业大修"],
+          ["资产层级", "房地产与金融"]
+        ]
+      },
+      "step_2": {
+        "label": "02 — 校准说明",
+        "placeholder": "描述当前的操作摩擦...",
+        "back": "返回",
+        "confirm": "确认映射"
+      },
+      "step_3": {
+        "label": "03 — 主委托人标识符",
+        "placeholders": {
+          "name": "法定全名",
+          "email": "机构邮箱"
+        },
+        "back": "返回",
+        "confirm": "身份验证"
+      },
+      "step_4": {
+        "label": "04 — 安全关联",
+        "placeholder": "直接电话号码",
+        "back": "返回",
+        "submit": "初始化传输"
+      }
+    },
+    "success": {
+      "heading": "传输完成。",
+      "body": "您的机构审计逻辑已安全传输。一位 principal 将很快与您联系。",
+      "cta": "返回基地"
+    },
+    "sidebar": {
+      "proto_id": "PROTO ID: OM8-AUD-V4",
+      "precision": "95.0% 节点精度。"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "project": "Wilbak Engineering",
+  "brand": "WILBAK ENGINEERING",
+  "content": {
+    "header": {
+      "nav": [
+        "Inicio",
+        "Proyectos",
+        "Acerca de",
+        "Ortho'M8",
+        "Contacto",
+        "Noticias y Perspectivas",
+        "Auditoría Empresarial"
+      ]
+    },
+    "hero": {
+      "protocol": "Protocolo Operativo: v3.1",
+      "heading": "INGENIERÍA DE DATOS EMPRESARIALES.",
+      "body": "Eliminamos el \"Impuesto al Caos\" en su negocio. Infraestructura de alto rendimiento diseñada para cero fallos.",
+      "cta_primary": "Casos de Estudio",
+      "cta_secondary": "Cómo Funciona"
+    },
+    "footer": {
+      "columns": [
+        {
+          "title": "Explorar",
+          "links": [
+            { "label": "Proyectos", "target": "/projects/" },
+            { "label": "Acerca de", "target": "/about/" },
+            { "label": "Perspectivas", "target": "/insight/" }
+          ]
+        },
+        {
+          "title": "Contacto",
+          "links": [
+            { "label": "Póngase en contacto", "target": "/contact/" },
+            { "label": "Solicitar auditoría", "target": "/audit/" }
+          ]
+        },
+        {
+          "title": "Legal",
+          "links": [
+            { "label": "Términos y condiciones", "target": "/legal/terms/" },
+            { "label": "SLA", "target": "/legal/sla/" },
+            { "label": "Protocolo de privacidad", "target": "/legal/privacy/" }
+          ]
+        }
+      ]
+    }
+  }
+}

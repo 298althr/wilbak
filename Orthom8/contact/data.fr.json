@@ -1,0 +1,10 @@
+{
+  "content": {
+    "hero": { "eyebrow": "Terminal de Réponse Tactique" },
+    "cards": [
+      { "category": "Opérations Mondiales", "title": "Support Institutionnel",   "contact": "support@orthom8.com" },
+      { "category": "Conseil Technique",    "title": "Ligne Directe",            "contact": "+1 (800) O-R-T-H-O-M-8" },
+      { "category": "Liaison Mondiale",     "title": "Emplacements des Bureaux", "contact": "New York — Johannesburg — Londres — Hong Kong" }
+    ]
+  }
+}

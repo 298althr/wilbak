@@ -1,0 +1,73 @@
+period,regime,precision_pct,production_costs,yield_pct,balance
+2020-01,Bull Momentum Surge,94.97,45678.23,2.67,24566.83
+2020-02,Low Volatility Accumulation,95.01,46892.45,3.71,25489.09
+2020-03,Market Correction,94.03,48765.30,1.38,25875.89
+2020-04,Market Correction,96.71,49890.55,2.24,26494.32
+2020-05,Bull Momentum Surge,95.57,51233.97,1.99,27061.78
+2020-06,Low Volatility Accumulation,95.69,52812.23,0.30,27188.75
+2020-07,Bull Momentum Surge,94.62,51956.89,0.92,27408.95
+2020-08,Bull Momentum Surge,96.92,58544.23,1.10,27733.82
+2020-09,Bull Momentum Surge,96.19,59089.77,3.06,28573.01
+2020-10,Bull Momentum Surge,97.32,67531.45,-8.70,26032.59
+2020-11,Low Volatility Accumulation,96.69,68850.23,3.17,26882.80
+2020-12,Bull Momentum Surge,95.59,75637.45,1.89,27468.66
+2021-01,Low Volatility Accumulation,97.15,74882.34,0.15,27569.23
+2021-02,Bull Momentum Surge,95.49,87681.12,1.60,27954.98
+2021-03,Bull Momentum Surge,95.52,88995.45,0.18,28018.19
+2021-04,Range-Bound Consolidation,94.03,97510.78,0.49,28143.38
+2021-05,Bull Momentum Surge,95.28,97535.67,0.24,28263.65
+2021-06,Bull Momentum Surge,96.24,100003.45,3.76,29199.46
+2021-07,Bull Momentum Surge,95.01,112039.89,1.16,29594.62
+2021-08,Low Volatility Accumulation,94.67,125940.34,1.22,29999.49
+2021-09,Low Volatility Accumulation,94.36,132711.78,3.41,31042.79
+2021-10,Low Volatility Accumulation,96.56,136878.45,-6.15,29083.78
+2021-11,Low Volatility Accumulation,94.69,153920.67,2.17,29740.24
+2021-12,Bull Momentum Surge,94.03,156875.89,0.09,29870.64
+2022-01,Bull Momentum Surge,96.05,175704.45,1.06,30139.36
+2022-02,Bull Momentum Surge,96.35,216203.78,2.53,30867.51
+2022-03,Bull Momentum Surge,97.24,216992.34,3.01,31844.86
+2022-04,Bull Momentum Surge,97.37,256527.89,2.10,32323.53
+2022-05,Range-Bound Consolidation,96.90,267533.45,-8.65,29595.70
+2022-06,Range-Bound Consolidation,94.83,258042.34,1.50,30048.81
+2022-07,Range-Bound Consolidation,94.63,261876.23,3.61,31091.87
+2022-08,Bull Momentum Surge,95.92,264665.78,4.27,32388.76
+2022-09,Low Volatility Accumulation,95.92,266080.67,1.71,32920.89
+2022-10,Low Volatility Accumulation,97.10,293210.45,3.48,34113.07
+2022-11,Low Volatility Accumulation,95.69,316959.89,1.74,34778.63
+2022-12,Bull Momentum Surge,97.21,330045.67,3.42,35940.59
+2023-01,Low Volatility Accumulation,95.63,402720.34,-9.28,32662.77
+2023-02,Bull Momentum Surge,97.41,389285.45,2.60,33404.28
+2023-03,Bull Momentum Surge,97.44,480322.78,-7.05,31075.75
+2023-04,Range-Bound Consolidation,96.57,479739.23,2.24,31632.00
+2023-05,Bull Momentum Surge,95.07,487591.45,2.70,32614.75
+2023-06,Bull Momentum Surge,96.63,548717.89,2.54,33474.46
+2023-07,Range-Bound Consolidation,94.58,618440.78,2.72,34233.26
+2023-08,Bull Momentum Surge,94.06,599325.67,4.13,35776.13
+2023-09,Bull Momentum Surge,97.33,631946.78,0.95,36164.14
+2023-10,Bull Momentum Surge,94.26,713181.34,2.37,37011.39
+2023-11,Low Volatility Accumulation,97.28,727624.67,2.20,37941.16
+2023-12,Bull Momentum Surge,96.99,840755.78,3.70,39379.40
+2024-01,Low Volatility Accumulation,94.34,901644.45,-0.16,39376.83
+2024-02,Bull Momentum Surge,95.03,938535.67,5.99,41871.42
+2024-03,Low Volatility Accumulation,96.32,954754.89,6.62,44529.80
+2024-04,Range-Bound Consolidation,94.58,1157420.78,6.54,47345.89
+2024-05,Range-Bound Consolidation,95.33,1020391.45,6.42,50388.14
+2024-06,Low Volatility Accumulation,96.18,1070098.23,6.21,53530.20
+2024-07,Low Volatility Accumulation,96.83,1087679.67,5.46,56463.19
+2024-08,Low Volatility Accumulation,97.17,1236000.78,3.65,58563.73
+2024-09,Bull Momentum Surge,95.27,1266199.23,4.28,60985.59
+2024-10,Low Volatility Accumulation,96.50,1490586.45,6.75,65035.46
+2024-11,Bull Momentum Surge,96.70,1431578.34,3.32,67045.08
+2024-12,Bull Momentum Surge,94.71,1580922.67,4.44,69915.99
+2025-01,Low Volatility Accumulation,94.94,1890912.34,6.42,74371.54
+2025-02,Low Volatility Accumulation,95.09,1823324.45,-1.73,73126.53
+2025-03,Low Volatility Accumulation,94.50,1968512.23,3.67,75739.81
+2025-04,Supply Chain Disruption,95.93,2253162.34,-4.85,72101.68
+2025-05,Supply Chain Disruption,95.16,1955722.78,-4.61,68970.37
+2025-06,Supply Chain Disruption,95.99,2219767.89,-4.52,65713.95
+2025-07,Market Recovery,94.29,2448118.67,4.67,68721.48
+2025-08,Market Recovery,96.21,2719630.45,3.98,71558.83
+2025-09,Market Recovery,97.34,2949335.78,4.91,75034.12
+2025-10,Market Recovery,97.07,2963296.67,6.20,79638.33
+2025-11,Market Recovery,96.32,3435108.89,-41.07,46995.38
+2025-12,Year-End Rally,96.77,3322130.67,-13.00,40801.08

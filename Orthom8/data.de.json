@@ -1,0 +1,54 @@
+{
+  "content": {
+    "hero": {
+      "eyebrow": "Institutionelle Intelligenz — v3.4.0",
+      "body": "Ortho'M8 ist die erste algorithmische Kapitalmanagement-Engine, die Risiko als Variable behandelt. Sichern Sie nicht-risikofähiges Kapital mit 99,9% Präzision.",
+      "primary_cta": "PRIVATES AUDIT STARTEN",
+      "secondary_cta": "Modell-Matrix erkunden →",
+      "stats": [
+        { "label": "Eingesetztes Kapital" },
+        { "label": "Präzisionsschwelle" }
+      ]
+    },
+    "security_engine": {
+      "title": "SICHERHEITS_ENGINE_AKTIV",
+      "status": "GESICHERT",
+      "nodes": [
+        { "label": "Neutrale Fluss-Aufnahme" },
+        { "label": "Order-Block-Identifikation" },
+        { "label": "Institutionelle Liquiditätsprüfung" },
+        { "label": "Liquiditätspool-Mapping" },
+        { "label": "STRATEGISCHER TRIGGER VALIDIERT" },
+        { "label": "Kapital-Drawdown-Prüfung" },
+        { "label": "Risiko-Abschalt-Schwellenpuls" },
+        { "label": "PROTOKOLLAUSFÜHRUNG GESICHERT" }
+      ],
+      "metrics": [
+        { "label": "Latenz",        "value": "320ms"     },
+        { "label": "KI-Schutz",    "value": "AKTIVIERT"  },
+        { "label": "Zuverlässigkeit", "value": "99,9%"  }
+      ]
+    },
+    "performance": {
+      "eyebrow": "Die Leistungskennzahl",
+      "cards": [
+        { "category": "DOMÄNENANALYSE",   "title": "Kapitalsicherheitsmatrix",    "description": "Unser System analysiert täglich über 40 Millionen Datenpunkte, um sicherzustellen, dass jeder Kapitalanker durch 11 unabhängige Risikotore geschützt ist." },
+        { "category": "RISIKOKONTROLLEN", "title": "Leckfreie Logik",              "description": "Fest codierte Stop-Parameter stellen sicher, dass menschliche Emotionen niemals in die Ausführungspipeline gelangen. Wenn die Daten um 0,01% abweichen, bleiben wir draußen." },
+        { "category": "GLOBALE REICHWEITE","title": "Domänenkorrelation",          "description": "Die Abbildung synthetischer Volatilität auf reale Rohstoff-Proxys gibt uns einen strategischen Vorteil, den traditionelle Systeme einfach nicht sehen können." }
+      ]
+    },
+    "results": {
+      "eyebrow": "Echtzeitbelege",
+      "body": "Wir bieten vollständige Transparenz über unsere Performance. Keine versteckten Gebühren, keine undurchsichtigen Strategien. Nur dokumentierte, von Drittprüfern verifizierte Ergebnisse.",
+      "cta": "Vollständigen Prüfbericht ansehen"
+    },
+    "proof_ribbon": {
+      "text": "Gesichert durch OrthoG8-Protokoll",
+      "verification": "95,0% Knotenpräzision verifiziert"
+    },
+    "final_cta": {
+      "primary": "MEIN AUDIT STARTEN",
+      "secondary": "Mit unseren Experten beraten"
+    }
+  }
+}

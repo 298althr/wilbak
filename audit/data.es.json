@@ -1,0 +1,53 @@
+{
+  "project": "Wilbak Engineering",
+  "brand": "Ortho'M8",
+  "page": "Protocolo de Auditoría",
+  "content": {
+    "welcome_gate": "Inicializando protocolo de auditoría…",
+    "hero": {
+      "eyebrow": "Protocolo de Auditoría",
+      "heading": "Inicie su Auditoría Institucional."
+    },
+    "steps": {
+      "step_1": {
+        "label": "01 — SELECCIONAR NIVEL DE SECTOR",
+        "options": [
+          ["Nivel Minorista", "Suministro y E-comm"],
+          ["Nivel de Servicio", "Servicios Gestionados"],
+          ["Nivel de Ingeniería", "Revisión Industrial"],
+          ["Nivel de Activos", "Bienes Raíces y Finanzas"]
+        ]
+      },
+      "step_2": {
+        "label": "02 — NOTAS DE CALIBRACIÓN",
+        "placeholder": "DESCRIBIR LA FRICCIÓN OPERATIVA ACTUAL...",
+        "back": "ATRÁS",
+        "confirm": "CONFIRMAR MAPEO"
+      },
+      "step_3": {
+        "label": "03 — IDENTIFICADOR PRINCIPAL",
+        "placeholders": {
+          "name": "NOMBRE LEGAL COMPLETO",
+          "email": "CORREO INSTITUCIONAL"
+        },
+        "back": "ATRÁS",
+        "confirm": "AUTENTICAR"
+      },
+      "step_4": {
+        "label": "04 — ENLACE SEGURO",
+        "placeholder": "NÚMERO DE TELÉFONO DIRECTO",
+        "back": "ATRÁS",
+        "submit": "INICIALIZAR TRANSMISIÓN"
+      }
+    },
+    "success": {
+      "heading": "Transmisión Completa.",
+      "body": "Su lógica de auditoría institucional ha sido transmitida de forma segura. Un responsable le contactará en breve.",
+      "cta": "Regresar a la Base"
+    },
+    "sidebar": {
+      "proto_id": "PROTO ID: OM8-AUD-V4",
+      "precision": "95.0% de Precisión de Nodo."
+    }
+  }
+}

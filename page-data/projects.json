@@ -1,0 +1,270 @@
+{
+  "page": "projects",
+  "translations": {
+    "en": {
+      "title": "Projects | Wilbak Engineering",
+      "meta": {
+        "description": "A record of infrastructure and management systems built under pressure globally."
+      },
+      "hero": {
+        "heading": "Our <br><span class='text-blue-500'>Projects.</span>",
+        "subtitle": "[ Operational History: 2016 — 2026 ]",
+        "body": "A record of infrastructure and management systems built under pressure globally."
+      },
+      "projects": [
+        {
+          "year": "2023",
+          "location": "Oslo, Norway",
+          "title": "NORWAY COMMERCIAL BANK",
+          "description": "High-availability data center integrated directly into a wind farm's power grid.",
+          "category": "RENEWABLE INTEGRATION"
+        },
+        {
+          "year": "2020",
+          "location": "Anchorage, Alaska",
+          "title": "ARCTIC OVERHAUL",
+          "description": "Full data center overhaul during 2020 pandemic isolation protocols.",
+          "category": "HIGH-STAKES"
+        },
+        {
+          "year": "2022",
+          "location": "Doha, Qatar",
+          "title": "DOHA MARITIME CENTER",
+          "description": "Coastal mini-facility for World Cup data processing with seawater cooling.",
+          "category": null
+        },
+        {
+          "year": "2018",
+          "location": "Toyota HQ",
+          "title": "TOYOTA DATA PLANT",
+          "description": "Managing hyper-redundant power systems for manufacturing assembly continuity.",
+          "category": null
+        }
+      ],
+      "navigation": {
+        "home": "Home",
+        "projects": "Projects",
+        "about": "About",
+        "orthomate": "OrthoMate™",
+        "contact": "Contact",
+        "insights": "News & Insights",
+        "audit": "Business Audit"
+      },
+      "footer": {
+        "copyright": "© 2026 Wilbak Engineering Group // Built for Unbreakable Performance"
+      }
+    },
+    "es": {
+      "title": "Proyectos | Wilbak Engineering",
+      "meta": {
+        "description": "Un registro de infraestructura y sistemas de gestión construidos bajo presión globalmente."
+      },
+      "hero": {
+        "heading": "Nuestros <br><span class='text-blue-500'>Proyectos.</span>",
+        "subtitle": "[ Historial Operacional: 2016 — 2026 ]",
+        "body": "Un registro de infraestructura y sistemas de gestión construidos bajo presión globalmente."
+      },
+      "projects": [
+        {
+          "year": "2023",
+          "location": "Oslo, Noruega",
+          "title": "BANCO COMERCIAL DE NORUEGA",
+          "description": "Centro de datos de alta disponibilidad integrado directamente en la red eléctrica de un parque eólico.",
+          "category": "INTEGRACIÓN RENOVABLE"
+        },
+        {
+          "year": "2020",
+          "location": "Anchorage, Alaska",
+          "title": "REVISIÓN ÁRTICA",
+          "description": "Revisión completa del centro de datos durante los protocolos de aislamiento por pandemia de 2020.",
+          "category": "ALTO RIESGO"
+        },
+        {
+          "year": "2022",
+          "location": "Doha, Qatar",
+          "title": "CENTRO MARÍTIMO DE DOHA",
+          "description": "Mini-instalación costera para procesamiento de datos del Mundial con enfriamiento por agua de mar.",
+          "category": null
+        },
+        {
+          "year": "2018",
+          "location": "Sede de Toyota",
+          "title": "PLANTA DE DATOS TOYOTA",
+          "description": "Gestionando sistemas de energía hiper redundantes para la continuidad del ensamblaje de fabricación.",
+          "category": null
+        }
+      ],
+      "navigation": {
+        "home": "Inicio",
+        "projects": "Proyectos",
+        "about": "Acerca de",
+        "orthomate": "OrthoMate™",
+        "contact": "Contacto",
+        "insights": "Noticias y Perspectivas",
+        "audit": "Auditoría Empresarial"
+      },
+      "footer": {
+        "copyright": "© 2026 Wilbak Engineering Group // Construido para Rendimiento Inquebrantable"
+      }
+    },
+    "zh": {
+      "title": "项目 | 维尔巴克工程",
+      "meta": {
+        "description": "全球压力下构建的基础设施和管理系统的记录。"
+      },
+      "hero": {
+        "heading": "我们的<br><span class='text-blue-500'>项目。</span>",
+        "subtitle": "[ 运营历史：2016 — 2026 ]",
+        "body": "全球压力下构建的基础设施和管理系统的记录。"
+      },
+      "projects": [
+        {
+          "year": "2023",
+          "location": "挪威奥斯陆",
+          "title": "挪威商业银行",
+          "description": "直接集成到风电场电网的高可用性数据中心。",
+          "category": "可再生能源集成"
+        },
+        {
+          "year": "2020",
+          "location": "阿拉斯加安克雷奇",
+          "title": "北极大修",
+          "description": "2020年大流行隔离期间的数据中心全面大修。",
+          "category": "高风险"
+        },
+        {
+          "year": "2022",
+          "location": "卡塔尔多哈",
+          "title": "多哈海事中心",
+          "description": "用于世界杯数据处理的海水冷却沿海迷你设施。",
+          "category": null
+        },
+        {
+          "year": "2018",
+          "location": "丰田总部",
+          "title": "丰田数据工厂",
+          "description": "管理制造装配连续性的超冗余电源系统。",
+          "category": null
+        }
+      ],
+      "navigation": {
+        "home": "首页",
+        "projects": "项目",
+        "about": "关于",
+        "orthomate": "OrthoMate™",
+        "contact": "联系",
+        "insights": "新闻与观点",
+        "audit": "业务审计"
+      },
+      "footer": {
+        "copyright": "© 2026 维尔巴克工程集团 // 为不可破坏的性能而构建"
+      }
+    },
+    "nl": {
+      "title": "Projecten | Wilbak Engineering",
+      "meta": {
+        "description": "Een record van infrastructuur en beheersystemen gebouwd onder druk wereldwijd."
+      },
+      "hero": {
+        "heading": "Onze <br><span class='text-blue-500'>Projecten.</span>",
+        "subtitle": "[ Operationele Geschiedenis: 2016 — 2026 ]",
+        "body": "Een record van infrastructuur en beheersystemen gebouwd onder druk wereldwijd."
+      },
+      "projects": [
+        {
+          "year": "2023",
+          "location": "Oslo, Noorwegen",
+          "title": "NORWEGEN COMMERCIELE BANK",
+          "description": "Datacenter met hoge beschikbaarheid direct geïntegreerd in het elektriciteitsnet van een windmolenpark.",
+          "category": "HERNIEUWBARE INTEGRATIE"
+        },
+        {
+          "year": "2020",
+          "location": "Anchorage, Alaska",
+          "title": "ARCTISCHE OVERNAME",
+          "description": "Volledige datacenter overname tijdens 2020 pandemie isolatie protocollen.",
+          "category": "HOOG RISICO"
+        },
+        {
+          "year": "2022",
+          "location": "Doha, Qatar",
+          "title": "DOHA MARITIEM CENTRUM",
+          "description": "Kust mini-faciliteit voor Wereldbeker data verwerking met zeewater koeling.",
+          "category": null
+        },
+        {
+          "year": "2018",
+          "location": "Toyota HQ",
+          "title": "TOYOTA DATA PLANT",
+          "description": "Beheren van hyper-redundante stroomsystemen voor productie assemblage continuïteit.",
+          "category": null
+        }
+      ],
+      "navigation": {
+        "home": "Home",
+        "projects": "Projecten",
+        "about": "Over Ons",
+        "orthomate": "OrthoMate™",
+        "contact": "Contact",
+        "insights": "Nieuws & Inzichten",
+        "audit": "Bedrijfsaudit"
+      },
+      "footer": {
+        "copyright": "© 2026 Wilbak Engineering Group // Gebouwd voor Onbreekbare Prestaties"
+      }
+    },
+    "fr": {
+      "title": "Projets | Wilbak Engineering",
+      "meta": {
+        "description": "Un enregistrement d'infrastructure et de systèmes de gestion construits sous pression mondiale."
+      },
+      "hero": {
+        "heading": "Nos <br><span class='text-blue-500'>Projets.</span>",
+        "subtitle": "[ Historique Opérationnel: 2016 — 2026 ]",
+        "body": "Un enregistrement d'infrastructure et de systèmes de gestion construits sous pression mondiale."
+      },
+      "projects": [
+        {
+          "year": "2023",
+          "location": "Oslo, Norvège",
+          "title": "BANQUE COMMERCIALE DE NORVÈGE",
+          "description": "Centre de données haute disponibilité intégré directement au réseau électrique d'un parc éolien.",
+          "category": "INTÉGRATION RENOUVELABLE"
+        },
+        {
+          "year": "2020",
+          "location": "Anchorage, Alaska",
+          "title": "RÉVOLUTION ARCTIQUE",
+          "description": "Révolution complète du centre de données pendant les protocoles d'isolement de la pandémie de 2020.",
+          "category": "HAUTS ENJEUX"
+        },
+        {
+          "year": "2022",
+          "location": "Doha, Qatar",
+          "title": "CENTRE MARITIME DE DOHA",
+          "description": "Mini-installation côtière pour le traitement des données de la Coupe du Monde avec refroidissement par eau de mer.",
+          "category": null
+        },
+        {
+          "year": "2018",
+          "location": "Siège Toyota",
+          "title": "USINE DE DONNÉES TOYOTA",
+          "description": "Gestion de systèmes d'énergie hyper-redondants pour la continuité d'assemblage de fabrication.",
+          "category": null
+        }
+      ],
+      "navigation": {
+        "home": "Accueil",
+        "projects": "Projets",
+        "about": "À Propos",
+        "orthomate": "OrthoMate™",
+        "contact": "Contact",
+        "insights": "Actualités & Aperçus",
+        "audit": "Audit d'Entreprise"
+      },
+      "footer": {
+        "copyright": "© 2026 Wilbak Engineering Group // Construit pour des Performances Incassables"
+      }
+    }
+  }
+}

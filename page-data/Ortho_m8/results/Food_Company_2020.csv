@@ -1,0 +1,13 @@
+Date,Starting_Capital_USD,Monthly_Return_Pct,Monthly_Return_USD,Running_Cost_USD,Net_Monthly_Return_USD,Ending_Capital_USD,Drawdown_Pct,Win_Rate_Pct,Total_Trades,Volatility_Index,Market_Event,Break_Even_Status,Risk_Tolerance_Hit
+2020-01-01,67000.00,9.26,6202.59,1675.00,4527.59,71527.59,0.00,63.9,38,46.5,COVID-19 Market Crash,Above Break-Even,No
+2020-02-01,71527.59,17.76,12703.89,1675.00,11028.89,82556.48,0.00,75.0,42,40.6,Global Lockdown,Above Break-Even,No
+2020-03-01,82556.48,-4.11,-3389.60,1675.00,-5064.60,77491.89,6.13,43.8,34,90.9,Supply Chain Disruption,Below Break-Even,No
+2020-04-01,77491.89,8.73,6761.53,1675.00,5086.53,82578.42,0.00,63.1,19,48.5,Stimulus Announcement,Above Break-Even,No
+2020-05-01,82578.42,14.51,11981.41,1675.00,10306.41,92884.83,0.00,71.8,76,48.8,Auto Dealers Reopen,Above Break-Even,No
+2020-06-01,92884.83,-9.62,-8935.39,1675.00,-10610.39,82274.44,11.42,35.6,38,27.7,Summer Sales Boost,Below Break-Even,No
+2020-07-01,82274.44,14.05,11556.80,1675.00,9881.80,92156.24,0.78,71.1,73,78.1,Travel Restrictions Ease,Above Break-Even,No
+2020-08-01,92156.24,14.54,13396.02,1675.00,11721.02,103877.26,0.00,71.8,16,63.3,Demand Recovery,Above Break-Even,No
+2020-09-01,103877.26,6.45,6704.75,1675.00,5029.75,108907.01,0.00,59.7,71,75.5,Fall Season Start,Above Break-Even,No
+2020-10-01,108907.01,33.03,35976.64,1675.00,34301.64,143208.65,0.00,75.0,45,35.2,Year-End Models,Above Break-Even,No
+2020-11-01,143208.65,1.14,1636.45,1675.00,-38.55,143170.10,0.03,51.7,51,52.6,Holiday Season Start,Below Break-Even,No
+2020-12-01,143170.10,13.80,19754.58,1675.00,18079.58,161249.68,0.00,70.7,48,41.2,Year-End Rush,Above Break-Even,No

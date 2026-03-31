@@ -1,0 +1,27 @@
+{
+  "content": {
+    "mission": {
+      "eyebrow": "我们的使命",
+      "heading": "为<em>信任</em>而生。<br>由<strong>智能</strong>驱动。",
+      "body": "Ortho'M8 建立在一个简单的原则之上：高性能交易应由逻辑而非情感主导。我们弥合了技术复杂性与透明执行之间的鸿沟。"
+    },
+    "leadership": {
+      "eyebrow": "领导架构",
+      "heading": "<em>愿景</em>驱动<br><strong>执行</strong>。",
+      "body": "我们的领导团队融合了数十年在量化金融、网络安全和神经网络建模领域的经验。我们致力于构建能够抵御任何市场状况的系统。",
+      "team_members": [
+        { "name": "Thomas Ziegler",   "title": "算法策略总监"   },
+        { "name": "Wilhelm Rybak",    "title": "数据工程负责人" },
+        { "name": "Brokard Williams", "title": "策略与模型工程师" },
+        { "name": "Ava Koners",       "title": "量化研究总监"   }
+      ],
+      "quote": "Ortho'M8 是我们信念的结晶，即数据在得到妥善把控时，是任何市场中最强大的资产。"
+    },
+    "cta": {
+      "heading": "加入资本的<em>未来</em>。",
+      "body": "预约与我们的团队进行私人咨询，探讨 Ortho'M8 如何保护并增长您的资本锚点。",
+      "primary": "预约咨询",
+      "secondary": "联系我们的办公室"
+    }
+  }
+}

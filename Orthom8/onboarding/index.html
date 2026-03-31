@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get Protected | Ortho'M8 — Start Your Free Capital Audit</title>
+  <meta name="description" content="Tell us about your business and we'll show you exactly how Ortho'M8 protects your capital — free, no obligation, no jargon.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/Orthom8pro/shared-nav.css">
+  <link rel="stylesheet" href="/Orthom8pro/page-template.css">
+  <script src="/Orthom8pro/shared-nav.js"></script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { overflow-x: hidden; }
+
+    /* ── Page layout ── */
+    .onboarding-shell {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: clamp(7rem, 14vw, 10rem) clamp(1rem, 5vw, 2rem) clamp(4rem, 10vw, 7rem);
+    }
+
+    /* ── Hero text ── */
+    .ob-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--brand-cobalt);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .ob-eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--brand-cobalt);
+    }
+    .ob-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      color: var(--tx-main);
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .ob-heading em { font-style: italic; color: var(--brand-gold-light, #D4AC3A); }
+    .ob-subtext {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(14px, 2vw, 16px);
+      color: var(--tx-sub);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── Progress bar ── */
+    .progress-track {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 2.5rem;
+    }
+    .progress-seg {
+      height: 3px;
+      flex: 1;
+      background: var(--brand-rule-strong);
+      transition: background 0.3s ease;
+    }
+    .progress-seg.done { background: var(--brand-cobalt); }
+    .progress-seg.active { background: var(--brand-gold-light, #D4AC3A); }
+
+    /* ── Step label ── */
+    .step-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--tx-muted);
+      margin-bottom: 1rem;
+    }
+    .step-question {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      font-weight: 600;
+      color: var(--tx-main);
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+    .step-hint {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      color: var(--tx-muted);
+      margin-bottom: 1.75rem;
+    }
+
+    /* ── Tile grid ── */
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 480px) {
+      .tile-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .ob-tile {
+      border: 1px solid var(--brand-rule-strong);
+      background: transparent;
+      padding: 1rem 1.1rem;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      position: relative;
+    }
+    .ob-tile:hover {
+      border-color: var(--brand-cobalt);
+    }
+    .ob-tile.selected {
+      border-color: var(--brand-cobalt);
+      background: rgba(26, 86, 255, 0.08);
+    }
+    .ob-tile.selected::after {
+      content: '✓';
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      font-size: 11px;
+      color: var(--brand-cobalt);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    .tile-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      line-height: 1;
+    }
+    .tile-label {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tx-main);
+      line-height: 1.3;
+    }
+    .tile-sub {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--tx-muted);
+      margin-top: 0.25rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Capital range tiles (full width) ── */
+    .capital-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+    }
+    .capital-tile {
+      border: 1px solid var(--brand-rule-strong);
+      background: transparent;
+      padding: 0.9rem 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      position: relative;
+    }
+    .capital-tile:hover { border-color: var(--brand-cobalt); }
+    .capital-tile.selected {
+      border-color: var(--brand-cobalt);
+      background: rgba(26, 86, 255, 0.08);
+    }
+    .capital-tile.selected .capital-check { opacity: 1; }
+    .capital-check {
+      width: 16px;
+      height: 16px;
+      border: 1px solid var(--brand-cobalt);
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.3;
+      transition: opacity 0.2s ease;
+      font-size: 9px;
+      color: var(--brand-cobalt);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    .capital-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--tx-main);
+    }
+    .capital-desc {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--tx-muted);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Contact form fields ── */
+    .field-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    @media (max-width: 560px) {
+      .field-group { grid-template-columns: 1fr; }
+    }
+    .field-group.single { grid-template-columns: 1fr; }
+
+    .ob-label {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--tx-muted);
+      margin-bottom: 0.4rem;
+    }
+    .ob-input, .ob-select {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--brand-rule-strong);
+      color: var(--tx-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      padding: 0.75rem 1rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .ob-input::placeholder { color: var(--tx-muted); }
+    .ob-input:focus, .ob-select:focus { border-color: var(--brand-cobalt); }
+    .ob-select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+    .ob-select option { background: #0D1117; color: var(--tx-main); }
+
+    /* ── Navigation buttons ── */
+    .ob-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--brand-rule-strong);
+    }
+    .ob-back {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: var(--tx-muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.2s ease;
+    }
+    .ob-back:hover { color: var(--tx-main); }
+    .ob-next {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: var(--brand-cobalt, #1A56FF);
+      color: #fff;
+      border: none;
+      padding: 0.85rem 2rem;
+      cursor: pointer;
+      transition: opacity 0.2s ease, transform 0.15s ease;
+    }
+    .ob-next:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+    .ob-next:not(:disabled):hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ── Confirmation screen ── */
+    .confirm-screen {
+      text-align: center;
+      padding: 2rem 0 1rem;
+    }
+    .confirm-icon {
+      width: 64px;
+      height: 64px;
+      border: 1px solid var(--brand-cobalt);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.75rem;
+      font-size: 1.5rem;
+    }
+    .confirm-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 700;
+      color: var(--tx-main);
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+    .confirm-heading em { font-style: italic; color: var(--brand-gold-light, #D4AC3A); }
+    .confirm-body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      color: var(--tx-sub);
+      line-height: 1.75;
+      max-width: 480px;
+      margin: 0 auto 2rem;
+    }
+    .confirm-details {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--brand-rule-strong);
+      margin-bottom: 2.5rem;
+    }
+    @media (max-width: 560px) {
+      .confirm-details { grid-template-columns: 1fr; }
+    }
+    .confirm-cell {
+      padding: 1rem 1.5rem;
+      text-align: left;
+      border-right: 1px solid var(--brand-rule-strong);
+    }
+    .confirm-cell:last-child { border-right: none; }
+    @media (max-width: 560px) {
+      .confirm-cell { border-right: none; border-bottom: 1px solid var(--brand-rule-strong); }
+      .confirm-cell:last-child { border-bottom: none; }
+    }
+    .confirm-cell-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--tx-muted);
+      margin-bottom: 0.3rem;
+    }
+    .confirm-cell-val {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tx-main);
+    }
+
+    /* ── Trust strip ── */
+    .trust-strip {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--brand-rule-strong);
+    }
+    .trust-item {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--tx-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .trust-item::before {
+      content: '—';
+      color: var(--brand-cobalt);
+    }
+
+    /* Light mode overrides */
+    [data-theme="light"] .ob-tile { background: rgba(255,255,255,0.6); }
+    [data-theme="light"] .ob-tile.selected { background: rgba(26,86,255,0.06); }
+    [data-theme="light"] .capital-tile.selected { background: rgba(26,86,255,0.06); }
+    [data-theme="light"] .ob-select option { background: #fff; color: #111; }
+  </style>
+</head>
+<body>
+
+<div id="app" x-data="onboarding()" x-init="init()">
+  <div id="site-nav-root"></div>
+
+  <main class="onboarding-shell">
+
+    <!-- Hero text -->
+    <div class="ob-eyebrow">Client Onboarding</div>
+    <h1 class="ob-heading">
+      Let's protect your capital.<br>
+      <em>Tell us about your business.</em>
+    </h1>
+    <p class="ob-subtext">
+      Four quick questions. No jargon, no pressure. We'll use your answers to show you exactly how Ortho'M8 would protect your specific situation — then book a free 30-minute call.
+    </p>
+
+    <!-- Confirmation screen -->
+    <div class="confirm-screen" x-show="submitted" x-cloak>
+      <div class="confirm-icon">✓</div>
+      <h2 class="confirm-heading">
+        You're on the list.<br><em>We'll be in touch within 24 hours.</em>
+      </h2>
+      <p class="confirm-body">
+        One of our team members will reach out to schedule your free consultation. They'll already know your situation — no need to repeat yourself.
+      </p>
+      <div class="confirm-details">
+        <div class="confirm-cell">
+          <div class="confirm-cell-label">Your name</div>
+          <div class="confirm-cell-val" x-text="form.name || '—'"></div>
+        </div>
+        <div class="confirm-cell">
+          <div class="confirm-cell-label">Email</div>
+          <div class="confirm-cell-val" x-text="form.email || '—'"></div>
+        </div>
+        <div class="confirm-cell">
+          <div class="confirm-cell-label">Preferred call time</div>
+          <div class="confirm-cell-val" x-text="form.callTime || 'Flexible'"></div>
+        </div>
+      </div>
+      <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+        <a href="/Orthom8pro/" class="ob-next" style="display:inline-block; text-decoration:none;">← Back to Home</a>
+        <a href="/Orthom8pro/Results/" class="ob-next" style="display:inline-block; text-decoration:none; background: transparent; border: 1px solid var(--brand-cobalt); color: var(--brand-cobalt);">See Our Results</a>
+      </div>
+    </div>
+
+    <!-- Multi-step form -->
+    <div x-show="!submitted">
+
+      <!-- Progress bar -->
+      <div class="progress-track" x-show="step <= 4">
+        <template x-for="i in 4" :key="i">
+          <div class="progress-seg" :class="{ done: i < step, active: i === step }"></div>
+        </template>
+      </div>
+
+      <!-- STEP 1 — Business sector -->
+      <div x-show="step === 1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+        <div class="step-label">Step 1 of 4</div>
+        <h2 class="step-question">What kind of business do you run?</h2>
+        <p class="step-hint">Select the option that fits best.</p>
+
+        <div class="tile-grid">
+          <template x-for="s in sectors" :key="s.id">
+            <button class="ob-tile" :class="{ selected: sector === s.id }" @click="sector = s.id">
+              <div class="tile-icon" x-text="s.icon"></div>
+              <div class="tile-label" x-text="s.label"></div>
+              <div class="tile-sub" x-text="s.sub"></div>
+            </button>
+          </template>
+        </div>
+
+        <div class="ob-nav">
+          <span></span>
+          <button class="ob-next" :disabled="!sector" @click="step = 2">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 — Risk concern -->
+      <div x-show="step === 2" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+        <div class="step-label">Step 2 of 4</div>
+        <h2 class="step-question">What risks are you most exposed to?</h2>
+        <p class="step-hint">Select all that apply — we'll address each one.</p>
+
+        <div class="tile-grid">
+          <template x-for="c in concerns" :key="c.id">
+            <button class="ob-tile" :class="{ selected: selectedConcerns.includes(c.id) }" @click="toggleConcern(c.id)">
+              <div class="tile-icon" x-text="c.icon"></div>
+              <div class="tile-label" x-text="c.label"></div>
+              <div class="tile-sub" x-text="c.sub"></div>
+            </button>
+          </template>
+        </div>
+
+        <div class="ob-nav">
+          <button class="ob-back" @click="step = 1">← Back</button>
+          <button class="ob-next" :disabled="selectedConcerns.length === 0" @click="step = 3">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 — Capital range -->
+      <div x-show="step === 3" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+        <div class="step-label">Step 3 of 4</div>
+        <h2 class="step-question">How much capital do you want to protect?</h2>
+        <p class="step-hint">Approximate is fine — this helps us tailor our recommendation.</p>
+
+        <div class="capital-grid">
+          <template x-for="r in capitalRanges" :key="r.id">
+            <button class="capital-tile" :class="{ selected: capitalRange === r.id }" @click="capitalRange = r.id">
+              <div class="capital-check">✓</div>
+              <div>
+                <div class="capital-amount" x-text="r.amount"></div>
+                <div class="capital-desc" x-text="r.desc"></div>
+              </div>
+            </button>
+          </template>
+        </div>
+
+        <div class="ob-nav">
+          <button class="ob-back" @click="step = 2">← Back</button>
+          <button class="ob-next" :disabled="!capitalRange" @click="step = 4">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4 — Contact details -->
+      <div x-show="step === 4" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+        <div class="step-label">Step 4 of 4</div>
+        <h2 class="step-question">Where should we send your strategy?</h2>
+        <p class="step-hint">We'll reach out within 24 hours to walk you through our recommendation.</p>
+
+        <div class="field-group">
+          <div>
+            <label class="ob-label">Your name *</label>
+            <input class="ob-input" type="text" x-model="form.name" placeholder="Jane Smith" autocomplete="name">
+          </div>
+          <div>
+            <label class="ob-label">Company name</label>
+            <input class="ob-input" type="text" x-model="form.company" placeholder="Acme Corp" autocomplete="organization">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div>
+            <label class="ob-label">Email address *</label>
+            <input class="ob-input" type="email" x-model="form.email" placeholder="jane@acmecorp.com" autocomplete="email">
+          </div>
+          <div>
+            <label class="ob-label">Phone number</label>
+            <input class="ob-input" type="tel" x-model="form.phone" placeholder="+1 (555) 000-0000" autocomplete="tel">
+          </div>
+        </div>
+
+        <div class="field-group single">
+          <div>
+            <label class="ob-label">Best time to call</label>
+            <select class="ob-select" x-model="form.callTime">
+              <option value="">Flexible — any time works</option>
+              <option value="Morning (9am – 12pm)">Morning (9am – 12pm)</option>
+              <option value="Afternoon (12pm – 5pm)">Afternoon (12pm – 5pm)</option>
+              <option value="Evening (5pm – 8pm)">Evening (5pm – 8pm)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group single">
+          <div>
+            <label class="ob-label">Anything specific you'd like us to know?</label>
+            <textarea class="ob-input" x-model="form.message" rows="3" placeholder="E.g. 'We're heavily exposed to oil prices through our logistics fleet'" style="resize: vertical;"></textarea>
+          </div>
+        </div>
+
+        <div x-show="submitError" style="margin-top:1rem; padding:0.85rem 1.25rem; border:1px solid #EF4444; background:rgba(239,68,68,0.08);">
+          <p style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#EF4444; letter-spacing:1px; margin:0;">
+            Submission failed — please try again or <a href="/Orthom8pro/contact/" style="text-decoration:underline;">contact us directly</a>.
+          </p>
+        </div>
+
+        <div class="ob-nav">
+          <button class="ob-back" @click="step = 3">← Back</button>
+          <button class="ob-next" :disabled="!form.name || !form.email || submitting" @click="submit()">
+            <span x-show="!submitting">Book My Free Call →</span>
+            <span x-show="submitting">Sending…</span>
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /multi-step form -->
+
+    <!-- Trust strip -->
+    <div class="trust-strip" x-show="!submitted">
+      <div class="trust-item">No commitment required</div>
+      <div class="trust-item">30-minute call</div>
+      <div class="trust-item">Verified results</div>
+      <div class="trust-item">Response within 24h</div>
+    </div>
+
+  </main>
+
+  <div id="site-footer-root"></div>
+</div>
+
+<script>
+  function onboarding() {
+    return {
+      step: 1,
+      sector: null,
+      selectedConcerns: [],
+      capitalRange: null,
+      submitting: false,
+      submitted: false,
+      submitError: false,
+      form: {
+        name: '',
+        company: '',
+        email: '',
+        phone: '',
+        callTime: '',
+        message: ''
+      },
+
+      sectors: [
+        { id: 'energy',     icon: '⚡', label: 'Oil & Energy',              sub: 'drilling, refining, logistics' },
+        { id: 'agri',       icon: '🌾', label: 'Agriculture',                sub: 'farming, commodities, supply' },
+        { id: 'import',     icon: '🚢', label: 'Import / Export',            sub: 'trade, shipping, customs' },
+        { id: 'construction', icon: '🏗️', label: 'Construction',            sub: 'infrastructure, property, builds' },
+        { id: 'manufacturing', icon: '⚙️', label: 'Manufacturing',          sub: 'production, materials, output' },
+        { id: 'realestate', icon: '🏢', label: 'Real Estate',               sub: 'property, development, REITs' },
+        { id: 'financial',  icon: '📊', label: 'Financial Services',        sub: 'investment, advisory, funds' },
+        { id: 'other',      icon: '💼', label: 'Other',                     sub: 'tell us in step 4' }
+      ],
+
+      concerns: [
+        { id: 'oil',        icon: '🛢️', label: 'Oil & commodity prices',    sub: 'input costs, fuel, raw materials' },
+        { id: 'currency',   icon: '💱', label: 'Currency & exchange rates', sub: 'USD/EUR/GBP fluctuations' },
+        { id: 'recession',  icon: '📉', label: 'Recession or downturn',     sub: 'demand drop, credit tightening' },
+        { id: 'geopolitical', icon: '🌍', label: 'Trade war / sanctions',  sub: 'tariffs, supply disruption' },
+        { id: 'rates',      icon: '📈', label: 'Interest rate risk',        sub: 'borrowing costs, bond yields' },
+        { id: 'volatility', icon: '⚡', label: 'General market volatility', sub: 'unpredictable swings' }
+      ],
+
+      capitalRanges: [
+        { id: 'under-250k',   amount: 'Under $250,000',     desc: 'Early-stage protection' },
+        { id: '250k-1m',      amount: '$250,000 – $1M',     desc: 'Core business capital' },
+        { id: '1m-5m',        amount: '$1M – $5M',          desc: 'Established operations' },
+        { id: '5m-25m',       amount: '$5M – $25M',         desc: 'Mid-market exposure' },
+        { id: 'over-25m',     amount: 'Over $25M',          desc: 'Institutional scale' },
+        { id: 'prefer-not',   amount: 'Prefer not to say',  desc: "We'll discuss on the call" }
+      ],
+
+      init() {},
+
+      toggleConcern(id) {
+        const idx = this.selectedConcerns.indexOf(id);
+        if (idx === -1) {
+          this.selectedConcerns.push(id);
+        } else {
+          this.selectedConcerns.splice(idx, 1);
+        }
+      },
+
+      async submit() {
+        this.submitting = true;
+        this.submitError = false;
+        const payload = {
+          sector: this.sector,
+          concerns: this.selectedConcerns,
+          capitalRange: this.capitalRange,
+          ...this.form,
+          source: 'orthom8-onboarding'
+        };
+
+        try {
+          const res = await fetch('/api/onboarding', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (!res.ok) throw new Error('Server error ' + res.status);
+          this.submitting = false;
+          this.submitted = true;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (err) {
+          this.submitting = false;
+          this.submitError = true;
+        }
+      }
+    };
+  }
+</script>
+
+</body>
+</html>

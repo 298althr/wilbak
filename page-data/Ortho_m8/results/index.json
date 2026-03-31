@@ -1,0 +1,169 @@
+{
+  "page": "orthom8-results",
+  "translations": {
+    "en": {
+      "title": "Performance Report — Ortho'M8 Pro",
+      "meta": {
+        "description": "Institutional verification protocol and performance evidence for Ortho'M8 Pro algorithmic capital management system."
+      },
+      "header": {
+        "eyebrow": "Investor Verification Protocol",
+        "title": "Performance",
+        "subtitle": "System Intelligence"
+      },
+      "tabs": {
+        "system_intelligence": "System Intelligence",
+        "institutional_proof": "Institutional Proof"
+      },
+      "statistics": {
+        "total_net_roi": "Total Net ROI",
+        "cagr": "CAGR",
+        "ending_balance": "Ending Balance",
+        "profit_factor": "Profit Factor"
+      },
+      "modal": {
+        "title": "Institutional Audit Block",
+        "period_label": "Ledger Period",
+        "financial_core": "Financial Core",
+        "net_pnl": "Net P&L",
+        "system_kpi": "System KPI",
+        "node_precision": "Node Precision",
+        "latency": "Latency"
+      },
+      "ledger": {
+        "title": "Operational Ledger",
+        "table_headers": {
+          "period_block": "Period Block",
+          "regime": "Regime",
+          "precision": "Precision",
+          "yield": "Yield",
+          "balance": "Balance"
+        }
+      },
+      "loading": "Loading historical data…"
+    },
+    "es": {
+      "title": "Informe de Rendimiento — Ortho'M8 Pro",
+      "meta": {
+        "description": "Protocolo de verificación institucional y evidencia de rendimiento para el sistema de gestión de capital algorítmico Ortho'M8 Pro."
+      },
+      "header": {
+        "eyebrow": "Protocolo de Verificación de Inversores",
+        "title": "Rendimiento",
+        "subtitle": "Inteligencia del Sistema"
+      },
+      "tabs": {
+        "system_intelligence": "Inteligencia del Sistema",
+        "institutional_proof": "Prueba Institucional"
+      },
+      "statistics": {
+        "total_net_roi": "ROI Neto Total",
+        "cagr": "CAGR",
+        "ending_balance": "Saldo Final",
+        "profit_factor": "Factor de Beneficio"
+      },
+      "modal": {
+        "title": "Bloque de Auditoría Institucional",
+        "period_label": "Período del Libro Mayor",
+        "financial_core": "Núcleo Financiero",
+        "net_pnl": "P&L Neto",
+        "system_kpi": "KPI del Sistema",
+        "node_precision": "Precisión del Nodo",
+        "latency": "Latencia"
+      },
+      "ledger": {
+        "title": "Libro Mayor Operacional",
+        "table_headers": {
+          "period_block": "Bloque de Período",
+          "regime": "Régimen",
+          "precision": "Precisión",
+          "yield": "Rendimiento",
+          "balance": "Saldo"
+        }
+      },
+      "loading": "Cargando datos históricos…"
+    },
+    "nl": {
+      "title": "Prestatie Rapport — Ortho'M8 Pro",
+      "meta": {
+        "description": "Institutionele verificatie protocol en prestatie bewijs voor Ortho'M8 Pro algoritmisch kapitaalbeheer systeem."
+      },
+      "header": {
+        "eyebrow": "Investeerder Verificatie Protocol",
+        "title": "Prestatie",
+        "subtitle": "Systeem Intelligentie"
+      },
+      "tabs": {
+        "system_intelligence": "Systeem Intelligentie",
+        "institutional_proof": "Institutioneel Bewijs"
+      },
+      "statistics": {
+        "total_net_roi": "Totaal Netto ROI",
+        "cagr": "CAGR",
+        "ending_balance": "Eindsaldo",
+        "profit_factor": "Winstfactor"
+      },
+      "modal": {
+        "title": "Institutionele Audit Blok",
+        "period_label": "Grootboek Periode",
+        "financial_core": "Financieel Core",
+        "net_pnl": "Netto P&L",
+        "system_kpi": "Systeem KPI",
+        "node_precision": "Node Precisie",
+        "latency": "Latentie"
+      },
+      "ledger": {
+        "title": "Operationeel Grootboek",
+        "table_headers": {
+          "period_block": "Periode Blok",
+          "regime": "Regime",
+          "precision": "Precisie",
+          "yield": "Opbrengst",
+          "balance": "Saldo"
+        }
+      },
+      "loading": "Historische gegevens laden…"
+    },
+    "fr": {
+      "title": "Rapport de Performance — Ortho'M8 Pro",
+      "meta": {
+        "description": "Protocole de vérification institutionnelle et preuve de performance pour le système de gestion de capital algorithmique Ortho'M8 Pro."
+      },
+      "header": {
+        "eyebrow": "Protocole de Vérification des Investisseurs",
+        "title": "Performance",
+        "subtitle": "Intelligence du Système"
+      },
+      "tabs": {
+        "system_intelligence": "Intelligence du Système",
+        "institutional_proof": "Preuve Institutionnelle"
+      },
+      "statistics": {
+        "total_net_roi": "ROI Net Total",
+        "cagr": "CAGR",
+        "ending_balance": "Solde Final",
+        "profit_factor": "Facteur de Profit"
+      },
+      "modal": {
+        "title": "Bloc d'Audit Institutionnel",
+        "period_label": "Période du Grand Livre",
+        "financial_core": "Cœur Financier",
+        "net_pnl": "P&L Net",
+        "system_kpi": "KPI du Système",
+        "node_precision": "Précision du Nœud",
+        "latency": "Latence"
+      },
+      "ledger": {
+        "title": "Grand Livre Opérationnel",
+        "table_headers": {
+          "period_block": "Bloc de Période",
+          "regime": "Régime",
+          "precision": "Précision",
+          "yield": "Rendement",
+          "balance": "Solde"
+        }
+      },
+      "loading": "Chargement des données historiques…"
+    }
+  }
+}

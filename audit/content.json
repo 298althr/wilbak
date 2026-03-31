@@ -1,0 +1,53 @@
+{
+  "project": "Wilbak Engineering",
+  "brand": "Ortho'M8",
+  "page": "Audit Protocol",
+  "content": {
+    "welcome_gate": "Initializing audit protocol…",
+    "hero": {
+      "eyebrow": "Audit Protocol",
+      "heading": "Initialize Your Institutional Audit."
+    },
+    "steps": {
+      "step_1": {
+        "label": "01 — SELECT SECTOR TIER",
+        "options": [
+          ["Retail Tier", "Supply & E-comm"],
+          ["Service Tier", "Managed Services"],
+          ["Engineering Tier", "Industrial Overhaul"],
+          ["Asset Tier", "Real Estate & Finance"]
+        ]
+      },
+      "step_2": {
+        "label": "02 — CALIBRATION NOTES",
+        "placeholder": "DESCRIBE CURRENT OPERATIONAL FRICTION...",
+        "back": "BACK",
+        "confirm": "CONFIRM MAPPING"
+      },
+      "step_3": {
+        "label": "03 — PRINCIPAL IDENTIFIER",
+        "placeholders": {
+          "name": "FULL LEGAL NAME",
+          "email": "INSTITUTIONAL EMAIL"
+        },
+        "back": "BACK",
+        "confirm": "AUTHENTICATE"
+      },
+      "step_4": {
+        "label": "04 — SECURE LINK",
+        "placeholder": "DIRECT PHONE NUMBER",
+        "back": "BACK",
+        "submit": "INITIALIZE TRANSMISSION"
+      }
+    },
+    "success": {
+      "heading": "Transmission Complete.",
+      "body": "Your institutional audit logic has been securely transmitted. A principal will contact you shortly.",
+      "cta": "Return to Base"
+    },
+    "sidebar": {
+      "proto_id": "PROTO ID: OM8-AUD-V4",
+      "precision": "95.0% Node Precision."
+    }
+  }
+}

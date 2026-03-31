@@ -1,0 +1,145 @@
+{
+  "page": "insight",
+  "translations": {
+    "en": {
+      "title": "News & Insights | Wilbak Engineering",
+      "meta": {
+        "description": "Transforming global markets into precise operational protocols."
+      },
+      "hero": {
+        "heading": "BUSINESS INSIGHTS",
+        "body": "Transforming global markets into precise operational protocols."
+      },
+      "loading": {
+        "message": "SYNCING INTELLIGENCE LEDGER..."
+      },
+      "article_card": {
+        "read_more": "READ FULL ARTICLE"
+      },
+      "navigation": {
+        "home": "Home",
+        "projects": "Projects",
+        "about": "About",
+        "orthomate": "OrthoMate™",
+        "contact": "Contact",
+        "insights": "News & Insights",
+        "audit": "Business Audit"
+      },
+      "footer": {
+        "copyright": "© 2026 Wilbak Engineering Group // Built for Unbreakable Performance"
+      }
+    },
+    "es": {
+      "title": "Noticias y Perspectivas | Wilbak Engineering",
+      "meta": {
+        "description": "Transformando mercados globales en protocolos operativos precisos."
+      },
+      "hero": {
+        "heading": "PERSPECTIVAS DE NEGOCIOS",
+        "body": "Transformando mercados globales en protocolos operativos precisos."
+      },
+      "loading": {
+        "message": "SINCRONIZANDO REGISTRO DE INTELIGENCIA..."
+      },
+      "article_card": {
+        "read_more": "LEER ARTÍCULO COMPLETO"
+      },
+      "navigation": {
+        "home": "Inicio",
+        "projects": "Proyectos",
+        "about": "Acerca de",
+        "orthomate": "OrthoMate™",
+        "contact": "Contacto",
+        "insights": "Noticias y Perspectivas",
+        "audit": "Auditoría Empresarial"
+      },
+      "footer": {
+        "copyright": "© 2026 Wilbak Engineering Group // Construido para Rendimiento Inquebrantable"
+      }
+    },
+    "zh": {
+      "title": "新闻与观点 | 维尔巴克工程",
+      "meta": {
+        "description": "将全球市场转化为精确的操作协议。"
+      },
+      "hero": {
+        "heading": "商业观点",
+        "body": "将全球市场转化为精确的操作协议。"
+      },
+      "loading": {
+        "message": "同步智能账本..."
+      },
+      "article_card": {
+        "read_more": "阅读完整文章"
+      },
+      "navigation": {
+        "home": "首页",
+        "projects": "项目",
+        "about": "关于",
+        "orthomate": "OrthoMate™",
+        "contact": "联系",
+        "insights": "新闻与观点",
+        "audit": "业务审计"
+      },
+      "footer": {
+        "copyright": "© 2026 维尔巴克工程集团 // 为不可破坏的性能而构建"
+      }
+    },
+    "nl": {
+      "title": "Nieuws & Inzichten | Wilbak Engineering",
+      "meta": {
+        "description": "Wereldwijde markten transformeren in precieze operationele protocollen."
+      },
+      "hero": {
+        "heading": "BEDRIJFSINZICHTEN",
+        "body": "Wereldwijde markten transformeren in precieze operationele protocollen."
+      },
+      "loading": {
+        "message": "SYNCHRONISEREN INTELLIGENTIE LEDGER..."
+      },
+      "article_card": {
+        "read_more": "LEES VOLLEDIG ARTIKEL"
+      },
+      "navigation": {
+        "home": "Home",
+        "projects": "Projecten",
+        "about": "Over Ons",
+        "orthomate": "OrthoMate™",
+        "contact": "Contact",
+        "insights": "Nieuws & Inzichten",
+        "audit": "Bedrijfsaudit"
+      },
+      "footer": {
+        "copyright": "© 2026 Wilbak Engineering Group // Gebouwd voor Onbreekbare Prestaties"
+      }
+    },
+    "fr": {
+      "title": "Actualités & Aperçus | Wilbak Engineering",
+      "meta": {
+        "description": "Transformer les marchés mondiaux en protocoles opérationnels précis."
+      },
+      "hero": {
+        "heading": "APERÇUS COMMERCIAUX",
+        "body": "Transformer les marchés mondiaux en protocoles opérationnels précis."
+      },
+      "loading": {
+        "message": "SYNCHRONISATION DU REGISTRE D'INTELLIGENCE..."
+      },
+      "article_card": {
+        "read_more": "LIRE L'ARTICLE COMPLET"
+      },
+      "navigation": {
+        "home": "Accueil",
+        "projects": "Projets",
+        "about": "À Propos",
+        "orthomate": "OrthoMate™",
+        "contact": "Contact",
+        "insights": "Actualités & Aperçus",
+        "audit": "Audit d'Entreprise"
+      },
+      "footer": {
+        "copyright": "© 2026 Wilbak Engineering Group // Construit pour des Performances Incassables"
+      }
+    }
+  }
+}

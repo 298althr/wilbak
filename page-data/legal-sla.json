@@ -1,0 +1,220 @@
+{
+  "page": "legal-sla",
+  "translations": {
+    "en": {
+      "title": "Service Level Agreement | Wilbak Engineering",
+      "meta": {
+        "description": "Institutional Grade Uptime Commitments"
+      },
+      "protocol": "SLA Protocol: 03",
+      "heading": "Service Level Agreement",
+      "subtitle": "Institutional Grade Uptime Commitments",
+      "sections": [
+        {
+          "title": "Institutional Uptime",
+          "content": "Wilbak Engineering commits to a minimum of <strong>99.99% operational uptime</strong> for all Ortho'M8 intelligence nodes. Our failure-resistant architecture is distributed across geographically independent data anchors to ensure zero downtime execution."
+        },
+        {
+          "title": "Performance Thresholds",
+          "content": null,
+          "list": [
+            "<strong>Node Precision:</strong> 95% minimum confidence requirement per market instruction.",
+            "<strong>Execution Latency:</strong> Sub-320ms instruction transmission from DML gate to exchange node.",
+            "<strong>Risk Gate Speed:</strong> Hard-risk isolation parameters applied within 15ms of volatility detection."
+          ]
+        },
+        {
+          "title": "Technical Support",
+          "content": "Strategic partners gain access to a dedicated principal engineer. Response times for critical infrastructure inquiries are guaranteed within 4 hours. General system inquiries are addressed within 12 hours."
+        },
+        {
+          "title": "SLA Credits",
+          "content": "In the event that 99.99% uptime threshold is not met within an institutional cycle, Wilbak Engineering will apply tiered service credits toward upcoming audit cycles as outlined in your Partner Manifesto."
+        }
+      ],
+      "navigation": {
+        "home": "Home",
+        "projects": "Projects",
+        "about": "About",
+        "orthomate": "Ortho'M8"
+      },
+      "footer": {
+        "brand_description": "High-performance business logic for industries that demand zero failure.",
+        "copyright": "© 2026 WILBAK ENGINEERING — EST. 2006",
+        "system_status": "SYSTEM STATUS: OPERATIONAL"
+      }
+    },
+    "es": {
+      "title": "Acuerdo de Nivel de Servicio | Wilbak Engineering",
+      "meta": {
+        "description": "Compromisos de Tiempo de Actividad de Nivel Institucional"
+      },
+      "protocol": "Protocolo SLA: 03",
+      "heading": "Acuerdo de Nivel de Servicio",
+      "subtitle": "Compromisos de Tiempo de Actividad de Nivel Institucional",
+      "sections": [
+        {
+          "title": "Tiempo de Actividad Institucional",
+          "content": "Wilbak Engineering se compromete con un mínimo del <strong>99.99% de tiempo de actividad operacional</strong> para todos los nodos de inteligencia Ortho'M8. Nuestra arquitectura resistente a fallos está distribuida en anclas de datos geográficamente independientes para asegurar ejecución sin tiempo de inactividad."
+        },
+        {
+          "title": "Umbrales de Rendimiento",
+          "content": null,
+          "list": [
+            "<strong>Precisión del Nodo:</strong> Requisito mínimo de confianza del 95% por instrucción de mercado.",
+            "<strong>Latencia de Ejecución:</strong> Transmisión de instrucciones sub-320ms desde la puerta DML al nodo de intercambio.",
+            "<strong>Velocidad de Puerta de Riesgo:</strong> Parámetros de aislamiento de riesgo duro aplicados dentro de 15ms de detección de volatilidad."
+          ]
+        },
+        {
+          "title": "Soporte Técnico",
+          "content": "Los socios estratégicos obtienen acceso a un ingeniero principal dedicado. Los tiempos de respuesta para consultas de infraestructura crítica están garantizados dentro de 4 horas. Las consultas generales del sistema se atienden dentro de 12 horas."
+        },
+        {
+          "title": "Créditos SLA",
+          "content": "En caso de que no se cumpla el umbral del 99.99% de tiempo de actividad dentro de un ciclo institucional, Wilbak Engineering aplicará créditos de servicio escalonados hacia los ciclos de auditoría próximos como se describe en su Manifiesto de Socio."
+        }
+      ],
+      "navigation": {
+        "home": "Inicio",
+        "projects": "Proyectos",
+        "about": "Acerca de",
+        "orthomate": "Ortho'M8"
+      },
+      "footer": {
+        "brand_description": "Lógica empresarial de alto rendimiento para industrias que exigen cero fallos.",
+        "copyright": "© 2026 WILBAK ENGINEERING — FUNDADA 2006",
+        "system_status": "ESTADO DEL SISTEMA: OPERATIVO"
+      }
+    },
+    "zh": {
+      "title": "服务水平协议 | 维尔巴克工程",
+      "meta": {
+        "description": "机构级正常运行时间承诺"
+      },
+      "protocol": "SLA协议：03",
+      "heading": "服务水平协议",
+      "subtitle": "机构级正常运行时间承诺",
+      "sections": [
+        {
+          "title": "机构正常运行时间",
+          "content": "维尔巴克工程承诺为所有Ortho'M8智能节点提供最低<strong>99.99%的运行正常运行时间</strong>。我们的抗故障架构分布在地理独立的数据锚点上，以确保零停机执行。"
+        },
+        {
+          "title": "性能阈值",
+          "content": null,
+          "list": [
+            "<strong>节点精度：</strong>每个市场指令最低95%的置信度要求。",
+            "<strong>执行延迟：</strong>从DML门到交换节点的指令传输低于320毫秒。",
+            "<strong>风险门速度：</strong>在检测到波动性后15毫秒内应用硬风险隔离参数。"
+          ]
+        },
+        {
+          "title": "技术支持",
+          "content": "战略合作伙伴可以获得专门的首席工程师的访问权限。关键基础设施查询的响应时间保证在4小时内。一般系统查询在12小时内得到处理。"
+        },
+        {
+          "title": "SLA积分",
+          "content": "如果在机构周期内未达到99.99%的正常运行时间阈值，维尔巴克工程将根据您的合作伙伴宣言中概述的内容，将分级服务积分应用于即将到来的审计周期。"
+        }
+      ],
+      "navigation": {
+        "home": "首页",
+        "projects": "项目",
+        "about": "关于",
+        "orthomate": "Ortho'M8"
+      },
+      "footer": {
+        "brand_description": "为要求零故障的行业提供高性能业务逻辑。",
+        "copyright": "© 2026 维尔巴克工程 — 成立于2006年",
+        "system_status": "系统状态：运行中"
+      }
+    },
+    "nl": {
+      "title": "Service Level Agreement | Wilbak Engineering",
+      "meta": {
+        "description": "Institutionele Graad Uptime Toezeggingen"
+      },
+      "protocol": "SLA Protocol: 03",
+      "heading": "Service Level Agreement",
+      "subtitle": "Institutionele Graad Uptime Toezeggingen",
+      "sections": [
+        {
+          "title": "Institutionele Uptime",
+          "content": "Wilbak Engineering engageert zich voor een minimum van <strong>99.99% operationele uptime</strong> voor alle Ortho'M8 intelligentie nodes. Onze falen-bestendige architectuur is gedistribueerd over geografisch onafhankelijke data ankers om zero downtime uitvoering te verzekeren."
+        },
+        {
+          "title": "Prestatie Drempels",
+          "content": null,
+          "list": [
+            "<strong>Node Precisie:</strong> 95% minimum betrouwbaarheidseis per markt instructie.",
+            "<strong>Uitvoering Latentie:</strong> Sub-320ms instructie transmissie van DML poort naar exchange node.",
+            "<strong>Risico Poort Snelheid:</strong> Hard-risico isolatie parameters toegepast binnen 15ms van volatiliteit detectie."
+          ]
+        },
+        {
+          "title": "Technische Ondersteuning",
+          "content": "Strategische partners krijgen toegang tot een toegewijde principal ingenieur. Responstijden voor kritieke infrastructuur vragen zijn gegarandeerd binnen 4 uur. Algemene systeem vragen worden binnen 12 uur afgehandeld."
+        },
+        {
+          "title": "SLA Credits",
+          "content": "In het geval dat 99.99% uptime drempel niet wordt gehaald binnen een institutionele cyclus, zal Wilbak Engineering gelaagde service credits toepassen op komende audit cycli zoals beschreven in uw Partner Manifesto."
+        }
+      ],
+      "navigation": {
+        "home": "Home",
+        "projects": "Projecten",
+        "about": "Over Ons",
+        "orthomate": "Ortho'M8"
+      },
+      "footer": {
+        "brand_description": "High-performance bedrijfslogica voor industrieën die nul falen eisen.",
+        "copyright": "© 2026 WILBAK ENGINEERING — OPG. 2006",
+        "system_status": "SYSTEEMSTATUS: OPERATIONEEL"
+      }
+    },
+    "fr": {
+      "title": "Accord de Niveau de Service | Wilbak Engineering",
+      "meta": {
+        "description": "Engagements de Disponibilité de Niveau Institutionnel"
+      },
+      "protocol": "Protocole SLA: 03",
+      "heading": "Accord de Niveau de Service",
+      "subtitle": "Engagements de Disponibilité de Niveau Institutionnel",
+      "sections": [
+        {
+          "title": "Disponibilité Institutionnelle",
+          "content": "Wilbak Engineering s'engage à un minimum de <strong>99.99% de disponibilité opérationnelle</strong> pour tous les nœuds d'intelligence Ortho'M8. Notre architecture résistante aux pannes est distribuée sur des ancres de données géographiquement indépendantes pour assurer une exécution sans temps d'arrêt."
+        },
+        {
+          "title": "Seuils de Performance",
+          "content": null,
+          "list": [
+            "<strong>Précision de Nœud:</strong> Exigence de confiance minimale de 95% par instruction de marché.",
+            "<strong>Latence d'Exécution:</strong> Transmission d'instruction sub-320ms de la porte DML au nœud d'échange.",
+            "<strong>Vitesse de Porte de Risque:</strong> Paramètres d'isolation de risque dur appliqués dans les 15ms de détection de volatilité."
+          ]
+        },
+        {
+          "title": "Support Technique",
+          "content": "Les partenaires stratégiques obtiennent l'accès à un ingénieur principal dédié. Les temps de réponse pour les demandes d'infrastructure critique sont garantis dans les 4 heures. Les demandes générales de système sont traitées dans les 12 heures."
+        },
+        {
+          "title": "Crédits SLA",
+          "content": "Dans le cas où le seuil de disponibilité de 99.99% n'est pas atteint dans un cycle institutionnel, Wilbak Engineering appliquera des crédits de service échelonnés vers les cycles d'audit à venir comme décrit dans votre Manifeste Partenaire."
+        }
+      ],
+      "navigation": {
+        "home": "Accueil",
+        "projects": "Projets",
+        "about": "À Propos",
+        "orthomate": "Ortho'M8"
+      },
+      "footer": {
+        "brand_description": "Logique commerciale haute performance pour les industries qui exigent zéro échec.",
+        "copyright": "© 2026 WILBAK ENGINEERING — FOND. 2006",
+        "system_status": "STATUT DU SYSTÈME: OPÉRATIONNEL"
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "content": {
+    "header": {
+      "eyebrow": "Protocolo de Verificación de Inversores",
+      "title": "Rendimiento"
+    },
+    "tabs": {
+      "platform": "Inteligencia del Sistema",
+      "evidence": "Prueba Institucional"
+    },
+    "stats": {
+      "total_roi":      "ROI Neto Total",
+      "cagr":           "TCAC",
+      "ending_balance": "Saldo Final",
+      "profit_factor":  "Factor de Beneficio"
+    },
+    "loading": "Cargando datos históricos…",
+    "ledger": {
+      "title":         "Libro Mayor Operacional",
+      "col_period":    "Bloque de Período",
+      "col_regime":    "Régimen",
+      "col_precision": "Precisión",
+      "col_yield":     "Rendimiento",
+      "col_balance":   "Saldo"
+    },
+    "modal": {
+      "title":           "Bloque de Auditoría Institucional",
+      "period_label":    "Período del Libro Mayor:",
+      "financial_label": "Núcleo Financiero",
+      "net_pnl":         "P&L Neto",
+      "ending_balance":  "Saldo Final",
+      "kpi_label":       "KPI del Sistema",
+      "precision":       "Precisión del Nodo",
+      "latency":         "Latencia"
+    }
+  }
+}

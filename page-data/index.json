@@ -1,0 +1,361 @@
+{
+  "page": "index",
+  "translations": {
+    "en": {
+      "title": "Wilbak Engineering – Wilhelm Rybak | High-Performance Business Logic & Automation",
+      "meta": {
+        "description": "Wilbak Engineering provides unbreakable business logic and industrial automation infrastructure. Led by Wilhelm Rybak."
+      },
+      "loader": {
+        "text": "Initializing Protocol..."
+      },
+      "hero": {
+        "protocol": "[ Operational Protocol: v3.1 ]",
+        "heading": "ENGINEERING<br>BUSINESS DATA.",
+        "body": "We eliminate the \"Chaos Tax\" on your business. High-performance infrastructure engineered for zero failure.",
+        "cta_primary": "Case Studies",
+        "cta_secondary": "How it Works"
+      },
+      "trust_vault": {
+        "companies": [
+          {
+            "name": "Northrop Grumman",
+            "specialty": "Defense Logic"
+          },
+          {
+            "name": "Toyota",
+            "specialty": "Supply Rigor"
+          },
+          {
+            "name": "ConocoPhillips",
+            "specialty": "Energy Flow"
+          },
+          {
+            "name": "ASDA",
+            "specialty": "Retail Scale"
+          },
+          {
+            "name": "GEICO",
+            "specialty": "Risk Guard"
+          }
+        ]
+      },
+      "operational_gap": {
+        "heading": "The Operational Gap",
+        "subtitle": "Small Business Inefficiency is the Invisible Profit Killer",
+        "chaos_tax": {
+          "title": "The \"Chaos Tax\"",
+          "description": "Manual processes and disconnected software systems eat 40% of your labor before a single sale is closed."
+        },
+        "wilbak_alignment": {
+          "title": "The Wilbak Alignment",
+          "description": "Our Integrated Business Management Engines eliminates 90% of manual overhead by engineering deterministic logic."
+        }
+      },
+      "testimonies": {
+        "eyebrow": "[ Mission Feedback ]",
+        "heading": "Verified testimonies",
+        "items": [
+          {
+            "quote": "The Wilbak transition saved us $120k in annual manual drafting costs alone. Their logic is unbreakable.",
+            "author": "James McGough",
+            "title": "CEO, Sterling Logistics"
+          },
+          {
+            "quote": "We eliminated the Chaos Tax in 90 days. Their Predictive AI kernels are simply unmatched.",
+            "author": "Rachel H. Ballack",
+            "title": "Ops Manager, Vance Mfg"
+          },
+          {
+            "quote": "Rugged, reliable, and deterministic. Wilbak doesn't just build systems; they build absolute certainty.",
+            "author": "Marcus Thorne",
+            "title": "Founder, Thorne Supply"
+          }
+        ]
+      },
+      "header": {
+        "nav": [
+          "Home",
+          "Projects",
+          "About",
+          "Ortho'M8",
+          "Contact",
+          "Performance",
+          "News & Insights",
+          "Business Audit"
+        ]
+      },
+      "footer": {
+        "brand_description": "High-performance business logic for industries that demand zero failure. Engineering certainty since 2006.",
+        "copyright": "© 2026 Wilbak Engineering Group // Built for Unbreakable Performance"
+      }
+    },
+    "es": {
+      "title": "Wilbak Engineering – Wilhelm Rybak | Lógica Empresarial de Alto Rendimiento & Automatización",
+      "meta": {
+        "description": "Wilbak Engineering proporciona lógica empresarial inquebrantable e infraestructura de automatización industrial. Liderado por Wilhelm Rybak."
+      },
+      "loader": {
+        "text": "Inicializando Protocolo..."
+      },
+      "hero": {
+        "protocol": "[ Protocolo Operativo: v3.1 ]",
+        "heading": "INGENIERÍA<br>DATOS EMPRESARIALES.",
+        "body": "Eliminamos el \"Impuesto al Caos\" en su negocio. Infraestructura de alto rendimiento diseñada para cero fallos.",
+        "cta_primary": "Casos de Estudio",
+        "cta_secondary": "Cómo Funciona"
+      },
+      "trust_vault": {
+        "companies": [
+          {
+            "name": "Northrop Grumman",
+            "specialty": "Lógica de Defensa"
+          },
+          {
+            "name": "Toyota",
+            "specialty": "Rigor de Suministro"
+          },
+          {
+            "name": "ConocoPhillips",
+            "specialty": "Flujo de Energía"
+          },
+          {
+            "name": "ASDA",
+            "specialty": "Escala Minorista"
+          },
+          {
+            "name": "GEICO",
+            "specialty": "Guardia de Riesgo"
+          }
+        ]
+      },
+      "operational_gap": {
+        "heading": "La Brecha Operacional",
+        "subtitle": "La Ineficiencia de Pequeñas Empresas es el Asesino de Utilidades Invisible",
+        "chaos_tax": {
+          "title": "El \"Impuesto al Caos\"",
+          "description": "Los procesos manuales y sistemas de software desconectados consumen el 40% de su mano de obra antes de cerrar una sola venta."
+        },
+        "wilbak_alignment": {
+          "title": "La Alineación Wilbak",
+          "description": "Nuestros Motores de Gestión Empresarial Integrada eliminan el 90% de los costos manuales mediante ingeniería de lógica determinista."
+        }
+      },
+      "testimonies": {
+        "eyebrow": "[ Comentarios de Misión ]",
+        "heading": "Testimonios verificados",
+        "items": [
+          {
+            "quote": "La transición Wilbak nos ahorró $120k en costos anuales de redacción manual únicamente. Su lógica es inquebrantable.",
+            "author": "James McGough",
+            "title": "CEO, Sterling Logistics"
+          },
+          {
+            "quote": "Eliminamos el Impuesto al Caos en 90 días. Sus núcleos de IA Predictiva son simplemente insuperables.",
+            "author": "Rachel H. Ballack",
+            "title": "Gerente de Operaciones, Vance Mfg"
+          },
+          {
+            "quote": "Rústico, confiable y determinista. Wilbak no solo construye sistemas; construyen certeza absoluta.",
+            "author": "Marcus Thorne",
+            "title": "Fundador, Thorne Supply"
+          }
+        ]
+      },
+      "header": {
+        "nav": [
+          "Inicio",
+          "Proyectos",
+          "Acerca de",
+          "Ortho'M8",
+          "Contacto",
+          "Rendimiento",
+          "Noticias y Perspectivas",
+          "Auditoría Empresarial"
+        ]
+      },
+      "footer": {
+        "brand_description": "Lógica empresarial de alto rendimiento para industrias que exigen cero fallos. Certeza de ingeniería desde 2006.",
+        "copyright": "© 2026 Wilbak Engineering Group // Construido para Rendimiento Inquebrantable"
+      }
+    },
+    "nl": {
+      "title": "Wilbak Engineering – Wilhelm Rybak | Hoogwaardige Bedrijfslogica & Automatisering",
+      "meta": {
+        "description": "Wilbak Engineering levert onbreekbare bedrijfslogica en industriële automatiseringsinfrastructuur. Onder leiding van Wilhelm Rybak."
+      },
+      "loader": {
+        "text": "Initialiseren Protocol..."
+      },
+      "hero": {
+        "protocol": "[ Operationeel Protocol: v3.1 ]",
+        "heading": "ENGINEERING<br>BEDRIJFSDATA.",
+        "body": "We elimineren de \"Chaos Belasting\" op uw bedrijf. High-performance infrastructuur ontworpen voor nul falen.",
+        "cta_primary": "Case Studies",
+        "cta_secondary": "Hoe het Werkt"
+      },
+      "trust_vault": {
+        "companies": [
+          {
+            "name": "Northrop Grumman",
+            "specialty": "Defense Logica"
+          },
+          {
+            "name": "Toyota",
+            "specialty": "Supply Rigor"
+          },
+          {
+            "name": "ConocoPhillips",
+            "specialty": "Energie Stroom"
+          },
+          {
+            "name": "ASDA",
+            "specialty": "Retail Schaal"
+          },
+          {
+            "name": "GEICO",
+            "specialty": "Risico Bewaking"
+          }
+        ]
+      },
+      "operational_gap": {
+        "heading": "De Operationele Kloof",
+        "subtitle": "Klein Bedrijf Inefficiëntie is de Onzichtbare Winst Moordenaar",
+        "chaos_tax": {
+          "title": "De \"Chaos Belasting\"",
+          "description": "Handmatige processen en losgekoppelde softwaresystemen eten 40% van uw arbeid voordat een enkele verkoop wordt gesloten."
+        },
+        "wilbak_alignment": {
+          "title": "De Wilbak Uitlijning",
+          "description": "Onze Geïntegreerde Bedrijfsbeheer Motoren elimineren 90% van handmatige overhead door engineering van deterministische logica."
+        }
+      },
+      "testimonies": {
+        "eyebrow": "[ Missie Feedback ]",
+        "heading": "Geverifieerde getuigenissen",
+        "items": [
+          {
+            "quote": "De Wilbak transitie bespaarde ons $120k in jaarlijkse handmatige tekenkosten alleen al. Hun logica is onbreekbaar.",
+            "author": "James McGough",
+            "title": "CEO, Sterling Logistics"
+          },
+          {
+            "quote": "We elimineerden de Chaos Belasting in 90 dagen. Hun Voorspellende AI kernen zijn simpelweg ongeëvenaard.",
+            "author": "Rachel H. Ballack",
+            "title": "Ops Manager, Vance Mfg"
+          },
+          {
+            "quote": "Robuust, betrouwbaar en deterministisch. Wilbak bouwt niet alleen systemen; ze bouwen absolute zekerheid.",
+            "author": "Marcus Thorne",
+            "title": "Oprichter, Thorne Supply"
+          }
+        ]
+      },
+      "header": {
+        "nav": [
+          "Home",
+          "Projecten",
+          "Over Ons",
+          "Ortho'M8",
+          "Contact",
+          "Prestatie",
+          "Nieuws & Inzichten",
+          "Bedrijfsaudit"
+        ]
+      },
+      "footer": {
+        "brand_description": "High-performance bedrijfslogica voor industrieën die nul falen eisen. Engineering zekerheid sinds 2006.",
+        "copyright": "© 2026 Wilbak Engineering Group // Gebouwd voor Onbreekbare Prestaties"
+      }
+    },
+    "fr": {
+      "title": "Wilbak Engineering – Wilhelm Rybak | Logique Commerciale Haute Performance & Automatisation",
+      "meta": {
+        "description": "Wilbak Engineering fournit une logique commerciale incassable et une infrastructure d'automatisation industrielle. Dirigé par Wilhelm Rybak."
+      },
+      "loader": {
+        "text": "Initialisation du Protocole..."
+      },
+      "hero": {
+        "protocol": "[ Protocole Opérationnel: v3.1 ]",
+        "heading": "INGÉNIERIE<br>DONNÉES COMMERCIALES.",
+        "body": "Nous éliminons l'« Impôt Chaos » sur votre entreprise. Infrastructure haute performance conçue pour zéro échec.",
+        "cta_primary": "Études de Cas",
+        "cta_secondary": "Comment ça Marche"
+      },
+      "trust_vault": {
+        "companies": [
+          {
+            "name": "Northrop Grumman",
+            "specialty": "Logique de Défense"
+          },
+          {
+            "name": "Toyota",
+            "specialty": "Rigueur d'Approvisionnement"
+          },
+          {
+            "name": "ConocoPhillips",
+            "specialty": "Flux d'Énergie"
+          },
+          {
+            "name": "ASDA",
+            "specialty": "Échelle Détail"
+          },
+          {
+            "name": "GEICO",
+            "specialty": "Garde de Risque"
+          }
+        ]
+      },
+      "operational_gap": {
+        "heading": "L'Écart Opérationnel",
+        "subtitle": "L'Inefficacité des Petites Entreprises est le Tueur de Profits Invisible",
+        "chaos_tax": {
+          "title": "L'« Impôt Chaos »",
+          "description": "Les processus manuels et les systèmes logiciels déconnectés consomment 40% de votre travail avant qu'une seule vente ne soit conclue."
+        },
+        "wilbak_alignment": {
+          "title": "L'Alignement Wilbak",
+          "description": "Nos Moteurs de Gestion Commerciale Intégrée éliminent 90% des frais généraux manuels par ingénierie de logique déterministe."
+        }
+      },
+      "testimonies": {
+        "eyebrow": "[ Commentaires de Mission ]",
+        "heading": "Témoignages vérifiés",
+        "items": [
+          {
+            "quote": "La transition Wilbak nous a économisé $120k en coûts annuels de rédaction manuelle uniquement. Leur logique est incassable.",
+            "author": "James McGough",
+            "title": "PDG, Sterling Logistics"
+          },
+          {
+            "quote": "Nous avons éliminé l'Impôt Chaos en 90 jours. Leurs noyaux IA Prédictifs sont simplement inégalés.",
+            "author": "Rachel H. Ballack",
+            "title": "Responsable des Opérations, Vance Mfg"
+          },
+          {
+            "quote": "Robuste, fiable et déterministe. Wilbak ne construit pas seulement des systèmes ; ils construisent une certitude absolue.",
+            "author": "Marcus Thorne",
+            "title": "Fondateur, Thorne Supply"
+          }
+        ]
+      },
+      "header": {
+        "nav": [
+          "Accueil",
+          "Projets",
+          "À Propos",
+          "Ortho'M8",
+          "Contact",
+          "Performance",
+          "Actualités & Aperçus",
+          "Audit d'Entreprise"
+        ]
+      },
+      "footer": {
+        "brand_description": "Logique commerciale haute performance pour les industries qui exigent zéro échec. Certitude d'ingénierie depuis 2006.",
+        "copyright": "© 2026 Wilbak Engineering Group // Construit pour des Performances Incassables"
+      }
+    }
+  }
+}

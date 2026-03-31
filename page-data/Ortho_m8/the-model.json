@@ -1,0 +1,217 @@
+{
+  "page": "orthom8-the-model",
+  "translations": {
+    "en": {
+      "title": "The Model | Ortho'M8 Pro — Institutional Domain Analysis",
+      "meta": {
+        "description": "A comprehensive breakdown of the Ortho'M8 Pro engine, mapping synthetic indices to real-world commodity and futures analogues."
+      },
+      "hero": {
+        "eyebrow": "Technical Protocol v3.0",
+        "heading": "Mapping the <em class='text-[#D4AC3A] italic'>Analogue Logic</em> of Global Capital.",
+        "body": "Ortho'M8 Pro is a mapping engine that understands structural volatility overlap between synthetic and real markets.",
+        "stats": [
+          {
+            "label": "Analogue Accuracy",
+            "value": "98.4%"
+          },
+          {
+            "label": "Domain Coverage",
+            "value": "Global"
+          },
+          {
+            "label": "Execution Speed",
+            "value": "<320ms"
+          }
+        ]
+      },
+      "report": {
+        "title": "Executive <br/><span class='text-[#D4AC3A]'>Market Mapping</span>",
+        "subtitle": "Select a protocol to view technical details.",
+        "tabs": [
+          {
+            "id": "map",
+            "label": "Domain Identification",
+            "content": {
+              "title": "Volatility Synchronization",
+              "description": "We align synthetic volatility spikes with global market liquidity sessions to ensure institutional-grade precision."
+            }
+          },
+          {
+            "id": "logic",
+            "label": "Node Correlation",
+            "content": {
+              "title": "Logic Gates Protocol",
+              "description": "Each execution request passes through redundant logic gates to verify capital safety and node stability."
+            }
+          }
+        ]
+      },
+      "cta": {
+        "heading": "Ready to Scale Your Domain?",
+        "body": "Whether in North America, Africa, or Euro-markets, our model adapts to local domain dynamics.",
+        "primary": "Initialize Onboarding",
+        "secondary": "Contact Technical Team"
+      }
+    },
+    "es": {
+      "title": "El Modelo | Ortho'M8 Pro — Análisis de Dominio Institucional",
+      "meta": {
+        "description": "Un desglose completo del motor Ortho'M8 Pro, mapeando índices sintéticos a productos básicos y futuros del mundo real."
+      },
+      "hero": {
+        "eyebrow": "Protocolo Técnico v3.0",
+        "heading": "Mapeando la <em class='text-[#D4AC3A] italic'>Lógica Analógica</em> del Capital Global.",
+        "body": "Ortho'M8 Pro es un motor de mapeo que entiende el solapamiento de volatilidad estructural entre mercados sintéticos y reales.",
+        "stats": [
+          {
+            "label": "Precisión Analógica",
+            "value": "98.4%"
+          },
+          {
+            "label": "Cobertura de Dominio",
+            "value": "Global"
+          },
+          {
+            "label": "Velocidad de Ejecución",
+            "value": "<320ms"
+          }
+        ]
+      },
+      "report": {
+        "title": "Mapeo de Mercado <br/><span class='text-[#D4AC3A]'>Ejecutivo</span>",
+        "subtitle": "Seleccione un protocolo para ver detalles técnicos.",
+        "tabs": [
+          {
+            "id": "map",
+            "label": "Identificación de Dominio",
+            "content": {
+              "title": "Sincronización de Volatilidad",
+              "description": "Alineamos picos de volatilidad sintética con sesiones de liquidez del mercado global para asegurar precisión de grado institucional."
+            }
+          },
+          {
+            "id": "logic",
+            "label": "Correlación de Nodo",
+            "content": {
+              "title": "Protocolo de Puertas Lógicas",
+              "description": "Cada solicitud de ejecución pasa a través de puertas lógicas redundantes para verificar la seguridad del capital y la estabilidad del nodo."
+            }
+          }
+        ]
+      },
+      "cta": {
+        "heading": "¿Listo para Escalar su Dominio?",
+        "body": "Ya sea en América del Norte, África o mercados europeos, nuestro modelo se adapta a las dinámicas locales del dominio.",
+        "primary": "Inicializar Incorporación",
+        "secondary": "Contactar Equipo Técnico"
+      }
+    },
+    "nl": {
+      "title": "Het Model | Ortho'M8 Pro — Institutionele Domein Analyse",
+      "meta": {
+        "description": "Een uitgebreide analyse van de Ortho'M8 Pro motor, het mappen van synthetische indices aan echte wereld grondstoffen en futures analogen."
+      },
+      "hero": {
+        "eyebrow": "Technisch Protocol v3.0",
+        "heading": "Het mappen van de <em class='text-[#D4AC3A] italic'>Analoge Logica</em> van Globaal Kapitaal.",
+        "body": "Ortho'M8 Pro is een mapping engine die structurele volatiliteit overlap begrijpt tussen synthetische en echte markten.",
+        "stats": [
+          {
+            "label": "Analoge Precisie",
+            "value": "98.4%"
+          },
+          {
+            "label": "Domein Dekking",
+            "value": "Globaal"
+          },
+          {
+            "label": "Uitvoering Snelheid",
+            "value": "<320ms"
+          }
+        ]
+      },
+      "report": {
+        "title": "Uitvoerig <br/><span class='text-[#D4AC3A]'>Market Mapping</span>",
+        "subtitle": "Selecteer een protocol om technische details te bekijken.",
+        "tabs": [
+          {
+            "id": "map",
+            "label": "Domein Identificatie",
+            "content": {
+              "title": "Volatiliteit Synchronisatie",
+              "description": "We aligneren synthetische volatiliteit pieken met globale markt liquiditeit sessies om institutionele graad precisie te verzekeren."
+            }
+          },
+          {
+            "id": "logic",
+            "label": "Node Correlatie",
+            "content": {
+              "title": "Logische Poorten Protocol",
+              "description": "Elke uitvoeringsaanvraag gaat door redundante logische poorten om kapitaal veiligheid en node stabiliteit te verifiëren."
+            }
+          }
+        ]
+      },
+      "cta": {
+        "heading": "Klaar om Uw Domein te Schalen?",
+        "body": "Of in Noord-Amerika, Afrika, of Euro-markten, ons model past zich aan lokale domein dynamica aan.",
+        "primary": "Initialiseer Onboarding",
+        "secondary": "Contact Technisch Team"
+      }
+    },
+    "fr": {
+      "title": "Le Modèle | Ortho'M8 Pro — Analyse de Domaine Institutionnel",
+      "meta": {
+        "description": "Une ventilation complète du moteur Ortho'M8 Pro, cartographiant les indices synthétiques aux matières premières et futures du monde réel."
+      },
+      "hero": {
+        "eyebrow": "Protocole Technique v3.0",
+        "heading": "Cartographiant la <em class='text-[#D4AC3A] italic'>Logique Analogue</em> du Capital Mondial.",
+        "body": "Ortho'M8 Pro est un moteur de cartographie qui comprend le chevauchement de volatilité structurelle entre les marchés synthétiques et réels.",
+        "stats": [
+          {
+            "label": "Précision Analogue",
+            "value": "98.4%"
+          },
+          {
+            "label": "Couverture de Domaine",
+            "value": "Global"
+          },
+          {
+            "label": "Vitesse d'Exécution",
+            "value": "<320ms"
+          }
+        ]
+      },
+      "report": {
+        "title": "Cartographie de Marché <br/><span class='text-[#D4AC3A]'>Exécutif</span>",
+        "subtitle": "Sélectionnez un protocole pour voir les détails techniques.",
+        "tabs": [
+          {
+            "id": "map",
+            "label": "Identification de Domaine",
+            "content": {
+              "title": "Synchronisation de Volatilité",
+              "description": "Nous alignons les pics de volatilité synthétique avec les sessions de liquidité du marché mondial pour assurer une précision de niveau institutionnel."
+            }
+          },
+          {
+            "id": "logic",
+            "label": "Corrélation de Nœud",
+            "content": {
+              "title": "Protocole de Portes Logiques",
+              "description": "Chaque demande d'exécution passe par des portes logiques redondantes pour vérifier la sécurité du capital et la stabilité du nœud."
+            }
+          }
+        ]
+      },
+      "cta": {
+        "heading": "Prêt à Scaler Votre Domaine?",
+        "body": "Que ce soit en Amérique du Nord, en Afrique ou sur les marchés européens, notre modèle s'adapte aux dynamiques locales de domaine.",
+        "primary": "Initialiser l'Intégration",
+        "secondary": "Contacter l'Équipe Technique"
+      }
+    }
+  }
+}
