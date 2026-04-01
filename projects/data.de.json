@@ -32,6 +32,30 @@
       "location": "Toyota Hauptsitz",
       "title": "TOYOTA DATENWERK",
       "description": "Hyper-redundante Energiearchitektur für ununterbrochene Fertigungskontinuität entwickelt. Montagebandoperationen gegen Stromsystemvarianz in allen Produktionsstufen gesichert."
+    },
+    {
+      "year": "2024",
+      "location": "Houston, Texas",
+      "tag": "TIER IV ZERTIFIZIERT",
+      "title": "HOUSTON ENTERPRISE CORE",
+      "photo": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80&auto=format&fit=crop",
+      "description": "Neubau und Planung eines 12-MW-Tier-IV-Rechenzentrums für einen regionalen Energiekonzern. Vollständige N+1-Redundanz für Strom, Kühlung und Netzwerk. Termingerecht und unter Budget ohne kritische Vorfälle bei der Inbetriebnahme geliefert."
+    },
+    {
+      "year": "2024",
+      "location": "Singapur",
+      "tag": "MODULARES DEPLOYMENT",
+      "title": "APAC CLOUD-KNOTEN — SINGAPUR",
+      "photo": "https://images.unsplash.com/photo-1573164713712-03f326d68cca?w=800&q=80&auto=format&fit=crop",
+      "description": "Modulare containerisierte Rechenzentrumsimplementierung für die Expansion eines regionalen Cloud-Anbieters in Südostasien. Angepasstes Wärmemanagement für Singapurs tropisches Klima. Live-Produktionsdatenverkehr mit Zero-Downtime-Umstellung migriert."
+    },
+    {
+      "year": "2021",
+      "location": "Toronto, Kanada",
+      "tag": "CLOUD-MIGRATION",
+      "title": "TORONTO FINANZ-CLOUD",
+      "photo": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80&auto=format&fit=crop",
+      "description": "End-to-End Cloud-Infrastruktur-Design und Migration für ein mittelständisches Finanzdienstleistungsunternehmen. Legacy-On-Premise-Systeme abgelöst durch eine hybride Cloud-Architektur in zwei Verfügbarkeitszonen. 40% Reduzierung der Infrastrukturbetriebskosten innerhalb von 12 Monaten."
     }
   ],
   "footer": { "copyright": "© 2026 Wilbak Engineering Group // Gebaut um zu Bestehen" }

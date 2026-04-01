@@ -54,8 +54,10 @@
         .stagger.active>*:nth-child(3){opacity:1;transform:none;transition-delay:.25s}
         .stagger.active>*:nth-child(4){opacity:1;transform:none;transition-delay:.35s}
         /* Project cards */
-        .project-card{padding:2rem 2.25rem;border:1.5px solid #E2E8F0;border-radius:8px;background:#fff;transition:border-color .2s,box-shadow .2s,transform .2s;border-left:3px solid transparent}
-        .project-card:hover{border-color:#94A3B8;border-left-color:var(--blue);box-shadow:0 8px 32px rgba(15,28,63,.08);transform:translateY(-3px)}
+        .project-card{background:#fff;border:1.5px solid #E2E8F0;transition:border-color .2s,box-shadow .2s;border-radius:6px;overflow:hidden}
+        .project-card:hover{border-color:#CBD5E1;box-shadow:0 4px 24px rgba(0,0,0,.07)}
+        .project-card-body{padding:2rem}
+        .project-card-img{width:100%;height:200px;object-fit:cover;display:block}
         /* Strip */
         .strip-track{display:flex;animation:stripScroll 32s linear infinite;width:max-content}
         .strip-track:hover{animation-play-state:paused}
@@ -173,18 +175,23 @@
                 <div class="grid md:grid-cols-2 gap-5 stagger">
                     <template x-for="proj in data.projects" :key="proj.title">
                         <div class="project-card">
-                            <div class="flex items-start justify-between mb-5 gap-4">
-                                <div class="eyebrow" x-text="proj.year + ' · ' + proj.location"></div>
-                                <template x-if="proj.tag">
-                                    <span class="mono text-[9px] uppercase tracking-widest px-2 py-1 rounded shrink-0"
-                                          :class="proj.tag_type === 'alert' ? 'bg-amber-50 text-amber-700' : 'bg-slate-100 text-slate-600'"
-                                          x-text="proj.tag"></span>
-                                </template>
+                            <template x-if="proj.photo">
+                                <img :src="proj.photo" :alt="proj.title" class="project-card-img">
+                            </template>
+                            <div class="project-card-body">
+                                <div class="flex items-start justify-between mb-5 gap-4">
+                                    <div class="eyebrow" x-text="proj.year + ' · ' + proj.location"></div>
+                                    <template x-if="proj.tag">
+                                        <span class="mono text-[9px] uppercase tracking-widest px-2 py-1 rounded shrink-0"
+                                              :class="proj.tag_type === 'alert' ? 'bg-amber-50 text-amber-700' : 'bg-slate-100 text-slate-600'"
+                                              x-text="proj.tag"></span>
+                                    </template>
+                                </div>
+                                <h3 class="text-base font-bold text-slate-900 tracking-tight mb-3"
+                                    x-text="proj.title"></h3>
+                                <p class="text-sm text-slate-500 leading-relaxed"
+                                   x-text="proj.description"></p>
                             </div>
-                            <h3 class="text-base font-bold text-slate-900 tracking-tight mb-3"
-                                x-text="proj.title"></h3>
-                            <p class="text-sm text-slate-500 leading-relaxed"
-                               x-text="proj.description"></p>
                         </div>
                     </template>
                 </div>

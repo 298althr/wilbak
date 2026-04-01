@@ -32,6 +32,30 @@
       "location": "Sede de Toyota",
       "title": "PLANTA DE DATOS DE TOYOTA",
       "description": "Arquitectura de energía hiper-redundante diseñada para la continuidad ininterrumpida de la fabricación. Operaciones de línea de ensamblaje protegidas de variaciones en el sistema de energía en todas las etapas de producción."
+    },
+    {
+      "year": "2024",
+      "location": "Houston, Texas",
+      "tag": "CERTIFICADO TIER IV",
+      "title": "NÚCLEO EMPRESARIAL DE HOUSTON",
+      "photo": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80&auto=format&fit=crop",
+      "description": "Diseño y construcción desde cero de un centro de datos Tier IV de 12 MW para un conglomerado energético regional. Redundancia N+1 completa en energía, refrigeración y redes. Entregado a tiempo y por debajo del presupuesto sin incidentes críticos durante la puesta en marcha."
+    },
+    {
+      "year": "2024",
+      "location": "Singapur",
+      "tag": "DESPLIEGUE MODULAR",
+      "title": "NODO CLOUD APAC — SINGAPUR",
+      "photo": "https://images.unsplash.com/photo-1573164713712-03f326d68cca?w=800&q=80&auto=format&fit=crop",
+      "description": "Despliegue de centro de datos modular en contenedor para la expansión de un proveedor cloud regional en el Sudeste Asiático. Gestión térmica personalizada para el clima tropical de Singapur. Tráfico de producción migrado en vivo con transición sin tiempo de inactividad."
+    },
+    {
+      "year": "2021",
+      "location": "Toronto, Canadá",
+      "tag": "MIGRACIÓN CLOUD",
+      "title": "CLOUD FINANCIERO DE TORONTO",
+      "photo": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80&auto=format&fit=crop",
+      "description": "Diseño y migración de infraestructura cloud de extremo a extremo para una empresa de servicios financieros de mediano mercado. Sistemas locales heredados desmantelados y reemplazados por una arquitectura cloud híbrida en dos zonas de disponibilidad. Reducción del 40% en costos operativos de infraestructura en 12 meses."
     }
   ],
   "footer": { "copyright": "© 2026 Wilbak Engineering Group // Construido para Durar" }

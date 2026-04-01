@@ -34,6 +34,30 @@
       "location": "Toyota HQ",
       "title": "TOYOTA DATA PLANT",
       "description": "Hyper-redundant power architecture engineered for uninterrupted manufacturing continuity. Assembly line operations protected from power system variance across all production stages."
+    },
+    {
+      "year": "2024",
+      "location": "Houston, Texas",
+      "tag": "TIER IV CERTIFIED",
+      "title": "HOUSTON ENTERPRISE CORE",
+      "photo": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80&auto=format&fit=crop",
+      "description": "Ground-up design and construction of a 12MW Tier IV data centre for a regional energy conglomerate. Full N+1 redundancy across power, cooling, and networking. Delivered on time and under budget with zero critical incidents during commissioning."
+    },
+    {
+      "year": "2024",
+      "location": "Singapore",
+      "tag": "MODULAR DEPLOYMENT",
+      "title": "APAC CLOUD NODE — SINGAPORE",
+      "photo": "https://images.unsplash.com/photo-1573164713712-03f326d68cca?w=800&q=80&auto=format&fit=crop",
+      "description": "Modular containerised data centre deployment supporting a regional cloud provider's Southeast Asia expansion. Custom thermal management designed for Singapore's tropical climate. Live production traffic migrated with zero-downtime cutover."
+    },
+    {
+      "year": "2021",
+      "location": "Toronto, Canada",
+      "tag": "CLOUD MIGRATION",
+      "title": "TORONTO FINANCIAL CLOUD",
+      "photo": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80&auto=format&fit=crop",
+      "description": "End-to-end cloud infrastructure design and migration for a mid-market financial services firm. Legacy on-premise systems decommissioned, replaced with a hybrid cloud architecture spanning two availability zones. 40% reduction in infrastructure operating costs within 12 months of go-live."
     }
   ],
   "footer": {

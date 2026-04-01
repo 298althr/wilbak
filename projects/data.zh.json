@@ -32,6 +32,30 @@
       "location": "丰田总部",
       "title": "丰田数据工厂",
       "description": "为不间断制造连续性而设计的超冗余电力架构。装配线运营在所有生产阶段均受到保护，免受电力系统波动影响。"
+    },
+    {
+      "year": "2024",
+      "location": "美国 休斯顿",
+      "tag": "TIER IV 认证",
+      "title": "休斯顿企业核心数据中心",
+      "photo": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80&auto=format&fit=crop",
+      "description": "为区域能源集团从头设计并建造 12MW Tier IV 数据中心。电力、冷却和网络均具备完整 N+1 冗余。按时交付、低于预算，调试期间零重大故障。"
+    },
+    {
+      "year": "2024",
+      "location": "新加坡",
+      "tag": "模块化部署",
+      "title": "亚太云节点 — 新加坡",
+      "photo": "https://images.unsplash.com/photo-1573164713712-03f326d68cca?w=800&q=80&auto=format&fit=crop",
+      "description": "为区域云服务商在东南亚扩张部署模块化集装箱数据中心。针对新加坡热带气候定制热管理方案。实时生产流量迁移，零停机切换。"
+    },
+    {
+      "year": "2021",
+      "location": "加拿大 多伦多",
+      "tag": "云迁移",
+      "title": "多伦多金融云",
+      "photo": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80&auto=format&fit=crop",
+      "description": "为中型金融服务企业提供端到端云基础设施设计与迁移。传统本地系统退役，以跨两个可用区的混合云架构取代。上线后 12 个月内基础设施运营成本降低 40%。"
     }
   ],
   "footer": { "copyright": "© 2026 Wilbak 工程集团 // 为长远而建" }

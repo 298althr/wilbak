@@ -32,6 +32,30 @@
       "location": "Siège de Toyota",
       "title": "USINE DE DONNÉES TOYOTA",
       "description": "Architecture d'alimentation hyper-redondante conçue pour une continuité de fabrication ininterrompue. Opérations de chaîne de montage protégées contre les variations du système d'alimentation à toutes les étapes de production."
+    },
+    {
+      "year": "2024",
+      "location": "Houston, Texas",
+      "tag": "CERTIFIÉ TIER IV",
+      "title": "CŒUR ENTREPRISE DE HOUSTON",
+      "photo": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80&auto=format&fit=crop",
+      "description": "Conception et construction d'un centre de données Tier IV de 12 MW pour un conglomérat énergétique régional. Redondance N+1 complète sur l'alimentation, le refroidissement et le réseau. Livré dans les délais et sous budget sans incident critique lors de la mise en service."
+    },
+    {
+      "year": "2024",
+      "location": "Singapour",
+      "tag": "DÉPLOIEMENT MODULAIRE",
+      "title": "NŒUD CLOUD APAC — SINGAPOUR",
+      "photo": "https://images.unsplash.com/photo-1573164713712-03f326d68cca?w=800&q=80&auto=format&fit=crop",
+      "description": "Déploiement de centre de données modulaire conteneurisé pour l'expansion d'un fournisseur cloud régional en Asie du Sud-Est. Gestion thermique personnalisée pour le climat tropical de Singapour. Migration du trafic de production en direct sans interruption."
+    },
+    {
+      "year": "2021",
+      "location": "Toronto, Canada",
+      "tag": "MIGRATION CLOUD",
+      "title": "CLOUD FINANCIER DE TORONTO",
+      "photo": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80&auto=format&fit=crop",
+      "description": "Conception et migration d'infrastructure cloud de bout en bout pour une entreprise de services financiers de taille intermédiaire. Systèmes sur site existants remplacés par une architecture cloud hybride sur deux zones de disponibilité. Réduction de 40 % des coûts opérationnels d'infrastructure en 12 mois."
     }
   ],
   "footer": { "copyright": "© 2026 Wilbak Engineering Group // Construit pour Durer" }
