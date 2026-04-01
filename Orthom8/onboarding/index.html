@@ -393,7 +393,12 @@
 </head>
 <body>
 
-<div id="app" x-data="onboarding()" x-init="init()">
+<video autoplay muted loop playsinline
+       style="position:fixed; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.13; z-index:0; pointer-events:none;">
+  <source src="https://res.cloudinary.com/dgz88jxiy/video/upload/v1774275213/efb22533077888224530dec240bb54bc_clwgsj.mp4" type="video/mp4">
+</video>
+
+<div id="app" x-data="onboarding()" x-init="init()" style="position:relative; z-index:1;">
   <div id="site-nav-root"></div>
 
   <main class="onboarding-shell">
