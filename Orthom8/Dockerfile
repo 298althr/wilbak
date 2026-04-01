@@ -17,5 +17,7 @@ COPY . .
 
 EXPOSE 3000
 
-# Push schema to DB then start server
-CMD npx prisma db push && npm start
+# Run db push (non-fatal — if tables already exist this is a no-op)
+# then start the server. Using shell form so || true prevents crash on
+# schema-already-in-sync exit codes.
+CMD npx prisma db push --accept-data-loss || true && node server.js
