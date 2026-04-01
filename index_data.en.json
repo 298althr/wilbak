@@ -59,6 +59,12 @@
       }
     ]
   },
+  "stats": [
+    { "value": "47+", "label": "Engagements Delivered" },
+    { "value": "$18M+", "label": "Overhead Eliminated" },
+    { "value": "94%", "label": "Client Retention" },
+    { "value": "12yrs", "label": "Operational Experience" }
+  ],
   "footer": {
     "description": "We engineer operational infrastructure that runs cleanly, scales reliably, and performs under pressure. Built for organisations that require structural performance improvement.",
     "copyright": "© 2026 Wilbak Engineering Group // Built to Last"
