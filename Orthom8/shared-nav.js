@@ -282,6 +282,14 @@
       document.head.appendChild(s);
     }
 
+    // 1b. Animation engine
+    if (!document.getElementById('o8-anim-script')) {
+      const a = document.createElement('script');
+      a.id  = 'o8-anim-script';
+      a.src = '/Orthom8/animations.js';
+      document.head.appendChild(a);
+    }
+
     // 2. Gate
     if (!document.getElementById('welcome-gate') && document.body) {
       document.body.insertAdjacentHTML('afterbegin', GATE_HTML);

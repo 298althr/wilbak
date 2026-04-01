@@ -316,12 +316,9 @@
 .glass-panel {
   background: var(--surface-bg);
   border: 1px solid var(--brand-rule);
-  transition: all 0.3s ease;
+  transition: border-color 0.3s, background 0.3s;
 }
-.glass-panel:hover {
-  border-color: var(--brand-cobalt);
-  transform: translateY(-3px);
-}
+.glass-panel:hover { border-color: var(--brand-cobalt); }
 
 /* ═══════════════════════════════════════════════════
    TAB BUTTON (model page)
@@ -358,9 +355,9 @@
   background: var(--surface-bg);
   border: 1px solid var(--brand-rule);
   padding: clamp(1.25rem, 3vw, 2rem);
-  transition: 0.3s;
+  transition: border-color 0.3s, background 0.3s;
 }
-.stat-card:hover { border-color: var(--brand-cobalt); transform: translateY(-4px); }
+.stat-card:hover { border-color: var(--brand-cobalt); }
 @media (max-width: 480px) {
   .stat-card { padding: 1.25rem; }
 }
@@ -440,7 +437,6 @@
 .contact-card:hover {
   border-color: var(--brand-cobalt);
   background: var(--surface-2);
-  transform: translateX(5px);
 }
 @media (max-width: 1024px) {
   #contact-split { grid-template-columns: 1fr; }
@@ -490,9 +486,9 @@
   display: flex;
   gap: 1.5rem;
   align-items: center;
-  transition: all 0.3s ease;
+  transition: border-color 0.3s, background 0.3s;
 }
-.director-card:hover { border-color: var(--brand-cobalt); transform: translateY(-4px); }
+.director-card:hover { border-color: var(--brand-cobalt); background: var(--surface-2); }
 .director-portrait {
   width: 64px;
   height: 64px;

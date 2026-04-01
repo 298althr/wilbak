@@ -318,24 +318,71 @@ body.drawer-open { overflow: hidden; }
 
 /* ═══════════════════════════════════════════════════
    ANIMATIONS & TRANSITIONS
+   Initial hidden states — no auto-fire.
+   animations.js adds .revealed via IntersectionObserver.
 ═══════════════════════════════════════════════════ */
-.anim-fade-in { opacity: 0; animation: fade-in 1s ease forwards; }
-.anim-slide-up { opacity: 0; transform: translateY(30px); animation: slide-up 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
-.anim-slide-down { opacity: 0; transform: translateY(-30px); animation: slide-down 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
-.anim-slide-left { opacity: 0; transform: translateX(30px); animation: slide-left 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
-.anim-slide-right { opacity: 0; transform: translateX(-30px); animation: slide-right 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.anim-fade-in    { opacity: 0; }
+.anim-slide-up   { opacity: 0; transform: translateY(56px); }
+.anim-slide-down { opacity: 0; transform: translateY(-56px); }
+.anim-slide-left  { opacity: 0; transform: translateX(56px); }
+.anim-slide-right { opacity: 0; transform: translateX(-56px); }
 
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-.delay-4 { animation-delay: 0.4s; }
-.delay-5 { animation-delay: 0.5s; }
+.anim-fade-in.revealed    { animation: fade-in    0.9s ease                        both; }
+.anim-slide-up.revealed   { animation: slide-up   0.9s cubic-bezier(0.16,1,0.3,1) both; }
+.anim-slide-down.revealed { animation: slide-down 0.9s cubic-bezier(0.16,1,0.3,1) both; }
+.anim-slide-left.revealed  { animation: slide-left  0.9s cubic-bezier(0.16,1,0.3,1) both; }
+.anim-slide-right.revealed { animation: slide-right 0.9s cubic-bezier(0.16,1,0.3,1) both; }
 
-@keyframes fade-in { to { opacity: 1; } }
-@keyframes slide-up { to { opacity: 1; transform: translateY(0); } }
-@keyframes slide-down { to { opacity: 1; transform: translateY(0); } }
-@keyframes slide-left { to { opacity: 1; transform: translateX(0); } }
-@keyframes slide-right { to { opacity: 1; transform: translateX(0); } }
+.delay-1 { animation-delay: 0.12s; }
+.delay-2 { animation-delay: 0.24s; }
+.delay-3 { animation-delay: 0.36s; }
+.delay-4 { animation-delay: 0.48s; }
+.delay-5 { animation-delay: 0.60s; }
+
+@keyframes fade-in    { to   { opacity: 1; } }
+@keyframes slide-up   { from { opacity: 0; transform: translateY(56px);  filter: blur(4px); } to { opacity: 1; transform: translateY(0);  filter: blur(0); } }
+@keyframes slide-down { from { opacity: 0; transform: translateY(-56px); filter: blur(4px); } to { opacity: 1; transform: translateY(0);  filter: blur(0); } }
+@keyframes slide-left  { from { opacity: 0; transform: translateX(56px);  filter: blur(4px); } to { opacity: 1; transform: translateX(0);  filter: blur(0); } }
+@keyframes slide-right { from { opacity: 0; transform: translateX(-56px); filter: blur(4px); } to { opacity: 1; transform: translateX(0);  filter: blur(0); } }
+
+/* ═══════════════════════════════════════════════════
+   CUSTOM CURSOR
+═══════════════════════════════════════════════════ */
+#o8-cursor-dot {
+  position: fixed; width: 7px; height: 7px;
+  background: var(--brand-cobalt); border-radius: 50%;
+  pointer-events: none; z-index: 99999;
+  will-change: transform;
+  transition: width 0.2s, height 0.2s, background 0.2s, opacity 0.3s;
+}
+#o8-cursor-dot.hover { width: 13px; height: 13px; background: var(--brand-gold-light); }
+#o8-cursor-ring {
+  position: fixed; width: 34px; height: 34px;
+  border: 1.5px solid rgba(26,86,255,0.45); border-radius: 50%;
+  pointer-events: none; z-index: 99998;
+  will-change: transform;
+  transition: width 0.3s, height 0.3s, border-color 0.3s, opacity 0.3s;
+}
+#o8-cursor-ring.hover { width: 54px; height: 54px; border-color: rgba(212,172,58,0.5); }
+@media (pointer: coarse) { #o8-cursor-dot, #o8-cursor-ring { display: none; } }
+body:has(#o8-cursor-dot)        { cursor: none; }
+body:has(#o8-cursor-dot) a,
+body:has(#o8-cursor-dot) button { cursor: none; }
+
+/* ═══════════════════════════════════════════════════
+   HEADER SCROLL BEHAVIOUR
+═══════════════════════════════════════════════════ */
+#site-header {
+  transition: transform 0.38s cubic-bezier(0.16,1,0.3,1), background 0.3s, box-shadow 0.3s !important;
+}
+#site-header.scrolled  { background: rgba(6,12,24,0.97) !important; box-shadow: 0 1px 32px rgba(0,0,0,0.5); }
+#site-header.nav-hidden { transform: translateY(-100%); }
+
+/* ═══════════════════════════════════════════════════
+   ENHANCED BUTTON GLOW
+═══════════════════════════════════════════════════ */
+.btn-primary:hover { box-shadow: 0 0 32px rgba(26,86,255,0.55), 0 0 64px rgba(26,86,255,0.18) !important; }
+.btn-gold:hover    { box-shadow: 0 0 32px rgba(212,172,58,0.55), 0 0 64px rgba(212,172,58,0.18) !important; }
 
 /* ═══════════════════════════════════════════════════
    SCAN-LINE OVERLAY
