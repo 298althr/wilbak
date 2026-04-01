@@ -24,6 +24,13 @@
             --navy-hover: #1a2f60;
             --blue: #2563EB;
             --blue-light: #3B82F6;
+            --slate-50: #F8FAFC;
+            --slate-100: #F1F5F9;
+            --slate-200: #E2E8F0;
+            --slate-400: #94A3B8;
+            --slate-500: #64748B;
+            --slate-600: #475569;
+            --slate-900: #0F172A;
         }
 
         *, *::before, *::after { box-sizing: border-box; }
@@ -31,7 +38,7 @@
         body {
             font-family: 'DM Sans', sans-serif;
             background-color: #ffffff;
-            color: #0F172A;
+            color: var(--slate-900);
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -44,94 +51,129 @@
             position: fixed; inset: 0; background: #ffffff;
             z-index: 9999; display: flex; flex-direction: column;
             align-items: center; justify-content: center;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         #page-loader.fade-out { opacity: 0; pointer-events: none; }
         .loader-bar {
-            width: 56px; height: 2px; background: #E2E8F0;
+            width: 64px; height: 2px; background: var(--slate-100);
             border-radius: 2px; overflow: hidden;
+            position: relative;
         }
         .loader-bar::after {
             content: ''; display: block;
             width: 40%; height: 100%; background: var(--navy);
-            animation: loadslide 0.9s ease-in-out infinite alternate;
+            animation: loadslide 1.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
         }
         @keyframes loadslide {
-            from { transform: translateX(0); }
-            to { transform: translateX(150%); }
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(250%); }
         }
 
         /* ── Buttons ── */
         .btn-navy {
             display: inline-flex; align-items: center; justify-content: center;
             background: var(--navy); color: #ffffff;
-            padding: 0.6rem 1.4rem; font-size: 0.72rem; font-weight: 600;
-            letter-spacing: 0.06em; text-transform: uppercase;
-            border-radius: 5px; transition: background 0.2s ease;
+            padding: 0.75rem 1.75rem; font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            border-radius: 4px; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             white-space: nowrap; border: none; cursor: pointer;
+            text-decoration: none;
         }
-        .btn-navy:hover { background: var(--navy-hover); }
+        .btn-navy:hover { background: var(--navy-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(15, 28, 63, 0.15); }
 
         .btn-outline {
             display: inline-flex; align-items: center; justify-content: center;
-            background: transparent; color: #475569;
-            border: 1.5px solid #CBD5E1;
-            padding: 0.6rem 1.4rem; font-size: 0.72rem; font-weight: 600;
-            letter-spacing: 0.06em; text-transform: uppercase;
-            border-radius: 5px; transition: all 0.2s ease;
+            background: transparent; color: var(--slate-600);
+            border: 1.5px solid var(--slate-200);
+            padding: 0.75rem 1.75rem; font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            border-radius: 4px; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             white-space: nowrap; cursor: pointer;
+            text-decoration: none;
         }
-        .btn-outline:hover { border-color: var(--navy); color: var(--navy); }
+        .btn-outline:hover { border-color: var(--navy); color: var(--navy); transform: translateY(-1px); }
 
         /* ── Nav ── */
         .nav-link {
-            font-size: 0.72rem; font-weight: 600;
-            letter-spacing: 0.05em; text-transform: uppercase;
-            color: #64748B; transition: color 0.15s ease;
+            font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 0.06em; text-transform: uppercase;
+            color: var(--slate-500); transition: color 0.2s ease;
+            text-decoration: none;
         }
         .nav-link:hover { color: var(--navy); }
         .nav-link.active { color: var(--navy); }
 
         .lang-select {
-            background: transparent; border: 1.5px solid #E2E8F0;
-            color: #64748B; font-size: 0.65rem; font-weight: 600;
-            padding: 5px 8px; border-radius: 4px; outline: none;
+            background: transparent; border: 1.5px solid var(--slate-200);
+            color: var(--slate-500); font-size: 0.65rem; font-weight: 600;
+            padding: 6px 10px; border-radius: 4px; outline: none;
             cursor: pointer; font-family: 'DM Mono', monospace;
-            transition: border-color 0.15s ease;
+            transition: all 0.2s ease;
         }
+        .lang-select:hover { border-color: var(--slate-400); }
         .lang-select:focus { border-color: var(--blue); }
 
         /* ── Labels ── */
         .eyebrow {
             font-family: 'DM Mono', monospace;
-            font-size: 0.65rem; font-weight: 500;
-            letter-spacing: 0.18em; text-transform: uppercase;
+            font-size: 0.7rem; font-weight: 500;
+            letter-spacing: 0.2em; text-transform: uppercase;
             color: var(--blue);
+            display: flex; align-items: center; gap: 12px;
+        }
+        .eyebrow::before {
+            content: ''; display: inline-block; width: 24px; height: 1px;
+            background: var(--blue); opacity: 0.6;
+        }
+
+        /* ── Section Titles ── */
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: var(--slate-900);
         }
 
         /* ── Cards ── */
         .analysis-card {
-            padding: 2rem 2rem 2.25rem; border: 1.5px solid #E2E8F0;
-            border-radius: 8px; transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            padding: 2.5rem; border: 1px solid var(--slate-200);
+            border-radius: 8px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #ffffff;
         }
-        .analysis-card:hover { border-color: #94A3B8; box-shadow: 0 4px 20px rgba(15,28,63,0.06); }
-        .analysis-card.accent { border-color: #BFDBFE; background: #F0F7FF; }
+        .analysis-card:hover { 
+            border-color: var(--slate-400); 
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(15, 28, 63, 0.06); 
+        }
+        .analysis-card.accent { 
+            border-color: #BFDBFE; 
+            background: linear-gradient(145deg, #ffffff, #F0F7FF); 
+        }
         .analysis-card.accent:hover { border-color: #93C5FD; }
 
         .testimonial-card {
-            background: #ffffff; padding: 2rem;
-            border: 1.5px solid #E2E8F0; border-radius: 8px;
+            background: #ffffff; padding: 2.5rem;
+            border: 1px solid var(--slate-200); border-radius: 8px;
             display: flex; flex-direction: column;
-            transition: box-shadow 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .testimonial-card:hover { box-shadow: 0 6px 24px rgba(15,28,63,0.08); }
+        .testimonial-card:hover { 
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(15, 28, 63, 0.08); 
+        }
 
         /* ── Footer ── */
         .footer-link {
-            font-size: 0.8rem; font-weight: 400;
-            color: #94A3B8; transition: color 0.15s ease;
+            font-size: 0.85rem; font-weight: 400;
+            color: var(--slate-400); transition: color 0.2s ease;
+            text-decoration: none;
         }
         .footer-link:hover { color: #ffffff; }
+
+        /* ── Animations ── */
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 
@@ -144,23 +186,23 @@
     </div>
 
     <!-- ━━━━━━━━━━━━━━━━ NAV ━━━━━━━━━━━━━━━━ -->
-    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100" x-show="data" x-cloak>
-        <div class="max-w-7xl mx-auto px-6 md:px-10 h-[60px] flex items-center justify-between gap-8">
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100" x-show="data" x-cloak>
+        <div class="max-w-7xl mx-auto px-6 md:px-10 h-[72px] flex items-center justify-between gap-8">
 
             <!-- Logo -->
             <a href="/" class="shrink-0">
-                <img src="logo.png" alt="Wilbak Engineering" class="h-7">
+                <img src="logo.png" alt="Wilbak Engineering" class="h-8">
             </a>
 
             <!-- Desktop Nav -->
-            <div class="hidden md:flex items-center gap-8">
-                <a href="/audit/" class="btn-navy py-1.5 px-4 text-[10px]">Free Audit</a>
-                <div class="w-px h-3 bg-slate-200"></div>
-                <div class="flex items-center gap-7">
+            <div class="hidden md:flex items-center gap-10">
+                <div class="flex items-center gap-8">
+                    <a href="/audit/" class="btn-navy py-2 px-5 text-[11px]">Audit</a>
+                    <div class="w-px h-4 bg-slate-200"></div>
                     <a href="/about/" class="nav-link">About</a>
                     <a href="/contact/" class="nav-link">Contact</a>
                     <a href="/projects/" class="nav-link">Projects</a>
-                    <a href="/insight/" class="nav-link">News & Insights</a>
+                    <a href="/insight/" class="nav-link">News/Insights</a>
                 </div>
             </div>
 
@@ -177,27 +219,32 @@
 
             <!-- Mobile Toggle -->
             <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-slate-500 rounded hover:bg-slate-50 transition" :aria-expanded="mobileMenu">
-                <svg x-show="!mobileMenu" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                <svg x-show="!mobileMenu" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5"/>
                 </svg>
-                <svg x-show="mobileMenu" x-cloak xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <svg x-show="mobileMenu" x-cloak xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
         </div>
 
         <!-- Mobile Drawer -->
-        <div x-show="mobileMenu" x-cloak class="md:hidden bg-white border-t border-slate-100 px-6 py-6">
-            <div class="flex flex-col gap-5">
-                <a href="/audit/" class="btn-navy w-full py-3" @click="mobileMenu = false">Free Audit</a>
+        <div x-show="mobileMenu" x-cloak 
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             class="md:hidden bg-white border-t border-slate-100 px-6 py-8 shadow-xl">
+            <div class="flex flex-col gap-6">
+                <a href="/audit/" class="btn-navy w-full py-4 text-center" @click="mobileMenu = false">Audit</a>
                 <div class="h-px w-full bg-slate-100"></div>
-                <a href="/about/" class="nav-link text-slate-800 text-sm" @click="mobileMenu = false">About</a>
-                <a href="/contact/" class="nav-link text-slate-800 text-sm" @click="mobileMenu = false">Contact</a>
-                <a href="/projects/" class="nav-link text-slate-800 text-sm" @click="mobileMenu = false">Projects</a>
-                <a href="/insight/" class="nav-link text-slate-800 text-sm" @click="mobileMenu = false">News & Insights</a>
+                <a href="/about/" class="nav-link text-slate-900 text-sm font-bold" @click="mobileMenu = false">About</a>
+                <a href="/contact/" class="nav-link text-slate-900 text-sm font-bold" @click="mobileMenu = false">Contact</a>
+                <a href="/projects/" class="nav-link text-slate-900 text-sm font-bold" @click="mobileMenu = false">Projects</a>
+                <a href="/insight/" class="nav-link text-slate-900 text-sm font-bold" @click="mobileMenu = false">News/Insights</a>
             </div>
-            <div class="mt-6 pt-6 border-t border-slate-100">
-                <select class="lang-select w-full py-2" @change="loadLang($event.target.value)">
+            <div class="mt-8 pt-6 border-t border-slate-100">
+                <div class="mono text-[10px] text-slate-400 uppercase tracking-widest mb-4">Select Language</div>
+                <select class="lang-select w-full py-3" @change="loadLang($event.target.value)">
                     <option value="en">English (EN)</option>
                     <option value="es">Español (ES)</option>
                     <option value="de">Deutsch (DE)</option>
@@ -212,27 +259,31 @@
     <main x-show="data" x-cloak>
 
         <!-- ── HERO ── -->
-        <section class="bg-white px-6 md:px-10 pt-20 pb-24 md:pt-28 md:pb-32">
-            <div class="max-w-7xl mx-auto">
-                <div class="max-w-4xl">
-                    <div class="eyebrow mb-6" x-text="data.hero.protocol"></div>
-                    <h1 class="text-[2.6rem] sm:text-6xl md:text-[5rem] font-bold leading-[1.05] tracking-tight text-slate-900 mb-8"
+        <section class="bg-white px-6 md:px-10 pt-24 pb-28 md:pt-32 md:pb-40 overflow-hidden">
+            <div class="max-w-7xl mx-auto relative">
+                <!-- Background decor -->
+                <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-50/50 rounded-full blur-3xl -z-10"></div>
+                
+                <div class="max-w-4xl reveal">
+                    <div class="eyebrow mb-8" x-text="data.hero.protocol"></div>
+                    <h1 class="text-[2.8rem] sm:text-6xl md:text-[5.5rem] font-extrabold leading-[1.02] tracking-tight text-slate-900 mb-10"
                         x-html="data.hero.heading"></h1>
-                    <p class="text-lg md:text-xl text-slate-500 leading-relaxed font-normal max-w-2xl mb-10"
+                    <p class="text-lg md:text-xl text-slate-500 leading-relaxed font-normal max-w-2xl mb-12"
                        x-text="data.hero.subheading"></p>
-                    <div class="flex flex-wrap gap-3">
+                    <div class="flex flex-wrap gap-4">
                         <template x-for="btn in data.hero.cta" :key="btn.url">
                             <a :href="btn.url"
-                               :class="btn.url.includes('audit') ? 'btn-navy px-7 py-3 text-sm' : 'btn-outline px-7 py-3 text-sm'"
+                               :class="btn.url.includes('audit') ? 'btn-navy px-8 py-4 text-sm' : 'btn-outline px-8 py-4 text-sm'"
                                x-text="btn.label"></a>
                         </template>
                     </div>
                 </div>
 
                 <!-- Decorative rule -->
-                <div class="mt-20 flex gap-1">
-                    <div class="h-px w-16 bg-[var(--blue)]"></div>
+                <div class="mt-24 flex gap-1 items-center">
+                    <div class="h-px w-24 bg-blue-600"></div>
                     <div class="h-px flex-1 bg-slate-100"></div>
+                    <div class="mono text-[9px] text-slate-300 uppercase tracking-[0.3em] ml-4">Houston, TX // Global Operations</div>
                 </div>
             </div>
         </section>
@@ -254,29 +305,29 @@
         </section>
 
         <!-- ── OPERATIONAL ANALYSIS ── -->
-        <section class="bg-white py-24 md:py-32 px-6 md:px-10">
+        <section class="bg-white py-28 md:py-40 px-6 md:px-10">
             <div class="max-w-7xl mx-auto">
-                <div class="mb-14 max-w-2xl">
-                    <div class="eyebrow mb-4">Analysis</div>
-                    <h2 class="text-3xl md:text-[2.6rem] font-bold tracking-tight leading-tight text-slate-900 mb-5"
+                <div class="mb-20 max-w-3xl reveal">
+                    <div class="eyebrow mb-6">Strategic Analysis</div>
+                    <h2 class="section-title mb-8"
                         x-text="data.operational_gap.heading"></h2>
-                    <p class="text-base text-slate-500 leading-relaxed"
+                    <p class="text-lg text-slate-500 leading-relaxed max-w-2xl"
                        x-text="data.operational_gap.subheading"></p>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-5">
+                <div class="grid md:grid-cols-2 gap-8 reveal">
                     <div class="analysis-card">
-                        <div class="w-6 h-px bg-slate-300 mb-6"></div>
-                        <h3 class="text-sm font-semibold text-slate-900 mb-4 tracking-tight"
+                        <div class="w-8 h-px bg-slate-300 mb-8"></div>
+                        <h3 class="text-base font-bold text-slate-900 mb-5 tracking-tight uppercase"
                             x-text="data.operational_gap.chaos_tax.title"></h3>
-                        <p class="text-sm text-slate-500 leading-relaxed"
+                        <p class="text-sm text-slate-500 leading-loose"
                            x-text="data.operational_gap.chaos_tax.description"></p>
                     </div>
                     <div class="analysis-card accent">
-                        <div class="w-6 h-px bg-blue-300 mb-6"></div>
-                        <h3 class="text-sm font-semibold text-slate-900 mb-4 tracking-tight"
+                        <div class="w-8 h-px bg-blue-400 mb-8"></div>
+                        <h3 class="text-base font-bold text-slate-900 mb-5 tracking-tight uppercase"
                             x-text="data.operational_gap.wilbak_alignment.title"></h3>
-                        <p class="text-sm text-slate-500 leading-relaxed"
+                        <p class="text-sm text-slate-600 leading-loose"
                            x-text="data.operational_gap.wilbak_alignment.description"></p>
                     </div>
                 </div>
@@ -284,26 +335,26 @@
         </section>
 
         <!-- ── CLIENT OUTCOMES ── -->
-        <section class="bg-slate-50 border-y border-slate-200 py-24 md:py-32 px-6 md:px-10">
+        <section class="bg-slate-50 border-y border-slate-200 py-28 md:py-40 px-6 md:px-10">
             <div class="max-w-7xl mx-auto">
-                <div class="flex items-end justify-between mb-14 gap-6 flex-wrap">
-                    <div>
-                        <div class="eyebrow mb-4" x-text="data.testimonies.subheading"></div>
-                        <h2 class="text-3xl md:text-[2.6rem] font-bold tracking-tight text-slate-900"
+                <div class="flex items-end justify-between mb-20 gap-8 flex-wrap reveal">
+                    <div class="max-w-2xl">
+                        <div class="eyebrow mb-6" x-text="data.testimonies.subheading"></div>
+                        <h2 class="section-title"
                             x-text="data.testimonies.heading"></h2>
                     </div>
-                    <a href="/projects/" class="btn-outline shrink-0">View Engagements</a>
+                    <a href="/projects/" class="btn-outline px-8 py-4 mb-2 shrink-0">View Engagements</a>
                 </div>
 
-                <div class="grid md:grid-cols-3 gap-5">
+                <div class="grid md:grid-cols-3 gap-8 reveal">
                     <template x-for="item in data.testimonies.items" :key="item.author">
                         <div class="testimonial-card">
-                            <div class="text-4xl text-slate-200 font-serif leading-none select-none mb-3">&ldquo;</div>
-                            <p class="text-slate-600 text-sm leading-relaxed flex-1 mb-7"
+                            <div class="text-5xl text-blue-600/10 font-serif leading-none select-none mb-6">“</div>
+                            <p class="text-slate-600 text-[0.95rem] leading-relaxed flex-1 mb-10 italic"
                                x-text="item.quote"></p>
-                            <div class="border-t border-slate-100 pt-5">
-                                <div class="font-semibold text-slate-900 text-sm" x-text="item.author"></div>
-                                <div class="mono text-[10px] text-slate-400 uppercase tracking-widest mt-1"
+                            <div class="border-t border-slate-100 pt-6">
+                                <div class="font-bold text-slate-900 text-sm" x-text="item.author"></div>
+                                <div class="mono text-[10px] text-slate-400 uppercase tracking-[0.15em] mt-2"
                                      x-text="item.title"></div>
                             </div>
                         </div>
@@ -368,7 +419,10 @@
 
                 async init() {
                     await this.loadLang(this.lang);
-                    setTimeout(() => { this.loading = false; }, 600);
+                    setTimeout(() => { 
+                        this.loading = false;
+                        this.initScrollReveal();
+                    }, 600);
                 },
 
                 async loadLang(lang) {
@@ -383,6 +437,18 @@
                         console.error(`Failed to load index data for: ${lang}`, err);
                         if (lang !== 'en') this.loadLang('en');
                     }
+                },
+
+                initScrollReveal() {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('active');
+                            }
+                        });
+                    }, { threshold: 0.1 });
+
+                    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
                 }
             }));
         });

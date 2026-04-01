@@ -1,4 +1,8 @@
 {
+  "page_meta": {
+    "title": "Wilbak Engineering — Operational Infrastructure",
+    "description": "Precision operational infrastructure for businesses that require structural performance improvement. Led by Wilhelm Rybak."
+  },
   "navigation": [
     { "label": "Audit", "url": "/audit/", "type": "cta" },
     { "label": "About", "url": "/about/" },

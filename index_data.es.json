@@ -1,12 +1,12 @@
 {
   "navigation": [
-    { "label": "Inicio", "url": "/" },
-    { "label": "Proyectos", "url": "/projects/" },
+    { "label": "Diagnóstico Gratuito", "url": "/audit/", "type": "premium" },
     { "label": "Nuestro Equipo", "url": "/Orthom8pro/our-team/" },
-    { "label": "Ortho'M8", "url": "/Orthom8pro/" },
     { "label": "Contacto", "url": "/contact/" },
+    { "label": "Proyectos", "url": "/projects/" },
     { "label": "Noticias e Información", "url": "/insight/" },
-    { "label": "Diagnóstico Gratuito", "url": "/audit/", "type": "premium" }
+    { "label": "Ortho'M8", "url": "/Orthom8pro/" },
+    { "label": "Inicio", "url": "/" }
   ],
   "hero": {
     "protocol": "Excelencia operativa. Diseñada por ingeniería.",
