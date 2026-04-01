@@ -6,6 +6,9 @@
 (function () {
   'use strict';
 
+  // Mark body so CSS knows JS is running — used for the no-JS visibility fallback
+  document.body.classList.add('o8-js');
+
   const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const TOUCH   = window.matchMedia('(pointer: coarse)').matches;
   const lerp    = (a, b, t) => a + (b - a) * t;

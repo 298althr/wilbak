@@ -317,9 +317,19 @@ body.drawer-open { overflow: hidden; }
 #app.visible { opacity: 1; }
 
 /* ═══════════════════════════════════════════════════
+   GLOBAL SAFETY — prevents overflow on any screen size
+═══════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; }
+img  { max-width: 100%; height: auto; }
+video:not(.hero-bg-video):not(.terminal-bg-video) { max-width: 100%; }
+
+/* ═══════════════════════════════════════════════════
    ANIMATIONS & TRANSITIONS
    Initial hidden states — no auto-fire.
    animations.js adds .revealed via IntersectionObserver.
+   body.o8-js is set by animations.js on load.
+   If JS never runs, body lacks .o8-js and the fallback
+   block below immediately shows all elements.
 ═══════════════════════════════════════════════════ */
 .anim-fade-in    { opacity: 0; }
 .anim-slide-up   { opacity: 0; transform: translateY(56px); }
@@ -344,6 +354,17 @@ body.drawer-open { overflow: hidden; }
 @keyframes slide-down { from { opacity: 0; transform: translateY(-56px); filter: blur(4px); } to { opacity: 1; transform: translateY(0);  filter: blur(0); } }
 @keyframes slide-left  { from { opacity: 0; transform: translateX(56px);  filter: blur(4px); } to { opacity: 1; transform: translateX(0);  filter: blur(0); } }
 @keyframes slide-right { from { opacity: 0; transform: translateX(-56px); filter: blur(4px); } to { opacity: 1; transform: translateX(0);  filter: blur(0); } }
+
+/* No-JS fallback: if animations.js never ran, show everything immediately */
+body:not(.o8-js) .anim-fade-in,
+body:not(.o8-js) .anim-slide-up,
+body:not(.o8-js) .anim-slide-down,
+body:not(.o8-js) .anim-slide-left,
+body:not(.o8-js) .anim-slide-right {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
 
 /* ═══════════════════════════════════════════════════
    HOVER EFFECTS — works on mouse & touch
