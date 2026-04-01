@@ -15,7 +15,7 @@
     "heading": "BUSINESS LOGIC<br>BUILT TO PERFORM.",
     "subheading": "Most organisations operate well below their structural potential. Wilbak identifies where performance is constrained and engineers the systems that restore it — permanently.",
     "cta": [
-      { "label": "View Engagements", "url": "/projects/" },
+      { "label": "View Our Work", "url": "/projects/" },
       { "label": "Request a Diagnostic", "url": "/audit/" }
     ]
   },
@@ -60,7 +60,7 @@
     ]
   },
   "stats": [
-    { "value": "47+", "label": "Engagements Delivered" },
+    { "value": "47+", "label": "Projects Delivered" },
     { "value": "$18M+", "label": "Overhead Eliminated" },
     { "value": "94%", "label": "Client Retention" },
     { "value": "12yrs", "label": "Operational Experience" }

@@ -1,11 +1,11 @@
 {
   "page_meta": {
-    "title": "Operational Engagements | Wilbak Engineering"
+    "title": "Operational Projects | Wilbak Engineering"
   },
   "hero": {
-    "heading": "Selected Engagements.",
+    "heading": "Selected Projects.",
     "protocol": "[ Project History: 2016 — 2026 ]",
-    "description": "A record of infrastructure deployments and operational systems delivered across global markets under demanding conditions."
+    "description": "A record of data centre builds and operational infrastructure delivered across global markets under demanding conditions."
   },
   "projects": [
     {
@@ -23,7 +23,7 @@
       "tag_type": "alert",
       "title": "ARCTIC OVERHAUL",
       "photo": "https://images.unsplash.com/photo-1551710029-e9f374e35392?w=800&q=80&auto=format&fit=crop",
-      "description": "Full data centre restoration executed remotely under 2020 pandemic isolation protocols. Complete infrastructure recovery achieved within 72 hours of initial engagement, without on-site personnel."
+      "description": "Full data centre restoration executed remotely under 2020 pandemic isolation protocols. Complete infrastructure recovery achieved within 72 hours of initial deployment, without on-site personnel."
     },
     {
       "year": "2022",

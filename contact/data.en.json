@@ -1,10 +1,10 @@
 {
   "page_meta": {
-    "title": "Contact Wilbak Engineering | Begin Your Engagement"
+    "title": "Contact Wilbak Engineering | Get in Touch"
   },
   "hero": {
-    "protocol": "[ Engagements now open ]",
-    "heading": "Begin Your Engagement.",
+    "protocol": "[ Now accepting new projects ]",
+    "heading": "Get in Touch.",
     "description": "Reach Wilhelm directly for a structured consultation on your operational challenges. No intermediaries, no queues — a direct conversation with the principal engineer."
   },
   "contact_methods": [
@@ -23,7 +23,7 @@
     "city": "Houston, Texas (USA)",
     "status": {
       "label": "Current Status",
-      "value": "Accepting New Engagements"
+      "value": "Accepting New Projects"
     },
     "cta": {
       "label": "REQUEST A FREE DIAGNOSTIC",

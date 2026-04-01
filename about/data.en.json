@@ -18,16 +18,16 @@
   "founder": {
     "eyebrow": "Principal",
     "name": "Wilhelm Rybak",
-    "bio1": "Wilhelm Rybak is the founder and principal of Wilbak Engineering. With over two decades of experience across operational management, data infrastructure, and enterprise systems architecture, he has led engagements in North America, Europe, and the Middle East.",
+    "bio1": "Wilhelm Rybak is the founder and principal of Wilbak Engineering. With over two decades of experience across operational management, data infrastructure, and enterprise systems architecture, he has delivered projects across North America, Europe, and the Middle East.",
     "bio2": "His methodology centres on a single conviction: performance is an engineering problem. Every data centre and cloud structure he designs is built to eliminate operational inefficiency at the root — not to mask symptoms, but to remove the conditions that produce them.",
     "bio3": "Wilhelm's work spans logistics, financial operations, energy infrastructure, and enterprise cloud management — always with the same standard: built for permanence.",
-    "cta_primary": "Initiate Engagement",
-    "cta_secondary": "View Engagements",
+    "cta_primary": "Get in Touch",
+    "cta_secondary": "View Our Work",
     "badge_role": "Founder & Principal",
     "card1_title": "Operational Scope",
-    "card1_body": "Engagements spanning North America, EMEA, and APAC — delivering data centre builds and cloud infrastructure reform across logistics, finance, energy, and enterprise operations.",
+    "card1_body": "Projects spanning North America, EMEA, and APAC — delivering data centre builds and cloud infrastructure reform across logistics, finance, energy, and enterprise operations.",
     "card2_title": "Engineering Standard",
-    "card2_body": "Every engagement is scoped for structural permanence. Wilbak does not deliver reports — it delivers systems that hold under operational pressure."
+    "card2_body": "Every build is scoped for structural permanence. Wilbak does not deliver reports — it delivers systems that hold under operational pressure."
   },
   "quote": {
     "eyebrow": "The Engineering Conviction",
@@ -41,7 +41,7 @@
       {
         "num": "01",
         "title": "Diagnostic First",
-        "body": "Every engagement begins with a rigorous operational audit. No recommendations are made before the structural root cause is identified with precision."
+        "body": "Every build begins with a rigorous operational audit. No recommendations are made before the structural root cause is identified with precision."
       },
       {
         "num": "02",
@@ -51,7 +51,7 @@
       {
         "num": "03",
         "title": "Principal-Led Execution",
-        "body": "Wilhelm leads every engagement directly. No handoffs to junior staff. The principal who assesses your infrastructure is the principal who designs and delivers the solution."
+        "body": "Wilhelm leads every project directly. No handoffs to junior staff. The principal who assesses your infrastructure is the principal who designs and delivers the solution."
       }
     ]
   },
