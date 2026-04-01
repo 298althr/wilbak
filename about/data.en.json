@@ -1,0 +1,71 @@
+{
+  "page_meta": { "title": "About | Wilbak Engineering" },
+  "hero": {
+    "eyebrow": "About the Firm",
+    "heading": "Infrastructure Built<br>for Lasting Performance.",
+    "subheading": "Wilbak Engineering designs and builds data centre infrastructure and cloud management structures for businesses that demand precision, permanence, and operational discipline.",
+    "cta_primary": "Request a Diagnostic",
+    "cta_secondary": "View Engagements"
+  },
+  "strip": [
+    "Data Centre Engineering",
+    "Cloud Infrastructure Design",
+    "Principal-Led Execution",
+    "North America · EMEA · APAC",
+    "12+ Years of Operational Scope",
+    "Built for Permanence"
+  ],
+  "founder": {
+    "eyebrow": "Principal",
+    "name": "Wilhelm Rybak",
+    "bio1": "Wilhelm Rybak is the founder and principal of Wilbak Engineering. With over two decades of experience across operational management, data infrastructure, and enterprise systems architecture, he has led engagements in North America, Europe, and the Middle East.",
+    "bio2": "His methodology centres on a single conviction: performance is an engineering problem. Every data centre and cloud structure he designs is built to eliminate operational inefficiency at the root — not to mask symptoms, but to remove the conditions that produce them.",
+    "bio3": "Wilhelm's work spans logistics, financial operations, energy infrastructure, and enterprise cloud management — always with the same standard: built for permanence.",
+    "cta_primary": "Initiate Engagement",
+    "cta_secondary": "View Engagements",
+    "badge_role": "Founder & Principal",
+    "card1_title": "Operational Scope",
+    "card1_body": "Engagements spanning North America, EMEA, and APAC — delivering data centre builds and cloud infrastructure reform across logistics, finance, energy, and enterprise operations.",
+    "card2_title": "Engineering Standard",
+    "card2_body": "Every engagement is scoped for structural permanence. Wilbak does not deliver reports — it delivers systems that hold under operational pressure."
+  },
+  "quote": {
+    "eyebrow": "The Engineering Conviction",
+    "text": "\"Performance is not a management challenge — it is a structural engineering problem. Build the right architecture and performance becomes a natural outcome.\"",
+    "attribution": "Wilhelm Rybak // Wilbak Engineering"
+  },
+  "principles": {
+    "eyebrow": "Operating Principles",
+    "heading": "How We Work",
+    "items": [
+      {
+        "num": "01",
+        "title": "Diagnostic First",
+        "body": "Every engagement begins with a rigorous operational audit. No recommendations are made before the structural root cause is identified with precision."
+      },
+      {
+        "num": "02",
+        "title": "Systems Over Tactics",
+        "body": "We design durable data centre and cloud infrastructure systems. Tactical workarounds are replaced with architectural solutions that perform across changing conditions."
+      },
+      {
+        "num": "03",
+        "title": "Principal-Led Execution",
+        "body": "Wilhelm leads every engagement directly. No handoffs to junior staff. The principal who assesses your infrastructure is the principal who designs and delivers the solution."
+      }
+    ]
+  },
+  "cta": {
+    "eyebrow": "Next Step",
+    "heading": "Ready to begin a diagnostic?",
+    "body": "Request your complimentary operational diagnostic. Wilhelm will review your submission and respond within one business day.",
+    "cta_primary": "Free Diagnostic",
+    "cta_secondary": "Contact Wilhelm"
+  },
+  "footer": {
+    "description": "Precision data centre and cloud infrastructure for businesses that require structural performance improvement.",
+    "explore_label": "Explore",
+    "engage_label": "Engage",
+    "legal_label": "Legal"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "page_meta": { "title": "Acerca de | Wilbak Engineering" },
+  "hero": {
+    "eyebrow": "Sobre la Firma",
+    "heading": "Infraestructura Construida<br>para un Rendimiento Duradero.",
+    "subheading": "Wilbak Engineering diseña y construye infraestructura de centros de datos y estructuras de gestión en la nube para empresas que exigen precisión, permanencia y disciplina operativa.",
+    "cta_primary": "Solicitar Diagnóstico",
+    "cta_secondary": "Ver Compromisos"
+  },
+  "strip": [
+    "Ingeniería de Centros de Datos",
+    "Diseño de Infraestructura Cloud",
+    "Ejecución Liderada por el Principal",
+    "Norte América · EMEA · APAC",
+    "12+ Años de Alcance Operativo",
+    "Construido para Perdurar"
+  ],
+  "founder": {
+    "eyebrow": "Principal",
+    "name": "Wilhelm Rybak",
+    "bio1": "Wilhelm Rybak es el fundador y principal de Wilbak Engineering. Con más de dos décadas de experiencia en gestión operativa, infraestructura de datos y arquitectura de sistemas empresariales, ha liderado compromisos en Norteamérica, Europa y Oriente Medio.",
+    "bio2": "Su metodología se centra en una sola convicción: el rendimiento es un problema de ingeniería. Cada centro de datos y estructura cloud que diseña está construida para eliminar la ineficiencia operativa en la raíz — no para enmascarar síntomas, sino para eliminar las condiciones que los producen.",
+    "bio3": "El trabajo de Wilhelm abarca logística, operaciones financieras, infraestructura energética y sistemas de gestión en la nube empresarial — siempre con el mismo estándar: construido para perdurar.",
+    "cta_primary": "Iniciar Compromiso",
+    "cta_secondary": "Ver Compromisos",
+    "badge_role": "Fundador y Principal",
+    "card1_title": "Alcance Operativo",
+    "card1_body": "Compromisos en Norteamérica, EMEA y APAC — entregando construcciones de centros de datos y reforma de infraestructura cloud en logística, finanzas, energía y operaciones empresariales.",
+    "card2_title": "Estándar de Ingeniería",
+    "card2_body": "Cada compromiso está diseñado para la permanencia estructural. Wilbak no entrega informes — entrega sistemas que resisten la presión operativa."
+  },
+  "quote": {
+    "eyebrow": "La Convicción de Ingeniería",
+    "text": "\"El rendimiento no es un desafío de gestión — es un problema de ingeniería estructural. Construye la arquitectura correcta y el rendimiento se convierte en un resultado natural.\"",
+    "attribution": "Wilhelm Rybak // Wilbak Engineering"
+  },
+  "principles": {
+    "eyebrow": "Principios Operativos",
+    "heading": "Cómo Trabajamos",
+    "items": [
+      {
+        "num": "01",
+        "title": "Diagnóstico Primero",
+        "body": "Cada compromiso comienza con una auditoría operativa rigurosa. No se realizan recomendaciones antes de que la causa raíz estructural sea identificada con precisión."
+      },
+      {
+        "num": "02",
+        "title": "Sistemas sobre Tácticas",
+        "body": "Diseñamos sistemas duraderos de centros de datos e infraestructura cloud. Las soluciones tácticas son reemplazadas por soluciones arquitectónicas que funcionan bajo condiciones cambiantes."
+      },
+      {
+        "num": "03",
+        "title": "Ejecución Liderada por el Principal",
+        "body": "Wilhelm lidera cada compromiso directamente. Sin delegación a personal junior. El principal que evalúa su infraestructura es quien diseña y entrega la solución."
+      }
+    ]
+  },
+  "cta": {
+    "eyebrow": "Próximo Paso",
+    "heading": "¿Listo para comenzar un diagnóstico?",
+    "body": "Solicite su diagnóstico operativo gratuito. Wilhelm revisará su solicitud y responderá en el plazo de un día hábil.",
+    "cta_primary": "Diagnóstico Gratuito",
+    "cta_secondary": "Contactar a Wilhelm"
+  },
+  "footer": {
+    "description": "Centros de datos precisos e infraestructura cloud para empresas que requieren mejoras estructurales en su rendimiento.",
+    "explore_label": "Explorar",
+    "engage_label": "Comprometerse",
+    "legal_label": "Legal"
+  }
+}

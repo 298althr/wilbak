@@ -102,7 +102,7 @@
         .hero-cta{animation:fadeUp .7s ease both;animation-delay:.9s}
     </style>
 </head>
-<body>
+<body x-data="aboutApp" x-cloak>
 
     <!-- PAGE LOADER -->
     <div id="page-loader">
@@ -123,6 +123,10 @@
                 <a href="/insight/" class="nav-link">News &amp; Insights</a>
             </div>
             <div class="hidden md:flex items-center gap-4 shrink-0">
+                <select class="lang-select" @change="loadLang($event.target.value)">
+                    <option value="en">EN</option>
+                    <option value="es">ES</option>
+                </select>
             </div>
             <button id="mobile-toggle" class="md:hidden p-2 text-slate-500 rounded hover:bg-slate-50">
                 <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -136,6 +140,10 @@
                 <a href="/contact/" class="nav-link text-slate-800 text-sm">Contact</a>
                 <a href="/projects/" class="nav-link text-slate-800 text-sm">Projects</a>
                 <a href="/insight/" class="nav-link text-slate-800 text-sm">News &amp; Insights</a>
+                <select class="lang-select" @change="loadLang($event.target.value)">
+                    <option value="en">English (EN)</option>
+                    <option value="es">Español (ES)</option>
+                </select>
             </div>
         </div>
     </nav>
@@ -145,7 +153,6 @@
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
         <div class="hero-grid"></div>
-        <!-- Floating shapes -->
         <div class="shape-ring" style="width:520px;height:520px;top:-120px;right:-100px;animation-delay:0s"></div>
         <div class="shape-ring" style="width:280px;height:280px;bottom:60px;right:180px;animation-delay:3s"></div>
         <div class="shape-dot-grid" style="width:200px;height:200px;bottom:80px;left:5%;opacity:.6"></div>
@@ -154,21 +161,17 @@
         <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10 pt-32 pb-36">
             <div class="max-w-3xl">
                 <div class="hero-eyebrow">
-                    <div class="eyebrow-white mb-7">About the Firm</div>
+                    <div class="eyebrow-white mb-7" x-text="data?.hero?.eyebrow || 'About the Firm'"></div>
                 </div>
                 <div class="hero-h1">
-                    <h1 class="font-extrabold text-white leading-[1.02] tracking-[-0.03em] mb-8" style="font-size:clamp(2.8rem,7vw,5rem)">
-                        Infrastructure Built<br>for Lasting Performance.
-                    </h1>
+                    <h1 class="font-extrabold text-white leading-[1.02] tracking-[-0.03em] mb-8" style="font-size:clamp(2.8rem,7vw,5rem)" x-html="data?.hero?.heading || 'Infrastructure Built<br>for Lasting Performance.'"></h1>
                 </div>
                 <div class="hero-sub">
-                    <p class="text-lg md:text-xl leading-relaxed font-light max-w-xl mb-10" style="color:rgba(255,255,255,.65)">
-                        Wilbak Engineering delivers precision operational infrastructure — not surface-level fixes, but foundational discipline that holds under real operational pressure.
-                    </p>
+                    <p class="text-lg md:text-xl leading-relaxed font-light max-w-xl mb-10" style="color:rgba(255,255,255,.65)" x-text="data?.hero?.subheading || ''"></p>
                 </div>
                 <div class="hero-cta flex flex-wrap gap-4">
-                    <a href="/audit/" class="btn-white">Request a Diagnostic</a>
-                    <a href="/projects/" class="btn-outline-white">View Engagements</a>
+                    <a href="/audit/" class="btn-white" x-text="data?.hero?.cta_primary || 'Request a Diagnostic'"></a>
+                    <a href="/projects/" class="btn-outline-white" x-text="data?.hero?.cta_secondary || 'View Engagements'"></a>
                 </div>
                 <div class="mt-14 flex items-center gap-5">
                     <div class="h-px w-10" style="background:rgba(255,255,255,.15)"></div>
@@ -181,18 +184,23 @@
     <!-- ━━━━ ACCENT STRIP ━━━━ -->
     <div style="background:#0a1428;overflow:hidden;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)">
         <div class="strip-track">
-            <div class="strip-item"><span class="strip-dot"></span>Founded on Engineering Discipline</div>
-            <div class="strip-item"><span class="strip-dot"></span>Principal-Led Execution</div>
-            <div class="strip-item"><span class="strip-dot"></span>Structural Permanence</div>
-            <div class="strip-item"><span class="strip-dot"></span>North America · EMEA · APAC</div>
-            <div class="strip-item"><span class="strip-dot"></span>12+ Years of Operational Scope</div>
-            <div class="strip-item"><span class="strip-dot"></span>Zero Surface-Level Fixes</div>
-            <div class="strip-item"><span class="strip-dot"></span>Founded on Engineering Discipline</div>
-            <div class="strip-item"><span class="strip-dot"></span>Principal-Led Execution</div>
-            <div class="strip-item"><span class="strip-dot"></span>Structural Permanence</div>
-            <div class="strip-item"><span class="strip-dot"></span>North America · EMEA · APAC</div>
-            <div class="strip-item"><span class="strip-dot"></span>12+ Years of Operational Scope</div>
-            <div class="strip-item"><span class="strip-dot"></span>Zero Surface-Level Fixes</div>
+            <template x-if="data?.strip">
+                <template x-for="(item, i) in [...(data.strip), ...(data.strip)]" :key="i">
+                    <div class="strip-item"><span class="strip-dot"></span><span x-text="item"></span></div>
+                </template>
+            </template>
+            <template x-if="!data?.strip">
+                <span>
+                    <div class="strip-item"><span class="strip-dot"></span>Data Centre Engineering</div>
+                    <div class="strip-item"><span class="strip-dot"></span>Cloud Infrastructure Design</div>
+                    <div class="strip-item"><span class="strip-dot"></span>Principal-Led Execution</div>
+                    <div class="strip-item"><span class="strip-dot"></span>North America · EMEA · APAC</div>
+                    <div class="strip-item"><span class="strip-dot"></span>Data Centre Engineering</div>
+                    <div class="strip-item"><span class="strip-dot"></span>Cloud Infrastructure Design</div>
+                    <div class="strip-item"><span class="strip-dot"></span>Principal-Led Execution</div>
+                    <div class="strip-item"><span class="strip-dot"></span>North America · EMEA · APAC</div>
+                </span>
+            </template>
         </div>
     </div>
 
@@ -202,36 +210,35 @@
             <div class="grid md:grid-cols-2 gap-16 items-center">
                 <!-- Left: text -->
                 <div class="reveal-left">
-                    <div class="eyebrow mb-5">Principal</div>
-                    <h2 class="text-3xl md:text-[2.6rem] font-bold tracking-tight leading-tight text-slate-900 mb-6">Wilhelm Rybak</h2>
-                    <p class="text-base text-slate-500 leading-relaxed mb-5">Wilhelm Rybak is the founder and principal of Wilbak Engineering. With over two decades of experience across operational management, process architecture, and enterprise infrastructure, he has led engagements in North America, Europe, and the Middle East.</p>
-                    <p class="text-base text-slate-500 leading-relaxed mb-5">His methodology centers on a single conviction: performance is an engineering problem. Every system he designs is built to eliminate structural inefficiency at the root — not to mask symptoms, but to remove the conditions that produce them.</p>
-                    <p class="text-base text-slate-500 leading-relaxed mb-8">Wilhelm's work spans logistics, financial operations, energy infrastructure, and institutional management systems — always with the same standard: built for permanence.</p>
+                    <div class="eyebrow mb-5" x-text="data?.founder?.eyebrow || 'Principal'"></div>
+                    <h2 class="text-3xl md:text-[2.6rem] font-bold tracking-tight leading-tight text-slate-900 mb-6" x-text="data?.founder?.name || 'Wilhelm Rybak'"></h2>
+                    <p class="text-base text-slate-500 leading-relaxed mb-5" x-text="data?.founder?.bio1 || ''"></p>
+                    <p class="text-base text-slate-500 leading-relaxed mb-5" x-text="data?.founder?.bio2 || ''"></p>
+                    <p class="text-base text-slate-500 leading-relaxed mb-8" x-text="data?.founder?.bio3 || ''"></p>
                     <div class="flex gap-3 flex-wrap">
-                        <a href="/contact/" class="btn-navy px-7 py-3 text-sm">Initiate Engagement</a>
-                        <a href="/projects/" class="btn-outline px-7 py-3 text-sm">View Engagements</a>
+                        <a href="/contact/" class="btn-navy px-7 py-3 text-sm" x-text="data?.founder?.cta_primary || 'Initiate Engagement'"></a>
+                        <a href="/projects/" class="btn-outline px-7 py-3 text-sm" x-text="data?.founder?.cta_secondary || 'View Engagements'"></a>
                     </div>
                 </div>
                 <!-- Right: photo + cards -->
                 <div class="reveal-right">
-                    <!-- Founder photo -->
                     <div class="photo-frame mb-6" style="height:320px">
                         <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&q=80&auto=format&fit=crop" alt="Principal engineer at desk">
                         <div style="position:absolute;bottom:20px;left:20px;background:rgba(15,28,63,.85);backdrop-filter:blur(8px);padding:12px 18px;border-radius:5px;border:1px solid rgba(255,255,255,.1)">
-                            <div class="mono" style="font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4)">Founder &amp; Principal</div>
+                            <div class="mono" style="font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4)" x-text="data?.founder?.badge_role || 'Founder & Principal'"></div>
                             <div style="font-size:.85rem;font-weight:700;color:#fff;margin-top:3px">Wilhelm Rybak</div>
                         </div>
                     </div>
                     <div class="flex flex-col gap-4 stagger">
                         <div class="info-card">
                             <div class="w-5 h-px bg-slate-300 mb-4"></div>
-                            <h3 class="text-sm font-semibold text-slate-900 mb-2 tracking-tight">Operational Scope</h3>
-                            <p class="text-sm text-slate-500 leading-relaxed">Engagements spanning North America, EMEA, and APAC — delivering infrastructure reform across logistics, finance, energy, and enterprise operations.</p>
+                            <h3 class="text-sm font-semibold text-slate-900 mb-2 tracking-tight" x-text="data?.founder?.card1_title || 'Operational Scope'"></h3>
+                            <p class="text-sm text-slate-500 leading-relaxed" x-text="data?.founder?.card1_body || ''"></p>
                         </div>
                         <div class="info-card accent">
                             <div class="w-5 h-px bg-blue-300 mb-4"></div>
-                            <h3 class="text-sm font-semibold text-slate-900 mb-2 tracking-tight">Engineering Standard</h3>
-                            <p class="text-sm text-slate-500 leading-relaxed">Every engagement is scoped for structural permanence. Wilbak does not deliver reports — it delivers systems that hold under operational pressure.</p>
+                            <h3 class="text-sm font-semibold text-slate-900 mb-2 tracking-tight" x-text="data?.founder?.card2_title || 'Engineering Standard'"></h3>
+                            <p class="text-sm text-slate-500 leading-relaxed" x-text="data?.founder?.card2_body || ''"></p>
                         </div>
                     </div>
                 </div>
@@ -245,13 +252,11 @@
         <div class="quote-band-overlay"></div>
         <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10 py-24">
             <div class="max-w-3xl reveal">
-                <div class="eyebrow-white mb-6">The Engineering Conviction</div>
-                <blockquote class="text-white font-light leading-relaxed" style="font-size:clamp(1.3rem,3vw,2rem);letter-spacing:-.02em">
-                    &ldquo;Performance is not a management challenge — it is a structural engineering problem. Build the right architecture and performance becomes a natural outcome.&rdquo;
-                </blockquote>
+                <div class="eyebrow-white mb-6" x-text="data?.quote?.eyebrow || 'The Engineering Conviction'"></div>
+                <blockquote class="text-white font-light leading-relaxed" style="font-size:clamp(1.3rem,3vw,2rem);letter-spacing:-.02em" x-text="data?.quote?.text || ''"></blockquote>
                 <div class="mt-8 flex items-center gap-4">
                     <div style="width:36px;height:1px;background:rgba(255,255,255,.3)"></div>
-                    <div class="mono" style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35)">Wilhelm Rybak // Wilbak Engineering</div>
+                    <div class="mono" style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35)" x-text="data?.quote?.attribution || 'Wilhelm Rybak // Wilbak Engineering'"></div>
                 </div>
             </div>
         </div>
@@ -261,25 +266,19 @@
     <section class="bg-slate-50 py-28 md:py-36 px-6 md:px-10">
         <div class="max-w-7xl mx-auto">
             <div class="mb-16 max-w-xl reveal">
-                <div class="eyebrow mb-4">Operating Principles</div>
-                <h2 class="text-3xl md:text-[2.6rem] font-bold tracking-tight leading-tight text-slate-900">How We Work</h2>
+                <div class="eyebrow mb-4" x-text="data?.principles?.eyebrow || 'Operating Principles'"></div>
+                <h2 class="text-3xl md:text-[2.6rem] font-bold tracking-tight leading-tight text-slate-900" x-text="data?.principles?.heading || 'How We Work'"></h2>
             </div>
             <div class="grid md:grid-cols-3 gap-5 stagger">
-                <div class="principle-card">
-                    <div class="mono text-[10px] text-blue-600 uppercase tracking-widest mb-5">01</div>
-                    <h3 class="text-sm font-bold text-slate-900 mb-3 tracking-tight">Diagnostic First</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Every engagement begins with a rigorous operational audit. No recommendations are made before the structural root cause is identified with precision.</p>
-                </div>
-                <div class="principle-card">
-                    <div class="mono text-[10px] text-blue-600 uppercase tracking-widest mb-5">02</div>
-                    <h3 class="text-sm font-bold text-slate-900 mb-3 tracking-tight">Systems Over Tactics</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">We design durable operational systems. Tactical workarounds are replaced with architectural solutions that perform across changing conditions.</p>
-                </div>
-                <div class="principle-card">
-                    <div class="mono text-[10px] text-blue-600 uppercase tracking-widest mb-5">03</div>
-                    <h3 class="text-sm font-bold text-slate-900 mb-3 tracking-tight">Principal-Led Execution</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Wilhelm leads every engagement directly. No handoffs to junior staff. The principal who assesses your business is the principal who designs and delivers the solution.</p>
-                </div>
+                <template x-if="data?.principles?.items">
+                    <template x-for="item in data.principles.items" :key="item.num">
+                        <div class="principle-card">
+                            <div class="mono text-[10px] text-blue-600 uppercase tracking-widest mb-5" x-text="item.num"></div>
+                            <h3 class="text-sm font-bold text-slate-900 mb-3 tracking-tight" x-text="item.title"></h3>
+                            <p class="text-sm text-slate-500 leading-relaxed" x-text="item.body"></p>
+                        </div>
+                    </template>
+                </template>
             </div>
 
             <!-- Photo grid -->
@@ -302,12 +301,12 @@
         <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:28px 28px;pointer-events:none"></div>
         <div style="position:absolute;inset:0;background:repeating-linear-gradient(120deg,transparent,transparent 80px,rgba(255,255,255,.012) 80px,rgba(255,255,255,.012) 81px);pointer-events:none"></div>
         <div class="relative z-10 max-w-3xl mx-auto text-center reveal">
-            <div class="eyebrow-white justify-center mb-8">Next Step</div>
-            <h2 class="text-2xl md:text-[2.2rem] font-bold text-white tracking-tight leading-tight mb-5">Ready to begin a diagnostic?</h2>
-            <p class="text-slate-400 max-w-lg mx-auto text-sm leading-relaxed mb-10">Request your complimentary operational diagnostic. Wilhelm will review your submission and respond within one business day.</p>
+            <div class="eyebrow-white justify-center mb-8" x-text="data?.cta?.eyebrow || 'Next Step'"></div>
+            <h2 class="text-2xl md:text-[2.2rem] font-bold text-white tracking-tight leading-tight mb-5" x-text="data?.cta?.heading || 'Ready to begin a diagnostic?'"></h2>
+            <p class="text-slate-400 max-w-lg mx-auto text-sm leading-relaxed mb-10" x-text="data?.cta?.body || ''"></p>
             <div class="flex flex-wrap justify-center gap-4">
-                <a href="/audit/" class="btn-white">Free Diagnostic</a>
-                <a href="/contact/" class="btn-outline-white">Contact Wilhelm</a>
+                <a href="/audit/" class="btn-white" x-text="data?.cta?.cta_primary || 'Free Diagnostic'"></a>
+                <a href="/contact/" class="btn-outline-white" x-text="data?.cta?.cta_secondary || 'Contact Wilhelm'"></a>
             </div>
         </div>
     </section>
@@ -315,10 +314,10 @@
     <!-- ━━━━ FOOTER ━━━━ -->
     <footer class="bg-[#0F1C3F] text-white pt-16 pb-10 px-6 md:px-10 border-t border-white/10">
         <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-3 gap-12 pb-12 border-b border-white/10">
+            <div class="grid md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
                 <div>
                     <img src="/logo.png" alt="Wilbak Engineering" class="h-7 mb-5 brightness-0 invert">
-                    <p class="text-slate-400 text-sm leading-relaxed max-w-xs">Precision operational infrastructure for businesses that require structural performance improvement.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-xs">Precision data centre and cloud infrastructure for businesses that require structural performance improvement.</p>
                 </div>
                 <div>
                     <h5 class="mono text-[10px] uppercase tracking-[0.18em] text-slate-500 mb-5">Explore</h5>
@@ -334,7 +333,14 @@
                     <ul class="space-y-3">
                         <li><a href="/contact/" class="footer-link">Contact Wilhelm</a></li>
                         <li><a href="/audit/" class="footer-link">Request Diagnostic</a></li>
-                        <li><a href="/legal/" class="footer-link">Legal</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="mono text-[10px] uppercase tracking-[0.18em] text-slate-500 mb-5">Legal</h5>
+                    <ul class="space-y-3">
+                        <li><a href="/legal/privacy/" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="/legal/terms/" class="footer-link">Terms &amp; Conditions</a></li>
+                        <li><a href="/legal/sla/" class="footer-link">Service Level Agreement</a></li>
                     </ul>
                 </div>
             </div>
@@ -346,11 +352,39 @@
     </footer>
 
     <script>
-        /* Loader */
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('aboutApp', () => ({
+                lang: localStorage.getItem('o8_locale') || 'en',
+                data: null,
+                async init() {
+                    await this.loadLang(this.lang);
+                    this.$nextTick(() => this.initReveal());
+                },
+                async loadLang(lang) {
+                    try {
+                        const res = await fetch(`/about/data.${lang}.json`);
+                        if (!res.ok) throw new Error();
+                        this.data = await res.json();
+                        this.lang = lang;
+                        localStorage.setItem('o8_locale', lang);
+                        document.querySelectorAll('.lang-select').forEach(s => s.value = lang);
+                        document.title = this.data?.page_meta?.title || 'About | Wilbak Engineering';
+                        this.$nextTick(() => this.initReveal());
+                    } catch {
+                        if (lang !== 'en') this.loadLang('en');
+                    }
+                },
+                initReveal() {
+                    const obs = new IntersectionObserver((entries) => {
+                        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+                    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+                    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger').forEach(el => obs.observe(el));
+                }
+            }));
+        });
         window.addEventListener('load', () => {
             setTimeout(() => document.getElementById('page-loader').classList.add('hidden'), 600);
         });
-        /* Mobile nav */
         const toggle = document.getElementById('mobile-toggle');
         const drawer = document.getElementById('mobile-drawer');
         const iconOpen = document.getElementById('icon-open');
@@ -360,11 +394,6 @@
             iconOpen.style.display = isOpen ? 'none' : '';
             iconClose.style.display = isOpen ? '' : 'none';
         });
-        /* Scroll reveal */
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger').forEach(el => revealObserver.observe(el));
     </script>
 </body>
 </html>

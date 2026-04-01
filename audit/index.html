@@ -198,13 +198,23 @@
         <div class="mono text-[9px] text-blue-400 tracking-widest mb-1" x-text="t('photo_side.badge.id') || 'DIAGNOSTIC SYSTEM: ACTIVE'"></div>
         <div class="text-white font-semibold text-sm" x-text="t('photo_side.badge.value') || 'Complimentary. No Commitment.'"></div>
       </div>
+      <!-- Ortho'M8 product badge -->
+      <div style="position:absolute; top:2rem; right:2rem; background:rgba(15,28,63,0.85); backdrop-filter:blur(12px); padding:1.25rem 1.5rem; border:1px solid rgba(37,99,235,0.35); border-radius:6px; z-index:5; max-width:220px;">
+        <div class="mono text-[8px] text-blue-400 tracking-widest mb-2 uppercase">Featured Platform</div>
+        <div class="text-white font-bold text-sm mb-1">Ortho'M8</div>
+        <div class="text-slate-300 text-[11px] leading-relaxed mb-3">Wilbak's cloud business management platform — built for operational intelligence.</div>
+        <a href="/Orthom8" style="display:inline-flex;align-items:center;gap:6px;font-size:.65rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#60a5fa;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#93c5fd'" onmouseout="this.style.color='#60a5fa'">
+          Explore Platform
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </a>
+      </div>
     </div>
   </main>
 
   <!-- ━━━━ FOOTER ━━━━ -->
   <footer class="bg-[#0F1C3F] text-white pt-16 pb-10 px-6 md:px-10" x-show="data">
     <div class="max-w-7xl mx-auto">
-      <div class="grid md:grid-cols-3 gap-12 pb-12 border-b border-white/10">
+      <div class="grid md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
         <div>
           <img src="/logo.png" alt="Wilbak Engineering" class="h-7 mb-5 brightness-0 invert">
           <p class="text-slate-400 text-sm leading-relaxed max-w-xs">Precision operational infrastructure for businesses that require structural performance improvement.</p>
@@ -223,7 +233,14 @@
           <ul class="space-y-3">
             <li><a href="/contact/" class="footer-link">Contact Wilhelm</a></li>
             <li><a href="/audit/" class="footer-link text-blue-400 hover:text-blue-300">Request Diagnostic</a></li>
-            <li><a href="/legal/" class="footer-link">Legal</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="mono text-[10px] uppercase tracking-[0.18em] text-slate-500 mb-5">Legal</h5>
+          <ul class="space-y-3">
+            <li><a href="/legal/privacy/" class="footer-link">Privacy Policy</a></li>
+            <li><a href="/legal/terms/" class="footer-link">Terms &amp; Conditions</a></li>
+            <li><a href="/legal/sla/" class="footer-link">Service Level Agreement</a></li>
           </ul>
         </div>
       </div>

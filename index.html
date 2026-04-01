@@ -900,10 +900,10 @@
     <!-- ━━━━━━━━━━━━━━━━ FOOTER ━━━━━━━━━━━━━━━━ -->
     <footer class="bg-[#0F1C3F] text-white pt-20 pb-10 px-6 md:px-10" x-show="data" x-cloak>
         <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-3 gap-12 pb-16 border-b border-white/10">
+            <div class="grid md:grid-cols-4 gap-10 pb-16 border-b border-white/10">
 
                 <!-- Brand -->
-                <div class="md:col-span-1">
+                <div>
                     <img src="logo.png" alt="Wilbak Engineering" class="h-8 mb-6 brightness-0 invert">
                     <p class="text-slate-400 text-sm leading-relaxed max-w-xs"
                        x-text="data.footer.description"></p>
@@ -926,7 +926,16 @@
                     <ul class="space-y-3">
                         <li><a href="/contact/" class="footer-link">Contact Wilhelm</a></li>
                         <li><a href="/audit/" class="footer-link text-blue-400 hover:text-blue-300">Request Diagnostic</a></li>
-                        <li><a href="/legal/" class="footer-link">Legal</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h5 class="mono text-[10px] uppercase tracking-[0.18em] text-slate-500 mb-6">Legal</h5>
+                    <ul class="space-y-3">
+                        <li><a href="/legal/privacy/" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="/legal/terms/" class="footer-link">Terms &amp; Conditions</a></li>
+                        <li><a href="/legal/sla/" class="footer-link">Service Level Agreement</a></li>
                     </ul>
                 </div>
 
