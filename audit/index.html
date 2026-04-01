@@ -82,13 +82,13 @@
     <div class="max-w-7xl mx-auto px-6 md:px-10 h-full flex items-center justify-between gap-8">
       <a href="/" class="shrink-0"><img src="/logo.png" alt="Wilbak Engineering" class="h-7"></a>
       <div class="hidden md:flex items-center gap-7">
+        <span class="btn-navy" style="font-size:.65rem;opacity:.5;cursor:default">Free Diagnostic</span>
         <a href="/about/" class="nav-link">About</a>
         <a href="/contact/" class="nav-link">Contact</a>
         <a href="/projects/" class="nav-link">Projects</a>
         <a href="/insight/" class="nav-link">News &amp; Insights</a>
       </div>
       <div class="hidden md:flex items-center gap-4 shrink-0">
-        <div class="w-px h-4 bg-slate-200"></div>
         <select class="lang-select" id="lang-select" @change="loadLang($event.target.value)">
           <option value="en">EN</option>
           <option value="es">ES</option>
@@ -96,7 +96,6 @@
           <option value="fr">FR</option>
           <option value="zh">ZH</option>
         </select>
-        <a href="/audit/" class="btn-navy">Free Diagnostic</a>
       </div>
       <button id="mobile-toggle" class="md:hidden p-2 text-slate-500 rounded hover:bg-slate-50">
         <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -109,10 +108,7 @@
         <a href="/contact/" class="nav-link text-slate-800 text-sm">Contact</a>
         <a href="/projects/" class="nav-link text-slate-800 text-sm">Projects</a>
         <a href="/insight/" class="nav-link text-slate-800 text-sm">News &amp; Insights</a>
-      </div>
-      <div class="mt-6 pt-6 border-t border-slate-100 flex flex-col gap-3">
-        <a href="/audit/" class="btn-navy w-full">Free Diagnostic</a>
-        <select class="lang-select w-full py-2" @change="loadLang($event.target.value)">
+        <select class="lang-select py-2" @change="loadLang($event.target.value)">
           <option value="en">English (EN)</option>
           <option value="es">Español (ES)</option>
           <option value="de">Deutsch (DE)</option>
@@ -219,7 +215,7 @@
             <li><a href="/about/" class="footer-link">About</a></li>
             <li><a href="/projects/" class="footer-link">Projects</a></li>
             <li><a href="/insight/" class="footer-link">News &amp; Insights</a></li>
-            <li><a href="/Orthom8pro/" class="footer-link">Ortho'M8 Platform</a></li>
+            <li><a href="/Orthom8" class="footer-link">Ortho'M8 Platform</a></li>
           </ul>
         </div>
         <div>

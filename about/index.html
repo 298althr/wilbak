@@ -10,41 +10,119 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400;1,9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
-        :root { --navy: #0F1C3F; --navy-hover: #1a2f60; --blue: #2563EB; }
-        *, *::before, *::after { box-sizing: border-box; }
-        body { font-family: 'DM Sans', sans-serif; background: #fff; color: #0F172A; -webkit-font-smoothing: antialiased; }
-        .mono { font-family: 'DM Mono', monospace; }
-        .btn-navy { display: inline-flex; align-items: center; justify-content: center; background: var(--navy); color: #fff; padding: 0.6rem 1.4rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 5px; transition: background 0.2s; white-space: nowrap; cursor: pointer; text-decoration: none; }
-        .btn-navy:hover { background: var(--navy-hover); }
-        .btn-outline { display: inline-flex; align-items: center; justify-content: center; background: transparent; color: #475569; border: 1.5px solid #CBD5E1; padding: 0.6rem 1.4rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 5px; transition: all 0.2s; white-space: nowrap; cursor: pointer; text-decoration: none; }
-        .btn-outline:hover { border-color: var(--navy); color: var(--navy); }
-        .nav-link { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #64748B; transition: color 0.15s; text-decoration: none; }
-        .nav-link:hover { color: var(--navy); }
-        .nav-link.active { color: var(--navy); }
-        .lang-select { background: transparent; border: 1.5px solid #E2E8F0; color: #64748B; font-size: 0.65rem; font-weight: 600; padding: 5px 8px; border-radius: 4px; outline: none; cursor: pointer; font-family: 'DM Mono', monospace; }
-        .eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); }
-        .footer-link { font-size: 0.8rem; font-weight: 400; color: #94A3B8; transition: color 0.15s; text-decoration: none; }
-        .footer-link:hover { color: #fff; }
-        .mobile-menu { display: none; }
-        .mobile-menu.open { display: block; }
+        [x-cloak]{display:none!important}
+        :root{--navy:#0F1C3F;--navy-hover:#1a2f60;--blue:#2563EB}
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth}
+        body{font-family:'DM Sans',sans-serif;background:#fff;color:#0F172A;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+        .mono{font-family:'DM Mono',monospace}
+
+        /* Buttons */
+        .btn-navy{display:inline-flex;align-items:center;justify-content:center;background:var(--navy);color:#fff;padding:.6rem 1.4rem;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:5px;transition:background .2s;white-space:nowrap;cursor:pointer;text-decoration:none}
+        .btn-navy:hover{background:var(--navy-hover)}
+        .btn-outline{display:inline-flex;align-items:center;justify-content:center;background:transparent;color:#475569;border:1.5px solid #CBD5E1;padding:.6rem 1.4rem;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:5px;transition:all .2s;white-space:nowrap;cursor:pointer;text-decoration:none}
+        .btn-outline:hover{border-color:var(--navy);color:var(--navy)}
+        .btn-white{display:inline-flex;align-items:center;justify-content:center;background:#fff;color:var(--navy);padding:.75rem 2rem;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:5px;transition:all .2s;text-decoration:none}
+        .btn-white:hover{background:#f0f4ff}
+        .btn-outline-white{display:inline-flex;align-items:center;justify-content:center;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35);padding:.75rem 2rem;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:5px;transition:all .2s;text-decoration:none}
+        .btn-outline-white:hover{border-color:#fff;background:rgba(255,255,255,.07)}
+
+        /* Nav */
+        .nav-link{font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#64748B;transition:color .15s;text-decoration:none}
+        .nav-link:hover,.nav-link.active{color:var(--navy)}
+        .lang-select{background:transparent;border:1.5px solid #E2E8F0;color:#64748B;font-size:.65rem;font-weight:600;padding:5px 8px;border-radius:4px;outline:none;cursor:pointer;font-family:'DM Mono',monospace}
+        .eyebrow{font-family:'DM Mono',monospace;font-size:.65rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--blue)}
+        .eyebrow-white{font-family:'DM Mono',monospace;font-size:.65rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:10px}
+        .eyebrow-white::before{content:'';display:block;width:20px;height:1px;background:rgba(255,255,255,.3)}
+        .footer-link{font-size:.8rem;font-weight:400;color:#94A3B8;transition:color .15s;text-decoration:none}
+        .footer-link:hover{color:#fff}
+        .mobile-menu{display:none}
+        .mobile-menu.open{display:block}
+
+        /* ── HERO ── */
+        .hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1800&q=80&auto=format&fit=crop');background-size:cover;background-position:center 30%;animation:heroZoom 18s ease-in-out infinite alternate}
+        @keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.06)}}
+        .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,28,63,.92) 0%,rgba(15,28,63,.7) 60%,rgba(15,28,63,.5) 100%)}
+        .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+        .hero-bottom-fade{position:absolute;bottom:0;left:0;right:0;height:180px;background:linear-gradient(to bottom,transparent,#fff);pointer-events:none}
+        .shape-ring{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.07);pointer-events:none;animation:ringPulse 8s ease-in-out infinite}
+        @keyframes ringPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+        .shape-dot-grid{position:absolute;background-image:radial-gradient(rgba(255,255,255,.12) 1px,transparent 1px);background-size:22px 22px;pointer-events:none}
+
+        /* ── SCROLL REVEAL ── */
+        .reveal,.reveal-left,.reveal-right,.reveal-scale{opacity:0;transition:opacity .8s ease,transform .8s ease}
+        .reveal{transform:translateY(32px)}
+        .reveal-left{transform:translateX(-40px)}
+        .reveal-right{transform:translateX(40px)}
+        .reveal-scale{transform:scale(.95)}
+        .reveal.active,.reveal-left.active,.reveal-right.active,.reveal-scale.active{opacity:1;transform:none}
+        .stagger>*{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+        .stagger.active>*:nth-child(1){opacity:1;transform:none;transition-delay:.05s}
+        .stagger.active>*:nth-child(2){opacity:1;transform:none;transition-delay:.15s}
+        .stagger.active>*:nth-child(3){opacity:1;transform:none;transition-delay:.25s}
+        .stagger.active>*:nth-child(4){opacity:1;transform:none;transition-delay:.35s}
+
+        /* ── CARDS ── */
+        .info-card{padding:1.75rem;border:1.5px solid #E2E8F0;border-radius:8px;background:#fff;transition:border-color .2s,box-shadow .2s,transform .2s}
+        .info-card:hover{border-color:#94A3B8;box-shadow:0 8px 32px rgba(15,28,63,.08);transform:translateY(-3px)}
+        .info-card.accent{border-color:#BFDBFE;background:#F0F7FF}
+        .principle-card{padding:1.75rem 2rem;border:1.5px solid #E2E8F0;border-radius:8px;background:#fff;transition:border-color .25s,box-shadow .25s,border-left-color .25s;border-left:3px solid transparent}
+        .principle-card:hover{border-color:#CBD5E1;border-left-color:var(--blue);box-shadow:0 6px 24px rgba(15,28,63,.07)}
+
+        /* ── PHOTO ── */
+        .photo-frame{position:relative;overflow:hidden;border-radius:8px}
+        .photo-frame img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s ease}
+        .photo-frame:hover img{transform:scale(1.04)}
+
+        /* ── QUOTE BAND ── */
+        .quote-band-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1800&q=80&auto=format&fit=crop');background-size:cover;background-position:center;background-attachment:fixed}
+        .quote-band-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,28,63,.96) 0%,rgba(15,28,63,.75) 100%)}
+
+        /* ── ACCENT STRIP ── */
+        .strip-track{display:flex;gap:0;animation:stripScroll 30s linear infinite;width:max-content}
+        .strip-track:hover{animation-play-state:paused}
+        @keyframes stripScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+        .strip-item{padding:.7rem 2.5rem;font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);border-right:1px solid rgba(255,255,255,.08);white-space:nowrap}
+        .strip-dot{width:4px;height:4px;border-radius:50%;background:var(--blue);display:inline-block;margin-right:10px;flex-shrink:0}
+
+        /* ── LOADER ── */
+        #page-loader{position:fixed;inset:0;z-index:9999;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;transition:opacity .5s,visibility .5s}
+        #page-loader.hidden{opacity:0;visibility:hidden}
+        .loader-track{width:64px;height:2px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;position:relative}
+        .loader-fill{position:absolute;top:0;left:-100%;height:100%;width:100%;background:var(--blue);animation:loaderSlide 1.1s ease-in-out infinite}
+        @keyframes loaderSlide{0%{left:-100%}100%{left:100%}}
+
+        /* ── HERO KINETICS ── */
+        @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        .hero-eyebrow{animation:fadeUp .7s ease both;animation-delay:.3s}
+        .hero-h1{animation:fadeUp .7s ease both;animation-delay:.5s}
+        .hero-sub{animation:fadeUp .7s ease both;animation-delay:.7s}
+        .hero-cta{animation:fadeUp .7s ease both;animation-delay:.9s}
     </style>
 </head>
 <body>
+
+    <!-- PAGE LOADER -->
+    <div id="page-loader">
+        <img src="/logo.png" alt="Wilbak Engineering" style="height:28px;filter:brightness(0) invert(1);opacity:.7">
+        <div class="loader-track"><div class="loader-fill"></div></div>
+        <div class="mono" style="font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.25)">About the Firm</div>
+    </div>
 
     <!-- ━━━━ NAV ━━━━ -->
     <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100" id="site-nav">
         <div class="max-w-7xl mx-auto px-6 md:px-10 h-[60px] flex items-center justify-between gap-8">
             <a href="/" class="shrink-0"><img src="/logo.png" alt="Wilbak Engineering" class="h-7"></a>
             <div class="hidden md:flex items-center gap-7">
+                <a href="/audit/" class="btn-navy" style="font-size:.65rem">Free Diagnostic</a>
                 <a href="/about/" class="nav-link active">About</a>
                 <a href="/contact/" class="nav-link">Contact</a>
                 <a href="/projects/" class="nav-link">Projects</a>
                 <a href="/insight/" class="nav-link">News &amp; Insights</a>
             </div>
             <div class="hidden md:flex items-center gap-4 shrink-0">
-                <div class="w-px h-4 bg-slate-200"></div>
-                <a href="/audit/" class="btn-navy">Free Diagnostic</a>
             </div>
             <button id="mobile-toggle" class="md:hidden p-2 text-slate-500 rounded hover:bg-slate-50">
                 <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -53,41 +131,77 @@
         </div>
         <div id="mobile-drawer" class="mobile-menu md:hidden bg-white border-t border-slate-100 px-6 py-6">
             <div class="flex flex-col gap-5">
+                <a href="/audit/" class="btn-navy w-full">Free Diagnostic</a>
                 <a href="/about/" class="nav-link font-bold" style="color:var(--navy)">About</a>
                 <a href="/contact/" class="nav-link text-slate-800 text-sm">Contact</a>
                 <a href="/projects/" class="nav-link text-slate-800 text-sm">Projects</a>
                 <a href="/insight/" class="nav-link text-slate-800 text-sm">News &amp; Insights</a>
             </div>
-            <div class="mt-6 pt-6 border-t border-slate-100">
-                <a href="/audit/" class="btn-navy w-full">Free Diagnostic</a>
-            </div>
         </div>
     </nav>
 
     <!-- ━━━━ HERO ━━━━ -->
-    <section class="bg-white px-6 md:px-10 pt-20 pb-16 md:pt-28 md:pb-24">
-        <div class="max-w-7xl mx-auto">
-            <div class="max-w-4xl">
-                <div class="eyebrow mb-6">About the Firm</div>
-                <h1 class="text-[2.6rem] sm:text-5xl md:text-[4.5rem] font-bold leading-[1.04] tracking-[-0.02em] text-slate-900 mb-8">
-                    Infrastructure Built<br>for Lasting Performance.
-                </h1>
-                <p class="text-lg md:text-xl text-slate-500 leading-relaxed font-normal max-w-2xl">
-                    Wilbak Engineering delivers precision operational infrastructure for businesses that require structural performance improvement — not surface-level fixes, but foundational discipline.
-                </p>
-            </div>
-            <div class="mt-16 flex gap-1">
-                <div class="h-px w-16 bg-blue-600"></div>
-                <div class="h-px flex-1 bg-slate-100"></div>
+    <section class="relative overflow-hidden" style="min-height:72vh">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-grid"></div>
+        <!-- Floating shapes -->
+        <div class="shape-ring" style="width:520px;height:520px;top:-120px;right:-100px;animation-delay:0s"></div>
+        <div class="shape-ring" style="width:280px;height:280px;bottom:60px;right:180px;animation-delay:3s"></div>
+        <div class="shape-dot-grid" style="width:200px;height:200px;bottom:80px;left:5%;opacity:.6"></div>
+        <div class="hero-bottom-fade"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10 pt-32 pb-36">
+            <div class="max-w-3xl">
+                <div class="hero-eyebrow">
+                    <div class="eyebrow-white mb-7">About the Firm</div>
+                </div>
+                <div class="hero-h1">
+                    <h1 class="font-extrabold text-white leading-[1.02] tracking-[-0.03em] mb-8" style="font-size:clamp(2.8rem,7vw,5rem)">
+                        Infrastructure Built<br>for Lasting Performance.
+                    </h1>
+                </div>
+                <div class="hero-sub">
+                    <p class="text-lg md:text-xl leading-relaxed font-light max-w-xl mb-10" style="color:rgba(255,255,255,.65)">
+                        Wilbak Engineering delivers precision operational infrastructure — not surface-level fixes, but foundational discipline that holds under real operational pressure.
+                    </p>
+                </div>
+                <div class="hero-cta flex flex-wrap gap-4">
+                    <a href="/audit/" class="btn-white">Request a Diagnostic</a>
+                    <a href="/projects/" class="btn-outline-white">View Engagements</a>
+                </div>
+                <div class="mt-14 flex items-center gap-5">
+                    <div class="h-px w-10" style="background:rgba(255,255,255,.15)"></div>
+                    <div class="mono" style="font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.25)">Houston, TX // North America // EMEA</div>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- ━━━━ ACCENT STRIP ━━━━ -->
+    <div style="background:#0a1428;overflow:hidden;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)">
+        <div class="strip-track">
+            <div class="strip-item"><span class="strip-dot"></span>Founded on Engineering Discipline</div>
+            <div class="strip-item"><span class="strip-dot"></span>Principal-Led Execution</div>
+            <div class="strip-item"><span class="strip-dot"></span>Structural Permanence</div>
+            <div class="strip-item"><span class="strip-dot"></span>North America · EMEA · APAC</div>
+            <div class="strip-item"><span class="strip-dot"></span>12+ Years of Operational Scope</div>
+            <div class="strip-item"><span class="strip-dot"></span>Zero Surface-Level Fixes</div>
+            <div class="strip-item"><span class="strip-dot"></span>Founded on Engineering Discipline</div>
+            <div class="strip-item"><span class="strip-dot"></span>Principal-Led Execution</div>
+            <div class="strip-item"><span class="strip-dot"></span>Structural Permanence</div>
+            <div class="strip-item"><span class="strip-dot"></span>North America · EMEA · APAC</div>
+            <div class="strip-item"><span class="strip-dot"></span>12+ Years of Operational Scope</div>
+            <div class="strip-item"><span class="strip-dot"></span>Zero Surface-Level Fixes</div>
+        </div>
+    </div>
+
     <!-- ━━━━ FOUNDER ━━━━ -->
-    <section class="bg-slate-50 border-y border-slate-200 py-24 md:py-32 px-6 md:px-10">
+    <section class="bg-white py-28 md:py-40 px-6 md:px-10">
         <div class="max-w-7xl mx-auto">
             <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div>
+                <!-- Left: text -->
+                <div class="reveal-left">
                     <div class="eyebrow mb-5">Principal</div>
                     <h2 class="text-3xl md:text-[2.6rem] font-bold tracking-tight leading-tight text-slate-900 mb-6">Wilhelm Rybak</h2>
                     <p class="text-base text-slate-500 leading-relaxed mb-5">Wilhelm Rybak is the founder and principal of Wilbak Engineering. With over two decades of experience across operational management, process architecture, and enterprise infrastructure, he has led engagements in North America, Europe, and the Middle East.</p>
@@ -98,65 +212,102 @@
                         <a href="/projects/" class="btn-outline px-7 py-3 text-sm">View Engagements</a>
                     </div>
                 </div>
-                <div class="flex flex-col gap-6">
-                    <div class="p-7 border border-slate-200 rounded-lg bg-white">
-                        <div class="w-5 h-px bg-slate-300 mb-5"></div>
-                        <h3 class="text-sm font-semibold text-slate-900 mb-3 tracking-tight">Operational Scope</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">Engagements spanning North America, EMEA, and APAC — delivering infrastructure reform across logistics, finance, energy, and enterprise operations.</p>
+                <!-- Right: photo + cards -->
+                <div class="reveal-right">
+                    <!-- Founder photo -->
+                    <div class="photo-frame mb-6" style="height:320px">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&q=80&auto=format&fit=crop" alt="Principal engineer at desk">
+                        <div style="position:absolute;bottom:20px;left:20px;background:rgba(15,28,63,.85);backdrop-filter:blur(8px);padding:12px 18px;border-radius:5px;border:1px solid rgba(255,255,255,.1)">
+                            <div class="mono" style="font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4)">Founder &amp; Principal</div>
+                            <div style="font-size:.85rem;font-weight:700;color:#fff;margin-top:3px">Wilhelm Rybak</div>
+                        </div>
                     </div>
-                    <div class="p-7 border border-[#BFDBFE] rounded-lg bg-[#F0F7FF]">
-                        <div class="w-5 h-px bg-blue-300 mb-5"></div>
-                        <h3 class="text-sm font-semibold text-slate-900 mb-3 tracking-tight">Engineering Standard</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">Every engagement is scoped for structural permanence. Wilbak does not deliver reports — it delivers systems that hold under operational pressure.</p>
-                    </div>
-                    <div class="p-7 border border-slate-200 rounded-lg bg-white">
-                        <div class="w-5 h-px bg-slate-300 mb-5"></div>
-                        <h3 class="text-sm font-semibold text-slate-900 mb-3 tracking-tight">Ortho'M8 Platform</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">Developer of the Ortho'M8 algorithmic capital management platform — precision execution infrastructure for institutional financial operations.</p>
+                    <div class="flex flex-col gap-4 stagger">
+                        <div class="info-card">
+                            <div class="w-5 h-px bg-slate-300 mb-4"></div>
+                            <h3 class="text-sm font-semibold text-slate-900 mb-2 tracking-tight">Operational Scope</h3>
+                            <p class="text-sm text-slate-500 leading-relaxed">Engagements spanning North America, EMEA, and APAC — delivering infrastructure reform across logistics, finance, energy, and enterprise operations.</p>
+                        </div>
+                        <div class="info-card accent">
+                            <div class="w-5 h-px bg-blue-300 mb-4"></div>
+                            <h3 class="text-sm font-semibold text-slate-900 mb-2 tracking-tight">Engineering Standard</h3>
+                            <p class="text-sm text-slate-500 leading-relaxed">Every engagement is scoped for structural permanence. Wilbak does not deliver reports — it delivers systems that hold under operational pressure.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ━━━━ VALUES ━━━━ -->
-    <section class="bg-white py-24 md:py-32 px-6 md:px-10">
+    <!-- ━━━━ QUOTE BAND ━━━━ -->
+    <section class="relative overflow-hidden" style="min-height:360px">
+        <div class="quote-band-bg"></div>
+        <div class="quote-band-overlay"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10 py-24">
+            <div class="max-w-3xl reveal">
+                <div class="eyebrow-white mb-6">The Engineering Conviction</div>
+                <blockquote class="text-white font-light leading-relaxed" style="font-size:clamp(1.3rem,3vw,2rem);letter-spacing:-.02em">
+                    &ldquo;Performance is not a management challenge — it is a structural engineering problem. Build the right architecture and performance becomes a natural outcome.&rdquo;
+                </blockquote>
+                <div class="mt-8 flex items-center gap-4">
+                    <div style="width:36px;height:1px;background:rgba(255,255,255,.3)"></div>
+                    <div class="mono" style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35)">Wilhelm Rybak // Wilbak Engineering</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ━━━━ OPERATING PRINCIPLES ━━━━ -->
+    <section class="bg-slate-50 py-28 md:py-36 px-6 md:px-10">
         <div class="max-w-7xl mx-auto">
-            <div class="mb-14 max-w-xl">
+            <div class="mb-16 max-w-xl reveal">
                 <div class="eyebrow mb-4">Operating Principles</div>
                 <h2 class="text-3xl md:text-[2.6rem] font-bold tracking-tight leading-tight text-slate-900">How We Work</h2>
             </div>
-            <div class="grid md:grid-cols-3 gap-5">
-                <div class="p-7 border border-slate-200 rounded-lg hover:border-slate-400 transition-colors">
-                    <div class="mono text-[10px] text-blue-600 uppercase tracking-widest mb-4">01</div>
+            <div class="grid md:grid-cols-3 gap-5 stagger">
+                <div class="principle-card">
+                    <div class="mono text-[10px] text-blue-600 uppercase tracking-widest mb-5">01</div>
                     <h3 class="text-sm font-bold text-slate-900 mb-3 tracking-tight">Diagnostic First</h3>
                     <p class="text-sm text-slate-500 leading-relaxed">Every engagement begins with a rigorous operational audit. No recommendations are made before the structural root cause is identified with precision.</p>
                 </div>
-                <div class="p-7 border border-slate-200 rounded-lg hover:border-slate-400 transition-colors">
-                    <div class="mono text-[10px] text-blue-600 uppercase tracking-widest mb-4">02</div>
+                <div class="principle-card">
+                    <div class="mono text-[10px] text-blue-600 uppercase tracking-widest mb-5">02</div>
                     <h3 class="text-sm font-bold text-slate-900 mb-3 tracking-tight">Systems Over Tactics</h3>
                     <p class="text-sm text-slate-500 leading-relaxed">We design durable operational systems. Tactical workarounds are replaced with architectural solutions that perform across changing conditions.</p>
                 </div>
-                <div class="p-7 border border-slate-200 rounded-lg hover:border-slate-400 transition-colors">
-                    <div class="mono text-[10px] text-blue-600 uppercase tracking-widest mb-4">03</div>
+                <div class="principle-card">
+                    <div class="mono text-[10px] text-blue-600 uppercase tracking-widest mb-5">03</div>
                     <h3 class="text-sm font-bold text-slate-900 mb-3 tracking-tight">Principal-Led Execution</h3>
                     <p class="text-sm text-slate-500 leading-relaxed">Wilhelm leads every engagement directly. No handoffs to junior staff. The principal who assesses your business is the principal who designs and delivers the solution.</p>
                 </div>
             </div>
+
+            <!-- Photo grid -->
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-3 gap-4 reveal-scale">
+                <div class="photo-frame" style="height:240px">
+                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=700&q=80&auto=format&fit=crop" alt="Strategy session">
+                </div>
+                <div class="photo-frame md:col-span-1" style="height:240px">
+                    <img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=700&q=80&auto=format&fit=crop" alt="Engineering operations">
+                </div>
+                <div class="photo-frame" style="height:240px">
+                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&q=80&auto=format&fit=crop" alt="Industrial facility">
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- ━━━━ CTA ━━━━ -->
-    <section class="bg-[#0F1C3F] py-20 px-6 md:px-10">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-            <div>
-                <div class="eyebrow text-blue-400 mb-4">Next Step</div>
-                <h2 class="text-2xl md:text-3xl font-bold text-white tracking-tight leading-tight">Ready to begin a diagnostic?</h2>
-                <p class="text-slate-400 mt-3 max-w-lg text-sm leading-relaxed">Request your complimentary operational diagnostic. Wilhelm will review your submission and respond within one business day.</p>
-            </div>
-            <div class="flex gap-3 shrink-0">
-                <a href="/audit/" class="btn-navy bg-blue-600 hover:bg-blue-700 px-7 py-3 text-sm">Free Diagnostic</a>
-                <a href="/contact/" class="btn-outline border-white/20 text-white hover:border-white px-7 py-3 text-sm">Contact</a>
+    <!-- ━━━━ CTA BAND ━━━━ -->
+    <section class="relative overflow-hidden py-28 px-6 md:px-10" style="background:var(--navy)">
+        <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:28px 28px;pointer-events:none"></div>
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(120deg,transparent,transparent 80px,rgba(255,255,255,.012) 80px,rgba(255,255,255,.012) 81px);pointer-events:none"></div>
+        <div class="relative z-10 max-w-3xl mx-auto text-center reveal">
+            <div class="eyebrow-white justify-center mb-8">Next Step</div>
+            <h2 class="text-2xl md:text-[2.2rem] font-bold text-white tracking-tight leading-tight mb-5">Ready to begin a diagnostic?</h2>
+            <p class="text-slate-400 max-w-lg mx-auto text-sm leading-relaxed mb-10">Request your complimentary operational diagnostic. Wilhelm will review your submission and respond within one business day.</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="/audit/" class="btn-white">Free Diagnostic</a>
+                <a href="/contact/" class="btn-outline-white">Contact Wilhelm</a>
             </div>
         </div>
     </section>
@@ -175,7 +326,7 @@
                         <li><a href="/about/" class="footer-link text-blue-400 hover:text-blue-300">About</a></li>
                         <li><a href="/projects/" class="footer-link">Projects</a></li>
                         <li><a href="/insight/" class="footer-link">News &amp; Insights</a></li>
-                        <li><a href="/Orthom8pro/" class="footer-link">Ortho'M8 Platform</a></li>
+                        <li><a href="/Orthom8" class="footer-link">Ortho'M8 Platform</a></li>
                     </ul>
                 </div>
                 <div>
@@ -195,6 +346,11 @@
     </footer>
 
     <script>
+        /* Loader */
+        window.addEventListener('load', () => {
+            setTimeout(() => document.getElementById('page-loader').classList.add('hidden'), 600);
+        });
+        /* Mobile nav */
         const toggle = document.getElementById('mobile-toggle');
         const drawer = document.getElementById('mobile-drawer');
         const iconOpen = document.getElementById('icon-open');
@@ -204,6 +360,11 @@
             iconOpen.style.display = isOpen ? 'none' : '';
             iconClose.style.display = isOpen ? '' : 'none';
         });
+        /* Scroll reveal */
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger').forEach(el => revealObserver.observe(el));
     </script>
 </body>
 </html>
