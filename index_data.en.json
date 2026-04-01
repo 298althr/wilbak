@@ -1,12 +1,10 @@
 {
   "navigation": [
-    { "label": "Home", "url": "/" },
-    { "label": "Projects", "url": "/projects/" },
+    { "label": "Audit", "url": "/audit/", "type": "cta" },
     { "label": "About", "url": "/about/" },
-    { "label": "Ortho'M8", "url": "/Orthom8pro/" },
     { "label": "Contact", "url": "/contact/" },
-    { "label": "News & Insights", "url": "/insight/" },
-    { "label": "Free Audit", "url": "/audit/", "type": "premium" }
+    { "label": "Projects", "url": "/projects/" },
+    { "label": "News/Insights", "url": "/insight/" }
   ],
   "hero": {
     "protocol": "Operational excellence. Engineered by design.",
