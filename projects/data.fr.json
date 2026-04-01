@@ -11,6 +11,7 @@
       "location": "Oslo, Norvège",
       "tag": "INTÉGRATION RENOUVELABLE",
       "title": "BANQUE COMMERCIALE DE NORVÈGE",
+      "photo": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80&auto=format&fit=crop",
       "description": "Infrastructure de données critique reconstruite dans un cadre d'énergie renouvelable. Architecture haute disponibilité intégrée au réseau d'un parc éolien — empreinte opérationnelle neutre en carbone, sans compromis sur la disponibilité."
     },
     {
@@ -19,17 +20,20 @@
       "tag": "DÉPLOIEMENT À DISTANCE",
       "tag_type": "alert",
       "title": "RÉVISION ARCTIQUE",
+      "photo": "https://images.unsplash.com/photo-1551710029-e9f374e35392?w=800&q=80&auto=format&fit=crop",
       "description": "Restauration complète d'un centre de données exécutée à distance sous les protocoles d'isolement pandémique de 2020. Récupération intégrale de l'infrastructure accomplie dans les 72 heures suivant l'engagement, sans personnel sur site."
     },
     {
       "year": "2022",
       "location": "Doha, Qatar",
+      "photo": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80&auto=format&fit=crop",
       "title": "CENTRE MARITIME DE DOHA",
       "description": "Installation côtière de données conçue pour le traitement en charge maximale sous conditions thermiques extrêmes. Système de refroidissement à eau de mer intégré. Livrée dans les délais selon des spécifications opérationnelles strictes."
     },
     {
       "year": "2018",
       "location": "Siège de Toyota",
+      "photo": "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80&auto=format&fit=crop",
       "title": "USINE DE DONNÉES TOYOTA",
       "description": "Architecture d'alimentation hyper-redondante conçue pour une continuité de fabrication ininterrompue. Opérations de chaîne de montage protégées contre les variations du système d'alimentation à toutes les étapes de production."
     },

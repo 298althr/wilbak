@@ -11,6 +11,7 @@
       "location": "Oslo, Norwegen",
       "tag": "ERNEUERBARE INTEGRATION",
       "title": "NORWEGISCHE HANDELSBANK",
+      "photo": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80&auto=format&fit=crop",
       "description": "Kritische Dateninfrastruktur in einem Rahmen erneuerbarer Energien neu aufgebaut. Hochverfügbare Architektur direkt in das Stromnetz eines Windparks integriert — CO2-neutraler Betrieb, kein Kompromiss bei der Verfügbarkeit."
     },
     {
@@ -19,17 +20,20 @@
       "tag": "FERNDEPLOYMENT",
       "tag_type": "alert",
       "title": "ARKTISCHE ÜBERHOLUNG",
+      "photo": "https://images.unsplash.com/photo-1551710029-e9f374e35392?w=800&q=80&auto=format&fit=crop",
       "description": "Vollständige Rechenzentrumwiederherstellung unter den Pandemie-Isolationsprotokollen von 2020 remote durchgeführt. Vollständige Infrastrukturwiederherstellung innerhalb von 72 Stunden nach Beginn des Engagements, ohne Personal vor Ort."
     },
     {
       "year": "2022",
       "location": "Doha, Katar",
+      "photo": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80&auto=format&fit=crop",
       "title": "MARITIMES ZENTRUM DOHA",
       "description": "Zweckgebaute Küstendatenanlage für die Spitzenlastverarbeitung unter extremen Temperaturbedingungen konzipiert. Meerwasserkühlsystem integriert. Termingerecht gemäß strengen Betriebsspezifikationen geliefert."
     },
     {
       "year": "2018",
       "location": "Toyota Hauptsitz",
+      "photo": "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80&auto=format&fit=crop",
       "title": "TOYOTA DATENWERK",
       "description": "Hyper-redundante Energiearchitektur für ununterbrochene Fertigungskontinuität entwickelt. Montagebandoperationen gegen Stromsystemvarianz in allen Produktionsstufen gesichert."
     },

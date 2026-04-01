@@ -346,28 +346,30 @@ body.drawer-open { overflow: hidden; }
 @keyframes slide-right { from { opacity: 0; transform: translateX(-56px); filter: blur(4px); } to { opacity: 1; transform: translateX(0);  filter: blur(0); } }
 
 /* ═══════════════════════════════════════════════════
-   CUSTOM CURSOR
+   HOVER EFFECTS — works on mouse & touch
 ═══════════════════════════════════════════════════ */
-#o8-cursor-dot {
-  position: fixed; width: 7px; height: 7px;
-  background: var(--brand-cobalt); border-radius: 50%;
-  pointer-events: none; z-index: 99999;
-  will-change: transform;
-  transition: width 0.2s, height 0.2s, background 0.2s, opacity 0.3s;
+
+/* Nav links — underline sweep already exists, boost text brightness */
+.header-nav a:hover,
+.footer-links a:hover,
+.drawer-nav a:hover { color: var(--tx-main) !important; }
+
+/* Interactive cards — lift + cobalt glow */
+.perf-card:hover,
+.stat-card:hover,
+.director-card:hover,
+.contact-card:hover,
+.glass-panel:hover {
+  box-shadow: 0 8px 32px rgba(26,86,255,0.18), 0 0 0 1px rgba(26,86,255,0.22);
 }
-#o8-cursor-dot.hover { width: 13px; height: 13px; background: var(--brand-gold-light); }
-#o8-cursor-ring {
-  position: fixed; width: 34px; height: 34px;
-  border: 1.5px solid rgba(26,86,255,0.45); border-radius: 50%;
-  pointer-events: none; z-index: 99998;
-  will-change: transform;
-  transition: width 0.3s, height 0.3s, border-color 0.3s, opacity 0.3s;
+
+/* Buttons — cobalt/gold glow already in .btn-primary/:hover, add pointer feedback */
+.btn-primary, .btn-ghost, .btn-gold {
+  transition: background 0.2s, box-shadow 0.25s, transform 0.18s, border-color 0.2s, color 0.2s !important;
 }
-#o8-cursor-ring.hover { width: 54px; height: 54px; border-color: rgba(212,172,58,0.5); }
-@media (pointer: coarse) { #o8-cursor-dot, #o8-cursor-ring { display: none; } }
-body:has(#o8-cursor-dot)        { cursor: none; }
-body:has(#o8-cursor-dot) a,
-body:has(#o8-cursor-dot) button { cursor: none; }
+.btn-primary:active, .btn-ghost:active, .btn-gold:active {
+  transform: scale(0.97) !important;
+}
 
 /* ═══════════════════════════════════════════════════
    HEADER SCROLL BEHAVIOUR

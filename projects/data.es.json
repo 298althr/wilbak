@@ -11,6 +11,7 @@
       "location": "Oslo, Noruega",
       "tag": "INTEGRACIÓN RENOVABLE",
       "title": "BANCO COMERCIAL DE NORUEGA",
+      "photo": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80&auto=format&fit=crop",
       "description": "Infraestructura de datos críticos reconstruida en un marco de energía renovable. Arquitectura de alta disponibilidad integrada directamente en la red de un parque eólico — huella operativa neutra en carbono, sin compromiso en el tiempo de actividad."
     },
     {
@@ -19,17 +20,20 @@
       "tag": "DESPLIEGUE REMOTO",
       "tag_type": "alert",
       "title": "REVISIÓN DEL ÁRTICO",
+      "photo": "https://images.unsplash.com/photo-1551710029-e9f374e35392?w=800&q=80&auto=format&fit=crop",
       "description": "Restauración completa del centro de datos ejecutada de forma remota bajo los protocolos de aislamiento de la pandemia de 2020. Recuperación total de la infraestructura lograda en 72 horas desde el inicio del compromiso, sin personal in situ."
     },
     {
       "year": "2022",
       "location": "Doha, Qatar",
+      "photo": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80&auto=format&fit=crop",
       "title": "CENTRO MARÍTIMO DE DOHA",
       "description": "Instalación costera de datos diseñada para el procesamiento de carga máxima bajo condiciones térmicas extremas. Sistema de refrigeración por agua de mar integrado. Entregado en plazo según especificaciones operativas estrictas."
     },
     {
       "year": "2018",
       "location": "Sede de Toyota",
+      "photo": "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80&auto=format&fit=crop",
       "title": "PLANTA DE DATOS DE TOYOTA",
       "description": "Arquitectura de energía hiper-redundante diseñada para la continuidad ininterrumpida de la fabricación. Operaciones de línea de ensamblaje protegidas de variaciones en el sistema de energía en todas las etapas de producción."
     },

@@ -52,51 +52,6 @@
   }
 
   /* ─────────────────────────────────────────────────────
-     2. CUSTOM CURSOR
-     Dot snaps to mouse instantly; ring follows with lerp lag.
-  ───────────────────────────────────────────────────── */
-  function initCursor() {
-    if (TOUCH || REDUCED) return;
-
-    const dot  = document.createElement('div'); dot.id  = 'o8-cursor-dot';
-    const ring = document.createElement('div'); ring.id = 'o8-cursor-ring';
-    document.body.append(dot, ring);
-
-    let mx = -200, my = -200, rx = -200, ry = -200;
-
-    document.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
-    }, { passive: true });
-
-    document.addEventListener('mouseleave', () => {
-      dot.style.opacity = '0'; ring.style.opacity = '0';
-    });
-    document.addEventListener('mouseenter', () => {
-      dot.style.opacity = '';  ring.style.opacity = '';
-    });
-
-    const HOVER_SEL = 'a,button,.btn-gold,.btn-primary,.btn-ghost,.perf-card,.director-card,.stat-card,.glass-panel,.contact-card,.node-card,[role="button"]';
-    document.addEventListener('mouseover', e => {
-      if (e.target.closest(HOVER_SEL)) {
-        dot.classList.add('hover'); ring.classList.add('hover');
-      }
-    }, { passive: true });
-    document.addEventListener('mouseout', e => {
-      if (e.target.closest(HOVER_SEL)) {
-        dot.classList.remove('hover'); ring.classList.remove('hover');
-      }
-    }, { passive: true });
-
-    // Lerp ring — continuous RAF loop
-    (function tick() {
-      rx = lerp(rx, mx, 0.1); ry = lerp(ry, my, 0.1);
-      ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
-      requestAnimationFrame(tick);
-    })();
-  }
-
-  /* ─────────────────────────────────────────────────────
      3. MAGNETIC BUTTONS
      Buttons gently pull toward the cursor on hover.
   ───────────────────────────────────────────────────── */
@@ -285,7 +240,6 @@
   ───────────────────────────────────────────────────── */
   function boot() {
     initReveals();
-    initCursor();
     initMagnetic();
     initTilt();
     initCounters();
