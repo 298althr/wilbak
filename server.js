@@ -75,7 +75,25 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/Orthom8', express.static(path.join(__dirname, 'Orthom8')));
 app.use('/audit', express.static(path.join(__dirname, 'audit')));
-app.use(express.static(__dirname)); // Fallback for other things like i18n-loader.js if they are in root.
+// Serve only specific root-level static assets — never the entire project root
+// (serving __dirname would expose .env, server.js, prisma/schema.prisma, etc.)
+const ROOT_STATIC_FILES = [
+    'i18n-loader.js', 'wilbak-base.css', 'favicon.svg', 'logo.png',
+    'index.html', 'news.html', 'admin.html',
+    'tailwind.config.js', 'animations.js'
+];
+ROOT_STATIC_FILES.forEach(file => {
+    app.get(`/${file}`, (_req, res) => res.sendFile(path.join(__dirname, file)));
+});
+// Named page directories that are safe to serve statically
+['about', 'contact', 'projects', 'insight', 'legal', 'page-data', 'src'].forEach(dir => {
+    app.use(`/${dir}`, express.static(path.join(__dirname, dir)));
+});
+// Serve locale data files at root level (index_data.*.json, translations.*.json)
+app.get(/^\/(index_data|translations|data)\.[a-z]{2}\.json$/, (req, res) => {
+    const file = path.join(__dirname, req.path.replace(/^\//, ''));
+    res.sendFile(file, err => { if (err) res.status(404).end(); });
+});
 
 // Session ID Middleware
 app.use((req, res, next) => {
