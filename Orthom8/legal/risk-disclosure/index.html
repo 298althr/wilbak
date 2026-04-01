@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Risk Disclosure | Ortho'M8</title>
+  <meta name="description" content="Ortho'M8 Risk Disclosure — important information about the risks associated with algorithmic capital management.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/Orthom8/shared-nav.css">
+  <link rel="stylesheet" href="/Orthom8/page-template.css">
+  <script src="/Orthom8/shared-nav.js"></script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    .legal-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: clamp(6rem, 12vw, 9rem) clamp(1.25rem, 5vw, 2rem) clamp(4rem, 8vw, 7rem);
+    }
+    .legal-wrap h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      color: var(--tx-main);
+      margin-bottom: 0.5rem;
+    }
+    .legal-meta {
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--brand-cobalt);
+      margin-bottom: 3rem;
+      display: block;
+    }
+    .legal-wrap h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--tx-main);
+      margin: 2.75rem 0 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--brand-rule-strong);
+    }
+    .legal-wrap p, .legal-wrap li {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(14px, 1.8vw, 15.5px);
+      line-height: 1.9;
+      color: var(--tx-sub);
+    }
+    .legal-wrap ul {
+      list-style: disc;
+      padding-left: 1.5rem;
+      margin: 0.75rem 0;
+    }
+    .legal-wrap p { margin-bottom: 1rem; }
+    .legal-nav-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--brand-rule-strong);
+    }
+    .legal-nav-links a {
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--tx-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .legal-nav-links a:hover, .legal-nav-links a.active { color: var(--brand-gold-light); }
+    .risk-notice {
+      border: 1px solid rgba(184,151,42,0.35);
+      background: rgba(184,151,42,0.04);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 2.5rem;
+    }
+    .risk-notice p {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(13px, 1.6vw, 14.5px);
+      line-height: 1.8;
+      color: var(--tx-sub);
+      margin: 0;
+    }
+    .risk-notice-label {
+      font-family: 'Fira Code', monospace;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--brand-gold-light);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app" x-data>
+  <div id="site-nav-root"></div>
+
+  <main>
+    <div class="legal-wrap">
+
+      <div class="legal-nav-links">
+        <a href="/Orthom8/legal/terms/">Terms of Service</a>
+        <a href="/Orthom8/legal/privacy/">Privacy Policy</a>
+        <a href="/Orthom8/legal/risk-disclosure/" class="active">Risk Disclosure</a>
+      </div>
+
+      <h1>Risk Disclosure</h1>
+      <span class="legal-meta">Effective Date: 1 January 2025 &nbsp;·&nbsp; Version 2.1</span>
+
+      <div class="risk-notice">
+        <span class="risk-notice-label">Important Notice</span>
+        <p>This Risk Disclosure Statement is provided in compliance with applicable financial regulatory requirements and is intended to ensure that all clients and prospective clients have a clear understanding of the risks involved in algorithmic capital management. You should read this document carefully in its entirety and seek independent financial or legal advice if any aspect is unclear. Engaging with the Ortho'M8 Platform constitutes acknowledgement that you have read and understood this disclosure.</p>
+      </div>
+
+      <h2>1. Nature of the Service</h2>
+      <p>Ortho'M8 is an algorithmic capital management system that executes trades in financial markets on behalf of institutional clients under a defined mandate. The Platform operates across synthetic indices, foreign exchange pairs, commodity derivatives, and stock index contracts. The system is designed to protect and grow client capital anchors through systematic, rule-based execution.</p>
+      <p>The Platform does not constitute personalised investment advice, financial planning services, or a guarantee of any investment outcome. All capital management decisions are made by the algorithmic system based on parameters configured during onboarding.</p>
+
+      <h2>2. Market Risk</h2>
+      <p>All trading activity involves exposure to market risk. Financial markets can move rapidly and unpredictably in response to economic events, geopolitical developments, regulatory changes, or technological failures. Even with a robust risk-gating architecture in place, the value of positions held on your behalf may decline, and capital deployed may not be fully recovered.</p>
+      <ul>
+        <li><strong style="color:var(--tx-main);">Volatility risk</strong> — Synthetic indices and derivative instruments can exhibit extreme intraday volatility that may exceed historical ranges without warning.</li>
+        <li><strong style="color:var(--tx-main);">Liquidity risk</strong> — Under certain market conditions, positions may be difficult or impossible to close at expected prices, resulting in execution at less favourable levels.</li>
+        <li><strong style="color:var(--tx-main);">Correlation risk</strong> — Strategies designed around cross-market correlations may experience disruption when historical correlations break down during stress events.</li>
+        <li><strong style="color:var(--tx-main);">Gap risk</strong> — Prices may open significantly higher or lower than the prior close, particularly following weekend periods or major announcements, potentially bypassing configured stop-loss levels.</li>
+      </ul>
+
+      <h2>3. Algorithmic and Technology Risk</h2>
+      <p>Algorithmic systems are subject to risks that do not apply to human-discretionary trading:</p>
+      <ul>
+        <li><strong style="color:var(--tx-main);">Model risk</strong> — The algorithm's performance depends on the validity of its underlying models. If market conditions change in ways not captured during the model's development and testing, performance may deviate from historical benchmarks.</li>
+        <li><strong style="color:var(--tx-main);">Execution risk</strong> — Latency in order transmission, connectivity interruptions, or broker-side outages may result in delayed or failed execution of intended trades.</li>
+        <li><strong style="color:var(--tx-main);">Data integrity risk</strong> — The system relies on real-time market data feeds. Corrupted, delayed, or erroneous data may cause the algorithm to act on incorrect information.</li>
+        <li><strong style="color:var(--tx-main);">Software defect risk</strong> — Despite rigorous testing and monitoring, software errors may occur and may not be detected immediately. We maintain contingency protocols to limit the impact of such events.</li>
+      </ul>
+
+      <h2>4. Leverage and Derivative Exposure</h2>
+      <p>The Platform may utilise leveraged instruments, including CFDs, multiplier contracts, and options. Leverage amplifies both potential gains and potential losses relative to the capital committed. It is possible for losses to exceed the initial margin or capital allocated to a specific trade. Clients must ensure that their overall risk mandate reflects a full understanding of leveraged exposure.</p>
+
+      <h2>5. Counterparty and Custodial Risk</h2>
+      <p>Ortho'M8 does not hold client capital directly. All capital is maintained with your designated broker or custodian. In the event of insolvency, regulatory action, or operational failure of that counterparty, the recovery of client funds is subject to the rules and protections afforded by that entity's regulatory jurisdiction and any applicable investor protection schemes.</p>
+
+      <h2>6. Regulatory and Legal Risk</h2>
+      <p>The regulatory environment governing algorithmic trading, derivatives, and capital management is subject to change in all jurisdictions. Future regulatory developments — including the imposition of transaction taxes, leverage limits, or reporting requirements — may adversely affect the Platform's operations or your ability to participate. Clients are responsible for ensuring that their use of the Platform is compliant with the laws and regulations of their own jurisdiction.</p>
+
+      <h2>7. Currency Risk</h2>
+      <p>Where your capital anchor is denominated in a currency different from the instruments traded on your behalf, fluctuations in exchange rates may affect the reported value of your positions, even where the underlying trading strategy performs as intended.</p>
+
+      <h2>8. Historical Performance</h2>
+      <p>Any performance data, results, or case studies presented by Ortho'M8 relate to verified historical outcomes under specific market conditions. They are provided for illustrative and informational purposes only. Historical results are not a reliable indicator of future performance. Market conditions at the time of any future trading activity may differ materially from conditions that prevailed during historical periods referenced.</p>
+
+      <h2>9. Suitability</h2>
+      <p>The Platform is designed exclusively for legally incorporated business entities and qualified institutional participants with sufficient financial resources, operational capacity, and risk management infrastructure to absorb potential losses. It is not suitable for retail investors or individuals who cannot afford to sustain partial or total loss of allocated capital. By engaging with the Platform, you represent that you meet this suitability standard.</p>
+
+      <h2>10. Acknowledgement</h2>
+      <p>By accessing and using the Ortho'M8 Platform, you confirm that you have read and understood this Risk Disclosure Statement in its entirety, that you have had the opportunity to seek independent advice, and that you accept the risks described herein as an inherent part of algorithmic capital management.</p>
+
+      <h2>11. Contact</h2>
+      <p>If you have questions about this Risk Disclosure or wish to discuss the risks associated with your specific mandate configuration, please contact our team through the <a href="/Orthom8/contact/" style="color:var(--brand-cobalt); text-decoration:none;">contact page</a>.</p>
+
+    </div>
+  </main>
+
+  <div id="site-footer-root"></div>
+</div>
+
+</body>
+</html>

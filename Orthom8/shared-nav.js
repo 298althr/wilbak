@@ -210,9 +210,9 @@
     <div>
       <div class="footer-col-title" data-nav-text="legal">${tx.legal}</div>
       <ul class="footer-links">
-        <li><a href="/legal/terms" data-nav-text="terms">${tx.terms}</a></li>
-        <li><a href="/legal/privacy" data-nav-text="privacy">${tx.privacy}</a></li>
-        <li><a href="/legal/risk" data-nav-text="risk">${tx.risk}</a></li>
+        <li><a href="/Orthom8/legal/terms/" data-nav-text="terms">${tx.terms}</a></li>
+        <li><a href="/Orthom8/legal/privacy/" data-nav-text="privacy">${tx.privacy}</a></li>
+        <li><a href="/Orthom8/legal/risk-disclosure/" data-nav-text="risk">${tx.risk}</a></li>
       </ul>
     </div>
     <div>
@@ -225,7 +225,6 @@
   </div>
   <div class="footer-bottom">
     <p data-nav-text="footerCopy">${tx.footerCopy}</p>
-    <p data-nav-text="footerDisclaimer">${tx.footerDisclaimer}</p>
   </div>
 </footer>`;
   }
@@ -261,7 +260,7 @@
     @keyframes gate-spin { to { transform: rotate(360deg); } }
     @keyframes gate-pulse { 0%,100% { opacity:0.85; transform:scale(1); } 50% { opacity:1; transform:scale(1.08); } }
     .gate-wordmark {
-      font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 700;
       letter-spacing: 10px; text-transform: uppercase; color: var(--tx-main);
     }
     .gate-status {
