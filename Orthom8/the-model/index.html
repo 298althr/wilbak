@@ -80,6 +80,151 @@
       </div>
     </section>
 
+    <!-- ENGINE NODES -->
+    <section id="engine-pipeline" x-data="engineNodes()" x-init="init()" class="py-16 md:py-24" style="border-top:1px solid var(--brand-rule-strong);">
+      <div class="layout-container">
+
+        <div class="text-eyebrow mb-6 anim-slide-right">11-Node Pipeline Architecture</div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1.5rem; margin-bottom:3.5rem;">
+          <h2 class="serif text-3xl md:text-4xl font-bold anim-slide-up" style="max-width:32rem;">
+            How every trade decision<br><em style="color:#D4AC3A;">gets made.</em>
+          </h2>
+          <p class="body-text anim-slide-up delay-1" style="max-width:30rem; flex-shrink:0;">
+            Each pipeline run passes through 11 nodes in sequence. Click any node to inspect its logic, data sources, and role in the decision.
+          </p>
+        </div>
+
+        <!-- Category legend -->
+        <div style="display:flex; gap:1.25rem; flex-wrap:wrap; margin-bottom:2.5rem;">
+          <template x-for="(cat, key) in categories" :key="key">
+            <div style="display:flex; align-items:center; gap:0.5rem; font-size:0.75rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--tx-sub);">
+              <span style="width:8px; height:8px; border-radius:50%; flex-shrink:0;" :style="{ background: cat.color }"></span>
+              <span x-text="cat.label"></span>
+            </div>
+          </template>
+        </div>
+
+        <!-- Node grid -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1rem; margin-bottom:2.5rem;">
+          <template x-for="node in nodes" :key="node.id">
+            <div @click="selected = (selected?.id === node.id ? null : node)"
+                 style="cursor:pointer; padding:1.5rem; border-radius:0.5rem; border:1px solid; transition:all 0.2s;"
+                 :style="{
+                   borderColor: selected?.id === node.id ? getCatColor(node.category) : getCatColor(node.category) + '35',
+                   background: selected?.id === node.id ? getCatColor(node.category) + '18' : 'rgba(255,255,255,0.025)',
+                   boxShadow: selected?.id === node.id ? ('0 0 20px ' + getCatColor(node.category) + '25') : 'none'
+                 }">
+
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.875rem;">
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:3px; font-weight:700;"
+                      :style="{ color: getCatColor(node.category) }" x-text="'NODE_' + node.id"></span>
+                <span style="font-size:9px; letter-spacing:2px; text-transform:uppercase; padding:2px 8px; border-radius:9999px; font-weight:700;"
+                      :style="{ color: getCatColor(node.category), background: getCatColor(node.category) + '20', border: '1px solid ' + getCatColor(node.category) + '40' }"
+                      x-text="node.importance_label"></span>
+              </div>
+
+              <div style="font-weight:600; font-size:0.9rem; color:var(--tx-main); margin-bottom:0.3rem;" x-text="node.name"></div>
+              <div style="font-size:0.75rem; color:var(--tx-sub); line-height:1.5; margin-bottom:1.25rem;" x-text="node.tagline"></div>
+
+              <!-- Activity bar -->
+              <div style="height:2px; background:rgba(255,255,255,0.08); border-radius:2px; overflow:hidden; margin-bottom:0.4rem;">
+                <div style="height:100%; border-radius:2px; transition:width 1s ease 0.3s;" :style="{ width: node.activity_pct + '%', background: getCatColor(node.category) }"></div>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--tx-muted); letter-spacing:1px;">
+                <span x-text="'~' + node.avg_latency_ms + 'ms'"></span>
+                <span x-text="node.activity_pct + '% active'"></span>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <!-- Detail panel -->
+        <div x-show="selected" x-cloak x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+             style="border-radius:0.75rem; border:1px solid; padding:2rem; margin-top:0.5rem;"
+             :style="{ borderColor: getCatColor(selected?.category) + '50', background: getCatColor(selected?.category) + '08' }">
+
+          <div style="display:grid; grid-template-columns:1fr auto; align-items:start; gap:1rem; margin-bottom:1.5rem; flex-wrap:wrap;">
+            <div>
+              <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.5rem; flex-wrap:wrap;">
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:3px; font-weight:700;"
+                      :style="{ color: getCatColor(selected?.category) }" x-text="'NODE_' + selected?.id + ' — ' + (categories[selected?.category]?.label || '')"></span>
+                <span style="font-size:9px; letter-spacing:2px; text-transform:uppercase; padding:2px 10px; border-radius:9999px; font-weight:700;"
+                      :style="{ color: getCatColor(selected?.category), border: '1px solid ' + getCatColor(selected?.category) + '60' }"
+                      x-text="'Tier: ' + selected?.min_tier"></span>
+              </div>
+              <h3 class="serif text-2xl font-bold" style="color:var(--tx-main);" x-text="selected?.name"></h3>
+              <p style="font-size:0.85rem; color:var(--tx-sub); margin-top:0.375rem;" x-text="selected?.tagline"></p>
+            </div>
+            <button @click="selected = null" style="width:2rem; height:2rem; border-radius:50%; border:1px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.05); color:var(--tx-muted); cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; flex-shrink:0;">×</button>
+          </div>
+
+          <!-- Stats row -->
+          <div style="display:flex; gap:2rem; flex-wrap:wrap; padding:1rem 0; border-top:1px solid rgba(255,255,255,0.06); border-bottom:1px solid rgba(255,255,255,0.06); margin-bottom:1.5rem;">
+            <div>
+              <div style="font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--tx-muted); font-weight:700; margin-bottom:0.25rem;">Avg Latency</div>
+              <div style="font-family:'Fira Code',monospace; font-size:1.1rem; font-weight:600;" :style="{ color: getCatColor(selected?.category) }" x-text="selected?.avg_latency_ms + 'ms'"></div>
+            </div>
+            <div>
+              <div style="font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--tx-muted); font-weight:700; margin-bottom:0.25rem;">Activity Rate</div>
+              <div style="font-family:'Fira Code',monospace; font-size:1.1rem; font-weight:600;" :style="{ color: getCatColor(selected?.category) }" x-text="selected?.activity_pct + '%'"></div>
+            </div>
+            <div>
+              <div style="font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--tx-muted); font-weight:700; margin-bottom:0.25rem;">Calls / Run</div>
+              <div style="font-family:'Fira Code',monospace; font-size:1.1rem; font-weight:600;" :style="{ color: getCatColor(selected?.category) }" x-text="selected?.calls_per_run"></div>
+            </div>
+            <div>
+              <div style="font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--tx-muted); font-weight:700; margin-bottom:0.25rem;">Refresh</div>
+              <div style="font-family:'Fira Code',monospace; font-size:1.1rem; font-weight:600;" :style="{ color: getCatColor(selected?.category) }" x-text="selected?.refresh_interval"></div>
+            </div>
+          </div>
+
+          <!-- Logic + failure_mode -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;" class="sm:grid-cols-1">
+            <div>
+              <div style="font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--tx-muted); font-weight:700; margin-bottom:0.625rem;">Logic</div>
+              <p style="font-size:0.8rem; color:var(--tx-sub); line-height:1.7;" x-text="selected?.logic"></p>
+            </div>
+            <div>
+              <div style="font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--tx-muted); font-weight:700; margin-bottom:0.625rem;">Failure Mode</div>
+              <p style="font-size:0.8rem; color:var(--tx-sub); line-height:1.7;" x-text="selected?.failure_mode"></p>
+            </div>
+          </div>
+
+          <!-- Providers + Outputs -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
+            <div>
+              <div style="font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--tx-muted); font-weight:700; margin-bottom:0.5rem;">Data Providers</div>
+              <div style="display:flex; flex-direction:column; gap:0.3rem;">
+                <template x-for="p in (selected?.providers || [])" :key="p">
+                  <div style="font-size:0.75rem; color:var(--tx-sub); display:flex; align-items:center; gap:0.5rem;">
+                    <span style="width:5px; height:5px; border-radius:50%; flex-shrink:0;" :style="{ background: getCatColor(selected?.category) }"></span>
+                    <span x-text="p"></span>
+                  </div>
+                </template>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--tx-muted); font-weight:700; margin-bottom:0.5rem;">Outputs</div>
+              <div style="display:flex; flex-wrap:wrap; gap:0.375rem;">
+                <template x-for="o in (selected?.outputs || [])" :key="o">
+                  <span style="font-family:'Fira Code',monospace; font-size:10px; padding:2px 8px; border-radius:4px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:var(--tx-muted);" x-text="o"></span>
+                </template>
+              </div>
+            </div>
+          </div>
+
+          <!-- Insight callout -->
+          <div style="padding:1rem 1.25rem; border-radius:0.5rem; border-left:3px solid; margin-top:0.5rem;"
+               :style="{ borderColor: getCatColor(selected?.category), background: getCatColor(selected?.category) + '10' }">
+            <div style="font-size:9px; letter-spacing:3px; text-transform:uppercase; font-weight:700; margin-bottom:0.375rem;" :style="{ color: getCatColor(selected?.category) }">Insight</div>
+            <p style="font-size:0.8rem; color:var(--tx-sub); line-height:1.7;" x-text="selected?.insight"></p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- REPORT / TABS -->
     <section class="py-16 md:py-24" style="background:rgba(11,19,37,0.3); border-top:1px solid var(--brand-rule-strong); border-bottom:1px solid var(--brand-rule-strong);">
       <div class="layout-container">
@@ -195,5 +340,28 @@
   <div id="site-footer-root"></div>
 </div>
 
+<script>
+  function engineNodes() {
+    return {
+      nodes: [],
+      categories: {},
+      selected: null,
+      async init() {
+        try {
+          const res = await fetch('/Orthom8/the-model/engine_nodes.json');
+          const data = await res.json();
+          this.nodes = data.nodes;
+          this.categories = data.categories;
+        } catch(e) { console.error('Engine nodes failed to load', e); }
+      },
+      getCatColor(cat) {
+        const map = { blue:'#1d4ed8', teal:'#0891b2', violet:'#6d28d9', amber:'#d97706', coral:'#dc2626' };
+        const catColors = { data:'#1d4ed8', ai:'#6d28d9', logic:'#0369a1', risk:'#b45309' };
+        if (cat && catColors[cat]) return catColors[cat];
+        return '#1d4ed8';
+      }
+    };
+  }
+</script>
 </body>
 </html>
