@@ -1,5 +1,18 @@
 {
   "content": {
+    "hero": {
+      "eyebrow": "Rendimiento Verificado de Clientes · 2020–2025",
+      "heading": "Diez sectores. Cinco años.<br>Cada cliente que adoptó nuestra estrategia, <em style=\"color:#D4AC3A;\">ganó.</em>",
+      "subtext": "Estos no son proyecciones ni pruebas retroactivas. A continuación se muestra el rendimiento documentado y auditable de clientes reales en 10 industrias que integraron la configuración estratégica de OrthoM8 en sus operaciones de capital entre enero de 2020 y diciembre de 2025.",
+      "stats": {
+        "sectors": "Sectores de Clientes",
+        "roi": "ROI Total Promedio",
+        "months": "Meses Protegidos",
+        "markets": "Mercados"
+      }
+    },
+    "instruction": "Seleccione un cliente a continuación para ver su informe de rendimiento completo",
+    "disclaimer": "Todas las cifras representan el rendimiento real de la cuenta del cliente bajo la configuración estratégica de OrthoM8. El rendimiento pasado no garantiza resultados futuros. Datos auditables bajo solicitud institucional.",
     "header": {
       "eyebrow": "Protocolo de Verificación de Inversores",
       "title": "Rendimiento"

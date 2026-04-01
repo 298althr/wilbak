@@ -9,6 +9,11 @@
         { "label": "Ausführungsgeschwindigkeit", "value": "<320ms" }
       ]
     },
+    "engine": {
+      "eyebrow": "11-Knoten-Pipeline-Architektur",
+      "heading": "Wie jede Handelsentscheidung<br><em style=\"color:#D4AC3A;\">getroffen wird.</em>",
+      "subtext": "Jede Pipeline-Ausführung durchläuft 11 Knoten in Folge. Klicken Sie auf einen Knoten, um seine Logik, Datenquellen und Rolle in der Entscheidung zu untersuchen."
+    },
     "report": {
       "title": "Exekutives <br><span style=\"color:#D4AC3A;\">Markt-Mapping</span>",
       "subtitle": "Wählen Sie ein Protokoll, um technische Details anzuzeigen.",

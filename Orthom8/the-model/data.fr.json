@@ -9,6 +9,11 @@
         { "label": "Vitesse d'Exécution",     "value": "<320ms" }
       ]
     },
+    "engine": {
+      "eyebrow": "Architecture Pipeline 11 Nœuds",
+      "heading": "Comment chaque décision de trading<br><em style=\"color:#D4AC3A;\">est prise.</em>",
+      "subtext": "Chaque exécution du pipeline passe par 11 nœuds en séquence. Cliquez sur un nœud pour inspecter sa logique, ses sources de données et son rôle dans la décision."
+    },
     "report": {
       "title": "Cartographie de <br><span style=\"color:#D4AC3A;\">Marché Exécutif</span>",
       "subtitle": "Sélectionnez un protocole pour afficher les détails techniques.",

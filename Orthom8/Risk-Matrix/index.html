@@ -364,18 +364,19 @@
 
 <body x-data="riskMatrix()" x-init="init()">
 
-<video autoplay muted loop playsinline
-       style="position:fixed; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.13; z-index:0; pointer-events:none;">
-  <source src="https://res.cloudinary.com/dgz88jxiy/video/upload/v1774330490/131766-751014982_medium_ouwdmc.mp4" type="video/mp4">
-</video>
-
-<div id="app" style="position:relative; z-index:1;">
+<div id="app">
   <div id="site-nav-root"></div>
 
   <main class="page-main">
 
     <!-- ── HERO ─────────────────────────────────────────────── -->
-    <div style="margin-bottom: 4rem;">
+    <div style="position:relative; overflow:hidden; margin-bottom:4rem; padding-top:clamp(5rem,10vw,8rem); padding-bottom:clamp(2rem,4vw,3rem); margin-top:-3rem;">
+      <video autoplay muted loop playsinline
+             style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.15; z-index:0; pointer-events:none;">
+        <source src="https://res.cloudinary.com/dgz88jxiy/video/upload/v1774330490/131766-751014982_medium_ouwdmc.mp4" type="video/mp4">
+      </video>
+      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, transparent 55%, var(--page-bg,#0D1117) 100%); z-index:1; pointer-events:none;"></div>
+      <div style="position:relative; z-index:2;">
       <div class="eyebrow-row anim-slide-right">
         <div class="eyebrow-line"></div>
         <div class="mono eyebrow-text">Infrastructure Tier Analysis</div>
@@ -485,7 +486,8 @@
           <div class="hero-stat-value" style="color: #6EE7B7;">9</div>
         </div>
       </div>
-    </div>
+      </div><!-- /z-index wrapper -->
+    </div><!-- /hero -->
 
     <!-- ── TIER SELECTOR ─────────────────────────────────────── -->
     <div class="section-divider anim-slide-up">

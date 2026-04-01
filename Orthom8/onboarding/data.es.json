@@ -1,0 +1,87 @@
+{
+  "content": {
+    "hero": {
+      "eyebrow": "Incorporación de Clientes",
+      "heading": "Protejamos su capital.<br><em>Cuéntenos sobre su negocio.</em>",
+      "subtext": "Cuatro preguntas rápidas. Sin tecnicismos, sin presión. Usaremos sus respuestas para mostrarle exactamente cómo Ortho'M8 protegería su situación específica — luego reserve una llamada gratuita de 30 minutos."
+    },
+    "confirm": {
+      "heading": "Está en la lista.<br><em>Nos comunicaremos en 24 horas.</em>",
+      "body": "Uno de los miembros de nuestro equipo se comunicará para programar su consulta gratuita. Ya conocerán su situación — no necesitará repetirlo.",
+      "label_name": "Su nombre",
+      "label_email": "Correo electrónico",
+      "label_calltime": "Hora de llamada preferida",
+      "btn_home": "← Volver al Inicio",
+      "btn_results": "Ver Nuestros Resultados"
+    },
+    "steps": {
+      "s1_label": "Paso 1 de 4",
+      "s1_question": "¿Qué tipo de negocio tiene?",
+      "s1_hint": "Seleccione la opción que mejor se adapte.",
+      "s2_label": "Paso 2 de 4",
+      "s2_question": "¿A qué riesgos está más expuesto?",
+      "s2_hint": "Seleccione todos los que apliquen — abordaremos cada uno.",
+      "s3_label": "Paso 3 de 4",
+      "s3_question": "¿Cuánto capital desea proteger?",
+      "s3_hint": "Una aproximación está bien — esto nos ayuda a personalizar nuestra recomendación.",
+      "s4_label": "Paso 4 de 4",
+      "s4_question": "¿Dónde debemos enviar su estrategia?",
+      "s4_hint": "Nos comunicaremos en 24 horas para explicarle nuestra recomendación."
+    },
+    "form": {
+      "label_name": "Su nombre *",
+      "label_company": "Nombre de la empresa",
+      "label_email": "Correo electrónico *",
+      "label_phone": "Número de teléfono",
+      "label_calltime": "Mejor hora para llamar",
+      "label_message": "¿Hay algo específico que le gustaría que supiéramos?",
+      "placeholder_name": "Juan García",
+      "placeholder_company": "Mi Empresa S.A.",
+      "placeholder_email": "juan@miempresa.com",
+      "placeholder_phone": "+34 600 000 000",
+      "placeholder_message": "Ej. 'Estamos muy expuestos a los precios del petróleo a través de nuestra flota logística'",
+      "calltime_flexible": "Flexible — cualquier hora funciona",
+      "calltime_morning": "Mañana (9am – 12pm)",
+      "calltime_afternoon": "Tarde (12pm – 5pm)",
+      "calltime_evening": "Noche (5pm – 8pm)",
+      "error_msg": "Error al enviar — por favor inténtelo de nuevo o",
+      "error_link": "contáctenos directamente",
+      "btn_back": "← Atrás",
+      "btn_continue": "Continuar →",
+      "btn_submit": "Reservar Mi Llamada Gratuita →",
+      "btn_sending": "Enviando…"
+    },
+    "trust": {
+      "t1": "Sin compromiso requerido",
+      "t2": "Llamada de 30 minutos",
+      "t3": "Resultados verificados",
+      "t4": "Respuesta en 24h"
+    },
+    "sectors": {
+      "energy":        { "label": "Petróleo y Energía",      "sub": "perforación, refinación, logística" },
+      "agri":          { "label": "Agricultura",              "sub": "agricultura, materias primas, suministro" },
+      "import":        { "label": "Importación / Exportación","sub": "comercio, envíos, aduanas" },
+      "construction":  { "label": "Construcción",             "sub": "infraestructura, propiedad, obras" },
+      "manufacturing": { "label": "Manufactura",              "sub": "producción, materiales, rendimiento" },
+      "realestate":    { "label": "Bienes Raíces",            "sub": "propiedad, desarrollo, REITs" },
+      "financial":     { "label": "Servicios Financieros",    "sub": "inversión, asesoría, fondos" },
+      "other":         { "label": "Otro",                     "sub": "cuéntenos en el paso 4" }
+    },
+    "concerns": {
+      "oil":         { "label": "Petróleo y precios de materias primas", "sub": "costos de insumos, combustible, materias primas" },
+      "currency":    { "label": "Divisas y tipos de cambio",             "sub": "fluctuaciones USD/EUR/GBP" },
+      "recession":   { "label": "Recesión o desaceleración",             "sub": "caída de demanda, restricción crediticia" },
+      "geopolitical":{ "label": "Guerra comercial / sanciones",          "sub": "aranceles, interrupción del suministro" },
+      "rates":       { "label": "Riesgo de tipos de interés",            "sub": "costos de endeudamiento, rendimientos de bonos" },
+      "volatility":  { "label": "Volatilidad general del mercado",       "sub": "oscilaciones impredecibles" }
+    },
+    "capital": {
+      "under-250k":  { "amount": "Menos de $250,000",    "desc": "Protección en etapa inicial" },
+      "250k-1m":     { "amount": "$250,000 – $1M",       "desc": "Capital empresarial principal" },
+      "1m-5m":       { "amount": "$1M – $5M",            "desc": "Operaciones establecidas" },
+      "5m-25m":      { "amount": "$5M – $25M",           "desc": "Exposición de mercado medio" },
+      "over-25m":    { "amount": "Más de $25M",          "desc": "Escala institucional" },
+      "prefer-not":  { "amount": "Prefiero no decirlo",  "desc": "Lo discutiremos en la llamada" }
+    }
+  }
+}

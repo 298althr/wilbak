@@ -1,5 +1,18 @@
 {
   "content": {
+    "hero": {
+      "eyebrow": "Verifizierte Kundenperformance · 2020–2025",
+      "heading": "Zehn Sektoren. Fünf Jahre.<br>Jeder Kunde, der unsere Strategie einbettete, <em style=\"color:#D4AC3A;\">gewann.</em>",
+      "subtext": "Dies sind keine Projektionen oder Backtests. Unten finden Sie die dokumentierte, überprüfbare Performance realer Kunden aus 10 Branchen, die die strategische Konfiguration von OrthoM8 zwischen Januar 2020 und Dezember 2025 in ihre Kapitaloperationen integriert haben.",
+      "stats": {
+        "sectors": "Kundensektoren",
+        "roi": "Durchschn. Gesamt-ROI",
+        "months": "Geschützte Monate",
+        "markets": "Märkte"
+      }
+    },
+    "instruction": "Wählen Sie unten einen Kunden aus, um seinen vollständigen Performance-Bericht anzusehen",
+    "disclaimer": "Alle Zahlen stellen die tatsächliche Kontoperformance der Kunden unter der strategischen Konfiguration von OrthoM8 dar. Vergangene Performance garantiert keine zukünftigen Ergebnisse. Daten auf institutionelle Anfrage prüfbar.",
     "header": {
       "eyebrow": "Investoren-Verifizierungsprotokoll",
       "title": "Performance"

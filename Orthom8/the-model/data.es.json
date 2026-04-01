@@ -9,6 +9,11 @@
         { "label": "Velocidad de Ejecución", "value": "<320ms" }
       ]
     },
+    "engine": {
+      "eyebrow": "Arquitectura de 11 Nodos",
+      "heading": "Cómo se toma cada decisión de trading<br><em style=\"color:#D4AC3A;\">en detalle.</em>",
+      "subtext": "Cada ejecución del pipeline pasa por 11 nodos en secuencia. Haga clic en cualquier nodo para inspeccionar su lógica, fuentes de datos y rol en la decisión."
+    },
     "report": {
       "title": "Mapeo de <br><span style=\"color:#D4AC3A;\">Mercado Ejecutivo</span>",
       "subtitle": "Seleccione un protocolo para ver los detalles técnicos.",

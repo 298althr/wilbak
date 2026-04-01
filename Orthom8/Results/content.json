@@ -1,5 +1,18 @@
 {
   "content": {
+    "hero": {
+      "eyebrow": "Verified Client Performance · 2020 – 2025",
+      "heading": "Ten sectors. Five years.<br>Every client that embedded our strategy, <em style=\"color:#D4AC3A;\">won.</em>",
+      "subtext": "These are not projections or back-tests. Below is documented, auditable performance from real clients across 10 industries who integrated OrthoM8's strategic configuration into their capital operations between January 2020 and December 2025.",
+      "stats": {
+        "sectors": "Client Sectors",
+        "roi": "Avg Total ROI",
+        "months": "Months Protected",
+        "markets": "Markets"
+      }
+    },
+    "instruction": "Select a client below to view their full performance report",
+    "disclaimer": "All figures represent actual client account performance under OrthoM8 strategic configuration. Past performance does not guarantee future results. Data auditable upon institutional request.",
     "header": {
       "eyebrow": "Our Track Record",
       "title": "The Proof"

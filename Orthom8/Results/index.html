@@ -236,37 +236,44 @@
         <!-- Eyebrow -->
         <div class="flex items-center gap-4 mb-6 anim-slide-right">
           <div style="height:1px; width:3rem; background:var(--brand-cobalt);"></div>
-          <div class="mono" style="color:var(--brand-cobalt); font-size:10px; letter-spacing:0.5em; text-transform:uppercase;">
+          <div class="mono" style="color:var(--brand-cobalt); font-size:10px; letter-spacing:0.5em; text-transform:uppercase;"
+               x-text="$store.i18n.t('content.hero.eyebrow') || 'Verified Client Performance · 2020 – 2025'">
             Verified Client Performance &nbsp;·&nbsp; 2020 – 2025
           </div>
         </div>
 
         <!-- Heading -->
-        <h1 class="serif anim-slide-up" style="font-size:clamp(2.4rem,7vw,4.75rem); font-style:italic; letter-spacing:-0.03em; max-width:52rem; line-height:1.1; margin-bottom:1.5rem;">
+        <h1 class="serif anim-slide-up" style="font-size:clamp(2.4rem,7vw,4.75rem); font-style:italic; letter-spacing:-0.03em; max-width:52rem; line-height:1.1; margin-bottom:1.5rem;"
+            x-html="$store.i18n.t('content.hero.heading') || 'Ten sectors. Five years.<br>Every client that embedded our strategy, <em style=\'color:#D4AC3A;\'>won.</em>'">
           Ten sectors. Five years.<br>
           Every client that embedded our strategy, <em style="color:#D4AC3A;">won.</em>
         </h1>
 
-        <p class="anim-slide-up delay-1" style="font-size:clamp(0.95rem,2vw,1.1rem); color:var(--tx-sub); max-width:38rem; line-height:1.75; margin-bottom:3rem;">
+        <p class="anim-slide-up delay-1" style="font-size:clamp(0.95rem,2vw,1.1rem); color:var(--tx-sub); max-width:38rem; line-height:1.75; margin-bottom:3rem;"
+           x-text="$store.i18n.t('content.hero.subtext') || 'These are not projections or back-tests. Below is documented, auditable performance from real clients across 10 industries who integrated OrthoM8\'s strategic configuration into their capital operations between January 2020 and December 2025.'">
           These are not projections or back-tests. Below is documented, auditable performance from real clients across 10 industries who integrated OrthoM8's strategic configuration into their capital operations between January 2020 and December 2025.
         </p>
 
         <!-- Aggregate stats -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 anim-slide-up delay-2">
           <div class="agg-stat">
-            <div class="mono" style="font-size:8px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.3em; margin-bottom:0.5rem;">Client Sectors</div>
+            <div class="mono" style="font-size:8px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.3em; margin-bottom:0.5rem;"
+                 x-text="$store.i18n.t('content.hero.stats.sectors') || 'Client Sectors'"></div>
             <div class="font-mono font-bold text-3xl" style="color:var(--brand-cobalt);">10</div>
           </div>
           <div class="agg-stat">
-            <div class="mono" style="font-size:8px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.3em; margin-bottom:0.5rem;">Avg Total ROI</div>
+            <div class="mono" style="font-size:8px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.3em; margin-bottom:0.5rem;"
+                 x-text="$store.i18n.t('content.hero.stats.roi') || 'Avg Total ROI'"></div>
             <div class="font-mono font-bold text-3xl" style="color:#D4AC3A);" x-text="allLoaded ? fmtPct(avgROI) : '—'">—</div>
           </div>
           <div class="agg-stat">
-            <div class="mono" style="font-size:8px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.3em; margin-bottom:0.5rem;">Months Protected</div>
+            <div class="mono" style="font-size:8px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.3em; margin-bottom:0.5rem;"
+                 x-text="$store.i18n.t('content.hero.stats.months') || 'Months Protected'"></div>
             <div class="font-mono font-bold text-3xl" style="color:var(--tx-main);">60</div>
           </div>
           <div class="agg-stat">
-            <div class="mono" style="font-size:8px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.3em; margin-bottom:0.5rem;">Markets</div>
+            <div class="mono" style="font-size:8px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.3em; margin-bottom:0.5rem;"
+                 x-text="$store.i18n.t('content.hero.stats.markets') || 'Markets'"></div>
             <div class="font-mono font-bold" style="font-size:1.4rem; color:var(--tx-main);">US · EU · QA</div>
           </div>
         </div>
@@ -275,7 +282,8 @@
     </div>
 
     <!-- INSTRUCTION LINE -->
-    <div class="mono" style="font-size:9px; letter-spacing:0.5em; text-transform:uppercase; color:var(--tx-muted); margin-bottom:1.75rem;">
+    <div class="mono" style="font-size:9px; letter-spacing:0.5em; text-transform:uppercase; color:var(--tx-muted); margin-bottom:1.75rem;"
+         x-text="$store.i18n.t('content.instruction') || 'Select a client below to view their full performance report'">
       Select a client below to view their full performance report
     </div>
 
@@ -323,7 +331,8 @@
     </div>
 
     <!-- DISCLAIMER -->
-    <div class="mono" style="font-size:8px; color:var(--tx-muted); text-align:center; margin-top:4rem; max-width:52rem; margin-left:auto; margin-right:auto; line-height:1.8; letter-spacing:0.05em; opacity:0.6;">
+    <div class="mono" style="font-size:8px; color:var(--tx-muted); text-align:center; margin-top:4rem; max-width:52rem; margin-left:auto; margin-right:auto; line-height:1.8; letter-spacing:0.05em; opacity:0.6;"
+         x-text="$store.i18n.t('content.disclaimer') || 'All figures represent actual client account performance under OrthoM8 strategic configuration. Past performance does not guarantee future results. Data auditable upon institutional request.'">
       All figures represent actual client account performance under OrthoM8 strategic configuration. Past performance does not guarantee future results. Data auditable upon institutional request.
     </div>
 

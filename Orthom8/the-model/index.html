@@ -106,7 +106,7 @@
     <section class="relative overflow-hidden anim-fade-in" style="padding: clamp(8rem, 15vw, 12rem) 0 5rem;">
       <video autoplay muted loop playsinline
              style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.18; z-index:0; pointer-events:none;">
-        <source src="https://res.cloudinary.com/dgz88jxiy/video/upload/v1774275213/efb22533077888224530dec240bb54bc_clwgsj.mp4" type="video/mp4">
+        <source src="https://res.cloudinary.com/dgz88jxiy/video/upload/v1775025370/14683955_3840_2160_30fps_my05xd.mp4" type="video/mp4">
       </video>
       <div class="absolute inset-0" style="background:radial-gradient(circle at 50% 0%, rgba(26,86,255,0.1) 0%, transparent 50%); z-index:1;"></div>
       <div class="layout-container" style="position:relative; z-index:10;">
@@ -144,12 +144,15 @@
     <section id="engine-pipeline" x-data="engineNodes()" x-init="init()" class="py-16 md:py-24" style="border-top:1px solid var(--brand-rule-strong);">
       <div class="layout-container">
 
-        <div class="text-eyebrow mb-6 anim-slide-right">11-Node Pipeline Architecture</div>
+        <div class="text-eyebrow mb-6 anim-slide-right"
+             x-text="$store.i18n.t('content.engine.eyebrow') || '11-Node Pipeline Architecture'"></div>
         <div class="engine-header">
-          <h2 class="serif text-3xl md:text-4xl font-bold anim-slide-up" style="max-width:32rem;">
+          <h2 class="serif text-3xl md:text-4xl font-bold anim-slide-up" style="max-width:32rem;"
+              x-html="$store.i18n.t('content.engine.heading') || 'How every trade decision<br><em style=&quot;color:#D4AC3A;&quot;>gets made.</em>'">
             How every trade decision<br><em style="color:#D4AC3A;">gets made.</em>
           </h2>
-          <p class="body-text anim-slide-up delay-1" style="max-width:30rem; flex-shrink:0;">
+          <p class="body-text anim-slide-up delay-1" style="max-width:30rem; flex-shrink:0;"
+             x-text="$store.i18n.t('content.engine.subtext') || 'Each pipeline run passes through 11 nodes in sequence. Click any node to inspect its logic, data sources, and role in the decision.'">
             Each pipeline run passes through 11 nodes in sequence. Click any node to inspect its logic, data sources, and role in the decision.
           </p>
         </div>

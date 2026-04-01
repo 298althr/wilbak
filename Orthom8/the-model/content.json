@@ -9,6 +9,11 @@
         { "label": "Response Time",    "value": "<320ms" }
       ]
     },
+    "engine": {
+      "eyebrow": "11-Node Pipeline Architecture",
+      "heading": "How every trade decision<br><em style=\"color:#D4AC3A;\">gets made.</em>",
+      "subtext": "Each pipeline run passes through 11 nodes in sequence. Click any node to inspect its logic, data sources, and role in the decision."
+    },
     "report": {
       "title": "Two strategies.<br><span style=\"color:#D4AC3A;\">One goal: your security.</span>",
       "subtitle": "Choose a section to see exactly how we protect you.",

@@ -9,6 +9,11 @@
         { "label": "执行速度",   "value": "<320ms" }
       ]
     },
+    "engine": {
+      "eyebrow": "11节点管道架构",
+      "heading": "每一个交易决策<br><em style=\"color:#D4AC3A;\">是如何做出的。</em>",
+      "subtext": "每次管道运行按顺序经过11个节点。点击任意节点可查看其逻辑、数据来源及在决策中的作用。"
+    },
     "report": {
       "title": "执行级 <br><span style=\"color:#D4AC3A;\">市场映射</span>",
       "subtitle": "选择一个协议以查看技术详情。",
