@@ -85,6 +85,7 @@ const ROOT_STATIC_FILES = [
 ROOT_STATIC_FILES.forEach(file => {
     app.get(`/${file}`, (_req, res) => res.sendFile(path.join(__dirname, file)));
 });
+app.get('/', (_req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 // Named page directories that are safe to serve statically
 ['about', 'contact', 'projects', 'insight', 'legal', 'page-data', 'src'].forEach(dir => {
     app.use(`/${dir}`, express.static(path.join(__dirname, dir)));
