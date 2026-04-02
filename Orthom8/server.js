@@ -122,11 +122,15 @@ app.get('/health', (_req, res) =>
 );
 
 // ─── Static file serving ──────────────────────────────────────────────────────
-app.get('/', (_req, res) => res.redirect(301, '/Orthom8/'));
+// Serve the homepage directly at the root — no redirect visible to the user
+app.get('/', (_req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
 // Serve named safe directories under /Orthom8/
 // Never serve __dirname directly — that would expose .env, server.js, schema.prisma etc.
-const ORTHOM8_STATIC_DIRS = ['the-model', 'our-team', 'Results', 'contact', 'Email'];
+const ORTHOM8_STATIC_DIRS = [
+  'the-model', 'our-team', 'Results', 'contact', 'onboarding',
+  'legal', 'Risk-Matrix', 'Email'
+];
 ORTHOM8_STATIC_DIRS.forEach(dir => {
   app.use(`/Orthom8/${dir}`, express.static(path.join(__dirname, dir)));
 });
@@ -134,13 +138,16 @@ ORTHOM8_STATIC_DIRS.forEach(dir => {
 // Serve specific root-level files only
 const ORTHOM8_ROOT_FILES = [
   'index.html', 'i18n-loader.js', 'shared-nav.css', 'shared-nav.js',
-  'page-template.css', 'content.json', 'favicon.svg'
+  'animations.js', 'page-template.css', 'content.json', 'favicon.svg'
 ];
 ORTHOM8_ROOT_FILES.forEach(file => {
   app.get(`/Orthom8/${file}`, (_req, res) => res.sendFile(path.join(__dirname, file)));
 });
 // Allow /Orthom8/ index
 app.get('/Orthom8/', (_req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+
+// /i18n-loader.js is referenced from HTML pages without /Orthom8/ prefix
+app.get('/i18n-loader.js', (_req, res) => res.sendFile(path.join(__dirname, 'i18n-loader.js')));
 
 // ─── Tracking pixel — email open ─────────────────────────────────────────────
 app.get('/api/track/open', (req, res) => {
