@@ -27,6 +27,9 @@ uploads/
 # Documentation files (Requested)
 *.md
 
+# Orthom8 — separate service, tracked in its own repo
+Orthom8/
+
 # Editor/System Files
 .vscode/
 .idea/
