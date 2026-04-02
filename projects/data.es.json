@@ -11,7 +11,7 @@
       "location": "Oslo, Noruega",
       "tag": "INTEGRACIÓN RENOVABLE",
       "title": "BANCO COMERCIAL DE NORUEGA",
-      "photo": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106073/wilbak_15_bfdy7q.png",
       "description": "Infraestructura de datos críticos reconstruida en un marco de energía renovable. Arquitectura de alta disponibilidad integrada directamente en la red de un parque eólico — huella operativa neutra en carbono, sin compromiso en el tiempo de actividad."
     },
     {
@@ -20,20 +20,20 @@
       "tag": "DESPLIEGUE REMOTO",
       "tag_type": "alert",
       "title": "REVISIÓN DEL ÁRTICO",
-      "photo": "https://images.unsplash.com/photo-1551710029-e9f374e35392?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106062/wilbak_16_t7fn57.png",
       "description": "Restauración completa del centro de datos ejecutada de forma remota bajo los protocolos de aislamiento de la pandemia de 2020. Recuperación total de la infraestructura lograda en 72 horas desde el inicio del compromiso, sin personal in situ."
     },
     {
       "year": "2022",
       "location": "Doha, Qatar",
-      "photo": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106064/wilbak_17_g0mwjo.png",
       "title": "CENTRO MARÍTIMO DE DOHA",
       "description": "Instalación costera de datos diseñada para el procesamiento de carga máxima bajo condiciones térmicas extremas. Sistema de refrigeración por agua de mar integrado. Entregado en plazo según especificaciones operativas estrictas."
     },
     {
       "year": "2018",
       "location": "Sede de Toyota",
-      "photo": "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106083/wilbak_18_oucoou.png",
       "title": "PLANTA DE DATOS DE TOYOTA",
       "description": "Arquitectura de energía hiper-redundante diseñada para la continuidad ininterrumpida de la fabricación. Operaciones de línea de ensamblaje protegidas de variaciones en el sistema de energía en todas las etapas de producción."
     },
@@ -42,7 +42,7 @@
       "location": "Houston, Texas",
       "tag": "CERTIFICADO TIER IV",
       "title": "NÚCLEO EMPRESARIAL DE HOUSTON",
-      "photo": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106076/wilbak_19_rwlsp3.png",
       "description": "Diseño y construcción desde cero de un centro de datos Tier IV de 12 MW para un conglomerado energético regional. Redundancia N+1 completa en energía, refrigeración y redes. Entregado a tiempo y por debajo del presupuesto sin incidentes críticos durante la puesta en marcha."
     },
     {
@@ -50,7 +50,7 @@
       "location": "Singapur",
       "tag": "DESPLIEGUE MODULAR",
       "title": "NODO CLOUD APAC — SINGAPUR",
-      "photo": "https://images.unsplash.com/photo-1573164713712-03f326d68cca?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106072/wilbak_20_icxhqm.png",
       "description": "Despliegue de centro de datos modular en contenedor para la expansión de un proveedor cloud regional en el Sudeste Asiático. Gestión térmica personalizada para el clima tropical de Singapur. Tráfico de producción migrado en vivo con transición sin tiempo de inactividad."
     },
     {
@@ -58,7 +58,7 @@
       "location": "Toronto, Canadá",
       "tag": "MIGRACIÓN CLOUD",
       "title": "CLOUD FINANCIERO DE TORONTO",
-      "photo": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106067/wilbak_21_ggddg3.png",
       "description": "Diseño y migración de infraestructura cloud de extremo a extremo para una empresa de servicios financieros de mediano mercado. Sistemas locales heredados desmantelados y reemplazados por una arquitectura cloud híbrida en dos zonas de disponibilidad. Reducción del 40% en costos operativos de infraestructura en 12 meses."
     }
   ],

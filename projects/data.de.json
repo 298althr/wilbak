@@ -11,7 +11,7 @@
       "location": "Oslo, Norwegen",
       "tag": "ERNEUERBARE INTEGRATION",
       "title": "NORWEGISCHE HANDELSBANK",
-      "photo": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106073/wilbak_15_bfdy7q.png",
       "description": "Kritische Dateninfrastruktur in einem Rahmen erneuerbarer Energien neu aufgebaut. Hochverfügbare Architektur direkt in das Stromnetz eines Windparks integriert — CO2-neutraler Betrieb, kein Kompromiss bei der Verfügbarkeit."
     },
     {
@@ -20,20 +20,20 @@
       "tag": "FERNDEPLOYMENT",
       "tag_type": "alert",
       "title": "ARKTISCHE ÜBERHOLUNG",
-      "photo": "https://images.unsplash.com/photo-1551710029-e9f374e35392?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106062/wilbak_16_t7fn57.png",
       "description": "Vollständige Rechenzentrumwiederherstellung unter den Pandemie-Isolationsprotokollen von 2020 remote durchgeführt. Vollständige Infrastrukturwiederherstellung innerhalb von 72 Stunden nach Beginn des Engagements, ohne Personal vor Ort."
     },
     {
       "year": "2022",
       "location": "Doha, Katar",
-      "photo": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106064/wilbak_17_g0mwjo.png",
       "title": "MARITIMES ZENTRUM DOHA",
       "description": "Zweckgebaute Küstendatenanlage für die Spitzenlastverarbeitung unter extremen Temperaturbedingungen konzipiert. Meerwasserkühlsystem integriert. Termingerecht gemäß strengen Betriebsspezifikationen geliefert."
     },
     {
       "year": "2018",
       "location": "Toyota Hauptsitz",
-      "photo": "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106083/wilbak_18_oucoou.png",
       "title": "TOYOTA DATENWERK",
       "description": "Hyper-redundante Energiearchitektur für ununterbrochene Fertigungskontinuität entwickelt. Montagebandoperationen gegen Stromsystemvarianz in allen Produktionsstufen gesichert."
     },
@@ -42,7 +42,7 @@
       "location": "Houston, Texas",
       "tag": "TIER IV ZERTIFIZIERT",
       "title": "HOUSTON ENTERPRISE CORE",
-      "photo": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106076/wilbak_19_rwlsp3.png",
       "description": "Neubau und Planung eines 12-MW-Tier-IV-Rechenzentrums für einen regionalen Energiekonzern. Vollständige N+1-Redundanz für Strom, Kühlung und Netzwerk. Termingerecht und unter Budget ohne kritische Vorfälle bei der Inbetriebnahme geliefert."
     },
     {
@@ -50,7 +50,7 @@
       "location": "Singapur",
       "tag": "MODULARES DEPLOYMENT",
       "title": "APAC CLOUD-KNOTEN — SINGAPUR",
-      "photo": "https://images.unsplash.com/photo-1573164713712-03f326d68cca?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106072/wilbak_20_icxhqm.png",
       "description": "Modulare containerisierte Rechenzentrumsimplementierung für die Expansion eines regionalen Cloud-Anbieters in Südostasien. Angepasstes Wärmemanagement für Singapurs tropisches Klima. Live-Produktionsdatenverkehr mit Zero-Downtime-Umstellung migriert."
     },
     {
@@ -58,7 +58,7 @@
       "location": "Toronto, Kanada",
       "tag": "CLOUD-MIGRATION",
       "title": "TORONTO FINANZ-CLOUD",
-      "photo": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106067/wilbak_21_ggddg3.png",
       "description": "End-to-End Cloud-Infrastruktur-Design und Migration für ein mittelständisches Finanzdienstleistungsunternehmen. Legacy-On-Premise-Systeme abgelöst durch eine hybride Cloud-Architektur in zwei Verfügbarkeitszonen. 40% Reduzierung der Infrastrukturbetriebskosten innerhalb von 12 Monaten."
     }
   ],

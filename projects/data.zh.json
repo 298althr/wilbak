@@ -11,7 +11,7 @@
       "location": "挪威 奥斯陆",
       "tag": "可再生能源集成",
       "title": "挪威商业银行",
-      "photo": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106073/wilbak_15_bfdy7q.png",
       "description": "关键数据基础设施在可再生能源框架内完成重建。高可用性架构直接接入风电场电网——零碳运营，不妥协于正常运行时间。"
     },
     {
@@ -20,20 +20,20 @@
       "tag": "远程部署",
       "tag_type": "alert",
       "title": "北极圈大修",
-      "photo": "https://images.unsplash.com/photo-1551710029-e9f374e35392?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106062/wilbak_16_t7fn57.png",
       "description": "依据 2020 年疫情隔离协议，完整数据中心恢复工作全程远程执行。自合作启动起 72 小时内完成全套基础设施恢复，无需现场人员。"
     },
     {
       "year": "2022",
       "location": "卡达尔 多哈",
-      "photo": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106064/wilbak_17_g0mwjo.png",
       "title": "多哈海事中心",
       "description": "专为极端热带条件下峰值负载处理而设计的沿海数据设施。海水冷却系统已集成。按期交付，符合严格运营规范。"
     },
     {
       "year": "2018",
       "location": "丰田总部",
-      "photo": "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106083/wilbak_18_oucoou.png",
       "title": "丰田数据工厂",
       "description": "为不间断制造连续性而设计的超冗余电力架构。装配线运营在所有生产阶段均受到保护，免受电力系统波动影响。"
     },
@@ -42,7 +42,7 @@
       "location": "美国 休斯顿",
       "tag": "TIER IV 认证",
       "title": "休斯顿企业核心数据中心",
-      "photo": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106076/wilbak_19_rwlsp3.png",
       "description": "为区域能源集团从头设计并建造 12MW Tier IV 数据中心。电力、冷却和网络均具备完整 N+1 冗余。按时交付、低于预算，调试期间零重大故障。"
     },
     {
@@ -50,7 +50,7 @@
       "location": "新加坡",
       "tag": "模块化部署",
       "title": "亚太云节点 — 新加坡",
-      "photo": "https://images.unsplash.com/photo-1573164713712-03f326d68cca?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106072/wilbak_20_icxhqm.png",
       "description": "为区域云服务商在东南亚扩张部署模块化集装箱数据中心。针对新加坡热带气候定制热管理方案。实时生产流量迁移，零停机切换。"
     },
     {
@@ -58,7 +58,7 @@
       "location": "加拿大 多伦多",
       "tag": "云迁移",
       "title": "多伦多金融云",
-      "photo": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80&auto=format&fit=crop",
+      "photo": "https://res.cloudinary.com/dt6n4pnjb/image/upload/v1775106067/wilbak_21_ggddg3.png",
       "description": "为中型金融服务企业提供端到端云基础设施设计与迁移。传统本地系统退役，以跨两个可用区的混合云架构取代。上线后 12 个月内基础设施运营成本降低 40%。"
     }
   ],
