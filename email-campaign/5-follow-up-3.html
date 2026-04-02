@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>One last message — Wilbak Engineering</title>
+  <title>Last message — the window is closing — Wilbak Engineering</title>
   <style>
     body { margin: 0; padding: 0; background: #f1f5f9; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
     .wrapper { max-width: 600px; margin: 40px auto; background: #ffffff; border-radius: 4px; overflow: hidden; border: 1px solid #e2e8f0; }
@@ -16,6 +16,14 @@
     h1 { font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 24px; line-height: 1.25; letter-spacing: -0.02em; }
     p { font-size: 15px; color: #475569; line-height: 1.75; margin: 0 0 20px; }
     strong { color: #0f172a; }
+    .timeline-block { background: #0f1c3f; border-radius: 4px; padding: 28px; margin: 28px 0; }
+    .timeline-title { font-size: 10px; font-family: 'Courier New', monospace; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
+    .timeline-item { display: flex; gap: 14px; margin-bottom: 14px; font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.6; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-marker { min-width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; }
+    .marker-past { background: #b91c1c; }
+    .marker-now { background: #D4AC3A; }
+    .marker-next { background: #475569; }
     .close-block { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; padding: 24px; margin: 28px 0; }
     .close-block p { margin: 0; font-size: 14px; color: #475569; line-height: 1.7; }
     .close-block strong { color: #0f172a; display: block; margin-bottom: 8px; font-size: 15px; }
@@ -43,23 +51,47 @@
 
     <div class="body">
       <div class="eyebrow">Closing the Loop</div>
-      <h1>This is the last message I will send.</h1>
+      <h1>{{name}}, this is my last message. But the crisis is not over — it is accelerating.</h1>
 
-      <p>I have reached out a few times now. If the timing has been wrong, or the fit is not right, that is completely understood — no further messages will follow after this one.</p>
+      <p>I have reached out a few times now. If the timing is wrong or the fit is not right, that is completely understood. No further messages will follow after this one.</p>
 
-      <p>I do want to leave one thing on the table before I close this out:</p>
+      <p>But I would not be doing my job if I did not say this clearly one final time: the economic situation has gotten worse since my first email, not better.</p>
 
-      <div class="close-block">
-        <p><strong>The diagnostic is still available at no cost.</strong>
-        If there is a future point where your infrastructure feels like it is constraining rather than enabling your organisation — the offer stands. A 30-minute conversation with Wilhelm will tell you exactly what is happening structurally and what it would take to fix it.</p>
+      <div class="timeline-block">
+        <div class="timeline-title">What has happened since I first reached out</div>
+        <div class="timeline-item">
+          <div class="timeline-marker marker-past"></div>
+          <span>Brent crude surged from $70 to over $108/barrel — a 54% increase in weeks</span>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker marker-past"></div>
+          <span>The Strait of Hormuz remains functionally closed — 20% of global oil supply offline</span>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker marker-past"></div>
+          <span>The ECB froze rate cuts. The Fed is paralysed. Goldman Sachs warns of $140/barrel if this continues</span>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker marker-now"></div>
+          <span><strong style="color:#D4AC3A;">We are here now.</strong> Analysts warn the stopgap measures keeping prices below $120 will lose effect in early-to-mid April</span>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker marker-next"></div>
+          <span>Oxford Economics: if oil stays above $140 for two months, major economies enter recession</span>
+        </div>
       </div>
 
-      <p>There is no catch. The diagnostic does not obligate you to anything. Wilhelm has run this for organisations that went on to work with us, and equally for organisations that simply needed clarity and chose to move on independently. Both outcomes are fine.</p>
+      <p>Every week of inaction is a week your capital loses ground. Not because of anything you did wrong — but because the global cost structure is shifting underneath every business simultaneously.</p>
 
-      <p>If the timing ever becomes right, you know where to find us.</p>
+      <div class="close-block">
+        <p><strong>The offer stands. No expiry.</strong>
+        If there is a point — now or in the future — where you look at your margins, your cash reserves, or your operating costs and feel like the ground is shifting, the 30-minute audit is still available at no cost. Wilhelm will assess your exposure personally and show you exactly what a protection structure would look like for your specific situation.</p>
+      </div>
+
+      <p>The businesses that come through this intact will not be the biggest or the luckiest. They will be the ones who acted before the full impact arrived.</p>
 
       <div class="cta-wrap">
-        <a href="https://wilbakengineering.com/audit/?lid={{lead_id}}&cid={{campaign_id}}" class="cta">Claim the Free Diagnostic</a>
+        <a href="https://wilbakengineering.com/audit/?lid={{lead_id}}&cid={{campaign_id}}" class="cta">Book the Free Capital Audit</a>
       </div>
       <div class="cta-sub">No expiry. Wilhelm responds within one business day.</div>
 
@@ -75,8 +107,8 @@
 
     <div class="footer">
       <p>Wilbak Engineering Group &nbsp;·&nbsp; Houston, Texas</p>
-      <p><a href="https://wilbakengineering.com/projects/">Project Record</a> &nbsp;·&nbsp; <a href="https://wilbakengineering.com/contact/">Contact</a></p>
-      <p>You are receiving this because you previously submitted a diagnostic request or enquiry at wilbakengineering.com.</p>
+      <p><a href="https://wilbakengineering.com/projects/">Track Record</a> &nbsp;·&nbsp; <a href="https://wilbakengineering.com/contact/">Contact</a></p>
+      <p>You are receiving this because you previously enquired about capital protection at wilbakengineering.com.</p>
       <p><a href="https://wilbakengineering.com/legal/privacy/">Privacy Policy</a> &nbsp;·&nbsp; <a href="{{unsubscribe_url}}">Unsubscribe</a></p>
     </div>
 

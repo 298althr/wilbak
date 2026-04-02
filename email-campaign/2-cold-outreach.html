@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your operational infrastructure — Wilbak Engineering</title>
+  <title>Your capital is exposed right now — Wilbak Engineering</title>
   <style>
     body { margin: 0; padding: 0; background: #f1f5f9; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
     .wrapper { max-width: 600px; margin: 40px auto; background: #ffffff; border-radius: 4px; overflow: hidden; border: 1px solid #e2e8f0; }
     .header { background: #0f1c3f; padding: 36px 40px; }
-    .header-top { display: flex; align-items: center; justify-content: space-between; }
     .brand { font-size: 16px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; }
     .gold { color: #D4AC3A; }
     .protocol { font-size: 9px; font-family: 'Courier New', monospace; letter-spacing: 0.2em; color: rgba(255,255,255,0.3); text-transform: uppercase; margin-top: 6px; }
@@ -17,11 +16,12 @@
     h1 { font-size: 24px; font-weight: 800; color: #0f172a; margin: 0 0 24px; line-height: 1.2; letter-spacing: -0.02em; }
     p { font-size: 15px; color: #475569; line-height: 1.75; margin: 0 0 20px; }
     strong { color: #0f172a; }
-    .stat-row { display: flex; gap: 16px; margin: 28px 0; }
-    .stat-box { flex: 1; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; padding: 18px; text-align: center; }
-    .stat-value { font-size: 26px; font-weight: 900; color: #0f1c3f; letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px; }
-    .stat-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em; }
-    .highlight { background: #fffbeb; border-left: 3px solid #D4AC3A; padding: 16px 20px; border-radius: 0 4px 4px 0; margin: 24px 0; font-size: 14px; color: #0f172a; line-height: 1.6; }
+    .stat-row { display: flex; gap: 12px; margin: 28px 0; }
+    .stat-box { flex: 1; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; padding: 18px 12px; text-align: center; }
+    .stat-value { font-size: 22px; font-weight: 900; color: #b91c1c; letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px; }
+    .stat-value.neutral { color: #0f1c3f; }
+    .stat-label { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em; line-height: 1.4; }
+    .highlight { background: #fffbeb; border-left: 3px solid #D4AC3A; padding: 16px 20px; border-radius: 0 4px 4px 0; margin: 24px 0; font-size: 14px; color: #0f172a; line-height: 1.7; }
     .cta-wrap { text-align: center; margin: 36px 0 8px; }
     .cta { display: inline-block; background: #0f1c3f; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; padding: 15px 36px; border-radius: 3px; }
     .cta-sub { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 10px; }
@@ -32,6 +32,8 @@
     .footer p { font-size: 11px; color: #94a3b8; margin: 0 0 4px; line-height: 1.6; }
     .footer a { color: #94a3b8; text-decoration: underline; }
     .track { display: none; }
+    .ps-block { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; padding: 16px 20px; margin: 24px 0; font-size: 13px; color: #475569; line-height: 1.65; }
+    .ps-block strong { color: #0f172a; }
   </style>
 </head>
 <body>
@@ -40,42 +42,50 @@
 
     <div class="header">
       <div class="brand">WILBAK<span class="gold"> ENGINEERING</span></div>
-      <div class="protocol">[ Operational Intelligence // Wilbak Engineering ]</div>
+      <div class="protocol">[ Capital Protection // Wilbak Engineering ]</div>
     </div>
 
     <div class="body">
-      <div class="eyebrow">Operational Assessment</div>
-      <h1>Most organisations are running at 60–80% of their structural potential.</h1>
+      <div class="eyebrow">Capital Risk Assessment</div>
+      <h1>The Strait of Hormuz just closed. Your business capital is feeling it — whether you realise it or not.</h1>
 
-      <p>My name is Wilhelm Rybak. I founded Wilbak Engineering to solve one specific problem: organisations that perform well operationally still leave <strong>20–40% of their capacity constrained</strong> by infrastructure that was never designed for scale.</p>
+      <p>{{name}}, I am writing because the economic environment just changed dramatically, and most business owners I speak with are not yet seeing how directly it affects their bottom line.</p>
 
-      <p>It is not a management problem. It is an engineering problem — and it has a precise solution.</p>
+      <p>Since the Iran conflict began on 28 February, the global economy has entered its most severe energy disruption in modern history. This is not a prediction — it is already happening:</p>
 
       <div class="stat-row">
         <div class="stat-box">
-          <div class="stat-value">$18M+</div>
-          <div class="stat-label">Overhead Eliminated</div>
+          <div class="stat-value">$108+</div>
+          <div class="stat-label">Brent crude per barrel (was $70 in Feb)</div>
         </div>
         <div class="stat-box">
-          <div class="stat-value">94%</div>
-          <div class="stat-label">Client Retention</div>
+          <div class="stat-value">20%</div>
+          <div class="stat-label">Global oil supply removed from market</div>
         </div>
         <div class="stat-box">
-          <div class="stat-value">47+</div>
-          <div class="stat-label">Projects Delivered</div>
+          <div class="stat-value">2.9%</div>
+          <div class="stat-label">Global growth forecast (recession territory)</div>
         </div>
       </div>
+
+      <p>Energy costs are feeding directly into supply chains, shipping, raw materials, and operating margins. Oxford Economics projects this could push major economies into outright recession. The ECB has already frozen rate cuts. The Fed is paralysed between fighting inflation and preventing a downturn.</p>
+
+      <p><strong>Here is the part most business owners miss:</strong> if you have $100k or more in exposed capital — whether in cash reserves, receivables, inventory value, or operational float — you are losing purchasing power every week this crisis continues. Inflation at 4%+ erodes capital silently. Currency moves compound the damage. And if your sector is energy-dependent, the squeeze is even harder.</p>
 
       <div class="highlight">
-        Every build starts with a structured diagnostic — not a sales call. You will walk away with a precise picture of where your operational infrastructure is losing ground, regardless of whether we work together.
+        We built an algorithmic capital protection system specifically for business owners in this position. It uses direct trading and hedging across synthetic indices, equities, futures, and crypto — instruments designed to offset each other — so that when markets move against your business, your hedge moves in your favour. The goal is not speculation. It is structural protection of the capital you have already earned.
       </div>
 
-      <p>The diagnostic is complimentary. It takes 30 minutes. Wilhelm leads it personally — no junior staff, no handoffs.</p>
+      <p>The audit takes 30 minutes. Wilhelm leads it personally. You will walk away with a clear picture of exactly how much capital you are leaving exposed right now, what it is costing you in real terms, and the specific structure that would protect it — regardless of whether we work together.</p>
 
       <div class="cta-wrap">
-        <a href="https://wilbakengineering.com/audit/?lid={{lead_id}}&cid={{campaign_id}}" class="cta">Request Your Free Diagnostic</a>
+        <a href="https://wilbakengineering.com/audit/?lid={{lead_id}}&cid={{campaign_id}}" class="cta">Book Your Free Capital Audit</a>
       </div>
-      <div class="cta-sub">No obligation. Response within one business day.</div>
+      <div class="cta-sub">No obligation. No sales pitch. Wilhelm responds within one business day.</div>
+
+      <div class="ps-block">
+        <strong>P.S.</strong> We have a verifiable track record for clients who request it. This is not theoretical — the system has been running live through this crisis and through prior market shocks. Ask for the numbers during your audit.
+      </div>
 
       <hr class="divider">
 
@@ -85,7 +95,7 @@
 
     <div class="footer">
       <p>Wilbak Engineering Group &nbsp;·&nbsp; Houston, Texas</p>
-      <p><a href="https://wilbakengineering.com/projects/">View Project Record</a> &nbsp;·&nbsp; <a href="https://wilbakengineering.com/about/">About Wilhelm</a></p>
+      <p><a href="https://wilbakengineering.com/projects/">View Track Record</a> &nbsp;·&nbsp; <a href="https://wilbakengineering.com/about/">About Wilhelm</a></p>
       <p><a href="https://wilbakengineering.com/legal/privacy/">Privacy Policy</a> &nbsp;·&nbsp; <a href="{{unsubscribe_url}}">Unsubscribe</a></p>
     </div>
 

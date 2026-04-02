@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The numbers behind Wilbak Engineering</title>
+  <title>What inaction is costing you this month — Wilbak Engineering</title>
   <style>
     body { margin: 0; padding: 0; background: #f1f5f9; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
     .wrapper { max-width: 600px; margin: 40px auto; background: #ffffff; border-radius: 4px; overflow: hidden; border: 1px solid #e2e8f0; }
@@ -16,15 +16,23 @@
     h1 { font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 24px; line-height: 1.25; letter-spacing: -0.02em; }
     p { font-size: 15px; color: #475569; line-height: 1.75; margin: 0 0 20px; }
     strong { color: #0f172a; }
-    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 28px 0; }
-    .stat-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; padding: 20px; }
-    .stat-value { font-size: 28px; font-weight: 900; color: #0f1c3f; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
-    .stat-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em; line-height: 1.4; }
-    .quote-block { background: #0f1c3f; border-radius: 4px; padding: 28px 28px 24px; margin: 28px 0; }
-    .quote-text { font-size: 15px; color: rgba(255,255,255,0.85); line-height: 1.7; margin: 0 0 16px; font-style: italic; }
-    .quote-attr { font-size: 12px; font-family: 'Courier New', monospace; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); text-transform: uppercase; }
-    .sector-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
-    .sector-tag { background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 2px; font-size: 10px; font-family: 'Courier New', monospace; letter-spacing: 0.12em; text-transform: uppercase; color: #475569; padding: 5px 10px; }
+    .cost-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 28px 0; }
+    .cost-card { background: #fef2f2; border: 1px solid #fecaca; border-radius: 4px; padding: 20px; }
+    .cost-value { font-size: 28px; font-weight: 900; color: #b91c1c; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+    .cost-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em; line-height: 1.4; }
+    .protection-card { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 4px; padding: 20px; }
+    .protection-value { font-size: 28px; font-weight: 900; color: #15803d; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+    .protection-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em; line-height: 1.4; }
+    .comparison-block { background: #0f1c3f; border-radius: 4px; padding: 28px; margin: 28px 0; }
+    .comparison-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .comparison-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .comp-label { font-size: 13px; color: rgba(255,255,255,0.6); }
+    .comp-unprotected { font-size: 14px; font-weight: 700; color: #fca5a5; font-family: 'Courier New', monospace; }
+    .comp-protected { font-size: 14px; font-weight: 700; color: #86efac; font-family: 'Courier New', monospace; }
+    .comparison-header { display: flex; justify-content: space-between; margin-bottom: 16px; }
+    .comp-col-header { font-size: 10px; font-family: 'Courier New', monospace; letter-spacing: 0.15em; text-transform: uppercase; }
+    .comp-col-red { color: #fca5a5; }
+    .comp-col-green { color: #86efac; }
     .cta-wrap { text-align: center; margin: 36px 0 8px; }
     .cta { display: inline-block; background: #0f1c3f; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; padding: 15px 36px; border-radius: 3px; }
     .cta-sub { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 10px; }
@@ -42,54 +50,66 @@
 
     <div class="header">
       <div class="brand">WILBAK<span class="gold"> ENGINEERING</span></div>
-      <div class="protocol">[ Performance Record // 2016 — 2026 ]</div>
+      <div class="protocol">[ Cost of Inaction // Capital Exposure ]</div>
     </div>
 
     <div class="body">
-      <div class="eyebrow">10-Year Track Record</div>
-      <h1>Performance is an engineering problem. Here is the evidence.</h1>
+      <div class="eyebrow">The Math on Doing Nothing</div>
+      <h1>{{name}}, here is exactly what unprotected capital is costing you right now.</h1>
 
-      <p>I have sent two previous messages. Rather than a third version of the same argument, I want to share the numbers that underpin why 94% of Wilbak clients remain engaged after year one.</p>
+      <p>I have sent two previous messages. Rather than repeat the same pitch, I want to show you the actual cost of leaving capital unprotected during this crisis — broken down in numbers, not theory.</p>
 
-      <div class="stat-grid">
-        <div class="stat-card">
-          <div class="stat-value">$18M+</div>
-          <div class="stat-label">Operational overhead eliminated across client portfolio</div>
+      <p>For a business with <strong>$500k in exposed capital</strong> (cash reserves, receivables, operational float), here is what the current environment is doing to your money:</p>
+
+      <div class="cost-grid">
+        <div class="cost-card">
+          <div class="cost-value">$20k</div>
+          <div class="cost-label">Purchasing power lost to inflation this year (at 4%+)</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-value">94%</div>
-          <div class="stat-label">Client retention rate over 10-year operating history</div>
+        <div class="cost-card">
+          <div class="cost-value">$35k+</div>
+          <div class="cost-label">Additional operating cost from energy price surge</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-value">47+</div>
-          <div class="stat-label">Infrastructure builds delivered across global markets</div>
+        <div class="protection-card">
+          <div class="protection-value">$0</div>
+          <div class="protection-label">Cost of the 30-minute audit with Wilhelm</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-value">72h</div>
-          <div class="stat-label">Fastest full data centre recovery on record (remote)</div>
+        <div class="protection-card">
+          <div class="protection-value">72h</div>
+          <div class="protection-label">Time to deploy full hedge protection</div>
         </div>
       </div>
 
-      <p>Work has spanned the following sectors:</p>
-
-      <div class="sector-row">
-        <span class="sector-tag">Logistics</span>
-        <span class="sector-tag">Energy Infrastructure</span>
-        <span class="sector-tag">Financial Operations</span>
-        <span class="sector-tag">Enterprise Cloud</span>
-        <span class="sector-tag">Maritime</span>
-        <span class="sector-tag">Automotive Supply Chain</span>
+      <div class="comparison-block">
+        <div class="comparison-header">
+          <span class="comp-col-header comp-col-red">Unprotected</span>
+          <span class="comp-col-header" style="color:rgba(255,255,255,0.4);">vs.</span>
+          <span class="comp-col-header comp-col-green">Protected</span>
+        </div>
+        <div class="comparison-row">
+          <span class="comp-unprotected">Capital eroding weekly</span>
+          <span class="comp-protected">Capital hedged algorithmically</span>
+        </div>
+        <div class="comparison-row">
+          <span class="comp-unprotected">Margin squeeze from costs</span>
+          <span class="comp-protected">Hedge offsets cost increases</span>
+        </div>
+        <div class="comparison-row">
+          <span class="comp-unprotected">Zero visibility on exposure</span>
+          <span class="comp-protected">Real-time risk dashboard</span>
+        </div>
+        <div class="comparison-row">
+          <span class="comp-unprotected">Hoping it passes</span>
+          <span class="comp-protected">Structurally prepared</span>
+        </div>
       </div>
 
-      <div class="quote-block">
-        <div class="quote-text">"Performance is not a management challenge — it is a structural engineering problem. Build the right architecture and performance becomes a natural outcome."</div>
-        <div class="quote-attr">Wilhelm Rybak // Wilbak Engineering</div>
-      </div>
+      <p>The businesses that survive economic shocks are never the ones who react after the damage. They are the ones who put the structure in place before the storm arrives.</p>
 
-      <p>If your infrastructure is underperforming, there is a structural reason for it — and a precise fix. The diagnostic takes 30 minutes and costs nothing.</p>
+      <p>Oxford Economics, the World Economic Forum, and Morgan Stanley all project this disruption will persist for months — not weeks. The window to prepare is narrowing.</p>
 
       <div class="cta-wrap">
-        <a href="https://wilbakengineering.com/audit/?lid={{lead_id}}&cid={{campaign_id}}" class="cta">Request the Free Diagnostic</a>
+        <a href="https://wilbakengineering.com/audit/?lid={{lead_id}}&cid={{campaign_id}}" class="cta">Get Your Free Capital Audit</a>
       </div>
       <div class="cta-sub">No obligation. Wilhelm responds within one business day.</div>
 
@@ -101,7 +121,7 @@
 
     <div class="footer">
       <p>Wilbak Engineering Group &nbsp;·&nbsp; Houston, Texas</p>
-      <p><a href="https://wilbakengineering.com/projects/">View All Projects</a> &nbsp;·&nbsp; <a href="https://wilbakengineering.com/about/">About Wilhelm</a></p>
+      <p><a href="https://wilbakengineering.com/projects/">View Track Record</a> &nbsp;·&nbsp; <a href="https://wilbakengineering.com/about/">About Wilhelm</a></p>
       <p><a href="https://wilbakengineering.com/legal/privacy/">Privacy Policy</a> &nbsp;·&nbsp; <a href="{{unsubscribe_url}}">Unsubscribe</a></p>
     </div>
 

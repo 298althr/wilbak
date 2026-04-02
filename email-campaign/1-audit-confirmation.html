@@ -3,17 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Diagnostic Request — Wilbak Engineering</title>
+  <title>Your Capital Protection Audit — Wilbak Engineering</title>
   <style>
     body { margin: 0; padding: 0; background: #f1f5f9; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
     .wrapper { max-width: 600px; margin: 40px auto; background: #ffffff; border-radius: 4px; overflow: hidden; border: 1px solid #e2e8f0; }
     .header { background: #0f1c3f; padding: 36px 40px; text-align: center; }
-    .header img { height: 28px; }
+    .brand { font-size: 18px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; }
+    .gold { color: #D4AC3A; }
     .header-rule { width: 40px; height: 2px; background: #D4AC3A; margin: 16px auto 0; }
     .body { padding: 40px; }
     .eyebrow { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #94a3b8; margin-bottom: 12px; font-family: 'Courier New', monospace; }
-    h1 { font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 20px; line-height: 1.2; letter-spacing: -0.02em; }
-    p { font-size: 15px; color: #475569; line-height: 1.7; margin: 0 0 20px; }
+    h1 { font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 20px; line-height: 1.25; letter-spacing: -0.02em; }
+    p { font-size: 15px; color: #475569; line-height: 1.75; margin: 0 0 20px; }
+    strong { color: #0f172a; }
     .detail-block { background: #f8fafc; border-left: 3px solid #0f1c3f; padding: 18px 20px; margin: 28px 0; border-radius: 0 4px 4px 0; }
     .detail-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; color: #475569; }
     .detail-row:last-child { margin-bottom: 0; }
@@ -21,42 +23,43 @@
     .cta-wrap { text-align: center; margin: 36px 0 24px; }
     .cta { display: inline-block; background: #0f1c3f; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; padding: 14px 32px; border-radius: 3px; }
     .divider { border: none; border-top: 1px solid #e2e8f0; margin: 32px 0; }
+    .sig { font-size: 14px; color: #0f172a; font-weight: 700; margin: 0 0 4px; }
+    .sig-role { font-size: 12px; color: #64748b; font-family: 'Courier New', monospace; letter-spacing: 0.1em; }
     .footer { background: #f8fafc; padding: 24px 40px; text-align: center; }
     .footer p { font-size: 11px; color: #94a3b8; margin: 0 0 4px; line-height: 1.6; }
     .footer a { color: #94a3b8; text-decoration: underline; }
-    .gold { color: #D4AC3A; }
-    .sig { font-size: 14px; color: #0f172a; font-weight: 700; margin: 0 0 4px; }
-    .sig-role { font-size: 12px; color: #64748b; font-family: 'Courier New', monospace; letter-spacing: 0.1em; }
   </style>
 </head>
 <body>
   <div class="wrapper">
 
     <div class="header">
-      <div style="font-size:18px;font-weight:900;color:#ffffff;letter-spacing:-0.02em;">WILBAK<span class="gold"> ENGINEERING</span></div>
+      <div class="brand">WILBAK<span class="gold"> ENGINEERING</span></div>
       <div class="header-rule"></div>
     </div>
 
     <div class="body">
-      <div class="eyebrow">Diagnostic Request Confirmed</div>
-      <h1>We have your submission, {{name}}.</h1>
+      <div class="eyebrow">Audit Request Confirmed</div>
+      <h1>We have your request, {{name}}. Wilhelm is reviewing it now.</h1>
 
-      <p>Your operational diagnostic request has been received and logged. Wilhelm will review your submission personally and respond within <strong>one business day</strong>.</p>
+      <p>Your capital protection audit has been received. Given the current economic environment — oil above $100/barrel, the Strait of Hormuz effectively closed, and global inflation accelerating — the timing could not be more relevant.</p>
 
-      <p>This is not an automated sequence. When you hear back, it will be from Wilhelm directly — with a clear read on where your operational infrastructure stands and what it is costing you.</p>
+      <p>Wilhelm will review your submission personally and respond within <strong>one business day</strong> with an initial read on your exposure and where your capital is most vulnerable right now.</p>
+
+      <p>This is not an automated sequence. When you hear back, it will be Wilhelm directly — with a clear assessment of how the current crisis affects your specific position and what can be done about it.</p>
 
       <div class="detail-block">
         <div class="detail-row"><span class="detail-label">Submitted by</span><span>{{name}}</span></div>
         <div class="detail-row"><span class="detail-label">Organisation</span><span>{{company}}</span></div>
         <div class="detail-row"><span class="detail-label">Sector</span><span>{{industry}}</span></div>
-        <div class="detail-row"><span class="detail-label">Manual overhead reported</span><span>{{hours}} hrs / week</span></div>
+        <div class="detail-row"><span class="detail-label">Exposed capital reported</span><span>{{capital_range}}</span></div>
         <div class="detail-row"><span class="detail-label">Reference ID</span><span style="font-family:'Courier New',monospace;font-size:11px;">{{lead_id}}</span></div>
       </div>
 
-      <p>In the meantime, you can review past project outcomes and infrastructure case studies at the link below.</p>
+      <p>While you wait, the economic data speaks for itself: Brent crude has surged past $100/barrel, global growth projections have been cut to 2.9%, and Oxford Economics warns that prolonged disruption could tip major economies into recession. The businesses that prepare now will be the ones that survive what comes next.</p>
 
       <div class="cta-wrap">
-        <a href="https://wilbakengineering.com/projects/" class="cta">View Project Record</a>
+        <a href="https://wilbakengineering.com/projects/" class="cta">See How We Protect Capital</a>
       </div>
 
       <hr class="divider">
@@ -68,7 +71,7 @@
 
     <div class="footer">
       <p>Wilbak Engineering Group &nbsp;·&nbsp; Houston, Texas</p>
-      <p>You received this because you submitted a diagnostic request at <a href="https://wilbakengineering.com">wilbakengineering.com</a>.</p>
+      <p>You received this because you submitted an audit request at <a href="https://wilbakengineering.com">wilbakengineering.com</a>.</p>
       <p><a href="https://wilbakengineering.com/legal/privacy/">Privacy Policy</a> &nbsp;·&nbsp; <a href="{{unsubscribe_url}}">Unsubscribe</a></p>
     </div>
 
