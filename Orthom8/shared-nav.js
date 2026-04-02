@@ -73,7 +73,7 @@
   const path = window.location.pathname.toLowerCase();
   function isActive(href) {
     const h = href.toLowerCase();
-    // Exact match with normalized trailing slash — prevents /Orthom8/ matching all sub-pages
+    // Exact match with normalized trailing slash — prevents / matching all sub-pages
     const cleanPath = path.endsWith('/') ? path : path + '/';
     const cleanHref = h.endsWith('/')   ? h    : h + '/';
     return cleanPath === cleanHref;
@@ -117,7 +117,7 @@
 <div id="drawer-overlay"></div>
 <div id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
   <div class="drawer-header">
-    <a href="/Orthom8/" class="logo-wrap">
+    <a href="/" class="logo-wrap">
       <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Logo" class="h-8 logo-dark-theme">
       <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Logo" class="h-8 logo-light-theme">
       <span class="logo-name">Ortho'M8</span>
@@ -131,11 +131,11 @@
     <div class="ds-cell" style="border-top:1px solid var(--brand-rule-strong); border-left:1px solid var(--brand-rule-strong);"><div class="ds-num">&lt;1.5%</div><div class="ds-lbl" data-nav-text="drawerLoss">${tx.drawerLoss}</div></div>
   </div>
   <nav class="drawer-nav" aria-label="Mobile navigation">
-    ${drawerLink('/Orthom8/', 'home', lang)}
-    ${drawerLink('/Orthom8/the-model/', 'model', lang)}
-    ${drawerLink('/Orthom8/Results/', 'results', lang)}
-    ${drawerLink('/Orthom8/our-team/', 'team', lang)}
-    ${drawerLink('/Orthom8/contact/', 'contact', lang)}
+    ${drawerLink('/', 'home', lang)}
+    ${drawerLink('/the-model/', 'model', lang)}
+    ${drawerLink('/Results/', 'results', lang)}
+    ${drawerLink('/our-team/', 'team', lang)}
+    ${drawerLink('/contact/', 'contact', lang)}
   </nav>
   <div class="drawer-controls">
     <button class="theme-btn" id="drawer-theme-toggle" title="Toggle theme"><span id="drawer-theme-icon">☀</span></button>
@@ -147,24 +147,24 @@
     </div>
   </div>
   <div class="drawer-footer">
-    <a href="/Orthom8/onboarding/" class="btn-primary" style="justify-content:center; width:100%;" data-nav-text="getStarted">${tx.getStarted}</a>
-    <a href="/Orthom8/contact/" class="btn-ghost" style="justify-content:center; width:100%; margin-top:0.5rem;" data-nav-text="talkTeam">${tx.talkTeam}</a>
+    <a href="/onboarding/" class="btn-primary" style="justify-content:center; width:100%;" data-nav-text="getStarted">${tx.getStarted}</a>
+    <a href="/contact/" class="btn-ghost" style="justify-content:center; width:100%; margin-top:0.5rem;" data-nav-text="talkTeam">${tx.talkTeam}</a>
   </div>
 </div>
 
 <header id="site-header">
-  <a href="/Orthom8/" class="logo-wrap">
+  <a href="/" class="logo-wrap">
     <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/dark-mode_sqtgql.svg" alt="Logo" class="h-8 logo-dark-theme">
     <img src="https://res.cloudinary.com/dgz88jxiy/image/upload/v1774323178/light-mode_xr11qj.svg" alt="Logo" class="h-8 logo-light-theme">
     <span class="logo-name">Ortho'M8</span>
   </a>
   <nav aria-label="Main navigation">
     <ul class="header-nav">
-      ${navLink('/Orthom8/', 'home', lang)}
-      ${navLink('/Orthom8/the-model/', 'model', lang)}
-      ${navLink('/Orthom8/Results/', 'results', lang)}
-      ${navLink('/Orthom8/our-team/', 'team', lang)}
-      ${navLink('/Orthom8/contact/', 'contact', lang)}
+      ${navLink('/', 'home', lang)}
+      ${navLink('/the-model/', 'model', lang)}
+      ${navLink('/Results/', 'results', lang)}
+      ${navLink('/our-team/', 'team', lang)}
+      ${navLink('/contact/', 'contact', lang)}
     </ul>
   </nav>
   <div class="header-controls">
@@ -175,7 +175,7 @@
         <option value="de">DE</option><option value="fr">FR</option><option value="zh">ZH</option>
       </select>
     </div>
-    <a href="/Orthom8/onboarding/" class="btn-primary" data-nav-text="getStarted">${tx.getStarted}</a>
+    <a href="/onboarding/" class="btn-primary" data-nav-text="getStarted">${tx.getStarted}</a>
   </div>
   <div class="mobile-header-right">
     <button class="theme-btn" id="mobile-theme-toggle" title="Toggle theme"><span id="mobile-theme-icon">☀</span></button>
@@ -200,26 +200,26 @@
     <div>
       <div class="footer-col-title" data-nav-text="navTitle">${tx.navTitle}</div>
       <ul class="footer-links">
-        <li><a href="/Orthom8/" data-nav-text="home">${tx.home}</a></li>
-        <li><a href="/Orthom8/the-model/" data-nav-text="model">${tx.model}</a></li>
-        <li><a href="/Orthom8/Results/" data-nav-text="results">${tx.results}</a></li>
-        <li><a href="/Orthom8/our-team/" data-nav-text="team">${tx.team}</a></li>
-        <li><a href="/Orthom8/contact/" data-nav-text="contactUs">${tx.contactUs}</a></li>
+        <li><a href="/" data-nav-text="home">${tx.home}</a></li>
+        <li><a href="/the-model/" data-nav-text="model">${tx.model}</a></li>
+        <li><a href="/Results/" data-nav-text="results">${tx.results}</a></li>
+        <li><a href="/our-team/" data-nav-text="team">${tx.team}</a></li>
+        <li><a href="/contact/" data-nav-text="contactUs">${tx.contactUs}</a></li>
       </ul>
     </div>
     <div>
       <div class="footer-col-title" data-nav-text="legal">${tx.legal}</div>
       <ul class="footer-links">
-        <li><a href="/Orthom8/legal/terms/" data-nav-text="terms">${tx.terms}</a></li>
-        <li><a href="/Orthom8/legal/privacy/" data-nav-text="privacy">${tx.privacy}</a></li>
-        <li><a href="/Orthom8/legal/risk-disclosure/" data-nav-text="risk">${tx.risk}</a></li>
+        <li><a href="/legal/terms/" data-nav-text="terms">${tx.terms}</a></li>
+        <li><a href="/legal/privacy/" data-nav-text="privacy">${tx.privacy}</a></li>
+        <li><a href="/legal/risk-disclosure/" data-nav-text="risk">${tx.risk}</a></li>
       </ul>
     </div>
     <div>
       <div class="footer-col-title" data-nav-text="connect">${tx.connect}</div>
       <ul class="footer-links">
-        <li><a href="/Orthom8/contact/" data-nav-text="techSupport">${tx.techSupport}</a></li>
-        <li><a href="/Orthom8/onboarding/" data-nav-text="getStarted">${tx.getStarted}</a></li>
+        <li><a href="/contact/" data-nav-text="techSupport">${tx.techSupport}</a></li>
+        <li><a href="/onboarding/" data-nav-text="getStarted">${tx.getStarted}</a></li>
       </ul>
     </div>
   </div>
@@ -286,7 +286,7 @@
     if (!document.getElementById('o8-anim-script')) {
       const a = document.createElement('script');
       a.id  = 'o8-anim-script';
-      a.src = '/Orthom8/animations.js';
+      a.src = '/animations.js';
       document.head.appendChild(a);
     }
 

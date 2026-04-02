@@ -10,9 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/Orthom8/shared-nav.css">
-  <link rel="stylesheet" href="/Orthom8/page-template.css">
-  <script src="/Orthom8/shared-nav.js"></script>
+  <link rel="stylesheet" href="/shared-nav.css">
+  <link rel="stylesheet" href="/page-template.css">
+  <script src="/shared-nav.js"></script>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="/i18n-loader.js"></script>
@@ -441,8 +441,8 @@
         </div>
       </div>
       <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-        <a href="/Orthom8/" class="ob-next" style="display:inline-block; text-decoration:none;" x-text="$store.i18n.t('content.confirm.btn_home') || '← Back to Home'">← Back to Home</a>
-        <a href="/Orthom8/Results/" class="ob-next" style="display:inline-block; text-decoration:none; background: transparent; border: 1px solid var(--brand-cobalt); color: var(--brand-cobalt);" x-text="$store.i18n.t('content.confirm.btn_results') || 'See Our Results'">See Our Results</a>
+        <a href="/" class="ob-next" style="display:inline-block; text-decoration:none;" x-text="$store.i18n.t('content.confirm.btn_home') || '← Back to Home'">← Back to Home</a>
+        <a href="/Results/" class="ob-next" style="display:inline-block; text-decoration:none; background: transparent; border: 1px solid var(--brand-cobalt); color: var(--brand-cobalt);" x-text="$store.i18n.t('content.confirm.btn_results') || 'See Our Results'">See Our Results</a>
       </div>
     </div>
 
@@ -574,7 +574,7 @@
         <div x-show="submitError" style="margin-top:1rem; padding:0.85rem 1.25rem; border:1px solid #EF4444; background:rgba(239,68,68,0.08);">
           <p style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#EF4444; letter-spacing:1px; margin:0;">
             <span x-text="$store.i18n.t('content.form.error_msg') || 'Submission failed — please try again or'"></span>
-            <a href="/Orthom8/contact/" style="text-decoration:underline;" x-text="$store.i18n.t('content.form.error_link') || 'contact us directly'"></a>.
+            <a href="/contact/" style="text-decoration:underline;" x-text="$store.i18n.t('content.form.error_link') || 'contact us directly'"></a>.
           </p>
         </div>
 

@@ -5,6 +5,7 @@ const cors        = require('cors');
 const path        = require('path');
 const https       = require('https');
 const fs          = require('fs');
+const crypto      = require('crypto');
 const rateLimit   = require('express-rate-limit');
 const { PrismaClient } = require('@prisma/client');
 const { Resend }  = require('resend');
@@ -51,15 +52,46 @@ function fillTemplate(html, data) {
   );
 }
 
-// ─── Auth helper ─────────────────────────────────────────────────────────────
-function requireAdminToken(req, res) {
-  const token = req.headers['x-admin-token'];
-  if (!process.env.ADMIN_TOKEN || token !== process.env.ADMIN_TOKEN) {
-    res.status(401).json({ error: 'Unauthorized' });
-    return false;
+// ─── Telegram Mini App admin auth ────────────────────────────────────────────
+// Validates initData sent from the Telegram Mini App (same algorithm as Wilbak)
+const verifyTelegramAdmin = (req, res, next) => {
+  const initData = req.headers['x-telegram-init-data'];
+  if (!initData) return res.status(401).json({ error: 'Missing auth signature' });
+
+  try {
+    const urlParams = new URLSearchParams(initData);
+    const hash = urlParams.get('hash');
+    urlParams.delete('hash');
+    urlParams.sort();
+
+    let dataCheckString = '';
+    for (const [key, value] of urlParams.entries()) {
+      dataCheckString += `${key}=${value}\n`;
+    }
+    dataCheckString = dataCheckString.slice(0, -1);
+
+    const secretKey = crypto.createHmac('sha256', 'WebAppData').update(TELEGRAM_BOT_TOKEN).digest();
+    const calculatedHash = crypto.createHmac('sha256', secretKey).update(dataCheckString).digest('hex');
+
+    if (!hash || hash.length !== calculatedHash.length ||
+        !crypto.timingSafeEqual(Buffer.from(calculatedHash), Buffer.from(hash))
+    ) return res.status(401).json({ error: 'Invalid signature' });
+
+    const userParam = urlParams.get('user');
+    if (!userParam) return res.status(401).json({ error: 'No user context' });
+
+    const user = JSON.parse(userParam);
+    if (String(user.id) !== TELEGRAM_USER_ID) {
+      return res.status(403).json({ error: 'Unauthorized user' });
+    }
+
+    req.admin = user;
+    next();
+  } catch (e) {
+    console.error('[ADMIN] Auth error:', e);
+    return res.status(500).json({ error: 'Auth failure' });
   }
-  return true;
-}
+};
 
 // ─── Follow-up eligibility rules ────────────────────────────────────────────
 // Returns the minimum number of days that must have passed since a prerequisite
@@ -125,28 +157,29 @@ app.get('/health', (_req, res) =>
 // Serve the homepage directly at the root — no redirect visible to the user
 app.get('/', (_req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
-// Serve named safe directories under /Orthom8/
+// Serve named safe directories
 // Never serve __dirname directly — that would expose .env, server.js, schema.prisma etc.
 const ORTHOM8_STATIC_DIRS = [
   'the-model', 'our-team', 'Results', 'contact', 'onboarding',
   'legal', 'Risk-Matrix', 'Email'
 ];
 ORTHOM8_STATIC_DIRS.forEach(dir => {
-  app.use(`/Orthom8/${dir}`, express.static(path.join(__dirname, dir)));
+  app.use(`/${dir}`, express.static(path.join(__dirname, dir)));
 });
 
 // Serve specific root-level files only
 const ORTHOM8_ROOT_FILES = [
   'index.html', 'i18n-loader.js', 'shared-nav.css', 'shared-nav.js',
-  'animations.js', 'page-template.css', 'content.json', 'favicon.svg'
+  'animations.js', 'page-template.css', 'content.json', 'favicon.svg',
+  'admin.html'
 ];
 ORTHOM8_ROOT_FILES.forEach(file => {
-  app.get(`/Orthom8/${file}`, (_req, res) => res.sendFile(path.join(__dirname, file)));
+  app.get(`/${file}`, (_req, res) => res.sendFile(path.join(__dirname, file)));
 });
-// Allow /Orthom8/ index
+
 app.get('/Orthom8/', (_req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
-// /i18n-loader.js is referenced from HTML pages without /Orthom8/ prefix
+// /i18n-loader.js served at root
 app.get('/i18n-loader.js', (_req, res) => res.sendFile(path.join(__dirname, 'i18n-loader.js')));
 
 // ─── Tracking pixel — email open ─────────────────────────────────────────────
@@ -165,7 +198,7 @@ app.get('/api/track/open', (req, res) => {
 app.get('/api/track/click', (req, res) => {
   const { lid, cid, url } = req.query;
   console.log(`[CLICK] lead=${lid} campaign=${cid} url=${url}`);
-  const dest = url ? decodeURIComponent(url) : 'https://ortho-m8.com/Orthom8/';
+  const dest = url ? decodeURIComponent(url) : 'https://ortho-m8.com/';
   if (!dest.startsWith('http')) return res.status(400).send('Invalid redirect');
   res.redirect(302, dest);
 });
@@ -251,8 +284,7 @@ app.post('/api/onboarding', onboardingLimiter, async (req, res) => {
 });
 
 // ─── Admin: list leads ────────────────────────────────────────────────────────
-app.get('/api/admin/leads', async (req, res) => {
-  if (!requireAdminToken(req, res)) return;
+app.get('/api/admin/leads', verifyTelegramAdmin, async (req, res) => {
   try {
     const leads = await prisma.orthoM8Lead.findMany({
       orderBy: { createdAt: 'desc' },
@@ -263,8 +295,7 @@ app.get('/api/admin/leads', async (req, res) => {
 });
 
 // ─── Admin: update lead status ────────────────────────────────────────────────
-app.patch('/api/admin/leads/:id/status', async (req, res) => {
-  if (!requireAdminToken(req, res)) return;
+app.patch('/api/admin/leads/:id/status', verifyTelegramAdmin, async (req, res) => {
   try {
     const lead = await prisma.orthoM8Lead.update({
       where: { id: req.params.id }, data: { status: req.body.status }
@@ -274,8 +305,7 @@ app.patch('/api/admin/leads/:id/status', async (req, res) => {
 });
 
 // ─── Admin: campaign status (who has received what) ──────────────────────────
-app.get('/api/admin/campaign/status', async (req, res) => {
-  if (!requireAdminToken(req, res)) return;
+app.get('/api/admin/campaign/status', verifyTelegramAdmin, async (req, res) => {
   try {
     const templates = ['cold-outreach', 'follow-up-1', 'follow-up-2', 'follow-up-3', 'audit-confirmation'];
     const counts = await Promise.all(
@@ -301,8 +331,7 @@ app.get('/api/admin/campaign/status', async (req, res) => {
 // Body: { template: "cold-outreach", campaignId: "apr-2026-us", testEmail: "you@email.com" }
 // If testEmail is provided, sends to that address only (dry run preview).
 // Otherwise sends to all eligible leads.
-app.post('/api/admin/campaign/send', async (req, res) => {
-  if (!requireAdminToken(req, res)) return;
+app.post('/api/admin/campaign/send', verifyTelegramAdmin, async (req, res) => {
 
   const { template, campaignId, testEmail } = req.body;
   if (!template || !campaignId) return res.status(400).json({ error: 'template and campaignId required' });

@@ -1,6 +1,6 @@
 /*
  * OrthoM8 — Page Template CSS
- * Shared page-level components for all /Orthom8/ pages.
+ * Shared page-level components for all / pages.
  * Works alongside shared-nav.css which owns tokens, header, footer, buttons, typography.
  */
 
@@ -87,8 +87,9 @@
   background: var(--brand-rule-strong);
 }
 @media (max-width: 640px) {
-  .stats-ribbon { gap: 2rem; justify-content: space-between; }
-  .stats-ribbon > div { flex: 1; }
+  .stats-ribbon { gap: 1.25rem; flex-wrap: wrap; justify-content: space-around; }
+  .stats-ribbon > div { flex: 1; min-width: 80px; }
+  .stats-ribbon .stat-divider { display: none; }
 }
 
 /* ═══════════════════════════════════════════════════
@@ -98,6 +99,7 @@
   display: flex;
   width: 200%;
   animation: marquee 30s linear infinite;
+  will-change: transform;
 }
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -535,4 +537,46 @@
 }
 @media (max-width: 480px) {
   .director-card { flex-direction: column; text-align: center; gap: 1rem; }
+}
+
+/* ═══════════════════════════════════════════════════
+   GLOBAL MOBILE OVERFLOW GUARD
+   Prevents any element from causing horizontal scroll.
+   Applied last so it wins over all page-specific rules.
+═══════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Every section is clipped to the viewport width */
+  section, main, footer, header, .layout-container {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Sections with wide inner content (the-model node detail panel) */
+  [x-show], [x-if] {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Results table wrapper — let it scroll internally, not the page */
+  .results-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+  }
+
+  /* The-model: pipeline terminal full-bleed fix */
+  .pipeline-terminal {
+    max-width: 100%;
+  }
+
+  /* Our-team: founder image centered on single-column layout */
+  .founder-img-wrap {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  /* Hero: ensure stats ribbon never causes bleed */
+  .stats-ribbon {
+    max-width: 100%;
+  }
 }

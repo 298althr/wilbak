@@ -1,6 +1,6 @@
 /*
  * OrthoM8 — Shared Navigation & Layout CSS
- * Applies to all pages under /Orthom8/
+ * Applies to all pages under /
  */
 
 /* ═══════════════════════════════════════════════════
@@ -53,6 +53,11 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
+html {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 body {
   background: var(--page-bg);
   color: var(--tx-main);
@@ -60,6 +65,7 @@ body {
   font-size: 15px;
   line-height: 1.6;
   overflow-x: hidden;
+  max-width: 100%;
   transition: background 0.4s ease, color 0.4s ease;
   -webkit-font-smoothing: antialiased;
 }

@@ -11,9 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Design System & Page Template -->
-  <link rel="stylesheet" href="/Orthom8/shared-nav.css">
-  <link rel="stylesheet" href="/Orthom8/page-template.css">
-  <script src="/Orthom8/shared-nav.js"></script>
+  <link rel="stylesheet" href="/shared-nav.css">
+  <link rel="stylesheet" href="/page-template.css">
+  <script src="/shared-nav.js"></script>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="/i18n-loader.js"></script>
@@ -92,6 +92,22 @@
     @media (max-width: 640px) {
       .engine-header { flex-direction: column; align-items: flex-start; }
       .engine-header p { max-width: 100% !important; }
+    }
+
+    /* Node detail panel: header row collapses close button to top-right */
+    @media (max-width: 640px) {
+      .node-detail-header {
+        grid-template-columns: 1fr !important;
+      }
+      .node-detail-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+      .node-detail-panel {
+        position: relative;
+        overflow-x: hidden;
+      }
     }
   </style>
 </head>
@@ -390,9 +406,9 @@
           Whether in North America, Africa, or Euro-markets, our model adapts to local domain dynamics.
         </p>
         <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
-          <a href="/Orthom8/Risk-Matrix/" class="btn-primary"
+          <a href="/Risk-Matrix/" class="btn-primary"
              x-text="$store.i18n.t('content.cta.primary')">Manage Your Risk</a>
-          <a href="/Orthom8/contact/" class="btn-ghost"
+          <a href="/contact/" class="btn-ghost"
              x-text="$store.i18n.t('content.cta.secondary')">Contact Technical Team</a>
         </div>
       </div>
@@ -411,7 +427,7 @@
       selected: null,
       async init() {
         try {
-          const res = await fetch('/Orthom8/the-model/engine_nodes.json');
+          const res = await fetch('/the-model/engine_nodes.json');
           const data = await res.json();
           this.nodes = data.nodes;
           this.categories = data.categories;
