@@ -73,7 +73,7 @@ app.use(cors({
 app.use(express.json({ limit: '2mb' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/Orthom8', express.static(path.join(__dirname, 'Orthom8')));
+app.use('/Orthom8', (_req, res) => res.redirect(301, 'https://ortho-m8.com'));
 app.use('/audit', express.static(path.join(__dirname, 'audit')));
 // Serve only specific root-level static assets — never the entire project root
 // (serving __dirname would expose .env, server.js, prisma/schema.prisma, etc.)
