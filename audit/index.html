@@ -171,9 +171,10 @@
         <div x-show="step === 4" x-transition x-cloak>
           <p class="mono text-[9px] uppercase tracking-[3px] text-slate-400 mb-5" x-text="t('form_steps.3.title')"></p>
           <input x-model="leadPhone" type="tel" :placeholder="t('form_steps.3.placeholder')" class="input-wilbak">
+          <div x-show="submitError" class="text-red-500 text-xs mb-3" x-text="submitError"></div>
           <div class="flex justify-between gap-4 mt-2">
             <button @click="step = 3" class="btn-back">← Back</button>
-            <button @click="submitAudit" :disabled="!leadPhone" class="btn-submit" style="width:auto; padding:0.75rem 2rem;" x-text="t('form_steps.3.button') || 'Submit'"></button>
+            <button @click="submitAudit" :disabled="!leadPhone || submitting" class="btn-submit" style="width:auto; padding:0.75rem 2rem;" x-text="submitting ? 'Sending...' : (t('form_steps.3.button') || 'Submit')"></button>
           </div>
         </div>
       </div>
@@ -263,6 +264,8 @@
       leadEmail: '',
       leadPhone: '',
       success: false,
+      submitting: false,
+      submitError: '',
       lang: localStorage.getItem('o8_locale') || 'en',
       i18n: null,
       data: null,
@@ -292,7 +295,32 @@
         return current;
       },
       async submitAudit() {
-        this.success = true;
+        if (this.submitting) return;
+        this.submitting = true;
+        this.submitError = '';
+        try {
+          const res = await fetch('/api/audit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              industry: this.industry,
+              businessDetail: this.businessDetail,
+              auditName: this.leadName,
+              auditEmail: this.leadEmail,
+              auditPhone: this.leadPhone
+            })
+          });
+          if (res.ok) {
+            this.success = true;
+          } else {
+            this.submitError = 'Submission failed. Please try again.';
+          }
+        } catch (e) {
+          console.error('[AUDIT] Submit error:', e);
+          this.submitError = 'Network error. Check your connection.';
+        } finally {
+          this.submitting = false;
+        }
       }
     }));
   });
