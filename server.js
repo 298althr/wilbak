@@ -1,4 +1,4 @@
-const express = require('express');
+﻿const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const https = require('https');
@@ -8,7 +8,6 @@ const path = require('path');
 const multer = require('multer');
 const csv = require('csv-parser');
 const { Parser } = require('json2csv');
-const { PrismaClient } = require('@prisma/client');
 const cloudinary = require('cloudinary').v2;
 require('dotenv').config();
 
@@ -27,7 +26,7 @@ if (process.env.CLOUDINARY_URL) {
         secure: true
     });
 }
-const prisma = new PrismaClient();
+const db = require('./data/db');
 const PORT = process.env.PORT || 4000;
 
 // Health Check Protocol (Required by railway.toml)
@@ -75,10 +74,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/Orthom8', (_req, res) => res.redirect(301, 'https://ortho-m8.com'));
 app.use('/audit', express.static(path.join(__dirname, 'audit')));
-// Serve only specific root-level static assets — never the entire project root
+// Serve only specific root-level static assets ÔÇö never the entire project root
 // (serving __dirname would expose .env, server.js, prisma/schema.prisma, etc.)
 const ROOT_STATIC_FILES = [
-    'i18n-loader.js', 'wilbak-base.css', 'favicon.svg', 'logo.png',
+    'i18n-loader.js', 'wilbak-base.css', 'favicon.svg', 'logo.png', 'logo.svg',
     'index.html', 'news.html', 'admin.html',
     'tailwind.config.js', 'animations.js'
 ];
@@ -162,7 +161,7 @@ const verifyTelegramAdmin = (req, res, next) => {
 // Usage: rateLimit({ windowMs, max }) returns an Express middleware
 // ---------------------------------------------------------------------------
 const rateLimit = ({ windowMs = 60000, max = 60, message = 'Too many requests' } = {}) => {
-    const hits = new Map(); // ip → { count, resetAt }
+    const hits = new Map(); // ip ÔåÆ { count, resetAt }
     // Purge stale entries every window to prevent memory growth
     setInterval(() => {
         const now = Date.now();
@@ -292,7 +291,7 @@ app.post('/api/audit', auditLimiter, async (req, res) => {
         const data = req.body;
 
         // Save to Database
-        const lead = await prisma.lead.create({
+        const lead = await db.lead.create({
             data: {
                 industry: data.industry,
                 businessDetail: data.businessDetail,
@@ -306,7 +305,7 @@ app.post('/api/audit', auditLimiter, async (req, res) => {
         });
 
         const message = `
-<b>🚨 NEW AUDIT PROTOCOL INITIATED</b>
+<b>­ƒÜ¿ NEW AUDIT PROTOCOL INITIATED</b>
 --------------------------------
 <b>User:</b> ${escapeHtml(data.auditName)}
 <b>Email:</b> ${escapeHtml(data.auditEmail)}
@@ -340,7 +339,7 @@ app.post('/api/onboarding', onboardingLimiter, async (req, res) => {
             return res.status(400).json({ success: false, error: 'Name and email are required.' });
         }
 
-        const lead = await prisma.orthoM8Lead.create({
+        const lead = await db.orthoM8Lead.create({
             data: {
                 sector: sector || null,
                 concerns: concerns || [],
@@ -361,20 +360,20 @@ app.post('/api/onboarding', onboardingLimiter, async (req, res) => {
             : 'Not specified';
 
         const tgMessage = `
-<b>🛡️ NEW ORTHO'M8 CLIENT INQUIRY</b>
+<b>­ƒøí´©Å NEW ORTHO'M8 CLIENT INQUIRY</b>
 --------------------------------
 <b>Name:</b> ${escapeHtml(name)}
 <b>Email:</b> ${escapeHtml(email)}
-<b>Company:</b> ${escapeHtml(company || '—')}
-<b>Phone:</b> ${escapeHtml(phone || '—')}
+<b>Company:</b> ${escapeHtml(company || 'ÔÇö')}
+<b>Phone:</b> ${escapeHtml(phone || 'ÔÇö')}
 <b>Call Time:</b> ${escapeHtml(callTime || 'Flexible')}
 
-<b>Sector:</b> ${escapeHtml(sector || '—')}
+<b>Sector:</b> ${escapeHtml(sector || 'ÔÇö')}
 <b>Concerns:</b> ${escapeHtml(concernList)}
-<b>Capital Range:</b> ${escapeHtml(capitalRange || '—')}
+<b>Capital Range:</b> ${escapeHtml(capitalRange || 'ÔÇö')}
 
 <b>Message:</b>
-<i>${escapeHtml(message || '—')}</i>
+<i>${escapeHtml(message || 'ÔÇö')}</i>
 --------------------------------
 [ ID: ${lead.id} | Source: ${escapeHtml(source || 'orthom8-onboarding')} ]
         `;
@@ -387,10 +386,10 @@ app.post('/api/onboarding', onboardingLimiter, async (req, res) => {
     }
 });
 
-// OrthoM8 Admin — List all onboarding leads
+// OrthoM8 Admin ÔÇö List all onboarding leads
 app.get('/api/admin/orthom8-leads', verifyTelegramAdmin, async (req, res) => {
     try {
-        const leads = await prisma.orthoM8Lead.findMany({
+        const leads = await db.orthoM8Lead.findMany({
             orderBy: { createdAt: 'desc' }
         });
         res.json(leads);
@@ -399,7 +398,7 @@ app.get('/api/admin/orthom8-leads', verifyTelegramAdmin, async (req, res) => {
     }
 });
 
-// OrthoM8 Admin — Update lead status
+// OrthoM8 Admin ÔÇö Update lead status
 app.patch('/api/admin/orthom8-leads/:id/status', verifyTelegramAdmin, async (req, res) => {
     try {
         const { status } = req.body;
@@ -407,7 +406,7 @@ app.patch('/api/admin/orthom8-leads/:id/status', verifyTelegramAdmin, async (req
         if (!allowed.includes(status)) {
             return res.status(400).json({ error: 'Invalid status' });
         }
-        const lead = await prisma.orthoM8Lead.update({
+        const lead = await db.orthoM8Lead.update({
             where: { id: req.params.id },
             data: { status }
         });
@@ -422,7 +421,7 @@ app.get('/api/admin/leads', verifyTelegramAdmin, async (req, res) => {
     try {
         const page = Math.max(0, parseInt(req.query.page, 10) || 0);
         const take = 200;
-        const leads = await prisma.lead.findMany({
+        const leads = await db.lead.findMany({
             orderBy: { createdAt: 'desc' },
             take,
             skip: page * take
@@ -443,7 +442,7 @@ app.get('/api/admin/config', verifyTelegramAdmin, (req, res) => {
 // CSV Export - Direct to Bot (Leads)
 app.get('/api/admin/leads/export-csv', verifyTelegramAdmin, async (req, res) => {
     try {
-        const leads = await prisma.lead.findMany();
+        const leads = await db.lead.findMany();
         const json2csvParser = new Parser();
         const csvData = json2csvParser.parse(leads);
         const filename = `wilbak_leads_${Date.now()}.csv`;
@@ -543,7 +542,7 @@ const triggerResearchProtocol = async (query = "Finance Business") => {
         for (const signal of rawSignals) {
             if (uniqueSignals.length >= 2) break; // Limit to 2 distinct insights per run
             
-            const existing = await prisma.intelligenceNode.findFirst({
+            const existing = await db.intelligenceNode.findFirst({
                 where: { sourceUrl: signal.url }
             });
             
@@ -591,7 +590,7 @@ ${templateStr}`;
                         `https://images.unsplash.com/photo-1551288049-bbbda5e66ef2?q=80&w=800&auto=format&fit=crop`,
                         `https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=800&auto=format&fit=crop`
                     ];
-                    await prisma.intelligenceNode.create({
+                    await db.intelligenceNode.create({
                         data: {
                             sector: query.toUpperCase(),
                             title: analysis.title || analysis.headline || signal.title,
@@ -632,7 +631,7 @@ ${templateStr}`;
 let _researchRunning = false;
 const safeResearchRun = async (query) => {
     if (_researchRunning) {
-        console.log('[SCHEDULER] Skipped — previous run still in progress.');
+        console.log('[SCHEDULER] Skipped ÔÇö previous run still in progress.');
         return;
     }
     _researchRunning = true;
@@ -654,22 +653,16 @@ setTimeout(() => safeResearchRun("Iran Israel USA Business Impact Opportunities"
 app.get('/api/intelligence', async (req, res) => {
     try {
         const sessionId = req.sessionId;
-        let nodes = await prisma.intelligenceNode.findMany({
+        let nodes = await db.intelligenceNode.findMany({
             where: { status: 'ACTIVE' },
             orderBy: { createdAt: 'desc' },
-            take: 20,
-            include: {
-                votes: {
-                    where: { sessionId }
-                }
-            }
+            take: 20
         });
 
-        // Add userVote field to each node for the frontend
-        nodes = nodes.map(node => ({
-            ...node,
-            userVote: node.votes && node.votes.length > 0 ? node.votes[0].type : null,
-            votes: undefined // Don't leak all vote technical data
+        // Manually join userVote from votes table
+        nodes = await Promise.all(nodes.map(async node => {
+            const vote = await db.vote.findFirst({ where: { nodeId: node.id, sessionId } });
+            return { ...node, userVote: vote ? vote.type : null };
         }));
 
         if (nodes.length === 0) {
@@ -694,7 +687,7 @@ app.get('/api/intelligence', async (req, res) => {
     }
 });
 
-// Diagnostic Manual Trigger (Admin only — triggers paid external API calls)
+// Diagnostic Manual Trigger (Admin only ÔÇö triggers paid external API calls)
 app.get('/api/intelligence/retest', verifyTelegramAdmin, async (req, res) => {
     try {
         console.log('[DIAGNOSTIC] Manual retest requested.');
@@ -720,7 +713,7 @@ app.post('/api/intelligence/:id/vote', voteLimiter, async (req, res) => {
 
     try {
         // Enforce structural integrity: users can only switch their vote or create a new one
-        const existingVote = await prisma.vote.findUnique({
+        const existingVote = await db.vote.findUnique({
             where: {
                 nodeId_sessionId: { nodeId: id, sessionId }
             }
@@ -729,26 +722,30 @@ app.post('/api/intelligence/:id/vote', voteLimiter, async (req, res) => {
         if (existingVote) {
             if (existingVote.type === voteType) {
                 // Remove vote if same button clicked again
-                await prisma.$transaction([
-                    prisma.vote.delete({ where: { id: existingVote.id } }),
-                    prisma.intelligenceNode.update({
+                const n0 = await db.intelligenceNode.findUnique({ where: { id } });
+                await db.$transaction([
+                    db.vote.delete({ where: { id: existingVote.id } }),
+                    db.intelligenceNode.update({
                         where: { id },
-                        data: voteType === 'LIKE' ? { likes: { decrement: 1 } } : { dislikes: { decrement: 1 } }
+                        data: voteType === 'LIKE'
+                            ? { likes: Math.max(0, (n0.likes || 0) - 1) }
+                            : { dislikes: Math.max(0, (n0.dislikes || 0) - 1) }
                     })
                 ]);
                 return res.json({ success: true, userVote: null });
             } else {
                 // Switch vote (e.g., LIKE to DISLIKE)
-                await prisma.$transaction([
-                    prisma.vote.update({
+                const n1 = await db.intelligenceNode.findUnique({ where: { id } });
+                await db.$transaction([
+                    db.vote.update({
                         where: { id: existingVote.id },
                         data: { type: voteType }
                     }),
-                    prisma.intelligenceNode.update({
+                    db.intelligenceNode.update({
                         where: { id },
                         data: voteType === 'LIKE'
-                            ? { likes: { increment: 1 }, dislikes: { decrement: 1 } }
-                            : { dislikes: { increment: 1 }, likes: { decrement: 1 } }
+                            ? { likes: (n1.likes || 0) + 1, dislikes: Math.max(0, (n1.dislikes || 0) - 1) }
+                            : { dislikes: (n1.dislikes || 0) + 1, likes: Math.max(0, (n1.likes || 0) - 1) }
                     })
                 ]);
                 return res.json({ success: true, userVote: voteType });
@@ -756,17 +753,16 @@ app.post('/api/intelligence/:id/vote', voteLimiter, async (req, res) => {
         }
 
         // New Vote
-        await prisma.$transaction([
-            prisma.vote.create({
-                data: {
-                    nodeId: id,
-                    sessionId: sessionId,
-                    type: voteType
-                }
+        const n2 = await db.intelligenceNode.findUnique({ where: { id } });
+        await db.$transaction([
+            db.vote.create({
+                data: { nodeId: id, sessionId, type: voteType }
             }),
-            prisma.intelligenceNode.update({
+            db.intelligenceNode.update({
                 where: { id },
-                data: voteType === 'LIKE' ? { likes: { increment: 1 } } : { dislikes: { increment: 1 } }
+                data: voteType === 'LIKE'
+                    ? { likes: (n2.likes || 0) + 1 }
+                    : { dislikes: (n2.dislikes || 0) + 1 }
             })
         ]);
 
@@ -802,7 +798,7 @@ app.post('/api/admin/upload-image', verifyTelegramAdmin, upload.single('image'),
         console.error('Upload Error:', e);
         res.status(500).json({ error: 'Cloudinary transmission failed' });
     } finally {
-        // Always clean up temp file — even when Cloudinary throws
+        // Always clean up temp file ÔÇö even when Cloudinary throws
         fs.unlink(req.file.path, (err) => {
             if (err) console.error('[UPLOAD] Temp file cleanup failed:', err.message);
         });
@@ -814,7 +810,7 @@ app.get('/api/admin/intelligence/list', verifyTelegramAdmin, async (req, res) =>
     try {
         const page = Math.max(0, parseInt(req.query.page, 10) || 0);
         const take = 200;
-        const nodes = await prisma.intelligenceNode.findMany({
+        const nodes = await db.intelligenceNode.findMany({
             orderBy: { createdAt: 'desc' },
             take,
             skip: page * take
@@ -829,7 +825,7 @@ app.get('/api/admin/intelligence/list', verifyTelegramAdmin, async (req, res) =>
 app.get('/insight/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const node = await prisma.intelligenceNode.findUnique({ where: { id } });
+        const node = await db.intelligenceNode.findUnique({ where: { id } });
 
         if (!node) {
             return res.status(404).send('Intelligence Node Not Found');
@@ -839,7 +835,7 @@ app.get('/insight/:id', async (req, res) => {
 
         // Dynamic Injections for SEO and Display
         const sessionId = req.sessionId;
-        const existingVote = await prisma.vote.findUnique({
+        const existingVote = await db.vote.findUnique({
             where: { nodeId_sessionId: { nodeId: node.id, sessionId } }
         });
 
@@ -898,7 +894,7 @@ app.post('/api/admin/intelligence/create', verifyTelegramAdmin, async (req, res)
 
         if (createdAt) data.createdAt = new Date(createdAt);
 
-        const node = await prisma.intelligenceNode.create({ data });
+        const node = await db.intelligenceNode.create({ data });
         res.json({ success: true, id: node.id });
     } catch (e) {
         console.error('Manual Creation Error:', e);
@@ -924,7 +920,7 @@ app.post('/api/admin/intelligence/import', verifyTelegramAdmin, async (req, res)
                 images: Array.isArray(nodeData.images) ? nodeData.images : []
             };
         });
-        const result = await prisma.intelligenceNode.createMany({ data: payload, skipDuplicates: true });
+        const result = await db.intelligenceNode.createMany({ data: payload, skipDuplicates: true });
         res.json({ success: true, count: result.count });
     } catch (e) {
         console.error('Bulk Import Error:', e);
@@ -962,7 +958,7 @@ app.put('/api/admin/intelligence/:id', verifyTelegramAdmin, async (req, res) => 
         if (likes !== undefined) data.likes = parseInt(likes, 10) || 0;
         if (dislikes !== undefined) data.dislikes = parseInt(dislikes, 10) || 0;
 
-        const node = await prisma.intelligenceNode.update({
+        const node = await db.intelligenceNode.update({
             where: { id },
             data
         });
@@ -978,8 +974,8 @@ app.put('/api/admin/intelligence/:id', verifyTelegramAdmin, async (req, res) => 
 app.delete('/api/admin/intelligence/:id', verifyTelegramAdmin, async (req, res) => {
     try {
         const { id } = req.params;
-        await prisma.vote.deleteMany({ where: { nodeId: id } }); // Cleanup votes
-        await prisma.intelligenceNode.delete({ where: { id } });
+        await db.vote.deleteMany({ where: { nodeId: id } }); // Cleanup votes
+        await db.intelligenceNode.delete({ where: { id } });
         res.json({ success: true });
     } catch (e) {
         console.error('Delete Error:', e);
@@ -990,7 +986,7 @@ app.delete('/api/admin/intelligence/:id', verifyTelegramAdmin, async (req, res) 
 // Admin Leads Export (JSON)
 app.get('/api/admin/leads/export-json', verifyTelegramAdmin, async (req, res) => {
     try {
-        const leads = await prisma.lead.findMany({
+        const leads = await db.lead.findMany({
             orderBy: { createdAt: 'desc' }
         });
         res.json(leads);
@@ -1002,7 +998,7 @@ app.get('/api/admin/leads/export-json', verifyTelegramAdmin, async (req, res) =>
 // Admin Intelligence Export (JSON)
 app.get('/api/admin/intelligence/export-json', verifyTelegramAdmin, async (req, res) => {
     try {
-        const nodes = await prisma.intelligenceNode.findMany({
+        const nodes = await db.intelligenceNode.findMany({
             orderBy: { createdAt: 'desc' }
         });
         res.json(nodes);
@@ -1025,7 +1021,7 @@ app.post('/api/admin/leads/import-json', verifyTelegramAdmin, async (req, res) =
                 status: leadData.status || 'IMPORTED'
             };
         });
-        const result = await prisma.lead.createMany({ data: payload, skipDuplicates: true });
+        const result = await db.lead.createMany({ data: payload, skipDuplicates: true });
         res.json({ success: true, count: result.count });
     } catch (e) {
         console.error('Lead Bulk Import Error:', e);
@@ -1053,7 +1049,7 @@ app.post('/api/admin/leads/import', verifyTelegramAdmin, upload.single('file'), 
                     workflow: item.workflow,
                     status: item.status || 'IMPORTED'
                 }));
-                const created = await prisma.lead.createMany({ data: payload, skipDuplicates: true });
+                const created = await db.lead.createMany({ data: payload, skipDuplicates: true });
                 res.json({ success: true, count: created.count });
             } catch (e) {
                 res.status(500).json({ error: 'Import processing failure' });
@@ -1070,11 +1066,11 @@ const server = app.listen(PORT, () => {
     console.log(`Wilbak Engineering Server running on port ${PORT}`);
 });
 
-// Graceful shutdown — flush Prisma connections on Railway deploy / Ctrl+C
+// Graceful shutdown ÔÇö flush Prisma connections on Railway deploy / Ctrl+C
 const shutdown = async (signal) => {
-    console.log(`[SERVER] ${signal} received — shutting down gracefully...`);
+    console.log(`[SERVER] ${signal} received ÔÇö shutting down gracefully...`);
     server.close(async () => {
-        await prisma.$disconnect();
+        await db.$disconnect();
         console.log('[SERVER] Prisma disconnected. Exiting.');
         process.exit(0);
     });
@@ -1083,4 +1079,5 @@ process.on('SIGTERM', () => shutdown('SIGTERM'));
 process.on('SIGINT',  () => shutdown('SIGINT'));
 
 
-module.exports = { app, triggerResearchProtocol, prisma };
+module.exports = { app, triggerResearchProtocol };
+
