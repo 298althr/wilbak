@@ -304,25 +304,18 @@ app.post('/api/audit', auditLimiter, async (req, res) => {
             }
         });
 
-        const message = `
-<b>­ƒÜ¿ NEW AUDIT PROTOCOL INITIATED</b>
---------------------------------
-<b>User:</b> ${escapeHtml(data.auditName)}
-<b>Email:</b> ${escapeHtml(data.auditEmail)}
-<b>Phone:</b> ${escapeHtml(data.auditPhone)}
+        const message = [
+            '<b>[ NEW AUDIT LEAD ]</b>',
+            `<b>Name:</b> ${escapeHtml(data.auditName)}`,
+            `<b>Email:</b> ${escapeHtml(data.auditEmail)}`,
+            `<b>Phone:</b> ${escapeHtml(data.auditPhone)}`,
+            `<b>Sector:</b> ${escapeHtml(data.industry)}`,
+            `<b>Detail:</b> ${escapeHtml(data.businessDetail)}`,
+            `<b>ID:</b> ${escapeHtml(lead.id)}`
+        ].join('\n');
 
-<b>Sector:</b> ${escapeHtml(data.industry)}
-<b>Manual Waste:</b> ${escapeHtml(data.hours)} hrs/week
-<b>Efficiency Loss:</b> ${(parseFloat(data.hours) * 1.5 || 0).toFixed(0)}%
-
-<b>Business DNA:</b>
-<i>${escapeHtml(data.businessDetail)}</i>
---------------------------------
-[ ID: ${escapeHtml(lead.id)} | Protocol v3.1 ]
-        `;
-
-        await sendTelegramMessage(message);
         res.status(200).json({ success: true, leadId: lead.id });
+        sendTelegramMessage(message).catch(e => console.error('[TELEGRAM] Audit alert failed:', e.message));
     } catch (error) {
         console.error('Audit Error:', error);
         res.status(500).json({ success: false });
@@ -359,27 +352,22 @@ app.post('/api/onboarding', onboardingLimiter, async (req, res) => {
             ? concerns.join(', ')
             : 'Not specified';
 
-        const tgMessage = `
-<b>­ƒøí´©Å NEW ORTHO'M8 CLIENT INQUIRY</b>
---------------------------------
-<b>Name:</b> ${escapeHtml(name)}
-<b>Email:</b> ${escapeHtml(email)}
-<b>Company:</b> ${escapeHtml(company || 'ÔÇö')}
-<b>Phone:</b> ${escapeHtml(phone || 'ÔÇö')}
-<b>Call Time:</b> ${escapeHtml(callTime || 'Flexible')}
+        const tgMessage = [
+            "<b>[ NEW ORTHO'M8 LEAD ]</b>",
+            `<b>Name:</b> ${escapeHtml(name)}`,
+            `<b>Email:</b> ${escapeHtml(email)}`,
+            `<b>Company:</b> ${escapeHtml(company || 'N/A')}`,
+            `<b>Phone:</b> ${escapeHtml(phone || 'N/A')}`,
+            `<b>Call Time:</b> ${escapeHtml(callTime || 'Flexible')}`,
+            `<b>Sector:</b> ${escapeHtml(sector || 'N/A')}`,
+            `<b>Concerns:</b> ${escapeHtml(concernList)}`,
+            `<b>Capital Range:</b> ${escapeHtml(capitalRange || 'N/A')}`,
+            `<b>Message:</b> ${escapeHtml(message || 'N/A')}`,
+            `<b>ID:</b> ${lead.id}`
+        ].join('\n');
 
-<b>Sector:</b> ${escapeHtml(sector || 'ÔÇö')}
-<b>Concerns:</b> ${escapeHtml(concernList)}
-<b>Capital Range:</b> ${escapeHtml(capitalRange || 'ÔÇö')}
-
-<b>Message:</b>
-<i>${escapeHtml(message || 'ÔÇö')}</i>
---------------------------------
-[ ID: ${lead.id} | Source: ${escapeHtml(source || 'orthom8-onboarding')} ]
-        `;
-
-        await sendTelegramMessage(tgMessage);
         res.status(200).json({ success: true, leadId: lead.id });
+        sendTelegramMessage(tgMessage).catch(e => console.error('[TELEGRAM] Onboarding alert failed:', e.message));
     } catch (error) {
         console.error('OrthoM8 Onboarding Error:', error);
         res.status(500).json({ success: false, error: 'Submission failed. Please try again.' });
@@ -1080,4 +1068,5 @@ process.on('SIGINT',  () => shutdown('SIGINT'));
 
 
 module.exports = { app, triggerResearchProtocol };
+
 
